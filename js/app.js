@@ -16,7 +16,7 @@ var UI = {
       searchbtn:"Buscar…",cancel:"Cancelar",searchtitle:"Buscar en el grimorio",
       khnav:"navegar",khopen:"abrir",khclose:"cerrar",browse:"Explorar el grimorio",about:"Acerca de este grimorio original de FFG",
       rmkicker:"Rincón Miskatonic",rmtitle:"Un proyecto de Rincón Miskatonic",rmcta:"Visitar Rincón Miskatonic",
-      rmbody:"<b>The Living Arkham</b> es la edición web —buscable y disponible en varios idiomas— de <i>El Grimorio de Arkham</i>, la recopilación oficial de aclaraciones de reglas de FFG. Es una herramienta <b>gratuita</b> de <b>Rincón Miskatonic</b>, nuestro blog sobre <i>Arkham Horror: El Juego de Cartas</i>, donde encontrarás guías, ayudas y más <b>material gratuito</b> del juego.",
+      rmbody:"<b>The Living Arkham</b> es la edición web —interactiva y disponible en varios idiomas— de <i>El Grimorio de Arkham</i>, la recopilación oficial de aclaraciones de reglas de FFG. Es una herramienta <b>gratuita</b> de <b>Rincón Miskatonic</b>, nuestro blog sobre <i>Arkham Horror: El Juego de Cartas</i>, donde encontrarás guías, ayudas y más <b>material gratuito</b> del juego.",
       faqlabel:"Ver documento (FAQ retiradas)",faqurl:"https://www.asmodee.es/product/arkham-horror-el-juego-de-cartas/",
       footsrc:"Basado en <b>El Grimorio de Arkham</b> v1.0 (ES) / v1.1 (EN) · reglas © sus autores · Arkham Horror: LCG ™ Fantasy Flight Games",
       footby:"The Living Arkham <b>v0.1.0 · beta</b> · un proyecto de <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
@@ -31,7 +31,7 @@ var UI = {
       searchbtn:"Search…",cancel:"Cancel",searchtitle:"Search the grimoire",
       khnav:"navigate",khopen:"open",khclose:"close",browse:"Browse the grimoire",about:"About this original FFG grimoire",
       rmkicker:"Rincón Miskatonic",rmtitle:"A Rincón Miskatonic project",rmcta:"Visit Rincón Miskatonic",
-      rmbody:"<b>The Living Arkham</b> is the web edition —searchable and available in several languages— of <i>The Arkham Grimoire</i>, FFG's official rules-clarification compendium. It's a <b>free</b> tool by <b>Rincón Miskatonic</b>, our blog about <i>Arkham Horror: The Card Game</i>, where you'll find guides, resources and more <b>free material</b> for the game.",
+      rmbody:"<b>The Living Arkham</b> is the web edition —interactive and available in several languages— of <i>The Arkham Grimoire</i>, FFG's official rules-clarification compendium. It's a <b>free</b> tool by <b>Rincón Miskatonic</b>, our blog about <i>Arkham Horror: The Card Game</i>, where you'll find guides, resources and more <b>free material</b> for the game.",
       faqlabel:"Open document (retired FAQ)",faqurl:"https://ffgapp.com/qr/legacy-faq",
       footsrc:"Based on <b>The Arkham Grimoire</b> v1.0 (ES) / v1.1 (EN) · rules © their authors · Arkham Horror: LCG ™ Fantasy Flight Games",
       footby:"The Living Arkham <b>v0.1.0 · beta</b> · a project by <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
@@ -239,7 +239,6 @@ function wnList(items,cls){
 function rmPanel(){
   return '<section class="tla-rm">'
     +'<div class="tla-rm-body">'
-      +'<div class="tla-rm-kicker">'+esc(UI[lang].rmkicker)+'</div>'
       +'<h2 class="tla-rm-title">'+esc(UI[lang].rmtitle)+'</h2>'
       +'<p>'+UI[lang].rmbody+'</p>'
       +'<a class="tla-rm-cta" href="'+BLOG+'" target="_blank" rel="noopener">'+esc(UI[lang].rmcta)+' <span aria-hidden="true">↗</span></a>'
