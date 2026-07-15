@@ -48,6 +48,9 @@ CFG = {
   # cross-reference triggers & page words
   'trig': r'(consulta(?:\s+tambi[eé]n)?|v[eé]ase|ver)\b',
   'pageword': r'(p[aá]gina|p[aá]g\.?|p\.)',
+  'pageref': r'(?:en la|en las|en)\s+p[áa]g(?:inas?|\.)?\s*(\d+(?:\s*[-–]\s*\d+)?)',
+  # version history (oldest -> newest). Newest holds the red "new" markup.
+  'versions': [{'v': '1.0', 'date': '2026-05-11'}],
  },
  'en': {
   'intro_start': 'using this book',
@@ -72,6 +75,8 @@ CFG = {
   ],
   'trig': r'(see|consult|refer to)\b',
   'pageword': r'(page|pg\.?|p\.)',
+  'pageref': r'on pages?\s*(\d+(?:\s*[-–]\s*\d+)?)',
+  'versions': [{'v': '1.0', 'date': '2026-03-18'}, {'v': '1.1', 'date': '2026-06-22'}],
  },
 }
 
@@ -167,6 +172,8 @@ def assemble(lang, nodes, images):
         entry = {'title':title, 'blocks':blocks, 'page':node['page'], 'sub': lvl==2}
         if node.get('title_runs'):
             entry['titleRuns'] = node['title_runs']
+        if node.get('red_title'):
+            entry['_new'] = True
         cur['entries'].append(entry)
     # drop unstarted sections
     sections = [s for s in sections if s]
@@ -191,35 +198,44 @@ def assemble(lang, nodes, images):
 def linkify(sections, title_index, cfg):
     trig = re.compile(cfg['trig'], re.I)
     pageword = cfg['pageword']
+    pageref = re.compile(cfg['pageref'], re.I)
     quote = re.compile(r'([“"])(.+?)([”"])')
     linkcount = [0]
     def process_run(run, ctx_has_trig):
-        """Return list of runs (splitting text run at linkable quoted titles)."""
+        """Split a text run into inline runs at cross-ref titles (links) and
+        page references ('en la página 13' -> a pageref chip)."""
         if run['kind'] != 'text':
             return [run]
         t = run['t']
-        out = []
-        last = 0
+        v = run.get('v')
+        repls = []                                        # (start, end, newrun)
         for m in quote.finditer(t):
-            inner = m.group(2)
-            key = norm(inner)
-            tgt = title_index.get(key)
+            key = norm(m.group(2)); tgt = title_index.get(key)
             if not tgt:
                 continue
-            after = t[m.end():m.end()+28]
-            before = t[max(0,m.start()-45):m.start()]
-            linkable = ctx_has_trig or re.search(pageword, after, re.I) or trig.search(before)
-            if not linkable:
+            after = t[m.end():m.end()+28]; before = t[max(0, m.start()-45):m.start()]
+            if not (ctx_has_trig or re.search(pageword, after, re.I) or trig.search(before)):
                 continue
-            if m.start() > last:
-                out.append({**run, 't': t[last:m.start()]})
-            out.append({'kind':'link','t':m.group(0),'target':tgt,
-                        'bold':run.get('bold',False),'italic':run.get('italic',False)})
-            last = m.end()
-            linkcount[0]+=1
+            lk = {'kind':'link','t':m.group(0),'target':tgt,
+                  'bold':run.get('bold',False),'italic':run.get('italic',False)}
+            if v: lk['v'] = v
+            repls.append((m.start(), m.end(), lk)); linkcount[0]+=1
+        if ctx_has_trig:
+            for m in pageref.finditer(t):
+                repls.append((m.start(), m.end(), {'kind':'pageref','n':re.sub(r'\s+','',m.group(1))}))
+        if not repls:
+            return [run]
+        repls.sort(key=lambda x: x[0])
+        out = []; last = 0
+        for st, en, nr in repls:
+            if st < last:
+                continue                                  # skip overlaps
+            if st > last:
+                out.append({**run, 't': t[last:st]})
+            out.append(nr); last = en
         if last < len(t):
-            out.append({**run, 't': t[last:]} if last>0 else run)
-        return out if out else [run]
+            out.append({**run, 't': t[last:]})
+        return out
     def process_blocks(blocks):
         for b in blocks:
             ctx = trig.search(flat_text(b['runs'])) is not None
@@ -233,6 +249,44 @@ def linkify(sections, title_index, cfg):
             process_blocks(e['blocks'])
     return linkcount[0]
 
+
+def apply_versions(allsecs, cfg):
+    """Turn the parser's `red` flags into version tags. Runs added in the newest
+    version get v=<newest>; entries with a red title -> newIn; entries with new
+    body text -> updatedIn. Returns the versions manifest + a 'what's new' index."""
+    versions = cfg.get('versions', [{'v': '1.0', 'date': None}])
+    latest = versions[-1]['v'] if len(versions) > 1 else None
+    def tag(runs):
+        for r in runs:
+            if r.pop('red', False) and latest:
+                r['v'] = latest
+    for s in allsecs:
+        for b in s.get('intro', []):
+            tag(b['runs'])
+        for e in s.get('entries', []):
+            if e.get('titleRuns'):
+                tag(e['titleRuns'])
+            for b in e['blocks']:
+                tag(b['runs'])
+            new_body = any(r.get('v') == latest for b in e['blocks'] for r in b['runs']) if latest else False
+            if latest and e.pop('_new', False):
+                e['newIn'] = latest
+            elif latest and new_body:
+                e['updatedIn'] = latest
+            else:
+                e.pop('_new', None)
+    # what's-new index (per version): new entries + updated entries
+    whatsnew = {}
+    for s in allsecs:
+        for e in s.get('entries', []):
+            v = e.get('newIn') or e.get('updatedIn')
+            if not v:
+                continue
+            wn = whatsnew.setdefault(v, {'new': [], 'updated': []})
+            item = {'id': e['id'], 'title': e['title'], 'sid': s['id'], 'sec': s['title'], 'num': s['num']}
+            (wn['new'] if e.get('newIn') else wn['updated']).append(item)
+    return versions, whatsnew
+
 def main():
     lang = sys.argv[1]
     nodes_path = sys.argv[2]
@@ -241,17 +295,15 @@ def main():
     nodes = json.load(open(nodes_path, encoding='utf-8'))
     images = json.load(open(images_path, encoding='utf-8')) if os.path.exists(images_path) else {}
     intro, sections, title_index, cfg = assemble(lang, nodes, images)
-    links = linkify([intro]+sections, title_index, cfg)
     allsecs = [intro] + sections
-    data = {'lang': lang, 'sections': allsecs}
+    versions, whatsnew = apply_versions(allsecs, cfg)
+    links = linkify(allsecs, title_index, cfg)
+    data = {'lang': lang, 'sections': allsecs, 'versions': versions, 'whatsnew': whatsnew}
     json.dump(data, open(out_path,'w',encoding='utf-8'), ensure_ascii=False)
     # ---- report ----
-    print(f'[{lang}] sections: {len(allsecs)}  cross-links: {links}')
-    for s in allsecs:
-        ne = len(s['entries']); nf = len(s['figures'])
-        tag = s['kind'][:3]
-        print(f'  {s["num"]:>4} {tag} {s["title"][:44]:<44} entries={ne:<3} figs={nf} intro_blocks={len(s["intro"])}')
-    # count total entries
+    print(f'[{lang}] sections: {len(allsecs)}  cross-links: {links}  versions: {[v["v"] for v in versions]}')
+    for v, wn in whatsnew.items():
+        print(f'  what\'s new in v{v}: {len(wn["new"])} new entries, {len(wn["updated"])} updated')
     tot = sum(len(s['entries']) for s in allsecs)
     print(f'  TOTAL entries: {tot}')
 

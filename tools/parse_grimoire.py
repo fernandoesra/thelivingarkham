@@ -37,6 +37,17 @@ def is_bullet_font(font):
 def is_icon_font(font):
     return 'ArkhamHorror' in font
 
+def is_new_red(s):
+    """True for the dark-red text that marks content added in this version.
+    Excludes the icon font and the big 'STOP!' callout heading (also reddish)."""
+    if is_icon_font(s['font']):
+        return False
+    if is_head_font(s['font']) and s['size'] >= 15.5:
+        return False
+    c = s.get('color', 0)
+    r, g, b = (c >> 16) & 255, (c >> 8) & 255, c & 255
+    return r >= 0x80 and g <= 0x40 and b <= 0x40 and (r - g) >= 0x40
+
 def span_kind(s):
     f, sz = s['font'], s['size']
     # 22+ = cover title (38), card-diagram callout numbers (31.2), em-dash (24.4): not headings
@@ -152,12 +163,13 @@ def build_runs(spans):
         bold = 'Bold' in f or 'Smbd' in f or 'Semibold' in f
         italic = 'Italic' in f or '-It' in f
         ref = (s.get('color', 0) == TEAL)
+        red = is_new_red(s)
         # merge with previous compatible text run
         if runs and runs[-1]['kind'] == 'text' and runs[-1]['bold'] == bold \
-                and runs[-1]['italic'] == italic and runs[-1]['ref'] == ref:
+                and runs[-1]['italic'] == italic and runs[-1]['ref'] == ref and runs[-1]['red'] == red:
             runs[-1]['t'] += txt
         else:
-            push('text', t=txt, bold=bold, italic=italic, ref=ref)
+            push('text', t=txt, bold=bold, italic=italic, ref=ref, red=red)
     # normalise whitespace inside text runs, drop empties; whitespace-only isn't a cross-ref
     clean = []
     for r in runs:
@@ -166,7 +178,7 @@ def build_runs(spans):
             if r['t'] == '':
                 continue
             if r['t'].strip() == '':
-                r['bold'] = r['italic'] = r['ref'] = False
+                r['bold'] = r['italic'] = r['ref'] = r['red'] = False
         clean.append(r)
     return clean
 
@@ -178,7 +190,7 @@ def merge_runs(runs):
         # spacing between runs is already baked in by the line-join logic; concat directly
         if r['kind'] == 'text' and out and out[-1]['kind'] == 'text' \
                 and out[-1]['bold'] == r['bold'] and out[-1]['italic'] == r['italic'] \
-                and out[-1]['ref'] == r['ref']:
+                and out[-1]['ref'] == r['ref'] and out[-1].get('red') == r.get('red'):
             out[-1]['t'] = out[-1]['t'] + r['t']
         else:
             out.append(dict(r))
@@ -243,7 +255,7 @@ def finalize_body(raw):
                             nxt[0]['t'] = ' ' + nxt[0]['t']
                     else:
                         prev.append({'kind': 'text', 't': ' ', 'bold': False,
-                                     'italic': False, 'ref': False})
+                                     'italic': False, 'ref': False, 'red': False})
                 cur['runs'].extend(nxt)
             else:
                 cur = {'type': 'p', 'level': 0, 'runs': list(ln['runs']),
@@ -267,11 +279,13 @@ def parse(pdf):
     nodes = []
     cur = None
 
-    def new_node(level, title, page, title_runs=None):
+    def new_node(level, title, page, title_runs=None, red_title=False):
         nonlocal cur
         node = {'level': level, 'title': title, 'page': page, 'raw': []}
         if title_runs:
             node['title_runs'] = title_runs
+        if red_title:
+            node['red_title'] = True
         nodes.append(node)
         cur = node
         return node
@@ -303,7 +317,11 @@ def parse(pdf):
             plain = re.sub(r'\s+', ' ', plain).strip(' .')
             truns = merge_runs(build_runs(hspans))
             has_icon = any(r['kind'] == 'icon' for r in truns)
-            new_node(best, plain, line['page'], truns if has_icon else None)
+            # a red heading title marks a brand-new entry in this version
+            red_chars = sum(len(s['text'].strip()) for s in hspans if is_new_red(s))
+            hd_chars = sum(len(s['text'].strip()) for s in hspans if not is_icon_font(s['font']))
+            red_title = hd_chars > 0 and red_chars >= 0.6 * hd_chars
+            new_node(best, plain, line['page'], truns if has_icon else None, red_title)
             i = j
             continue
         if cur is None:
