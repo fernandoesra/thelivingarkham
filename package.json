@@ -1,0 +1,26 @@
+{
+  "name": "thelivingarkham",
+  "version": "0.1.0",
+  "description": "The Living Arkham (beta) — interactive, bilingual (ES/EN) rules grimoire for Arkham Horror: The Card Game. Static web app, ready for GitHub Pages.",
+  "type": "commonjs",
+  "homepage": ".",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "ingest": "bash tools/ingest.sh"
+  },
+  "keywords": [
+    "arkham-horror",
+    "lcg",
+    "grimoire",
+    "rules-reference",
+    "static-site",
+    "github-pages"
+  ],
+  "author": "Rincón Miskatonic (rinconmiskatonic.org)",
+  "license": "CC-BY-NC-4.0",
+  "private": true,
+  "engines": {
+    "node": ">=16"
+  }
+}

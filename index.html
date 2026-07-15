@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Living Arkham · Grimorio interactivo de Arkham Horror LCG</title>
+  <meta name="description" content="El Grimorio de Arkham en versión web interactiva: glosario de reglas bilingüe (ES/EN), buscador y referencias cruzadas de Arkham Horror: El Juego de Cartas.">
+  <meta name="color-scheme" content="dark light">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 4 61 30 90 30 67 48 76 76 50 59 24 76 33 48 10 30 39 30Z' fill='%23d4af37'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+<div id="tla-root" class="tla" data-lang="es">
+
+  <!-- HEADER -->
+  <header class="tla-head">
+    <button class="tla-burger" id="tla-burger" aria-label="Abrir menú de secciones" aria-expanded="false">☰</button>
+    <a class="tla-brand" id="tla-home" href="#es/intro" title="Inicio">
+      <svg class="tla-sigil" viewBox="0 0 100 100" fill="none" aria-hidden="true" focusable="false">
+        <path d="M50 4 L61 30 L90 30 L67 48 L76 76 L50 59 L24 76 L33 48 L10 30 L39 30 Z" fill="currentColor" opacity=".92"/>
+        <circle cx="50" cy="48" r="9" fill="#15171d"/><circle cx="50" cy="48" r="4.4" fill="currentColor"/>
+      </svg>
+      <span class="tla-titles">
+        <span class="tla-title">The Living Arkham <span class="tla-beta">beta</span></span>
+        <span class="tla-sub" id="tla-sub">Grimorio interactivo · Arkham Horror LCG</span>
+      </span>
+    </a>
+    <div class="tla-spacer"></div>
+    <div class="tla-search" role="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input id="tla-q" type="search" autocomplete="off" spellcheck="false"
+             aria-label="Buscar en el grimorio" aria-controls="tla-results" aria-expanded="false"
+             placeholder="Buscar reglas, palabras clave, iconos…">
+      <kbd aria-hidden="true">/</kbd>
+      <div class="tla-results" id="tla-results" role="listbox" aria-label="Resultados de búsqueda"></div>
+    </div>
+    <div class="tla-lang" role="group" aria-label="Idioma">
+      <button type="button" data-l="es" aria-pressed="true">ES</button>
+      <button type="button" data-l="en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+
+  <!-- BODY -->
+  <div class="tla-body">
+    <nav class="tla-nav" id="tla-nav" aria-label="Secciones del grimorio"></nav>
+    <main class="tla-main" id="tla-main" tabindex="-1" aria-live="polite"></main>
+    <aside class="tla-toc" id="tla-toc" aria-label="En esta página"></aside>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="tla-foot">
+    <span id="tla-foot-src">Basado en <b>El Grimorio de Arkham</b> v1.0 (ES) / v1.1 (EN) · reglas © sus autores · Arkham Horror: LCG ™ Fantasy Flight Games</span>
+    <span>The Living Arkham <b>v0.1.0 · beta</b> · maquetado por <a href="https://rinconmiskatonic.org" target="_blank" rel="noopener">Rincón Miskatonic</a></span>
+  </footer>
+
+  <div class="tla-scrim" id="tla-scrim"></div>
+  <div class="tla-lb" id="tla-lb"><button class="tla-lb-close" aria-label="Cerrar imagen">✕</button><img alt=""></div>
+</div>
+
+<script src="js/app.js"></script>
+</body>
+</html>

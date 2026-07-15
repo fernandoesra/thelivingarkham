@@ -1,0 +1,4 @@
+# Python deps for the content pipeline (tools/ingest.sh)
+pymupdf>=1.24
+Pillow>=10.0
+numpy>=1.24
