@@ -14,8 +14,12 @@ var UI = {
       newbadge:"Nuevo",updbadge:"Ampliado",seenews:"Ver novedades",origpage:"orig. pág.",
       addedin:"añadido en v",updatedin:"ampliado en v",current:"versión actual",released:"publicada el",
       searchbtn:"Buscar…",cancel:"Cancelar",searchtitle:"Buscar en el grimorio",
-      khnav:"navegar",khopen:"abrir",khclose:"cerrar",browse:"Explorar el grimorio",about:"Acerca de este grimorio",
-      lead:"Una edición web, buscable y bilingüe de <b>El Grimorio de Arkham</b>: todas las aclaraciones oficiales de reglas de <i>Arkham Horror: El Juego de Cartas</i>, a un clic.",
+      khnav:"navegar",khopen:"abrir",khclose:"cerrar",browse:"Explorar el grimorio",about:"Acerca de este grimorio original de FFG",
+      rmkicker:"Rincón Miskatonic",rmtitle:"Un proyecto de Rincón Miskatonic",rmcta:"Visitar Rincón Miskatonic",
+      rmbody:"<b>The Living Arkham</b> es la edición web —buscable y disponible en varios idiomas— de <i>El Grimorio de Arkham</i>, la recopilación oficial de aclaraciones de reglas de FFG. Es una herramienta <b>gratuita</b> de <b>Rincón Miskatonic</b>, nuestro blog sobre <i>Arkham Horror: El Juego de Cartas</i>, donde encontrarás guías, ayudas y más <b>material gratuito</b> del juego.",
+      faqlabel:"Ver documento (FAQ retiradas)",faqurl:"https://www.asmodee.es/product/arkham-horror-el-juego-de-cartas/",
+      footsrc:"Basado en <b>El Grimorio de Arkham</b> v1.0 (ES) / v1.1 (EN) · reglas © sus autores · Arkham Horror: LCG ™ Fantasy Flight Games",
+      footby:"The Living Arkham <b>v0.1.0 · beta</b> · un proyecto de <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
       newsintro:"Esto es lo que cambió respecto a la versión anterior. En rojo se resalta el texto nuevo dentro de cada entrada."},
   en:{onthispage:"On this page",entries:"entries",searchph:"Search rules, keywords, icons…",
       nores:"No results",sub:"Interactive rulebook · Arkham Horror LCG",jump:"Jump to",fig:"Grimoire figure · p.",
@@ -25,8 +29,12 @@ var UI = {
       newbadge:"New",updbadge:"Expanded",seenews:"See what's new",origpage:"orig. p.",
       addedin:"added in v",updatedin:"expanded in v",current:"current version",released:"released",
       searchbtn:"Search…",cancel:"Cancel",searchtitle:"Search the grimoire",
-      khnav:"navigate",khopen:"open",khclose:"close",browse:"Browse the grimoire",about:"About this grimoire",
-      lead:"A searchable, bilingual web edition of <b>The Arkham Grimoire</b>: every official rules clarification for <i>Arkham Horror: The Card Game</i>, one click away.",
+      khnav:"navigate",khopen:"open",khclose:"close",browse:"Browse the grimoire",about:"About this original FFG grimoire",
+      rmkicker:"Rincón Miskatonic",rmtitle:"A Rincón Miskatonic project",rmcta:"Visit Rincón Miskatonic",
+      rmbody:"<b>The Living Arkham</b> is the web edition —searchable and available in several languages— of <i>The Arkham Grimoire</i>, FFG's official rules-clarification compendium. It's a <b>free</b> tool by <b>Rincón Miskatonic</b>, our blog about <i>Arkham Horror: The Card Game</i>, where you'll find guides, resources and more <b>free material</b> for the game.",
+      faqlabel:"Open document (retired FAQ)",faqurl:"https://ffgapp.com/qr/legacy-faq",
+      footsrc:"Based on <b>The Arkham Grimoire</b> v1.0 (ES) / v1.1 (EN) · rules © their authors · Arkham Horror: LCG ™ Fantasy Flight Games",
+      footby:"The Living Arkham <b>v0.1.0 · beta</b> · a project by <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
       newsintro:"Here is what changed since the previous version. New text within each entry is highlighted."}
 };
 var MONTHS={es:['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'],
@@ -40,6 +48,7 @@ function latestInfo(g){ // returns {v,date} of the newest version if it carries 
 }
 
 var GRIM = {}, ICONS = {};
+var BLOG='https://rinconmiskatonic.org/', SIGIL_SVG='';
 var root=document.getElementById('tla-root');
 var elNav=document.getElementById('tla-nav'), elMain=document.getElementById('tla-main'),
     elToc=document.getElementById('tla-toc'), elQ=document.getElementById('tla-q'),
@@ -76,9 +85,17 @@ function blocksHTML(blocks){
         h+='<li class="'+(blocks[i].level===2?'l2':'l1')+'">'+runsHTML(blocks[i].runs)+'</li>'; i++;
       }
       h+='</ul>';
-    } else { h+='<p class="tla-p">'+runsHTML(b.runs)+'</p>'; i++; }
+    } else { h+='<p class="tla-p">'+runsHTML(b.runs)+'</p>'+faqLink(plainOfRuns(b.runs)); i++; }
   }
   return h;
+}
+/* The PDF shows a QR to the retired-FAQ document after these sentences; render a real link instead. */
+function faqLink(txt){
+  var t=(txt||'').trim();
+  if(!/(preguntas frecuentes retirad|retired FAQ)/i.test(t) || !/[:：]\s*$/.test(t)) return '';
+  return '<a class="tla-extlink" href="'+UI[lang].faqurl+'" target="_blank" rel="noopener">'
+    +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3h7v7"/><path d="M21 3l-9 9"/><path d="M19 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>'
+    +esc(UI[lang].faqlabel)+'</a>';
 }
 function plainOfRuns(runs){var s='';for(var i=0;i<runs.length;i++){s+=runs[i].kind==='text'||runs[i].kind==='link'?runs[i].t:(' '+((ICONS[runs[i].name]&&ICONS[runs[i].name][lang])||'')+' ');}return s;}
 function plainOfBlocks(blocks){return blocks.map(function(b){return plainOfRuns(b.runs);}).join(' ');}
@@ -219,6 +236,17 @@ function wnList(items,cls){
     +'<span class="tla-wnsec">'+(it.num?it.num+' · ':'')+esc(it.sec)+'</span></button>';});
   return h+'</div>';
 }
+function rmPanel(){
+  return '<section class="tla-rm">'
+    +'<div class="tla-rm-body">'
+      +'<div class="tla-rm-kicker">'+esc(UI[lang].rmkicker)+'</div>'
+      +'<h2 class="tla-rm-title">'+esc(UI[lang].rmtitle)+'</h2>'
+      +'<p>'+UI[lang].rmbody+'</p>'
+      +'<a class="tla-rm-cta" href="'+BLOG+'" target="_blank" rel="noopener">'+esc(UI[lang].rmcta)+' <span aria-hidden="true">↗</span></a>'
+    +'</div>'
+    +'<div class="tla-rm-mark" aria-hidden="true">'+SIGIL_SVG+'</div>'
+  +'</section>';
+}
 function renderLanding(s){
   var li=latestInfo(data);
   var h='<div class="tla-doc tla-landing">';
@@ -227,7 +255,7 @@ function renderLanding(s){
   h+='<p class="tla-hero-sub">'+esc(UI[lang].sub)+'</p>';
   h+='</div></div>';
   if(li){h+=verBanner(li);}
-  h+='<p class="tla-landing-lead">'+UI[lang].lead+'</p>';
+  h+=rmPanel();
   h+='<h2 class="tla-cards-h">'+esc(UI[lang].browse)+'</h2>';
   h+='<div class="tla-cards">';
   data.sections.forEach(function(s2,si){
@@ -284,11 +312,12 @@ function applyLang(L){
   [].forEach.call(document.querySelectorAll('.tla-lang button'),function(b){b.setAttribute('aria-pressed',b.getAttribute('data-l')===L);});
   document.getElementById('tla-sub').textContent=UI[L].sub;
   elQ.setAttribute('placeholder',UI[L].searchph);
-  document.getElementById('tla-searchbtn-txt').textContent=UI[L].searchbtn;
   elSOpen.setAttribute('aria-label',UI[L].searchtitle);
   elSCancel.textContent=UI[L].cancel;
   elSModal.setAttribute('aria-label',UI[L].searchtitle);
   document.getElementById('tla-searchhint').innerHTML=hintHTML(L);
+  document.getElementById('tla-foot-src').innerHTML=UI[L].footsrc;
+  document.getElementById('tla-foot-by').innerHTML=UI[L].footby;
   applyThemeLabel();
   buildNav();
 }
@@ -436,6 +465,7 @@ function boot(){
   ]).then(function(res){
     GRIM.es=res[0]; GRIM.en=res[1]; ICONS=res[2];
     normalizeData(GRIM.es); normalizeData(GRIM.en);
+    var sg=document.querySelector('.tla-brand .tla-sigil'); SIGIL_SVG=sg?sg.outerHTML:'';
     data=GRIM[lang];
     buildIndex();
     applyLang(lang);

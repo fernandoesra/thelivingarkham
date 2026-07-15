@@ -6,7 +6,9 @@
   <title>The Living Arkham · Grimorio interactivo de Arkham Horror LCG</title>
   <meta name="description" content="El Grimorio de Arkham en versión web interactiva: glosario de reglas bilingüe (ES/EN), buscador y referencias cruzadas de Arkham Horror: El Juego de Cartas.">
   <meta name="color-scheme" content="dark light">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cpath d='M50 4 61 30 90 30 67 48 76 76 50 59 24 76 33 48 10 30 39 30Z' fill='%23d4af37'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/favicon-180.png">
   <script>
     /* set theme before paint to avoid a flash of the wrong theme */
     (function(){try{var t=localStorage.getItem('tla-theme');
@@ -23,20 +25,15 @@
   <header class="tla-head">
     <button class="tla-burger" id="tla-burger" type="button" aria-label="Abrir menú de secciones" aria-expanded="false" aria-controls="tla-nav">☰</button>
     <a class="tla-brand" id="tla-home" href="#es/intro" title="Inicio">
-      <svg class="tla-sigil" viewBox="0 0 100 100" fill="none" aria-hidden="true" focusable="false">
-        <path d="M50 4 L61 30 L90 30 L67 48 L76 76 L50 59 L24 76 L33 48 L10 30 L39 30 Z" fill="currentColor" opacity=".92"/>
-        <circle cx="50" cy="48" r="9" fill="var(--bg)"/><circle cx="50" cy="48" r="4.4" fill="currentColor"/>
-      </svg>
+      <svg class="tla-sigil" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true" focusable="false"><path d="M34.7 91.0L38.0 91.7L41.7 92.3L45.5 92.5L49.2 92.4L52.8 92.0L56.4 91.3L59.9 90.4L63.2 89.2L66.4 87.7L69.5 86.0L72.4 84.0L75.1 81.9L77.6 79.5L79.8 77.0L81.9 74.3L83.7 71.5L85.2 68.6L86.5 65.6L87.5 62.5L88.3 59.4L88.8 56.3L89.0 53.2L89.0 50.0L88.8 47.0L88.3 44.0L87.5 41.0L86.5 38.2L85.3 35.5L84.0 32.9L82.4 30.5L80.6 28.2L78.7 26.1L76.6 24.2L74.4 22.5L72.1 21.0L69.8 19.7L67.3 18.6L64.8 17.7L62.3 17.1L59.7 16.6L57.1 16.4L54.6 16.4L52.1 16.6L49.7 17.0L47.3 17.6L45.0 18.4L42.9 19.3L40.8 20.4L38.8 21.7L37.0 23.1L35.4 24.6L33.9 26.2L32.5 28.0L31.4 29.8L30.3 31.7L29.5 33.6L28.8 35.5L28.4 37.5L28.0 39.5L27.9 41.5L27.9 43.4L28.1 45.3L28.4 47.2L28.9 49.0L29.5 50.7L30.3 52.3L31.1 53.8L32.1 55.2L33.2 56.6L34.4 57.7L35.6 58.8L36.9 59.7L38.2 60.5L39.6 61.2L41.0 61.8L42.5 62.2L43.9 62.4L45.3 62.6L46.7 62.6L48.0 62.5L49.3 62.3L50.6 62.0L51.7 61.6L52.9 61.0L53.9 60.4L54.8 59.8L55.7 59.1L56.5 58.3L57.1 57.4L57.7 56.6L58.2 55.7L58.6 54.8L58.8 53.9L59.0 53.0L59.1 52.2L59.1 51.3L59.0 50.5L58.8 49.8L58.6 49.1L58.3 48.4L58.3 48.4L58.2 49.1L58.1 49.8L58.0 50.5L57.8 51.2L57.6 51.8L57.3 52.5L56.9 53.1L56.5 53.7L56.0 54.3L55.5 54.9L54.9 55.4L54.3 55.8L53.6 56.2L52.9 56.6L52.1 56.9L51.3 57.1L50.5 57.3L49.6 57.4L48.7 57.5L47.8 57.4L46.9 57.3L46.0 57.1L45.1 56.8L44.3 56.5L43.4 56.1L42.6 55.6L41.8 55.0L41.0 54.3L40.3 53.6L39.6 52.8L39.0 52.0L38.4 51.0L38.0 50.1L37.6 49.0L37.3 48.0L37.0 46.9L36.9 45.7L36.8 44.6L36.9 43.4L37.0 42.2L37.3 41.0L37.6 39.9L38.1 38.7L38.6 37.6L39.3 36.5L40.0 35.5L40.8 34.5L41.7 33.5L42.8 32.7L43.8 31.9L45.0 31.1L46.2 30.5L47.5 30.0L48.9 29.6L50.3 29.3L51.7 29.1L53.1 29.0L54.6 29.0L56.1 29.1L57.6 29.4L59.1 29.8L60.5 30.3L61.9 31.0L63.3 31.7L64.6 32.6L65.9 33.6L67.1 34.7L68.2 36.0L69.2 37.3L70.1 38.7L70.9 40.1L71.6 41.7L72.1 43.3L72.6 45.0L72.8 46.7L73.0 48.5L73.0 50.3L72.9 52.1L72.6 53.9L72.2 55.7L71.6 57.4L70.9 59.2L70.0 60.8L69.0 62.4L67.9 64.0L66.6 65.4L65.2 66.8L63.6 68.0L62.0 69.2L60.3 70.2L58.5 71.0L56.6 71.8L54.6 72.3L52.6 72.8L50.5 73.0L48.4 73.1L46.3 73.0L44.1 72.7L42.0 72.3L39.6 71.6Z"/><g fill="#000" opacity=".34"><circle cx="67.0" cy="72.1" r="2.7"/><circle cx="77.6" cy="48.1" r="2.4"/><circle cx="65.2" cy="28.3" r="2.1"/><circle cx="44.7" cy="27.6" r="1.7"/></g></svg>
       <span class="tla-titles">
         <span class="tla-title">The Living Arkham <span class="tla-beta">beta</span></span>
         <span class="tla-sub" id="tla-sub">Grimorio interactivo · Arkham Horror LCG</span>
       </span>
     </a>
     <div class="tla-spacer"></div>
-    <button class="tla-searchbtn" id="tla-search-open" type="button" aria-haspopup="dialog" aria-label="Buscar en el grimorio">
+    <button class="tla-searchbtn" id="tla-search-open" type="button" aria-haspopup="dialog" aria-label="Buscar en el grimorio" title="Buscar (tecla /)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
-      <span class="tla-searchbtn-txt" id="tla-searchbtn-txt">Buscar…</span>
-      <kbd aria-hidden="true">/</kbd>
     </button>
     <button class="tla-theme" id="tla-theme" type="button" aria-label="Cambiar a tema claro" title="Tema claro/oscuro">
       <svg class="tla-ico-moon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
@@ -58,7 +55,7 @@
   <!-- FOOTER -->
   <footer class="tla-foot">
     <span id="tla-foot-src">Basado en <b>El Grimorio de Arkham</b> v1.0 (ES) / v1.1 (EN) · reglas © sus autores · Arkham Horror: LCG ™ Fantasy Flight Games</span>
-    <span>The Living Arkham <b>v0.1.0 · beta</b> · <a href="https://rinconmiskatonic.org" target="_blank" rel="noopener">Rincón Miskatonic</a></span>
+    <span id="tla-foot-by">The Living Arkham <b>v0.1.0 · beta</b> · un proyecto de <a href="https://rinconmiskatonic.org/" target="_blank" rel="noopener">Rincón Miskatonic</a></span>
   </footer>
 
   <!-- SEARCH OVERLAY -->
