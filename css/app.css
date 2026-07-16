@@ -246,12 +246,15 @@ html[data-theme="light"] .tla-nav{background:rgba(90,68,20,.05)}
 
 /* A-Z filter bar (glossary) — an opaque toolbar pinned to the top of the reading
    pane. It must hide everything that scrolls under it, so it bleeds out to the
-   edges of the pane rather than sitting as a rounded card: a new entry's accent
-   line hangs 19px further left than the text, and a rounded corner would let the
-   line, and the odd word, show through at the top. */
+   edges of the pane: a new entry's accent line hangs 19px further left than the
+   text, and it used to show through at the top corners.
+   Square at the top, where content scrolls up behind it and would leak through a
+   rounded corner; rounded at the bottom, where nothing passes and it reads as a
+   panel hanging from the top rather than a band across the page. */
 .tla-azfilter{position:sticky; top:0; z-index:8;
   margin:0 calc(-1*clamp(20px,3.6vw,56px)) 22px; padding:13px clamp(20px,3.6vw,56px);
-  background:var(--panel); border:0; border-bottom:1px solid var(--edge2); border-radius:0;
+  background:var(--panel); border:0; border-bottom:1px solid var(--edge2);
+  border-radius:0 0 12px 12px;
   box-shadow:0 10px 26px -12px rgba(0,0,0,.6)}
 html[data-theme="light"] .tla-azfilter{box-shadow:0 12px 28px -14px rgba(70,52,20,.4)}
 .tla-azfilter .tla-azlabel{font-family:var(--ff-ui); font-size:12px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:9px}
