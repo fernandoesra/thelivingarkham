@@ -344,6 +344,7 @@ function render(sid,eid,flash){
   });
   h+='</div>';
   elMain.innerHTML=h;
+  syncStickyHeight();          // before any scroll-to, so the target clears the toolbar
   buildToc(s,ents);
   markNav(sid);
   if(eid){var el=document.getElementById('e-'+eid); if(el){el.scrollIntoView({block:'start'}); if(flash){el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}}}
@@ -462,6 +463,13 @@ function buildToc(s,ents){
    navigation starting point, so the next Tab would resume from the nav instead
    of the top of the page — which silently makes the skip link, and the whole
    header, unreachable by Tab. */
+/* The A-Z toolbar is sticky, so anything scrolled to must clear it. Its height
+   depends on the language's alphabet and on how far the row wraps, so it is
+   measured rather than guessed — a fixed value hid entry titles behind it. */
+function syncStickyHeight(){
+  var bar=elMain.querySelector('.tla-azfilter');
+  elMain.style.setProperty('--sticky-h',(bar?bar.offsetHeight:0)+'px');
+}
 function keepInView(el,box){
   var e=el.getBoundingClientRect(), b=box.getBoundingClientRect();
   if(e.top<b.top) box.scrollTop-=(b.top-e.top);
@@ -812,6 +820,8 @@ function wireEvents(){
   });
   elMain.addEventListener('scroll',spy,{passive:true});
   window.addEventListener('hashchange',route);
+  // the toolbar re-wraps as the pane narrows, changing how much it covers
+  window.addEventListener('resize',syncStickyHeight,{passive:true});
 
   // clicking the backdrop (or the image) dismisses it, as before — but the
   // close button must not have its own click swallowed by the backdrop rule.

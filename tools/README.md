@@ -103,6 +103,20 @@ the one with `"iconArt": {"provides": true}` (currently `es`). Every other pack 
 supplies the labels, in `ui.json` under `icons`. If that pack's PDF isn't on your machine,
 icon rendering is skipped and the committed artwork is reused — which is normal and fine.
 
+`extract_icons.py` pulls the Arkham font out of the PDF and traces each glyph to
+`assets/icons/<name>.svg`, then writes **`css/icons.css`** (generated — don't edit it).
+
+The size matters as much as the shape. A font knows exactly how big each glyph is and
+where it sits on the baseline: *unique* is a small 0.39em mark, *free* is a wide 2.12em
+arrow. Drawing both into the same square box — which is what the old raster masks did —
+made unique 2.7x too big and free less than half its size. So each icon carries its own
+width, height and baseline offset in em, and `--icon-scale` (in `app.css`) nudges them
+all together without disturbing their proportions. Glyphs shorter than `MIN_HEIGHT_EM`
+are grown to it, because a faithful 0.39em speck is not readable on a screen.
+
+The basic-weakness symbol is drawn art rather than a glyph, so it is still clipped from
+the page to a PNG mask and sized like a capital letter.
+
 ## Version history (`history.py`)
 
 Each Grimoire PDF prints the text **added in that edition in dark red**. That red is

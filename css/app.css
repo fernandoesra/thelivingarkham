@@ -48,6 +48,9 @@ html[data-theme="light"] #tla-root, #tla-root[data-theme="light"]{
   --ff-body:Georgia,'Iowan Old Style','Palatino Linotype',serif;
   --ff-ui:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
   --hh:64px;                 /* header height reference */
+  /* Icons are drawn at their true font size. On paper that is right; on a screen
+     a touch larger reads better, without disturbing their proportions. */
+  --icon-scale:1.15;
   font-size:16px; color:var(--ink); font-family:var(--ff-body); line-height:1.65;
   -webkit-font-smoothing:antialiased;
   height:100dvh; display:flex; flex-direction:column; position:relative; overflow:hidden;
@@ -135,8 +138,8 @@ html[data-theme="light"] .tla-searchmodal{background:rgba(44,34,14,.34)}
 .tla-res:last-child{border-bottom:0}
 .tla-res:hover,.tla-res.sel{background:var(--panel2)}
 .tla-res .rt{font-weight:600; color:var(--ink); font-size:15px}
+.tla-res .rt .tla-res .rs{font-size:12px; color:var(--gold2); margin-left:8px; font-weight:600}
 .tla-res .rt .ico{--icon:var(--gold2)}
-.tla-res .rs{font-size:12px; color:var(--gold2); margin-left:8px; font-weight:600}
 .tla-res .rx{font-size:13px; color:var(--muted); margin-top:3px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
 .tla-res mark{background:var(--mark); color:var(--mark-ink); border-radius:2px; padding:0 1px}
 .tla-res-empty{padding:18px; color:var(--muted); font-family:var(--ff-ui); font-size:14px; text-align:center}
@@ -241,11 +244,16 @@ html[data-theme="light"] .tla-nav{background:rgba(90,68,20,.05)}
 #tla-root .tla-extlink:hover{background:var(--mark); color:var(--teal2); text-decoration:none}
 .tla-extlink svg{width:15px; height:15px; flex:0 0 auto}
 
-/* A-Z filter bar (glossary) — opaque, elevated toolbar that pins to the top */
-.tla-azfilter{position:sticky; top:0; z-index:8; margin:0 0 22px; padding:13px 16px;
-  background:var(--panel); border:1px solid var(--edge2); border-radius:12px;
-  box-shadow:0 10px 26px -12px rgba(0,0,0,.6), 0 1px 0 var(--edge2)}
-html[data-theme="light"] .tla-azfilter{box-shadow:0 12px 28px -14px rgba(70,52,20,.4), 0 1px 0 var(--edge2)}
+/* A-Z filter bar (glossary) — an opaque toolbar pinned to the top of the reading
+   pane. It must hide everything that scrolls under it, so it bleeds out to the
+   edges of the pane rather than sitting as a rounded card: a new entry's accent
+   line hangs 19px further left than the text, and a rounded corner would let the
+   line, and the odd word, show through at the top. */
+.tla-azfilter{position:sticky; top:0; z-index:8;
+  margin:0 calc(-1*clamp(20px,3.6vw,56px)) 22px; padding:13px clamp(20px,3.6vw,56px);
+  background:var(--panel); border:0; border-bottom:1px solid var(--edge2); border-radius:0;
+  box-shadow:0 10px 26px -12px rgba(0,0,0,.6)}
+html[data-theme="light"] .tla-azfilter{box-shadow:0 12px 28px -14px rgba(70,52,20,.4)}
 .tla-azfilter .tla-azlabel{font-family:var(--ff-ui); font-size:12px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:9px}
 .tla-azrow{display:flex; flex-wrap:wrap; gap:6px; align-items:center}
 .tla-azbtn{min-width:36px; height:36px; padding:0 8px; border-radius:8px; border:1px solid var(--edge2); background:var(--bg2);
@@ -255,7 +263,10 @@ html[data-theme="light"] .tla-azfilter{box-shadow:0 12px 28px -14px rgba(70,52,2
 .tla-azbtn.all{width:auto; padding:0 14px}
 .tla-azcount{font-family:var(--ff-ui); font-size:13px; color:var(--muted); margin-left:6px; align-self:center; white-space:nowrap}
 
-.tla-entry{scroll-margin-top:88px; margin:0 0 30px; padding-top:4px}
+/* Jumping to an entry must land it BELOW the pinned toolbar, not behind it. The
+   toolbar's height changes with the alphabet and the width (it wraps to two rows
+   on a narrow pane), so app.js measures it and sets --sticky-h. */
+.tla-entry{scroll-margin-top:calc(var(--sticky-h,0px) + 24px); margin:0 0 30px; padding-top:4px}
 .tla-entry h2{font-family:var(--ff-head); font-size:24px; color:var(--gold2); margin:26px 0 10px; letter-spacing:.3px;
   display:flex; align-items:center; gap:8px}
 /* 24x24 minimum: the glyph is small, so the target is padded out around it
@@ -359,35 +370,7 @@ html[data-theme="light"] .tla-azfilter{box-shadow:0 12px 28px -14px rgba(70,52,2
 .tla-wnsec{font-family:var(--ff-ui); font-size:12px; color:var(--muted)}
 
 /* ---------- game icons (recolourable PNG masks) ---------- */
-.ico{display:inline-block; width:1.05em; height:1.05em; vertical-align:-.17em; margin:0 .06em;
-  background-color:var(--icon);
-  -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
-  -webkit-mask-position:center; mask-position:center;
-  -webkit-mask-size:contain; mask-size:contain;}
 .tla-entry h2 .ico,.tla-wnh .ico,.tla-h1 .ico{--icon:var(--gold2)}
-.ico-willpower{-webkit-mask-image:url(../assets/icons/willpower.png);mask-image:url(../assets/icons/willpower.png)}
-.ico-agility{-webkit-mask-image:url(../assets/icons/agility.png);mask-image:url(../assets/icons/agility.png)}
-.ico-intellect{-webkit-mask-image:url(../assets/icons/intellect.png);mask-image:url(../assets/icons/intellect.png)}
-.ico-combat{-webkit-mask-image:url(../assets/icons/combat.png);mask-image:url(../assets/icons/combat.png)}
-.ico-wild{-webkit-mask-image:url(../assets/icons/wild.png);mask-image:url(../assets/icons/wild.png)}
-.ico-guardian{-webkit-mask-image:url(../assets/icons/guardian.png);mask-image:url(../assets/icons/guardian.png)}
-.ico-seeker{-webkit-mask-image:url(../assets/icons/seeker.png);mask-image:url(../assets/icons/seeker.png)}
-.ico-mystic{-webkit-mask-image:url(../assets/icons/mystic.png);mask-image:url(../assets/icons/mystic.png)}
-.ico-rogue{-webkit-mask-image:url(../assets/icons/rogue.png);mask-image:url(../assets/icons/rogue.png)}
-.ico-survivor{-webkit-mask-image:url(../assets/icons/survivor.png);mask-image:url(../assets/icons/survivor.png)}
-.ico-action{-webkit-mask-image:url(../assets/icons/action.png);mask-image:url(../assets/icons/action.png)}
-.ico-free{-webkit-mask-image:url(../assets/icons/free.png);mask-image:url(../assets/icons/free.png)}
-.ico-reaction{-webkit-mask-image:url(../assets/icons/reaction.png);mask-image:url(../assets/icons/reaction.png)}
-.ico-skull{-webkit-mask-image:url(../assets/icons/skull.png);mask-image:url(../assets/icons/skull.png)}
-.ico-cultist{-webkit-mask-image:url(../assets/icons/cultist.png);mask-image:url(../assets/icons/cultist.png)}
-.ico-autofail{-webkit-mask-image:url(../assets/icons/autofail.png);mask-image:url(../assets/icons/autofail.png)}
-.ico-elderthing{-webkit-mask-image:url(../assets/icons/elderthing.png);mask-image:url(../assets/icons/elderthing.png)}
-.ico-eldersign{-webkit-mask-image:url(../assets/icons/eldersign.png);mask-image:url(../assets/icons/eldersign.png)}
-.ico-tablet{-webkit-mask-image:url(../assets/icons/tablet.png);mask-image:url(../assets/icons/tablet.png)}
-.ico-unique{-webkit-mask-image:url(../assets/icons/unique.png);mask-image:url(../assets/icons/unique.png)}
-.ico-perinvestigator{-webkit-mask-image:url(../assets/icons/perinvestigator.png);mask-image:url(../assets/icons/perinvestigator.png)}
-.ico-codex{-webkit-mask-image:url(../assets/icons/codex.png);mask-image:url(../assets/icons/codex.png)}
-.ico-weakness{-webkit-mask-image:url(../assets/icons/weakness.png);mask-image:url(../assets/icons/weakness.png)}
 
 /* ---------- montage figures (example card-art resources inside an entry) ---------- */
 .tla-montage{margin:18px auto 26px; max-width:660px}
