@@ -20,9 +20,29 @@ Reads `tools/source/*.pdf` → writes `data/grimoire_*.json` and `assets/{icons,
 | `extract_icons.py`   | game-icon glyphs → recolourable PNG masks + `icons.json` |
 | `render_images.py`   | card-anatomy / icon-gallery pages + montages → JPEG figures |
 | `montages.py`        | config of the example card-art montages embedded in glossary entries |
-| `assemble.py`        | nodes → sections, cross-references, figures → `grimoire_*.json` |
+| `assemble.py`        | nodes → sections, cross-references, auto-links, figures → `grimoire_*.json` |
 | `validate_coverage.py` | checks parsed text is present in the source PDF |
 | `ingest.sh`          | runs the whole pipeline |
+
+## Auto-linked related terms (interactivity)
+
+Besides the explicit *"Consulta también"* cross-references, `assemble.py` (`autolink`)
+turns the **first mention** of a related glossary term into an inline link, so the reader
+can jump straight to it (e.g. *"Robar 1 carta"* in **Acciones básicas** → the **Robar
+cartas** entry). It renders as the same `xref` link the app already handles, so clicking
+navigates and the browser **Back** button returns you where you came from — no app changes.
+
+It is deliberately conservative (glossary only, so it never floods the rules chapters):
+* multi-word titles link by default; single-word titles only if listed in `link_allow1`
+  (distinctive keywords — *Moverse*, *Cazador*, *Represalia*…), which keeps common words
+  like *acción* / *carta* / *lugar* from over-linking;
+* `link_alias` maps wordings that differ from the title (verb forms, the basic-action
+  list: `'robar 1 carta' → 'Robar cartas'`);
+* `link_stop` blocks function phrases (*"a continuación"*, *"por cada"*…);
+* one link per target per entry, never self-links, capped per entry.
+
+Matching is accent/case-insensitive and spans runs (so a bold lead word doesn't hide the
+phrase). Tune the three per-language lists in `assemble.py`'s `CFG` and re-run `npm run ingest`.
 
 ## Montage figures (example card-art inside glossary entries)
 

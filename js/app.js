@@ -343,7 +343,16 @@ function spy(){
     var arts=elMain.querySelectorAll('.tla-entry'); var top=140,cur=null;
     for(var i=0;i<arts.length;i++){var r=arts[i].getBoundingClientRect(); if(r.top<=top+40)cur=arts[i].id.slice(2); else break;}
     [].forEach.call(elToc.querySelectorAll('a'),function(a){a.classList.toggle('on',a.getAttribute('data-eid')===cur);});
+    syncHash(cur);
   });
+}
+/* Keep the URL pointing at the entry you're actually reading, so the browser Back
+   button returns you there. replaceState does NOT fire hashchange, so it never
+   re-renders — it only rewrites the current history entry's target. */
+function syncHash(cur){
+  if(!cur||!curSec||curSec.kind==='intro'||curSec.kind==='whatsnew')return;
+  var nh='#'+lang+'/'+cur;
+  if(location.hash!==nh){try{history.replaceState(history.state,'',nh);}catch(e){}}
 }
 
 /* ---------- routing (URL hash = single source of truth) ---------- */

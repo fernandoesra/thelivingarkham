@@ -21,6 +21,19 @@ def norm(t):
     t = ''.join(c for c in unicodedata.normalize('NFKD', t) if not unicodedata.combining(c))
     return re.sub(r'\s+', ' ', t).strip(' .:"')
 
+# length-preserving accent fold (positions stay valid in the original string, so
+# regex matches on the folded text map straight back onto the source text)
+_FOLD = str.maketrans('áàäâéèëêíìïîóòöôúùüûñçÁÀÄÂÉÈËÊÍÌÏÎÓÒÖÔÚÙÜÛÑÇ',
+                      'aaaaeeeeiiiioooouuuuncAAAAEEEEIIIIOOOOUUUUNC')
+def fold(s):
+    return (s or '').translate(_FOLD).lower()
+
+def title_variants(title):
+    """Splittable forms of an entry title for auto-linking: drop parentheticals and
+    quotes, split on ',' and '/'. E.g. 'Agotar, Agotado' -> ['Agotar','Agotado']."""
+    t = re.sub(r'\([^)]*\)', ' ', title).replace('“','').replace('”','').replace('"','')
+    return [p.strip(' .:') for p in re.split(r'[,/]', t) if p.strip(' .:')]
+
 # ---- section configuration per language (canonical titles; kind; figures) ----
 CFG = {
  'es': {
@@ -50,6 +63,32 @@ CFG = {
   'trig': r'(consulta(?:\s+tambi[eé]n)?|v[eé]ase|ver)\b',
   'pageword': r'(p[aá]gina|p[aá]g\.?|p\.)',
   'pageref': r'(?:en la|en las|en)\s+p[áa]g(?:inas?|\.)?\s*(\d+(?:\s*[-–]\s*\d+)?)',
+  # --- auto-linking of direct-relationship terms inside the glossary ---
+  # curated aliases where the wording differs from the entry title (verb forms, etc.)
+  'link_alias': {
+    'robar 1 carta': 'Robar cartas',
+    'obtener 1 recurso': 'Acción de recursos',
+    'combatir': 'Acción de combatir',
+    'evitar': 'Evitar, acción de evitar',
+    'investigar': 'Acción de investigar',
+    'enfrentarse': 'Acción de enfrentarse',
+    'activar': 'Acción de activar',
+  },
+  # single-word titles distinctive enough to link (multi-word titles link by default)
+  'link_allow1': {
+    'jugar','moverse','negociar','desistir','exiliar','reponer','cazador','represalia','alerta',
+    'descomunal','escurridizo','errante','embrujado','condenado','aparicion','oleada',
+    'perdicion','miriada','presa','sello','oculto','rapido','preparada','indiferente',
+    'excepcional','permanente','revelacion','recompensa','calificativos','modificadores',
+    'rasgos','pistas','traumas','experiencia','eliminacion','agotar','agotado',
+    'atacante','atacado',
+  },
+  # phrases never to auto-link (function words / generic connectors)
+  'link_stop': {
+    'a continuacion','por cada','no puede','en blanco','como si','en lugar de','en vez de',
+    'en el orden de juego','por investigador','tu tu s','usos x','unica','la letra x',
+    'diferente s distinta s','mas alejado a','mas cercano a','al','cuando','despues',
+  },
   # version history (oldest -> newest). Newest holds the red "new" markup.
   'versions': [{'v': '1.0', 'date': '2026-05-11'}],
  },
@@ -77,6 +116,27 @@ CFG = {
   'trig': r'(see|consult|refer to)\b',
   'pageword': r'(page|pg\.?|p\.)',
   'pageref': r'on pages?\s*(\d+(?:\s*[-–]\s*\d+)?)',
+  # --- auto-linking of direct-relationship terms inside the glossary ---
+  'link_alias': {
+    'draw 1 card': 'Drawing Cards',
+    'gain 1 resource': 'Resource Action',
+    'engage': 'Engage Action',
+    'fight': 'Fight Action',
+    'evade': 'Evade, Evade Action',
+    'investigate': 'Investigate Action',
+    'activate': 'Activate Action',
+  },
+  'link_allow1': {
+    'move','parley','resign','exile','retaliate','alert','aloof','elusive','hunter',
+    'massive','peril','prey','spawn','surge','seal','hidden','myriad','patrol','doomed',
+    'haunted','fast','permanent','revelation','reward','qualifiers','modifiers','traits',
+    'clues','trauma','experience','elimination','mulligan','exhaust','exhausted',
+    'attacker','attacked',
+  },
+  'link_stop': {
+    'as if','for each or for every','in player order','per investigator','uses x','unique',
+    'the letter x','different','you your','at','when','then','after','may','cannot','gains',
+  },
   'versions': [{'v': '1.0', 'date': '2026-03-18'}, {'v': '1.1', 'date': '2026-06-22'}],
  },
 }
@@ -277,6 +337,100 @@ def linkify(sections, title_index, cfg):
     return linkcount[0]
 
 
+def autolink(sections, title_index, cfg):
+    """Turn the first mention of a related glossary term into an inline link, so the
+    reader can jump straight to it (e.g. 'Robar 1 carta' -> the 'Robar cartas' entry).
+    Conservative on purpose: glossary only, distinctive terms + curated aliases,
+    first occurrence per target per entry, never self-links, capped per entry."""
+    stop = set(cfg.get('link_stop', []))
+    allow1 = set(cfg.get('link_allow1', []))
+    cap = cfg.get('link_cap', 12)
+    phrases = {}                                   # folded phrase -> target id
+    def add(phrase, tgt, force=False):
+        f = fold(re.sub(r'\s+', ' ', phrase).strip(' .:'))
+        if not f or (f in stop and not force):
+            return
+        if not force and (len(f) < 3 or (len(f.split()) == 1 and f not in allow1)):
+            return
+        phrases.setdefault(f, tgt)
+    for s in sections:
+        if s.get('kind') != 'glossary':
+            continue
+        for e in s['entries']:
+            for pv in title_variants(e['title']):
+                add(pv, e['id'])
+    for alias, tgt_title in cfg.get('link_alias', {}).items():
+        tid = title_index.get(norm(tgt_title))
+        if tid:
+            add(alias, tid, force=True)
+        else:
+            print(f'  [warn] autolink alias target not found: {tgt_title!r}')
+    if not phrases:
+        return 0
+    tgt_of = dict(phrases)
+    # longest phrases first so 'cartas de apoyo' wins over any shorter overlap
+    alt = '|'.join(re.escape(p) for p in sorted(phrases, key=len, reverse=True))
+    rx = re.compile(r'(?<![0-9a-z])(' + alt + r')(?![0-9a-z])')
+    count = [0]
+    def process_group(group, e, used, n_here):
+        """Match across a run of consecutive text runs (a phrase like 'Robar 1 carta'
+        may be split by bold formatting), then rebuild preserving original formatting
+        outside the matched spans."""
+        text = ''.join(r['t'] for r in group); ft = fold(text)
+        spans = []; pos = 0                        # char span -> source run
+        for r in group:
+            spans.append((pos, pos + len(r['t']), r)); pos += len(r['t'])
+        def run_at(p):
+            for rs, re_, r in spans:
+                if rs <= p < re_: return r
+            return group[-1]
+        repls = []
+        for m in rx.finditer(ft):
+            tgt = tgt_of.get(m.group(1))
+            if not tgt or tgt == e['id'] or tgt in used or n_here[0] >= cap:
+                continue
+            st, en = m.start(1), m.end(1); base = run_at(st)
+            lk = {'kind': 'link', 't': text[st:en], 'target': tgt}
+            if base.get('bold'):   lk['bold'] = True
+            if base.get('italic'): lk['italic'] = True
+            if base.get('v'):      lk['v'] = base['v']
+            repls.append((st, en, lk)); used.add(tgt); n_here[0] += 1; count[0] += 1
+        if not repls:
+            return group
+        out = []; last = 0
+        def emit_plain(a, b):
+            for rs, re_, r in spans:
+                lo = max(a, rs); hi = min(b, re_)
+                if lo < hi: out.append({**r, 't': text[lo:hi]})
+        for st, en, lk in repls:
+            if st > last: emit_plain(last, st)
+            out.append(lk); last = en
+        if last < len(text): emit_plain(last, len(text))
+        return out
+    def process_entry(e):
+        used = set()                               # targets already linked in this entry
+        for b in e['blocks']:
+            for r in b['runs']:
+                if r.get('kind') == 'link' and r.get('target'):
+                    used.add(r['target'])          # don't duplicate an existing see-also link
+        n_here = [0]
+        for b in e['blocks']:
+            newruns = []; runs = b['runs']; i = 0
+            while i < len(runs):
+                if runs[i].get('kind') != 'text':
+                    newruns.append(runs[i]); i += 1; continue
+                j = i
+                while j < len(runs) and runs[j].get('kind') == 'text': j += 1
+                newruns.extend(process_group(runs[i:j], e, used, n_here)); i = j
+            b['runs'] = newruns
+    for s in sections:
+        if s.get('kind') != 'glossary':
+            continue
+        for e in s['entries']:
+            process_entry(e)
+    return count[0]
+
+
 def apply_versions(allsecs, cfg):
     """Turn the parser's `red` flags into version tags. Runs added in the newest
     version get v=<newest>; entries with a red title -> newIn; entries with new
@@ -325,10 +479,11 @@ def main():
     allsecs = [intro] + sections
     versions, whatsnew = apply_versions(allsecs, cfg)
     links = linkify(allsecs, title_index, cfg)
+    autolinks = autolink(allsecs, title_index, cfg)
     data = {'lang': lang, 'sections': allsecs, 'versions': versions, 'whatsnew': whatsnew}
     json.dump(data, open(out_path,'w',encoding='utf-8'), ensure_ascii=False)
     # ---- report ----
-    print(f'[{lang}] sections: {len(allsecs)}  cross-links: {links}  versions: {[v["v"] for v in versions]}')
+    print(f'[{lang}] sections: {len(allsecs)}  cross-links: {links}  auto-links: {autolinks}  versions: {[v["v"] for v in versions]}')
     for v, wn in whatsnew.items():
         print(f'  what\'s new in v{v}: {len(wn["new"])} new entries, {len(wn["updated"])} updated')
     tot = sum(len(s['entries']) for s in allsecs)
