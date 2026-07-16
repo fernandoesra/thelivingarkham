@@ -78,7 +78,7 @@
       "key": "card-anatomy",
       "id": "card-anatomy",
       "title": "Card Anatomy",
-      "kind": "figures",
+      "kind": "anatomy",
       "figures": [
         "card-anatomy-1",
         "card-anatomy-2"

@@ -31,16 +31,117 @@ def is_head_font(font):   # any Teutonic variant is a heading face
 def is_bullet_font(font):
     return 'Bodoni' in font or 'Ornament' in font
 
-def is_new_red(s):
+def _rgb(s):
+    c = s.get('color', 0)
+    return (c >> 16) & 255, (c >> 8) & 255, c & 255
+
+
+def is_red(s):
+    """Any of the book's dark reds. Which red it is, is a separate question —
+    see `is_callout_red`."""
+    r, g, b = _rgb(s)
+    return r >= 0x80 and g <= 0x40 and b <= 0x40 and (r - g) >= 0x40
+
+
+# The book prints TWO dark reds and means opposite things by them:
+#
+#   the STOP! callout   #8B1F24 (ES v1.0) · #8B1F24 (EN v1.0) · #8B1F23 (EN v1.1)
+#   text added in v1.1  #911D1D — and it appears 244 times in EN v1.1, and not
+#                       once in EN v1.0 or ES v1.0, which added nothing.
+#
+# So the callout's red says "read this twice", not "this is new". They sit about
+# six values apart on one channel, which no threshold should be trusted to split.
+# It does not have to be: the STOP! heading is, by definition, printed in the
+# callout red, so each edition can simply be asked which red is its callout red.
+# Everything else red is then an addition. No constant, no language, no edition.
+# parse_pdf sets this for the document it is reading, and it is the default for
+# everything that runs inside that call. Anything reading spans from a document
+# parse_pdf did not open — card_anatomy.py does — must pass its own document's
+# red explicitly, or it would silently judge one edition's colours by another's.
+_CALLOUT_RED = None
+_KEEP = object()               # "use the document parse_pdf is currently reading"
+
+
+def _commonest_callout_red(spans_iter):
+    seen = {}
+    for s in spans_iter:
+        if is_head_font(s['font']) and s['size'] >= 15.5 and s['text'].strip() and is_red(s):
+            seen[s['color']] = seen.get(s['color'], 0) + 1
+    return max(seen, key=seen.get) if seen else None
+
+
+def learn_callout_red(lines):
+    """This edition's callout red: the commonest red among its big headings."""
+    return _commonest_callout_red(s for ln in lines for s in ln['spans'])
+
+
+def callout_red_of_doc(doc):
+    """The same question, asked of a whole document. For readers that open a PDF
+    themselves instead of going through parse_pdf."""
+    return _commonest_callout_red(
+        s for page in doc
+        for b in page.get_text('dict')['blocks'] if b['type'] == 0
+        for l in b['lines'] for s in l['spans'])
+
+
+def is_callout_red(s, callout_red=_KEEP):
+    """Printed in this edition's callout red (tight tolerance — the two reds are
+    only ~6/255 apart, so anything looser would merge them again)."""
+    ref = _CALLOUT_RED if callout_red is _KEEP else callout_red
+    if ref is None:
+        return False
+    r, g, b = _rgb(s)
+    R, G, B = (ref >> 16) & 255, (ref >> 8) & 255, ref & 255
+    return abs(r - R) <= 3 and abs(g - G) <= 3 and abs(b - B) <= 3
+
+
+def is_teal(s):
+    """The book's teal, used for cross-references and for subsection headings.
+    Matched by range, not by one value: the Spanish and English editions print it
+    a shade apart (#306360 vs #30635F)."""
+    r, g, b = _rgb(s)
+    return r < 0x50 and g > 0x50 and abs(g - b) <= 0x20 and g > r + 0x20
+
+
+def is_new_red(s, callout_red=_KEEP):
     """True for the dark-red text that marks content added in this version.
-    Excludes the icon font and the big 'STOP!' callout heading (also reddish)."""
+
+    Not every red is that red. The STOP! callout is printed red for emphasis, in
+    every edition including the first ones — reading it as an addition made the
+    English STOP! box claim it was "Rewritten in 1.1" and put it in What's New,
+    when it is word-for-word what v1.0 printed.
+    """
     if is_icon_font(s['font']):
+        return False
+    if not is_red(s):
+        return False
+    if is_callout_red(s, callout_red):     # the book's emphasis, not its diff
         return False
     if is_head_font(s['font']) and s['size'] >= 15.5:
         return False
-    c = s.get('color', 0)
-    r, g, b = (c >> 16) & 255, (c >> 8) & 255, c & 255
-    return r >= 0x80 and g <= 0x40 and b <= 0x40 and (r - g) >= 0x40
+    return True
+
+
+def heading_role(spans):
+    """What the book is doing with this heading, read from how it prints it.
+
+    A big red heading is a STOP! callout; a big teal one opens a subsection.
+    Anything else is an ordinary heading — including the Spanish "La regla
+    nefasta", which is merely set two points larger than its siblings.
+    """
+    head = [s for s in spans if is_head_font(s['font']) and s['text'].strip()]
+    if not head:
+        return None
+    big = [s for s in head if s['size'] >= 15.5]
+    if not big:
+        return None
+    # the callout's own red, not merely a red: a chapter heading that an edition
+    # printed red because it added it is an addition, not a notice
+    if any(is_callout_red(s) for s in big):
+        return 'callout'
+    if all(is_teal(s) for s in big):
+        return 'subhead'
+    return None
 
 def span_kind(s):
     f, sz = s['font'], s['size']
@@ -157,8 +258,12 @@ def line_is_heading(line):
         return lvl
     return None
 
-def build_runs(spans):
-    """Turn a list of spans into inline runs, merging adjacent text of same style."""
+def build_runs(spans, callout_red=_KEEP):
+    """Turn a list of spans into inline runs, merging adjacent text of same style.
+
+    `callout_red` names the edition these spans came from (see `is_new_red`).
+    Leave it alone inside parse_pdf; pass it when the spans come from a document
+    opened elsewhere."""
     runs = []
     def push(kind, **kw):
         runs.append(dict(kind=kind, **kw))
@@ -177,7 +282,7 @@ def build_runs(spans):
         bold = 'Bold' in f or 'Smbd' in f or 'Semibold' in f
         italic = 'Italic' in f or '-It' in f
         ref = (s.get('color', 0) == TEAL)
-        red = is_new_red(s)
+        red = is_new_red(s, callout_red)
         # merge with previous compatible text run
         if runs and runs[-1]['kind'] == 'text' and runs[-1]['bold'] == bold \
                 and runs[-1]['italic'] == italic and runs[-1]['ref'] == ref and runs[-1]['red'] == red:
@@ -330,15 +435,22 @@ def parse(pack):
 def parse_pdf(pdf, masks):
     """Any edition. Older ones are read for comparison only, with no masking:
     their montage clips belong to a different layout."""
+    global _CALLOUT_RED
     lines, doc = collect_lines(pdf, masks)
+    # Ask this edition which of its reds is the callout's, before any run is built
+    # from it. Set per document: history.py parses the older editions through here
+    # too, and each one prints its own shade.
+    _CALLOUT_RED = learn_callout_red(lines)
     nodes = []
     cur = None
 
-    def new_node(level, title, page, title_runs=None):
+    def new_node(level, title, page, title_runs=None, role=None):
         nonlocal cur
         node = {'level': level, 'title': title, 'page': page, 'raw': []}
         if title_runs:
             node['title_runs'] = title_runs
+        if role:
+            node['role'] = role
         nodes.append(node)
         cur = node
         return node
@@ -370,10 +482,13 @@ def parse_pdf(pdf, masks):
             plain = re.sub(r'\s+', ' ', plain).strip(' .')
             truns = merge_runs(build_runs(hspans))
             has_icon = any(r['kind'] == 'icon' for r in truns)
-            # NB: a red heading means "something in this entry changed", NOT "this
-            # entry is new" — see tools/history.py. Whether it is new is decided by
-            # comparing editions, not by reading a colour.
-            new_node(best, plain, line['page'], truns if has_icon else None)
+            # NB: a red heading at entry size means "something in this entry
+            # changed", NOT "this entry is new" — see tools/history.py. Whether it
+            # is new is decided by comparing editions, not by reading a colour.
+            # A red heading at *subsection* size is a different thing entirely: a
+            # STOP! callout. heading_role tells them apart.
+            new_node(best, plain, line['page'], truns if has_icon else None,
+                     heading_role(hspans))
             i = j
             continue
         if cur is None:

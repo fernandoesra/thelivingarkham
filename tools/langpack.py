@@ -35,7 +35,13 @@ SECTION_KEYS = [
     'card-anatomy', 'campaign', 'deck-building', 'errata', 'faq', 'optional-rules',
     'reprints', 'icon-reference', 'encounter-icons', 'quick-reference',
 ]
-SECTION_KINDS = ('glossary', 'rules', 'figures')
+# How a chapter is read:
+#   glossary  A-Z entries          rules     prose entries
+#   figures   shown as page images (nothing to read back out)
+#   anatomy   picture pages that ARE read back out — the cards stay images, the
+#             key and the callouts are rebuilt (tools/card_anatomy.py). The pages
+#             come from the chapter's declared figures, so opting in is one word.
+SECTION_KINDS = ('glossary', 'rules', 'figures', 'anatomy')
 
 
 class PackError(Exception):

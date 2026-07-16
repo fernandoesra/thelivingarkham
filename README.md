@@ -56,7 +56,7 @@ python tools/inspect_pdf.py de --sections
 
 It prints your chapter headings **and a ready-to-paste `"sections"` block**. Paste it into `lang.json` and fix the two things it can only guess:
 
-* **`kind`** — `"glossary"` for the glossary, `"figures"` for picture-only chapters (card anatomy, icon tables, quick reference), `"rules"` for the rest.
+* **`kind`** — `"glossary"` for the glossary, `"anatomy"` for the card-anatomy chapter, `"figures"` for the remaining picture-only chapters (icon tables, quick reference), `"rules"` for the rest.
 * **`key`** — how the language switcher finds the same chapter in another language. It must come from the fixed list printed by the tool. Readers never see it.
 
 `id` is the URL of the chapter (`#de/<id>`). Pick it once: changing it later breaks people's links.

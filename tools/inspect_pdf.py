@@ -21,7 +21,9 @@ import fitz
 import langpack
 import parse_grimoire as P
 
-GUESS_KINDS = {'glossary': 'glossary'}
+# The key already says which chapter it is, so the kind that goes with it is not a
+# guess at all for these two. Everything else is prose unless its author says so.
+GUESS_KINDS = {'glossary': 'glossary', 'card-anatomy': 'anatomy'}
 
 
 def resolve(arg):
@@ -64,8 +66,10 @@ def sections(pack, pdf):
     print('\n' + '-' * 70)
     print('A starting point for "sections" in your lang.json — CHECK IT:')
     print('  · "key" is guessed purely from the order of the chapters.')
-    print('  · "kind" is "rules" for everything except the glossary. Use "figures"')
-    print('    for the picture-only chapters (card anatomy, icon tables, quick reference).')
+    print('  · "kind" is "rules" for prose, "glossary" for the A-Z, "anatomy" for the')
+    print('    card-anatomy chapter (it gets rebuilt: only the cards stay pictures),')
+    print('    and "figures" for the remaining picture-only ones (icon tables, quick')
+    print('    reference), which are shown as page images.')
     print('  · Only numbered chapters ("I.", "II.", …) are listed. If your book ends')
     print('    with an unnumbered sheet, add it by hand with "num": "".')
     print(f'  · Valid keys: {", ".join(langpack.SECTION_KEYS)}')

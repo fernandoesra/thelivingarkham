@@ -73,7 +73,7 @@
       "key": "card-anatomy",
       "id": "elementos-cartas",
       "title": "Elementos de las cartas",
-      "kind": "figures",
+      "kind": "anatomy",
       "figures": [
         "card-location",
         "card-agenda-act-treachery-enemy",

@@ -6,6 +6,8 @@ assets/img/images_*.json
 assets/icons/_contact_sheet.png
 # scratch renders from tools/inspect_pdf.py --grid
 assets/img/_inspect-*.png
+# test output
+a11y-report.json
 # python
 __pycache__/
 *.pyc

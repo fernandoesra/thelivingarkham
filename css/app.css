@@ -184,8 +184,12 @@ html[data-theme="light"] .tla-nav{background:rgba(90,68,20,.05)}
 /* hero banner — artwork at assets/general_banner_01.png (2000×700, 20:7).
    Layered scrims (centre vignette + bottom gradient) keep the white title legible over the busy art.
    If the file is missing, the fallback gradient shows automatically (no broken image). */
+/* max-width:100% is load-bearing: with an aspect-ratio and a min-height that
+   wins, the browser derives the WIDTH from the ratio (216 x 20/7 = 617px) and the
+   banner pushes the whole landing sideways on a phone. */
 .tla-hero{position:relative; margin:0 0 26px; border-radius:16px; overflow:hidden;
-  aspect-ratio:20/7; max-height:400px; min-height:216px; border:1px solid var(--edge2);
+  aspect-ratio:20/7; max-height:400px; min-height:216px; max-width:100%;
+  border:1px solid var(--edge2);
   background-color:var(--panel2);
   background-image:
     radial-gradient(78% 96% at 50% 52%, rgba(6,8,12,.64) 0%, rgba(6,8,12,.16) 60%, rgba(6,8,12,0) 82%),
@@ -279,9 +283,126 @@ html[data-theme="light"] .tla-azfilter{box-shadow:0 12px 28px -14px rgba(70,52,2
   display:inline-flex; align-items:center; justify-content:center;
   min-width:24px; min-height:24px; vertical-align:middle}
 .tla-entry:hover h2 .anchor,.tla-entry h2 .anchor:focus-visible{opacity:.75}
-.tla-entry.sub h2{font-size:19px; color:var(--ink)}
+/* A subsection heading: in the book it is set larger and in teal, with a rule
+   under it, and it opens the run of entries that follow. It used to render
+   SMALLER than them — the flag that marked it was read backwards. */
+.tla-entry.is-subhead h2{color:var(--teal2); font-size:27px; margin-top:38px;
+  padding-bottom:8px; border-bottom:1px solid var(--teal); display:block}
+.tla-entry.is-subhead h2 .anchor{float:right}
+
+/* STOP! — in the book a red-ruled callout in the margin, not a heading with a
+   paragraph under it. It interrupts you on purpose, so it looks like it does. */
+.tla-entry.is-callout{border:1px solid var(--new-edge); border-radius:14px;
+  padding:20px 26px 22px; margin:30px 0; text-align:center;
+  background:linear-gradient(180deg,var(--new-bg),transparent 70%),var(--panel)}
+.tla-entry.is-callout h2{justify-content:center; color:var(--new); font-size:30px;
+  margin:0 0 4px; letter-spacing:1px}
+.tla-entry.is-callout .tla-p{color:var(--ink); max-width:62ch; margin:0 auto}
+.tla-entry.is-callout .tla-p:first-of-type{font-family:var(--ff-head); font-size:19px;
+  color:var(--new); letter-spacing:.4px; margin-bottom:12px;
+  text-decoration:underline; text-underline-offset:5px; text-decoration-thickness:1px}
+.tla-entry.is-callout .anchor{display:none}
+
+/* ---------- phase diagrams ---------- */
+/* The book draws these as boxes joined by fat arrows: teal for a numbered step,
+   red for a player window. Same shapes here, built from the same text. */
+.tla-diagbadge{font-family:var(--ff-ui); font-size:11px; font-weight:700; letter-spacing:.6px;
+  text-transform:uppercase; color:var(--teal2); border:1px solid var(--teal);
+  border-radius:6px; padding:1px 7px; vertical-align:middle; white-space:nowrap}
+.tla-toc a .tla-diagbadge{font-size:9.5px; padding:0 5px; margin-left:4px}
+.tla-flowwrap{position:relative; max-width:620px; margin:22px auto 30px}
+.tla-flow{list-style:none; margin:0; padding:0}
+/* the loops the book curves back up the right-hand side. The boxes' own words
+   already say where each one goes, so these are decoration — JS only sets how far
+   they reach, because that depends on how the text lays out. */
+.tla-flow-loop{position:absolute; pointer-events:none;
+  border:2px solid var(--teal); border-left:0; border-radius:0 10px 10px 0}
+.tla-flow-loop::before{content:''; position:absolute; top:-6px; left:-1px;
+  border:6px solid transparent; border-right-color:var(--teal); border-left:0}
+.tla-flow-item{display:flex; flex-direction:column; align-items:center}
+.tla-flow-box{width:100%; border:2px solid var(--teal); border-radius:26px;
+  padding:12px 22px; text-align:center; background:var(--panel);
+  font-size:15.5px; line-height:1.5; color:var(--ink)}
+.tla-flow-item.is-window .tla-flow-box{border-color:var(--new-edge); color:var(--new);
+  font-family:var(--ff-ui); font-weight:700; font-size:14.5px; padding:9px 22px}
+.tla-flow-item.is-window .ico{--icon:var(--new)}
+.tla-flow-item.is-goto .tla-flow-box{font-style:italic; font-weight:600}
+/* the arrow takes the colour of the box it leaves, as in the book */
+.tla-flow-arrow{display:block; width:46px; height:26px; margin:0; flex:0 0 auto;
+  background:var(--teal);
+  clip-path:polygon(32% 0, 68% 0, 68% 42%, 100% 42%, 50% 100%, 0 42%, 32% 42%)}
+.tla-flow-item.is-window .tla-flow-arrow{background:var(--new-edge)}
+.tla-flow-box.flash{animation:flowflash 1.4s ease-out}
+@keyframes flowflash{from{border-color:var(--gold); box-shadow:0 0 0 4px var(--mark)}
+  to{border-color:var(--teal); box-shadow:none}}
+/* a step number that the book loops back to */
+.tla-flowref{color:var(--teal2); font-weight:700; cursor:pointer;
+  text-decoration:underline; text-underline-offset:2px; text-decoration-style:dotted}
+.tla-flowref:hover{color:var(--gold2)}
 .tla-entry.flash{animation:tlaflash 1.6s ease}
 @keyframes tlaflash{0%,18%{background:var(--mark)}100%{background:transparent}}
+
+/* ---------- card anatomy ---------- */
+/* The card stays a picture; everything the book drew around it — the numbered
+   diamonds, the arrows, the key — is rebuilt as text. `data-hot` on the section
+   is the whole cross-highlight: set it to a number and both sides light up. */
+.tla-anat{margin:26px 0 34px}
+.tla-anat-h{font-family:var(--ff-head); font-size:22px; color:var(--gold2);
+  margin:0 0 6px; font-weight:400}
+.tla-anat-hint{margin:0 0 16px; font-size:14.5px; color:var(--muted); max-width:62ch}
+.tla-anat-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:26px 30px;
+  align-items:start}
+.tla-anat-cards{display:flex; flex-direction:column; gap:22px; min-width:0}
+.tla-anatcard{margin:0; min-width:0}
+.tla-anatcard-t{font-family:var(--ff-head); font-size:17px; color:var(--gold2);
+  margin:0 0 7px; text-align:center}
+/* the frame is the marker's positioning context, so it must hug the image exactly */
+.tla-anatcard-frame{position:relative; display:block; line-height:0}
+.tla-anatcard-img{display:block; width:100%; height:auto; border-radius:9px;
+  background:var(--figbg)}
+
+/* A marker sits where the book's arrowhead pointed. It is translated onto its
+   own centre, so the percentage is the point itself and stays the point at any
+   size. 26px keeps it a legal target (WCAG 2.5.8) even on a 320px screen — at
+   that width the closest two markers in the book are still ~26px apart. */
+.tla-anatmark{position:absolute; width:26px; height:26px; margin:-13px 0 0 -13px;
+  padding:0; border-radius:50%; cursor:pointer;
+  border:2px solid var(--gold); background:var(--panel); color:var(--gold2);
+  font-family:var(--ff-ui); font-size:12.5px; font-weight:700; line-height:1;
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 1px 4px rgba(0,0,0,.55); transition:transform .12s ease}
+.tla-anatmark:hover{background:var(--gold); color:var(--on-gold); transform:scale(1.15)}
+.tla-anat[data-hot] .tla-anatmark{opacity:.4}
+.tla-anat .tla-anatmark.is-hot{opacity:1; background:var(--gold);
+  color:var(--on-gold); transform:scale(1.2); box-shadow:0 0 0 4px var(--mark)}
+
+.tla-anat-key{margin:0; padding:0; list-style:none; counter-reset:none}
+.tla-anat-key > li{display:flex; gap:10px; align-items:baseline;
+  padding:7px 9px; border-radius:8px; font-size:15.5px; line-height:1.55;
+  color:var(--ink); border:1px solid transparent}
+.tla-anat-key > li.is-hot{background:var(--mark); border-color:var(--gold)}
+.tla-anat-key > li.flash{animation:tlaflash 1.6s ease}
+.tla-anat-n{flex:0 0 auto; min-width:22px; height:22px; border-radius:50%;
+  border:1px solid var(--teal); color:var(--teal2); background:var(--panel);
+  font-family:var(--ff-ui); font-size:11.5px; font-weight:700;
+  display:inline-flex; align-items:center; justify-content:center; padding:0 4px}
+.tla-anat-key > li.is-hot .tla-anat-n{border-color:var(--gold); color:var(--gold2)}
+.tla-anat-term{color:var(--gold2); font-weight:600}
+.tla-anat-txt{min-width:0}
+
+/* One column once the two would fight for width. The cards keep their size —
+   they are the thing being looked at — and the key reads under them. */
+@media (max-width:1080px){
+  .tla-anat-grid{grid-template-columns:minmax(0,1fr); gap:22px}
+  .tla-anat-cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px}
+}
+@media (max-width:520px){
+  .tla-anat-cards{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){
+  .tla-anatmark,.tla-anatmark:hover,.tla-anat .tla-anatmark.is-hot{transition:none; transform:none}
+  .tla-anat-key > li.flash{animation:none}
+}
 .tla-p{margin:0 0 13px; font-size:17px; color:var(--ink)}
 .tla-bul{list-style:none; margin:0 0 13px; padding:0}
 .tla-bul li{position:relative; padding-left:22px; margin:0 0 9px; font-size:16.5px; color:var(--ink2)}
@@ -426,6 +547,7 @@ html[data-theme="light"] .tla-figmodal{background:rgba(44,34,14,.38)}
 .tla-toc a{display:block; font-family:var(--ff-ui); font-size:13.5px; color:var(--muted); padding:5px 9px; border-left:2px solid transparent; line-height:1.4}
 .tla-toc a:hover{color:var(--ink2); text-decoration:none}
 .tla-toc a.on{color:var(--gold2); border-left-color:var(--gold)}
+.tla-toc a.is-subhead{color:var(--teal2); font-weight:700; margin-top:8px}
 .tla-toc a .ico{--icon:var(--muted)}
 
 /* ---------- footer (always visible) ---------- */

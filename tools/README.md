@@ -27,7 +27,8 @@ and `assets/{icons,img}/`.
 | `icons.py`           | the icon font's codepoint → name map (shared, language-independent) |
 | `parse_grimoire.py`  | PDF text → structured nodes (font/column-aware, faithful text) |
 | `extract_icons.py`   | game-icon glyphs → recolourable PNG masks |
-| `render_images.py`   | card-anatomy / icon-gallery pages + montages → JPEG figures |
+| `card_anatomy.py`    | reads the card-anatomy chapter back out of the page's vector art |
+| `render_images.py`   | icon-gallery pages, montages and anatomy cards → JPEG figures |
 | `assemble.py`        | nodes → sections, cross-references, auto-links, figures → `grimoire_<code>.json` |
 | `validate_coverage.py` | checks parsed text is present in the source PDF |
 | `ingest.py`          | runs the whole pipeline for one or every language |
@@ -116,6 +117,143 @@ are grown to it, because a faithful 0.39em speck is not readable on a screen.
 
 The basic-weakness symbol is drawn art rather than a glyph, so it is still clipped from
 the page to a PNG mask and sized like a capital letter.
+
+## What the book's typography means (`parse_grimoire.heading_role`)
+
+The book says things with print that it never says in words, and the parser reads
+them so no pack has to configure them:
+
+| in the book | means | on the site |
+|---|---|---|
+| a big **callout-red** heading | a STOP! callout | a red-ruled box |
+| a big **teal** heading | a subsection opens here | a teal heading with a rule |
+| a big **plain** heading | nothing — just set larger | an ordinary entry |
+
+That last row matters: the Spanish edition sets *La regla nefasta* two points
+larger than its siblings and means nothing by it. Reading size alone made it a
+*lesser* heading than the rules around it; reading colour too gets it right.
+
+The teal is matched by range, not by one value — the Spanish and English editions
+print it a shade apart (`#306360` vs `#30635F`).
+
+### The book prints two reds, and means opposite things by them
+
+| red | what it means | where it appears |
+|---|---|---|
+| `#8B1F24` · `#8B1F23` | **a STOP! callout** — read this twice | ES v1.0, EN v1.0 **and** EN v1.1 |
+| `#911D1D` | **added in this edition** | 244× in EN v1.1; **not once** in either v1.0 |
+
+That second row is the proof: a first edition adds nothing, and sure enough
+neither first edition prints that red at all — while both print the callout red.
+So the callout's red is emphasis, not a diff. Reading it as a diff made the
+English **STOP!** box announce *"Rewritten in 1.1"* and appear in What's New,
+when it is word-for-word what v1.0 printed.
+
+The two sit about **six values apart on one channel**, so no threshold should be
+trusted to split them — and none has to. The STOP! heading is *by definition*
+printed in the callout red, so `learn_callout_red` simply asks each edition which
+red is its callout red, and everything else red is an addition. No constant, no
+language, no edition baked in. A pack whose edition has no callout at all gets
+`None`, and then every red reads as an addition — which is right, because there is
+no callout red for it to be confused with.
+
+## Phase diagrams (`assemble.flow_of`)
+
+Each phase is drawn in the book as a flowchart: teal boxes for the numbered
+steps, red for the player windows, arrows between. The parser only sees the text
+inside the boxes, so `flow_of` recognises the diagram by its **shape** and the app
+rebuilds it. No wording is involved, so it works in any language:
+
+* **step** — a bold lead ending in a number and a colon (`Paso 1.1:` / `Step 1.1:`)
+  followed by the rest of the sentence
+* **player window** — a block that opens with the game's free-trigger icon
+* **go to** — a single bold + italic line
+
+The prose that details the same phase cannot be mistaken for it: its headings are
+a whole bold sentence with no colon.
+
+`flow` is a *classification* of the entry's blocks (`[{kind, n, i}]`), not a copy
+of them, so the text stays in one place and search still sees it.
+
+### The loops (`assemble.flow_loops`)
+
+The book curves arrows back up the right-hand side. Where each one goes is
+written inside the boxes, so `flow_loops` reads it without knowing the language:
+
+* a step sitting right below a player window that **names that window** loops back
+  to it — the label is taken from the window box itself, not from a word list;
+* a step that names an **earlier** step's number loops back to that step. Direction
+  does the work: a number further down the diagram is just the next arrow.
+
+Both were checked against the editions' own vector art (the loops are stroked
+paths beside the boxes; `page.get_drawings()` finds them). The two rules reproduce
+the three loops the book draws — 2.2.1→window and 2.2.2→2.2 in the investigation
+phase, 3.3→window in the enemy phase — in both languages, with nothing spurious.
+That is why the rules are trusted and the geometry is not shipped.
+
+`loops` is `[[from, to], …]` of flow indices. The app measures how far each one
+must reach (the text decides that, and it changes with the pane) and nests the
+longest outermost, as the book does.
+
+## Card anatomy (`card_anatomy.py`)
+
+The book draws this chapter rather than writing it: a card, numbered diamonds
+around it, a teal arrow curving from each diamond to the exact spot it means, and
+a key explaining the numbers. Shipped as a page scan — which it used to be — none
+of that text can be selected, searched, translated or read aloud, and the arrows
+say nothing at all to anyone who cannot see them.
+
+So it is read back out, and **only the card stays a picture**. Everything is found
+by shape; no pack names a coordinate:
+
+| in the book | found as |
+|---|---|
+| a card | a rounded rect — four corner curves and four sides (`clclclcl`) |
+| an arrow | a fat teal Bézier + a teal triangle; the apex is the vertex opposite the shortest side |
+| a numbered diamond | a big Teutonic number (set twice, so the text doubles: `13` → `1313`) |
+| the key | a pale panel of `N. Term: description` items |
+
+The arrow is the one thing the scan threw away, and it carries the meaning. Its
+apex, as a percentage of the card, becomes a marker the reader can hover or focus;
+the key becomes an ordered list, auto-linked into the glossary like any prose.
+
+A card belongs to the last key seen at or before its page — which is how the book
+reads, a key heading the cards it explains. The term is split from the description
+on the **colon**, not on the bolding: the book bolds the term, but a single run can
+straddle the colon, and the colon never lies.
+
+> **Why this is trusted.** The Spanish edition spreads the chapter over four
+> portrait pages; the English one compresses it onto two-page spreads. The layouts
+> have nothing in common. Both are read by these rules alone and both come back
+> with **13 cards, 50 markers and 2 keys** — and the same numbers on the same
+> cards, with no arrow left pointing at nothing. Agreement that exact, across
+> layouts that different, is not something a wrong rule produces.
+
+### Getting the arrows off the cards (`strip_callouts`)
+
+The book tucks the arrows and diamonds *over* the cards' edges, so a card clipped
+straight off the page comes out with arrowheads and parchment wedges lying on it.
+They are rebuilt as markers, so on the card itself they are damage — and they are
+removed before the card is rendered, leaving everything else exactly as printed.
+
+Each arrow is one self-contained block of the page's content stream whose `cm`
+translate *is* the arrow's own end point — the very thing already located. So the
+blocks are matched by geometry, not by their text. The diamonds are Form XObjects;
+only the call that draws them on this page is dropped, never the XObject itself,
+which may be shared. Redaction is the obvious tool and does not work here: MuPDF
+does not count these paths as covered, and it would paint over the card art that
+is the thing being kept.
+
+`strip_callouts` must run **after** `build` — it erases the art `build` reads.
+
+### Opting a pack in
+
+One word: the chapter's section says `"kind": "anatomy"` instead of `"figures"`.
+The pack already lists that chapter's figures, and each figure names its page, so
+that list is where the pages come from — nothing else to declare. If the rebuild
+comes back empty the section quietly falls back to `figures` and the page scans are
+rendered after all, so a pack can never end up with a blank chapter. (When it
+succeeds, those scans are not rendered at all — they are ~1.6 MB a language.)
 
 ## Version history (`history.py`)
 

@@ -95,7 +95,10 @@ function runsHTML(runs,suppressNew){
   for(var i=0;i<runs.length;i++){var r=runs[i];
     if(r.kind==='icon'){h+=iconHTML(r.name); continue;}
     if(r.kind==='pageref'){h+='<span class="tla-pageref" title="'+esc(t('origpage')+' '+r.n)+'">('+esc(t('origpage'))+' '+esc(r.n)+')</span>'; continue;}
-    var inner=(r.kind==='link')?'<a class="xref" data-t="'+esc(r.target)+'">'+wrap(esc(r.t),r)+'</a>':wrap(esc(r.t),r);
+    var inner;
+    if(r.kind==='link')          inner='<a class="xref" data-t="'+esc(r.target)+'">'+wrap(esc(r.t),r)+'</a>';
+    else if(r.kind==='flowref')  inner='<a class="tla-flowref" data-flow="'+esc(r.target)+'">'+wrap(esc(r.t),r)+'</a>';
+    else                         inner=wrap(esc(r.t),r);
     if(r.v && !suppressNew){inner='<span class="tla-new" title="'+esc(t('addedin')+r.v)+'">'+inner+'</span>';}
     h+=inner;
   }
@@ -161,6 +164,101 @@ function verProvenance(e){
   if(!bits.length)return '';
   return '<p class="tla-prov">'+bits.join(' · ')+'</p>';
 }
+/* ---------- phase diagrams ---------- */
+/* The book draws each phase as a flowchart — boxes joined by arrows, teal for
+   the numbered steps and red for the player windows. Rebuilt here rather than
+   flattened to a list, because the shape IS the rule: it shows the loops.
+
+   Semantically it is an ordered list, so a screen reader reads it as the
+   sequence it is; the arrows are decoration and are hidden from it. */
+/* The book heads the diagram and the prose that details it with the same words.
+   On a page that shows both, that reads as the same thing twice — so the diagram
+   says what it is. */
+function diagBadge(e){
+  return e.flow?' <span class="tla-diagbadge">'+esc(t('diagram'))+'</span>':'';
+}
+/* A callout is a notice the chapter raises in passing — the book sets it in a
+   ruled box mid-page, not as a heading. Listing it as a subsection made "¡ALTO!"
+   the first thing under "Juego y orden de resolución", as though the chapter
+   opened with it. It stays exactly where the book puts it on the page; it just
+   isn't one of the places you navigate to. */
+function inToc(e){ return e.role!=='callout'; }
+function flowStepNums(e){
+  var out={}; (e.flow||[]).forEach(function(it){ if(it.n)out[it.n]=1; });
+  return out;
+}
+/* "return to 2.2", "proceed to 2.2.2" — the book's loops are written as step
+   numbers inside the boxes. Split those out into their own runs so the reader can
+   click one and land on that box. Numbers read the same in every language, so no
+   wording is involved.
+   Splitting rather than rendering here keeps every other run property — a diff
+   mark, bold, an icon — in the one place that knows about them: runsHTML. */
+function flowRuns(runs,nums,base){
+  var out=[];
+  for(var i=0;i<runs.length;i++){
+    var r=runs[i];
+    if(r.kind!=='text'){out.push(r); continue;}
+    var parts=r.t.split(/(\d+(?:\.\d+)+)/);
+    for(var j=0;j<parts.length;j++){
+      if(!parts[j])continue;
+      var copy={},k;
+      for(k in r){if(Object.prototype.hasOwnProperty.call(r,k))copy[k]=r[k];}
+      copy.t=parts[j];
+      if(j%2===1 && nums[parts[j]]){copy.kind='flowref'; copy.target=base+'-'+parts[j];}
+      out.push(copy);
+    }
+  }
+  return out;
+}
+function flowHTML(e){
+  var nums=flowStepNums(e), base='fl-'+e.id;
+  /* The loops run up the right-hand side, so the boxes give up room for them —
+     the same amount on both sides, so the diagram stays centred on its boxes.
+     Longest loop outermost, as the book nests them. */
+  var loops=(e.loops||[]).slice().sort(function(a,b){return (b[0]-b[1])-(a[0]-a[1]);});
+  /* longest first, and lane 0 is the outermost — so a long loop arcs around a
+     short one instead of cutting through it, the way the book nests them */
+  var lane={}; loops.forEach(function(l,i){lane[l[0]+'-'+l[1]]=i;});
+  var pad=loops.length?(loops.length*12+8):0;
+  var h='<div class="tla-flowwrap"><ol class="tla-flow" aria-label="'+esc(t('flowlabel'))+'"'
+       +(pad?' style="padding-left:'+pad+'px;padding-right:'+pad+'px"':'')+'>';
+  e.flow.forEach(function(it,idx){
+    var b=e.blocks[it.i]; if(!b)return;
+    var last=idx===e.flow.length-1;
+    var id=it.n?(' id="'+esc(base+'-'+it.n)+'"'):'';
+    h+='<li class="tla-flow-item is-'+esc(it.kind)+'">';
+    h+='<div class="tla-flow-box"'+id+'>'+runsHTML(flowRuns(b.runs,nums,base))+'</div>';
+    if(!last)h+='<span class="tla-flow-arrow" aria-hidden="true"></span>';
+    h+='</li>';
+  });
+  h+='</ol>';
+  /* Decoration: the loop is already stated in the box's own words ("return to
+     2.2"), so a screen reader gains nothing from the drawing. */
+  loops.forEach(function(l){
+    /* left edge at the boxes' right edge, right edge out at this loop's lane —
+       so the innermost loop's vertical line sits closest to the boxes, as in the
+       book, and the longest one runs outermost. */
+    var off=lane[l[0]+'-'+l[1]]*12;
+    h+='<span class="tla-flow-loop" aria-hidden="true" data-from="'+l[0]+'" data-to="'+l[1]+'"'
+      +' style="right:'+off+'px;width:'+(pad-off)+'px"></span>';
+  });
+  return h+'</div>';
+}
+/* The loops span from one box up to another, so their height is only knowable
+   once the text has laid out — and it changes when the pane does. */
+function layoutFlowLoops(){
+  [].forEach.call(elMain.querySelectorAll('.tla-flowwrap'),function(wrap){
+    var boxes=wrap.querySelectorAll('.tla-flow-box');
+    [].forEach.call(wrap.querySelectorAll('.tla-flow-loop'),function(el){
+      var a=boxes[+el.getAttribute('data-from')], b=boxes[+el.getAttribute('data-to')];
+      if(!a||!b){el.style.display='none'; return;}
+      var top=b.offsetTop+b.offsetHeight/2, bottom=a.offsetTop+a.offsetHeight/2;
+      el.style.top=top+'px';
+      el.style.height=Math.max(bottom-top,0)+'px';
+    });
+  });
+}
+
 /* montage figures (example card-art resources) shown inside a glossary entry,
    with an "i" that reveals the textual alternative (card data). */
 function figSrc(f){  // credit band: original page + document version
@@ -267,9 +365,12 @@ function buildNav(){
     h+='<div class="tla-nav-sec'+(news?' is-news':'')+'" data-si="'+si+'" id="navsec-'+s.id+'">';
     h+='<button class="tla-nav-btn" type="button" data-si="'+si+'">'+num+'<span>'+esc(s.title)+'</span>'+cnt+'</button>';
     if(s.kind!=='glossary' && n){
-      h+='<div class="tla-sublist">';
-      sectionEntries(s).forEach(function(e){h+='<button class="tla-sublink" type="button" data-eid="'+esc(e.id)+'">'+titleHTML(e)+'</button>';});
-      h+='</div>';
+      var subs=sectionEntries(s).filter(inToc);
+      if(subs.length){
+        h+='<div class="tla-sublist">';
+        subs.forEach(function(e){h+='<button class="tla-sublink" type="button" data-eid="'+esc(e.id)+'">'+titleHTML(e)+diagBadge(e)+'</button>';});
+        h+='</div>';
+      }
     }
     h+='</div>';
   });
@@ -310,6 +411,110 @@ function setGlossFilter(v){
 }
 
 /* ---------- render section ---------- */
+/* ---------- card anatomy ---------- */
+/* The book draws this chapter: a card, numbered diamonds around it, an arrow
+   from each diamond to the exact spot it means, and a key explaining the
+   numbers. Shipped as a page scan — which is what it used to be — none of that
+   text can be selected, searched, translated or read aloud, and the arrows say
+   nothing to anyone who cannot see them.
+
+   So only the card stays a picture. Each arrow becomes a marker sitting where
+   its arrowhead pointed (tools/card_anatomy.py reads that out of the PDF's own
+   vector art), and the key becomes a real ordered list, auto-linked into the
+   glossary like any other prose.
+
+   The link between the two runs both ways: a marker names its key item, and a
+   key item highlights every marker that points at it. That is one `data-hot`
+   attribute plus CSS — no per-node state to keep in sync. */
+function anatTerm(it){ return plainOfRuns(it.term)||String(it.n); }
+function anatMarkers(card,k,items){
+  var h='';
+  card.markers.forEach(function(m,i){
+    var it=items[m.n]; if(!it)return;
+    var lbl=t('anatmark').replace('{n}',m.n).replace('{t}',anatTerm(it));
+    h+='<button class="tla-anatmark" type="button" data-n="'+esc(String(m.n))+'"'
+      +' data-key="'+esc(k.id)+'" aria-label="'+esc(lbl)+'"'
+      +' style="left:'+m.x+'%;top:'+m.y+'%">'+esc(String(m.n))+'</button>';
+  });
+  return h;
+}
+function anatomyHTML(s){
+  var h='';
+  (s.keys||[]).forEach(function(k){
+    var items={}; k.items.forEach(function(it){items[it.n]=it;});
+    var kid='anat-'+esc(k.id);
+    h+='<section class="tla-anat" data-key="'+esc(k.id)+'" aria-labelledby="'+kid+'-h">';
+    h+='<h2 class="tla-anat-h" id="'+kid+'-h">'+esc(k.title)+'</h2>';
+    h+='<p class="tla-anat-hint">'+esc(t('anathint'))+'</p>';
+    h+='<div class="tla-anat-grid">';
+    h+='<div class="tla-anat-cards">';
+    k.cards.forEach(function(c){
+      var wh=c.w?(' width="'+c.w+'" height="'+c.h+'"'):'';
+      h+='<figure class="tla-anatcard" id="anatcard-'+esc(c.id)+'">';
+      h+='<figcaption class="tla-anatcard-t">'+esc(c.title)+'</figcaption>';
+      h+='<div class="tla-anatcard-frame">';
+      h+='<img class="tla-anatcard-img" loading="lazy" src="assets/img/'+esc(c.file)+'"'+wh
+        +' alt="'+esc(t('anatalt').replace('{t}',c.title))+'">';
+      h+=anatMarkers(c,k,items);
+      h+='</div></figure>';
+    });
+    h+='</div>';
+    /* A real <ol>: the numbers are the book's, so they are the list's, and a
+       screen reader counts them without being told to. */
+    h+='<ol class="tla-anat-key">';
+    k.items.forEach(function(it){
+      h+='<li id="'+kid+'-'+esc(String(it.n))+'" data-n="'+esc(String(it.n))+'">';
+      h+='<span class="tla-anat-n" aria-hidden="true">'+esc(String(it.n))+'</span>';
+      h+='<span class="tla-anat-txt"><b class="tla-anat-term">'+runsHTML(it.term)+'</b>'
+        +(it.desc.length?(': '+runsHTML(it.desc)):'')+'</span></li>';
+    });
+    h+='</ol>';
+    h+='</div></section>';
+  });
+  return h;
+}
+/* Hovering or focusing either side lights the other. One function owns the
+   whole highlight: it clears everything, then lights what matches. There is no
+   per-element state to leak, so a pointer that leaves mid-animation, a focus
+   that jumps across cards, and a re-render all land in the same place.
+   `data-hot` on the section dims the rest; `.is-hot` marks the chosen ones. */
+function anatHot(el,n){
+  var sec=el&&el.closest?el.closest('.tla-anat'):null; if(!sec)return;
+  [].forEach.call(sec.querySelectorAll('.is-hot'),function(x){x.classList.remove('is-hot');});
+  if(n==null){sec.removeAttribute('data-hot'); return;}
+  sec.setAttribute('data-hot',n);
+  [].forEach.call(sec.querySelectorAll('[data-n="'+cssEsc(n)+'"]'),function(x){x.classList.add('is-hot');});
+}
+function bindAnatomy(){
+  [].forEach.call(elMain.querySelectorAll('.tla-anat'),function(sec){
+    function hot(e){
+      var m=e.target.closest('.tla-anatmark,.tla-anat-key > li');
+      /* Leaving a marker for the image is still "inside"; only a null target clears. */
+      if(m)anatHot(m,m.getAttribute('data-n'));
+      else if(e.type==='mouseleave'||e.type==='focusout')anatHot(sec,null);
+    }
+    sec.addEventListener('mouseover',hot);
+    sec.addEventListener('mouseleave',function(){anatHot(sec,null);});
+    sec.addEventListener('focusin',hot);
+    sec.addEventListener('focusout',function(e){
+      if(!sec.contains(e.relatedTarget))anatHot(sec,null);
+    });
+    sec.addEventListener('click',function(e){
+      var b=e.target.closest('.tla-anatmark'); if(!b)return;
+      var li=sec.querySelector('#anat-'+cssEsc(b.getAttribute('data-key'))+'-'+cssEsc(b.getAttribute('data-n')));
+      if(!li)return;
+      anatHot(b,b.getAttribute('data-n'));
+      keepInView(li,elMain);
+      li.classList.remove('flash'); void li.offsetWidth; li.classList.add('flash');
+    });
+  });
+}
+/* getElementById would be simpler, but these ids carry pack-authored slugs;
+   querySelector needs them escaped. CSS.escape isn't in older Safari. */
+function cssEsc(s){
+  return (window.CSS&&CSS.escape)?CSS.escape(s):String(s).replace(/[^\w-]/g,'\\$&');
+}
+
 function render(sid,eid,flash){
   var s=data.sections.filter(function(x){return x.id===sid;})[0]; if(!s)s=data.sections[0];
   curSec=s;
@@ -321,6 +526,7 @@ function render(sid,eid,flash){
   h+='<h1 class="tla-h1">'+(s.num?'<span class="tla-rn">'+s.num+'.</span>':'')+esc(s.title)+'</h1>';
   h+='<div class="tla-rule"></div>';
   if(s.intro&&s.intro.length){h+='<div class="tla-lead">'+blocksHTML(s.intro)+'</div>';}
+  if(s.kind==='anatomy'){h+=anatomyHTML(s);}
   if(s.figures&&s.figures.length){
     h+='<div class="tla-figs">';
     s.figures.forEach(function(f){
@@ -333,11 +539,14 @@ function render(sid,eid,flash){
     /* An entry that is wholly new needs no per-word diff marks — the badge
        already says so. One that was rewritten does: the marks are the point. */
     var brandNew=lv&&isNewIn(e,lv);
+    /* role comes from how the book prints the heading: a STOP! callout, the
+       opening of a subsection, or nothing special. */
+    var role=e.role?(' is-'+e.role):'';
     /* h2: an entry sits directly under the chapter's h1. Jumping straight to h3
        would leave a hole in the outline a screen reader navigates by. */
-    h+='<article class="tla-entry'+(e.sub?' sub':'')+(brandNew?' is-new':'')+(lv&&isChangedIn(e,lv)?' is-upd':'')+'" id="e-'+esc(e.id)+'">';
-    h+='<h2>'+titleHTML(e)+verBadge(e)+'<a class="anchor" href="#'+lang+'/'+esc(e.id)+'" title="'+esc(t('jump'))+'" aria-label="'+esc(t('jump'))+'">§</a></h2>';
-    h+=blocksHTML(e.blocks,brandNew);
+    h+='<article class="tla-entry'+role+(brandNew?' is-new':'')+(lv&&isChangedIn(e,lv)?' is-upd':'')+'" id="e-'+esc(e.id)+'">';
+    h+='<h2>'+titleHTML(e)+diagBadge(e)+verBadge(e)+'<a class="anchor" href="#'+lang+'/'+esc(e.id)+'" title="'+esc(t('jump'))+'" aria-label="'+esc(t('jump'))+'">§</a></h2>';
+    h+=e.flow?flowHTML(e):blocksHTML(e.blocks,brandNew);
     h+=verProvenance(e);
     h+=figuresHTML(e,esc(e.id));
     h+='</article>';
@@ -345,6 +554,8 @@ function render(sid,eid,flash){
   h+='</div>';
   elMain.innerHTML=h;
   syncStickyHeight();          // before any scroll-to, so the target clears the toolbar
+  layoutFlowLoops();
+  bindAnatomy();
   buildToc(s,ents);
   markNav(sid);
   if(eid){var el=document.getElementById('e-'+eid); if(el){el.scrollIntoView({block:'start'}); if(flash){el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}}}
@@ -454,8 +665,15 @@ function renderLanding(s){
 /* ---------- TOC (right) ---------- */
 function buildToc(s,ents){
   if(!ents.length){elToc.innerHTML=''; return;}
+  var list=ents.filter(inToc);
+  if(!list.length){elToc.innerHTML=''; return;}
   var h='<h2 class="tla-toc-h">'+esc(t('onthispage'))+'</h2>';
-  ents.forEach(function(e){h+='<a href="#'+lang+'/'+esc(e.id)+'" data-eid="'+esc(e.id)+'" style="'+(e.sub?'padding-left:18px;':'')+'">'+titleHTML(e)+'</a>';});
+  /* A subsection opens the entries that follow it, so it heads them rather than
+     hanging under them — it used to be the indented one, which was backwards. */
+  list.forEach(function(e){
+    h+='<a href="#'+lang+'/'+esc(e.id)+'" data-eid="'+esc(e.id)+'"'
+      +(e.role==='subhead'?' class="is-subhead"':'')+'>'+titleHTML(e)+diagBadge(e)+'</a>';
+  });
   elToc.innerHTML=h;
 }
 /* Scroll a child into view inside its own scroller, by hand.
@@ -777,6 +995,17 @@ function wireEvents(){
     }
     var wc=e.target.closest('.tla-wncard'); if(wc){gotoTarget(wc.getAttribute('data-eid'),true); return;}
     var az=e.target.closest('.tla-azbtn'); if(az){setGlossFilter(az.getAttribute('data-az')); return;}
+    /* a step number inside a diagram: jump to that box and flash it, so the
+       loops the book draws with arrows can actually be followed */
+    var fr=e.target.closest('.tla-flowref');
+    if(fr){
+      var box=document.getElementById(fr.getAttribute('data-flow'));
+      if(box){
+        box.scrollIntoView({block:'center'});
+        box.classList.remove('flash'); void box.offsetWidth; box.classList.add('flash');
+      }
+      return;
+    }
     var x=e.target.closest('.xref'); if(x){e.preventDefault(); gotoTarget(x.getAttribute('data-t'),true); return;}
     var a=e.target.closest('.anchor'); if(a){e.preventDefault(); gotoTarget(a.getAttribute('href').split('/')[1],true); return;}
     var mi=e.target.closest('.tla-montage-i'); if(mi){openFigInfo(mi); return;}
@@ -821,7 +1050,7 @@ function wireEvents(){
   elMain.addEventListener('scroll',spy,{passive:true});
   window.addEventListener('hashchange',route);
   // the toolbar re-wraps as the pane narrows, changing how much it covers
-  window.addEventListener('resize',syncStickyHeight,{passive:true});
+  window.addEventListener('resize',function(){syncStickyHeight(); layoutFlowLoops();},{passive:true});
 
   // clicking the backdrop (or the image) dismisses it, as before — but the
   // close button must not have its own click swallowed by the backdrop rule.

@@ -35,6 +35,86 @@ def title_variants(title):
 
 ROMAN = re.compile(r'^\s*([IVXLC]+)\.\s*(.*)$')
 
+# ---- phase diagrams --------------------------------------------------------
+# The book draws each phase as a flowchart: teal boxes for the numbered steps,
+# red ones for the player windows, arrows between them. The parser only sees the
+# text inside the boxes, one block per box. It is recognisable by SHAPE, so no
+# wording is involved and it works in any language:
+#
+#   step         a bold lead ending in a number and a colon ("Paso 1.1:" /
+#                "Step 1.1:"), followed by the rest of the sentence
+#   player window  a block that opens with the game's "free trigger" icon
+#   go to        a single bold + italic line ("Pasa a la fase de Enemigos.")
+#
+# The prose that details the same phase looks nothing like this — its headings are
+# a whole bold sentence with no colon — so the two cannot be confused.
+STEP_LEAD = re.compile(r'(\d+(?:\.\d+)*)\s*:\s*$')
+
+
+def flow_of(entry):
+    """-> [{kind, n, i}] describing the entry's blocks as a flowchart, or None."""
+    items = []
+    for i, b in enumerate(entry['blocks']):
+        runs = b.get('runs') or []
+        if not runs:
+            return None
+        first = runs[0]
+        if first.get('kind') == 'icon':
+            items.append({'kind': 'window', 'i': i})
+            continue
+        if first.get('kind') != 'text' or not first.get('bold'):
+            return None
+        m = STEP_LEAD.search(first['t'])
+        if m and len(runs) >= 2:
+            items.append({'kind': 'step', 'n': m.group(1), 'i': i})
+            continue
+        if first.get('italic'):
+            items.append({'kind': 'goto', 'i': i})
+            continue
+        return None
+    if sum(1 for it in items if it['kind'] == 'step') < 3:
+        return None
+    return items
+
+
+def flow_loops(entry, items):
+    """The arrows the book curves back up the right-hand side of a diagram.
+
+    Where they go is written inside the boxes, so it can be read without knowing
+    the language:
+      * a step that sits right below a player window and names that window loops
+        back to it — the label comes from the window box itself, not from a list
+        of words;
+      * a step that names an EARLIER step's number loops back to that step.
+        Direction does the work: a number further down is just the next arrow.
+
+    Checked against the editions' own vector art: these two rules reproduce the
+    three loops the book draws, in both languages, with nothing spurious.
+    """
+    blocks = entry['blocks']
+
+    def flat(i):
+        return ''.join(r.get('t', '') for r in blocks[i]['runs'])
+
+    label = None
+    for it in items:
+        if it['kind'] == 'window':
+            label = flat(it['i']).strip().lower()
+            break
+    num_at = {it['n']: idx for idx, it in enumerate(items) if it.get('n')}
+    loops = []
+    for idx, it in enumerate(items):
+        if it['kind'] != 'step':
+            continue
+        txt = flat(it['i'])
+        if label and idx > 0 and items[idx - 1]['kind'] == 'window' and label in txt.lower():
+            loops.append([idx, idx - 1])
+        for m in re.finditer(r'\d+(?:\.\d+)+', txt):
+            tgt = num_at.get(m.group(0))
+            if tgt is not None and tgt < idx:
+                loops.append([idx, tgt])
+    return loops
+
 def flat_text(runs):
     return ''.join(r.get('t','') for r in runs if r['kind'] == 'text')
 
@@ -50,9 +130,17 @@ def assemble(pack, nodes, images):
         sc = seclist[idx]
         s = {'num':sc['num'],'key':sc['key'],'id':sc['id'],'title':sc['title'],'kind':sc['kind'],
              'intro':[], 'entries':[], 'figures':[]}
-        for f in sc.get('figures', []):
-            info = images.get(f)
-            if info: s['figures'].append({'file':info['file'],'w':info['w'],'h':info['h'],'page':info['page']})
+        if sc['kind'] == 'anatomy':
+            # rebuilt by card_anatomy.py at render time; only the cards are images
+            s['keys'] = images.get('_anatomy') or []
+            if not s['keys']:
+                # the rebuild found nothing (or was never run): fall back to the
+                # page scans, so the chapter is never silently blank
+                s['kind'] = 'figures'
+        if s['kind'] == 'figures':
+            for f in sc.get('figures', []):
+                info = images.get(f)
+                if info: s['figures'].append({'file':info['file'],'w':info['w'],'h':info['h'],'page':info['page']})
         sections[idx]=s
         return s
 
@@ -112,8 +200,11 @@ def assemble(pack, nodes, images):
         # content of current section
         if cur is None:
             continue
-        if cur_kind == 'figures':
-            # ignore dense figure text; keep only the section intro already captured
+        if cur_kind in ('figures', 'anatomy'):
+            # Dense picture-page text: the key, the card names and the numbers are
+            # laid out around the art, so read in reading order they are noise. The
+            # anatomy chapter gets them back properly via card_anatomy.py; here only
+            # the section intro already captured survives.
             continue
         if lvl == 1:
             # wrapped banner fragment or stray -> fold body into intro if any
@@ -123,10 +214,27 @@ def assemble(pack, nodes, images):
         # lvl 2 or 3 -> an entry (sub-heading). Skip empty titleless.
         if not title:
             continue
-        entry = {'title':title, 'blocks':blocks, 'page':node['page'], 'sub': lvl==2}
+        entry = {'title':title, 'blocks':blocks, 'page':node['page']}
+        # What the book is doing with this heading: a STOP! callout, the opening of
+        # a subsection, or an ordinary entry. Read from the print, not guessed from
+        # the type size — the ES edition sets "La regla nefasta" two points larger
+        # than its siblings while meaning nothing by it.
+        if node.get('role'):
+            entry['role'] = node['role']
         if node.get('title_runs'):
             entry['titleRuns'] = node['title_runs']
         cur['entries'].append(entry)
+    # the phase diagrams: a classification of the blocks, not a copy of them
+    for s in sections:
+        if s is None:
+            continue
+        for e in s['entries']:
+            fl = flow_of(e)
+            if fl:
+                e['flow'] = fl
+                lp = flow_loops(e, fl)
+                if lp:
+                    e['loops'] = lp
     # A section the parser never found is silently absent from the site, which is
     # the worst way to fail: the run "succeeds" and the chapter is just gone.
     missing = [seclist[i] for i in range(len(seclist)) if not started[i]]
@@ -335,6 +443,17 @@ def autolink(sections, title_index, pack):
             continue
         for e in s['entries']:
             process_entry(e)
+    # The card-anatomy key defines the parts of a card in the glossary's own
+    # vocabulary ("the difficulty of a skill test to investigate this location"),
+    # so it is the one place outside the glossary worth linking. Each item is a
+    # self-contained definition, so each is scoped on its own — otherwise only the
+    # first of the eighteen could ever mention "skill test".
+    for s in sections:
+        for k in s.get('keys', []):
+            for it in k['items']:
+                blk = {'runs': it['desc']}          # process_entry rebuilds blk['runs']
+                process_entry({'id': k['id'], 'blocks': [blk]})
+                it['desc'] = blk['runs']
     return count[0]
 
 
