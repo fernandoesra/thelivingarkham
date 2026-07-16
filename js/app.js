@@ -72,6 +72,7 @@ var elNav=document.getElementById('tla-nav'), elMain=document.getElementById('tl
     elToc=document.getElementById('tla-toc'), elQ=document.getElementById('tla-q'),
     elRes=document.getElementById('tla-results'), elLive=document.getElementById('tla-live'),
     elTheme=document.getElementById('tla-theme'),
+    elThemeMenu=document.getElementById('tla-thememenu'),
     elSModal=document.getElementById('tla-searchmodal'),
     elSOpen=document.getElementById('tla-search-open'),
     elSCancel=document.getElementById('tla-search-cancel'),
@@ -301,10 +302,63 @@ function closeFigInfo(){
 }
 
 /* ---------- theme ---------- */
-function currentTheme(){return document.documentElement.getAttribute('data-theme')==='light'?'light':'dark';}
-function applyThemeLabel(){var th=currentTheme(); if(elTheme)elTheme.setAttribute('aria-label', th==='dark'?t('tolight'):t('todark'));}
-function setTheme(th){document.documentElement.setAttribute('data-theme',th); try{localStorage.setItem('tla-theme',th);}catch(e){} applyThemeLabel();}
-function toggleTheme(){setTheme(currentTheme()==='dark'?'light':'dark');}
+/* The palettes live in css/app.css; this only names them and remembers the
+   choice. The order here is the order in the picker. Keep it in step with the
+   pre-paint script in index.html — that one runs before this file exists. */
+var THEMES=['slate','moss','midnight','plum','neon','parchment'];
+var OLDTHEMES={light:'parchment',dark:'slate'};   // what the two-theme toggle saved
+function themeName(id){return pick(lang,'themes',id)||id;}
+function currentTheme(){
+  var t=document.documentElement.getAttribute('data-theme');
+  if(OLDTHEMES[t])t=OLDTHEMES[t];
+  return THEMES.indexOf(t)>=0?t:THEMES[0];
+}
+function applyThemeLabel(){
+  if(elTheme)elTheme.setAttribute('aria-label',t('themetip')+': '+themeName(currentTheme()));
+}
+function setTheme(th){
+  if(THEMES.indexOf(th)<0)th=THEMES[0];
+  document.documentElement.setAttribute('data-theme',th);
+  try{localStorage.setItem('tla-theme',th);}catch(e){}
+  applyThemeLabel(); markTheme();
+}
+/* Swatches are painted BY the theme they offer — .tla-pal-<id> carries that
+   theme's own tokens — so they can never drift from what they promise. The name
+   beside each is the real label: six coloured circles tell a colour-blind reader
+   nothing (WCAG 1.4.1), and are hidden from assistive tech for the same reason. */
+function buildThemePicker(){
+  var box=document.getElementById('tla-themeset'); if(!box)return;
+  var lg=box.querySelector('legend');
+  var h=lg?lg.outerHTML:'';
+  THEMES.forEach(function(id){
+    h+='<label class="tla-themeopt" data-t="'+esc(id)+'">'
+      +'<input type="radio" name="tla-theme" value="'+esc(id)+'">'
+      +'<span class="tla-swatch tla-pal-'+esc(id)+'" aria-hidden="true">'
+      +'<i style="background:var(--gold)"></i><i style="background:var(--teal)"></i>'
+      +'<i style="background:var(--ink)"></i></span>'
+      +'<span class="tla-themeopt-n">'+esc(themeName(id))+'</span></label>';
+  });
+  box.innerHTML=h;
+  markTheme();
+}
+function markTheme(){
+  var cur=currentTheme();
+  [].forEach.call(document.querySelectorAll('#tla-themeset input[name=tla-theme]'),function(r){
+    r.checked=(r.value===cur);
+  });
+}
+function themeMenuOpen(){return elThemeMenu&&!elThemeMenu.hidden;}
+function openThemeMenu(){
+  if(!elThemeMenu)return;
+  buildThemePicker();
+  elThemeMenu.hidden=false; elTheme.setAttribute('aria-expanded','true');
+  var on=elThemeMenu.querySelector('input:checked')||elThemeMenu.querySelector('input');
+  if(on)on.focus();
+}
+function closeThemeMenu(){
+  if(!elThemeMenu)return;
+  elThemeMenu.hidden=true; elTheme.setAttribute('aria-expanded','false');
+}
 
 /* ---------- build search index ---------- */
 /* The index is built per language and stores plain text, so the language must be
@@ -990,6 +1044,11 @@ function focusablesIn(box){
 function dialogs(){
   return [
     {box:elNav,      isOpen:navOpen,     close:function(){closeNav(); focusBurger();}},
+    /* modal:false — Escape must close it, but Tab must be able to LEAVE it: it is
+       a disclosure hanging off a header button, not a modal. Trapping Tab in a
+       six-item colour menu would strand the keyboard on it. */
+    {box:elThemeMenu,isOpen:themeMenuOpen,modal:false,
+     close:function(){closeThemeMenu(); elTheme.focus();}},
     {box:elSModal,   isOpen:searchOpen,  close:closeSearch},
     {box:elFigModal, isOpen:figInfoOpen, close:closeFigInfo},
     {box:elLb,       isOpen:lbOpen,      close:closeLightbox}
@@ -1001,7 +1060,7 @@ function openDialog(){
   return open;
 }
 function trapTab(e){
-  var d=openDialog(); if(!d)return;
+  var d=openDialog(); if(!d||d.modal===false)return;
   var box=d.box, items=focusablesIn(box);
   if(box===elLb)items=[elLb.querySelector('.tla-lb-close')];
   if(!items.length){e.preventDefault(); return;}
@@ -1090,7 +1149,26 @@ function wireEvents(){
   elFigClose.addEventListener('click',closeFigInfo);
   elFigModal.addEventListener('click',function(e){if(e.target===elFigModal)closeFigInfo();});
   document.querySelector('.tla-lang').addEventListener('click',function(e){var b=e.target.closest('button'); if(b)setLang(b.getAttribute('data-l'));});
-  elTheme.addEventListener('click',toggleTheme);
+  elTheme.addEventListener('click',function(){themeMenuOpen()?closeThemeMenu():openThemeMenu();});
+  /* Radios fire change on arrow-key moves too, so this IS the live preview. */
+  elThemeMenu.addEventListener('change',function(e){
+    var r=e.target.closest('input[name=tla-theme]'); if(r)setTheme(r.value);
+  });
+  /* Enter/Space on a radio commits and closes; the choice is already applied. */
+  elThemeMenu.addEventListener('keydown',function(e){
+    if(e.key==='Enter'){e.preventDefault(); closeThemeMenu(); elTheme.focus();}
+  });
+  /* clicking away closes it — a menu, not a modal: it traps nothing */
+  document.addEventListener('mousedown',function(e){
+    if(themeMenuOpen() && !elThemeMenu.contains(e.target) && !elTheme.contains(e.target))closeThemeMenu();
+  });
+  /* and tabbing away closes it too, so it never lingers behind the reader */
+  elThemeMenu.addEventListener('focusout',function(e){
+    if(!themeMenuOpen())return;
+    var to=e.relatedTarget;
+    if(to && (elThemeMenu.contains(to)||elTheme.contains(to)))return;
+    if(to)closeThemeMenu();          // focus went elsewhere on purpose
+  });
   document.getElementById('tla-home').addEventListener('click',function(e){e.preventDefault(); navigate(data.sections[0].id,false);});
   document.getElementById('tla-burger').addEventListener('click',function(){elNav.classList.contains('on')?closeNav():openNav();});
   document.getElementById('tla-scrim').addEventListener('click',closeNav);

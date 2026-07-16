@@ -85,10 +85,12 @@ These are regular expressions, so in JSON **backslashes are doubled**: write `\\
 "datePattern": "{d}. {mon} {y}",
 "alphabet":    "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
 "icons":       {"willpower": "Willenskraft", "...": "..."},
+"themes":      {"slate": "Schiefer", "...": "..."},
 "strings":     {"onthispage": "Auf dieser Seite", "...": "..."}
 ```
 
 * `alphabet` — the letters of the A–Z filter, in **your** dictionary order. List only letters your language files separately: Spanish lists `Ñ` because *ñ* is its own letter, and leaves `Ú` out because *Única* files under **U**.
+* `themes` — the theme names as the reader sees them in the picker. Translate the names, not the ids.
 * `fallback` — the language to borrow untranslated strings from (`"en"` by default).
 
 ### 6. Add a flag (optional)

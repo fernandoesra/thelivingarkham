@@ -1,22 +1,36 @@
 /* ============================================================
    The Living Arkham — app styles
    Rincón Miskatonic · rinconmiskatonic.org
-   Full-height app shell · light/dark themes · WCAG 2.1 AA
+   Full-height app shell · six themes · WCAG 2.1 AA
    ============================================================ */
 
 /* ---------- page reset ---------- */
 *,*::before,*::after{box-sizing:border-box}
 html,body{margin:0;height:100%}
-body{background:#1a1f26;font-family:Georgia,'Iowan Old Style',serif}
-html[data-theme="light"] body{background:#e9e1cf}
+body{background:var(--page,#1a1f26);font-family:Georgia,'Iowan Old Style',serif}
 
 .tla-skip{position:absolute;left:8px;top:-48px;z-index:300;background:var(--gold);color:var(--on-gold);
   font-family:var(--ff-ui);font-weight:700;padding:10px 16px;border-radius:8px;text-decoration:none;transition:top .15s}
 .tla-skip:focus{top:8px}
 
-/* ---------- theme tokens ---------- */
-#tla-root{
-  /* DARK — "eldritch slate": tinted deep slate, tarnished-brass + eldritch-teal accents */
+/* ---------- themes ----------
+   Every colour the app uses is a token here, and NOTHING outside this block is
+   keyed on a theme's name — a rule like `[data-theme=light] .tla-nav{…}` only
+   ever describes one theme, and there are six. Add a theme by adding a block.
+
+   Each block is listed twice: once for the page, once as `.tla-pal-<id>`, which
+   is what the picker's swatches wear. So a swatch is *derived from* the theme it
+   offers and cannot drift away from it.
+
+   House rules, from what makes palettes read as crafted rather than generated:
+     · tinted near-blacks, never #000, and no gradient between accents
+     · accents kept low-chroma — pigment, not backlight
+     · greys never share their hue with the accent (slate greys + indigo accents
+       are the same hue, which is half of why that pairing reads as "AI")
+*/
+#tla-root,
+html[data-theme="slate"] #tla-root, .tla-pal-slate{
+  /* SLATE — tinted deep slate, tarnished brass, eldritch teal. The house colours. */
   --bg:#1a1f26; --bg2:#1f252d; --panel:#252d36; --panel2:#2f3945;
   --edge:rgba(200,214,222,.09); --edge2:rgba(200,214,222,.15);
   --ink:#d7dde2; --ink2:#abb5bd; --muted:#8b97a0;
@@ -26,20 +40,90 @@ html[data-theme="light"] body{background:#e9e1cf}
   --new:#db9385; --new-bg:rgba(206,105,86,.16); --new-edge:rgba(206,105,86,.55);
   --shadow:0 14px 34px rgba(0,0,0,.42);
   --figbg:#121820; --bggrad:#222a34;
+  --page:#1a1f26; --scrim:rgba(8,10,14,.55); --navtint:rgba(0,0,0,.10);
+  --stickyshadow:0 10px 26px -12px rgba(0,0,0,.6);
   color-scheme:dark;
 }
-#tla-root[data-theme] { }
-html[data-theme="light"] #tla-root, #tla-root[data-theme="light"]{
-  /* LIGHT (warm parchment grimoire) */
+html[data-theme="moss"] #tla-root, .tla-pal-moss{
+  /* MOSS — charcoal and lichen. Green at low chroma reads as a substance; the
+     same hue at high chroma reads as a terminal, which is the thing to avoid. */
+  --bg:#121711; --bg2:#171d16; --panel:#1c231a; --panel2:#262e24;
+  --edge:rgba(197,201,197,.09); --edge2:rgba(197,201,197,.16);
+  --ink:#ccd0cb; --ink2:#a6ada3; --muted:#8d958a;
+  --gold:#8fb28f; --gold2:#abc9ab; --teal:#7fada4; --teal2:#a4cabf; --icon:#a3c1a3;
+  --on-gold:#0d110d;
+  --mark:rgba(143,178,143,.20); --mark-ink:#bcd6bc;
+  --new:#d08a84; --new-bg:rgba(196,116,110,.15); --new-edge:rgba(196,116,110,.5);
+  --shadow:0 14px 34px rgba(0,0,0,.5);
+  --figbg:#0d110c; --bggrad:#1a2118;
+  --page:#121711; --scrim:rgba(7,9,7,.6); --navtint:rgba(0,0,0,.16);
+  --stickyshadow:0 10px 26px -12px rgba(0,0,0,.7);
+  color-scheme:dark;
+}
+html[data-theme="midnight"] #tla-root, .tla-pal-midnight{
+  /* MIDNIGHT — arctic blue-grey. One axis, nothing raising its voice. */
+  --bg:#232936; --bg2:#2a313f; --panel:#333b4c; --panel2:#3e4759;
+  --edge:rgba(216,222,233,.10); --edge2:rgba(216,222,233,.17);
+  --ink:#e2e7f0; --ink2:#bac3d3; --muted:#9aa5b8;
+  --gold:#9fb6cc; --gold2:#c3d2e2; --teal:#7fb4cc; --teal2:#a7d3e6; --icon:#aec4d8;
+  --on-gold:#12161d;
+  --mark:rgba(159,182,204,.20); --mark-ink:#d3e0ee;
+  --new:#e59aa1; --new-bg:rgba(191,97,106,.18); --new-edge:rgba(191,97,106,.6);
+  --shadow:0 14px 34px rgba(0,0,0,.45);
+  --figbg:#1c212c; --bggrad:#2f3746;
+  --page:#232936; --scrim:rgba(9,12,18,.6); --navtint:rgba(0,0,0,.14);
+  --stickyshadow:0 10px 26px -12px rgba(0,0,0,.6);
+  color-scheme:dark;
+}
+html[data-theme="plum"] #tla-root, .tla-pal-plum{
+  /* PLUM — near-black with a plum tint, orchid accents, WARM greys.
+     The purples sit at hue ~325: on the far side of purple from the indigo
+     everything else is made of. Historical purple was red-leaning (Tyrian was
+     nearer crimson); the blue-violet one is a modern dye-and-gamut accident. */
+  --bg:#0f0a10; --bg2:#150f16; --panel:#1c141d; --panel2:#271e28;
+  --edge:rgba(205,202,198,.10); --edge2:rgba(205,202,198,.17);
+  --ink:#e4e0dd; --ink2:#b3aeaa; --muted:#98928d;
+  --gold:#a572a0; --gold2:#cbabc9; --teal:#a87ba2; --teal2:#c9a1c2; --icon:#bb93b5;
+  --on-gold:#120a11;
+  --mark:rgba(165,114,160,.22); --mark-ink:#dcbdd8;
+  --new:#cf7f78; --new-bg:rgba(196,116,110,.16); --new-edge:rgba(196,116,110,.52);
+  --shadow:0 14px 34px rgba(0,0,0,.55);
+  --figbg:#0a060b; --bggrad:#1a121c;
+  --page:#0f0a10; --scrim:rgba(5,3,6,.62); --navtint:rgba(0,0,0,.18);
+  --stickyshadow:0 10px 26px -12px rgba(0,0,0,.75);
+  color-scheme:dark;
+}
+html[data-theme="neon"] #tla-root, .tla-pal-neon{
+  /* NEON — black, hot pink and a tan spot. Loud on purpose; the text underneath
+     still has to be legible, so the shouting is done by the accents only. */
+  --bg:#0d0a0c; --bg2:#141013; --panel:#1c161a; --panel2:#282027;
+  --edge:rgba(242,233,238,.10); --edge2:rgba(242,233,238,.18);
+  --ink:#f2e9ee; --ink2:#c9bcc4; --muted:#a89aa4;
+  --gold:#ff4da3; --gold2:#ff8cc2; --teal:#d9b46a; --teal2:#efcf90; --icon:#ff6fb0;
+  --on-gold:#16000c;
+  --mark:rgba(255,77,163,.20); --mark-ink:#ffaed5;
+  --new:#ff9a6b; --new-bg:rgba(255,120,70,.15); --new-edge:rgba(255,120,70,.5);
+  --shadow:0 14px 34px rgba(0,0,0,.6);
+  --figbg:#0a0709; --bggrad:#1d1219;
+  --page:#0d0a0c; --scrim:rgba(6,3,5,.62); --navtint:rgba(0,0,0,.2);
+  --stickyshadow:0 10px 26px -12px rgba(0,0,0,.75);
+  color-scheme:dark;
+}
+html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
+  /* PARCHMENT — warm paper, oak gall ink. The only light one. */
   --bg:#efe8d8; --bg2:#f5efe1; --panel:#f7f2e7; --panel2:#e9e0cd;
   --edge:rgba(60,44,18,.16); --edge2:rgba(60,44,18,.26);
   --ink:#241f16; --ink2:#43392a; --muted:#5f5540;
-  --gold:#8a6c1c; --gold2:#755c12; --teal:#3c7a6f; --teal2:#215a50; --icon:#6f5714;
+  --gold:#8a6c1c; --gold2:#6a5310; --teal:#3c7a6f; --teal2:#215a50; --icon:#6f5714;
   --on-gold:#fff8ea;
-  --mark:rgba(160,120,20,.28); --mark-ink:#5c460c;
+  /* the wash under the open chapter: it used to be strong enough to take the
+     gold text on it below 4.5:1, which axe cannot see through a gradient */
+  --mark:rgba(160,120,20,.18); --mark-ink:#4f3c0a;
   --new:#a43c28; --new-bg:rgba(164,60,40,.12); --new-edge:rgba(164,60,40,.45);
   --shadow:0 10px 28px rgba(70,52,20,.18);
   --figbg:#e5dcc6; --bggrad:#f8f2e6;
+  --page:#e9e1cf; --scrim:rgba(44,34,14,.34); --navtint:rgba(90,68,20,.05);
+  --stickyshadow:0 12px 28px -14px rgba(70,52,20,.4);
   color-scheme:light;
 }
 
@@ -88,9 +172,34 @@ html[data-theme="light"] #tla-root, #tla-root[data-theme="light"]{
   background:var(--panel); color:var(--gold2); cursor:pointer; display:inline-flex; align-items:center; justify-content:center}
 .tla-theme:hover{background:var(--panel2)}
 .tla-theme svg{width:20px;height:20px}
-.tla-theme .tla-ico-sun{display:none}
-html[data-theme="light"] .tla-theme .tla-ico-sun{display:block}
-html[data-theme="light"] .tla-theme .tla-ico-moon{display:none}
+.tla-theme[aria-expanded=true]{background:var(--panel2); border-color:var(--gold)}
+/* ---------- theme picker ---------- */
+.tla-themewrap{position:relative; flex:0 0 auto}
+.tla-thememenu{position:absolute; top:calc(100% + 8px); right:0; z-index:60; min-width:220px;
+  background:var(--panel); border:1px solid var(--edge2); border-radius:12px;
+  box-shadow:var(--shadow); padding:10px}
+.tla-thememenu[hidden]{display:none}
+.tla-themeset{border:0; margin:0; padding:0}
+.tla-themeset-h{font-family:var(--ff-ui); font-size:11px; text-transform:uppercase;
+  letter-spacing:1px; color:var(--muted); padding:0 6px 8px}
+.tla-themeopt{display:flex; align-items:center; gap:10px; padding:7px 8px; border-radius:8px;
+  cursor:pointer; font-family:var(--ff-ui); font-size:14px; color:var(--ink2); min-height:36px}
+.tla-themeopt:hover{background:var(--panel2); color:var(--ink)}
+/* the radio itself stays real and focusable — it is only moved out of sight, so
+   the whole row is the label and the keyboard model is the browser's own */
+.tla-themeopt input{position:absolute; width:1px; height:1px; opacity:0; margin:0}
+.tla-themeopt:has(input:focus-visible){outline:3px solid var(--gold); outline-offset:2px}
+.tla-themeopt:has(input:checked){background:var(--mark); color:var(--ink)}
+.tla-themeopt-n{flex:1 1 auto}
+/* selection is not signalled by colour alone: the chosen row gets a tick */
+.tla-themeopt::after{content:''; flex:0 0 auto; width:16px; height:16px; opacity:0;
+  background:var(--gold2); clip-path:polygon(41% 84%, 9% 52%, 19% 42%, 41% 64%, 81% 24%, 91% 34%)}
+.tla-themeopt:has(input:checked)::after{opacity:1}
+/* Each swatch wears the palette it offers (.tla-pal-<id>), so it shows that
+   theme's real colours rather than a copy of them that can rot. */
+.tla-swatch{flex:0 0 auto; display:flex; gap:3px; padding:4px; border-radius:6px;
+  background:var(--bg); box-shadow:inset 0 0 0 1px var(--edge2)}
+.tla-swatch i{width:9px; height:14px; border-radius:2px; display:block}
 /* One button per language, built at runtime from data/languages.json.
    The [hidden] rule must be spelled out: `display:flex` would otherwise beat the
    browser's own [hidden] rule and a single-language site would show an empty box. */
@@ -114,8 +223,7 @@ html[data-theme="light"] .tla-theme .tla-ico-moon{display:none}
 
 /* ---------- search overlay (modal) ---------- */
 .tla-searchmodal{position:fixed; inset:0; z-index:120; display:flex; align-items:flex-start; justify-content:center;
-  padding:clamp(56px,11vh,132px) 16px 24px; background:rgba(8,10,14,.55); backdrop-filter:blur(3px)}
-html[data-theme="light"] .tla-searchmodal{background:rgba(44,34,14,.34)}
+  padding:clamp(56px,11vh,132px) 16px 24px; background:var(--scrim); backdrop-filter:blur(3px)}
 .tla-searchmodal[hidden]{display:none}
 .tla-searchmodal-box{width:min(680px,100%); max-height:80vh; display:flex; flex-direction:column; overflow:hidden;
   background:var(--panel); border:1px solid var(--edge2); border-radius:14px; box-shadow:var(--shadow)}
@@ -147,8 +255,7 @@ html[data-theme="light"] .tla-searchmodal{background:rgba(44,34,14,.34)}
 /* ---------- app-shell layout (full height) ---------- */
 .tla-body{flex:1 1 auto; min-height:0; display:grid; grid-template-columns:308px minmax(0,1fr) 264px}
 .tla-nav,.tla-main,.tla-toc{height:100%; min-height:0; overflow-y:auto; overscroll-behavior:contain}
-.tla-nav{border-right:1px solid var(--edge); padding:18px 12px 40px; background:rgba(0,0,0,.10)}
-html[data-theme="light"] .tla-nav{background:rgba(90,68,20,.05)}
+.tla-nav{border-right:1px solid var(--edge); padding:18px 12px 40px; background:var(--navtint)}
 .tla-toc{border-left:1px solid var(--edge); padding:22px 18px 40px}
 .tla-main{padding:0 clamp(20px,3.6vw,56px) 90px}
 .tla-doc{max-width:1040px; margin:0 auto; padding-top:30px}
@@ -259,8 +366,7 @@ html[data-theme="light"] .tla-nav{background:rgba(90,68,20,.05)}
   margin:0 calc(-1*clamp(20px,3.6vw,56px)) 22px; padding:13px clamp(20px,3.6vw,56px);
   background:var(--panel); border:0; border-bottom:1px solid var(--edge2);
   border-radius:0 0 12px 12px;
-  box-shadow:0 10px 26px -12px rgba(0,0,0,.6)}
-html[data-theme="light"] .tla-azfilter{box-shadow:0 12px 28px -14px rgba(70,52,20,.4)}
+  box-shadow:var(--stickyshadow)}
 .tla-azfilter .tla-azlabel{font-family:var(--ff-ui); font-size:12px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:9px}
 .tla-azrow{display:flex; flex-wrap:wrap; gap:6px; align-items:center}
 .tla-azbtn{min-width:36px; height:36px; padding:0 8px; border-radius:8px; border:1px solid var(--edge2); background:var(--bg2);
@@ -528,8 +634,7 @@ html[data-theme="light"] .tla-azfilter{box-shadow:0 12px 28px -14px rgba(70,52,2
 
 /* figure-info modal — same centred-overlay pattern as the search dialog */
 .tla-figmodal{position:fixed; inset:0; z-index:130; display:flex; align-items:center; justify-content:center;
-  padding:clamp(40px,8vh,120px) 16px; background:rgba(8,10,14,.6); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px)}
-html[data-theme="light"] .tla-figmodal{background:rgba(44,34,14,.38)}
+  padding:clamp(40px,8vh,120px) 16px; background:var(--scrim); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px)}
 .tla-figmodal[hidden]{display:none}
 .tla-figmodal-box{width:min(560px,100%); max-height:82vh; display:flex; flex-direction:column; overflow:hidden;
   background:var(--panel); border:1px solid var(--edge2); border-radius:14px; box-shadow:var(--shadow)}

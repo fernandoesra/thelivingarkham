@@ -42,6 +42,14 @@
     "codex": "Codex",
     "weakness": "Basic weakness symbol"
   },
+  "themes": {
+      "slate": "Slate",
+      "moss": "Moss",
+      "midnight": "Midnight",
+      "plum": "Plum",
+      "neon": "Neon",
+      "parchment": "Parchment"
+  },
   "faqAnchor": "retired FAQ",
   "strings": {
     "about": "About the original FFG grimoire",
@@ -104,9 +112,8 @@
     "seenews": "See what's new",
     "skip": "Skip to content",
     "sub": "Interactive rulebook · Arkham Horror LCG",
-    "themetip": "Light / dark theme",
-    "todark": "Switch to dark theme",
-    "tolight": "Switch to light theme",
+    "themepick": "Theme",
+    "themetip": "Theme",
     "updatedin": "rewritten in v",
     "updbadge": "Rewritten",
     "updentries": "Rewritten entries",

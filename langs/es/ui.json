@@ -43,6 +43,14 @@
     "codex": "El códice",
     "weakness": "Símbolo de Debilidad básica"
   },
+  "themes": {
+      "slate": "Pizarra",
+      "moss": "Musgo",
+      "midnight": "Medianoche",
+      "plum": "Ciruela",
+      "neon": "Fosforito",
+      "parchment": "Pergamino"
+  },
   "faqAnchor": "preguntas frecuentes retirad",
   "strings": {
     "about": "Acerca del grimorio original de FFG",
@@ -105,9 +113,8 @@
     "seenews": "Ver novedades",
     "skip": "Saltar al contenido",
     "sub": "Grimorio interactivo · Arkham Horror LCG",
-    "themetip": "Tema claro/oscuro",
-    "todark": "Cambiar a tema oscuro",
-    "tolight": "Cambiar a tema claro",
+    "themepick": "Tema",
+    "themetip": "Tema",
     "updatedin": "reescrita en v",
     "updbadge": "Reescrita",
     "updentries": "Entradas reescritas",
