@@ -11,20 +11,15 @@ Design goals:
         Teutonic* 13.0-15.5 -> glossary entry / item (h3)
   * Body text -> paragraphs & bullets with inline runs
         (bold / italic / game-icon / cross-reference).
-Run this for each PDF; it writes <out>.json.
+
+Usage:  python tools/parse_grimoire.py <lang>
+The PDF to read, and the montage regions to mask out of it, both come from that
+language's pack (langs/<lang>/lang.json).
 """
 import fitz, json, re, sys, os, unicodedata
-from montages import masks_for
+import langpack
+from icons import ICON_MAP, is_icon_font
 
-# --- Arkham icon font: PUA codepoint -> semantic name (derived from p49) ---
-ICON_MAP = {
-    0xF250:'willpower', 0xF251:'agility', 0xF252:'intellect', 0xF253:'combat', 0xF26C:'wild',
-    0xF254:'rogue', 0xF255:'survivor', 0xF256:'guardian', 0xF257:'mystic', 0xF258:'seeker',
-    0xF259:'action', 0xF25A:'free', 0xF26D:'reaction',
-    0xF25B:'skull', 0xF25C:'cultist', 0xF25D:'autofail', 0xF25E:'elderthing',
-    0xF25F:'eldersign', 0xF260:'tablet', 0xF261:'unique', 0xF263:'perinvestigator',
-    0xF278:'codex',
-}
 TEAL = 0x306360           # cross-reference colour
 # illustration credits from embedded example cards (not rules prose)
 CREDIT = re.compile(r'(Illus\.|©\s*20\d\d\b.*FFG|Pixoloid\s+Studios)', re.I)
@@ -35,8 +30,6 @@ def is_head_font(font):   # any Teutonic variant is a heading face
     return 'Teutonic' in font
 def is_bullet_font(font):
     return 'Bodoni' in font or 'Ornament' in font
-def is_icon_font(font):
-    return 'ArkhamHorror' in font
 
 def is_new_red(s):
     """True for the dark-red text that marks content added in this version.
@@ -68,11 +61,23 @@ def slugify(t):
     t = re.sub(r'[^a-z0-9]+', '-', t).strip('-')
     return t or 'x'
 
-def collect_lines(pdf):
+def masks_for(pack):
+    """{page(1-idx): [(x0,y0,x1,y1), ...]} of this pack's montage regions, used to
+    drop card text that is shown as a figure instead of as body prose.
+
+    The coordinates were measured against one specific PDF, so they are only
+    valid for the newest version's file — see `check_montage_coords`.
+    """
+    res = {}
+    for m in pack.montages:
+        res.setdefault(m['page'], []).append(tuple(m['clip']))
+    return res
+
+
+def collect_lines(pdf, masks):
     """Return list of logical lines in reading order across the doc.
     Each line: {page, col, y, x0, spans:[...]} where a span keeps font/size/color/text."""
     doc = fitz.open(pdf)
-    masks = masks_for(os.path.basename(pdf))      # montage regions: card text shown as a figure instead
     out = []
     gblock = 0
     for pno in range(doc.page_count):
@@ -283,8 +288,41 @@ def finalize_body(raw):
     return out
 
 
-def parse(pdf):
-    lines, doc = collect_lines(pdf)
+def check_montage_coords(pack, doc):
+    """Montage clip regions are measured in the points of ONE PDF edition. If the
+    pack now points at a differently-laid-out file, the regions would mask the
+    wrong text and the run would still 'succeed' — so refuse to guess."""
+    if not pack.montages:
+        return
+    bad = [m for m in pack.montages if m['page'] > doc.page_count]
+    if bad:
+        raise langpack.PackError(
+            f'langs/{pack.code}/lang.json: montage {bad[0]["name"]!r} is on page '
+            f'{bad[0]["page"]}, but {pack.current["pdf"]} only has {doc.page_count} pages.\n'
+            f'  Montage "page"/"clip" coordinates belong to one specific PDF. If you '
+            f'changed the source file, re-measure them with:\n'
+            f'    python tools/inspect_pdf.py {pack.code} --grid <page>')
+
+
+def warn_if_no_red(pack, nodes):
+    """The what's-new diff is derived from text the publisher printed in dark red.
+    No red means no diff — say so, or a contributor sees an empty "What's New" and
+    has no way to tell whether the pipeline or the PDF is at fault."""
+    if len(pack.versions) < 2:
+        return 0
+    red = sum(1 for n in nodes for b in n['blocks'] for r in b['runs'] if r.get('red'))
+    if red == 0:
+        print(f'  [warn] v{pack.current["v"]} is not the first version, but no dark-red text '
+              f'was found in {pack.current["pdf"]}.\n'
+              f'         "What\'s New" is built from the red markup the publisher uses for '
+              f'additions; without it the section will be empty.')
+    return red
+
+
+def parse(pack):
+    pdf = pack.require_pdf()
+    lines, doc = collect_lines(pdf, masks_for(pack))
+    check_montage_coords(pack, doc)
     nodes = []
     cur = None
 
@@ -349,24 +387,29 @@ def parse(pdf):
         n['blocks'] = finalize_body(n.pop('raw'))
     return nodes, doc
 
-if __name__ == '__main__':
-    pdf = sys.argv[1]
-    out = sys.argv[2]
-    nodes, doc = parse(pdf)
-    json.dump(nodes, open(out, 'w', encoding='utf-8'), ensure_ascii=False)
+def main():
+    sys.stdout.reconfigure(encoding='utf-8')
+    if len(sys.argv) < 2:
+        print('usage: python tools/parse_grimoire.py <lang>', file=sys.stderr)
+        return 2
+    pack = langpack.load(sys.argv[1])
+    nodes, doc = parse(pack)
+    json.dump(nodes, open(pack.nodes_path, 'w', encoding='utf-8'), ensure_ascii=False)
     # diagnostics
     from collections import Counter
     lv = Counter(n['level'] for n in nodes)
     print('nodes:', len(nodes), 'by level:', dict(lv))
+    warn_if_no_red(pack, nodes)
     print('--- H1 / H2 titles ---')
     for n in nodes:
         if n['level'] <= 2:
             print(f"  L{n['level']} p{n['page']:>2} {n['title'][:60]!r}")
-    print('--- first 12 H3 ---')
-    c = 0
-    for n in nodes:
-        if n['level'] == 3:
-            print(f"  p{n['page']:>2} {n['title'][:50]!r}  blocks={len(n['blocks'])}")
-            c += 1
-            if c >= 12:
-                break
+    return 0
+
+
+if __name__ == '__main__':
+    try:
+        sys.exit(main())
+    except langpack.PackError as e:
+        print(f'ERROR: {e}', file=sys.stderr)
+        sys.exit(1)

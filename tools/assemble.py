@@ -5,16 +5,17 @@
   * resolves cross-references ("Consulta también ... página N") into inline links
   * attaches rendered figures to image sections
   * validates entry counts & cross-reference integrity
+
+Everything language-specific — the section list, the cross-reference wording, the
+auto-link vocabulary, the version history — comes from that language's pack
+(langs/<lang>/lang.json). This file knows no language.
+
+Usage:  python tools/assemble.py <lang>
 Outputs data/grimoire_<lang>.json plus a validation report.
 """
 import json, re, sys, os, unicodedata
-from montages import MONTAGES, INLINE_SYMBOLS
-
-def slugify(t):
-    t = (t or '').strip().lower().replace('“','').replace('”','').replace('"','').replace('’',"'")
-    t = ''.join(c for c in unicodedata.normalize('NFKD', t) if not unicodedata.combining(c))
-    t = re.sub(r'[^a-z0-9]+', '-', t).strip('-')
-    return t or 'x'
+import langpack
+from langpack import slugify
 
 def norm(t):
     t = (t or '').strip().lower().replace('“','"').replace('”','"').replace('’',"'")
@@ -22,11 +23,9 @@ def norm(t):
     return re.sub(r'\s+', ' ', t).strip(' .:"')
 
 # length-preserving accent fold (positions stay valid in the original string, so
-# regex matches on the folded text map straight back onto the source text)
-_FOLD = str.maketrans('áàäâéèëêíìïîóòöôúùüûñçÁÀÄÂÉÈËÊÍÌÏÎÓÒÖÔÚÙÜÛÑÇ',
-                      'aaaaeeeeiiiioooouuuuncAAAAEEEEIIIIOOOOUUUUNC')
-def fold(s):
-    return (s or '').translate(_FOLD).lower()
+# regex matches on the folded text map straight back onto the source text).
+# The 1:1 invariant is enforced in langpack.validate_fold, not just documented.
+fold = langpack.fold
 
 def title_variants(title):
     """Splittable forms of an entry title for auto-linking: drop parentheticals and
@@ -34,131 +33,25 @@ def title_variants(title):
     t = re.sub(r'\([^)]*\)', ' ', title).replace('“','').replace('”','').replace('"','')
     return [p.strip(' .:') for p in re.split(r'[,/]', t) if p.strip(' .:')]
 
-# ---- section configuration per language (canonical titles; kind; figures) ----
-CFG = {
- 'es': {
-  'intro_start': 'como usar este documento',
-  'index_start': 'indice',
-  'sections': [
-    ('I','glosario','Glosario de términos y palabras clave','glossary',[]),
-    ('II','fundamentos','Fundamentos y reglas adicionales','rules',[]),
-    ('III','juego-orden','Juego y orden de resolución','rules',[]),
-    ('IV','pruebas-habilidad','Orden de resolución de las pruebas de habilidad','rules',[]),
-    ('V','iniciacion','Secuencia de iniciación','rules',[]),
-    ('VI','preparacion','Preparación de un escenario','rules',[]),
-    ('VII','elementos-cartas','Elementos de las cartas','figures',
-        ['card-location','card-agenda-act-treachery-enemy','card-investigator','card-asset-event-skill']),
-    ('VIII','campana','Juego de campaña','rules',[]),
-    ('IX','mazos','Personalización de mazos','rules',[]),
-    ('X','erratas','Notas y fe de erratas','rules',[]),
-    ('XI','faq','Preguntas frecuentes','rules',[]),
-    ('XII','opcionales','Reglas opcionales','rules',[]),
-    ('XIII','reimpresiones','Reimpresiones modificadas','rules',[]),   # source mislabels as XII
-    ('XIV','ref-iconos','Referencia de iconos','figures',['icons-products']),
-    ('XV','ref-iconos-encuentros','Referencia de iconos de conjuntos de encuentros','figures',
-        ['icons-encounter-1','icons-encounter-2']),
-    ('','ref-rapida','Referencia rápida','figures',['quick-reference']),
-  ],
-  # cross-reference triggers & page words
-  'trig': r'(consulta(?:\s+tambi[eé]n)?|v[eé]ase|ver)\b',
-  'pageword': r'(p[aá]gina|p[aá]g\.?|p\.)',
-  'pageref': r'(?:en la|en las|en)\s+p[áa]g(?:inas?|\.)?\s*(\d+(?:\s*[-–]\s*\d+)?)',
-  # --- auto-linking of direct-relationship terms inside the glossary ---
-  # curated aliases where the wording differs from the entry title (verb forms, etc.)
-  'link_alias': {
-    'robar 1 carta': 'Robar cartas',
-    'obtener 1 recurso': 'Acción de recursos',
-    'combatir': 'Acción de combatir',
-    'evitar': 'Evitar, acción de evitar',
-    'investigar': 'Acción de investigar',
-    'enfrentarse': 'Acción de enfrentarse',
-    'activar': 'Acción de activar',
-  },
-  # single-word titles distinctive enough to link (multi-word titles link by default)
-  'link_allow1': {
-    'jugar','moverse','negociar','desistir','exiliar','reponer','cazador','represalia','alerta',
-    'descomunal','escurridizo','errante','embrujado','condenado','aparicion','oleada',
-    'perdicion','miriada','presa','sello','oculto','rapido','preparada','indiferente',
-    'excepcional','permanente','revelacion','recompensa','calificativos','modificadores',
-    'rasgos','pistas','traumas','experiencia','eliminacion','agotar','agotado',
-    'atacante','atacado',
-  },
-  # phrases never to auto-link (function words / generic connectors)
-  'link_stop': {
-    'a continuacion','por cada','no puede','en blanco','como si','en lugar de','en vez de',
-    'en el orden de juego','por investigador','tu tu s','usos x','unica','la letra x',
-    'diferente s distinta s','mas alejado a','mas cercano a','al','cuando','despues',
-  },
-  # version history (oldest -> newest). Newest holds the red "new" markup.
-  'versions': [{'v': '1.0', 'date': '2026-05-11'}],
- },
- 'en': {
-  'intro_start': 'using this book',
-  'index_start': 'index',
-  'sections': [
-    ('I','glossary','Glossary of Terms and Keywords','glossary',[]),
-    ('II','additional-rules','Additional Rules and Fundamentals','rules',[]),
-    ('III','timing-gameplay','Timing and Gameplay','rules',[]),
-    ('IV','skill-test-timing','Skill Test Timing','rules',[]),
-    ('V','initiation','Initiation Sequence','rules',[]),
-    ('VI','scenario-setup','Scenario Setup','rules',[]),
-    ('VII','card-anatomy','Card Anatomy','figures',['card-anatomy-1','card-anatomy-2']),
-    ('VIII','campaign','Campaign Play','rules',[]),
-    ('IX','deck-customization','Deck Customization','rules',[]),
-    ('X','notes-errata','Notes and Errata','rules',[]),
-    ('XI','faq','Frequently Asked Questions','rules',[]),
-    ('XII','optional-rules','Optional Rules','rules',[]),
-    ('XIII','modified-reprints','Modified Reprints','rules',[]),
-    ('XIV','icon-reference','Icon Reference','figures',['icons-ref-a']),
-    ('XV','encounter-icons','Encounter Set Icon Reference','figures',['icons-ref-a','icons-ref-b']),
-    ('','quick-reference','Quick Reference','figures',['icons-ref-b']),
-  ],
-  'trig': r'(see|consult|refer to)\b',
-  'pageword': r'(page|pg\.?|p\.)',
-  'pageref': r'on pages?\s*(\d+(?:\s*[-–]\s*\d+)?)',
-  # --- auto-linking of direct-relationship terms inside the glossary ---
-  'link_alias': {
-    'draw 1 card': 'Drawing Cards',
-    'gain 1 resource': 'Resource Action',
-    'engage': 'Engage Action',
-    'fight': 'Fight Action',
-    'evade': 'Evade, Evade Action',
-    'investigate': 'Investigate Action',
-    'activate': 'Activate Action',
-  },
-  'link_allow1': {
-    'move','parley','resign','exile','retaliate','alert','aloof','elusive','hunter',
-    'massive','peril','prey','spawn','surge','seal','hidden','myriad','patrol','doomed',
-    'haunted','fast','permanent','revelation','reward','qualifiers','modifiers','traits',
-    'clues','trauma','experience','elimination','mulligan','exhaust','exhausted',
-    'attacker','attacked',
-  },
-  'link_stop': {
-    'as if','for each or for every','in player order','per investigator','uses x','unique',
-    'the letter x','different','you your','at','when','then','after','may','cannot','gains',
-  },
-  'versions': [{'v': '1.0', 'date': '2026-03-18'}, {'v': '1.1', 'date': '2026-06-22'}],
- },
-}
-
 ROMAN = re.compile(r'^\s*([IVXLC]+)\.\s*(.*)$')
 
 def flat_text(runs):
     return ''.join(r.get('t','') for r in runs if r['kind'] == 'text')
 
-def assemble(lang, nodes, images):
-    cfg = CFG[lang]
-    seclist = cfg['sections']
+def assemble(pack, nodes, images):
+    lang = pack.code
+    seclist = pack.sections
     by_num = {}
-    for idx,(num,sid,title,kind,figs) in enumerate(seclist):
-        if num: by_num[num] = idx
+    for idx, s in enumerate(seclist):
+        if s['num']: by_num[s['num']] = idx
     started = [False]*len(seclist)
     sections = [None]*len(seclist)
     def mk(idx):
-        num,sid,title,kind,figs = seclist[idx]
-        s = {'num':num,'id':sid,'title':title,'kind':kind,'intro':[], 'entries':[], 'figures':[]}
-        for f in figs:
-            info = images.get(lang,{}).get(f)
+        sc = seclist[idx]
+        s = {'num':sc['num'],'key':sc['key'],'id':sc['id'],'title':sc['title'],'kind':sc['kind'],
+             'intro':[], 'entries':[], 'figures':[]}
+        for f in sc.get('figures', []):
+            info = images.get(f)
             if info: s['figures'].append({'file':info['file'],'w':info['w'],'h':info['h'],'page':info['page']})
         sections[idx]=s
         return s
@@ -166,30 +59,30 @@ def assemble(lang, nodes, images):
     intro_blocks = []
     cur = None            # current section dict
     cur_kind = None
-    seen_index = False
 
     def match_section(title):
         m = ROMAN.match(title)
         n = norm(title)
         # index -> stop
-        if n.startswith(cfg['index_start']):
+        if n.startswith(pack.parse['indexStart']):
             return 'INDEX'
         # roman numeral exact match to an unstarted section
         if m:
             num = m.group(1)
             if num in by_num and not started[by_num[num]]:
                 return by_num[num]
-        # special: reimpresiones / modified reprints / referencia rapida / quick reference
-        for idx,(num,sid,title2,kind,figs) in enumerate(seclist):
-            if started[idx] or num:      # only numberless / by-name specials here
+        # numberless specials matched by name (e.g. the quick-reference sheet)
+        for idx, sc in enumerate(seclist):
+            if started[idx] or sc['num']:      # only numberless / by-name specials here
                 continue
-            if n.startswith(norm(title2)):
+            if n.startswith(norm(sc['title'])):
                 return idx
-        # numbered specials matched by name (reimpresiones has a dup numeral in ES)
-        for idx,(num,sid,title2,kind,figs) in enumerate(seclist):
+        # numbered specials matched by name (a book may misprint a numeral: the ES
+        # edition labels its "Reimpresiones modificadas" chapter XII twice)
+        for idx, sc in enumerate(seclist):
             if started[idx]:
                 continue
-            if n.startswith(norm(title2)) or norm(title2) in n:
+            if n.startswith(norm(sc['title'])) or norm(sc['title']) in n:
                 return idx
         return None
 
@@ -211,7 +104,7 @@ def assemble(lang, nodes, images):
                     continue
         if not reached_first:
             # front matter: capture the "how to use" explanation
-            if norm(title).startswith(cfg['intro_start']) and blocks:
+            if norm(title).startswith(pack.parse['introStart']) and blocks:
                 intro_blocks.extend(blocks)
             elif intro_blocks and blocks and lvl != 1:
                 intro_blocks.extend(blocks)
@@ -236,7 +129,18 @@ def assemble(lang, nodes, images):
         if node.get('red_title'):
             entry['_new'] = True
         cur['entries'].append(entry)
-    # drop unstarted sections
+    # A section the parser never found is silently absent from the site, which is
+    # the worst way to fail: the run "succeeds" and the chapter is just gone.
+    missing = [seclist[i] for i in range(len(seclist)) if not started[i]]
+    if missing:
+        want = ', '.join(f'{s["num"] + ". " if s["num"] else ""}{s["title"]}' for s in missing)
+        raise langpack.PackError(
+            f'langs/{lang}/lang.json: {len(missing)} of {len(seclist)} sections were never '
+            f'found in {pack.current["pdf"]}:\n    {want}\n'
+            f'  A section is matched by its roman numeral ("I.", "II.", …) or by its "title" '
+            f'matching the heading printed in the PDF.\n'
+            f'  See the headings your PDF actually has:\n'
+            f'    python tools/inspect_pdf.py {lang} --sections')
     sections = [s for s in sections if s]
     # assign entry ids (unique within language)
     used = set()
@@ -257,9 +161,9 @@ def assemble(lang, nodes, images):
     for s in sections:
         for e in s['entries']:
             entry_by_title.setdefault(norm(e['title']), e)
-    for m in MONTAGES.get(lang, []):
+    for m in pack.montages:
         e = entry_by_title.get(norm(m['entry']))
-        info = images.get(lang, {}).get(m['name'])
+        info = images.get(m['name'])
         if e is None or not info:
             print(f'  [warn] montage {m["name"]!r} not attached (entry={m["entry"]!r} found={e is not None} img={info is not None})')
             continue
@@ -267,7 +171,7 @@ def assemble(lang, nodes, images):
             'file': info['file'], 'w': info['w'], 'h': info['h'],
             'srcpage': m.get('srcpage', info.get('page')), 'alt': m['alt'], 'info': m['info']})
     # re-insert standalone symbols (drawn as vectors, invisible to the text parser)
-    for ins in INLINE_SYMBOLS.get(lang, []):
+    for ins in pack.inline_symbols:
         e = entry_by_title.get(norm(ins['entry']))
         if e is None:
             print(f'  [warn] inline symbol: entry {ins["entry"]!r} not found'); continue
@@ -278,14 +182,14 @@ def assemble(lang, nodes, images):
         if idx is None:
             print(f'  [warn] inline symbol: anchor {ins["after"]!r} not found in {ins["entry"]!r}'); continue
         e['blocks'].insert(idx+1, {'type':'sym', 'runs':[{'kind':'icon','name':ins['icon']}]})
-    intro_section = {'num':'','id':'intro','title':('Cómo empezar' if lang=='es' else 'Getting Started'),
+    intro_section = {'num':'','key':'intro','id':'intro','title':pack.parse['introTitle'],
                      'kind':'intro','intro':intro_blocks,'entries':[],'figures':[]}
-    return intro_section, sections, title_index, cfg
+    return intro_section, sections, title_index
 
-def linkify(sections, title_index, cfg):
-    trig = re.compile(cfg['trig'], re.I)
-    pageword = cfg['pageword']
-    pageref = re.compile(cfg['pageref'], re.I)
+def linkify(sections, title_index, pack):
+    trig = re.compile(pack.patterns['trigger'], re.I)
+    pageword = pack.patterns['pageWord']
+    pageref = re.compile(pack.patterns['pageRef'], re.I)
     quote = re.compile(r'([“"])(.+?)([”"])')
     linkcount = [0]
     def process_run(run, ctx_has_trig):
@@ -337,14 +241,17 @@ def linkify(sections, title_index, cfg):
     return linkcount[0]
 
 
-def autolink(sections, title_index, cfg):
+def autolink(sections, title_index, pack):
     """Turn the first mention of a related glossary term into an inline link, so the
     reader can jump straight to it (e.g. 'Robar 1 carta' -> the 'Robar cartas' entry).
     Conservative on purpose: glossary only, distinctive terms + curated aliases,
     first occurrence per target per entry, never self-links, capped per entry."""
-    stop = set(cfg.get('link_stop', []))
-    allow1 = set(cfg.get('link_allow1', []))
-    cap = cfg.get('link_cap', 12)
+    al = pack.autolink
+    # the lists are matched against accent-folded text, so fold them on load:
+    # a pack may spell them either way ('aparición' or 'aparicion') and mean the same.
+    stop = {fold(x) for x in al.get('stop', [])}
+    allow1 = {fold(x) for x in al.get('allowSingleWord', [])}
+    cap = al.get('cap', 12)
     phrases = {}                                   # folded phrase -> target id
     def add(phrase, tgt, force=False):
         f = fold(re.sub(r'\s+', ' ', phrase).strip(' .:'))
@@ -359,12 +266,14 @@ def autolink(sections, title_index, cfg):
         for e in s['entries']:
             for pv in title_variants(e['title']):
                 add(pv, e['id'])
-    for alias, tgt_title in cfg.get('link_alias', {}).items():
+    for alias, tgt_title in al.get('alias', {}).items():
         tid = title_index.get(norm(tgt_title))
         if tid:
             add(alias, tid, force=True)
         else:
-            print(f'  [warn] autolink alias target not found: {tgt_title!r}')
+            print(f'  [warn] autolink alias target not found: {tgt_title!r} '
+                  f'(check "autolink.alias" in langs/{pack.code}/lang.json — the value must be '
+                  f'a glossary entry title exactly as printed)')
     if not phrases:
         return 0
     tgt_of = dict(phrases)
@@ -431,11 +340,14 @@ def autolink(sections, title_index, cfg):
     return count[0]
 
 
-def apply_versions(allsecs, cfg):
+def apply_versions(allsecs, pack):
     """Turn the parser's `red` flags into version tags. Runs added in the newest
     version get v=<newest>; entries with a red title -> newIn; entries with new
-    body text -> updatedIn. Returns the versions manifest + a 'what's new' index."""
-    versions = cfg.get('versions', [{'v': '1.0', 'date': None}])
+    body text -> updatedIn. Returns the versions manifest + a 'what's new' index.
+
+    With a single version there is nothing to diff against, so no run is tagged.
+    """
+    versions = [{'v': v['v'], 'date': v['date']} for v in pack.versions]
     latest = versions[-1]['v'] if len(versions) > 1 else None
     def tag(runs):
         for r in runs:
@@ -469,25 +381,51 @@ def apply_versions(allsecs, cfg):
     return versions, whatsnew
 
 def main():
-    lang = sys.argv[1]
-    nodes_path = sys.argv[2]
-    images_path = sys.argv[3]
-    out_path = sys.argv[4]
-    nodes = json.load(open(nodes_path, encoding='utf-8'))
+    sys.stdout.reconfigure(encoding='utf-8')
+    if len(sys.argv) < 2:
+        print('usage: python tools/assemble.py <lang>', file=sys.stderr)
+        return 2
+    pack = langpack.load(sys.argv[1])
+    lang = pack.code
+    if not os.path.exists(pack.nodes_path):
+        raise langpack.PackError(
+            f'the parsed nodes for "{lang}" are missing (data/_nodes_{lang}.json).\n'
+            f'  Run the whole pipeline instead:  python tools/ingest.py {lang}')
+    nodes = json.load(open(pack.nodes_path, encoding='utf-8'))
+    images_path = pack.images_path(os.path.join(langpack.ROOT, 'assets', 'img'))
+    if not os.path.exists(images_path) and (pack.figures or pack.montages):
+        # Without the manifest every figure would quietly vanish from the page while
+        # the run still reported success — so refuse rather than half-build.
+        raise langpack.PackError(
+            f'the figure manifest for "{lang}" is missing '
+            f'(assets/img/images_{lang}.json), but the pack declares '
+            f'{len(pack.figures)} figure(s) and {len(pack.montages)} montage(s).\n'
+            f'  Render them first:  python tools/render_images.py {lang}\n'
+            f'  Or just run the whole pipeline:  python tools/ingest.py {lang}')
     images = json.load(open(images_path, encoding='utf-8')) if os.path.exists(images_path) else {}
-    intro, sections, title_index, cfg = assemble(lang, nodes, images)
+    intro, sections, title_index = assemble(pack, nodes, images)
     allsecs = [intro] + sections
-    versions, whatsnew = apply_versions(allsecs, cfg)
-    links = linkify(allsecs, title_index, cfg)
-    autolinks = autolink(allsecs, title_index, cfg)
+    versions, whatsnew = apply_versions(allsecs, pack)
+    links = linkify(allsecs, title_index, pack)
+    autolinks = autolink(allsecs, title_index, pack)
     data = {'lang': lang, 'sections': allsecs, 'versions': versions, 'whatsnew': whatsnew}
-    json.dump(data, open(out_path,'w',encoding='utf-8'), ensure_ascii=False)
+    json.dump(data, open(pack.data_path, 'w', encoding='utf-8'), ensure_ascii=False)
     # ---- report ----
     print(f'[{lang}] sections: {len(allsecs)}  cross-links: {links}  auto-links: {autolinks}  versions: {[v["v"] for v in versions]}')
     for v, wn in whatsnew.items():
         print(f'  what\'s new in v{v}: {len(wn["new"])} new entries, {len(wn["updated"])} updated')
+    if len(versions) > 1 and not whatsnew:
+        print(f'  [warn] v{versions[-1]["v"]} produced no "What\'s New" entries. That diff comes '
+              f'from the dark-red text the publisher prints for additions; if this edition does '
+              f'not use red, the section will not appear.')
     tot = sum(len(s['entries']) for s in allsecs)
     print(f'  TOTAL entries: {tot}')
+    return 0
+
 
 if __name__ == '__main__':
-    main()
+    try:
+        sys.exit(main())
+    except langpack.PackError as e:
+        print(f'ERROR: {e}', file=sys.stderr)
+        sys.exit(1)

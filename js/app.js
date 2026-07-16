@@ -1,56 +1,68 @@
 /* ============================================================
    The Living Arkham — app logic
-   Loads the grimoire data (data/grimoire_*.json) + icon manifest at runtime.
+
+   Knows no language. Everything language-specific is fetched at runtime:
+     data/languages.json     which languages exist (built by tools/ingest.py)
+     langs/<code>/ui.json    that language's interface strings + icon labels
+     data/grimoire_<code>.json  its content
+   Adding a language is therefore a data change, never a change to this file.
    ============================================================ */
 (function () {
 "use strict";
 
-var UI = {
-  es:{onthispage:"En esta página",entries:"entradas",searchph:"Buscar reglas, palabras clave, iconos…",
-      nores:"Sin resultados",sub:"Grimorio interactivo · Arkham Horror LCG",jump:"Saltar a",fig:"Figura del Grimorio · pág.",
-      loaderr:"No se pudo cargar el grimorio.",filterby:"Filtrar por letra",all:"Todas",
-      tolight:"Cambiar a tema claro",todark:"Cambiar a tema oscuro",showing:"mostrando",of:"de",
-      news:"Novedades",newver:"Nueva versión",newentries:"Entradas nuevas",updentries:"Entradas actualizadas",
-      newbadge:"Nuevo",updbadge:"Ampliado",seenews:"Ver novedades",origpage:"orig. pág.",
-      addedin:"añadido en v",updatedin:"ampliado en v",current:"versión actual",released:"publicada el",
-      searchbtn:"Buscar…",cancel:"Cancelar",searchtitle:"Buscar en el grimorio",
-      khnav:"navegar",khopen:"abrir",khclose:"cerrar",browse:"Explorar el grimorio",about:"Acerca del grimorio original de FFG",
-      figinfo:"Ver los datos de las cartas",figdata:"Datos de las cartas",figalt:"Recurso del Grimorio",
-      rmkicker:"Rincón Miskatonic",rmtitle:"Un proyecto de Rincón Miskatonic",rmcta:"Visitar Rincón Miskatonic",
-      rmbody:"<b>The Living Arkham</b> es la edición web —interactiva y disponible en varios idiomas— de <i>El Grimorio de Arkham</i>, la recopilación oficial de aclaraciones de reglas de FFG para el juego <i>Arkham Horror: El Juego de Cartas</i>. Es una herramienta <b>gratuita</b> creada por <b>Rincón Miskatonic</b>, un blog español sobre contenido para juegos de mesa, donde encontrarás escenarios, guías, ayudas y más <b>material gratuito</b> del juego.",
-      faqlabel:"Ver documento (FAQ retiradas)",faqurl:"https://www.asmodee.es/product/arkham-horror-el-juego-de-cartas/",
-      footsrc:"Basado en <b>El Grimorio de Arkham</b> v1.0 (ES) / v1.1 (EN) · reglas © sus autores · Arkham Horror: LCG ™ Fantasy Flight Games",
-      footby:"The Living Arkham <b>v0.1.0 · beta</b> · un proyecto de <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
-      newsintro:"Esto es lo que cambió respecto a la versión anterior. En rojo se resalta el texto nuevo dentro de cada entrada."},
-  en:{onthispage:"On this page",entries:"entries",searchph:"Search rules, keywords, icons…",
-      nores:"No results",sub:"Interactive rulebook · Arkham Horror LCG",jump:"Jump to",fig:"Grimoire figure · p.",
-      loaderr:"Could not load the grimoire.",filterby:"Filter by letter",all:"All",
-      tolight:"Switch to light theme",todark:"Switch to dark theme",showing:"showing",of:"of",
-      news:"What's New",newver:"New version",newentries:"New entries",updentries:"Updated entries",
-      newbadge:"New",updbadge:"Expanded",seenews:"See what's new",origpage:"orig. p.",
-      addedin:"added in v",updatedin:"expanded in v",current:"current version",released:"released",
-      searchbtn:"Search…",cancel:"Cancel",searchtitle:"Search the grimoire",
-      khnav:"navigate",khopen:"open",khclose:"close",browse:"Browse the grimoire",about:"About the original FFG grimoire",
-      figinfo:"Show the card data",figdata:"Card data",figalt:"Grimoire resource",
-      rmkicker:"Rincón Miskatonic",rmtitle:"A Rincón Miskatonic project",rmcta:"Visit Rincón Miskatonic",
-      rmbody:"<b>The Living Arkham</b> is the web edition —interactive and available in several languages— of <i>The Arkham Grimoire</i>, FFG's official rules-clarification compendium for <i>Arkham Horror: The Card Game</i>. It's a <b>free</b> tool created by <b>Rincón Miskatonic</b>, a Spanish blog about tabletop-gaming content, where you'll find scenarios, guides, resources and more <b>free material</b> for the game.",
-      faqlabel:"Open document (retired FAQ)",faqurl:"https://ffgapp.com/qr/legacy-faq",
-      footsrc:"Based on <b>The Arkham Grimoire</b> v1.0 (ES) / v1.1 (EN) · rules © their authors · Arkham Horror: LCG ™ Fantasy Flight Games",
-      footby:"The Living Arkham <b>v0.1.0 · beta</b> · a project by <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
-      newsintro:"Here is what changed since the previous version. New text within each entry is highlighted."}
+/* The only strings that can't be fetched: the ones needed to report that a
+   fetch failed. Everything else lives in the packs. */
+var BOOT = {
+  loaderr: "Could not load the grimoire.",
+  retry: "Reload"
 };
-var MONTHS={es:['ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'],
-            en:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']};
-function fmtDate(iso){if(!iso)return''; var p=iso.split('-'); if(p.length<3)return iso;
-  return (+p[2])+' '+MONTHS[lang][(+p[1])-1]+' '+p[0];}
+
+var GRIM = {},        // code -> grimoire data (loaded on demand)
+    PACKS = {},       // code -> ui.json
+    REG = null,       // the language registry
+    LANGS = [];       // registry entries, in display order
+var BLOG='https://rinconmiskatonic.org/', SIGIL_SVG='';
+
+/* ---------- i18n ---------- */
+/* A string is looked up in the active language, then along its fallback chain,
+   then the site default. A pack may therefore be translated a little at a time:
+   whatever is missing shows in another language instead of breaking the page. */
+function chainOf(code){
+  var seen={}, out=[], c=code;
+  while(c && !seen[c]){ seen[c]=1; out.push(c); c=(PACKS[c]&&PACKS[c].fallback)||null; }
+  if(REG && !seen[REG.default]) out.push(REG.default);
+  return out;
+}
+function pick(code, group, key){
+  var ch=chainOf(code);
+  for(var i=0;i<ch.length;i++){
+    var p=PACKS[ch[i]];
+    if(p && p[group] && p[group][key]!=null && p[group][key]!=='') return p[group][key];
+  }
+  return null;
+}
+function t(key){ var v=pick(lang,'strings',key); return v==null?key:v; }
+function iconLabel(name){ var v=pick(lang,'icons',name); return v==null?name:v; }
+function uiOf(code, key, dflt){
+  var ch=chainOf(code);
+  for(var i=0;i<ch.length;i++){ var p=PACKS[ch[i]]; if(p && p[key]!=null) return p[key]; }
+  return dflt;
+}
+/* Dates come from the pack's own month names, not from Intl: the browser's CLDR
+   data varies by version and doesn't match the abbreviations the book uses. */
+function fmtDate(iso){
+  if(!iso)return '';
+  var p=String(iso).split('-'); if(p.length<3)return iso;
+  var months=uiOf(lang,'months',null);
+  var mon=(months&&months[(+p[1])-1])||p[1];
+  var pat=uiOf(lang,'datePattern','{d} {mon} {y}');
+  return pat.replace('{d}',+p[2]).replace('{mon}',mon).replace('{y}',p[0]);
+}
 function latestInfo(g){ // returns {v,date} of the newest version if it carries changes, else null
   if(!g.versions||g.versions.length<2)return null;
   var last=g.versions[g.versions.length-1];
   return (g.whatsnew&&g.whatsnew[last.v])?last:null;
 }
-
-var GRIM = {}, ICONS = {};
-var BLOG='https://rinconmiskatonic.org/', SIGIL_SVG='';
 var root=document.getElementById('tla-root');
 var elNav=document.getElementById('tla-nav'), elMain=document.getElementById('tla-main'),
     elToc=document.getElementById('tla-toc'), elQ=document.getElementById('tla-q'),
@@ -64,53 +76,64 @@ var elNav=document.getElementById('tla-nav'), elMain=document.getElementById('tl
     elFigBody=document.getElementById('tla-figmodal-body'),
     elFigClose=document.getElementById('tla-figmodal-close');
 var lastFigBtn=null;
-var lang='es', data=null, curSec=null, searchIndex={}, resSel=-1, glossFilter='all', firstRoute=true;
+/* set by boot() from the registry — never hardcoded to any language */
+var lang='', data=null, curSec=null, searchIndex={}, resSel=-1, glossFilter='all', firstRoute=true;
 
 /* ---------- helpers ---------- */
 function esc(s){return (s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
 function announce(msg){if(elLive){elLive.textContent=''; setTimeout(function(){elLive.textContent=msg;},40);}}
-function iconHTML(name){return '<i class="ico ico-'+name+'" title="'+((ICONS[name]&&ICONS[name][lang])||name)+'"></i>';}
+/* Labels come from a pack, so they are escaped like any other authored text:
+   a label containing a quote would otherwise break out of the attribute. */
+function iconHTML(name){return '<i class="ico ico-'+esc(name)+'" title="'+esc(iconLabel(name))+'"></i>';}
 function runsHTML(runs,suppressNew){
   var h='';
   for(var i=0;i<runs.length;i++){var r=runs[i];
     if(r.kind==='icon'){h+=iconHTML(r.name); continue;}
-    if(r.kind==='pageref'){h+='<span class="tla-pageref" title="'+UI[lang].origpage+' '+esc(r.n)+'">('+UI[lang].origpage+' '+esc(r.n)+')</span>'; continue;}
+    if(r.kind==='pageref'){h+='<span class="tla-pageref" title="'+t('origpage')+' '+esc(r.n)+'">('+t('origpage')+' '+esc(r.n)+')</span>'; continue;}
     var inner=(r.kind==='link')?'<a class="xref" data-t="'+esc(r.target)+'">'+wrap(esc(r.t),r)+'</a>':wrap(esc(r.t),r);
-    if(r.v && !suppressNew){inner='<span class="tla-new" title="'+UI[lang].addedin+r.v+'">'+inner+'</span>';}
+    if(r.v && !suppressNew){inner='<span class="tla-new" title="'+t('addedin')+r.v+'">'+inner+'</span>';}
     h+=inner;
   }
   return h;
 }
-function wrap(t,r){if(r.bold)t='<strong>'+t+'</strong>'; if(r.italic)t='<em>'+t+'</em>'; return t;}
-function blocksHTML(blocks){
+function wrap(s,r){if(r.bold)s='<strong>'+s+'</strong>'; if(r.italic)s='<em>'+s+'</em>'; return s;}
+/* suppressNew: inside an entry that is itself brand new, every run would be
+   flagged as added — which says nothing. The entry already carries its own
+   "New vX" badge, so the per-run diff marks are suppressed there (the title
+   does the same via titleHTML). */
+function blocksHTML(blocks,suppressNew){
   var h='',i=0;
   while(i<blocks.length){
     var b=blocks[i];
     if(b.type==='bullet'){
       h+='<ul class="tla-bul">';
       while(i<blocks.length && blocks[i].type==='bullet'){
-        h+='<li class="'+(blocks[i].level===2?'l2':'l1')+'">'+runsHTML(blocks[i].runs)+'</li>'; i++;
+        h+='<li class="'+(blocks[i].level===2?'l2':'l1')+'">'+runsHTML(blocks[i].runs,suppressNew)+'</li>'; i++;
       }
       h+='</ul>';
-    } else if(b.type==='sym'){ h+='<div class="tla-sym">'+runsHTML(b.runs)+'</div>'; i++; }
-    else { h+='<p class="tla-p">'+runsHTML(b.runs)+'</p>'+faqLink(plainOfRuns(b.runs)); i++; }
+    } else if(b.type==='sym'){ h+='<div class="tla-sym">'+runsHTML(b.runs,suppressNew)+'</div>'; i++; }
+    else { h+='<p class="tla-p">'+runsHTML(b.runs,suppressNew)+'</p>'+faqLink(plainOfRuns(b.runs)); i++; }
   }
   return h;
 }
-/* The PDF shows a QR to the retired-FAQ document after these sentences; render a real link instead. */
+/* The PDF shows a QR code to the retired-FAQ document after a sentence ending in
+   a colon; render a real link instead. Which sentence that is depends on the
+   language, so the pack says (ui.json -> "faqAnchor"). No anchor, no link. */
 function faqLink(txt){
-  var t=(txt||'').trim();
-  if(!/(preguntas frecuentes retirad|retired FAQ)/i.test(t) || !/[:：]\s*$/.test(t)) return '';
-  return '<a class="tla-extlink" href="'+UI[lang].faqurl+'" target="_blank" rel="noopener">'
+  var s=(txt||'').trim(), anchor=uiOf(lang,'faqAnchor',null);
+  if(!anchor || !t('faqurl')) return '';
+  var re; try{ re=new RegExp(anchor,'i'); }catch(e){ return ''; }
+  if(!re.test(s) || !/[:：]\s*$/.test(s)) return '';
+  return '<a class="tla-extlink" href="'+t('faqurl')+'" target="_blank" rel="noopener">'
     +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3h7v7"/><path d="M21 3l-9 9"/><path d="M19 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>'
-    +esc(UI[lang].faqlabel)+'</a>';
+    +esc(t('faqlabel'))+'</a>';
 }
-function plainOfRuns(runs){var s='';for(var i=0;i<runs.length;i++){s+=runs[i].kind==='text'||runs[i].kind==='link'?runs[i].t:(' '+((ICONS[runs[i].name]&&ICONS[runs[i].name][lang])||'')+' ');}return s;}
-function plainOfBlocks(blocks){return blocks.map(function(b){return plainOfRuns(b.runs);}).join(' ');}
+function plainOfRuns(runs,L){var s='';for(var i=0;i<runs.length;i++){s+=runs[i].kind==='text'||runs[i].kind==='link'?runs[i].t:(' '+(pick(L||lang,'icons',runs[i].name)||'')+' ');}return s;}
+function plainOfBlocks(blocks,L){return blocks.map(function(b){return plainOfRuns(b.runs,L);}).join(' ');}
 function titleHTML(e){return e.titleRuns?runsHTML(e.titleRuns,true):esc(e.title);}
 function verBadge(e){
-  if(e.newIn)return '<span class="tla-vbadge new" title="'+UI[lang].addedin+e.newIn+'">'+UI[lang].newbadge+' v'+e.newIn+'</span>';
-  if(e.updatedIn)return '<span class="tla-vbadge upd" title="'+UI[lang].updatedin+e.updatedIn+'">'+UI[lang].updbadge+' v'+e.updatedIn+'</span>';
+  if(e.newIn)return '<span class="tla-vbadge new" title="'+t('addedin')+e.newIn+'">'+t('newbadge')+' v'+e.newIn+'</span>';
+  if(e.updatedIn)return '<span class="tla-vbadge upd" title="'+t('updatedin')+e.updatedIn+'">'+t('updbadge')+' v'+e.updatedIn+'</span>';
   return '';
 }
 /* montage figures (example card-art resources) shown inside a glossary entry,
@@ -118,7 +141,7 @@ function verBadge(e){
 function figSrc(f){  // credit band: original page + document version
   var v=(data.versions&&data.versions.length)?data.versions[data.versions.length-1].v:'';
   var p=(f.srcpage!=null)?(' '+f.srcpage):'';
-  return UI[lang].fig+p+(v?(' · v'+v):'');
+  return t('fig')+p+(v?(' · v'+v):'');
 }
 function figuresHTML(e,idbase){
   if(!e.figures||!e.figures.length)return '';
@@ -128,8 +151,8 @@ function figuresHTML(e,idbase){
     var wh=f.w?(' width="'+f.w+'" height="'+f.h+'"'):'';
     h+='<figure class="tla-montage">';
     h+='<div class="tla-montage-frame">';
-    h+='<img class="tla-montage-img" loading="lazy" src="assets/img/'+esc(f.file)+'" alt="'+esc(f.alt||UI[lang].figalt)+'"'+wh+'>';
-    if(f.info)h+='<button class="tla-montage-i" type="button" aria-haspopup="dialog" aria-controls="'+fid+'" aria-label="'+esc(UI[lang].figinfo)+'" title="'+esc(UI[lang].figinfo)+'">i</button>';
+    h+='<img class="tla-montage-img" loading="lazy" src="assets/img/'+esc(f.file)+'" alt="'+esc(f.alt||t('figalt'))+'"'+wh+'>';
+    if(f.info)h+='<button class="tla-montage-i" type="button" aria-haspopup="dialog" aria-controls="'+fid+'" aria-label="'+esc(t('figinfo'))+'" title="'+esc(t('figinfo'))+'">i</button>';
     h+='<div class="tla-montage-cap">'+esc(figSrc(f))+'</div>';
     h+='</div>';
     if(f.info)h+='<div class="tla-montage-info" id="'+fid+'" hidden>'+f.info+'</div>';
@@ -140,7 +163,7 @@ function figuresHTML(e,idbase){
 function openFigInfo(btn){
   var src=document.getElementById(btn.getAttribute('aria-controls')); if(!src)return;
   lastFigBtn=btn;
-  elFigHead.textContent=UI[lang].figdata;
+  elFigHead.textContent=t('figdata');
   elFigBody.innerHTML=src.innerHTML;
   elFigModal.hidden=false;
   try{elFigClose.focus();}catch(e){}
@@ -154,33 +177,51 @@ function closeFigInfo(){
 
 /* ---------- theme ---------- */
 function currentTheme(){return document.documentElement.getAttribute('data-theme')==='light'?'light':'dark';}
-function applyThemeLabel(){var t=currentTheme(); if(elTheme)elTheme.setAttribute('aria-label', t==='dark'?UI[lang].tolight:UI[lang].todark);}
-function setTheme(t){document.documentElement.setAttribute('data-theme',t); try{localStorage.setItem('tla-theme',t);}catch(e){} applyThemeLabel();}
+function applyThemeLabel(){var th=currentTheme(); if(elTheme)elTheme.setAttribute('aria-label', th==='dark'?t('tolight'):t('todark'));}
+function setTheme(th){document.documentElement.setAttribute('data-theme',th); try{localStorage.setItem('tla-theme',th);}catch(e){} applyThemeLabel();}
 function toggleTheme(){setTheme(currentTheme()==='dark'?'light':'dark');}
 
 /* ---------- build search index ---------- */
-function buildIndex(){
-  ['es','en'].forEach(function(L){
-    var arr=[]; GRIM[L].sections.forEach(function(s){
-      if(s.intro&&s.intro.length){arr.push({sid:s.id,eid:s.id,title:s.title,sec:s.title,num:s.num,text:plainOfBlocks(s.intro),isSec:true});}
-      (s.entries||[]).forEach(function(e){arr.push({sid:s.id,eid:e.id,title:e.title,titleRuns:e.titleRuns,sec:s.title,num:s.num,text:plainOfBlocks(e.blocks)});});
-    });
-    searchIndex[L]=arr;
+/* The index is built per language and stores plain text, so the language must be
+   passed in rather than read from the active one: an index built while another
+   language happened to be active would carry that language's icon labels. */
+function buildIndex(L){
+  var arr=[]; GRIM[L].sections.forEach(function(s){
+    if(s.intro&&s.intro.length){arr.push({sid:s.id,eid:s.id,title:s.title,sec:s.title,num:s.num,text:plainOfBlocks(s.intro,L),isSec:true});}
+    (s.entries||[]).forEach(function(e){arr.push({sid:s.id,eid:e.id,title:e.title,titleRuns:e.titleRuns,sec:s.title,num:s.num,text:plainOfBlocks(e.blocks,L)});});
   });
+  searchIndex[L]=arr;
 }
 
 /* ---------- version history helpers ---------- */
+/* "What's New" is not a chapter of the book: it is derived from the version
+   history, so the app inserts it. Its id stays 'novedades' in every language —
+   it is a permalink that has been shared, not user-visible prose. */
 function normalizeData(g){
   var li=latestInfo(g);
   if(li && !g.sections.some(function(x){return x.id==='novedades';})){
-    g.sections.splice(1,0,{num:'',id:'novedades',kind:'whatsnew',title:UI[g.lang].news,ver:li,intro:[],entries:[],figures:[]});
+    g.sections.splice(1,0,{num:'',key:'whatsnew',id:'novedades',kind:'whatsnew',
+      title:pick(g.lang,'strings','news')||'What\'s New',ver:li,intro:[],entries:[],figures:[]});
   }
 }
 function wnCount(s){var wn=data.whatsnew&&data.whatsnew[s.ver.v]; return wn?(wn['new'].length+wn.updated.length):0;}
 
 /* ---------- entries / filtering ---------- */
 function sectionEntries(s){return s.entries||[];}
-function entryLetter(e){var c=(e.title||'').replace(/[“"'¿¡().]/g,'').charAt(0).toUpperCase();return /[0-9]/.test(c)?'#':c;}
+function stripAccents(c){ return c.normalize? c.normalize('NFD').replace(/[̀-ͯ]/g,'') : c; }
+/* Which letter an entry files under. A language's own letters (ES: Ñ) stay
+   themselves; an accented form of a letter it already has (ES: Ú) files under
+   the plain one, the way a dictionary does. */
+function entryLetter(e){
+  var c=(e.title||'').replace(/[“"'¿¡().]/g,'').charAt(0).toUpperCase();
+  if(!c) return '#';
+  if(/[0-9]/.test(c)) return '#';
+  var az=uiOf(lang,'alphabet','')||'';
+  if(az.indexOf(c)>=0) return c;
+  var f=stripAccents(c);
+  if(!az || az.indexOf(f)>=0) return f;
+  return c;                       // a letter the pack didn't predict: keep it
+}
 function visibleEntries(s){
   var all=sectionEntries(s);
   if(s.kind==='glossary' && glossFilter!=='all'){return all.filter(function(e){return entryLetter(e)===glossFilter;});}
@@ -207,21 +248,36 @@ function buildNav(){
 }
 
 /* ---------- A-Z filter bar (glossary) ---------- */
+/* The order of the buttons: the pack's alphabet, then any letter it didn't
+   predict, then '#'. Never the other way round — a letter that is present but
+   unlisted must still get a button, or its entries are counted yet unreachable. */
+function azOrder(present){
+  var az=(uiOf(lang,'alphabet','')||'').split('');
+  var order=az.filter(function(c){return present[c];});
+  var extra=Object.keys(present).filter(function(c){return c!=='#' && az.indexOf(c)<0;}).sort();
+  if(extra.length && az.length){
+    try{console.warn('The Living Arkham: langs/'+lang+'/ui.json "alphabet" does not list '+
+      extra.join(', ')+' — showing them at the end. Add them if they belong.');}catch(e){}
+  }
+  order=order.concat(extra);
+  if(present['#'])order.push('#');
+  return order;
+}
 function azFilterBar(s){
   var present={}; sectionEntries(s).forEach(function(e){present[entryLetter(e)]=1;});
-  var order='ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split(''); if(present['#'])order.push('#');
+  var order=azOrder(present);
   var total=sectionEntries(s).length, shown=visibleEntries(s).length;
-  var h='<div class="tla-azfilter"><div class="tla-azlabel">'+UI[lang].filterby+'</div><div class="tla-azrow">';
-  h+='<button class="tla-azbtn all'+(glossFilter==='all'?' active':'')+'" type="button" data-az="all" aria-pressed="'+(glossFilter==='all')+'">'+UI[lang].all+'</button>';
-  order.forEach(function(c){ if(present[c]) h+='<button class="tla-azbtn'+(glossFilter===c?' active':'')+'" type="button" data-az="'+esc(c)+'" aria-pressed="'+(glossFilter===c)+'">'+c+'</button>'; });
-  h+='<span class="tla-azcount">'+(glossFilter==='all'?total:shown+' '+UI[lang].of+' '+total)+' '+UI[lang].entries+'</span>';
+  var h='<div class="tla-azfilter"><div class="tla-azlabel">'+t('filterby')+'</div><div class="tla-azrow">';
+  h+='<button class="tla-azbtn all'+(glossFilter==='all'?' active':'')+'" type="button" data-az="all" aria-pressed="'+(glossFilter==='all')+'">'+t('all')+'</button>';
+  order.forEach(function(c){ h+='<button class="tla-azbtn'+(glossFilter===c?' active':'')+'" type="button" data-az="'+esc(c)+'" aria-pressed="'+(glossFilter===c)+'">'+esc(c)+'</button>'; });
+  h+='<span class="tla-azcount">'+(glossFilter==='all'?total:shown+' '+t('of')+' '+total)+' '+t('entries')+'</span>';
   h+='</div></div>';
   return h;
 }
 function setGlossFilter(v){
   glossFilter=v; render(curSec.id,null,false); elMain.scrollTop=0;
   var n=visibleEntries(curSec).length;
-  announce((v==='all'?UI[lang].all:v)+': '+n+' '+UI[lang].entries);
+  announce((v==='all'?t('all'):v)+': '+n+' '+t('entries'));
 }
 
 /* ---------- render section ---------- */
@@ -239,14 +295,14 @@ function render(sid,eid,flash){
   if(s.figures&&s.figures.length){
     h+='<div class="tla-figs">';
     s.figures.forEach(function(f){
-      h+='<figure class="tla-fig"><img loading="lazy" src="assets/img/'+esc(f.file)+'" alt=""><figcaption>'+UI[lang].fig+' '+f.page+'</figcaption></figure>';});
+      h+='<figure class="tla-fig"><img loading="lazy" src="assets/img/'+esc(f.file)+'" alt=""><figcaption>'+t('fig')+' '+f.page+'</figcaption></figure>';});
     h+='</div>';
   }
   if(s.kind==='glossary'){h+=azFilterBar(s);}
   ents.forEach(function(e){
     var isNew=!!e.newIn;
     h+='<article class="tla-entry'+(e.sub?' sub':'')+(isNew?' is-new':'')+(e.updatedIn?' is-upd':'')+'" id="e-'+esc(e.id)+'">';
-    h+='<h3>'+titleHTML(e)+verBadge(e)+'<a class="anchor" href="#'+lang+'/'+esc(e.id)+'" title="'+UI[lang].jump+'" aria-label="'+UI[lang].jump+'">§</a></h3>';
+    h+='<h3>'+titleHTML(e)+verBadge(e)+'<a class="anchor" href="#'+lang+'/'+esc(e.id)+'" title="'+t('jump')+'" aria-label="'+t('jump')+'">§</a></h3>';
     h+=blocksHTML(e.blocks,isNew);
     h+=figuresHTML(e,esc(e.id));
     h+='</article>';
@@ -255,24 +311,24 @@ function render(sid,eid,flash){
   elMain.innerHTML=h;
   buildToc(s,ents);
   markNav(sid);
-  if(eid){var t=document.getElementById('e-'+eid); if(t){t.scrollIntoView({block:'start'}); if(flash){t.classList.remove('flash');void t.offsetWidth;t.classList.add('flash');}}}
+  if(eid){var el=document.getElementById('e-'+eid); if(el){el.scrollIntoView({block:'start'}); if(flash){el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}}}
   else{elMain.scrollTop=0;}
 }
 function verBanner(li){
   return '<button class="tla-verbanner" type="button" data-go="novedades">'
     +'<span class="tla-vb-star">✦</span>'
-    +'<span class="tla-vb-main"><span class="tla-vb-t">'+UI[lang].newver+' · v'+li.v+'</span>'
-    +'<span class="tla-vb-d">'+UI[lang].released+' '+fmtDate(li.date)+'</span></span>'
-    +'<span class="tla-vb-cta">'+UI[lang].seenews+' →</span></button>';
+    +'<span class="tla-vb-main"><span class="tla-vb-t">'+t('newver')+' · v'+li.v+'</span>'
+    +'<span class="tla-vb-d">'+t('released')+' '+fmtDate(li.date)+'</span></span>'
+    +'<span class="tla-vb-cta">'+t('seenews')+' →</span></button>';
 }
 function renderWhatsNew(s){
   var li=s.ver, wn=data.whatsnew[li.v];
   var h='<div class="tla-doc">';
   h+='<div class="tla-crumb">The Living Arkham</div>';
-  h+='<h1 class="tla-h1">'+esc(UI[lang].news)+'</h1><div class="tla-rule"></div>';
-  h+='<div class="tla-note"><b>'+UI[lang].newver+' · v'+li.v+'</b> · '+UI[lang].released+' '+fmtDate(li.date)+'.<br>'+esc(UI[lang].newsintro)+'</div>';
-  if(wn['new'].length){h+='<h3 class="tla-wnh"><span class="tla-vbadge new">'+UI[lang].newbadge+'</span> '+UI[lang].newentries+' <span class="tla-wncount">'+wn['new'].length+'</span></h3>'+wnList(wn['new'],'new');}
-  if(wn.updated.length){h+='<h3 class="tla-wnh"><span class="tla-vbadge upd">'+UI[lang].updbadge+'</span> '+UI[lang].updentries+' <span class="tla-wncount">'+wn.updated.length+'</span></h3>'+wnList(wn.updated,'upd');}
+  h+='<h1 class="tla-h1">'+esc(t('news'))+'</h1><div class="tla-rule"></div>';
+  h+='<div class="tla-note"><b>'+t('newver')+' · v'+li.v+'</b> · '+t('released')+' '+fmtDate(li.date)+'.<br>'+esc(t('newsintro'))+'</div>';
+  if(wn['new'].length){h+='<h3 class="tla-wnh"><span class="tla-vbadge new">'+t('newbadge')+'</span> '+t('newentries')+' <span class="tla-wncount">'+wn['new'].length+'</span></h3>'+wnList(wn['new'],'new');}
+  if(wn.updated.length){h+='<h3 class="tla-wnh"><span class="tla-vbadge upd">'+t('updbadge')+'</span> '+t('updentries')+' <span class="tla-wncount">'+wn.updated.length+'</span></h3>'+wnList(wn.updated,'upd');}
   h+='</div>';
   elMain.innerHTML=h; elToc.innerHTML=''; elMain.scrollTop=0;
 }
@@ -286,9 +342,9 @@ function wnList(items,cls){
 function rmPanel(){
   return '<section class="tla-rm">'
     +'<div class="tla-rm-body">'
-      +'<h2 class="tla-rm-title">'+esc(UI[lang].rmtitle)+'</h2>'
-      +'<p>'+UI[lang].rmbody+'</p>'
-      +'<a class="tla-rm-cta" href="'+BLOG+'" target="_blank" rel="noopener">'+esc(UI[lang].rmcta)+' <span aria-hidden="true">↗</span></a>'
+      +'<h2 class="tla-rm-title">'+esc(t('rmtitle'))+'</h2>'
+      +'<p>'+t('rmbody')+'</p>'
+      +'<a class="tla-rm-cta" href="'+BLOG+'" target="_blank" rel="noopener">'+esc(t('rmcta'))+' <span aria-hidden="true">↗</span></a>'
     +'</div>'
     +'<div class="tla-rm-mark" aria-hidden="true">'+SIGIL_SVG+'</div>'
   +'</section>';
@@ -298,25 +354,25 @@ function renderLanding(s){
   var h='<div class="tla-doc tla-landing">';
   h+='<div class="tla-hero"><div class="tla-hero-inner">';
   h+='<h1 class="tla-hero-title">The Living Arkham <span class="tla-beta">beta</span></h1>';
-  h+='<p class="tla-hero-sub">'+esc(UI[lang].sub)+'</p>';
+  h+='<p class="tla-hero-sub">'+esc(t('sub'))+'</p>';
   h+='</div></div>';
   if(li){h+=verBanner(li);}
   h+=rmPanel();
-  h+='<h2 class="tla-cards-h">'+esc(UI[lang].browse)+'</h2>';
+  h+='<h2 class="tla-cards-h">'+esc(t('browse'))+'</h2>';
   h+='<div class="tla-cards">';
   data.sections.forEach(function(s2,si){
     if(s2.kind==='intro')return;
     var news=s2.kind==='whatsnew';
     var n=sectionEntries(s2).length;
     var num=news?'✦':(s2.num||'•');
-    var meta=news?(UI[lang].newver+' · v'+s2.ver.v):(n+' '+UI[lang].entries);
+    var meta=news?(t('newver')+' · v'+s2.ver.v):(n+' '+t('entries'));
     h+='<button class="tla-card'+(news?' news':'')+'" type="button" data-si="'+si+'">';
     h+='<span class="tla-card-top"><span class="tla-card-num">'+num+'</span><span class="tla-card-title">'+esc(s2.title)+'</span></span>';
     h+='<span class="tla-card-meta">'+esc(meta)+'</span></button>';
   });
   h+='</div>';
   if(s.intro&&s.intro.length){
-    h+='<section class="tla-landing-about"><h2>'+esc(UI[lang].about)+'</h2><div class="tla-lead">'+blocksHTML(s.intro)+'</div></section>';
+    h+='<section class="tla-landing-about"><h2>'+esc(t('about'))+'</h2><div class="tla-lead">'+blocksHTML(s.intro)+'</div></section>';
   }
   h+='</div>';
   elMain.innerHTML=h; elToc.innerHTML=''; elMain.scrollTop=0;
@@ -325,7 +381,7 @@ function renderLanding(s){
 /* ---------- TOC (right) ---------- */
 function buildToc(s,ents){
   if(!ents.length){elToc.innerHTML=''; return;}
-  var h='<h4>'+UI[lang].onthispage+'</h4>';
+  var h='<h4>'+t('onthispage')+'</h4>';
   ents.forEach(function(e){h+='<a href="#'+lang+'/'+esc(e.id)+'" data-eid="'+esc(e.id)+'" style="'+(e.sub?'padding-left:18px;':'')+'">'+titleHTML(e)+'</a>';});
   elToc.innerHTML=h;
 }
@@ -362,17 +418,55 @@ function findEntry(L,eid){
     for(var j=0;j<(s.entries||[]).length;j++){if(s.entries[j].id===eid)return{sid:s.id,eid:eid};}}
   return null;
 }
+function regOf(L){for(var i=0;i<LANGS.length;i++){if(LANGS[i].code===L)return LANGS[i];}return null;}
+function known(L){return !!regOf(L);}
+
+/* The language switcher is built from the registry, so a new pack appears here
+   by existing — there is no list of languages in the markup. */
+function buildLangBar(){
+  var box=document.querySelector('.tla-lang'); if(!box)return;
+  if(LANGS.length<2){box.hidden=true; return;}          // one language: no switcher
+  box.hidden=false;
+  box.innerHTML=LANGS.map(function(L){
+    return '<button type="button" data-l="'+esc(L.code)+'" lang="'+esc(L.code)+'" title="'+esc(L.name)+'"'+
+           ' aria-pressed="'+(L.code===lang)+'">'+esc(L.label||L.code.toUpperCase())+'</button>';
+  }).join('');
+}
+
+/* Fill every element that declares a string key in the markup:
+     data-i18n="key"            -> text content
+     data-i18n-html="key"       -> inner HTML (strings that contain markup)
+     data-i18n-attr="aria-label:key, title:key"  -> attributes */
+function applyStaticStrings(){
+  [].forEach.call(document.querySelectorAll('[data-i18n]'),function(el){
+    el.textContent=t(el.getAttribute('data-i18n'));
+  });
+  [].forEach.call(document.querySelectorAll('[data-i18n-html]'),function(el){
+    el.innerHTML=t(el.getAttribute('data-i18n-html'));
+  });
+  [].forEach.call(document.querySelectorAll('[data-i18n-attr]'),function(el){
+    el.getAttribute('data-i18n-attr').split(',').forEach(function(pair){
+      var kv=pair.split(':'); if(kv.length!==2)return;
+      el.setAttribute(kv[0].trim(), t(kv[1].trim()));
+    });
+  });
+}
+
 function applyLang(L){
-  lang=L; data=GRIM[L]; root.setAttribute('data-lang',L); document.documentElement.setAttribute('lang',L);
-  [].forEach.call(document.querySelectorAll('.tla-lang button'),function(b){b.setAttribute('aria-pressed',b.getAttribute('data-l')===L);});
-  document.getElementById('tla-sub').textContent=UI[L].sub;
-  elQ.setAttribute('placeholder',UI[L].searchph);
-  elSOpen.setAttribute('aria-label',UI[L].searchtitle);
-  elSCancel.textContent=UI[L].cancel;
-  elSModal.setAttribute('aria-label',UI[L].searchtitle);
-  document.getElementById('tla-searchhint').innerHTML=hintHTML(L);
-  document.getElementById('tla-foot-src').innerHTML=UI[L].footsrc;
-  document.getElementById('tla-foot-by').innerHTML=UI[L].footby;
+  lang=L; data=GRIM[L];
+  var reg=regOf(L)||{};
+  root.setAttribute('data-lang',L);
+  document.documentElement.setAttribute('lang',L);
+  document.documentElement.setAttribute('dir',reg.dir||'ltr');
+  if(t('doctitle')!=='doctitle')document.title=t('doctitle');
+  var md=document.querySelector('meta[name="description"]');
+  if(md && t('docdesc')!=='docdesc')md.setAttribute('content',t('docdesc'));
+  buildLangBar();
+  applyStaticStrings();
+  elQ.setAttribute('placeholder',t('searchph'));
+  document.getElementById('tla-searchhint').innerHTML=hintHTML();
+  var home=document.getElementById('tla-home');
+  if(home)home.setAttribute('href','#'+L+'/'+(data.sections[0]&&data.sections[0].id||''));
   applyThemeLabel();
   buildNav();
 }
@@ -384,24 +478,40 @@ function setHash(L,target,flash){
 }
 function navigate(target,flash){setHash(lang,target,flash);}
 function gotoTarget(eid,flash){var f=findEntry(lang,eid); if(f)setHash(lang,f.eid||f.sid,flash);}
+
+/* The hash is the single source of truth. A language in it is honoured only if
+   the registry knows it — an unknown code falls back to the current language
+   rather than being read as an entry id. */
+var routeSeq=0;
 function route(){
-  glossFilter='all';
   var m=(location.hash||'').replace(/^#/,'').split('/');
-  var L=(m[0]==='en'||m[0]==='es')?m[0]:lang;
-  if(L!==lang)applyLang(L);
-  var target=m[1], f=target?findEntry(L,target):null;
-  if(f){render(f.sid,f.eid,lastFlash);} else {render(data.sections[0].id,null,false);}
-  lastFlash=false; closeResults();
-  if(!firstRoute){try{elMain.focus({preventScroll:true});}catch(e){}} firstRoute=false;
+  var L=known(m[0])?m[0]:lang;
+  var target=m[1];
+  /* A language is fetched before it renders, so a second navigation can start
+     while the first is still downloading. Only the newest one may paint. */
+  var mine=++routeSeq;
+  loadLang(L).then(function(){
+    if(mine!==routeSeq)return;
+    glossFilter='all';
+    if(L!==lang||data!==GRIM[L])applyLang(L);
+    var f=target?findEntry(L,target):null;
+    if(f){render(f.sid,f.eid,lastFlash);} else {render(data.sections[0].id,null,false);}
+    lastFlash=false; closeResults();
+    if(!firstRoute){try{elMain.focus({preventScroll:true});}catch(e){}} firstRoute=false;
+    try{localStorage.setItem('tla-lang',L);}catch(e){}
+  }, function(err){ if(mine===routeSeq)fatal(err); });
 }
+/* Switching language keeps you on the same chapter. Chapters are matched by
+   their shared `key`, not by their number or kind: a numberless chapter would
+   otherwise match the first one of the same kind and quietly land elsewhere. */
 function setLang(L){
   if(L===lang)return;
-  var g=GRIM[L], s=curSec, m=null;
-  if(s){
-    if(s.num){m=g.sections.filter(function(x){return x.num===s.num;})[0];}
-    else{m=g.sections.filter(function(x){return x.kind===s.kind;})[0];}   // intro / novedades / numberless
-  }
-  setHash(L,(m||g.sections[0]).id,false);
+  loadLang(L).then(function(){
+    var g=GRIM[L], s=curSec, m=null;
+    if(s&&s.key)m=g.sections.filter(function(x){return x.key===s.key;})[0];
+    if(!m&&s&&s.num)m=g.sections.filter(function(x){return x.num===s.num;})[0];
+    setHash(L,(m||g.sections[0]).id,false);
+  }, fatal);
 }
 
 /* ---------- SEARCH ---------- */
@@ -411,7 +521,7 @@ function search(q){
   var terms=q.split(/\s+/), arr=searchIndex[lang], out=[];
   for(var i=0;i<arr.length;i++){var it=arr[i]; var hayT=norm(it.title), hayX=norm(it.text);
     var score=0,ok=true;
-    for(var t=0;t<terms.length;t++){var tm=terms[t];
+    for(var ti=0;ti<terms.length;ti++){var tm=terms[ti];
       var inT=hayT.indexOf(tm), inX=hayX.indexOf(tm);
       if(inT<0&&inX<0){ok=false;break;}
       if(inT===0)score+=100; else if(inT>0)score+=40; if(inX>=0)score+=6;
@@ -422,17 +532,17 @@ function search(q){
   renderResults(out.slice(0,40),terms);
 }
 function hl(text,terms){
-  var t=esc(text);
+  var out=esc(text);
   terms.forEach(function(tm){if(!tm)return; var re=new RegExp('('+tm.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig');
-    t=t.replace(re,'<mark>$1</mark>');});
-  return t;
+    out=out.replace(re,'<mark>$1</mark>');});
+  return out;
 }
 function snippet(text,terms){
   var nt=norm(text),pos=-1; for(var i=0;i<terms.length;i++){var p=nt.indexOf(terms[i]); if(p>=0&&(pos<0||p<pos))pos=p;}
   if(pos<0)pos=0; var st=Math.max(0,pos-40); var frag=text.slice(st,st+160); if(st>0)frag='…'+frag; return frag;
 }
 function renderResults(list,terms){
-  if(!list.length){elRes.innerHTML='<div class="tla-res-empty">'+UI[lang].nores+'</div>'; elRes.classList.add('on'); resSel=-1; setExpanded(true); return;}
+  if(!list.length){elRes.innerHTML='<div class="tla-res-empty">'+t('nores')+'</div>'; elRes.classList.add('on'); resSel=-1; setExpanded(true); return;}
   var h=''; list.forEach(function(o,i){var it=o.it;
     h+='<div class="tla-res" role="option" data-eid="'+esc(it.eid)+'" data-i="'+i+'">';
     h+='<div class="rt">'+(it.titleRuns?runsHTML(it.titleRuns):hl(it.title,terms))+'<span class="rs">'+(it.num?it.num+' · ':'')+esc(it.sec)+'</span></div>';
@@ -456,8 +566,8 @@ function closeSearch(){
   elSModal.hidden=true; elQ.value=''; closeResults();
   try{elSOpen.focus();}catch(e){}
 }
-function hintHTML(L){var u=UI[L];
-  return '<span><kbd>↑</kbd><kbd>↓</kbd> '+u.khnav+'</span><span><kbd>↵</kbd> '+u.khopen+'</span><span><kbd>Esc</kbd> '+u.khclose+'</span>';
+function hintHTML(){
+  return '<span><kbd>↑</kbd><kbd>↓</kbd> '+esc(t('khnav'))+'</span><span><kbd>↵</kbd> '+esc(t('khopen'))+'</span><span><kbd>Esc</kbd> '+esc(t('khclose'))+'</span>';
 }
 
 /* ---------- mobile nav ---------- */
@@ -517,24 +627,100 @@ function wireEvents(){
 function lightbox(src){var lb=document.getElementById('tla-lb'); lb.querySelector('img').src=src; lb.classList.add('on');}
 
 /* ---------- boot ---------- */
-function boot(){
-  Promise.all([
-    fetch('data/grimoire_es.json').then(function(r){return r.json();}),
-    fetch('data/grimoire_en.json').then(function(r){return r.json();}),
-    fetch('assets/icons/icons.json').then(function(r){return r.json();})
+function getJSON(url){
+  return fetch(url).then(function(r){
+    if(!r.ok)throw new Error(r.status+' '+r.statusText+' — '+url);
+    return r.json();
+  });
+}
+/* The error page can't use a fetched string: the fetch is what failed. */
+function fatal(err){
+  var msg=(PACKS[lang]&&pick(lang,'strings','loaderr'))||BOOT.loaderr;
+  elMain.innerHTML='<div class="tla-doc"><div class="tla-note"><b>'+esc(msg)+'</b><br>'+esc(String(err&&err.message||err))+'</div></div>';
+  try{console.error('The Living Arkham:',err);}catch(e){}
+}
+
+/* A language is fetched the first time it is shown, not up front, so the site
+   costs the same to open whether it has two languages or twenty. */
+var loading={}, uiTried={};
+
+/* Fetch one language's interface strings. A fallback that is missing or fails to
+   load must never break the page, so failure is recorded and shrugged off. */
+function loadUI(c){
+  if(PACKS[c])return Promise.resolve(true);
+  if(uiTried[c])return Promise.resolve(false);
+  uiTried[c]=true;
+  var r=regOf(c);
+  if(!r)return Promise.resolve(false);
+  return getJSON(r.ui).then(function(u){PACKS[c]=u; return true;}, function(){return false;});
+}
+/* A fallback is only useful if its strings are actually here: fetch the whole
+   chain (they are small) before rendering, or a key the pack hasn't translated
+   would render as its own name. Each round marks what it tried, so this
+   terminates even on a broken or circular chain. */
+function loadChain(L){
+  var need=chainOf(L).filter(function(c){return !PACKS[c] && !uiTried[c] && regOf(c);});
+  if(!need.length)return Promise.resolve();
+  return Promise.all(need.map(loadUI)).then(function(){return loadChain(L);});
+}
+
+function loadLang(L){
+  // searchIndex is the last thing set, so it is what "fully loaded" means:
+  // a load that died half-way must not be mistaken for a finished one.
+  if(GRIM[L]&&PACKS[L]&&searchIndex[L])return Promise.resolve(L);
+  if(loading[L])return loading[L];
+  var reg=regOf(L);
+  if(!reg)return Promise.reject(new Error('unknown language: '+L));
+  uiTried[L]=true;
+  loading[L]=Promise.all([
+    GRIM[L]?Promise.resolve(GRIM[L]):getJSON(reg.data),
+    PACKS[L]?Promise.resolve(PACKS[L]):getJSON(reg.ui)
   ]).then(function(res){
-    GRIM.es=res[0]; GRIM.en=res[1]; ICONS=res[2];
-    normalizeData(GRIM.es); normalizeData(GRIM.en);
-    var sg=document.querySelector('.tla-brand .tla-sigil'); SIGIL_SVG=sg?sg.outerHTML:'';
-    data=GRIM[lang];
-    buildIndex();
-    applyLang(lang);
+    GRIM[L]=res[0]; PACKS[L]=res[1];
+    return loadChain(L);
+  }).then(function(){
+    // after the chain, so both may use strings that come from a fallback
+    normalizeData(GRIM[L]);
+    buildIndex(L);
+    delete loading[L];
+    return L;
+  }, function(err){
+    delete loading[L]; delete GRIM[L]; delete PACKS[L]; delete uiTried[L];
+    throw err;
+  });
+  return loading[L];
+}
+
+/* Which language to open with: the URL wins, then the last one you chose, then
+   what your browser asks for, then the site default. */
+function initialLang(){
+  var h=(location.hash||'').replace(/^#/,'').split('/')[0];
+  if(known(h))return h;
+  var saved=null; try{saved=localStorage.getItem('tla-lang');}catch(e){}
+  if(known(saved))return saved;
+  var navs=(navigator.languages||[navigator.language||'']).map(function(x){return String(x).toLowerCase();});
+  for(var i=0;i<navs.length;i++){
+    for(var j=0;j<LANGS.length;j++){
+      var c=LANGS[j].code.toLowerCase();
+      if(navs[i]===c||navs[i].split('-')[0]===c)return LANGS[j].code;
+    }
+  }
+  return REG.default;
+}
+
+function boot(){
+  var sg=document.querySelector('.tla-brand .tla-sigil'); SIGIL_SVG=sg?sg.outerHTML:'';
+  getJSON('data/languages.json').then(function(reg){
+    REG=reg; LANGS=reg.languages||[];
+    if(!LANGS.length)throw new Error('data/languages.json lists no languages — run: python tools/ingest.py');
+    lang=initialLang();
+    return loadLang(lang);
+  }).then(function(L){
+    data=GRIM[L];
+    applyLang(L);
     wireEvents();
     route();
-  }).catch(function(err){
-    elMain.innerHTML='<div class="tla-doc"><div class="tla-note"><b>'+UI[lang].loaderr+'</b><br>'+esc(String(err))+'</div></div>';
-    console.error('The Living Arkham:',err);
-  });
+  }).catch(fatal);
 }
 boot();
 })();

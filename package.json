@@ -1,13 +1,16 @@
 {
   "name": "thelivingarkham",
   "version": "0.1.0",
-  "description": "The Living Arkham (beta) — interactive, bilingual (ES/EN) rules grimoire for Arkham Horror: The Card Game. Static web app, ready for GitHub Pages.",
+  "description": "The Living Arkham (beta) — interactive, multilingual rules grimoire for Arkham Horror: The Card Game. Static web app, ready for GitHub Pages.",
   "type": "commonjs",
   "homepage": ".",
   "scripts": {
     "dev": "node server.js",
     "start": "node server.js",
-    "ingest": "bash tools/ingest.sh"
+    "ingest": "python tools/ingest.py",
+    "lang:new": "python tools/new_lang.py",
+    "lang:check": "python tools/langpack.py",
+    "lang:inspect": "python tools/inspect_pdf.py"
   },
   "keywords": [
     "arkham-horror",

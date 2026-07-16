@@ -30,7 +30,12 @@ const server = http.createServer((req, res) => {
     if (!err && st.isDirectory()) fp = path.join(filePath, 'index.html');
     fs.readFile(fp, (e, data) => {
       if (e) { res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' }); return res.end('404 Not Found: ' + urlPath); }
-      res.writeHead(200, { 'Content-Type': MIME[path.extname(fp).toLowerCase()] || 'application/octet-stream' });
+      res.writeHead(200, {
+        'Content-Type': MIME[path.extname(fp).toLowerCase()] || 'application/octet-stream',
+        // Never cache while developing: after `python tools/ingest.py` you must see
+        // the language you just built, not the registry the browser remembers.
+        'Cache-Control': 'no-store, max-age=0',
+      });
       res.end(data);
     });
   });

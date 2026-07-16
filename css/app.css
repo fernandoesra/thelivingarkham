@@ -88,7 +88,11 @@ html[data-theme="light"] #tla-root, #tla-root[data-theme="light"]{
 .tla-theme .tla-ico-sun{display:none}
 html[data-theme="light"] .tla-theme .tla-ico-sun{display:block}
 html[data-theme="light"] .tla-theme .tla-ico-moon{display:none}
+/* One button per language, built at runtime from data/languages.json.
+   The [hidden] rule must be spelled out: `display:flex` would otherwise beat the
+   browser's own [hidden] rule and a single-language site would show an empty box. */
 .tla-lang{display:flex; border:1px solid var(--edge2); border-radius:10px; overflow:hidden; font-family:var(--ff-ui)}
+.tla-lang[hidden]{display:none}
 .tla-lang button{background:transparent; color:var(--ink2); border:0; padding:11px 14px; font-size:14px; font-weight:700; cursor:pointer; letter-spacing:.4px}
 .tla-lang button:hover{background:var(--panel)}
 .tla-lang button[aria-pressed=true]{background:var(--gold); color:var(--on-gold)}

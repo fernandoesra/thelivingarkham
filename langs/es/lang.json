@@ -1,0 +1,360 @@
+{
+  "code": "es",
+  "name": "Español",
+  "label": "ES",
+  "dir": "ltr",
+  "order": 1,
+  "book": {
+    "title": "El Grimorio de Arkham",
+    "versions": [
+      {
+        "v": "1.0",
+        "date": "2026-05-11",
+        "pdf": "AHLCG_Grimorio_v_1_0_Capitulo2.pdf"
+      }
+    ]
+  },
+  "parse": {
+    "introTitle": "Cómo empezar",
+    "introStart": "como usar este documento",
+    "indexStart": "indice"
+  },
+  "sections": [
+    {
+      "num": "I",
+      "key": "glossary",
+      "id": "glosario",
+      "title": "Glosario de términos y palabras clave",
+      "kind": "glossary",
+      "figures": []
+    },
+    {
+      "num": "II",
+      "key": "additional-rules",
+      "id": "fundamentos",
+      "title": "Fundamentos y reglas adicionales",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "III",
+      "key": "timing",
+      "id": "juego-orden",
+      "title": "Juego y orden de resolución",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "IV",
+      "key": "skill-tests",
+      "id": "pruebas-habilidad",
+      "title": "Orden de resolución de las pruebas de habilidad",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "V",
+      "key": "initiation",
+      "id": "iniciacion",
+      "title": "Secuencia de iniciación",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "VI",
+      "key": "setup",
+      "id": "preparacion",
+      "title": "Preparación de un escenario",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "VII",
+      "key": "card-anatomy",
+      "id": "elementos-cartas",
+      "title": "Elementos de las cartas",
+      "kind": "figures",
+      "figures": [
+        "card-location",
+        "card-agenda-act-treachery-enemy",
+        "card-investigator",
+        "card-asset-event-skill"
+      ]
+    },
+    {
+      "num": "VIII",
+      "key": "campaign",
+      "id": "campana",
+      "title": "Juego de campaña",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "IX",
+      "key": "deck-building",
+      "id": "mazos",
+      "title": "Personalización de mazos",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "X",
+      "key": "errata",
+      "id": "erratas",
+      "title": "Notas y fe de erratas",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "XI",
+      "key": "faq",
+      "id": "faq",
+      "title": "Preguntas frecuentes",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "XII",
+      "key": "optional-rules",
+      "id": "opcionales",
+      "title": "Reglas opcionales",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "XIII",
+      "key": "reprints",
+      "id": "reimpresiones",
+      "title": "Reimpresiones modificadas",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "XIV",
+      "key": "icon-reference",
+      "id": "ref-iconos",
+      "title": "Referencia de iconos",
+      "kind": "figures",
+      "figures": [
+        "icons-products"
+      ]
+    },
+    {
+      "num": "XV",
+      "key": "encounter-icons",
+      "id": "ref-iconos-encuentros",
+      "title": "Referencia de iconos de conjuntos de encuentros",
+      "kind": "figures",
+      "figures": [
+        "icons-encounter-1",
+        "icons-encounter-2"
+      ]
+    },
+    {
+      "num": "",
+      "key": "quick-reference",
+      "id": "ref-rapida",
+      "title": "Referencia rápida",
+      "kind": "figures",
+      "figures": [
+        "quick-reference"
+      ]
+    }
+  ],
+  "patterns": {
+    "trigger": "(consulta(?:\\s+tambi[eé]n)?|v[eé]ase|ver)\\b",
+    "pageWord": "(p[aá]gina|p[aá]g\\.?|p\\.)",
+    "pageRef": "(?:en la|en las|en)\\s+p[áa]g(?:inas?|\\.)?\\s*(\\d+(?:\\s*[-–]\\s*\\d+)?)"
+  },
+  "autolink": {
+    "alias": {
+      "robar 1 carta": "Robar cartas",
+      "obtener 1 recurso": "Acción de recursos",
+      "combatir": "Acción de combatir",
+      "evitar": "Evitar, acción de evitar",
+      "investigar": "Acción de investigar",
+      "enfrentarse": "Acción de enfrentarse",
+      "activar": "Acción de activar"
+    },
+    "allowSingleWord": [
+      "agotado",
+      "agotar",
+      "alerta",
+      "aparicion",
+      "atacado",
+      "atacante",
+      "calificativos",
+      "cazador",
+      "condenado",
+      "descomunal",
+      "desistir",
+      "eliminacion",
+      "embrujado",
+      "errante",
+      "escurridizo",
+      "excepcional",
+      "exiliar",
+      "experiencia",
+      "indiferente",
+      "jugar",
+      "miriada",
+      "modificadores",
+      "moverse",
+      "negociar",
+      "oculto",
+      "oleada",
+      "perdicion",
+      "permanente",
+      "pistas",
+      "preparada",
+      "presa",
+      "rapido",
+      "rasgos",
+      "recompensa",
+      "reponer",
+      "represalia",
+      "revelacion",
+      "sello",
+      "traumas"
+    ],
+    "stop": [
+      "a continuacion",
+      "al",
+      "como si",
+      "cuando",
+      "despues",
+      "diferente s distinta s",
+      "en blanco",
+      "en el orden de juego",
+      "en lugar de",
+      "en vez de",
+      "la letra x",
+      "mas alejado a",
+      "mas cercano a",
+      "no puede",
+      "por cada",
+      "por investigador",
+      "tu tu s",
+      "unica",
+      "usos x"
+    ],
+    "cap": 12
+  },
+  "figures": [
+    {
+      "name": "card-location",
+      "page": 34,
+      "clip": null
+    },
+    {
+      "name": "card-agenda-act-treachery-enemy",
+      "page": 35,
+      "clip": null
+    },
+    {
+      "name": "card-investigator",
+      "page": 36,
+      "clip": null
+    },
+    {
+      "name": "card-asset-event-skill",
+      "page": 37,
+      "clip": null
+    },
+    {
+      "name": "icons-products",
+      "page": 46,
+      "clip": [
+        2,
+        150,
+        305,
+        705
+      ]
+    },
+    {
+      "name": "icons-encounter-1",
+      "page": 47,
+      "clip": null
+    },
+    {
+      "name": "icons-encounter-2",
+      "page": 48,
+      "clip": null
+    },
+    {
+      "name": "quick-reference",
+      "page": 49,
+      "clip": null
+    }
+  ],
+  "montages": [
+    {
+      "name": "montage-move",
+      "page": 20,
+      "srcpage": 20,
+      "clip": [
+        330,
+        57,
+        584,
+        183
+      ],
+      "entry": "Moverse",
+      "alt": "Dos cartas de Lugar (Distrito comercial y Distrito ribereño) unidas por una flecha, ilustrando el movimiento entre Lugares conectados.",
+      "info": "<p><b>Distrito comercial</b> — Lugar · Arkham (Central). <i>Durante tu turno, si hay exactamente 1 o 2 investigadores en la partida: Muévete a un Lugar conectado. Límite de una vez por ronda.</i></p><p><b>Distrito ribereño</b> — Lugar · Arkham. <i>Con sus calles perpetuamente inundadas, el antiguo Barrio Fluvial es una ciudad fantasma…</i></p>"
+    },
+    {
+      "name": "montage-victory",
+      "page": 27,
+      "srcpage": 27,
+      "clip": [
+        70,
+        522,
+        262,
+        688
+      ],
+      "entry": "Victoria X",
+      "alt": "Dos cartas que valen puntos de victoria: el Enemigo Naomi O’Bannion y el Lugar Biblioteca Orne.",
+      "info": "<p><b>Naomi O’Bannion</b> — Enemigo · Humanoide, Sindicato, Élite. Represalia. Gasta 1 recurso: Negociar. <b>Victoria 1.</b></p><p><b>Biblioteca Orne</b> — Lugar · Miskatonic. «Roba 3 cartas. Límite de una vez por partida.» <b>Victoria 1.</b></p>"
+    },
+    {
+      "name": "montage-slots",
+      "page": 14,
+      "srcpage": 14,
+      "clip": [
+        338,
+        28,
+        585,
+        175
+      ],
+      "entry": "Espacios",
+      "alt": "Los ocho tipos de espacio con su icono: accesorio, cabeza, cuerpo, aliado, mano (1 y 2 espacios) y arcano (1 y 2 espacios).",
+      "info": "<p>Tipos de espacio y su símbolo: <b>accesorio</b>, <b>cabeza</b>, <b>cuerpo</b> y <b>aliado</b> (1 espacio de cada uno); <b>mano</b> y <b>arcano</b> (1 o 2 espacios).</p>"
+    }
+  ],
+  "inlineSymbols": [
+    {
+      "entry": "Debilidad",
+      "after": "el siguiente símbolo:",
+      "icon": "weakness"
+    },
+    {
+      "entry": "Robar cartas",
+      "after": "completa el robo.",
+      "icon": "weakness"
+    }
+  ],
+  "iconArt": {
+    "provides": true,
+    "symbols": {
+      "weakness": {
+        "page": 11,
+        "rect": [
+          144,
+          164,
+          190,
+          210
+        ]
+      }
+    }
+  }
+}

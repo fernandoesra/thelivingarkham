@@ -1,0 +1,41 @@
+{
+  "code": "xx",
+  "name": "TODO: your language, written in your language (e.g. Deutsch)",
+  "label": "XX",
+  "dir": "ltr",
+  "order": 99,
+
+  "book": {
+    "title": "TODO: the book's title in your language",
+    "versions": [
+      {"v": "1.0", "date": "2026-01-31", "pdf": "TODO: the filename of your PDF, inside source/"}
+    ]
+  },
+
+  "parse": {
+    "introTitle": "TODO: a title for the landing page, e.g. 'Getting Started'",
+    "introStart": "TODO: the first words of the 'how to use this book' heading, lowercase, no accents",
+    "indexStart": "TODO: the first word of the index/contents heading, lowercase, no accents"
+  },
+
+  "sections": [],
+
+  "patterns": {
+    "trigger": "TODO: e.g. (siehe|vergleiche)\\b",
+    "pageWord": "TODO: e.g. (seite|s\\.)",
+    "pageRef": "TODO: e.g. auf Seite\\s*(\\d+(?:\\s*[-–]\\s*\\d+)?)"
+  },
+
+  "autolink": {
+    "alias": {},
+    "allowSingleWord": [],
+    "stop": [],
+    "cap": 12
+  },
+
+  "figures": [],
+  "montages": [],
+  "inlineSymbols": [],
+
+  "iconArt": {"provides": false, "symbols": {}}
+}

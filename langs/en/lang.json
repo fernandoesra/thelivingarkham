@@ -1,0 +1,317 @@
+{
+  "code": "en",
+  "name": "English",
+  "label": "EN",
+  "dir": "ltr",
+  "order": 2,
+  "book": {
+    "title": "The Arkham Grimoire",
+    "versions": [
+      {
+        "v": "1.0",
+        "date": "2026-03-18",
+        "pdf": "arkham_grimoire_v_1_0.pdf"
+      },
+      {
+        "v": "1.1",
+        "date": "2026-06-22",
+        "pdf": "arkham_grimoire_v11.pdf"
+      }
+    ]
+  },
+  "parse": {
+    "introTitle": "Getting Started",
+    "introStart": "using this book",
+    "indexStart": "index"
+  },
+  "sections": [
+    {
+      "num": "I",
+      "key": "glossary",
+      "id": "glossary",
+      "title": "Glossary of Terms and Keywords",
+      "kind": "glossary",
+      "figures": []
+    },
+    {
+      "num": "II",
+      "key": "additional-rules",
+      "id": "additional-rules",
+      "title": "Additional Rules and Fundamentals",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "III",
+      "key": "timing",
+      "id": "timing-gameplay",
+      "title": "Timing and Gameplay",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "IV",
+      "key": "skill-tests",
+      "id": "skill-test-timing",
+      "title": "Skill Test Timing",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "V",
+      "key": "initiation",
+      "id": "initiation",
+      "title": "Initiation Sequence",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "VI",
+      "key": "setup",
+      "id": "scenario-setup",
+      "title": "Scenario Setup",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "VII",
+      "key": "card-anatomy",
+      "id": "card-anatomy",
+      "title": "Card Anatomy",
+      "kind": "figures",
+      "figures": [
+        "card-anatomy-1",
+        "card-anatomy-2"
+      ]
+    },
+    {
+      "num": "VIII",
+      "key": "campaign",
+      "id": "campaign",
+      "title": "Campaign Play",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "IX",
+      "key": "deck-building",
+      "id": "deck-customization",
+      "title": "Deck Customization",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "X",
+      "key": "errata",
+      "id": "notes-errata",
+      "title": "Notes and Errata",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "XI",
+      "key": "faq",
+      "id": "faq",
+      "title": "Frequently Asked Questions",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "XII",
+      "key": "optional-rules",
+      "id": "optional-rules",
+      "title": "Optional Rules",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "XIII",
+      "key": "reprints",
+      "id": "modified-reprints",
+      "title": "Modified Reprints",
+      "kind": "rules",
+      "figures": []
+    },
+    {
+      "num": "XIV",
+      "key": "icon-reference",
+      "id": "icon-reference",
+      "title": "Icon Reference",
+      "kind": "figures",
+      "figures": [
+        "icons-ref-a"
+      ]
+    },
+    {
+      "num": "XV",
+      "key": "encounter-icons",
+      "id": "encounter-icons",
+      "title": "Encounter Set Icon Reference",
+      "kind": "figures",
+      "figures": [
+        "icons-ref-a",
+        "icons-ref-b"
+      ]
+    },
+    {
+      "num": "",
+      "key": "quick-reference",
+      "id": "quick-reference",
+      "title": "Quick Reference",
+      "kind": "figures",
+      "figures": [
+        "icons-ref-b"
+      ]
+    }
+  ],
+  "patterns": {
+    "trigger": "(see|consult|refer to)\\b",
+    "pageWord": "(page|pg\\.?|p\\.)",
+    "pageRef": "on pages?\\s*(\\d+(?:\\s*[-–]\\s*\\d+)?)"
+  },
+  "autolink": {
+    "alias": {
+      "draw 1 card": "Drawing Cards",
+      "gain 1 resource": "Resource Action",
+      "engage": "Engage Action",
+      "fight": "Fight Action",
+      "evade": "Evade, Evade Action",
+      "investigate": "Investigate Action",
+      "activate": "Activate Action"
+    },
+    "allowSingleWord": [
+      "alert",
+      "aloof",
+      "attacked",
+      "attacker",
+      "clues",
+      "doomed",
+      "elimination",
+      "elusive",
+      "exhaust",
+      "exhausted",
+      "exile",
+      "experience",
+      "fast",
+      "haunted",
+      "hidden",
+      "hunter",
+      "massive",
+      "modifiers",
+      "move",
+      "mulligan",
+      "myriad",
+      "parley",
+      "patrol",
+      "peril",
+      "permanent",
+      "prey",
+      "qualifiers",
+      "resign",
+      "retaliate",
+      "revelation",
+      "reward",
+      "seal",
+      "spawn",
+      "surge",
+      "traits",
+      "trauma"
+    ],
+    "stop": [
+      "after",
+      "as if",
+      "at",
+      "cannot",
+      "different",
+      "for each or for every",
+      "gains",
+      "in player order",
+      "may",
+      "per investigator",
+      "the letter x",
+      "then",
+      "unique",
+      "uses x",
+      "when",
+      "you your"
+    ],
+    "cap": 12
+  },
+  "figures": [
+    {
+      "name": "card-anatomy-1",
+      "page": 17,
+      "clip": null
+    },
+    {
+      "name": "card-anatomy-2",
+      "page": 18,
+      "clip": null
+    },
+    {
+      "name": "icons-ref-a",
+      "page": 23,
+      "clip": null
+    },
+    {
+      "name": "icons-ref-b",
+      "page": 24,
+      "clip": null
+    }
+  ],
+  "montages": [
+    {
+      "name": "montage-move",
+      "page": 9,
+      "srcpage": 17,
+      "clip": [
+        658,
+        156,
+        898,
+        281
+      ],
+      "entry": "Move",
+      "alt": "Two location cards (Merchant District and Waterfront District) joined by an arrow, illustrating movement between connecting locations.",
+      "info": "<p><b>Merchant District</b> — Location · Arkham (Central). <i>During your turn, if there are exactly 1 or 2 investigators in the game: Move to a connecting location. (Limit once per round.)</i></p><p><b>Waterfront District</b> — Location · Arkham. <i>With its streets perpetually flooded, the former Rivertown district is a ghost town…</i></p>"
+    },
+    {
+      "name": "montage-victory",
+      "page": 13,
+      "srcpage": 24,
+      "clip": [
+        345,
+        327,
+        535,
+        486
+      ],
+      "entry": "Victory X",
+      "alt": "Two cards worth victory points: the enemy Naomi O’Bannion and the location Orne Library.",
+      "info": "<p><b>Naomi O’Bannion</b> — Enemy · Humanoid, Syndicate, Elite. Retaliate. Spend 1 resource: Parley. <b>Victory 1.</b></p><p><b>Orne Library</b> — Location · Miskatonic. “Draw 3 cards. (Limit once per game.)” <b>Victory 1.</b></p>"
+    },
+    {
+      "name": "montage-slots",
+      "page": 11,
+      "srcpage": 21,
+      "clip": [
+        948,
+        286,
+        1156,
+        438
+      ],
+      "entry": "Slots",
+      "alt": "The eight slot types with their icon: accessory, head, body, ally, hand (1 and 2 slots) and arcane (1 and 2 slots).",
+      "info": "<p>Slot types and their symbol: <b>accessory</b>, <b>head</b>, <b>body</b> and <b>ally</b> (1 slot each); <b>hand</b> and <b>arcane</b> (1 or 2 slots).</p>"
+    }
+  ],
+  "inlineSymbols": [
+    {
+      "entry": "Weakness",
+      "after": "the following symbol:",
+      "icon": "weakness"
+    }
+  ],
+  "iconArt": {
+    "provides": false,
+    "symbols": {}
+  }
+}

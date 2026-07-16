@@ -1,0 +1,23 @@
+{
+  "default": "es",
+  "languages": [
+    {
+      "code": "es",
+      "name": "Español",
+      "label": "ES",
+      "dir": "ltr",
+      "order": 1,
+      "ui": "langs/es/ui.json",
+      "data": "data/grimoire_es.json"
+    },
+    {
+      "code": "en",
+      "name": "English",
+      "label": "EN",
+      "dir": "ltr",
+      "order": 2,
+      "ui": "langs/en/ui.json",
+      "data": "data/grimoire_en.json"
+    }
+  ]
+}
