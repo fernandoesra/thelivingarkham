@@ -4,6 +4,7 @@ to JPEG figures. These sections are visual by nature and are shown as images."""
 import fitz, sys, os, json
 from PIL import Image
 import io
+from montages import MONTAGES
 
 def render(doc, page, clip, zoom, quality, out):
     p = doc[page-1]
@@ -41,13 +42,17 @@ if __name__ == '__main__':
     os.makedirs(outdir, exist_ok=True)
     manifest = {}
     for lang, (pdf, jobs) in JOBS.items():
-        if not jobs:
-            continue
         doc = fitz.open(os.path.join(grimdir, pdf))
         for name, page, clip in jobs:
             fn = f'{lang}-{name}.jpg'
             w, h = render(doc, page, clip, zoom, q, os.path.join(outdir, fn))
             manifest.setdefault(lang, {})[name] = {'file': fn, 'w': w, 'h': h, 'page': page}
             print(f'  {fn}  {w}x{h}')
+        # montage figures embedded in glossary entries (small regions -> higher zoom)
+        for m in MONTAGES.get(lang, []):
+            fn = f'{lang}-{m["name"]}.jpg'
+            w, h = render(doc, m['page'], m['clip'], 3.0, 92, os.path.join(outdir, fn))
+            manifest.setdefault(lang, {})[m['name']] = {'file': fn, 'w': w, 'h': h, 'page': m['page']}
+            print(f'  {fn}  {w}x{h}  (montage)')
     json.dump(manifest, open(os.path.join(outdir, 'images.json'), 'w', encoding='utf-8'), ensure_ascii=False)
     print('done')

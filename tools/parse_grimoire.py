@@ -13,7 +13,8 @@ Design goals:
         (bold / italic / game-icon / cross-reference).
 Run this for each PDF; it writes <out>.json.
 """
-import fitz, json, re, sys, unicodedata
+import fitz, json, re, sys, os, unicodedata
+from montages import masks_for
 
 # --- Arkham icon font: PUA codepoint -> semantic name (derived from p49) ---
 ICON_MAP = {
@@ -71,10 +72,12 @@ def collect_lines(pdf):
     """Return list of logical lines in reading order across the doc.
     Each line: {page, col, y, x0, spans:[...]} where a span keeps font/size/color/text."""
     doc = fitz.open(pdf)
+    masks = masks_for(os.path.basename(pdf))      # montage regions: card text shown as a figure instead
     out = []
     gblock = 0
     for pno in range(doc.page_count):
         page = doc[pno]
+        page_masks = masks.get(pno + 1, [])
         blocks = [b for b in page.get_text('dict')['blocks'] if b['type'] == 0]
         edges = column_edges(blocks)              # dynamic: handles 1..N column spreads
         raw = []
@@ -86,10 +89,16 @@ def collect_lines(pdf):
                 if not spans:
                     continue
                 x0 = min(s['bbox'][0] for s in spans)
+                x1 = max(s['bbox'][2] for s in spans)
                 y0 = min(s['bbox'][1] for s in spans)
                 y1 = max(s['bbox'][3] for s in spans)
                 if y0 >= FOOT_Y:            # footer page number
                     continue
+                if page_masks:             # drop card text overlaid on a montage
+                    cx, cy = (x0 + x1) / 2.0, (y0 + y1) / 2.0
+                    if any(mx0 <= cx <= mx1 and my0 <= cy <= my1
+                           for (mx0, my0, mx1, my1) in page_masks):
+                        continue
                 col, xedge = col_of(x0, edges)
                 raw.append({'page': pno+1, 'col': col, 'xedge': xedge, 'y': y0, 'y1': y1,
                             'x0': x0, 'spans': spans, 'block': bid})

@@ -8,6 +8,7 @@
 Outputs data/grimoire_<lang>.json plus a validation report.
 """
 import json, re, sys, os, unicodedata
+from montages import MONTAGES, INLINE_SYMBOLS
 
 def slugify(t):
     t = (t or '').strip().lower().replace('“','').replace('”','').replace('"','').replace('’',"'")
@@ -191,6 +192,32 @@ def assemble(lang, nodes, images):
             used.add(k)
             e['id'] = k
             title_index.setdefault(norm(e['title']), k)
+    # attach montage figures (example card-art resources) to their glossary entries
+    entry_by_title = {}
+    for s in sections:
+        for e in s['entries']:
+            entry_by_title.setdefault(norm(e['title']), e)
+    for m in MONTAGES.get(lang, []):
+        e = entry_by_title.get(norm(m['entry']))
+        info = images.get(lang, {}).get(m['name'])
+        if e is None or not info:
+            print(f'  [warn] montage {m["name"]!r} not attached (entry={m["entry"]!r} found={e is not None} img={info is not None})')
+            continue
+        e.setdefault('figures', []).append({
+            'file': info['file'], 'w': info['w'], 'h': info['h'],
+            'srcpage': m.get('srcpage', info.get('page')), 'alt': m['alt'], 'info': m['info']})
+    # re-insert standalone symbols (drawn as vectors, invisible to the text parser)
+    for ins in INLINE_SYMBOLS.get(lang, []):
+        e = entry_by_title.get(norm(ins['entry']))
+        if e is None:
+            print(f'  [warn] inline symbol: entry {ins["entry"]!r} not found'); continue
+        anchor = norm(ins['after']); idx = None
+        for i, b in enumerate(e['blocks']):
+            if norm(flat_text(b['runs'])).endswith(anchor):
+                idx = i; break
+        if idx is None:
+            print(f'  [warn] inline symbol: anchor {ins["after"]!r} not found in {ins["entry"]!r}'); continue
+        e['blocks'].insert(idx+1, {'type':'sym', 'runs':[{'kind':'icon','name':ins['icon']}]})
     intro_section = {'num':'','id':'intro','title':('Cómo empezar' if lang=='es' else 'Getting Started'),
                      'kind':'intro','intro':intro_blocks,'entries':[],'figures':[]}
     return intro_section, sections, title_index, cfg

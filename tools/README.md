@@ -18,10 +18,35 @@ Reads `tools/source/*.pdf` → writes `data/grimoire_*.json` and `assets/{icons,
 |---|---|
 | `parse_grimoire.py`  | PDF text → structured nodes (font/column-aware, faithful text) |
 | `extract_icons.py`   | game-icon glyphs → recolourable PNG masks + `icons.json` |
-| `render_images.py`   | card-anatomy / icon-gallery pages → JPEG figures |
+| `render_images.py`   | card-anatomy / icon-gallery pages + montages → JPEG figures |
+| `montages.py`        | config of the example card-art montages embedded in glossary entries |
 | `assemble.py`        | nodes → sections, cross-references, figures → `grimoire_*.json` |
 | `validate_coverage.py` | checks parsed text is present in the source PDF |
 | `ingest.sh`          | runs the whole pipeline |
+
+## Montage figures (example card-art inside glossary entries)
+
+Some glossary entries include example **montages** (card-art + printed card text: *Move*,
+*Victory X*) or **diagrams** (the slot icons in *Slots/Espacios*). In the PDF these are
+**not** flat images — layers of art + live text — so the text bleeds into the entry body.
+`montages.py` (`MONTAGES`) lists each one (page, clip region, `srcpage` for the credit,
+target entry, alt, and an `info` HTML panel). From that single config:
+
+* `render_images.py` renders the region to a flat JPEG (`<lang>-montage-*.jpg`),
+* `parse_grimoire.py` masks the overlaid text out of the parsed body,
+* `assemble.py` attaches the figure to its glossary entry.
+
+The app centres the figure, wraps it in a credit band (*Grimoire figure · p. N · vX*) and
+shows an **“i”** button that reveals the textual alternative.
+
+### Standalone symbols (drawn as vectors)
+
+The basic **weakness symbol** is drawn as PDF vector paths, so neither the text parser nor
+the icon font sees it. `montages.py` handles it in two parts: `SYMBOL_MASKS` renders the
+region to a recolourable alpha-mask icon (`extract_icons.py` → `assets/icons/weakness.png`
++ `icons.json`), and `INLINE_SYMBOLS` re-inserts it as a centred icon after the body block
+whose text ends with a given anchor (e.g. *“…el siguiente símbolo:”*). Add new ones by
+editing only `montages.py` and re-running `npm run ingest`.
 
 ## Version history (what's new between versions)
 

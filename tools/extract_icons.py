@@ -5,6 +5,7 @@ and a manifest. The masks are used in CSS via `-webkit-mask-image` so the app
 can tint them (gold / parchment) to match the theme."""
 import fitz, numpy as np, json, os, base64, sys
 from PIL import Image
+from montages import SYMBOL_MASKS
 
 ICON_MAP = {
     0xF250:'willpower', 0xF251:'agility', 0xF252:'intellect', 0xF253:'combat', 0xF26C:'wild',
@@ -86,6 +87,19 @@ def main(pdf, outdir):
         imgs[name] = im
         es,en = LABELS[name]
         manifest[name] = {'cp':'%04X'%cp,'es':es,'en':en}   # light manifest (app fetches this)
+    # vector symbols (drawn, not font/text) -> recolourable masks, e.g. basic weakness symbol
+    base = os.path.basename(pdf)
+    for name, sm in SYMBOL_MASKS.items():
+        if sm['pdf'] != base:
+            continue
+        im = render_mask(doc[sm['page']-1], fitz.Rect(*sm['rect']), zoom=10, pad=1)
+        if im is None:
+            print('EMPTY', name); continue
+        if im.height > 256:
+            w = int(im.width*256/im.height); im = im.resize((max(w,1),256), Image.LANCZOS)
+        im.save(os.path.join(outdir, name+'.png'))
+        imgs[name] = im
+        manifest[name] = {'cp':'', 'es':sm['es'], 'en':sm['en']}
     json.dump(manifest, open(os.path.join(outdir,'icons.json'),'w',encoding='utf-8'), ensure_ascii=False)
     # contact sheet (dark bg, gold-tinted) for visual QA
     names=list(imgs); cols=6; rows=(len(names)+cols-1)//cols; cell=120

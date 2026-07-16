@@ -332,6 +332,45 @@ h3 .ico,.tla-h1 .ico{--icon:var(--gold2)}
 .ico-unique{-webkit-mask-image:url(../assets/icons/unique.png);mask-image:url(../assets/icons/unique.png)}
 .ico-perinvestigator{-webkit-mask-image:url(../assets/icons/perinvestigator.png);mask-image:url(../assets/icons/perinvestigator.png)}
 .ico-codex{-webkit-mask-image:url(../assets/icons/codex.png);mask-image:url(../assets/icons/codex.png)}
+.ico-weakness{-webkit-mask-image:url(../assets/icons/weakness.png);mask-image:url(../assets/icons/weakness.png)}
+
+/* ---------- montage figures (example card-art resources inside an entry) ---------- */
+.tla-montage{margin:18px auto 26px; max-width:660px}
+.tla-montage-frame{position:relative; border:1px solid var(--edge2); border-radius:12px; overflow:hidden;
+  background:var(--figbg); box-shadow:var(--shadow)}
+.tla-montage-img{display:block; width:100%; height:auto; cursor:zoom-in}
+/* the "i" sits on the image; colours are theme-independent (it floats over artwork) */
+.tla-montage-i{position:absolute; top:10px; right:10px; width:31px; height:31px; border-radius:50%; cursor:pointer;
+  border:1px solid rgba(231,210,154,.55); background:rgba(16,20,26,.82); color:#e7d29a;
+  font-family:var(--ff-head); font-size:18px; font-weight:700; line-height:1;
+  display:inline-flex; align-items:center; justify-content:center; -webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px)}
+.tla-montage-i:hover{background:#e7d29a; color:#171008; border-color:#e7d29a}
+/* source credit band wrapping the image (original page · document version) */
+.tla-montage-cap{font-family:var(--ff-ui); font-size:12.5px; color:var(--muted); letter-spacing:.2px;
+  padding:9px 14px; border-top:1px solid var(--edge); background:var(--bg2)}
+/* the textual alternative is kept hidden as a data source; shown in the modal below */
+.tla-montage-info{display:none}
+
+/* figure-info modal — same centred-overlay pattern as the search dialog */
+.tla-figmodal{position:fixed; inset:0; z-index:130; display:flex; align-items:center; justify-content:center;
+  padding:clamp(40px,8vh,120px) 16px; background:rgba(8,10,14,.6); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px)}
+html[data-theme="light"] .tla-figmodal{background:rgba(44,34,14,.38)}
+.tla-figmodal[hidden]{display:none}
+.tla-figmodal-box{width:min(560px,100%); max-height:82vh; display:flex; flex-direction:column; overflow:hidden;
+  background:var(--panel); border:1px solid var(--edge2); border-radius:14px; box-shadow:var(--shadow)}
+.tla-figmodal-head{display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:13px 16px; border-bottom:1px solid var(--edge); flex:0 0 auto}
+.tla-figmodal-h{margin:0; font-family:var(--ff-ui); font-size:12px; letter-spacing:1.4px; text-transform:uppercase; color:var(--gold2)}
+.tla-figmodal-close{flex:0 0 auto; background:none; border:0; color:var(--muted); font-size:20px; line-height:1;
+  cursor:pointer; padding:2px 7px; border-radius:8px}
+.tla-figmodal-close:hover{color:var(--ink); background:var(--panel2)}
+.tla-figmodal-body{padding:16px 18px; overflow:auto}
+.tla-figmodal-body p{margin:0 0 10px; font-size:15.5px; color:var(--ink2); line-height:1.62}
+.tla-figmodal-body p:last-child{margin:0}
+.tla-figmodal-body b{color:var(--gold2)} .tla-figmodal-body i{color:var(--ink)}
+/* standalone symbol drawn as a PDF vector, re-inserted as a centred icon */
+.tla-sym{text-align:center; margin:6px 0 22px}
+.tla-sym .ico{width:7.5em; height:7.5em; vertical-align:middle; --icon:var(--gold2)}
 
 /* ---------- figures ---------- */
 .tla-figs{display:flex; flex-direction:column; gap:22px; margin-top:8px}
