@@ -93,9 +93,19 @@ html[data-theme="light"] .tla-theme .tla-ico-moon{display:none}
    browser's own [hidden] rule and a single-language site would show an empty box. */
 .tla-lang{display:flex; border:1px solid var(--edge2); border-radius:10px; overflow:hidden; font-family:var(--ff-ui)}
 .tla-lang[hidden]{display:none}
-.tla-lang button{background:transparent; color:var(--ink2); border:0; padding:11px 14px; font-size:14px; font-weight:700; cursor:pointer; letter-spacing:.4px}
+.tla-lang button{display:flex; align-items:center; gap:7px; min-height:44px;
+  background:transparent; color:var(--ink2); border:0; padding:0 12px; font-size:14px;
+  font-weight:700; cursor:pointer; letter-spacing:.4px}
 .tla-lang button:hover{background:var(--panel)}
 .tla-lang button[aria-pressed=true]{background:var(--gold); color:var(--on-gold)}
+/* The flag is a small chip: held back to the palette's muted register until its
+   language is the live one, so it reads as part of the brass, not a sticker. */
+.tla-flag{display:block; width:20px; height:14px; border-radius:2px; object-fit:cover;
+  box-shadow:0 0 0 1px rgba(0,0,0,.28) inset, 0 0 0 1px var(--edge) ;
+  filter:saturate(.55) brightness(.9); opacity:.75; transition:filter .15s, opacity .15s}
+.tla-lang button:hover .tla-flag{filter:saturate(.85); opacity:.95}
+.tla-lang button[aria-pressed=true] .tla-flag{filter:none; opacity:1;
+  box-shadow:0 0 0 1px rgba(0,0,0,.4) inset, 0 0 0 1px rgba(0,0,0,.28)}
 .tla-burger{display:none; background:var(--panel); border:1px solid var(--edge2); color:var(--ink);
   width:44px;height:44px; border-radius:10px; cursor:pointer; font-size:19px; align-items:center; justify-content:center}
 
@@ -196,7 +206,9 @@ html[data-theme="light"] .tla-nav{background:rgba(90,68,20,.05)}
   transition:transform .12s ease, border-color .12s, background .12s}
 .tla-card:hover{transform:translateY(-2px); border-color:var(--gold); background:var(--panel2)}
 .tla-card-top{display:flex; align-items:baseline; gap:11px}
-.tla-card-num{font-family:var(--ff-head); font-size:15px; color:var(--gold); min-width:22px; flex:0 0 auto}
+/* --gold2 not --gold: at 15px on the light panel, --gold measures 4.43:1 — just
+   under the 4.5:1 minimum for body-size text. */
+.tla-card-num{font-family:var(--ff-head); font-size:15px; color:var(--gold2); min-width:22px; flex:0 0 auto}
 .tla-card-title{font-family:var(--ff-head); font-size:21px; line-height:1.15; color:var(--gold2)}
 .tla-card-meta{font-family:var(--ff-ui); font-size:13px; color:var(--muted)}
 .tla-card.news{border-color:var(--new-edge); background:linear-gradient(120deg,var(--new-bg),transparent 68%),var(--panel)}
@@ -244,11 +256,16 @@ html[data-theme="light"] .tla-azfilter{box-shadow:0 12px 28px -14px rgba(70,52,2
 .tla-azcount{font-family:var(--ff-ui); font-size:13px; color:var(--muted); margin-left:6px; align-self:center; white-space:nowrap}
 
 .tla-entry{scroll-margin-top:88px; margin:0 0 30px; padding-top:4px}
-.tla-entry h3{font-family:var(--ff-head); font-size:24px; color:var(--gold2); margin:26px 0 10px; letter-spacing:.3px;
+.tla-entry h2{font-family:var(--ff-head); font-size:24px; color:var(--gold2); margin:26px 0 10px; letter-spacing:.3px;
   display:flex; align-items:center; gap:8px}
-.tla-entry h3 .anchor{opacity:0; color:var(--muted); font-family:var(--ff-ui); font-size:17px; text-decoration:none; transition:opacity .15s}
-.tla-entry:hover h3 .anchor,.tla-entry h3 .anchor:focus-visible{opacity:.75}
-.tla-entry.sub h3{font-size:19px; color:var(--ink)}
+/* 24x24 minimum: the glyph is small, so the target is padded out around it
+   (WCAG 2.5.8). inline-flex keeps it on the heading's baseline row. */
+.tla-entry h2 .anchor{opacity:0; color:var(--muted); font-family:var(--ff-ui); font-size:17px;
+  text-decoration:none; transition:opacity .15s;
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:24px; min-height:24px; vertical-align:middle}
+.tla-entry:hover h2 .anchor,.tla-entry h2 .anchor:focus-visible{opacity:.75}
+.tla-entry.sub h2{font-size:19px; color:var(--ink)}
 .tla-entry.flash{animation:tlaflash 1.6s ease}
 @keyframes tlaflash{0%,18%{background:var(--mark)}100%{background:transparent}}
 .tla-p{margin:0 0 13px; font-size:17px; color:var(--ink)}
@@ -274,7 +291,7 @@ html[data-theme="light"] .tla-azfilter{box-shadow:0 12px 28px -14px rgba(70,52,2
   padding:2px 8px; border-radius:20px; white-space:nowrap; vertical-align:middle; line-height:1.4}
 .tla-vbadge.new{color:var(--new); border:1px solid var(--new-edge); background:transparent}
 .tla-vbadge.upd{color:var(--gold2); border:1px solid var(--gold); background:transparent}
-.tla-entry h3 .tla-vbadge{font-size:12px}
+.tla-entry h2 .tla-vbadge{font-size:12px}
 .tla-entry.is-new{border-left:3px solid var(--new-edge); padding-left:16px; margin-left:-19px}
 .tla-entry.is-upd{border-left:3px solid var(--gold); padding-left:16px; margin-left:-19px}
 
@@ -313,7 +330,7 @@ html[data-theme="light"] .tla-azfilter{box-shadow:0 12px 28px -14px rgba(70,52,2
   -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
   -webkit-mask-position:center; mask-position:center;
   -webkit-mask-size:contain; mask-size:contain;}
-h3 .ico,.tla-h1 .ico{--icon:var(--gold2)}
+.tla-entry h2 .ico,.tla-wnh .ico,.tla-h1 .ico{--icon:var(--gold2)}
 .ico-willpower{-webkit-mask-image:url(../assets/icons/willpower.png);mask-image:url(../assets/icons/willpower.png)}
 .ico-agility{-webkit-mask-image:url(../assets/icons/agility.png);mask-image:url(../assets/icons/agility.png)}
 .ico-intellect{-webkit-mask-image:url(../assets/icons/intellect.png);mask-image:url(../assets/icons/intellect.png)}
@@ -385,7 +402,7 @@ html[data-theme="light"] .tla-figmodal{background:rgba(44,34,14,.38)}
 .tla-note b{color:var(--gold2)}
 
 /* ---------- toc (right) ---------- */
-.tla-toc h4{font-family:var(--ff-ui); font-size:12px; letter-spacing:1.2px; text-transform:uppercase; color:var(--muted); margin:0 0 12px}
+.tla-toc-h{font-family:var(--ff-ui); font-size:12px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--muted); margin:0 0 12px}
 .tla-toc a{display:block; font-family:var(--ff-ui); font-size:13.5px; color:var(--muted); padding:5px 9px; border-left:2px solid transparent; line-height:1.4}
 .tla-toc a:hover{color:var(--ink2); text-decoration:none}
 .tla-toc a.on{color:var(--gold2); border-left-color:var(--gold)}
@@ -394,7 +411,12 @@ html[data-theme="light"] .tla-figmodal{background:rgba(44,34,14,.38)}
 /* ---------- footer (always visible) ---------- */
 .tla-foot{flex:0 0 auto; border-top:1px solid var(--edge); padding:14px 22px; font-family:var(--ff-ui); font-size:13px; color:var(--muted);
   display:flex; gap:14px; flex-wrap:wrap; align-items:center; justify-content:space-between; background:var(--bg2)}
-.tla-foot a{color:var(--gold2)}
+/* Underlined, not just tinted: a link inside a run of text must be findable
+   without seeing colour (WCAG 1.4.1) — the tint alone sits at 1.5:1 against the
+   surrounding footer text. Qualified with #tla-root to outrank the blanket
+   `#tla-root a{text-decoration:none}` above. */
+#tla-root .tla-foot a{color:var(--gold2); text-decoration:underline; text-underline-offset:2px}
+#tla-root .tla-foot a:hover{color:var(--ink)}
 .tla-foot b{color:var(--ink2)}
 
 /* ---------- lightbox ---------- */
@@ -415,9 +437,15 @@ html[data-theme="light"] .tla-figmodal{background:rgba(44,34,14,.38)}
 @media(max-width:820px){
   .tla-body{grid-template-columns:1fr}
   .tla-burger{display:inline-flex}
+  /* visibility, not just transform: sliding the drawer off-canvas leaves its
+     buttons in the tab order, so a keyboard user Tabs blind through the whole
+     hidden menu at x=-288. `visibility:hidden` takes the subtree out of the tab
+     order; delaying it by the slide duration keeps the animation intact. */
   .tla-nav{position:fixed; top:0; left:0; bottom:0; width:300px; z-index:50;
-    transform:translateX(-100%); transition:transform .22s ease; background:var(--bg2); border-right:1px solid var(--edge2)}
-  .tla-nav.on{transform:none}
+    transform:translateX(-100%); visibility:hidden;
+    transition:transform .22s ease, visibility 0s linear .22s;
+    background:var(--bg2); border-right:1px solid var(--edge2)}
+  .tla-nav.on{transform:none; visibility:visible; transition:transform .22s ease, visibility 0s}
   .tla-searchbtn{padding:0; width:44px; justify-content:center}
   .tla-searchbtn-kbd{display:none}
   .tla-title{font-size:21px}

@@ -51,6 +51,7 @@ def create(code):
   langs/{code}/source/     <- put your Grimoire PDF(s) here
   langs/{code}/lang.json   <- describes your PDF (fill in every TODO)
   langs/{code}/ui.json     <- the interface, seeded in English: translate the values
+  langs/{code}/flag.svg    <- optional: add one and the switcher shows it
 
 Next:
   1. Copy the PDF into langs/{code}/source/ and write its filename into

@@ -74,7 +74,8 @@ var elNav=document.getElementById('tla-nav'), elMain=document.getElementById('tl
     elFigModal=document.getElementById('tla-figmodal'),
     elFigHead=document.getElementById('tla-figmodal-h'),
     elFigBody=document.getElementById('tla-figmodal-body'),
-    elFigClose=document.getElementById('tla-figmodal-close');
+    elFigClose=document.getElementById('tla-figmodal-close'),
+    elLb=document.getElementById('tla-lb');
 var lastFigBtn=null;
 /* set by boot() from the registry — never hardcoded to any language */
 var lang='', data=null, curSec=null, searchIndex={}, resSel=-1, glossFilter='all', firstRoute=true;
@@ -152,7 +153,9 @@ function figuresHTML(e,idbase){
     h+='<figure class="tla-montage">';
     h+='<div class="tla-montage-frame">';
     h+='<img class="tla-montage-img" loading="lazy" src="assets/img/'+esc(f.file)+'" alt="'+esc(f.alt||t('figalt'))+'"'+wh+'>';
-    if(f.info)h+='<button class="tla-montage-i" type="button" aria-haspopup="dialog" aria-controls="'+fid+'" aria-label="'+esc(t('figinfo'))+'" title="'+esc(t('figinfo'))+'">i</button>';
+    /* aria-controls names the dialog this opens; data-src names the hidden block
+       the dialog is filled from. They are different elements. */
+    if(f.info)h+='<button class="tla-montage-i" type="button" aria-haspopup="dialog" aria-controls="tla-figmodal" data-src="'+fid+'" aria-label="'+esc(t('figinfo'))+'" title="'+esc(t('figinfo'))+'">i</button>';
     h+='<div class="tla-montage-cap">'+esc(figSrc(f))+'</div>';
     h+='</div>';
     if(f.info)h+='<div class="tla-montage-info" id="'+fid+'" hidden>'+f.info+'</div>';
@@ -161,7 +164,7 @@ function figuresHTML(e,idbase){
   return h;
 }
 function openFigInfo(btn){
-  var src=document.getElementById(btn.getAttribute('aria-controls')); if(!src)return;
+  var src=document.getElementById(btn.getAttribute('data-src')); if(!src)return;
   lastFigBtn=btn;
   elFigHead.textContent=t('figdata');
   elFigBody.innerHTML=src.innerHTML;
@@ -301,8 +304,10 @@ function render(sid,eid,flash){
   if(s.kind==='glossary'){h+=azFilterBar(s);}
   ents.forEach(function(e){
     var isNew=!!e.newIn;
+    /* h2: an entry sits directly under the chapter's h1. Jumping straight to h3
+       would leave a hole in the outline a screen reader navigates by. */
     h+='<article class="tla-entry'+(e.sub?' sub':'')+(isNew?' is-new':'')+(e.updatedIn?' is-upd':'')+'" id="e-'+esc(e.id)+'">';
-    h+='<h3>'+titleHTML(e)+verBadge(e)+'<a class="anchor" href="#'+lang+'/'+esc(e.id)+'" title="'+t('jump')+'" aria-label="'+t('jump')+'">§</a></h3>';
+    h+='<h2>'+titleHTML(e)+verBadge(e)+'<a class="anchor" href="#'+lang+'/'+esc(e.id)+'" title="'+esc(t('jump'))+'" aria-label="'+esc(t('jump'))+'">§</a></h2>';
     h+=blocksHTML(e.blocks,isNew);
     h+=figuresHTML(e,esc(e.id));
     h+='</article>';
@@ -327,8 +332,8 @@ function renderWhatsNew(s){
   h+='<div class="tla-crumb">The Living Arkham</div>';
   h+='<h1 class="tla-h1">'+esc(t('news'))+'</h1><div class="tla-rule"></div>';
   h+='<div class="tla-note"><b>'+t('newver')+' · v'+li.v+'</b> · '+t('released')+' '+fmtDate(li.date)+'.<br>'+esc(t('newsintro'))+'</div>';
-  if(wn['new'].length){h+='<h3 class="tla-wnh"><span class="tla-vbadge new">'+t('newbadge')+'</span> '+t('newentries')+' <span class="tla-wncount">'+wn['new'].length+'</span></h3>'+wnList(wn['new'],'new');}
-  if(wn.updated.length){h+='<h3 class="tla-wnh"><span class="tla-vbadge upd">'+t('updbadge')+'</span> '+t('updentries')+' <span class="tla-wncount">'+wn.updated.length+'</span></h3>'+wnList(wn.updated,'upd');}
+  if(wn['new'].length){h+='<h2 class="tla-wnh"><span class="tla-vbadge new">'+esc(t('newbadge'))+'</span> '+esc(t('newentries'))+' <span class="tla-wncount">'+wn['new'].length+'</span></h2>'+wnList(wn['new'],'new');}
+  if(wn.updated.length){h+='<h2 class="tla-wnh"><span class="tla-vbadge upd">'+esc(t('updbadge'))+'</span> '+esc(t('updentries'))+' <span class="tla-wncount">'+wn.updated.length+'</span></h2>'+wnList(wn.updated,'upd');}
   h+='</div>';
   elMain.innerHTML=h; elToc.innerHTML=''; elMain.scrollTop=0;
 }
@@ -381,15 +386,26 @@ function renderLanding(s){
 /* ---------- TOC (right) ---------- */
 function buildToc(s,ents){
   if(!ents.length){elToc.innerHTML=''; return;}
-  var h='<h4>'+t('onthispage')+'</h4>';
+  var h='<h2 class="tla-toc-h">'+esc(t('onthispage'))+'</h2>';
   ents.forEach(function(e){h+='<a href="#'+lang+'/'+esc(e.id)+'" data-eid="'+esc(e.id)+'" style="'+(e.sub?'padding-left:18px;':'')+'">'+titleHTML(e)+'</a>';});
   elToc.innerHTML=h;
+}
+/* Scroll a child into view inside its own scroller, by hand.
+   NOT Element.scrollIntoView(): that also moves the browser's sequential focus
+   navigation starting point, so the next Tab would resume from the nav instead
+   of the top of the page — which silently makes the skip link, and the whole
+   header, unreachable by Tab. */
+function keepInView(el,box){
+  var e=el.getBoundingClientRect(), b=box.getBoundingClientRect();
+  if(e.top<b.top) box.scrollTop-=(b.top-e.top);
+  else if(e.bottom>b.bottom) box.scrollTop+=(e.bottom-b.bottom);
 }
 function markNav(sid){
   [].forEach.call(elNav.querySelectorAll('.tla-nav-btn'),function(b){b.classList.remove('active'); b.removeAttribute('aria-current');});
   [].forEach.call(elNav.querySelectorAll('.tla-nav-sec'),function(d){d.classList.remove('open');});
   var sec=document.getElementById('navsec-'+sid);
-  if(sec){sec.classList.add('open'); var b=sec.querySelector('.tla-nav-btn'); if(b){b.classList.add('active'); b.setAttribute('aria-current','true'); b.scrollIntoView({block:'nearest'});}}
+  if(sec){sec.classList.add('open'); var b=sec.querySelector('.tla-nav-btn');
+    if(b){b.classList.add('active'); b.setAttribute('aria-current','true'); keepInView(b,elNav);}}
 }
 
 /* ---------- scroll spy ---------- */
@@ -422,15 +438,25 @@ function regOf(L){for(var i=0;i<LANGS.length;i++){if(LANGS[i].code===L)return LA
 function known(L){return !!regOf(L);}
 
 /* The language switcher is built from the registry, so a new pack appears here
-   by existing — there is no list of languages in the markup. */
+   by existing — there is no list of languages in the markup.
+   The flag is decoration (alt=""): the label names the language, because a flag
+   names a country and languages are not countries. A pack without a flag.svg
+   simply shows its label. */
 function buildLangBar(){
   var box=document.querySelector('.tla-lang'); if(!box)return;
   if(LANGS.length<2){box.hidden=true; return;}          // one language: no switcher
   box.hidden=false;
   box.innerHTML=LANGS.map(function(L){
-    return '<button type="button" data-l="'+esc(L.code)+'" lang="'+esc(L.code)+'" title="'+esc(L.name)+'"'+
-           ' aria-pressed="'+(L.code===lang)+'">'+esc(L.label||L.code.toUpperCase())+'</button>';
+    var flag=L.flag?'<img class="tla-flag" src="'+esc(L.flag)+'" alt="" width="20" height="14" aria-hidden="true">':'';
+    return '<button type="button" data-l="'+esc(L.code)+'" lang="'+esc(L.code)+'"'+
+           ' aria-pressed="'+(L.code===lang)+'">'+flag+
+           '<span class="tla-lang-lb">'+esc(L.label||L.code.toUpperCase())+'</span>'+
+           '<span class="tla-sr">'+esc(L.name)+'</span></button>';
   }).join('');
+  // a flag that fails to load would otherwise sit there as an empty framed box
+  [].forEach.call(box.querySelectorAll('.tla-flag'),function(img){
+    img.addEventListener('error',function(){img.remove();});
+  });
 }
 
 /* Fill every element that declares a string key in the markup:
@@ -542,36 +568,115 @@ function snippet(text,terms){
   if(pos<0)pos=0; var st=Math.max(0,pos-40); var frag=text.slice(st,st+160); if(st>0)frag='…'+frag; return frag;
 }
 function renderResults(list,terms){
-  if(!list.length){elRes.innerHTML='<div class="tla-res-empty">'+t('nores')+'</div>'; elRes.classList.add('on'); resSel=-1; setExpanded(true); return;}
+  if(!list.length){elRes.innerHTML='<div class="tla-res-empty">'+esc(t('nores'))+'</div>'; elRes.classList.add('on'); resSel=-1; clearActiveDesc(); setExpanded(true); return;}
+  /* Each option needs an id: the input keeps the focus, so the only way a screen
+     reader learns which result is highlighted is aria-activedescendant. */
   var h=''; list.forEach(function(o,i){var it=o.it;
-    h+='<div class="tla-res" role="option" data-eid="'+esc(it.eid)+'" data-i="'+i+'">';
+    h+='<div class="tla-res" role="option" id="tla-res-'+i+'" aria-selected="false" data-eid="'+esc(it.eid)+'" data-i="'+i+'">';
     h+='<div class="rt">'+(it.titleRuns?runsHTML(it.titleRuns):hl(it.title,terms))+'<span class="rs">'+(it.num?it.num+' · ':'')+esc(it.sec)+'</span></div>';
     h+='<div class="rx">'+hl(snippet(it.text,terms),terms)+'</div></div>';
   });
-  elRes.innerHTML=h; elRes.classList.add('on'); resSel=-1; setExpanded(true);
+  elRes.innerHTML=h; elRes.classList.add('on'); resSel=-1; clearActiveDesc(); setExpanded(true);
 }
-function closeResults(){elRes.classList.remove('on'); elRes.innerHTML=''; setExpanded(false);}
+/* The options are gone: stop pointing at one, or the attribute names a dead id. */
+function clearActiveDesc(){elQ.removeAttribute('aria-activedescendant');}
+function closeResults(){elRes.classList.remove('on'); elRes.innerHTML=''; resSel=-1; clearActiveDesc(); setExpanded(false);}
 function setExpanded(v){elQ.setAttribute('aria-expanded',v?'true':'false');}
 function moveSel(d){var items=elRes.querySelectorAll('.tla-res'); if(!items.length)return;
   resSel=(resSel+d+items.length)%items.length;
-  [].forEach.call(items,function(x,i){x.classList.toggle('sel',i===resSel); if(i===resSel)x.scrollIntoView({block:'nearest'});});
+  [].forEach.call(items,function(x,i){
+    x.classList.toggle('sel',i===resSel);
+    x.setAttribute('aria-selected',i===resSel?'true':'false');
+    if(i===resSel){keepInView(x,elRes); elQ.setAttribute('aria-activedescendant',x.id);}
+  });
 }
 function searchOpen(){return !elSModal.hidden;}
+var lastSearchSrc=null;
 function openSearch(){
+  lastSearchSrc=document.activeElement;   // '/' can be pressed from anywhere
   elSModal.hidden=false;
   try{elQ.focus();elQ.select();}catch(e){}
   if(elQ.value.trim().length>=2)search(elQ.value);
 }
+/* Focus goes back where it came from, not always to the header button: the
+   dialog can be opened with '/' from anywhere on the page. */
 function closeSearch(){
   elSModal.hidden=true; elQ.value=''; closeResults();
-  try{elSOpen.focus();}catch(e){}
+  var back=(lastSearchSrc&&document.contains(lastSearchSrc))?lastSearchSrc:elSOpen;
+  lastSearchSrc=null;
+  try{back.focus();}catch(e){}
 }
 function hintHTML(){
   return '<span><kbd>↑</kbd><kbd>↓</kbd> '+esc(t('khnav'))+'</span><span><kbd>↵</kbd> '+esc(t('khopen'))+'</span><span><kbd>Esc</kbd> '+esc(t('khclose'))+'</span>';
 }
 
+/* ---------- dialogs ---------- */
+/* aria-modal tells a screen reader to ignore the page behind, but it does not
+   move the Tab key: without this, Tab walks straight out of an open dialog and
+   into the page you can no longer see. One trap serves all three dialogs. */
+var FOCUSABLE='a[href],button:not([disabled]),input:not([disabled]),select,textarea,[tabindex]:not([tabindex="-1"])';
+function focusablesIn(box){
+  return [].filter.call(box.querySelectorAll(FOCUSABLE),function(el){
+    return el.offsetWidth>0||el.offsetHeight>0||el===document.activeElement;
+  });
+}
+/* innermost last: search can open over the drawer, and the lightbox over the
+   figure dialog. The mobile nav is included because it behaves like a dialog —
+   it covers the page behind a scrim. */
+function dialogs(){
+  return [
+    {box:elNav,      isOpen:navOpen,     close:function(){closeNav(); focusBurger();}},
+    {box:elSModal,   isOpen:searchOpen,  close:closeSearch},
+    {box:elFigModal, isOpen:figInfoOpen, close:closeFigInfo},
+    {box:elLb,       isOpen:lbOpen,      close:closeLightbox}
+  ];
+}
+function openDialog(){
+  var ds=dialogs(), open=null;
+  for(var i=0;i<ds.length;i++){if(ds[i].isOpen())open=ds[i];}   // last one wins
+  return open;
+}
+function trapTab(e){
+  var d=openDialog(); if(!d)return;
+  var box=d.box, items=focusablesIn(box);
+  if(box===elLb)items=[elLb.querySelector('.tla-lb-close')];
+  if(!items.length){e.preventDefault(); return;}
+  var first=items[0], last=items[items.length-1];
+  if(!box.contains(document.activeElement)){e.preventDefault(); first.focus(); return;}
+  if(e.shiftKey && document.activeElement===first){e.preventDefault(); last.focus();}
+  else if(!e.shiftKey && document.activeElement===last){e.preventDefault(); first.focus();}
+}
+
+/* ---------- image lightbox ---------- */
+var lastLbSrc=null;
+function lbOpen(){return elLb.classList.contains('on');}
+function openLightbox(src,alt){
+  lastLbSrc=document.activeElement;
+  var img=elLb.querySelector('img');
+  img.src=src; img.alt=alt||'';
+  elLb.setAttribute('aria-label',t('closeimg'));
+  elLb.classList.add('on');
+  try{elLb.querySelector('.tla-lb-close').focus();}catch(e){}
+}
+function closeLightbox(){
+  if(!lbOpen())return;
+  elLb.classList.remove('on');
+  elLb.querySelector('img').src='';
+  try{if(lastLbSrc)lastLbSrc.focus();}catch(e){}
+  lastLbSrc=null;
+}
+
 /* ---------- mobile nav ---------- */
-function openNav(){elNav.classList.add('on');document.getElementById('tla-scrim').classList.add('on');document.getElementById('tla-burger').setAttribute('aria-expanded','true');}
+function navOpen(){return elNav.classList.contains('on');}
+function focusBurger(){try{document.getElementById('tla-burger').focus();}catch(e){}}
+function openNav(){
+  elNav.classList.add('on');
+  document.getElementById('tla-scrim').classList.add('on');
+  document.getElementById('tla-burger').setAttribute('aria-expanded','true');
+  // the drawer covers the page, so focus belongs in it — on the section you're reading
+  var target=elNav.querySelector('.tla-nav-btn.active')||elNav.querySelector('.tla-nav-btn');
+  if(target)try{target.focus();}catch(e){}
+}
 function closeNav(){elNav.classList.remove('on');document.getElementById('tla-scrim').classList.remove('on');document.getElementById('tla-burger').setAttribute('aria-expanded','false');}
 
 /* ---------- events ---------- */
@@ -588,8 +693,8 @@ function wireEvents(){
     var x=e.target.closest('.xref'); if(x){e.preventDefault(); gotoTarget(x.getAttribute('data-t'),true); return;}
     var a=e.target.closest('.anchor'); if(a){e.preventDefault(); gotoTarget(a.getAttribute('href').split('/')[1],true); return;}
     var mi=e.target.closest('.tla-montage-i'); if(mi){openFigInfo(mi); return;}
-    var mimg=e.target.closest('.tla-montage-img'); if(mimg){lightbox(mimg.src); return;}
-    var img=e.target.closest('.tla-fig img'); if(img){lightbox(img.src);}
+    var mimg=e.target.closest('.tla-montage-img'); if(mimg){openLightbox(mimg.src,mimg.alt); return;}
+    var img=e.target.closest('.tla-fig img'); if(img){openLightbox(img.src,img.alt);}
   });
   elToc.addEventListener('click',function(e){var a=e.target.closest('[data-eid]'); if(a){e.preventDefault(); gotoTarget(a.getAttribute('data-eid'),true);}});
   elRes.addEventListener('click',function(e){var r=e.target.closest('.tla-res'); if(r){gotoTarget(r.getAttribute('data-eid'),true); closeSearch();}});
@@ -607,24 +712,32 @@ function wireEvents(){
   var qTimer=null;
   elQ.addEventListener('input',function(){clearTimeout(qTimer); qTimer=setTimeout(function(){search(elQ.value);},110);});
   elQ.addEventListener('focus',function(){if(elQ.value.trim().length>=2)search(elQ.value);});
+  /* No Escape here: the document handler owns it, so that one press closes one
+     layer. Handling it here too would close the dialog and then let the same
+     press bubble on and dismiss whatever is underneath. */
   elQ.addEventListener('keydown',function(e){
     if(e.key==='ArrowDown'){e.preventDefault();moveSel(1);}
     else if(e.key==='ArrowUp'){e.preventDefault();moveSel(-1);}
-    else if(e.key==='Enter'){var items=elRes.querySelectorAll('.tla-res'); var pick=items[resSel<0?0:resSel]; if(pick){gotoTarget(pick.getAttribute('data-eid'),true);closeSearch();}}
-    else if(e.key==='Escape'){closeSearch();}
+    else if(e.key==='Enter'){var items=elRes.querySelectorAll('.tla-res'); var chosen=items[resSel<0?0:resSel]; if(chosen){gotoTarget(chosen.getAttribute('data-eid'),true);closeSearch();}}
   });
   document.addEventListener('keydown',function(e){
-    if(e.key==='Escape'&&figInfoOpen()){closeFigInfo(); return;}
-    if(e.key==='/'&&!searchOpen()&&!/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)){e.preventDefault();openSearch();}
-    else if(e.key==='Escape'&&searchOpen()){closeSearch();}
+    if(e.key==='Tab'){trapTab(e); return;}
+    if(e.key==='Escape'){
+      var d=openDialog();                                // innermost first; the drawer is one too
+      if(d){e.preventDefault(); d.close();}
+      return;
+    }
+    if(e.key==='/'&&!openDialog()&&!/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)){
+      e.preventDefault(); openSearch();
+    }
   });
   elMain.addEventListener('scroll',spy,{passive:true});
   window.addEventListener('hashchange',route);
 
-  var lb=document.getElementById('tla-lb');
-  lb.addEventListener('click',function(){this.classList.remove('on');});
+  // clicking the backdrop (or the image) dismisses it, as before — but the
+  // close button must not have its own click swallowed by the backdrop rule.
+  elLb.addEventListener('click',closeLightbox);
 }
-function lightbox(src){var lb=document.getElementById('tla-lb'); lb.querySelector('img').src=src; lb.classList.add('on');}
 
 /* ---------- boot ---------- */
 function getJSON(url){

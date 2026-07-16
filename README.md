@@ -1,16 +1,14 @@
 # The Living Arkham 🐙📖
 
-Grimorio interactivo y multilingüe de *Arkham Horror: El Juego de Cartas*: glosario de reglas con buscador, referencias cruzadas e iconos del juego. **v0.1.0 · beta**.
+An interactive, multilingual edition of the **Arkham Grimoire** — the rules-clarification compendium for *Arkham Horror: The Card Game*. Searchable glossary, cross-references and game icons. **v0.1.0 · beta**.
 
-Ver en local: `npm run dev` → http://localhost:8080 · Web estática lista para GitHub Pages.
+Run it locally: `npm run dev` → http://localhost:8080 · Static site, ready for GitHub Pages.
 
-Idiomas disponibles: **español · English**. ¿Quieres añadir el tuyo? → [Adding a language](#adding-a-language).
+Available in **español · English**. Want your language? → [Adding a language](#adding-a-language).
 
 ---
 
 ## Adding a language
-
-*The guide below is in English on purpose: if you are adding a language, it is probably the one language we share.*
 
 Everything one language needs lives in **one folder**, `langs/<code>/`. Adding a language means adding a folder — you never edit any code.
 
@@ -95,7 +93,13 @@ These are regular expressions, so in JSON **backslashes are doubled**: write `\\
 * `alphabet` — the letters of the A–Z filter, in **your** dictionary order. List only letters your language files separately: Spanish lists `Ñ` because *ñ* is its own letter, and leaves `Ú` out because *Única* files under **U**.
 * `fallback` — the language to borrow untranslated strings from (`"en"` by default).
 
-### 6. Build it and look at it
+### 6. Add a flag (optional)
+
+Drop a `flag.svg` into `langs/de/` — named exactly that, all lowercase — and re-run the build in step 7; the switcher picks it up. Keep it plain: it renders as a 20×14 chip, cropped to fit. No flag is fine — the button then shows just your label.
+
+A flag names a country, and a language is not a country. So the flag is decoration only: the `label` and `name` in your pack are what identify the language, and they are what a screen reader announces.
+
+### 7. Build it and look at it
 
 ```bash
 python tools/ingest.py de     # just your language
@@ -137,7 +141,7 @@ Open a pull request with `langs/<code>/` plus the files the build regenerated (`
 ## How it fits together
 
 ```
-langs/<code>/        the only thing a translator writes  (lang.json · ui.json · source/*.pdf)
+langs/<code>/        the only thing a translator writes  (lang.json · ui.json · flag.svg · source/*.pdf)
 tools/               the pipeline — knows no language     (python tools/ingest.py)
 data/                generated: grimoire_<code>.json + languages.json (the registry)
 assets/              generated figures + the game icons (shared by every language)

@@ -8,7 +8,8 @@
       "dir": "ltr",
       "order": 1,
       "ui": "langs/es/ui.json",
-      "data": "data/grimoire_es.json"
+      "data": "data/grimoire_es.json",
+      "flag": "langs/es/flag.svg"
     },
     {
       "code": "en",
@@ -17,7 +18,8 @@
       "dir": "ltr",
       "order": 2,
       "ui": "langs/en/ui.json",
-      "data": "data/grimoire_en.json"
+      "data": "data/grimoire_en.json",
+      "flag": "langs/en/flag.svg"
     }
   ]
 }

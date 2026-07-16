@@ -50,7 +50,10 @@
   <!-- BODY -->
   <div class="tla-body">
     <nav class="tla-nav" id="tla-nav" data-i18n-attr="aria-label:navsections" aria-label="Secciones del grimorio"></nav>
-    <main class="tla-main" id="tla-main" tabindex="-1"></main>
+    <!-- tabindex=0, not -1: this element is the page's scroller, so a keyboard
+         user must be able to Tab to it and scroll with the arrow keys. On a
+         figures-only chapter there is nothing else inside it to focus. -->
+    <main class="tla-main" id="tla-main" tabindex="0"></main>
     <aside class="tla-toc" id="tla-toc" data-i18n-attr="aria-label:onthispage" aria-label="En esta página"></aside>
   </div>
 
@@ -87,7 +90,10 @@
   </div>
 
   <div class="tla-scrim" id="tla-scrim"></div>
-  <div class="tla-lb" id="tla-lb"><button class="tla-lb-close" type="button" data-i18n-attr="aria-label:closeimg" aria-label="Cerrar imagen">✕</button><img alt=""></div>
+  <!-- IMAGE LIGHTBOX (a dialog: it covers the page, so it must be closable and labelled) -->
+  <div class="tla-lb" id="tla-lb" role="dialog" aria-modal="true" data-i18n-attr="aria-label:closeimg" aria-label="Cerrar imagen">
+    <button class="tla-lb-close" type="button" data-i18n-attr="aria-label:closeimg" aria-label="Cerrar imagen">✕</button><img alt="">
+  </div>
   <div class="tla-sr" id="tla-live" role="status" aria-live="polite"></div>
 </div>
 

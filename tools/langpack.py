@@ -475,7 +475,7 @@ def build_registry(packs=None):
         if not os.path.exists(p.data_path):
             skipped.append(p.code)
             continue
-        listed.append({
+        entry = {
             'code': p.code,
             'name': p.name,
             'label': p.label,
@@ -483,7 +483,18 @@ def build_registry(packs=None):
             'order': p.order,
             'ui': f'langs/{p.code}/ui.json',
             'data': f'data/grimoire_{p.code}.json',
-        })
+        }
+        # A pack may ship a flag next to its config. It is decoration: the label
+        # is what names the language, so a pack without one is perfectly fine.
+        # Listed rather than os.path.exists()-ed: that check is case-insensitive
+        # on Windows and macOS, so a "Flag.svg" would build green here and 404
+        # on the Linux host that serves the site.
+        if 'flag.svg' in os.listdir(p.dir):
+            entry['flag'] = f'langs/{p.code}/flag.svg'
+        elif any(f.lower() == 'flag.svg' for f in os.listdir(p.dir)):
+            print(f'  [warn] langs/{p.code}: the flag must be named exactly "flag.svg" '
+                  f'(all lowercase) — the web server is case-sensitive. Not using it.')
+        listed.append(entry)
     listed.sort(key=lambda x: (x['order'], x['code']))
     if not any(x['code'] == DEFAULT_LANG for x in listed) and listed:
         raise PackError(
