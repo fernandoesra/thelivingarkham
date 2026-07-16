@@ -320,19 +320,25 @@ def warn_if_no_red(pack, nodes):
 
 
 def parse(pack):
+    """The edition the site is built from: the newest, with its montages masked."""
     pdf = pack.require_pdf()
-    lines, doc = collect_lines(pdf, masks_for(pack))
-    check_montage_coords(pack, doc)
+    doc_check = fitz.open(pdf)
+    check_montage_coords(pack, doc_check)
+    return parse_pdf(pdf, masks_for(pack))
+
+
+def parse_pdf(pdf, masks):
+    """Any edition. Older ones are read for comparison only, with no masking:
+    their montage clips belong to a different layout."""
+    lines, doc = collect_lines(pdf, masks)
     nodes = []
     cur = None
 
-    def new_node(level, title, page, title_runs=None, red_title=False):
+    def new_node(level, title, page, title_runs=None):
         nonlocal cur
         node = {'level': level, 'title': title, 'page': page, 'raw': []}
         if title_runs:
             node['title_runs'] = title_runs
-        if red_title:
-            node['red_title'] = True
         nodes.append(node)
         cur = node
         return node
@@ -364,11 +370,10 @@ def parse(pack):
             plain = re.sub(r'\s+', ' ', plain).strip(' .')
             truns = merge_runs(build_runs(hspans))
             has_icon = any(r['kind'] == 'icon' for r in truns)
-            # a red heading title marks a brand-new entry in this version
-            red_chars = sum(len(s['text'].strip()) for s in hspans if is_new_red(s))
-            hd_chars = sum(len(s['text'].strip()) for s in hspans if not is_icon_font(s['font']))
-            red_title = hd_chars > 0 and red_chars >= 0.6 * hd_chars
-            new_node(best, plain, line['page'], truns if has_icon else None, red_title)
+            # NB: a red heading means "something in this entry changed", NOT "this
+            # entry is new" — see tools/history.py. Whether it is new is decided by
+            # comparing editions, not by reading a colour.
+            new_node(best, plain, line['page'], truns if has_icon else None)
             i = j
             continue
         if cur is None:

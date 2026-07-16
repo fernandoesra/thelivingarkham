@@ -17,7 +17,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 
 import langpack                                  # noqa: E402
-import parse_grimoire, render_images, extract_icons, assemble, validate_coverage  # noqa: E402
+import parse_grimoire, render_images, extract_icons, assemble, validate_coverage, history  # noqa: E402
 
 IMG_DIR = os.path.join(langpack.ROOT, 'assets', 'img')
 
@@ -46,7 +46,21 @@ def run_pack(pack, all_packs):
     print('-- assemble grimoire JSON')
     intro, sections, title_index = assemble.assemble(pack, nodes, images)
     allsecs = [intro] + sections
-    versions, whatsnew = assemble.apply_versions(allsecs, pack)
+
+    added = changed = None
+    if len(pack.versions) > 1:
+        print('-- version history (comparing the editions)')
+        newest = {}
+        for s in allsecs:
+            if s.get('intro'):
+                newest[history.SEC + s['id']] = {'blocks': s['intro']}
+            for e in s.get('entries', []):
+                newest[e['id']] = e
+        added, changed, parsed, notes = history.build(pack, newest_units=newest)
+        for n in notes:
+            print(f'  [note] {n}')
+
+    versions, whatsnew = assemble.apply_versions(allsecs, pack, added, changed)
     links = assemble.linkify(allsecs, title_index, pack)
     autolinks = assemble.autolink(allsecs, title_index, pack)
     data = {'lang': pack.code, 'sections': allsecs, 'versions': versions, 'whatsnew': whatsnew}
@@ -55,8 +69,10 @@ def run_pack(pack, all_packs):
     total = sum(len(s['entries']) for s in allsecs)
     print(f'  {len(allsecs)} sections · {total} entries · {links} cross-links · '
           f'{autolinks} auto-links -> data/grimoire_{pack.code}.json')
-    for v, wn in whatsnew.items():
-        print(f'  what\'s new in v{v}: {len(wn["new"])} new, {len(wn["updated"])} updated')
+    for v in versions:
+        wn = whatsnew.get(v['v'])
+        if wn:
+            print(f'  v{v["v"]}: {len(wn["new"])} new entries, {len(wn["updated"])} rewritten')
 
     print('-- check the parsed text against the PDF')
     validate_coverage.report(pack, data)

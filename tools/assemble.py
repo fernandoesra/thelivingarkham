@@ -14,7 +14,7 @@ Usage:  python tools/assemble.py <lang>
 Outputs data/grimoire_<lang>.json plus a validation report.
 """
 import json, re, sys, os, unicodedata
-import langpack
+import langpack, history
 from langpack import slugify
 
 def norm(t):
@@ -126,8 +126,6 @@ def assemble(pack, nodes, images):
         entry = {'title':title, 'blocks':blocks, 'page':node['page'], 'sub': lvl==2}
         if node.get('title_runs'):
             entry['titleRuns'] = node['title_runs']
-        if node.get('red_title'):
-            entry['_new'] = True
         cur['entries'].append(entry)
     # A section the parser never found is silently absent from the site, which is
     # the worst way to fail: the run "succeeds" and the chapter is just gone.
@@ -340,45 +338,48 @@ def autolink(sections, title_index, pack):
     return count[0]
 
 
-def apply_versions(allsecs, pack):
-    """Turn the parser's `red` flags into version tags. Runs added in the newest
-    version get v=<newest>; entries with a red title -> newIn; entries with new
-    body text -> updatedIn. Returns the versions manifest + a 'what's new' index.
+def apply_versions(allsecs, pack, added=None, changed=None):
+    """Stamp each entry with its history, and tag the text the newest edition added.
 
-    With a single version there is nothing to diff against, so no run is tagged.
+    `added` / `changed` come from history.build(), which compares the editions
+    themselves. That comparison is the only trustworthy source for "is this entry
+    new": the red heading the publisher prints means "something in here changed",
+    and in the English v1.1 thirteen of the fourteen red headings sit on entries
+    that already existed in v1.0.
+
+    The red *runs* remain exactly right for "which words are new", so they become
+    `v` marks on the runs of the newest edition.
     """
     versions = [{'v': v['v'], 'date': v['date']} for v in pack.versions]
     latest = versions[-1]['v'] if len(versions) > 1 else None
+    added = added or {}
+    changed = changed or {}
+
     def tag(runs):
         for r in runs:
             if r.pop('red', False) and latest:
                 r['v'] = latest
+
+    def stamp(obj, uid):
+        a = added.get(uid)
+        ch = changed.get(uid, [])
+        if a:
+            obj['addedIn'] = a
+        if ch:
+            obj['changedIn'] = ch
+
     for s in allsecs:
         for b in s.get('intro', []):
             tag(b['runs'])
+        stamp(s, history.SEC + s['id'])       # the chapter's own lead text
         for e in s.get('entries', []):
             if e.get('titleRuns'):
                 tag(e['titleRuns'])
             for b in e['blocks']:
                 tag(b['runs'])
-            new_body = any(r.get('v') == latest for b in e['blocks'] for r in b['runs']) if latest else False
-            if latest and e.pop('_new', False):
-                e['newIn'] = latest
-            elif latest and new_body:
-                e['updatedIn'] = latest
-            else:
-                e.pop('_new', None)
-    # what's-new index (per version): new entries + updated entries
-    whatsnew = {}
-    for s in allsecs:
-        for e in s.get('entries', []):
-            v = e.get('newIn') or e.get('updatedIn')
-            if not v:
-                continue
-            wn = whatsnew.setdefault(v, {'new': [], 'updated': []})
-            item = {'id': e['id'], 'title': e['title'], 'sid': s['id'], 'sec': s['title'], 'num': s['num']}
-            (wn['new'] if e.get('newIn') else wn['updated']).append(item)
-    return versions, whatsnew
+            stamp(e, e['id'])
+    return versions, history.whatsnew_index(allsecs, added, changed, versions)
+
 
 def main():
     sys.stdout.reconfigure(encoding='utf-8')
@@ -405,7 +406,20 @@ def main():
     images = json.load(open(images_path, encoding='utf-8')) if os.path.exists(images_path) else {}
     intro, sections, title_index = assemble(pack, nodes, images)
     allsecs = [intro] + sections
-    versions, whatsnew = apply_versions(allsecs, pack)
+    # The history is not optional decoration: skipping it here would quietly
+    # rewrite the data file with every addedIn/changedIn stripped out.
+    added = changed = None
+    if len(pack.versions) > 1:
+        newest = {}
+        for s in allsecs:
+            if s.get('intro'):
+                newest[history.SEC + s['id']] = {'blocks': s['intro']}
+            for e in s.get('entries', []):
+                newest[e['id']] = e
+        added, changed, _parsed, notes = history.build(pack, newest_units=newest)
+        for n in notes:
+            print(f'  [note] {n}')
+    versions, whatsnew = apply_versions(allsecs, pack, added, changed)
     links = linkify(allsecs, title_index, pack)
     autolinks = autolink(allsecs, title_index, pack)
     data = {'lang': lang, 'sections': allsecs, 'versions': versions, 'whatsnew': whatsnew}

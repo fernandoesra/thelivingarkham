@@ -103,22 +103,38 @@ the one with `"iconArt": {"provides": true}` (currently `es`). Every other pack 
 supplies the labels, in `ui.json` under `icons`. If that pack's PDF isn't on your machine,
 icon rendering is skipped and the committed artwork is reused — which is normal and fine.
 
-## Version history (what's new between versions)
+## Version history (`history.py`)
 
-Each new Grimoire PDF marks the text **added in that version in dark red**. The parser
-detects that red (`is_new_red`) and tags it; `assemble.py` turns it into version data:
-new/updated entries, a `versions` manifest with dates, and a `whatsnew` index. The app
-shows a "New version" banner on the landing, a **What's New** view, per-entry badges and
-inline highlighting of the new text.
+Each Grimoire PDF prints the text **added in that edition in dark red**. That red is
+precise about *which words* are new — and says nothing reliable about *which entries*
+are new. The two are constantly confused; they must not be.
+
+Measured on the real English editions:
+
+* 14 entries in v1.1 carry a **red heading**. Only **one** ("Search") is absent from v1.0.
+  A red heading means "something in this entry changed".
+* "Replenish" is **96% red** and existed in v1.0 — so "mostly red ⇒ new" fails too.
+* "Act Deck and Agenda Deck" is **0.7% red**, and the old code called it a new entry.
+
+So `history.build()` answers the two questions from two sources:
+
+| field | meaning | derived from |
+|---|---|---|
+| `addedIn` | the edition the entry first appeared in | parsing every edition's PDF and comparing |
+| `changedIn` | editions that rewrote part of it | the red runs inside that edition |
+| run `v` | this run of text was added in that edition | the red itself |
+
+Older editions are parsed **without montage masking** (their clips belong to a different
+layout) and only their entry list and red flags are used, so the layout difference costs
+nothing.
+
+`addedIn` is `null` when it cannot be known — a pack whose older PDFs are missing gets
+no "New" claims rather than false ones. Gaps are reported by `ingest.py`.
 
 To add a version: put the new PDF in `langs/<code>/source/`, append it to that pack's
 `book.versions` (oldest → newest) with its release date, and re-run
-`python tools/ingest.py <code>`. Only the newest PDF is parsed; everything else is data.
+`python tools/ingest.py <code>`. Keep the older PDFs — they are the history.
 
-> Note: the red in a PDF marks additions vs. the **immediately previous** version. With
-> only two versions this yields an exact history. For 3+ versions with per-jump history,
-> keep each version's data and diff (a future enhancement) — the data model (`v` per run,
-> `versions[]`, `whatsnew{}`) already supports it.
->
-> If an edition does not use red markup at all, `whatsnew` comes out empty and the section
-> never appears. `ingest.py` warns when that happens, so it can't be mistaken for a bug.
+> If an edition does not use red markup at all, `whatsnew` comes out empty and the
+> section never appears. `ingest.py` warns when that happens, so it can't be mistaken
+> for a bug.

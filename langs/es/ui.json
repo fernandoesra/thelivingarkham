@@ -47,9 +47,12 @@
   "strings": {
     "about": "Acerca del grimorio original de FFG",
     "addedin": "añadido en v",
+    "addedinv": "Añadida en v{v}",
     "all": "Todas",
     "browse": "Explorar el grimorio",
     "cancel": "Cancelar",
+    "changedinv": "Reescrita en {v}",
+    "chapter": "Capítulo completo",
     "close": "Cerrar",
     "closeimg": "Cerrar imagen",
     "docdesc": "El Grimorio de Arkham en versión web interactiva: glosario de reglas, buscador y referencias cruzadas de Arkham Horror: El Juego de Cartas.",
@@ -62,8 +65,10 @@
     "figdata": "Datos de las cartas",
     "figinfo": "Ver los datos de las cartas",
     "filterby": "Filtrar por letra",
+    "firstedition": "v{v} · primera edición",
     "footby": "The Living Arkham <b>v0.1.0 · beta</b> · un proyecto de <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
     "footsrc": "Basado en <b>El Grimorio de Arkham</b> v1.0 (ES) / v1.1 (EN) · reglas © sus autores · Arkham Horror: LCG ™ Fantasy Flight Games",
+    "history": "Historial de versiones",
     "home": "Inicio",
     "jump": "Saltar a",
     "khclose": "cerrar",
@@ -75,8 +80,9 @@
     "navsections": "Secciones del grimorio",
     "newbadge": "Nuevo",
     "newentries": "Entradas nuevas",
+    "newhelp": "Entradas que no existían antes de la v{v}.",
     "news": "Novedades",
-    "newsintro": "Esto es lo que cambió respecto a la versión anterior. En rojo se resalta el texto nuevo dentro de cada entrada.",
+    "newsintro": "El Grimorio es un documento vivo: cada edición añade entradas y reescribe otras. Elige una versión para ver qué cambió en ella.",
     "newver": "Nueva versión",
     "nores": "Sin resultados",
     "of": "de",
@@ -96,8 +102,9 @@
     "themetip": "Tema claro/oscuro",
     "todark": "Cambiar a tema oscuro",
     "tolight": "Cambiar a tema claro",
-    "updatedin": "ampliado en v",
-    "updbadge": "Ampliado",
-    "updentries": "Entradas actualizadas"
+    "updatedin": "reescrita en v",
+    "updbadge": "Reescrita",
+    "updentries": "Entradas reescritas",
+    "updhelp": "Entradas que ya existían y cuyo texto cambió en la v{v}. Dentro de cada una, lo añadido se resalta en rojo."
   }
 }

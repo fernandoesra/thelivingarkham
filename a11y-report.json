@@ -1,0 +1,218 @@
+[
+  {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": [
+      {
+        "target": ".tla-title",
+        "html": "<span class=\"tla-title\">The Living Arkham <span class=\"tla-beta\">beta</span></span>"
+      },
+      {
+        "target": ".tla-title > .tla-beta",
+        "html": "<span class=\"tla-beta\">beta</span>"
+      }
+    ],
+    "node": {
+      "target": ".tla-title",
+      "html": "<span class=\"tla-title\">The Living Arkham <span class=\"tla-beta\">beta</span></span>"
+    },
+    "where": [
+      "desktop 1400x900 · dark · landing",
+      "desktop 1400x900 · dark · glossary",
+      "desktop 1400x900 · dark · rules chapter",
+      "desktop 1400x900 · dark · figures chapter",
+      "desktop 1400x900 · dark · what's new (en)",
+      "desktop 1400x900 · light · landing",
+      "desktop 1400x900 · light · glossary",
+      "desktop 1400x900 · light · rules chapter",
+      "desktop 1400x900 · light · figures chapter",
+      "desktop 1400x900 · light · what's new (en)",
+      "tablet 820x1180 · dark · landing",
+      "tablet 820x1180 · dark · glossary",
+      "tablet 820x1180 · dark · rules chapter",
+      "tablet 820x1180 · dark · figures chapter",
+      "tablet 820x1180 · dark · what's new (en)",
+      "tablet 820x1180 · light · landing",
+      "tablet 820x1180 · light · glossary",
+      "tablet 820x1180 · light · rules chapter",
+      "tablet 820x1180 · light · figures chapter",
+      "tablet 820x1180 · light · what's new (en)",
+      "phone 390x844 · dark · landing",
+      "phone 390x844 · dark · glossary",
+      "phone 390x844 · dark · rules chapter",
+      "phone 390x844 · dark · figures chapter",
+      "phone 390x844 · dark · what's new (en)",
+      "phone 390x844 · light · landing",
+      "phone 390x844 · light · glossary",
+      "phone 390x844 · light · rules chapter",
+      "phone 390x844 · light · figures chapter",
+      "phone 390x844 · light · what's new (en)",
+      "search modal open",
+      "figure info modal open",
+      "phone · nav drawer open"
+    ],
+    "kind": "incomplete"
+  },
+  {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": [
+      {
+        "target": ".tla-title",
+        "html": "<span class=\"tla-title\">The Living Arkham <span class=\"tla-beta\">beta</span></span>"
+      },
+      {
+        "target": ".tla-title > .tla-beta",
+        "html": "<span class=\"tla-beta\">beta</span>"
+      }
+    ],
+    "node": {
+      "target": ".tla-title > .tla-beta",
+      "html": "<span class=\"tla-beta\">beta</span>"
+    },
+    "where": [
+      "desktop 1400x900 · dark · landing",
+      "desktop 1400x900 · light · landing"
+    ],
+    "kind": "incomplete"
+  },
+  {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "nodes": [
+      {
+        "target": "button[data-src$=\"fig-glosario--espacios-0\"]",
+        "html": "<button class=\"tla-montage-i\" type=\"button\" aria-haspopup=\"dialog\" aria-controls=\"tla-figmodal\" data-src=\"fig-glosario--"
+      },
+      {
+        "target": "button[data-src$=\"fig-glosario--moverse-0\"]",
+        "html": "<button class=\"tla-montage-i\" type=\"button\" aria-haspopup=\"dialog\" aria-controls=\"tla-figmodal\" data-src=\"fig-glosario--"
+      }
+    ],
+    "node": {
+      "target": "button[data-src$=\"fig-glosario--espacios-0\"]",
+      "html": "<button class=\"tla-montage-i\" type=\"button\" aria-haspopup=\"dialog\" aria-controls=\"tla-figmodal\" data-src=\"fig-glosario--"
+    },
+    "where": [
+      "desktop 1400x900 · dark · glossary",
+      "desktop 1400x900 · light · glossary",
+      "tablet 820x1180 · dark · glossary",
+      "tablet 820x1180 · light · glossary",
+      "phone 390x844 · dark · glossary",
+      "phone 390x844 · light · glossary",
+      "search modal open",
+      "figure info modal open",
+      "phone · nav drawer open"
+    ],
+    "kind": "incomplete"
+  },
+  {
+    "id": "aria-valid-attr-value",
+    "impact": "critical",
+    "help": "ARIA attributes must conform to valid values",
+    "nodes": [
+      {
+        "target": "button[data-src$=\"fig-glosario--espacios-0\"]",
+        "html": "<button class=\"tla-montage-i\" type=\"button\" aria-haspopup=\"dialog\" aria-controls=\"tla-figmodal\" data-src=\"fig-glosario--"
+      },
+      {
+        "target": "button[data-src$=\"fig-glosario--moverse-0\"]",
+        "html": "<button class=\"tla-montage-i\" type=\"button\" aria-haspopup=\"dialog\" aria-controls=\"tla-figmodal\" data-src=\"fig-glosario--"
+      }
+    ],
+    "node": {
+      "target": "button[data-src$=\"fig-glosario--moverse-0\"]",
+      "html": "<button class=\"tla-montage-i\" type=\"button\" aria-haspopup=\"dialog\" aria-controls=\"tla-figmodal\" data-src=\"fig-glosario--"
+    },
+    "where": [
+      "desktop 1400x900 · dark · glossary",
+      "desktop 1400x900 · light · glossary",
+      "tablet 820x1180 · dark · glossary",
+      "tablet 820x1180 · light · glossary",
+      "phone 390x844 · dark · glossary",
+      "phone 390x844 · light · glossary",
+      "search modal open",
+      "figure info modal open",
+      "phone · nav drawer open"
+    ],
+    "kind": "incomplete"
+  },
+  {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": [
+      {
+        "target": ".tla-title",
+        "html": "<span class=\"tla-title\">The Living Arkham <span class=\"tla-beta\">beta</span></span>"
+      },
+      {
+        "target": ".tla-beta",
+        "html": "<span class=\"tla-beta\">beta</span>"
+      }
+    ],
+    "node": {
+      "target": ".tla-beta",
+      "html": "<span class=\"tla-beta\">beta</span>"
+    },
+    "where": [
+      "desktop 1400x900 · dark · glossary",
+      "desktop 1400x900 · dark · rules chapter",
+      "desktop 1400x900 · dark · figures chapter",
+      "desktop 1400x900 · dark · what's new (en)",
+      "desktop 1400x900 · light · glossary",
+      "desktop 1400x900 · light · rules chapter",
+      "desktop 1400x900 · light · figures chapter",
+      "desktop 1400x900 · light · what's new (en)",
+      "search modal open",
+      "figure info modal open"
+    ],
+    "kind": "incomplete"
+  },
+  {
+    "id": "color-contrast",
+    "impact": "serious",
+    "help": "Elements must meet minimum color contrast ratio thresholds",
+    "nodes": [
+      {
+        "target": "#tla-burger",
+        "html": "<button class=\"tla-burger\" id=\"tla-burger\" type=\"button\" data-i18n-attr=\"aria-label:navopen\" aria-label=\"Abrir menú de s"
+      },
+      {
+        "target": ".tla-title",
+        "html": "<span class=\"tla-title\">The Living Arkham <span class=\"tla-beta\">beta</span></span>"
+      }
+    ],
+    "node": {
+      "target": "#tla-burger",
+      "html": "<button class=\"tla-burger\" id=\"tla-burger\" type=\"button\" data-i18n-attr=\"aria-label:navopen\" aria-label=\"Abrir menú de s"
+    },
+    "where": [
+      "tablet 820x1180 · dark · landing",
+      "tablet 820x1180 · dark · glossary",
+      "tablet 820x1180 · dark · rules chapter",
+      "tablet 820x1180 · dark · figures chapter",
+      "tablet 820x1180 · dark · what's new (en)",
+      "tablet 820x1180 · light · landing",
+      "tablet 820x1180 · light · glossary",
+      "tablet 820x1180 · light · rules chapter",
+      "tablet 820x1180 · light · figures chapter",
+      "tablet 820x1180 · light · what's new (en)",
+      "phone 390x844 · dark · landing",
+      "phone 390x844 · dark · glossary",
+      "phone 390x844 · dark · rules chapter",
+      "phone 390x844 · dark · figures chapter",
+      "phone 390x844 · dark · what's new (en)",
+      "phone 390x844 · light · landing",
+      "phone 390x844 · light · glossary",
+      "phone 390x844 · light · rules chapter",
+      "phone 390x844 · light · figures chapter",
+      "phone 390x844 · light · what's new (en)",
+      "phone · nav drawer open"
+    ],
+    "kind": "incomplete"
+  }
+]

@@ -44,9 +44,7 @@ Copy your PDF(s) into `langs/de/source/`, then list them in `lang.json`, **oldes
 }
 ```
 
-Only the **newest** PDF is read; the older ones are kept for reference. The release date is in the PDF's own metadata (`creationDate`).
-
-> **Where "What's New" comes from:** the publisher prints text added in the newest version **in dark red**, and that red is the whole diff. If your edition doesn't use red, the What's New page simply won't appear — the build will tell you so.
+The newest PDF is the one readers see. **Ship the older ones too**: they are what the version history is built from — see [How versions work](#how-versions-work). The release date is in the PDF's own metadata (`creationDate`).
 
 ### 3. Describe your chapters
 
@@ -137,6 +135,27 @@ Read the corners off the red grid and write them down (`y` counts from the **top
 Open a pull request with `langs/<code>/` plus the files the build regenerated (`data/`, `assets/img/`). If your PDF is too large for GitHub, say so in the PR and we'll sort it out.
 
 ---
+
+## How versions work
+
+The Grimoire is a living document: each edition adds entries and rewrites others. The site is always built from the **newest** edition you ship, and it tells the reader what changed and when.
+
+Two different questions, two different answers:
+
+| | question | where the answer comes from |
+|---|---|---|
+| **New** | Did this entry exist before? | comparing the editions — an entry is new in the first PDF that contains it |
+| **Rewritten** | Which words changed? | the dark red the publisher prints for added text |
+
+They are easy to confuse, and confusing them is wrong. In the English v1.1 fourteen entries have a red heading, but only **one** ("Search") is actually absent from v1.0 — the red heading means *"something in here changed"*, not *"this is new"*. "Replenish" is 96% red and still not new: it was rewritten, not added.
+
+So: **the only way to know an entry is new is to have the previous PDF.** That is why the pack lists a file per version.
+
+* **Ship every edition's PDF** and you get an exact history: each entry shows *"Added in v1.0 · Rewritten in v1.1"*, and the What's New page lets the reader browse any edition.
+* **Ship only the newest** and the build says so. It can still highlight the red text — "these words are new" — but it will not claim any entry is new, because it cannot know.
+* Skipping an edition in the middle is reported too: its changes get credited to the next edition that has a PDF.
+
+Nothing here is language-specific. A language with a single edition simply has no history, and no What's New page appears.
 
 ## How it fits together
 

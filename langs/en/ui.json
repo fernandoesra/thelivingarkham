@@ -46,9 +46,12 @@
   "strings": {
     "about": "About the original FFG grimoire",
     "addedin": "added in v",
+    "addedinv": "Added in v{v}",
     "all": "All",
     "browse": "Browse the grimoire",
     "cancel": "Cancel",
+    "changedinv": "Rewritten in {v}",
+    "chapter": "Whole chapter",
     "close": "Close",
     "closeimg": "Close image",
     "docdesc": "The Arkham Grimoire as an interactive web edition: rules glossary, search and cross-references for Arkham Horror: The Card Game.",
@@ -61,8 +64,10 @@
     "figdata": "Card data",
     "figinfo": "Show the card data",
     "filterby": "Filter by letter",
+    "firstedition": "v{v} · first edition",
     "footby": "The Living Arkham <b>v0.1.0 · beta</b> · a project by <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
     "footsrc": "Based on <b>The Arkham Grimoire</b> v1.0 (ES) / v1.1 (EN) · rules © their authors · Arkham Horror: LCG ™ Fantasy Flight Games",
+    "history": "Version history",
     "home": "Home",
     "jump": "Jump to",
     "khclose": "close",
@@ -74,8 +79,9 @@
     "navsections": "Grimoire sections",
     "newbadge": "New",
     "newentries": "New entries",
+    "newhelp": "Entries that did not exist before v{v}.",
     "news": "What's New",
-    "newsintro": "Here is what changed since the previous version. New text within each entry is highlighted.",
+    "newsintro": "The Grimoire is a living document: every edition adds entries and rewrites others. Pick a version to see what changed in it.",
     "newver": "New version",
     "nores": "No results",
     "of": "of",
@@ -95,8 +101,9 @@
     "themetip": "Light / dark theme",
     "todark": "Switch to dark theme",
     "tolight": "Switch to light theme",
-    "updatedin": "expanded in v",
-    "updbadge": "Expanded",
-    "updentries": "Updated entries"
+    "updatedin": "rewritten in v",
+    "updbadge": "Rewritten",
+    "updentries": "Rewritten entries",
+    "updhelp": "Entries that already existed and whose text changed in v{v}. Inside each one, the added text is highlighted in red."
   }
 }

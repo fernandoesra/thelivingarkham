@@ -58,10 +58,14 @@ function fmtDate(iso){
   var pat=uiOf(lang,'datePattern','{d} {mon} {y}');
   return pat.replace('{d}',+p[2]).replace('{mon}',mon).replace('{y}',p[0]);
 }
-function latestInfo(g){ // returns {v,date} of the newest version if it carries changes, else null
-  if(!g.versions||g.versions.length<2)return null;
-  var last=g.versions[g.versions.length-1];
-  return (g.whatsnew&&g.whatsnew[last.v])?last:null;
+/* The newest edition that actually recorded changes — not necessarily the newest
+   edition. A quiet reprint must not hide the whole history behind it. */
+function latestInfo(g){
+  if(!g.versions||g.versions.length<2||!g.whatsnew)return null;
+  for(var i=g.versions.length-1;i>=0;i--){
+    if(g.whatsnew[g.versions[i].v])return g.versions[i];
+  }
+  return null;
 }
 var root=document.getElementById('tla-root');
 var elNav=document.getElementById('tla-nav'), elMain=document.getElementById('tla-main'),
@@ -90,9 +94,9 @@ function runsHTML(runs,suppressNew){
   var h='';
   for(var i=0;i<runs.length;i++){var r=runs[i];
     if(r.kind==='icon'){h+=iconHTML(r.name); continue;}
-    if(r.kind==='pageref'){h+='<span class="tla-pageref" title="'+t('origpage')+' '+esc(r.n)+'">('+t('origpage')+' '+esc(r.n)+')</span>'; continue;}
+    if(r.kind==='pageref'){h+='<span class="tla-pageref" title="'+esc(t('origpage')+' '+r.n)+'">('+esc(t('origpage'))+' '+esc(r.n)+')</span>'; continue;}
     var inner=(r.kind==='link')?'<a class="xref" data-t="'+esc(r.target)+'">'+wrap(esc(r.t),r)+'</a>':wrap(esc(r.t),r);
-    if(r.v && !suppressNew){inner='<span class="tla-new" title="'+t('addedin')+r.v+'">'+inner+'</span>';}
+    if(r.v && !suppressNew){inner='<span class="tla-new" title="'+esc(t('addedin')+r.v)+'">'+inner+'</span>';}
     h+=inner;
   }
   return h;
@@ -132,10 +136,30 @@ function faqLink(txt){
 function plainOfRuns(runs,L){var s='';for(var i=0;i<runs.length;i++){s+=runs[i].kind==='text'||runs[i].kind==='link'?runs[i].t:(' '+(pick(L||lang,'icons',runs[i].name)||'')+' ');}return s;}
 function plainOfBlocks(blocks,L){return blocks.map(function(b){return plainOfRuns(b.runs,L);}).join(' ');}
 function titleHTML(e){return e.titleRuns?runsHTML(e.titleRuns,true):esc(e.title);}
+/* An entry's history, as the data actually records it:
+     addedIn    the edition it first appeared in
+     changedIn  every later edition that rewrote part of it
+   A badge is only shown for the newest edition — that is the "what changed"
+   signal. The full provenance goes in a quieter line underneath. */
+function latestV(){return (data.versions&&data.versions.length>1)?data.versions[data.versions.length-1].v:null;}
+function isNewIn(e,v){return e.addedIn===v;}
+function isChangedIn(e,v){return !!(e.changedIn&&e.changedIn.indexOf(v)>=0);}
 function verBadge(e){
-  if(e.newIn)return '<span class="tla-vbadge new" title="'+t('addedin')+e.newIn+'">'+t('newbadge')+' v'+e.newIn+'</span>';
-  if(e.updatedIn)return '<span class="tla-vbadge upd" title="'+t('updatedin')+e.updatedIn+'">'+t('updbadge')+' v'+e.updatedIn+'</span>';
+  var v=latestV(); if(!v)return '';
+  if(isNewIn(e,v))return '<span class="tla-vbadge new" title="'+esc(t('addedin')+v)+'">'+esc(t('newbadge'))+' v'+esc(v)+'</span>';
+  if(isChangedIn(e,v))return '<span class="tla-vbadge upd" title="'+esc(t('updatedin')+v)+'">'+esc(t('updbadge'))+' v'+esc(v)+'</span>';
   return '';
+}
+/* "Added in v1.0 · rewritten in v1.1" — shown on any entry with a history worth
+   telling, so you can always see which edition brought which entry. */
+function verProvenance(e){
+  if(!data.versions||data.versions.length<2)return '';
+  var bits=[];
+  if(e.addedIn)bits.push(esc(t('addedinv').replace('{v}',e.addedIn)));
+  if(e.changedIn&&e.changedIn.length)
+    bits.push(esc(t('changedinv').replace('{v}',e.changedIn.map(function(v){return 'v'+v;}).join(', '))));
+  if(!bits.length)return '';
+  return '<p class="tla-prov">'+bits.join(' · ')+'</p>';
 }
 /* montage figures (example card-art resources) shown inside a glossary entry,
    with an "i" that reveals the textual alternative (card data). */
@@ -207,6 +231,7 @@ function normalizeData(g){
       title:pick(g.lang,'strings','news')||'What\'s New',ver:li,intro:[],entries:[],figures:[]});
   }
 }
+/* the nav badge counts what the newest edition brought */
 function wnCount(s){var wn=data.whatsnew&&data.whatsnew[s.ver.v]; return wn?(wn['new'].length+wn.updated.length):0;}
 
 /* ---------- entries / filtering ---------- */
@@ -236,7 +261,8 @@ function buildNav(){
   var h=''; data.sections.forEach(function(s,si){
     var news=s.kind==='whatsnew';
     var n=sectionEntries(s).length;
-    var num=news?'<span class="tla-nav-num">✦</span>':(s.num?('<span class="tla-nav-num">'+s.num+'</span>'):'<span class="tla-nav-num">•</span>');
+    var num=news?'<span class="tla-nav-num"><i class="tla-eldersign" aria-hidden="true"></i></span>'
+                :(s.num?('<span class="tla-nav-num">'+esc(s.num)+'</span>'):'<span class="tla-nav-num">•</span>');
     var cnt=news?('<span class="tla-nav-cnt new">'+wnCount(s)+'</span>'):(n?('<span class="tla-nav-cnt">'+n+'</span>'):'');
     h+='<div class="tla-nav-sec'+(news?' is-news':'')+'" data-si="'+si+'" id="navsec-'+s.id+'">';
     h+='<button class="tla-nav-btn" type="button" data-si="'+si+'">'+num+'<span>'+esc(s.title)+'</span>'+cnt+'</button>';
@@ -287,7 +313,7 @@ function setGlossFilter(v){
 function render(sid,eid,flash){
   var s=data.sections.filter(function(x){return x.id===sid;})[0]; if(!s)s=data.sections[0];
   curSec=s;
-  if(s.kind==='whatsnew'){renderWhatsNew(s); markNav(sid); return;}
+  if(s.kind==='whatsnew'){renderWhatsNew(); markNav(sid); return;}
   if(s.kind==='intro'){renderLanding(s); markNav(sid); return;}
   var ents=visibleEntries(s);
   var h='<div class="tla-doc">';
@@ -302,13 +328,17 @@ function render(sid,eid,flash){
     h+='</div>';
   }
   if(s.kind==='glossary'){h+=azFilterBar(s);}
+  var lv=latestV();
   ents.forEach(function(e){
-    var isNew=!!e.newIn;
+    /* An entry that is wholly new needs no per-word diff marks — the badge
+       already says so. One that was rewritten does: the marks are the point. */
+    var brandNew=lv&&isNewIn(e,lv);
     /* h2: an entry sits directly under the chapter's h1. Jumping straight to h3
        would leave a hole in the outline a screen reader navigates by. */
-    h+='<article class="tla-entry'+(e.sub?' sub':'')+(isNew?' is-new':'')+(e.updatedIn?' is-upd':'')+'" id="e-'+esc(e.id)+'">';
+    h+='<article class="tla-entry'+(e.sub?' sub':'')+(brandNew?' is-new':'')+(lv&&isChangedIn(e,lv)?' is-upd':'')+'" id="e-'+esc(e.id)+'">';
     h+='<h2>'+titleHTML(e)+verBadge(e)+'<a class="anchor" href="#'+lang+'/'+esc(e.id)+'" title="'+esc(t('jump'))+'" aria-label="'+esc(t('jump'))+'">§</a></h2>';
-    h+=blocksHTML(e.blocks,isNew);
+    h+=blocksHTML(e.blocks,brandNew);
+    h+=verProvenance(e);
     h+=figuresHTML(e,esc(e.id));
     h+='</article>';
   });
@@ -321,27 +351,64 @@ function render(sid,eid,flash){
 }
 function verBanner(li){
   return '<button class="tla-verbanner" type="button" data-go="novedades">'
-    +'<span class="tla-vb-star">✦</span>'
+    +'<i class="tla-eldersign tla-vb-star" aria-hidden="true"></i>'
     +'<span class="tla-vb-main"><span class="tla-vb-t">'+t('newver')+' · v'+li.v+'</span>'
     +'<span class="tla-vb-d">'+t('released')+' '+fmtDate(li.date)+'</span></span>'
     +'<span class="tla-vb-cta">'+t('seenews')+' →</span></button>';
 }
-function renderWhatsNew(s){
-  var li=s.ver, wn=data.whatsnew[li.v];
+/* Which edition the What's New page is showing. Defaults to the newest — the
+   book is a living document, so "what just changed" is the question people
+   arrive with — but every edition stays reachable. */
+var wnPick=null;
+function wnVersions(){
+  /* newest first: history reads backwards */
+  return (data.versions||[]).filter(function(v){return data.whatsnew&&data.whatsnew[v.v];}).reverse();
+}
+function renderWhatsNew(){
+  var vs=wnVersions();
+  if(!vs.length){elMain.innerHTML=''; elToc.innerHTML=''; return;}
+  var cur=null;
+  for(var i=0;i<vs.length;i++){if(vs[i].v===wnPick)cur=vs[i];}
+  if(!cur)cur=vs[0];
+  var wn=data.whatsnew[cur.v];
+
   var h='<div class="tla-doc">';
   h+='<div class="tla-crumb">The Living Arkham</div>';
   h+='<h1 class="tla-h1">'+esc(t('news'))+'</h1><div class="tla-rule"></div>';
-  h+='<div class="tla-note"><b>'+t('newver')+' · v'+li.v+'</b> · '+t('released')+' '+fmtDate(li.date)+'.<br>'+esc(t('newsintro'))+'</div>';
-  if(wn['new'].length){h+='<h2 class="tla-wnh"><span class="tla-vbadge new">'+esc(t('newbadge'))+'</span> '+esc(t('newentries'))+' <span class="tla-wncount">'+wn['new'].length+'</span></h2>'+wnList(wn['new'],'new');}
-  if(wn.updated.length){h+='<h2 class="tla-wnh"><span class="tla-vbadge upd">'+esc(t('updbadge'))+'</span> '+esc(t('updentries'))+' <span class="tla-wncount">'+wn.updated.length+'</span></h2>'+wnList(wn.updated,'upd');}
+
+  // the whole history, always — one chip per edition, newest first
+  h+='<div class="tla-vertabs" role="group" aria-label="'+esc(t('history'))+'">';
+  vs.forEach(function(v){
+    var n=data.whatsnew[v.v], count=n['new'].length+n.updated.length;
+    h+='<button class="tla-vertab'+(v.v===cur.v?' active':'')+'" type="button" data-wnv="'+esc(v.v)+'"'
+      +' aria-pressed="'+(v.v===cur.v)+'">'
+      +'<span class="tla-vertab-v">v'+esc(v.v)+'</span>'
+      +'<span class="tla-vertab-d">'+esc(fmtDate(v.date))+'</span>'
+      +'<span class="tla-vertab-n">'+count+'</span></button>';
+  });
+  var first=(data.versions||[])[0];
+  if(first && !data.whatsnew[first.v]){
+    h+='<span class="tla-vertab is-origin">'+esc(t('firstedition').replace('{v}',first.v))
+      +' · '+esc(fmtDate(first.date))+'</span>';
+  }
+  h+='</div>';
+
+  h+='<div class="tla-note">'+esc(t('newsintro'))+'</div>';
+  if(wn['new'].length){h+='<h2 class="tla-wnh"><span class="tla-vbadge new">'+esc(t('newbadge'))+'</span> '+esc(t('newentries'))+' <span class="tla-wncount">'+wn['new'].length+'</span></h2>'
+    +'<p class="tla-wnhelp">'+esc(t('newhelp').replace('{v}',cur.v))+'</p>'+wnList(wn['new'],'new');}
+  if(wn.updated.length){h+='<h2 class="tla-wnh"><span class="tla-vbadge upd">'+esc(t('updbadge'))+'</span> '+esc(t('updentries'))+' <span class="tla-wncount">'+wn.updated.length+'</span></h2>'
+    +'<p class="tla-wnhelp">'+esc(t('updhelp').replace('{v}',cur.v))+'</p>'+wnList(wn.updated,'upd');}
   h+='</div>';
   elMain.innerHTML=h; elToc.innerHTML=''; elMain.scrollTop=0;
 }
 function wnList(items,cls){
   var h='<div class="tla-wngrid">';
-  items.forEach(function(it){h+='<button class="tla-wncard '+cls+'" type="button" data-eid="'+esc(it.id)+'">'
-    +'<span class="tla-wntitle">'+esc(it.title)+'</span>'
-    +'<span class="tla-wnsec">'+(it.num?it.num+' · ':'')+esc(it.sec)+'</span></button>';});
+  items.forEach(function(it){
+    // a whole chapter can change too — the FAQ gains answers in its own lead text
+    var where=it.chapter?esc(t('chapter')):((it.num?esc(it.num)+' · ':'')+esc(it.sec));
+    h+='<button class="tla-wncard '+cls+(it.chapter?' is-chapter':'')+'" type="button" data-eid="'+esc(it.id)+'">'
+      +'<span class="tla-wntitle">'+esc(it.title)+'</span>'
+      +'<span class="tla-wnsec">'+where+'</span></button>';});
   return h+'</div>';
 }
 function rmPanel(){
@@ -369,7 +436,7 @@ function renderLanding(s){
     if(s2.kind==='intro')return;
     var news=s2.kind==='whatsnew';
     var n=sectionEntries(s2).length;
-    var num=news?'✦':(s2.num||'•');
+    var num=news?'<i class="tla-eldersign" aria-hidden="true"></i>':esc(s2.num||'•');
     var meta=news?(t('newver')+' · v'+s2.ver.v):(n+' '+t('entries'));
     h+='<button class="tla-card'+(news?' news':'')+'" type="button" data-si="'+si+'">';
     h+='<span class="tla-card-top"><span class="tla-card-num">'+num+'</span><span class="tla-card-title">'+esc(s2.title)+'</span></span>';
@@ -480,6 +547,7 @@ function applyStaticStrings(){
 
 function applyLang(L){
   lang=L; data=GRIM[L];
+  wnPick=null;                        // editions are numbered per language
   var reg=regOf(L)||{};
   root.setAttribute('data-lang',L);
   document.documentElement.setAttribute('lang',L);
@@ -688,6 +756,17 @@ function wireEvents(){
   elMain.addEventListener('click',function(e){
     var cd=e.target.closest('.tla-card'); if(cd){navigate(data.sections[+cd.getAttribute('data-si')].id,false); return;}
     var go=e.target.closest('[data-go]'); if(go){navigate(go.getAttribute('data-go'),false); return;}
+    /* Picking an edition re-renders the page, which destroys the button you just
+       pressed: put focus back on its replacement and say what happened. */
+    var vt=e.target.closest('[data-wnv]');
+    if(vt){
+      wnPick=vt.getAttribute('data-wnv'); renderWhatsNew();
+      var again=elMain.querySelector('[data-wnv="'+CSS.escape(wnPick)+'"]');
+      if(again){try{again.focus();}catch(err){}}
+      var wn=data.whatsnew[wnPick];
+      if(wn)announce('v'+wnPick+': '+wn['new'].length+' '+t('newentries')+', '+wn.updated.length+' '+t('updentries'));
+      return;
+    }
     var wc=e.target.closest('.tla-wncard'); if(wc){gotoTarget(wc.getAttribute('data-eid'),true); return;}
     var az=e.target.closest('.tla-azbtn'); if(az){setGlossFilter(az.getAttribute('data-az')); return;}
     var x=e.target.closest('.xref'); if(x){e.preventDefault(); gotoTarget(x.getAttribute('data-t'),true); return;}
