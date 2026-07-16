@@ -136,26 +136,51 @@ larger than its siblings and means nothing by it. Reading size alone made it a
 The teal is matched by range, not by one value — the Spanish and English editions
 print it a shade apart (`#306360` vs `#30635F`).
 
-### The book prints two reds, and means opposite things by them
+### The bullets, too (`parse_grimoire.bullet_level`)
 
-| red | what it means | where it appears |
-|---|---|---|
-| `#8B1F24` · `#8B1F23` | **a STOP! callout** — read this twice | ES v1.0, EN v1.0 **and** EN v1.1 |
-| `#911D1D` | **added in this edition** | 244× in EN v1.1; **not once** in either v1.0 |
+The book marks its two kinds of bullet with two ornament glyphs, and uses the same
+two in every edition: `Æ` 458× / `=` 86× in ES v1.0, 465× / 84× in EN v1.1. They
+are characters of the ornament font, so — like the game icons — they mean the same
+thing whatever the language.
 
-That second row is the proof: a first edition adds nothing, and sure enough
-neither first edition prints that red at all — while both print the callout red.
-So the callout's red is emphasis, not a diff. Reading it as a diff made the
-English **STOP!** box announce *"Rewritten in 1.1"* and appear in What's New,
-when it is word-for-word what v1.0 printed.
+*Where* they sit does not. The old rule called a bullet nested if it began more
+than 12pt right of its column, and the editions do not lay out alike: the same
+nested bullet starts at x=326 in Spanish (a two-column page) and x=938 in English
+(a two-page spread). So the same sentence came out nested in one language and
+top-level in the other, and was drawn with a different bullet in each — 384/157 in
+Spanish against 496/50 in English. Reading the glyph instead gives 457/84 and
+464/82: the editions now agree, because the book always did.
 
-The two sit about **six values apart on one channel**, so no threshold should be
-trusted to split them — and none has to. The STOP! heading is *by definition*
-printed in the callout red, so `learn_callout_red` simply asks each edition which
-red is its callout red, and everything else red is an addition. No constant, no
-language, no edition baked in. A pack whose edition has no callout at all gets
-`None`, and then every red reads as an addition — which is right, because there is
-no callout red for it to be confused with.
+### The book prints three reds, and means three different things by them
+
+| red | what it means | ES v1.0 | EN v1.0 | EN v1.1 |
+|---|---|---|---|---|
+| `#921D1E` | **a player window** — the free-trigger icon and its label, in the phase diagrams | 8 + 8 | 8 + 8 | 8 + 8 |
+| `#8B1F24` · `#8B1F23` | **a STOP! callout** — read this twice | ✓ | ✓ | ✓ |
+| `#911D1D` | **added in this edition** | — | — | 232 |
+
+Only the last is a diff, and that table is the proof: a first edition adds
+nothing, and sure enough neither first edition prints the third red at all —
+while all three editions print the other two, the same number of times. Reading
+them as a diff made the English **STOP!** box announce *"Rewritten in 1.1"* and
+every *"Player Window"* label light up as new, when both are word-for-word what
+v1.0 printed.
+
+**None of these values is hardcoded, and none is matched by a threshold.** The
+window red and the addition red differ by **one** on two channels — no tolerance
+can split those, and none is used: they are compared exactly, which is right
+because within one document a colour is a single integer. Each edition is simply
+asked which red is which, using the one anchor that cannot lie about each:
+
+* the **callout** red — the STOP! heading is, by definition, printed in it;
+* the **window** red — the free-trigger icon opens every window box, and it is an
+  icon-font glyph, so no prose can be mistaken for it. (The icons inside *added*
+  text are other glyphs — `reaction`, `action`, `combat`, `agility` — never
+  `free`. That is what makes the anchor safe.)
+
+Everything else red is an addition. An edition with no callout and no windows
+gets `None` for both, and then every red reads as an addition — which is right,
+because there is nothing for it to be confused with.
 
 ## Phase diagrams (`assemble.flow_of`)
 
@@ -217,6 +242,13 @@ The arrow is the one thing the scan threw away, and it carries the meaning. Its
 apex, as a percentage of the card, becomes a marker the reader can hover or focus;
 the key becomes an ordered list, auto-linked into the glossary like any prose.
 
+The app shows **one card at a time**, as a tablist, next to *only the items that
+card carries*. Which items those are is exactly what the arrows said — so reading
+them out of the PDF is what makes the chapter navigable at all. Eighteen items
+beside eight cards meant the card and the words describing it were never on screen
+together; four to six beside one card fit without scrolling, and every item belongs
+to some card, so walking the tabs still reads the whole key.
+
 A card belongs to the last key seen at or before its page — which is how the book
 reads, a key heading the cards it explains. The term is split from the description
 on the **colon**, not on the bolding: the book bolds the term, but a single run can
@@ -243,6 +275,15 @@ only the call that draws them on this page is dropped, never the XObject itself,
 which may be shared. Redaction is the obvious tool and does not work here: MuPDF
 does not count these paths as covered, and it would paint over the card art that
 is the thing being kept.
+
+The stream is in PDF user space and everything found above is in page space, so
+the page's own `transformation_matrix` maps between them. Flipping by the page
+height instead only agrees with that matrix when the CropBox starts at the origin
+— which both editions happen to do, so the hand-rolled version passed every test
+here and would have stripped **nothing** from a bleed-trimmed reprint, shipping
+cards with the arrows still printed on them and reporting success. If the paths
+are ever found on the page but not in the stream, `strip_callouts` raises rather
+than render them: that is the one outcome worth stopping the build for.
 
 `strip_callouts` must run **after** `build` — it erases the art `build` reads.
 

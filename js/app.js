@@ -438,40 +438,104 @@ function anatMarkers(card,k,items){
   });
   return h;
 }
+/* One card at a time. The key explains eighteen things spread over eight cards,
+   so showing all eighteen beside all eight meant the card and the words that
+   describe it were never on screen together — you cannot look from one to the
+   other if you have to scroll between them.
+
+   So the cards become tabs, and the panel shows one card next to just the items
+   that card actually carries: four to six lines, no scrolling, the card right
+   there. Which items those are is exactly what the book's arrows said, which is
+   why they were worth reading out of the PDF in the first place. Every item
+   belongs to some card, so walking the tabs still reads the whole key. */
+function anatKeyItems(k,c){
+  var want={}; c.markers.forEach(function(m){want[m.n]=1;});
+  return k.items.filter(function(it){return want[it.n];});
+}
+function anatItemHTML(kid,it){
+  var h='<li id="'+kid+'-'+esc(String(it.n))+'" data-n="'+esc(String(it.n))+'">';
+  h+='<span class="tla-anat-n" aria-hidden="true">'+esc(String(it.n))+'</span>';
+  /* The book bolds the term and ends it with a colon. If an edition ever prints
+     an item with no term at all, don't emit an empty <b> and a stray colon. */
+  h+='<span class="tla-anat-txt">';
+  h+=it.term.length?('<b class="tla-anat-term">'+runsHTML(it.term)+'</b>'
+                     +(it.desc.length?': ':'')):'';
+  h+=runsHTML(it.desc)+'</span></li>';
+  return h;
+}
 function anatomyHTML(s){
   var h='';
-  (s.keys||[]).forEach(function(k){
+  (s.keys||[]).forEach(function(k,ki){
     var items={}; k.items.forEach(function(it){items[it.n]=it;});
     var kid='anat-'+esc(k.id);
+    /* Open on a card the book actually annotates. The player key's first card is
+       the investigator mini-card, which carries no callouts at all — landing on
+       it showed an empty panel and made the whole chapter look broken. */
+    var sel=0;
+    for(var ci=0;ci<k.cards.length;ci++){ if(k.cards[ci].markers.length){sel=ci; break;} }
     h+='<section class="tla-anat" data-key="'+esc(k.id)+'" aria-labelledby="'+kid+'-h">';
     h+='<h2 class="tla-anat-h" id="'+kid+'-h">'+esc(k.title)+'</h2>';
-    h+='<p class="tla-anat-hint">'+esc(t('anathint'))+'</p>';
-    h+='<div class="tla-anat-grid">';
-    h+='<div class="tla-anat-cards">';
-    k.cards.forEach(function(c){
+    h+='<p class="tla-anat-hint" id="'+kid+'-hint">'+esc(t('anathint'))+'</p>';
+    /* A tablist: one tab per card. Roving tabindex + arrow keys, so the whole
+       chapter costs one Tab stop to reach and arrows to walk. */
+    h+='<div class="tla-anat-tabs" role="tablist" aria-labelledby="'+kid+'-h">';
+    k.cards.forEach(function(c,i){
+      h+='<button class="tla-anat-tab" role="tab" type="button" id="'+kid+'-tab-'+esc(c.id)+'"'
+        +' aria-controls="'+kid+'-panel-'+esc(c.id)+'" aria-selected="'+(i===sel?'true':'false')+'"'
+        +' tabindex="'+(i===sel?'0':'-1')+'">'+esc(c.title)+'</button>';
+    });
+    h+='</div>';
+    k.cards.forEach(function(c,i){
+      var sub=anatKeyItems(k,c);
       var wh=c.w?(' width="'+c.w+'" height="'+c.h+'"'):'';
+      h+='<div class="tla-anat-panel" role="tabpanel" id="'+kid+'-panel-'+esc(c.id)+'"'
+        +' aria-labelledby="'+kid+'-tab-'+esc(c.id)+'"'+(i===sel?'':' hidden')+'>';
+      h+='<div class="tla-anat-split">';
       h+='<figure class="tla-anatcard" id="anatcard-'+esc(c.id)+'">';
-      h+='<figcaption class="tla-anatcard-t">'+esc(c.title)+'</figcaption>';
       h+='<div class="tla-anatcard-frame">';
       h+='<img class="tla-anatcard-img" loading="lazy" src="assets/img/'+esc(c.file)+'"'+wh
         +' alt="'+esc(t('anatalt').replace('{t}',c.title))+'">';
       h+=anatMarkers(c,k,items);
-      h+='</div></figure>';
+      h+='</div>';
+      h+='<figcaption class="tla-anatcard-t">'+esc(c.title)+'</figcaption>';
+      h+='</figure>';
+      if(sub.length){
+        /* list-style:none strips list semantics in Safari; role=list puts them back. */
+        h+='<ol class="tla-anat-key" role="list">';
+        sub.forEach(function(it){h+=anatItemHTML(kid,it);});
+        h+='</ol>';
+      }else{
+        h+='<p class="tla-anat-none">'+esc(t('anatnone'))+'</p>';
+      }
+      h+='</div></div>';
     });
-    h+='</div>';
-    /* A real <ol>: the numbers are the book's, so they are the list's, and a
-       screen reader counts them without being told to. */
-    h+='<ol class="tla-anat-key">';
-    k.items.forEach(function(it){
-      h+='<li id="'+kid+'-'+esc(String(it.n))+'" data-n="'+esc(String(it.n))+'">';
-      h+='<span class="tla-anat-n" aria-hidden="true">'+esc(String(it.n))+'</span>';
-      h+='<span class="tla-anat-txt"><b class="tla-anat-term">'+runsHTML(it.term)+'</b>'
-        +(it.desc.length?(': '+runsHTML(it.desc)):'')+'</span></li>';
-    });
-    h+='</ol>';
-    h+='</div></section>';
+    h+='</section>';
   });
   return h;
+}
+/* Standard tablist keys: arrows walk, Home/End jump, and the tab that is
+   selected is the only one in the Tab order. */
+function anatSelect(tab){
+  var sec=tab.closest('.tla-anat'); if(!sec)return;
+  anatHot(sec,null);
+  [].forEach.call(sec.querySelectorAll('.tla-anat-tab'),function(b){
+    var on=b===tab;
+    b.setAttribute('aria-selected',on?'true':'false');
+    b.tabIndex=on?0:-1;
+    var p=document.getElementById(b.getAttribute('aria-controls'));
+    if(p)p.hidden=!on;
+  });
+}
+function anatTabKeys(e){
+  var tab=e.target.closest('.tla-anat-tab'); if(!tab)return;
+  var tabs=[].slice.call(tab.closest('.tla-anat-tabs').querySelectorAll('.tla-anat-tab'));
+  var i=tabs.indexOf(tab), n=tabs.length, j=-1;
+  if(e.key==='ArrowRight'||e.key==='ArrowDown')j=(i+1)%n;
+  else if(e.key==='ArrowLeft'||e.key==='ArrowUp')j=(i-1+n)%n;
+  else if(e.key==='Home')j=0;
+  else if(e.key==='End')j=n-1;
+  if(j<0)return;
+  e.preventDefault(); anatSelect(tabs[j]); tabs[j].focus();
 }
 /* Hovering or focusing either side lights the other. One function owns the
    whole highlight: it clears everything, then lights what matches. There is no
@@ -500,13 +564,19 @@ function bindAnatomy(){
       if(!sec.contains(e.relatedTarget))anatHot(sec,null);
     });
     sec.addEventListener('click',function(e){
+      var tab=e.target.closest('.tla-anat-tab');
+      if(tab){anatSelect(tab); return;}
       var b=e.target.closest('.tla-anatmark'); if(!b)return;
-      var li=sec.querySelector('#anat-'+cssEsc(b.getAttribute('data-key'))+'-'+cssEsc(b.getAttribute('data-n')));
+      /* the item is in the open panel, so scope the lookup to it */
+      var panel=b.closest('.tla-anat-panel')||sec;
+      var li=panel.querySelector('[data-n="'+cssEsc(b.getAttribute('data-n'))+'"].tla-anat-key>li, '
+             +'.tla-anat-key > li[data-n="'+cssEsc(b.getAttribute('data-n'))+'"]');
       if(!li)return;
       anatHot(b,b.getAttribute('data-n'));
       keepInView(li,elMain);
       li.classList.remove('flash'); void li.offsetWidth; li.classList.add('flash');
     });
+    sec.addEventListener('keydown',anatTabKeys);
   });
 }
 /* getElementById would be simpler, but these ids carry pack-authored slugs;

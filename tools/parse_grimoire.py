@@ -43,56 +43,83 @@ def is_red(s):
     return r >= 0x80 and g <= 0x40 and b <= 0x40 and (r - g) >= 0x40
 
 
-# The book prints TWO dark reds and means opposite things by them:
+# The book prints THREE dark reds and means three different things by them:
 #
-#   the STOP! callout   #8B1F24 (ES v1.0) · #8B1F24 (EN v1.0) · #8B1F23 (EN v1.1)
-#   text added in v1.1  #911D1D — and it appears 244 times in EN v1.1, and not
-#                       once in EN v1.0 or ES v1.0, which added nothing.
+#   #921D1E          a player window — the free-trigger icon and the label beside
+#                    it, in the phase diagrams. 8 of each in EVERY edition.
+#   #8B1F24 #8B1F23  a STOP! callout. In every edition too.
+#   #911D1D          text added in THIS edition. 232 spans in EN v1.1, and not
+#                    one in EN v1.0 or ES v1.0 — which, being first editions,
+#                    added nothing. That is the proof of which red is which.
 #
-# So the callout's red says "read this twice", not "this is new". They sit about
-# six values apart on one channel, which no threshold should be trusted to split.
-# It does not have to be: the STOP! heading is, by definition, printed in the
-# callout red, so each edition can simply be asked which red is its callout red.
-# Everything else red is then an addition. No constant, no language, no edition.
-# parse_pdf sets this for the document it is reading, and it is the default for
-# everything that runs inside that call. Anything reading spans from a document
-# parse_pdf did not open — card_anatomy.py does — must pass its own document's
-# red explicitly, or it would silently judge one edition's colours by another's.
-_CALLOUT_RED = None
+# Only the last is a diff. The other two are the book saying "this is a window" /
+# "read this twice", and reading them as additions made the English STOP! box
+# claim it was "Rewritten in 1.1" and every "Player Window" label light up as new.
+#
+# The window red and the addition red differ by ONE on two channels
+# (#921D1E vs #911D1D), so they are matched EXACTLY. There is no tolerance to
+# tune: within one document a colour is one integer, and any tolerance at all
+# would merge these two.
+#
+# Neither colour is hardcoded. Each edition is asked, using the one anchor that
+# cannot lie about each:
+#   the callout red — the STOP! heading is, by definition, printed in it;
+#   the window red  — the free-trigger icon opens every window box, and it is an
+#                     icon-font glyph, so it cannot be confused with prose. (The
+#                     icons inside ADDED text are other glyphs — reaction, action,
+#                     combat, agility — never `free`.)
+#
+# parse_pdf sets these for the document it is reading, and they are the default
+# for everything inside that call. Anything reading spans from a document parse_pdf
+# did not open — card_anatomy.py does — must pass its own document's reds, or it
+# would silently judge one edition's colours by another's.
+WINDOW_ICON = 'free'
+_REDS = (None, None)           # (callout, window) for the document being parsed
 _KEEP = object()               # "use the document parse_pdf is currently reading"
 
 
-def _commonest_callout_red(spans_iter):
-    seen = {}
+def _commonest(counter):
+    return max(counter, key=counter.get) if counter else None
+
+
+def _learn_reds(spans_iter):
+    """-> (callout_red, window_red) for one edition, read off its own printing."""
+    callout, window = {}, {}
     for s in spans_iter:
-        if is_head_font(s['font']) and s['size'] >= 15.5 and s['text'].strip() and is_red(s):
-            seen[s['color']] = seen.get(s['color'], 0) + 1
-    return max(seen, key=seen.get) if seen else None
+        if not s['text'].strip() or not is_red(s):
+            continue
+        if is_icon_font(s['font']):
+            if any(ICON_MAP.get(ord(ch)) == WINDOW_ICON for ch in s['text'] if ch.strip()):
+                window[s['color']] = window.get(s['color'], 0) + 1
+        elif is_head_font(s['font']) and s['size'] >= 15.5:
+            callout[s['color']] = callout.get(s['color'], 0) + 1
+    return _commonest(callout), _commonest(window)
 
 
-def learn_callout_red(lines):
-    """This edition's callout red: the commonest red among its big headings."""
-    return _commonest_callout_red(s for ln in lines for s in ln['spans'])
+def learn_reds(lines):
+    return _learn_reds(s for ln in lines for s in ln['spans'])
 
 
-def callout_red_of_doc(doc):
+def reds_of_doc(doc):
     """The same question, asked of a whole document. For readers that open a PDF
     themselves instead of going through parse_pdf."""
-    return _commonest_callout_red(
+    return _learn_reds(
         s for page in doc
         for b in page.get_text('dict')['blocks'] if b['type'] == 0
         for l in b['lines'] for s in l['spans'])
 
 
-def is_callout_red(s, callout_red=_KEEP):
-    """Printed in this edition's callout red (tight tolerance — the two reds are
-    only ~6/255 apart, so anything looser would merge them again)."""
-    ref = _CALLOUT_RED if callout_red is _KEEP else callout_red
-    if ref is None:
-        return False
-    r, g, b = _rgb(s)
-    R, G, B = (ref >> 16) & 255, (ref >> 8) & 255, ref & 255
-    return abs(r - R) <= 3 and abs(g - G) <= 3 and abs(b - B) <= 3
+def is_structural_red(s, reds=_KEEP):
+    """Red because of what this text IS (a callout, a player window) rather than
+    because this edition added it. Matched exactly — see the note above."""
+    callout, window = _REDS if reds is _KEEP else reds
+    c = s.get('color', 0)
+    return (callout is not None and c == callout) or (window is not None and c == window)
+
+
+def is_callout_red(s, reds=_KEEP):
+    callout = (_REDS if reds is _KEEP else reds)[0]
+    return callout is not None and s.get('color', 0) == callout
 
 
 def is_teal(s):
@@ -103,19 +130,14 @@ def is_teal(s):
     return r < 0x50 and g > 0x50 and abs(g - b) <= 0x20 and g > r + 0x20
 
 
-def is_new_red(s, callout_red=_KEEP):
-    """True for the dark-red text that marks content added in this version.
-
-    Not every red is that red. The STOP! callout is printed red for emphasis, in
-    every edition including the first ones — reading it as an addition made the
-    English STOP! box claim it was "Rewritten in 1.1" and put it in What's New,
-    when it is word-for-word what v1.0 printed.
-    """
+def is_new_red(s, reds=_KEEP):
+    """True for the dark-red text that marks content added in this version — and
+    only that. See the note above: two of the book's three reds are structural."""
     if is_icon_font(s['font']):
         return False
     if not is_red(s):
         return False
-    if is_callout_red(s, callout_red):     # the book's emphasis, not its diff
+    if is_structural_red(s, reds):         # a callout or a player window, not a diff
         return False
     if is_head_font(s['font']) and s['size'] >= 15.5:
         return False
@@ -258,12 +280,12 @@ def line_is_heading(line):
         return lvl
     return None
 
-def build_runs(spans, callout_red=_KEEP):
+def build_runs(spans, reds=_KEEP):
     """Turn a list of spans into inline runs, merging adjacent text of same style.
 
-    `callout_red` names the edition these spans came from (see `is_new_red`).
-    Leave it alone inside parse_pdf; pass it when the spans come from a document
-    opened elsewhere."""
+    `reds` is (callout_red, window_red) for the edition these spans came from
+    (see `is_new_red`). Leave it alone inside parse_pdf; pass it when the spans
+    come from a document opened elsewhere."""
     runs = []
     def push(kind, **kw):
         runs.append(dict(kind=kind, **kw))
@@ -282,7 +304,7 @@ def build_runs(spans, callout_red=_KEEP):
         bold = 'Bold' in f or 'Smbd' in f or 'Semibold' in f
         italic = 'Italic' in f or '-It' in f
         ref = (s.get('color', 0) == TEAL)
-        red = is_new_red(s, callout_red)
+        red = is_new_red(s, reds)
         # merge with previous compatible text run
         if runs and runs[-1]['kind'] == 'text' and runs[-1]['bold'] == bold \
                 and runs[-1]['italic'] == italic and runs[-1]['ref'] == ref and runs[-1]['red'] == red:
@@ -330,16 +352,26 @@ def merge_runs(runs):
         out[-1]['t'] = out[-1]['t'].rstrip()
     return out
 
+# The book marks its two kinds of bullet with two ornament glyphs, and it uses the
+# same two in every edition: 'Æ' 458x / '=' 86x in ES v1.0, 465x / 84x in EN v1.1.
+# They are characters of the ornament font, so they mean the same thing whatever
+# the language — like the game icons in icons.py, and unlike where they sit.
+#
+# Where they sit was the old rule, and it was wrong: it called a bullet nested if
+# it began more than 12pt right of its column. The editions do not lay out alike —
+# the same nested bullet starts at x=326 in Spanish (a 2-column page) and x=938 in
+# English (a 2-page spread) — so the same sentence came out nested in one language
+# and top-level in the other, and got a different bullet in each.
+BULLET_MARKS = {'Æ': 1, '=': 2}
+
+
 def bullet_level(line):
-    """If line starts with a Bodoni ornament bullet, return (level, marker_x); else None."""
+    """If the line opens with an ornament bullet, the level the book gives it."""
     for s in line['spans']:
         if s['text'].strip() == '':
             continue
         if is_bullet_font(s['font']):
-            mx = s['bbox'][0]
-            margin = line.get('xedge', 36)
-            lvl = 2 if mx > margin + 12 else 1
-            return lvl
+            return BULLET_MARKS.get(s['text'].strip()[:1], 1)
         return None   # first non-blank span isn't a bullet
     return None
 
@@ -435,12 +467,12 @@ def parse(pack):
 def parse_pdf(pdf, masks):
     """Any edition. Older ones are read for comparison only, with no masking:
     their montage clips belong to a different layout."""
-    global _CALLOUT_RED
+    global _REDS
     lines, doc = collect_lines(pdf, masks)
-    # Ask this edition which of its reds is the callout's, before any run is built
-    # from it. Set per document: history.py parses the older editions through here
-    # too, and each one prints its own shade.
-    _CALLOUT_RED = learn_callout_red(lines)
+    # Ask this edition which of its reds mean what, before any run is built from
+    # them. Set per document: history.py parses the older editions through here
+    # too, and each prints its own shades.
+    _REDS = learn_reds(lines)
     nodes = []
     cur = None
 

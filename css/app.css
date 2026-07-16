@@ -349,17 +349,27 @@ html[data-theme="light"] .tla-azfilter{box-shadow:0 12px 28px -14px rgba(70,52,2
 .tla-anat{margin:26px 0 34px}
 .tla-anat-h{font-family:var(--ff-head); font-size:22px; color:var(--gold2);
   margin:0 0 6px; font-weight:400}
-.tla-anat-hint{margin:0 0 16px; font-size:14.5px; color:var(--muted); max-width:62ch}
-.tla-anat-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:26px 30px;
+.tla-anat-hint{margin:0 0 14px; font-size:14.5px; color:var(--muted); max-width:62ch}
+/* the cards, as tabs */
+.tla-anat-tabs{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 18px;
+  border-bottom:1px solid var(--edge2); padding-bottom:10px}
+.tla-anat-tab{font-family:var(--ff-ui); font-size:13.5px; line-height:1.2;
+  padding:8px 13px; min-height:34px; border-radius:8px; cursor:pointer;
+  border:1px solid var(--edge2); background:var(--panel); color:var(--ink2)}
+.tla-anat-tab:hover{background:var(--panel2); color:var(--ink)}
+.tla-anat-tab[aria-selected=true]{background:var(--gold); border-color:var(--gold);
+  color:var(--on-gold); font-weight:700}
+/* card beside its own key: both on screen at once, which is the whole point */
+.tla-anat-split{display:grid; grid-template-columns:300px minmax(0,1fr); gap:24px 28px;
   align-items:start}
-.tla-anat-cards{display:flex; flex-direction:column; gap:22px; min-width:0}
 .tla-anatcard{margin:0; min-width:0}
-.tla-anatcard-t{font-family:var(--ff-head); font-size:17px; color:var(--gold2);
-  margin:0 0 7px; text-align:center}
+.tla-anatcard-t{font-family:var(--ff-head); font-size:15px; color:var(--gold2);
+  margin:8px 0 0; text-align:center}
 /* the frame is the marker's positioning context, so it must hug the image exactly */
 .tla-anatcard-frame{position:relative; display:block; line-height:0}
 .tla-anatcard-img{display:block; width:100%; height:auto; border-radius:9px;
   background:var(--figbg)}
+.tla-anat-none{margin:0; color:var(--muted); font-size:15px}
 
 /* A marker sits where the book's arrowhead pointed. It is translated onto its
    own centre, so the percentage is the point itself and stays the point at any
@@ -390,14 +400,13 @@ html[data-theme="light"] .tla-azfilter{box-shadow:0 12px 28px -14px rgba(70,52,2
 .tla-anat-term{color:var(--gold2); font-weight:600}
 .tla-anat-txt{min-width:0}
 
-/* One column once the two would fight for width. The cards keep their size —
-   they are the thing being looked at — and the key reads under them. */
-@media (max-width:1080px){
-  .tla-anat-grid{grid-template-columns:minmax(0,1fr); gap:22px}
-  .tla-anat-cards{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px}
-}
-@media (max-width:520px){
-  .tla-anat-cards{grid-template-columns:minmax(0,1fr)}
+/* One column once 300px + text would fight for width. The card keeps 300px:
+   below that its markers stop being legal targets (see above), so it is the text
+   that moves rather than the card that shrinks. */
+@media (max-width:820px){
+  .tla-anat-split{grid-template-columns:minmax(0,1fr); gap:18px; justify-items:center}
+  .tla-anatcard{width:100%; max-width:300px}
+  .tla-anat-key{width:100%}
 }
 @media (prefers-reduced-motion:reduce){
   .tla-anatmark,.tla-anatmark:hover,.tla-anat .tla-anatmark.is-hot{transition:none; transform:none}
@@ -408,8 +417,12 @@ html[data-theme="light"] .tla-azfilter{box-shadow:0 12px 28px -14px rgba(70,52,2
 .tla-bul li{position:relative; padding-left:22px; margin:0 0 9px; font-size:16.5px; color:var(--ink2)}
 .tla-bul li::before{content:""; position:absolute; left:2px; top:.6em; width:8px;height:8px; transform:rotate(45deg);
   background:var(--gold); opacity:.85; border-radius:1px}
+/* The book's second bullet, kept distinct by shape but not by colour: teal means
+   a cross-reference or a subsection everywhere else on the page, and a bullet is
+   neither. Gold is what a bullet is. */
 .tla-bul li.l2{padding-left:40px}
-.tla-bul li.l2::before{left:22px; width:7px;height:7px; background:transparent; border:1.5px solid var(--teal); transform:none; border-radius:50%; top:.5em}
+.tla-bul li.l2::before{left:22px; width:7px;height:7px; background:transparent;
+  border:1.5px solid var(--gold); opacity:.85; transform:none; border-radius:50%; top:.5em}
 #tla-root strong{color:var(--gold2); font-weight:700}
 #tla-root em{color:var(--ink2)}
 .xref{color:var(--teal2); border-bottom:1px dotted var(--teal); cursor:pointer}

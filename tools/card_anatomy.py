@@ -148,7 +148,14 @@ def strip_callouts(page):
     xrefs = page.get_contents()
     if len(xrefs) != 1:
         return 0, 0
-    H = page.rect.y1
+    # The content stream's coordinates are PDF user space; everything found above
+    # came from get_drawings/get_text, which are page space. The page's own matrix
+    # is what maps between them — flipping by the page height only agrees with it
+    # when the CropBox starts at the origin and the page is unrotated. Both editions
+    # happen to be exactly that, so a hand-rolled flip passed every test here and
+    # would have silently stripped NOTHING from a bleed-trimmed or rotated reprint,
+    # shipping cards with the arrows still printed on them.
+    m = page.transformation_matrix
     tips = []
     for d in page.get_drawings():
         if (d['type'] == 's' and (d.get('width') or 0) > 3 and _near(d.get('color'), TEAL)) \
@@ -159,23 +166,36 @@ def strip_callouts(page):
     src = page.read_contents()
     arrows = [0]
 
-    def sub(m):
-        x, y = float(m.group(1)), H - float(m.group(2))
-        if any(abs(x - tx) < .6 and abs(y - ty) < .6 for tx, ty in tips):
+    def sub(mo):
+        p = fitz.Point(float(mo.group(1)), float(mo.group(2))) * m
+        if any(abs(p.x - tx) < .6 and abs(p.y - ty) < .6 for tx, ty in tips):
             arrows[0] += 1
             return b''
-        return m.group(0)
+        return mo.group(0)
     out = _BLOCK.sub(sub, src)
     # the diamonds are each their own Form XObject; drop the call that draws it,
     # which touches this page only (the XObject itself may be shared)
     dias = 0
     for xref, name, _t, bb in page.get_xobjects():
-        dev = fitz.Rect(bb[0], H - bb[3], bb[2], H - bb[1])
+        dev = fitz.Rect(*bb) * m
         if not any(abs(dev.x0 - r.x0) < 1.5 and abs(dev.y0 - r.y0) < 1.5
                    and abs(dev.x1 - r.x1) < 1.5 and abs(dev.y1 - r.y1) < 1.5 for r in decor):
             continue
         out, n = _xobj_re(name.encode()).subn(b'', out)
         dias += n
+    # If the page draws arrows and none were matched, the coordinate mapping above
+    # disagreed with this page's geometry. Saying so is the whole point: the cards
+    # would render with the arrows still printed on them and the build would still
+    # report success, which is the one outcome worth failing over.
+    if tips and not arrows[0]:
+        raise pg.langpack.PackError(
+            f'card anatomy: page {page.number + 1} draws {len(tips)} callout path(s), '
+            f'but none could be located in its content stream, so they cannot be '
+            f'taken off the cards.\n'
+            f'  This happens when the page geometry is unusual (rect={page.rect}, '
+            f'rotation={page.rotation}).\n'
+            f'  Rendering the cards anyway would print the book\'s arrows on top of '
+            f'them, so the build stops here instead.')
     if arrows[0] or dias:
         page.parent.update_stream(xrefs[0], out)
     return arrows[0], dias
@@ -248,12 +268,12 @@ def panels_on(page):
     return out
 
 
-def _join_spans(groups, callout_red):
+def _join_spans(groups, reds):
     """Span-runs of one item's lines -> runs, de-hyphenating each line break the
     same way the body parser does."""
     runs = []
     for i, spans in enumerate(groups):
-        nxt = pg.build_runs(spans, callout_red)
+        nxt = pg.build_runs(spans, reds)
         if not nxt:
             continue
         if not runs:
@@ -297,7 +317,7 @@ def _split_term(runs):
     return pg.merge_runs(term), pg.merge_runs(desc)
 
 
-def key_on(page, panel, callout_red=None):
+def key_on(page, panel, reds=(None, None)):
     """(title, [{n, term, desc}]) for one key panel. The items are numbered, so
     the numbers put them in order and the two-column layout costs nothing."""
     head, items, cur = [], [], None
@@ -327,7 +347,7 @@ def key_on(page, panel, callout_red=None):
                 cur['groups'].append(spans)
     out = []
     for it in sorted(items, key=lambda i: i['n']):
-        term, desc = _split_term(_join_spans(it['groups'], callout_red))
+        term, desc = _split_term(_join_spans(it['groups'], reds))
         out.append({'n': it['n'], 'term': term, 'desc': desc})
     return pg.norm(' '.join(head)), out
 
@@ -354,10 +374,10 @@ def build(pack, pages, doc=None, verbose=True):
     if doc is None:
         doc = fitz.open(pack.require_pdf())
     # This module opens (or is handed) its own document, so it must tell the run
-    # builder which red THIS edition calls out with. Relying on whatever parse_pdf
-    # last set would make the answer depend on call order across modules — and on
+    # builder which reds THIS edition uses. Relying on whatever parse_pdf last set
+    # would make the answer depend on call order across modules — and on
     # `python tools/render_images.py <code>` alone, parse_pdf never runs at all.
-    callout_red = pg.callout_red_of_doc(doc)
+    reds = pg.reds_of_doc(doc)
     keys, orphans, seen = [], 0, {}
     for pno in sorted(pages):
         if pno > doc.page_count:
@@ -366,7 +386,7 @@ def build(pack, pages, doc=None, verbose=True):
                 f'{pack.current["pdf"]} only has {doc.page_count} pages.')
         page = doc[pno - 1]
         for panel in panels_on(page):
-            title, items = key_on(page, panel, callout_red)
+            title, items = key_on(page, panel, reds)
             if items:
                 keys.append({'id': pg.slugify(title), 'title': title, 'items': items, 'cards': []})
         if not keys:

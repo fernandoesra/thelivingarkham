@@ -491,6 +491,12 @@ def apply_versions(allsecs, pack, added=None, changed=None):
         for b in s.get('intro', []):
             tag(b['runs'])
         stamp(s, history.SEC + s['id'])       # the chapter's own lead text
+        # the rebuilt card-anatomy key is prose like any other: it gets the same
+        # diff marks, and — either way — loses the parser's private `red` flag
+        for k in s.get('keys', []):
+            for it in k['items']:
+                tag(it['term'])
+                tag(it['desc'])
         for e in s.get('entries', []):
             if e.get('titleRuns'):
                 tag(e['titleRuns'])
