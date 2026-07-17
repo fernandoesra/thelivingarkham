@@ -43,12 +43,12 @@
     "weakness": "Basic weakness symbol"
   },
   "themes": {
-      "slate": "Slate",
-      "moss": "Moss",
-      "midnight": "Midnight",
-      "plum": "Plum",
-      "neon": "Neon",
-      "parchment": "Parchment"
+    "slate": "Slate",
+    "moss": "Moss",
+    "midnight": "Midnight",
+    "plum": "Plum",
+    "neon": "Neon",
+    "parchment": "Parchment"
   },
   "faqAnchor": "retired FAQ",
   "strings": {
@@ -58,18 +58,30 @@
     "all": "All",
     "anatalt": "Example card: {t}",
     "anathint": "Pick a card, then hover or focus a number to see which element it points at.",
-    "anatnone": "The book marks no elements on this card.",
     "anatmark": "Element {n}: {t}",
+    "anatnone": "The book marks no elements on this card.",
     "browse": "Browse the grimoire",
     "cancel": "Cancel",
+    "carddiagrams": "Includes summary diagrams",
+    "cardkeys": {
+      "one": "card key",
+      "other": "card keys"
+    },
     "changedinv": "Rewritten in {v}",
     "chapter": "Whole chapter",
     "close": "Close",
     "closeimg": "Close image",
     "diagram": "Diagram",
+    "diagrams": {
+      "one": "diagram",
+      "other": "diagrams"
+    },
     "docdesc": "The Arkham Grimoire as an interactive web edition: rules glossary, search and cross-references for Arkham Horror: The Card Game.",
     "doctitle": "The Living Arkham · Interactive Arkham Horror LCG rules grimoire",
-    "entries": "entries",
+    "entries": {
+      "one": "entry",
+      "other": "entries"
+    },
     "faqlabel": "Open document (retired FAQ)",
     "faqurl": "https://ffgapp.com/qr/legacy-faq",
     "fig": "Grimoire figure · p.",
@@ -78,11 +90,11 @@
     "figinfo": "Show the card data",
     "filterby": "Filter by letter",
     "firstedition": "v{v} · first edition",
-    "flowlabel": "Timing diagram, step by step",
     "flagrecommended": "Recommended section",
     "flagrecommendedd": "Worth reading end to end.",
     "flagrelevant": "Relevant section",
     "flagrelevantd": "The first thing you will want to look at.",
+    "flowlabel": "Timing diagram, step by step",
     "footby": "The Living Arkham <b>v0.1.0 · beta</b> · a project by <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
     "footinfo": "Credits",
     "footsrc": "Based on <b>The Arkham Grimoire</b> v1.0 (ES) / v1.1 (EN) · rules © their authors · Arkham Horror: LCG ™ Fantasy Flight Games",
@@ -110,6 +122,11 @@
     "pendingcta": "See what is new in {l}",
     "pendingd": "Grimoire v{v} came out on {d} in {l}. We are waiting for the official translation: as soon as it lands, its changes will show up here.",
     "pendingt": "A newer version exists in {l}",
+    "plates": {
+      "one": "plate",
+      "other": "plates"
+    },
+    "prosechapter": "Continuous text",
     "released": "released",
     "rmbody": "<b>The Living Arkham</b> is the web edition —interactive and available in several languages— of <i>The Arkham Grimoire</i>, FFG's official rules-clarification compendium for <i>Arkham Horror: The Card Game</i>. It's a <b>free</b> tool created by <b>Rincón Miskatonic</b>, a Spanish blog about tabletop-gaming content, where you'll find scenarios, guides, resources and more <b>free material</b> for the game.",
     "rmcta": "Visit Rincón Miskatonic",
@@ -126,6 +143,9 @@
     "updatedin": "rewritten in v",
     "updbadge": "Rewritten",
     "updentries": "Rewritten entries",
-    "updhelp": "Entries that already existed and whose text changed in v{v}. Inside each one, the added text is highlighted in red."
+    "updhelp": "Entries that already existed and whose text changed in v{v}. Inside each one, the added text is highlighted in red.",
+    "viewall": "View everything",
+    "viewas": "View",
+    "viewdiag": "Diagrams only"
   }
 }

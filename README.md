@@ -81,17 +81,40 @@ These are regular expressions, so in JSON **backslashes are doubled**: write `\\
 `ui.json` starts as the English interface. Translate the values — and **you don't have to finish**: anything you leave in English stays English. Nothing breaks, and you can translate the rest later.
 
 ```json
+"locale":      "de-DE",
 "months":      ["Jan","Feb","Mär","Apr","Mai","Jun","Jul","Aug","Sep","Okt","Nov","Dez"],
 "datePattern": "{d}. {mon} {y}",
 "alphabet":    "ABCDEFGHIJKLMNOPQRSTUVWXYZ",
 "icons":       {"willpower": "Willenskraft", "...": "..."},
 "themes":      {"slate": "Schiefer", "...": "..."},
-"strings":     {"onthispage": "Auf dieser Seite", "...": "..."}
+"strings":     {"onthispage": "Auf dieser Seite",
+                "entries": {"one": "Eintrag", "other": "Einträge"}, "...": "..."}
 ```
 
 * `alphabet` — the letters of the A–Z filter, in **your** dictionary order. List only letters your language files separately: Spanish lists `Ñ` because *ñ* is its own letter, and leaves `Ú` out because *Única* files under **U**.
 * `themes` — the theme names as the reader sees them in the picker. Translate the names, not the ids.
 * `fallback` — the language to borrow untranslated strings from (`"en"` by default).
+* `locale` — your language's BCP-47 tag. It is what picks the plural forms below, so it must be a real tag (`pt-BR`, not `ptbr`).
+
+### Counted nouns
+
+A few strings are printed after a number, and languages disagree about what that does. Write them as an object and the browser picks the form, using the plural categories your `locale` actually has — two for German, three for Polish, six for Arabic, one for Japanese:
+
+```json
+"entries": {"one": "Eintrag", "other": "Einträge"}
+```
+
+Write only the categories your language has. A plain string is still valid and is used for every count — which is the right answer for a language with one form, said on purpose rather than by accident.
+
+### Language names
+
+Nothing to do here, normally. Your pack's `name` in `lang.json` is your language's name **in your language** (`Deutsch`), and that is what the switcher shows — you find your language by looking for the word you know. When another language's name appears inside a sentence instead ("v1.1 came out in German"), the browser's own tables supply the reader's word for it, so a new pack is named correctly everywhere without anyone maintaining a list.
+
+If your language's tables get one wrong, override just that one:
+
+```json
+"langNames": {"en": "Englisch"}
+```
 
 ### 6. Add a flag (optional)
 

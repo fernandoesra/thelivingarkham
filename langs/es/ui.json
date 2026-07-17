@@ -44,12 +44,12 @@
     "weakness": "Símbolo de Debilidad básica"
   },
   "themes": {
-      "slate": "Pizarra",
-      "moss": "Musgo",
-      "midnight": "Medianoche",
-      "plum": "Ciruela",
-      "neon": "Fosforito",
-      "parchment": "Pergamino"
+    "slate": "Pizarra",
+    "moss": "Musgo",
+    "midnight": "Medianoche",
+    "plum": "Ciruela",
+    "neon": "Fosforito",
+    "parchment": "Pergamino"
   },
   "faqAnchor": "preguntas frecuentes retirad",
   "strings": {
@@ -59,18 +59,30 @@
     "all": "Todas",
     "anatalt": "Carta de ejemplo: {t}",
     "anathint": "Elige una carta y pasa el cursor —o el foco— por un número para ver a qué elemento señala.",
-    "anatnone": "El manual no señala ningún elemento en esta carta.",
     "anatmark": "Elemento {n}: {t}",
+    "anatnone": "El manual no señala ningún elemento en esta carta.",
     "browse": "Explorar el grimorio",
     "cancel": "Cancelar",
+    "carddiagrams": "Incluye diagramas de resumen",
+    "cardkeys": {
+      "one": "guía de cartas",
+      "other": "guías de cartas"
+    },
     "changedinv": "Reescrita en {v}",
     "chapter": "Capítulo completo",
     "close": "Cerrar",
     "closeimg": "Cerrar imagen",
     "diagram": "Diagrama",
+    "diagrams": {
+      "one": "diagrama",
+      "other": "diagramas"
+    },
     "docdesc": "El Grimorio de Arkham en versión web interactiva: glosario de reglas, buscador y referencias cruzadas de Arkham Horror: El Juego de Cartas.",
     "doctitle": "The Living Arkham · Grimorio interactivo de Arkham Horror LCG",
-    "entries": "entradas",
+    "entries": {
+      "one": "entrada",
+      "other": "entradas"
+    },
     "faqlabel": "Ver documento (FAQ retiradas)",
     "faqurl": "https://www.asmodee.es/product/arkham-horror-el-juego-de-cartas/",
     "fig": "Figura del Grimorio · pág.",
@@ -79,11 +91,11 @@
     "figinfo": "Ver los datos de las cartas",
     "filterby": "Filtrar por letra",
     "firstedition": "v{v} · primera edición",
-    "flowlabel": "Diagrama de orden de resolución, paso a paso",
     "flagrecommended": "Sección recomendada",
     "flagrecommendedd": "Vale la pena leerlas enteras.",
     "flagrelevant": "Sección relevante",
     "flagrelevantd": "Lo primero que querrás mirar.",
+    "flowlabel": "Diagrama de orden de resolución, paso a paso",
     "footby": "The Living Arkham <b>v0.1.0 · beta</b> · un proyecto de <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
     "footinfo": "Créditos",
     "footsrc": "Basado en <b>El Grimorio de Arkham</b> v1.0 (ES) / v1.1 (EN) · reglas © sus autores · Arkham Horror: LCG ™ Fantasy Flight Games",
@@ -111,6 +123,11 @@
     "pendingcta": "Ver las novedades en {l}",
     "pendingd": "El Grimorio v{v} se publicó el {d} en {l}. Estamos esperando la traducción oficial: en cuanto salga, sus novedades aparecerán aquí.",
     "pendingt": "Nueva versión disponible en {l}",
+    "plates": {
+      "one": "lámina",
+      "other": "láminas"
+    },
+    "prosechapter": "Texto continuo",
     "released": "publicada el",
     "rmbody": "<b>The Living Arkham</b> es la edición web —interactiva y disponible en varios idiomas— de <i>El Grimorio de Arkham</i>, la recopilación oficial de aclaraciones de reglas de FFG para el juego <i>Arkham Horror: El Juego de Cartas</i>. Es una herramienta <b>gratuita</b> creada por <b>Rincón Miskatonic</b>, un blog español sobre contenido para juegos de mesa, donde encontrarás escenarios, guías, ayudas y más <b>material gratuito</b> del juego.",
     "rmcta": "Visitar Rincón Miskatonic",
@@ -127,6 +144,9 @@
     "updatedin": "reescrita en v",
     "updbadge": "Reescrita",
     "updentries": "Entradas reescritas",
-    "updhelp": "Entradas que ya existían y cuyo texto cambió en la v{v}. Dentro de cada una, lo añadido se resalta en rojo."
+    "updhelp": "Entradas que ya existían y cuyo texto cambió en la v{v}. Dentro de cada una, lo añadido se resalta en rojo.",
+    "viewall": "Ver todo",
+    "viewas": "Ver",
+    "viewdiag": "Ver solo diagramas"
   }
 }

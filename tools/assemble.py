@@ -14,6 +14,7 @@ Usage:  python tools/assemble.py <lang>
 Outputs data/grimoire_<lang>.json plus a validation report.
 """
 import json, re, sys, os, unicodedata
+from collections import Counter
 import langpack, history
 from langpack import slugify
 
@@ -34,6 +35,97 @@ def title_variants(title):
     return [p.strip(' .:') for p in re.split(r'[,/]', t) if p.strip(' .:')]
 
 ROMAN = re.compile(r'^\s*([IVXLC]+)\.\s*(.*)$')
+
+# ---- heading numerals ------------------------------------------------------
+# A chapter numbers its headings "<numeral>. <text>". An edition can misprint one:
+# the ES v1.0 sets the Mythos phase detail heading as "1. Fase de Mitos" two spans
+# away from "I. Fase de Mitos" on the same page (p.28) — the same ordinal, spelled
+# the other way. Reconciling it changes the NOTATION, never the number.
+#
+# The evidence is the chapter's own: which notation it mostly uses, and the fact
+# that the odd heading has a twin. No word is read, so this holds in any language,
+# and a language that does not number its headings never matches.
+HEADNUM = re.compile(r'^\s*([IVXLC]+|\d+)\.\s+(\S.*)$')
+_RV = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100}
+
+def _roman_to_int(s):
+    n = 0
+    for i, c in enumerate(s):
+        v = _RV[c]
+        n += -v if i + 1 < len(s) and _RV[s[i + 1]] > v else v
+    return n
+
+def _int_to_roman(n):
+    out = ''
+    for v, sym in ((100,'C'),(90,'XC'),(50,'L'),(40,'XL'),(10,'X'),(9,'IX'),(5,'V'),(4,'IV'),(1,'I')):
+        while n >= v:
+            out += sym; n -= v
+    return out
+
+def _headnum(title):
+    """-> (ordinal, 'roman'|'arabic', token, rest) for a "<numeral>. <text>" heading,
+    else None. A non-canonical roman ("IIII", "VV") is not a numeral the book wrote,
+    so it is not one we touch."""
+    m = HEADNUM.match(title or '')
+    if not m:
+        return None
+    tok, rest = m.group(1), m.group(2)
+    if tok.isdigit():
+        return (int(tok), 'arabic', tok, rest)
+    n = _roman_to_int(tok)
+    if _int_to_roman(n) != tok:
+        return None
+    return (n, 'roman', tok, rest)
+
+def _renumber_runs(runs, old, new):
+    """The rendered title is titleRuns when the edition marked the heading (see
+    app.js titleHTML), so the numeral has to be rewritten there too, or the page
+    keeps showing the misprint. Only the leading text run can hold it."""
+    for r in runs:
+        if r.get('kind') != 'text' or not r.get('t'):
+            continue
+        t = r['t']
+        i = t.find(old + '.')
+        if i >= 0 and not t[:i].strip():
+            r['t'] = t[:i] + new + '.' + t[i + len(old) + 1:]
+        return
+
+def normalise_heading_numerals(entries, report=None):
+    """Make one chapter's heading numerals agree on a notation.
+
+    Rewrites a heading only when all of these hold:
+      * the chapter uses both notations;
+      * one notation is used by strictly more headings (a tie is not our call);
+      * the odd heading's ordinal AND wording already occur in the dominant
+        notation — i.e. it is the same heading printed twice, misnumbered once.
+
+    That last test is the safety bar, and it is why this is honest rather than
+    clever: a chapter that legitimately nests arabic sub-steps ("1. Draw a card")
+    under roman phases has arabic ordinals that are a subset of the roman ones, and
+    dominance alone would wrongly promote them. A sub-step has no identically worded
+    roman twin, so the twin test rejects it. A chapter numbered arabic throughout has
+    no minority and is left exactly as the book prints it.
+    """
+    seen = [(e, h) for e in entries for h in [_headnum(e['title'])] if h]
+    if not seen:
+        return
+    counts = Counter(kind for _, (_, kind, _, _) in seen)
+    if len(counts) < 2:
+        return                                   # one notation: nothing to reconcile
+    (dom, dn), (mino, mn) = counts.most_common()
+    if dn == mn:
+        return                                   # no dominant notation
+    twins = {(n, norm(rest)) for _, (n, kind, _, rest) in seen if kind == dom}
+    for e, (n, kind, tok, rest) in seen:
+        if kind != mino or (n, norm(rest)) not in twins:
+            continue
+        new = _int_to_roman(n) if dom == 'roman' else str(n)
+        old_title = e['title']
+        e['title'] = f'{new}. {rest}'
+        if e.get('titleRuns'):
+            _renumber_runs(e['titleRuns'], tok, new)
+        if report is not None:
+            report.append((old_title, e['title']))
 
 # ---- phase diagrams --------------------------------------------------------
 # The book draws each phase as a flowchart: teal boxes for the numbered steps,
@@ -224,6 +316,15 @@ def assemble(pack, nodes, images):
         if node.get('title_runs'):
             entry['titleRuns'] = node['title_runs']
         cur['entries'].append(entry)
+    # A numeral the book misprinted. Per chapter, and necessarily before the ids are
+    # slugged from the titles below — and inside assemble(), so history.py sees the
+    # same title in every edition it compares and no entry looks newly added.
+    renamed = []
+    for s in sections:
+        if s is not None:
+            normalise_heading_numerals(s['entries'], renamed)
+    for old, new in renamed:
+        print(f'  [numeral] {old!r} -> {new!r}')
     # the phase diagrams: a classification of the blocks, not a copy of them
     for s in sections:
         if s is None:
@@ -438,10 +539,30 @@ def autolink(sections, title_index, pack):
                 while j < len(runs) and runs[j].get('kind') == 'text': j += 1
                 newruns.extend(process_group(runs[i:j], e, used, n_here)); i = j
             b['runs'] = newruns
+    # Which chapters carry auto-links is a property of the chapter's KIND, not of its
+    # key: the glossary cross-links within itself, and the rules chapters link out to
+    # the glossary that defines their vocabulary. Kind is already in every pack, so a
+    # new language gets this for free — a list of section keys would have to be
+    # repeated per pack and would link nothing, silently, once it drifted.
+    # A chapter's lead text is prose like any entry, and in the chapters the book
+    # writes as one continuous procedure (setup, initiation, skill tests) it IS the
+    # whole chapter: the parser only makes an entry where it finds a sub-heading, and
+    # those chapters have none. Scoped as its own unit, so the cap and the
+    # first-mention rule read per chapter-lead rather than being spent on whichever
+    # entry happened to come first.
     for s in sections:
-        if s.get('kind') != 'glossary':
+        if s.get('kind') not in ('glossary', 'rules'):
             continue
+        if s['intro']:
+            process_entry({'id': s['id'], 'blocks': s['intro']})
         for e in s['entries']:
+            # Not the flow diagrams. Inside a box, a teal dotted mark already means
+            # "another step of this diagram", and a glossary link is drawn the same
+            # way but leaves the chapter entirely — two identical marks, two opposite
+            # destinations, in boxes eight words long. The prose that details the very
+            # same phase sits on the same page and is linked, so nothing is lost.
+            if e.get('flow'):
+                continue
             process_entry(e)
     # The card-anatomy key defines the parts of a card in the glossary's own
     # vocabulary ("the difficulty of a skill test to investigate this location"),

@@ -301,6 +301,34 @@
       "entry": "Slots",
       "alt": "The eight slot types with their icon: accessory, head, body, ally, hand (1 and 2 slots) and arcane (1 and 2 slots).",
       "info": "<p>Slot types and their symbol: <b>accessory</b>, <b>head</b>, <b>body</b> and <b>ally</b> (1 slot each); <b>hand</b> and <b>arcane</b> (1 or 2 slots).</p>"
+    },
+    {
+      "name": "montage-reward",
+      "page": 20,
+      "srcpage": 38,
+      "clip": [
+        334,
+        127,
+        551,
+        209
+      ],
+      "entry": "Reward Cards",
+      "alt": "The golden graphic in the upper left corner of a reward card, magnified and pointed out on the neutral asset Collector.",
+      "info": "<p><b>Collector</b> — Asset · Neutral. In the upper left corner, where the resource cost would be, it carries the golden graphic that identifies campaign reward cards.</p>"
+    },
+    {
+      "name": "montage-level",
+      "page": 20,
+      "srcpage": 39,
+      "clip": [
+        940,
+        79,
+        1174,
+        187
+      ],
+      "entry": "Card Levels",
+      "alt": "A card's cost, magnified, showing the 2 white pips that mark its level, pointed out on the asset Bodyguard.",
+      "info": "<p><b>Bodyguard</b> — Asset · Cost 3. The 2 white pips beneath the cost indicate this is a level 2 card.</p>"
     }
   ],
   "inlineSymbols": [

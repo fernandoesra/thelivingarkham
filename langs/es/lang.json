@@ -329,6 +329,34 @@
       "entry": "Espacios",
       "alt": "Los ocho tipos de espacio con su icono: accesorio, cabeza, cuerpo, aliado, mano (1 y 2 espacios) y arcano (1 y 2 espacios).",
       "info": "<p>Tipos de espacio y su símbolo: <b>accesorio</b>, <b>cabeza</b>, <b>cuerpo</b> y <b>aliado</b> (1 espacio de cada uno); <b>mano</b> y <b>arcano</b> (1 o 2 espacios).</p>"
+    },
+    {
+      "name": "montage-reward",
+      "page": 40,
+      "srcpage": 40,
+      "clip": [
+        334,
+        136,
+        558,
+        216
+      ],
+      "entry": "Cartas de recompensa",
+      "alt": "El icono dorado de la esquina superior izquierda de una carta de recompensa, ampliado y señalado sobre el Apoyo neutral Coleccionista.",
+      "info": "<p><b>Coleccionista</b> — Apoyo · Neutral. En la esquina superior izquierda, donde iría el coste de recursos, lleva la imagen dorada que identifica a las cartas de recompensa de campaña.</p>"
+    },
+    {
+      "name": "montage-level",
+      "page": 41,
+      "srcpage": 41,
+      "clip": [
+        330,
+        79,
+        564,
+        181
+      ],
+      "entry": "Niveles de las cartas",
+      "alt": "El coste de una carta, ampliado, con los 2 puntos blancos que marcan su nivel, señalado sobre el Apoyo Guardaespaldas.",
+      "info": "<p><b>Guardaespaldas</b> — Apoyo · Coste 3. Los 2 puntos blancos bajo el coste indican que es una carta de nivel 2.</p>"
     }
   ],
   "inlineSymbols": [

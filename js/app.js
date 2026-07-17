@@ -42,6 +42,26 @@ function pick(code, group, key){
   return null;
 }
 function t(key){ var v=pick(lang,'strings',key); return v==null?key:v; }
+/* A counted noun. "1 entradas" was on the page because the app just concatenated a
+   number and one fixed word — English and Spanish both need two forms, and Polish
+   needs three, Arabic six. So the pack gives the forms and the browser picks:
+
+     "entries": {"one": "entrada", "other": "entradas"}
+
+   The categories are CLDR's, chosen for the pack's own locale, so a pack only ever
+   writes the forms its language actually has and no plural rule is hardcoded here. A
+   pack that gives a plain string keeps it for every count — a language with one form
+   is then correct by saying so, not by accident. */
+function plural(key,n){
+  var v=pick(lang,'strings',key);
+  if(v==null)return key;
+  if(typeof v==='string')return v;
+  var cat='other';
+  /* the pack's declared locale, not its code: 'pt-BR' is a locale, 'ptbr' is not,
+     and a bad tag throws rather than guessing */
+  try{cat=new Intl.PluralRules(uiOf(lang,'locale',lang)).select(n);}catch(e){}
+  return v[cat]!=null?v[cat]:(v.other!=null?v.other:key);
+}
 function iconLabel(name){ var v=pick(lang,'icons',name); return v==null?name:v; }
 function uiOf(code, key, dflt){
   var ch=chainOf(code);
@@ -57,6 +77,38 @@ function fmtDate(iso){
   var mon=(months&&months[(+p[1])-1])||p[1];
   var pat=uiOf(lang,'datePattern','{d} {mon} {y}');
   return pat.replace('{d}',+p[2]).replace('{mon}',mon).replace('{y}',p[0]);
+}
+/* The name of a language as *this* language says it. One field, two different
+   needs: the switcher must show each language its OWN name — you find your language
+   by looking for the word you know — while prose must use the reader's word for it
+   ("se publicó en inglés", not "en English"). The registry only carries the endonym,
+   so the exonym comes from the browser's CLDR tables: a new pack is then named
+   correctly in every other language without anyone maintaining an N×N matrix of
+   names, which is the only version of this that keeps adding a language data-only.
+
+   Used verbatim: CLDR already cases each name the way its own language cases it
+   (es "inglés", en "English", de "Englisch"), so imposing a case would break two
+   languages to suit a third. {l} must therefore never open a sentence.
+
+   The pack is read directly, never through pick(): pick() walks the fallback chain,
+   which ends at English, and an English answer is precisely the bug here. */
+function langName(code){
+  var pack=PACKS[lang]||{};
+  var own=(regOf(code)||{}).name||code;             // the endonym: always present
+  if(pack.langNames&&pack.langNames[code])return pack.langNames[code];
+  if(typeof Intl==='undefined'||!Intl.DisplayNames)return own;   // pre-2021 browser
+  var loc=pack.locale||lang;
+  try{
+    /* An unsupported locale does NOT throw — it silently resolves to the RUNTIME's
+       default locale, so a pack whose locale CLDR doesn't know would be named by
+       whatever OS the reader happens to be on. That reads as correct on the author's
+       own machine and wrong on everyone else's, which is why it is checked rather
+       than caught. */
+    if(!Intl.DisplayNames.supportedLocalesOf([loc]).length)return own;
+    /* fallback:'none' -> undefined for an unknown code, rather than handing back the
+       code itself dressed up as a name. */
+    return new Intl.DisplayNames([loc],{type:'language',fallback:'none'}).of(code)||own;
+  }catch(e){ return own; }                          // a structurally invalid code throws
 }
 /* The newest edition that actually recorded changes — not necessarily the newest
    edition. A quiet reprint must not hide the whole history behind it. */
@@ -87,6 +139,9 @@ var lang='', data=null, curSec=null, searchIndex={}, resSel=-1, glossFilter='all
 
 /* ---------- helpers ---------- */
 function esc(s){return (s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+/* A click the browser should keep: middle/right button, or any modifier — i.e. the
+   reader asking for a new tab or window, not for us to route them. */
+function modClick(e){return e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey;}
 function announce(msg){if(elLive){elLive.textContent=''; setTimeout(function(){elLive.textContent=msg;},40);}}
 /* Labels come from a pack, so they are escaped like any other authored text:
    a label containing a quote would otherwise break out of the attribute. */
@@ -97,8 +152,17 @@ function runsHTML(runs,suppressNew){
     if(r.kind==='icon'){h+=iconHTML(r.name); continue;}
     if(r.kind==='pageref'){h+='<span class="tla-pageref" title="'+esc(t('origpage')+' '+r.n)+'">('+esc(t('origpage'))+' '+esc(r.n)+')</span>'; continue;}
     var inner;
-    if(r.kind==='link')          inner='<a class="xref" data-t="'+esc(r.target)+'">'+wrap(esc(r.t),r)+'</a>';
-    else if(r.kind==='flowref')  inner='<a class="tla-flowref" data-flow="'+esc(r.target)+'">'+wrap(esc(r.t),r)+'</a>';
+    /* A real href, not a bare <a>. Without one an anchor is not focusable, is not in
+       the tab order, and the accessibility tree drops it entirely (role "none",
+       ignored) — so every cross-reference in the book was mouse-only and silent to a
+       screen reader. The href is also what makes Back work and what lets a reader
+       middle-click a term into a new tab. The delegated handler intercepts a plain
+       left click to add the flash; anything else is left to the browser. */
+    if(r.kind==='link')          inner='<a class="xref" href="#'+esc(lang)+'/'+esc(r.target)+'" data-t="'+esc(r.target)+'">'+wrap(esc(r.t),r)+'</a>';
+    /* A button, not a link: this scrolls to a box inside the same diagram and must
+       NOT touch the URL — the hash is the router's, and "#fl-…" would route to the
+       landing page. It is an action on this page, so it is a button. */
+    else if(r.kind==='flowref')  inner='<button type="button" class="tla-flowref" data-flow="'+esc(r.target)+'">'+wrap(esc(r.t),r)+'</button>';
     else                         inner=wrap(esc(r.t),r);
     if(r.v && !suppressNew){inner='<span class="tla-new" title="'+esc(t('addedin')+r.v)+'">'+inner+'</span>';}
     h+=inner;
@@ -146,6 +210,9 @@ function titleHTML(e){return e.titleRuns?runsHTML(e.titleRuns,true):esc(e.title)
    A badge is only shown for the newest edition — that is the "what changed"
    signal. The full provenance goes in a quieter line underneath. */
 function latestV(){return (data.versions&&data.versions.length>1)?data.versions[data.versions.length-1].v:null;}
+/* The edition the book starts from. Everything in it was "added" in it, so that is
+   the baseline, not news — see verProvenance. */
+function firstV(){return (data.versions&&data.versions.length)?data.versions[0].v:null;}
 function isNewIn(e,v){return e.addedIn===v;}
 function isChangedIn(e,v){return !!(e.changedIn&&e.changedIn.indexOf(v)>=0);}
 function verBadge(e){
@@ -154,12 +221,16 @@ function verBadge(e){
   if(isChangedIn(e,v))return '<span class="tla-vbadge upd" title="'+esc(t('updatedin')+v)+'">'+esc(t('updbadge'))+' v'+esc(v)+'</span>';
   return '';
 }
-/* "Added in v1.0 · rewritten in v1.1" — shown on any entry with a history worth
-   telling, so you can always see which edition brought which entry. */
+/* "Added in v1.1 · rewritten in v1.2" — shown on any entry with a history worth
+   telling, so you can always see which edition brought which entry.
+   Being in the FIRST edition is not a history: the whole book was added in it, so
+   "Added in v1.0" was printed on 207 of the English book's 208 entries and told the
+   reader nothing. It is suppressed — and nothing is lost, because "Rewritten in
+   v1.1" already says the entry existed before v1.1. */
 function verProvenance(e){
   if(!data.versions||data.versions.length<2)return '';
   var bits=[];
-  if(e.addedIn)bits.push(esc(t('addedinv').replace('{v}',e.addedIn)));
+  if(e.addedIn&&e.addedIn!==firstV())bits.push(esc(t('addedinv').replace('{v}',e.addedIn)));
   if(e.changedIn&&e.changedIn.length)
     bits.push(esc(t('changedinv').replace('{v}',e.changedIn.map(function(v){return 'v'+v;}).join(', '))));
   if(!bits.length)return '';
@@ -193,8 +264,14 @@ function flowStepNums(e){
    click one and land on that box. Numbers read the same in every language, so no
    wording is involved.
    Splitting rather than rendering here keeps every other run property — a diff
-   mark, bold, an icon — in the one place that knows about them: runsHTML. */
-function flowRuns(runs,nums,base){
+   mark, bold, an icon — in the one place that knows about them: runsHTML.
+
+   `self` is the box's OWN number, and it is never linked: every box opens by naming
+   itself ("Paso 1.1:"), and that is its label, not a reference. Linking it made 20 of
+   this chapter's 23 marks scroll to where the reader already was. It went unnoticed
+   because the mark was an <a> with no href, which nothing could focus or activate;
+   the moment it became a real button it would have been 20 dead tab stops. */
+function flowRuns(runs,nums,base,self){
   var out=[];
   for(var i=0;i<runs.length;i++){
     var r=runs[i];
@@ -205,7 +282,7 @@ function flowRuns(runs,nums,base){
       var copy={},k;
       for(k in r){if(Object.prototype.hasOwnProperty.call(r,k))copy[k]=r[k];}
       copy.t=parts[j];
-      if(j%2===1 && nums[parts[j]]){copy.kind='flowref'; copy.target=base+'-'+parts[j];}
+      if(j%2===1 && nums[parts[j]] && parts[j]!==self){copy.kind='flowref'; copy.target=base+'-'+parts[j];}
       out.push(copy);
     }
   }
@@ -228,7 +305,7 @@ function flowHTML(e){
     var last=idx===e.flow.length-1;
     var id=it.n?(' id="'+esc(base+'-'+it.n)+'"'):'';
     h+='<li class="tla-flow-item is-'+esc(it.kind)+'">';
-    h+='<div class="tla-flow-box"'+id+'>'+runsHTML(flowRuns(b.runs,nums,base))+'</div>';
+    h+='<div class="tla-flow-box"'+id+'>'+runsHTML(flowRuns(b.runs,nums,base,it.n))+'</div>';
     if(!last)h+='<span class="tla-flow-arrow" aria-hidden="true"></span>';
     h+='</li>';
   });
@@ -430,10 +507,65 @@ function entryLetter(e){
   if(!az || az.indexOf(f)>=0) return f;
   return c;                       // a letter the pack didn't predict: keep it
 }
+/* ---------- diagrams-only view ---------- */
+/* The book draws each phase twice: as prose, and as the flowchart that summarises
+   it. Readers who know the rules want the summary — so a chapter that has diagrams
+   can be reduced to just them.
+
+   A plain boolean, NOT a tri-state like azOpen. azOpen is tri-state because the
+   *screen* has an opinion (27 letters eat a third of a phone), so `null` means "not
+   asked, let the viewport answer". Nothing has an opinion about whether a reader
+   wants the prose, so there is nothing to defer to: it is "everything" until asked.
+
+   Not persisted, and not in the URL. Only identity (tla-lang) and appearance
+   (tla-theme) outlive a session; a view that hides three quarters of a chapter must
+   not greet a reader who has forgotten choosing it, and a shared link must not hand
+   that to someone who never did. */
+var diagOnly=false;
+/* Which chapters offer it: the ones that actually draw something. Keyed off e.flow —
+   never off the title, the index, or the "-2" id suffix, because the book inverts
+   the pair on the Upkeep phase (there the flow entry comes first). */
+function hasDiagrams(s){return sectionEntries(s).some(function(e){return !!e.flow;});}
 function visibleEntries(s){
   var all=sectionEntries(s);
   if(s.kind==='glossary' && glossFilter!=='all'){return all.filter(function(e){return entryLetter(e)===glossFilter;});}
+  if(diagOnly && hasDiagrams(s)){return all.filter(function(e){return !!e.flow;});}
   return all;
+}
+
+/* Two named alternatives, one choice: native radios in a fieldset — the same shape
+   of question as the theme picker, and the same answer.
+   Not role=switch: a switch is on/off and must be named for what it controls, so it
+   could only be "Solo diagramas" + a state, dropping "Ver todo" as a named place to
+   go. Not aria-expanded: nothing is revealed, the document itself changes. Not two
+   aria-pressed buttons: that announces two unrelated toggles and never says they are
+   one choice of two. The fieldset gives group semantics, "1 of 2", arrow keys and a
+   single tab stop for free — authored by the browser, so not authorable wrong. */
+function diagSwitch(s){
+  var h='<fieldset class="tla-diagpick"><legend class="tla-diagpick-lg">'+esc(t('viewas'))+'</legend>';
+  [['all',t('viewall')],['diag',t('viewdiag')]].forEach(function(o){
+    var on=(o[0]==='diag')===diagOnly;
+    h+='<label class="tla-diagopt"><input type="radio" name="tla-diagview" value="'+o[0]+'"'
+      +(on?' checked':'')+'><span>'+esc(o[1])+'</span></label>';
+  });
+  return h+'</fieldset>';
+}
+function setDiagOnly(on){
+  if(diagOnly===on)return;
+  diagOnly=on;
+  render(curSec.id,null,false);
+  /* render() destroyed the radio that was just pressed; focus its replacement, or
+     the reader is dropped at the top of the document. Same reason the edition chips
+     re-focus at the What's New handler. */
+  var again=elMain.querySelector('.tla-diagpick input[value="'+(on?'diag':'all')+'"]');
+  if(again){try{again.focus();}catch(e){}}
+  /* The page silently rewrote itself underneath a screen reader, so say what it now
+     holds — and count DIAGRAMS, not entries. Entries are the wrong axis: a chapter
+     that is one long lead plus a single diagram would announce "1 of 1 entries",
+     reporting that nothing happened, right after 27 blocks of rules text vanished.
+     What the reader asked for is diagrams, so that is what is counted. */
+  var shown=visibleEntries(curSec).length;
+  announce(on?(t('viewdiag')+': '+shown+' '+plural('diagrams',shown)):t('viewall'));
 }
 
 /* ---------- NAV ---------- */
@@ -491,8 +623,8 @@ function azSummary(s){
   var total=sectionEntries(s).length, shown=visibleEntries(s).length;
   /* Folded, this line is the only thing saying a filter is on at all — so it
      names the letter, not just the tally. */
-  return glossFilter==='all' ? (total+' '+t('entries'))
-       : (glossFilter+' · '+shown+' '+t('of')+' '+total+' '+t('entries'));
+  return glossFilter==='all' ? (total+' '+plural('entries',total))
+       : (glossFilter+' · '+shown+' '+t('of')+' '+total+' '+plural('entries',total));
 }
 function azFilterBar(s){
   var present={}; sectionEntries(s).forEach(function(e){present[entryLetter(e)]=1;});
@@ -539,7 +671,7 @@ function toggleAz(){
 function setGlossFilter(v){
   glossFilter=v; render(curSec.id,null,false); elMain.scrollTop=0;
   var n=visibleEntries(curSec).length;
-  announce((v==='all'?t('all'):v)+': '+n+' '+t('entries'));
+  announce((v==='all'?t('all'):v)+': '+n+' '+plural('entries',n));
 }
 
 /* ---------- render section ---------- */
@@ -727,7 +859,12 @@ function render(sid,eid,flash){
   h+='<div class="tla-crumb">'+(s.num?('· '+s.num+' ·'):'')+' The Living Arkham</div>';
   h+='<h1 class="tla-h1">'+(s.num?'<span class="tla-rn">'+s.num+'.</span>':'')+esc(s.title)+'</h1>';
   h+='<div class="tla-rule"></div>';
-  if(s.intro&&s.intro.length){h+='<div class="tla-lead">'+blocksHTML(s.intro)+'</div>';}
+  /* First thing under the title: the diagrams ARE the summary, so the offer to read
+     only them belongs where it is seen before the reading starts. */
+  if(hasDiagrams(s))h+=diagSwitch(s);
+  /* The lead is prose too, so diagrams-only hides it. That is the whole feature in a
+     chapter the book writes as one procedure with a single diagram at the end. */
+  if(s.intro&&s.intro.length&&!(diagOnly&&hasDiagrams(s))){h+='<div class="tla-lead">'+blocksHTML(s.intro)+'</div>';}
   if(s.kind==='anatomy'){h+=anatomyHTML(s);}
   if(s.figures&&s.figures.length){
     h+='<div class="tla-figs">';
@@ -784,7 +921,7 @@ function wnVersions(){
 function pendingHTML(){
   var ahead=langsAhead(lang); if(!ahead.length)return '';
   var top=ahead[0];
-  var names=ahead.map(function(L){return L.name;}).join(', ');
+  var names=ahead.map(function(L){return langName(L.code);}).join(', ');
   var h='<section class="tla-pending">';
   h+='<i class="tla-eldersign tla-pending-star" aria-hidden="true"></i>';
   h+='<div class="tla-pending-body">';
@@ -792,9 +929,12 @@ function pendingHTML(){
   h+='<p class="tla-pending-d">'+esc(t('pendingd').replace('{v}',top.v)
       .replace('{d}',fmtDate(top.date)).replace('{l}',names))+'</p>';
   /* Switching language is what this button does, so it says so: the reader is
-     about to leave their own language, and that should not be a surprise. */
-  h+='<button class="tla-pending-cta" type="button" data-golang="'+esc(top.code)+'" lang="'+esc(top.code)+'">'
-    +esc(t('pendingcta').replace('{l}',top.name))+' →</button>';
+     about to leave their own language, and that should not be a surprise.
+     No lang="" on it: the label is written in the READER's language ("Ver las
+     novedades en inglés"), so tagging it as English would have a screen reader
+     read Spanish aloud with an English voice. */
+  h+='<button class="tla-pending-cta" type="button" data-golang="'+esc(top.code)+'">'
+    +esc(t('pendingcta').replace('{l}',langName(top.code)))+' →</button>';
   h+='</div></section>';
   return h;
 }
@@ -889,6 +1029,35 @@ function flagKeyHTML(){
   return h+'</ul>';
 }
 
+/* What a chapter card says it holds.
+   "0 entradas" was on eight of the sixteen cards, and it read as "this chapter is
+   empty" — while Preparación shows 3.337 characters of rules. The count was not
+   unhelpful, it was measuring the wrong axis: entries are the NAMED SUBSECTIONS you
+   can jump to, and the book writes several chapters as one continuous procedure with
+   no subsections at all. So the count is only used where entries are what the chapter
+   is built from, and every other shape says what it actually is.
+   One entry is not a structure either — Pruebas de habilidad has a single entry (the
+   diagram) and 27 blocks of lead, so "1 entrada" would describe the chapter by its one
+   heading and repeat the same mistake in the other direction. */
+function cardMeta(s2){
+  var n=sectionEntries(s2).length;
+  var figs=(s2.figures||[]).length, keys=(s2.keys||[]).length, lead=(s2.intro||[]).length;
+  var bits=[];
+  if(s2.kind==='figures'&&figs)      bits.push(figs+' '+plural('plates',figs));
+  else if(s2.kind==='anatomy'&&keys) bits.push(keys+' '+plural('cardkeys',keys));
+  else if(n>1)                       bits.push(n+' '+plural('entries',n));
+  else if(lead)                      bits.push(t('prosechapter'));
+  else if(n)                         bits.push(n+' '+plural('entries',n));
+  /* Flowed as text, not an icon with an aria-label: the card's accessible name is
+     built from its contents, so this lands in it for free and a screen reader gets
+     the same sentence the sighted reader does. It is not a second pennant — the two
+     chapters that draw diagrams are already the two flying "Sección recomendada", so
+     a ribbon could not single them out from anything, and the card only has one
+     ribbon slot anyway. */
+  if(hasDiagrams(s2))                bits.push(t('carddiagrams'));
+  return bits.join(' · ');
+}
+
 function renderLanding(s){
   var li=latestInfo(data);
   var h='<div class="tla-doc tla-landing">';
@@ -904,13 +1073,12 @@ function renderLanding(s){
   data.sections.forEach(function(s2,si){
     if(s2.kind==='intro')return;
     var news=s2.kind==='whatsnew';
-    var n=sectionEntries(s2).length;
     var num=news?'<i class="tla-eldersign" aria-hidden="true"></i>':esc(s2.num||'•');
     var meta;
-    if(!news)meta=n+' '+t('entries');
+    if(!news)meta=cardMeta(s2);
     else if(s2.ver)meta=t('newver')+' · v'+s2.ver.v;
     else{var ah=langsAhead(lang)[0];
-      meta=ah?t('pendingcard').replace('{v}',ah.v).replace('{l}',ah.name):t('news');}
+      meta=ah?t('pendingcard').replace('{v}',ah.v).replace('{l}',langName(ah.code)):t('news');}
     var fl=flagOf(s2);
     h+='<button class="tla-card'+(news?' news':'')+(fl?' has-pennant':'')+'" type="button" data-si="'+si+'">';
     /* The ribbon is text, not decoration: it is the whole point of the flag, so a
@@ -918,7 +1086,10 @@ function renderLanding(s){
        shape it cannot see. */
     if(fl)h+='<span class="tla-pennant tla-cardpennant is-'+fl+'">'+esc(t('flag'+fl))+'</span>';
     h+='<span class="tla-card-top"><span class="tla-card-num">'+num+'</span><span class="tla-card-title">'+esc(s2.title)+'</span></span>';
-    h+='<span class="tla-card-meta">'+esc(meta)+'</span></button>';
+    /* guarded: the card is a flex column with a gap, so an empty span would open a
+       phantom row under the title */
+    if(meta)h+='<span class="tla-card-meta">'+esc(meta)+'</span>';
+    h+='</button>';
   });
   h+='</div>';
   if(s.intro&&s.intro.length){
@@ -1078,7 +1249,12 @@ function route(){
   var mine=++routeSeq;
   loadLang(L).then(function(){
     if(mine!==routeSeq)return;
-    glossFilter='all';
+    /* A filter never survives a navigation — so no URL can ever point at something a
+       filter is hiding. That is the whole answer to the deep link
+       "#es/juego-orden--i-fase-de-mitos" (a prose entry): were diagOnly sticky, its
+       element would not exist, render()'s scroll-to would silently find nothing, and
+       the reader would land mid-page on a chapter without the thing they clicked. */
+    glossFilter='all'; diagOnly=false;
     if(L!==lang||data!==GRIM[L])applyLang(L);
     var f=target?findEntry(L,target):null;
     if(f){render(f.sid,f.eid,lastFlash);} else {render(data.sections[0].id,null,false);}
@@ -1268,6 +1444,9 @@ function wireEvents(){
     }
     var wc=e.target.closest('.tla-wncard'); if(wc){gotoTarget(wc.getAttribute('data-eid'),true); return;}
     if(e.target.closest('.tla-aztoggle')){toggleAz(); return;}
+    /* radios: 'change' is the event, and it is bound below — a click here would miss
+       the keyboard entirely (arrow keys move a radio group without ever clicking) */
+    if(e.target.closest('.tla-diagpick'))return;
     var az=e.target.closest('.tla-azbtn'); if(az){setGlossFilter(az.getAttribute('data-az')); return;}
     /* a step number inside a diagram: jump to that box and flash it, so the
        loops the book draws with arrows can actually be followed */
@@ -1280,11 +1459,22 @@ function wireEvents(){
       }
       return;
     }
-    var x=e.target.closest('.xref'); if(x){e.preventDefault(); gotoTarget(x.getAttribute('data-t'),true); return;}
-    var a=e.target.closest('.anchor'); if(a){e.preventDefault(); gotoTarget(a.getAttribute('href').split('/')[1],true); return;}
+    /* These two carry a real href, so a modified click is the browser's to handle —
+       intercepting it would take "open in a new tab" away from the reader. Only a
+       plain left click is ours, and only to add the flash. */
+    if(!modClick(e)){
+      var x=e.target.closest('.xref'); if(x){e.preventDefault(); gotoTarget(x.getAttribute('data-t'),true); return;}
+      var a=e.target.closest('.anchor'); if(a){e.preventDefault(); gotoTarget(a.getAttribute('href').split('/')[1],true); return;}
+    }
     var mi=e.target.closest('.tla-montage-i'); if(mi){openFigInfo(mi); return;}
     var mimg=e.target.closest('.tla-montage-img'); if(mimg){openLightbox(mimg.src,mimg.alt); return;}
     var img=e.target.closest('.tla-fig img'); if(img){openLightbox(img.src,img.alt);}
+  });
+  /* 'change', not 'click': arrow keys move a radio group without ever clicking, and a
+     click handler would leave the keyboard unable to switch views at all. */
+  elMain.addEventListener('change',function(e){
+    var r=e.target.closest('.tla-diagpick input[name=tla-diagview]');
+    if(r)setDiagOnly(r.value==='diag');
   });
   elToc.addEventListener('click',function(e){var a=e.target.closest('[data-eid]'); if(a){e.preventDefault(); gotoTarget(a.getAttribute('data-eid'),true);}});
   elRes.addEventListener('click',function(e){var r=e.target.closest('.tla-res'); if(r){gotoTarget(r.getAttribute('data-eid'),true); closeSearch();}});

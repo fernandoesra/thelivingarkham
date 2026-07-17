@@ -520,7 +520,36 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
 @keyframes flowflash{from{border-color:var(--gold); box-shadow:0 0 0 4px var(--mark)}
   to{border-color:var(--teal); box-shadow:none}}
 /* a step number that the book loops back to */
+/* ---------- diagrams-only switch ---------- */
+/* A real fieldset with real radios: the segmented look is painted onto the labels,
+   while the inputs stay real and focusable — moved out of sight, never hidden — so
+   arrow keys, the single tab stop and "1 of 2" are the browser's own. */
+.tla-diagpick{display:inline-flex; align-items:center; gap:4px; flex-wrap:wrap;
+  border:1px solid var(--edge2); border-radius:999px; margin:0 0 18px; padding:4px 4px 4px 12px;
+  background:var(--panel)}
+.tla-diagpick-lg{float:none; font-family:var(--ff-ui); font-size:11px; text-transform:uppercase;
+  letter-spacing:1px; color:var(--muted); padding:0 6px 0 0}
+.tla-diagopt{position:relative; display:inline-flex; align-items:center; border-radius:999px;
+  cursor:pointer; font-family:var(--ff-ui); font-size:13.5px; color:var(--ink2);
+  padding:0 14px; min-height:34px}
+.tla-diagopt:hover{background:var(--panel2); color:var(--ink)}
+.tla-diagopt input{position:absolute; width:1px; height:1px; opacity:0; margin:0}
+.tla-diagopt:has(input:focus-visible){outline:3px solid var(--gold); outline-offset:2px}
+/* Checked is not colour alone (WCAG 1.4.1): the pill is a filled shape a colour-blind
+   reader still reads as "this one". */
+.tla-diagopt:has(input:checked){background:var(--gold); color:var(--on-gold); font-weight:700}
+@media (max-width:520px){
+  .tla-diagpick{display:flex; width:100%; border-radius:12px; padding:8px}
+  .tla-diagpick-lg{width:100%; padding:0 0 6px 4px}
+  .tla-diagopt{flex:1; justify-content:center}
+}
+
+/* A <button>, because it acts on this page rather than going anywhere — so it needs
+   its button-ness stripped back to the inline word the book prints. font:inherit and
+   the zeroed box are what stop it looking like a control mid-sentence. */
 .tla-flowref{color:var(--teal2); font-weight:700; cursor:pointer;
+  font-family:inherit; font-size:inherit; line-height:inherit;
+  background:none; border:0; padding:0; margin:0;
   text-decoration:underline; text-underline-offset:2px; text-decoration-style:dotted}
 .tla-flowref:hover{color:var(--gold2)}
 .tla-entry.flash{animation:tlaflash 1.6s ease}
