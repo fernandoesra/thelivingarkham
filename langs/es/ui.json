@@ -49,7 +49,8 @@
     "midnight": "Medianoche",
     "plum": "Ciruela",
     "neon": "Fosforito",
-    "parchment": "Pergamino"
+    "parchment": "Pergamino",
+    "fog": "Niebla"
   },
   "faqAnchor": "preguntas frecuentes retirad",
   "strings": {
@@ -102,6 +103,7 @@
     "footby": "The Living Arkham <b>v0.1.0 · beta</b> · un proyecto de <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
     "footinfo": "Créditos",
     "footsrc": "Basado en <b>El Grimorio de Arkham</b> v1.0 (ES) / v1.1 (EN) · reglas © sus autores · Arkham Horror: LCG ™ Fantasy Flight Games",
+    "glossnone": "Ninguna entrada coincide con este filtro.",
     "grpaids": "Ayudas",
     "grpgrimoire": "El Grimorio",
     "grpresources": "Recursos",

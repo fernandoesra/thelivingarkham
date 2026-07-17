@@ -126,6 +126,22 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
   --stickyshadow:0 12px 28px -14px rgba(70,52,20,.4);
   color-scheme:light;
 }
+html[data-theme="fog"] #tla-root, .tla-pal-fog{
+  /* FOG — a cool overcast light: haze off a New England coast, slate ink, tarnished
+     brass. The counterweight to Parchment's warm paper, and the light echo of Midnight. */
+  --bg:#e6eaef; --bg2:#eef1f5; --panel:#f4f6f9; --panel2:#dde3e9;
+  --edge:rgba(28,38,52,.13); --edge2:rgba(28,38,52,.22);
+  --ink:#1c2330; --ink2:#39434f; --muted:#586372;
+  --gold:#6f6a2a; --gold2:#514c14; --teal:#2f6d70; --teal2:#1c5257; --icon:#5b6470;
+  --on-gold:#f4f6f9;
+  --mark:rgba(111,106,42,.18); --mark-ink:#4a4512;
+  --new:#b23c2e; --new-bg:rgba(178,60,46,.12); --new-edge:rgba(178,60,46,.45);
+  --shadow:0 10px 28px rgba(30,42,58,.16);
+  --figbg:#dbe1e7; --bggrad:#f1f4f7;
+  --on-accent:#f4f6f9; --page:#e3e8ee; --scrim:rgba(20,28,40,.34); --navtint:rgba(30,48,72,.05);
+  --stickyshadow:0 12px 28px -14px rgba(30,44,64,.4);
+  color-scheme:light;
+}
 
 #tla-root{
   --ff-head:'teutonic','Cinzel',Georgia,'Times New Roman',serif;

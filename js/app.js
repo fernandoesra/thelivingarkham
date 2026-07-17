@@ -586,7 +586,7 @@ function closeFigInfo(){
 /* The palettes live in css/app.css; this only names them and remembers the
    choice. The order here is the order in the picker. Keep it in step with the
    pre-paint script in index.html — that one runs before this file exists. */
-var THEMES=['slate','moss','midnight','plum','neon','parchment'];
+var THEMES=['slate','moss','midnight','plum','neon','parchment','fog'];
 /* The default is named, not THEMES[0]: the array's order is the PICKER's order, and
    which theme comes first in a list has nothing to do with which one a new reader
    should land on. Keep in step with index.html's pre-paint script. */
@@ -960,15 +960,25 @@ var azOpen=null;
 var AZ_AUTO='(max-width:820px)';                  // the width the nav folds at too
 function azFolds(){return window.matchMedia&&window.matchMedia(AZ_AUTO).matches;}
 function azIsOpen(){return azOpen===null?!azFolds():azOpen;}
+/* The set the A-Z bar works over: all the glossary's entries, but narrowed by the
+   version filter when one is on — so the two filters compose. Without this the bar
+   offers letters that have no entries under the active version (a dead button that
+   filters to nothing), and the tally counts entries the version filter has hidden. */
+function glossBase(s){
+  return verOnly ? sectionEntries(s).filter(function(e){return inVer(e,verOnly);}) : sectionEntries(s);
+}
 function azSummary(s){
-  var total=sectionEntries(s).length, shown=visibleEntries(s).length;
+  var total=glossBase(s).length, shown=visibleEntries(s).length;
   /* Folded, this line is the only thing saying a filter is on at all — so it
      names the letter, not just the tally. */
   return glossFilter==='all' ? (total+' '+plural('entries',total))
        : (glossFilter+' · '+shown+' '+t('of')+' '+total+' '+plural('entries',total));
 }
 function azFilterBar(s){
-  var present={}; sectionEntries(s).forEach(function(e){present[entryLetter(e)]=1;});
+  var present={}; glossBase(s).forEach(function(e){present[entryLetter(e)]=1;});
+  /* An active letter the version filter just emptied is no longer offered, so drop back
+     to "all" rather than leave a highlighted letter showing nothing. */
+  if(glossFilter!=='all' && !present[glossFilter])glossFilter='all';
   var order=azOrder(present);
   var open=azIsOpen();
   var h='<div class="tla-azfilter'+(open?'':' is-folded')+'">';
@@ -1011,6 +1021,11 @@ function toggleAz(){
 }
 function setGlossFilter(v){
   glossFilter=v; render(curSec.id,null,false); elMain.scrollTop=0;
+  /* render() destroyed the letter button that was just pressed; focus its replacement,
+     or a keyboard reader is dropped at the top of the document — the same guard
+     setVerOnly and setDiagOnly already carry. */
+  var again=elMain.querySelector('.tla-azbtn[data-az="'+cssEsc(v)+'"]');
+  if(again){try{again.focus();}catch(e){}}
   var n=visibleEntries(curSec).length;
   announce((v==='all'?t('all'):v)+': '+n+' '+plural('entries',n));
 }
@@ -1236,6 +1251,10 @@ function render(sid,eid,flash){
     h+='</div>';
   }
   if(s.kind==='glossary'){h+=azFilterBar(s);}
+  /* A glossary filter can narrow to nothing — a letter with no entries under the active
+     version. Say so, rather than leave a blank void that reads as "this section is
+     empty". Only the glossary needs it; every other kind always has content. */
+  if(s.kind==='glossary' && !ents.length){h+='<p class="tla-glossnone">'+esc(t('glossnone'))+'</p>';}
   var lv=latestV();
   ents.forEach(function(e){
     /* An entry that is wholly new needs no per-word diff marks — the badge
@@ -1894,10 +1913,15 @@ function wireEvents(){
     var vt=e.target.closest('[data-wnv]');
     if(vt){
       wnPick=vt.getAttribute('data-wnv'); renderWhatsNew();
-      var again=elMain.querySelector('[data-wnv="'+CSS.escape(wnPick)+'"]');
+      /* cssEsc, not CSS.escape: the file guards CSS.escape behind that helper for the
+         browsers it supports, and a bare call throws there — dropping this focus move. */
+      var again=elMain.querySelector('[data-wnv="'+cssEsc(wnPick)+'"]');
       if(again){try{again.focus();}catch(err){}}
       var wn=data.whatsnew[wnPick];
-      if(wn)announce('v'+wnPick+': '+wn['new'].length+' '+t('newentries')+', '+wn.updated.length+' '+t('updentries'));
+      /* Count through plural(), so "1 entrada" not "1 entradas": the announce is heard,
+         and a mismatched number reads as broken to a screen-reader user. */
+      if(wn)announce('v'+wnPick+': '+wn['new'].length+' '+plural('entries',wn['new'].length)+' ('+t('newbadge')+'), '
+        +wn.updated.length+' '+plural('entries',wn.updated.length)+' ('+t('updbadge')+')');
       return;
     }
     var wc=e.target.closest('.tla-wncard'); if(wc){gotoTarget(wc.getAttribute('data-eid'),true); return;}

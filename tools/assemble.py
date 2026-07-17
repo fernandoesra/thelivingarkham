@@ -515,6 +515,17 @@ def assemble(pack, nodes, images):
         # content of current section
         if cur is None:
             continue
+        # A wrapped title fragment on a picture page: when the chapter title runs to a
+        # second line, that tail is its own L1 node and carries the chapter's intro
+        # paragraph — which sits above the art and is NOT picture-page noise. Capture it
+        # before the guard below would drop it, but only while the intro region is still
+        # open (no entries yet), so genuine noise later among the art is still cut. The
+        # Spanish "XV. Referencia de iconos de | conjuntos de encuentros" split hit this;
+        # the English single-line title captured its intro the ordinary way and never did.
+        if (lvl == 1 and blocks and not cur['entries']
+                and cur_kind in ('figures', 'anatomy', 'icons', 'quickref')):
+            cur['intro'].extend(blocks)
+            continue
         if cur_kind in ('figures', 'anatomy', 'icons', 'quickref'):
             # Dense picture-page text: the key, the card names and the numbers are
             # laid out around the art, so read in reading order they are noise. The
