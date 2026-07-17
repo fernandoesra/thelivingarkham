@@ -1205,6 +1205,172 @@ function cssEsc(s){
   return (window.CSS&&CSS.escape)?CSS.escape(s):String(s).replace(/[^\w-]/g,'\\$&');
 }
 
+/* ---------- Ultimatums & Boons viewer ----------
+   A card gallery built from the optional-rules chapter: three category tabs and,
+   under the open one, a master list beside the chosen card. The item text is the
+   grimoire's own rule — which for a non-English reader is the translation the
+   English card picture cannot give them. State (open tab, chosen card per tab)
+   is kept in module vars so a language switch or a return to the section lands
+   where it left, falling back to the first card when a slug is gone in the new
+   language. */
+var UB_TABS=['ultimatum','boon','refraction'];
+var ubTab='ultimatum';
+var ubSel={};
+function ubBucket(s,cat){var ub=s&&s.ub||{}; return cat==='ultimatum'?(ub.ultimatums||[]):cat==='boon'?(ub.boons||[]):(ub.refractions||[]);}
+function ubFindItem(s,cat,slug){var a=ubBucket(s,cat); for(var i=0;i<a.length;i++)if(a[i].slug===slug)return a[i]; return null;}
+function ubLabel(cat){return t(cat==='ultimatum'?'ubultimatums':cat==='boon'?'ubboons':'ubrefractions');}
+function ubChosen(s,cat){
+  var a=ubBucket(s,cat); if(!a.length)return null;
+  var want=ubSel[cat];
+  for(var i=0;i<a.length;i++)if(a[i].slug===want)return want;
+  ubSel[cat]=a[0].slug; return a[0].slug;
+}
+function ubTypeLine(it){
+  var base=t(it.cat==='boon'?'ubtypeboon':'ubtypeultimatum');
+  return it.refraction?base+' '+t('ubtyperefraction'):base;
+}
+/* An item English has but this language does not yet: shown in English, flagged
+   above the card with the version it arrived in (the changelog carries the rest). */
+function ubPendingHTML(it){
+  var msg=it.sinceVer?t('ubpendingv').replace('{v}',it.sinceVer):t('ubpending');
+  return '<div class="tla-ub-pending">'
+    +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
+    +'<circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>'
+    +'<span>'+esc(msg)+'</span></div>';
+}
+function ubDetailHTML(it){
+  if(!it)return '';
+  /* The card is built from layers: the textless picture, then the title, type line
+     and rule over it. When the text is the English fallback it is tagged lang="en" so
+     a screen reader switches voice, and the banner says why. */
+  var L=it.pending?' lang="en"':'';
+  var h=it.pending?ubPendingHTML(it):'';
+  h+='<div class="tla-ubc">';
+  h+='<img class="tla-ubc-pic" src="assets/'+esc(it.card)+'" width="'+it.w+'" height="'+it.h+'" alt="" draggable="false">';
+  h+='<h2 class="tla-ubc-title"'+L+'>'+esc(it.name)+'</h2>';
+  h+='<div class="tla-ubc-type">'+esc(ubTypeLine(it))+'</div>';
+  h+='<div class="tla-ubc-rule"'+L+'>'+blocksHTML(it.blocks,true,true)+'</div>';
+  h+='</div>';
+  return h;
+}
+/* Shrink a rule that would overflow its box until it fits. Because the box and the
+   font both scale with the card's width (container-query units), the fitted ratio is
+   the same at every display size, so this is computed once per card. */
+function ubFit(rule){
+  if(!rule)return;
+  var set=function(f){rule.style.setProperty('--ubfit',f);};
+  var fits=function(){return rule.scrollHeight<=rule.clientHeight+1;};
+  set(1); if(fits())return;
+  var lo=0.55,hi=1,best=0.55;
+  for(var i=0;i<8;i++){var m=(lo+hi)/2; set(m); if(fits()){best=m;lo=m;}else{hi=m;}}
+  set(best);
+}
+function ubFitVisible(root){
+  var p=(root||elMain).querySelector('.tla-ub-panel:not([hidden]) .tla-ubc-rule');
+  ubFit(p);
+}
+function ubHTML(s){
+  if(UB_TABS.indexOf(ubTab)<0)ubTab='ultimatum';
+  var h='<div class="tla-lead"><p class="tla-p">'+esc(t('ubintro'))+'</p></div>';
+  h+='<div class="tla-ub">';
+  h+='<div class="tla-ub-tabs" role="tablist" aria-label="'+esc(t('ubtablabel'))+'">';
+  UB_TABS.forEach(function(cat){
+    var on=cat===ubTab, items=ubBucket(s,cat);
+    h+='<button type="button" role="tab" class="tla-ub-tab'+(on?' is-on':'')+'" id="ubtab-'+cat
+      +'" data-ubtab="'+cat+'" aria-selected="'+(on?'true':'false')+'" aria-controls="ubpanel-'+cat
+      +'" tabindex="'+(on?'0':'-1')+'">'+esc(ubLabel(cat))
+      +(items.length?' <span class="tla-ub-n">'+items.length+'</span>':'')+'</button>';
+  });
+  h+='</div>';
+  UB_TABS.forEach(function(cat){
+    var on=cat===ubTab, items=ubBucket(s,cat);
+    h+='<div class="tla-ub-panel" id="ubpanel-'+cat+'" role="tabpanel" aria-labelledby="ubtab-'+cat+'"'
+      +(on?'':' hidden')+'>';
+    if(!items.length){
+      h+='<div class="tla-soon"><p class="tla-soon-h">'+esc(t('soon'))+'</p>'
+        +'<p class="tla-soon-d">'+esc(t('ubrefsoon'))+'</p></div>';
+    }else{
+      var sel=ubChosen(s,cat);
+      h+='<div class="tla-ub-main"><ul class="tla-ub-list" role="listbox" aria-label="'+esc(ubLabel(cat))+'">';
+      items.forEach(function(it){
+        var o=it.slug===sel;
+        h+='<li role="option" class="tla-ub-item'+(o?' is-sel':'')+(it.pending?' is-pending':'')+'" id="ubopt-'+esc(it.slug)
+          +'" data-ubitem="'+esc(it.slug)+'" aria-selected="'+(o?'true':'false')+'" tabindex="'+(o?'0':'-1')+'">'
+          +'<img class="tla-ub-thumb" src="assets/'+esc(it.thumb)+'" width="'+it.tw+'" height="'+it.th
+          +'" loading="lazy" alt=""><span class="tla-ub-iname"'+(it.pending?' lang="en"':'')+'>'+esc(it.name)+'</span>'
+          +(it.pending?'<span class="tla-ub-en" title="'+esc(t('ubpending'))+'">EN</span>':'')+'</li>';
+      });
+      h+='</ul><div class="tla-ub-detail">'+ubDetailHTML(ubFindItem(s,cat,sel))+'</div></div>';
+    }
+    h+='</div>';
+  });
+  h+='</div>';
+  /* Credit, with the source linked: the cards are community-made, not official. */
+  h+='<p class="tla-ub-credit">'+esc(t('ubcredit'))+' '
+    +'<a class="tla-extlink" href="https://arkham-starter.com/ultimatums-and-boons" target="_blank" rel="noopener">'
+    +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3h7v7"/><path d="M21 3l-9 9"/><path d="M19 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>'
+    +esc(t('ubcreditlink'))+'</a></p>';
+  return h;
+}
+function ubSelectTab(root,cat){
+  ubTab=cat;
+  [].forEach.call(root.querySelectorAll('.tla-ub-tab'),function(b){
+    var on=b.getAttribute('data-ubtab')===cat;
+    b.classList.toggle('is-on',on); b.setAttribute('aria-selected',on?'true':'false'); b.tabIndex=on?0:-1;
+  });
+  [].forEach.call(root.querySelectorAll('.tla-ub-panel'),function(p){
+    p.hidden=p.id!=='ubpanel-'+cat;
+  });
+  ubFitVisible(root);
+}
+function ubSelectItem(li){
+  var list=li.closest('.tla-ub-list'), main=li.closest('.tla-ub-main'), s=curSec;
+  var cat=li.closest('.tla-ub-panel').id.replace('ubpanel-','');
+  var slug=li.getAttribute('data-ubitem');
+  ubSel[cat]=slug;
+  [].forEach.call(list.querySelectorAll('.tla-ub-item'),function(x){
+    var on=x===li; x.classList.toggle('is-sel',on); x.setAttribute('aria-selected',on?'true':'false'); x.tabIndex=on?0:-1;
+  });
+  var det=main.querySelector('.tla-ub-detail'), it=ubFindItem(s,cat,slug);
+  if(det&&it){det.innerHTML=ubDetailHTML(it); ubFit(det.querySelector('.tla-ubc-rule'));}
+}
+function ubTabKeys(e,root){
+  var tab=e.target.closest('.tla-ub-tab'); if(!tab)return;
+  var tabs=[].slice.call(root.querySelectorAll('.tla-ub-tab'));
+  var i=tabs.indexOf(tab),n=tabs.length,j=-1;
+  if(e.key==='ArrowRight'||e.key==='ArrowDown')j=(i+1)%n;
+  else if(e.key==='ArrowLeft'||e.key==='ArrowUp')j=(i-1+n)%n;
+  else if(e.key==='Home')j=0; else if(e.key==='End')j=n-1;
+  if(j<0)return;
+  e.preventDefault(); ubSelectTab(root,tabs[j].getAttribute('data-ubtab')); tabs[j].focus();
+}
+function ubListKeys(e,li){
+  var items=[].slice.call(li.closest('.tla-ub-list').querySelectorAll('.tla-ub-item'));
+  var i=items.indexOf(li),n=items.length,j=-1;
+  if(e.key==='ArrowDown')j=(i+1)%n; else if(e.key==='ArrowUp')j=(i-1+n)%n;
+  else if(e.key==='Home')j=0; else if(e.key==='End')j=n-1;
+  else if(e.key==='Enter'||e.key===' '){e.preventDefault(); ubSelectItem(li); return;}
+  if(j<0)return;
+  e.preventDefault(); ubSelectItem(items[j]); items[j].focus();
+}
+function bindUB(){
+  var root=elMain.querySelector('.tla-ub'); if(!root)return;
+  root.addEventListener('click',function(e){
+    var tab=e.target.closest('.tla-ub-tab'); if(tab){ubSelectTab(root,tab.getAttribute('data-ubtab')); tab.focus(); return;}
+    var li=e.target.closest('.tla-ub-item'); if(li){ubSelectItem(li); li.focus();}
+  });
+  root.addEventListener('keydown',function(e){
+    if(e.target.closest('.tla-ub-tab')){ubTabKeys(e,root); return;}
+    var li=e.target.closest('.tla-ub-item'); if(li)ubListKeys(e,li);
+  });
+  ubFitVisible(root);
+  /* The card fonts load lazily; their real metrics differ from the fallback, so the
+     rule is re-fitted once they are ready. */
+  if(window.document&&document.fonts&&document.fonts.ready){
+    document.fonts.ready.then(function(){ubFitVisible(root);}).catch(function(){});
+  }
+}
+
 function render(sid,eid,flash){
   var s=data.sections.filter(function(x){return x.id===sid;})[0]; if(!s)s=data.sections[0];
   curSec=s;
@@ -1224,6 +1390,7 @@ function render(sid,eid,flash){
   if(s.intro&&s.intro.length&&!(diagOnly&&hasDiagrams(s))){h+='<div class="tla-lead">'+blocksHTML(s.intro,false,s.kind==='icons'&&!!s.qr)+'</div>';}
   if(s.kind==='anatomy'){h+=anatomyHTML(s);}
   if(s.kind==='icons'){h+=iconsHTML(s);}
+  if(s.kind==='ultimatums'){h+=ubHTML(s);}
   /* quickref renders its text sub-sections through the normal entries loop below (so
      their terms autolink to the glossary and they land in the table of contents), then
      the colour symbol key and the downloadable image after them — the sheet read top to
@@ -1298,6 +1465,7 @@ function render(sid,eid,flash){
   syncStickyHeight();          // before any scroll-to, so the target clears the toolbar
   layoutFlowLoops();
   bindAnatomy();
+  bindUB();
   [].forEach.call(elMain.querySelectorAll('.tla-subst'),substFilter);
   buildToc(s,ents);
   markNav(sid);

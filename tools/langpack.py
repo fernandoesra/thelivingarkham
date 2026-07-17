@@ -64,8 +64,12 @@ SECTION_GROUPS = ('resources', 'grimoire', 'aids')
 #             chaos tokens — each in its own colour) plus the page image kept for
 #             download. The symbols are game-universal, so the app builds them from the
 #             icon list; the figure travels as usual.
+#   ultimatums  the Ultimatums & Boons card viewer: a gallery built from the
+#             "optional-rules" chapter (ultimatums.py reads each bold name + its rule and
+#             pairs it with a card picture). Backs onto no heading of its own — it re-reads
+#             another chapter — so, like placeholder, assemble.py must not go looking for it.
 SECTION_KINDS = ('glossary', 'rules', 'figures', 'anatomy', 'faq', 'icons', 'substitution',
-                 'placeholder', 'quickref')
+                 'placeholder', 'quickref', 'ultimatums')
 
 
 class PackError(Exception):

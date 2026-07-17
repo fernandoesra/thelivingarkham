@@ -15,7 +15,7 @@ Outputs data/grimoire_<lang>.json plus a validation report.
 """
 import json, re, sys, os, unicodedata
 from collections import Counter
-import langpack, history
+import langpack, history, ultimatums
 from langpack import slugify
 
 def norm(t):
@@ -447,8 +447,11 @@ def assemble(pack, nodes, images):
     #   * the by-name matcher skips started sections, so a real heading can never
     #     wander into it and quietly fill an empty shelf with someone else's chapter;
     #   * with an empty intro it mints no history unit, so it never claims a version.
+    # The Ultimatums & Boons viewer is the same: it re-reads the optional-rules chapter
+    # (ultimatums.attach, after linking) rather than owning a heading, so it too is built
+    # up front and marked started — no page heading may wander in and fill it.
     for idx, sc in enumerate(seclist):
-        if sc['kind'] == 'placeholder':
+        if sc['kind'] in ('placeholder', 'ultimatums'):
             mk(idx)
             started[idx] = True
 
@@ -880,31 +883,12 @@ def apply_versions(allsecs, pack, added=None, changed=None):
     return versions, history.whatsnew_index(allsecs, added, changed, versions)
 
 
-def main():
-    sys.stdout.reconfigure(encoding='utf-8')
-    if len(sys.argv) < 2:
-        print('usage: python tools/assemble.py <lang>', file=sys.stderr)
-        return 2
-    pack = langpack.load(sys.argv[1])
-    lang = pack.code
-    if not os.path.exists(pack.nodes_path):
-        raise langpack.PackError(
-            f'the parsed nodes for "{lang}" are missing (data/_nodes_{lang}.json).\n'
-            f'  Run the whole pipeline instead:  python tools/ingest.py {lang}')
-    nodes = json.load(open(pack.nodes_path, encoding='utf-8'))
-    images_path = pack.images_path(os.path.join(langpack.ROOT, 'assets', 'img'))
-    if not os.path.exists(images_path) and (pack.figures or pack.montages):
-        # Without the manifest every figure would quietly vanish from the page while
-        # the run still reported success — so refuse rather than half-build.
-        raise langpack.PackError(
-            f'the figure manifest for "{lang}" is missing '
-            f'(assets/img/images_{lang}.json), but the pack declares '
-            f'{len(pack.figures)} figure(s) and {len(pack.montages)} montage(s).\n'
-            f'  Render them first:  python tools/render_images.py {lang}\n'
-            f'  Or just run the whole pipeline:  python tools/ingest.py {lang}')
-    images = json.load(open(images_path, encoding='utf-8')) if os.path.exists(images_path) else {}
-    intro, sections, title_index = assemble(pack, nodes, images)
-    allsecs = [intro] + sections
+def finalize(pack, allsecs, title_index):
+    """Everything after the sections are grouped: version history, cross-links,
+    auto-links, the Ultimatums & Boons viewer, and the assembled data dict. Shared
+    by main() and tools/ingest.py so the two build paths can never drift apart —
+    each used to carry its own copy, and one had already fallen a step behind.
+    Returns (data, report)."""
     # The history is not optional decoration: skipping it here would quietly
     # rewrite the data file with every addedIn/changedIn stripped out.
     added = changed = None
@@ -942,9 +926,47 @@ def main():
     versions, whatsnew = apply_versions(allsecs, pack, added, changed)
     links = linkify(allsecs, title_index, pack)
     autolinks = autolink(allsecs, title_index, pack)
-    data = {'lang': lang, 'sections': allsecs, 'versions': versions, 'whatsnew': whatsnew,
+    # The Ultimatums & Boons viewer reads its items out of the optional-rules chapter, so
+    # it runs last: after the chapter's runs have been linked, version-stamped and slugged,
+    # so a card's rule keeps its cross-references and carries none of the diff bookkeeping.
+    # The cross-language fill (missing cards shown in English) is a separate step, run once
+    # every language is built — tools/ub_merge.py.
+    ub = ultimatums.attach(allsecs, pack)
+    data = {'lang': pack.code, 'sections': allsecs, 'versions': versions, 'whatsnew': whatsnew,
             'groupOrder': list(langpack.SECTION_GROUPS)}
+    return data, {'links': links, 'autolinks': autolinks, 'versions': versions,
+                  'whatsnew': whatsnew, 'ub': ub}
+
+
+def main():
+    sys.stdout.reconfigure(encoding='utf-8')
+    if len(sys.argv) < 2:
+        print('usage: python tools/assemble.py <lang>', file=sys.stderr)
+        return 2
+    pack = langpack.load(sys.argv[1])
+    lang = pack.code
+    if not os.path.exists(pack.nodes_path):
+        raise langpack.PackError(
+            f'the parsed nodes for "{lang}" are missing (data/_nodes_{lang}.json).\n'
+            f'  Run the whole pipeline instead:  python tools/ingest.py {lang}')
+    nodes = json.load(open(pack.nodes_path, encoding='utf-8'))
+    images_path = pack.images_path(os.path.join(langpack.ROOT, 'assets', 'img'))
+    if not os.path.exists(images_path) and (pack.figures or pack.montages):
+        # Without the manifest every figure would quietly vanish from the page while
+        # the run still reported success — so refuse rather than half-build.
+        raise langpack.PackError(
+            f'the figure manifest for "{lang}" is missing '
+            f'(assets/img/images_{lang}.json), but the pack declares '
+            f'{len(pack.figures)} figure(s) and {len(pack.montages)} montage(s).\n'
+            f'  Render them first:  python tools/render_images.py {lang}\n'
+            f'  Or just run the whole pipeline:  python tools/ingest.py {lang}')
+    images = json.load(open(images_path, encoding='utf-8')) if os.path.exists(images_path) else {}
+    intro, sections, title_index = assemble(pack, nodes, images)
+    allsecs = [intro] + sections
+    data, rep = finalize(pack, allsecs, title_index)
     json.dump(data, open(pack.data_path, 'w', encoding='utf-8'), ensure_ascii=False)
+    links, autolinks, versions, whatsnew, ub = (
+        rep['links'], rep['autolinks'], rep['versions'], rep['whatsnew'], rep['ub'])
     # ---- report ----
     print(f'[{lang}] sections: {len(allsecs)}  cross-links: {links}  auto-links: {autolinks}  versions: {[v["v"] for v in versions]}')
     for v, wn in whatsnew.items():
@@ -955,6 +977,11 @@ def main():
               f'not use red, the section will not appear.')
     tot = sum(len(s['entries']) for s in allsecs)
     print(f'  TOTAL entries: {tot}')
+    if ub:
+        print(f'  ultimatums viewer: {ub["ultimatums"]} ultimatum(s), {ub["boons"]} boon(s), '
+              f'{ub["refractions"]} refraction(s)'
+              + (f'  [{len(ub["textonly"])} text-only, no art: {", ".join(ub["textonly"])}]'
+                 if ub['textonly'] else ''))
     return 0
 
 

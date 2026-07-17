@@ -182,7 +182,7 @@
       "key": "ultimatums",
       "id": "ultimatums-refractions",
       "title": "Ultimatums, Boons and Refractions",
-      "kind": "placeholder",
+      "kind": "ultimatums",
       "group": "resources",
       "figures": []
     },

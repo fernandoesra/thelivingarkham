@@ -4,6 +4,17 @@
    Full-height app shell · six themes · WCAG 2.1 AA
    ============================================================ */
 
+/* ---------- game fonts, only for the rendered Ultimatum/Boon cards ----------
+   Subset to Latin + typographic punctuation and served as woff2; a browser loads
+   them only when a card that uses them is on screen, so no other page pays for it.
+   'ubtitle' is the blackletter card title; 'ubbody' is Arno Pro, the game's body
+   face, declared across weight/style so <strong>/<em> in a rule pick the right cut. */
+@font-face{font-family:'ubtitle';src:url(../assets/fonts/ub/ub-title.woff2) format('woff2');font-display:swap}
+@font-face{font-family:'ubbody';src:url(../assets/fonts/ub/ub-body.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'ubbody';src:url(../assets/fonts/ub/ub-body-i.woff2) format('woff2');font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:'ubbody';src:url(../assets/fonts/ub/ub-body-b.woff2) format('woff2');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'ubbody';src:url(../assets/fonts/ub/ub-body-bi.woff2) format('woff2');font-weight:700;font-style:italic;font-display:swap}
+
 /* ---------- page reset ---------- */
 *,*::before,*::after{box-sizing:border-box}
 html,body{margin:0;height:100%}
@@ -546,6 +557,11 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-azcount{font-family:var(--ff-ui); font-size:13px; color:var(--muted);
   margin-left:auto; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0}
 .tla-azfilter.is-folded .tla-azcount{color:var(--gold2)}
+/* Empty state: a version filter can leave a glossary letter (or the whole
+   chapter) with nothing to show. Speak to it instead of a blank pane. */
+.tla-glossnone{font-family:var(--ff-ui); font-size:15px; color:var(--muted);
+  margin:28px 0; padding:18px 20px; border:1px dashed var(--edge2);
+  border-radius:10px; background:var(--bg2); text-align:center}
 
 /* Jumping to an entry must land it BELOW the pinned toolbar, not behind it. The
    toolbar's height changes with the alphabet and the width (it wraps to two rows
@@ -693,6 +709,80 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-anatcard-img{display:block; width:100%; height:auto; border-radius:9px;
   background:var(--figbg)}
 .tla-anat-none{margin:0; color:var(--muted); font-size:15px}
+
+/* ---- Ultimatums & Boons viewer ---- */
+.tla-ub{margin:6px 0 0}
+.tla-ub-tabs{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 20px;
+  border-bottom:1px solid var(--edge2); padding-bottom:10px}
+.tla-ub-tab{font-family:var(--ff-ui); font-size:14px; line-height:1.2;
+  padding:9px 15px; min-height:38px; border-radius:9px; cursor:pointer;
+  border:1px solid var(--edge2); background:var(--panel); color:var(--ink2)}
+.tla-ub-tab:hover{background:var(--panel2); color:var(--ink)}
+.tla-ub-tab[aria-selected=true]{background:var(--gold); border-color:var(--gold);
+  color:var(--on-gold); font-weight:700}
+.tla-ub-n{font-size:12px; font-weight:400; opacity:.72; margin-left:2px}
+/* Full opacity on the selected (gold) tab: dimming blends the count toward the
+   gold and drops it under 4.5:1 on the lighter themes. on-gold already contrasts. */
+.tla-ub-tab[aria-selected=true] .tla-ub-n{opacity:1}
+/* list beside the chosen card: both on screen at once */
+.tla-ub-main{display:grid; grid-template-columns:minmax(220px,300px) minmax(0,1fr);
+  gap:22px 30px; align-items:start}
+.tla-ub-list{list-style:none; margin:0; padding:6px; max-height:640px; overflow-y:auto;
+  border:1px solid var(--edge2); border-radius:12px; background:var(--bg2)}
+.tla-ub-item{display:flex; align-items:center; gap:12px; padding:7px 10px; margin:2px 0;
+  border-radius:9px; cursor:pointer; border:1px solid transparent}
+.tla-ub-item:hover{background:var(--panel2)}
+.tla-ub-item.is-sel{background:var(--panel); border-color:var(--edge2);
+  box-shadow:inset 3px 0 0 var(--gold)}
+.tla-ub-thumb{width:46px; height:auto; flex:0 0 auto; display:block; border-radius:5px;
+  background:var(--figbg); box-shadow:0 1px 3px rgba(0,0,0,.4)}
+.tla-ub-iname{font-family:var(--ff-ui); font-size:14px; color:var(--ink2); line-height:1.25}
+.tla-ub-item.is-sel .tla-ub-iname{color:var(--gold2); font-weight:600}
+/* "EN": this card is still in English, awaiting translation. */
+.tla-ub-en{margin-left:auto; flex:0 0 auto; align-self:center; font-family:var(--ff-ui);
+  font-size:10px; font-weight:700; letter-spacing:.5px; color:var(--gold2);
+  background:var(--mark); border:1px solid var(--gold); border-radius:5px; padding:1px 5px}
+/* No auto side-margins here: this is a grid cell, and an auto margin turns off the
+   stretch that gives it width — with the card size-contained (below) that collapses it
+   to zero. The card centres itself instead. */
+.tla-ub-detail{min-width:0}
+/* The card is rendered LIVE: a fixed textless picture (art + 5argon's frame, the
+   printed English text hidden under it) with the title, type line and rule laid over
+   it in the reader's language and the game's own fonts. Container-query units size
+   every text layer from the card's own width, so one set of percentages holds at any
+   display size. The card's colours are the print's cream, not the site theme's. */
+.tla-ubc{position:relative; width:100%; max-width:400px; margin:0 auto;
+  container-type:inline-size; border-radius:16px; overflow:hidden; box-shadow:var(--shadow)}
+.tla-ubc-pic{display:block; width:100%; height:auto}
+.tla-ubc-title,.tla-ubc-type,.tla-ubc-rule{position:absolute; color:#f4ecd8}
+.tla-ubc-title{top:3.4%; left:11%; right:11%; margin:0; text-align:center;
+  font-family:'ubtitle',var(--ff-head); font-weight:400; font-size:6.6cqw;
+  line-height:1.02; letter-spacing:.2cqw; text-shadow:0 .25cqw .6cqw rgba(0,0,0,.5)}
+.tla-ubc-type{top:70.1%; left:8%; right:8%; text-align:center;
+  font-family:'ubbody',var(--ff-body); font-style:italic; font-weight:700;
+  font-size:3.3cqw; line-height:1}
+.tla-ubc-rule{top:74%; left:9.5%; right:9.5%; bottom:6.4%; overflow:hidden;
+  font-family:'ubbody',var(--ff-body); font-size:calc(var(--ubfit,1)*4.1cqw);
+  line-height:1.28; text-align:left}
+.tla-ubc-rule .tla-p{margin:0 0 .45em; font-size:inherit; line-height:inherit}
+.tla-ubc-rule .tla-p:last-child{margin-bottom:0}
+.tla-ubc-rule a.xref{color:inherit; text-decoration:underline; text-underline-offset:2px}
+.tla-ubc-rule .ico{background-color:#f4ecd8}
+/* Item present in English but not yet in this language: shown in English, flagged. */
+.tla-ub-pending{display:flex; align-items:flex-start; gap:9px; max-width:400px;
+  margin:0 auto 16px; padding:9px 13px; border-radius:10px; font-family:var(--ff-ui);
+  font-size:13px; line-height:1.35; background:var(--mark); color:var(--ink2);
+  border:1px solid var(--gold)}
+.tla-ub-pending svg{width:17px; height:17px; flex:0 0 auto; margin-top:1px; color:var(--gold2)}
+.tla-ub-pending b{color:var(--gold2); font-weight:700}
+.tla-ub-credit{font-family:var(--ff-ui); font-size:13px; color:var(--muted);
+  margin:24px 0 0; display:flex; flex-wrap:wrap; gap:4px 12px; align-items:center}
+.tla-ub-credit .tla-extlink{margin:0}
+@media (max-width:760px){
+  .tla-ub-main{grid-template-columns:1fr}
+  .tla-ub-list{max-height:300px}
+  .tla-ub-detail{max-width:none}
+}
 
 /* A marker sits where the book's arrowhead pointed. It is translated onto its
    own centre, so the percentage is the point itself and stays the point at any

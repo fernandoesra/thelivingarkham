@@ -178,8 +178,8 @@
       "num": "",
       "key": "ultimatums",
       "id": "ultimatums-refracciones",
-      "title": "Ultimátums, ayudas y Refracciones",
-      "kind": "placeholder",
+      "title": "Ultimátums, Ayudas y Refracciones",
+      "kind": "ultimatums",
       "group": "resources",
       "figures": []
     },

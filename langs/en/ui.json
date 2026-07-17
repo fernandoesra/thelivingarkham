@@ -181,7 +181,20 @@
     "vernew": "New in v{v}",
     "viewall": "View everything",
     "viewas": "View",
-    "viewdiag": "Diagrams only"
+    "viewdiag": "Diagrams only",
+    "ubintro": "Ultimatums are rules that make the game harder for a group of investigators; Boons, conversely, make it easier. Browse them here card by card. Each rule's text is taken from the Grimoire's “Optional Rules” chapter.",
+    "ubtablabel": "Card type",
+    "ubultimatums": "Ultimatums",
+    "ubboons": "Boons",
+    "ubrefractions": "Refractions",
+    "ubrefsoon": "Refractions are variant Ultimatums and Boons from past campaigns. They will be added soon.",
+    "ubcredit": "Card frames contributed by 5argon (community); the text is the official Grimoire's.",
+    "ubcreditlink": "5argon's templates",
+    "ubtypeultimatum": "Ultimatum.",
+    "ubtypeboon": "Boon.",
+    "ubtyperefraction": "Refraction.",
+    "ubpending": "Awaiting official translation.",
+    "ubpendingv": "Added in version {v} · awaiting official translation."
   },
   "blurbs": {
     "additional-rules": "Fundamentals and rules that extend the core rulebook.",
@@ -202,6 +215,6 @@
     "setup": "Step by step for setting up a scenario.",
     "skill-tests": "The exact order for resolving a skill test.",
     "timing": "How phases resolve and the order of play.",
-    "ultimatums": "Campaign ultimatums, boons and refractions."
+    "ultimatums": "Ultimatums, Boons and Refractions to tune the difficulty."
   }
 }

@@ -1,0 +1,312 @@
+{
+ "cards": {
+  "ultimatum-of-agony": {
+   "cat": "ultimatum",
+   "refraction": false,
+   "en": "Ultimatum of Agony",
+   "card": "ub/cards/ultimatum-of-agony.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-agony.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-broken-promises": {
+   "cat": "ultimatum",
+   "refraction": false,
+   "en": "Ultimatum of Broken Promises",
+   "card": "ub/cards/ultimatum-of-broken-promises.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-broken-promises.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-chaos": {
+   "cat": "ultimatum",
+   "refraction": false,
+   "en": "Ultimatum of Chaos",
+   "card": "ub/cards/ultimatum-of-chaos.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-chaos.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-disaster": {
+   "cat": "ultimatum",
+   "refraction": false,
+   "en": "Ultimatum of Disaster",
+   "card": "ub/cards/ultimatum-of-disaster.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-disaster.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-dread": {
+   "cat": "ultimatum",
+   "refraction": false,
+   "en": "Ultimatum of Dread",
+   "card": "ub/cards/ultimatum-of-dread.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-dread.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-exile": {
+   "cat": "ultimatum",
+   "refraction": false,
+   "en": "Ultimatum of Exile",
+   "card": "ub/cards/ultimatum-of-exile.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-exile.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-failure": {
+   "cat": "ultimatum",
+   "refraction": false,
+   "en": "Ultimatum of Failure",
+   "card": "ub/cards/ultimatum-of-failure.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-failure.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-finality": {
+   "cat": "ultimatum",
+   "refraction": false,
+   "en": "Ultimatum of Finality",
+   "card": "ub/cards/ultimatum-of-finality.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-finality.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-forbidden-knowledge": {
+   "cat": "ultimatum",
+   "refraction": false,
+   "en": "Ultimatum of Forbidden Knowledge",
+   "card": "ub/cards/ultimatum-of-forbidden-knowledge.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-forbidden-knowledge.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-hardship": {
+   "cat": "ultimatum",
+   "refraction": false,
+   "en": "Ultimatum of Hardship",
+   "card": "ub/cards/ultimatum-of-hardship.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-hardship.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-induction": {
+   "cat": "ultimatum",
+   "refraction": false,
+   "en": "Ultimatum of Induction",
+   "card": "ub/cards/ultimatum-of-induction.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-induction.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-malevolence": {
+   "cat": "ultimatum",
+   "refraction": false,
+   "en": "Ultimatum of Malevolence",
+   "card": "ub/cards/ultimatum-of-malevolence.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-malevolence.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-orthodoxy": {
+   "cat": "ultimatum",
+   "refraction": false,
+   "en": "Ultimatum of Orthodoxy",
+   "card": "ub/cards/ultimatum-of-orthodoxy.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-orthodoxy.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-survival": {
+   "cat": "ultimatum",
+   "refraction": false,
+   "en": "Ultimatum of Survival",
+   "card": "ub/cards/ultimatum-of-survival.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-survival.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-the-scream": {
+   "cat": "ultimatum",
+   "refraction": false,
+   "en": "Ultimatum of The Scream",
+   "card": "ub/cards/ultimatum-of-the-scream.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-the-scream.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-ultimatums": {
+   "cat": "ultimatum",
+   "refraction": false,
+   "en": "Ultimatum of Ultimatums",
+   "card": "ub/cards/ultimatum-of-ultimatums.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-ultimatums.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-the-broken-veil": {
+   "cat": "ultimatum",
+   "refraction": false,
+   "en": "Ultimatum of the Broken Veil",
+   "card": "ub/cards/ultimatum-of-the-broken-veil.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-the-broken-veil.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-the-highlander": {
+   "cat": "ultimatum",
+   "refraction": false,
+   "en": "Ultimatum of the Highlander",
+   "card": "ub/cards/ultimatum-of-the-highlander.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-the-highlander.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-the-spiral": {
+   "cat": "ultimatum",
+   "refraction": false,
+   "en": "Ultimatum of the Spiral",
+   "card": "ub/cards/ultimatum-of-the-spiral.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-the-spiral.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "boon-of-athena": {
+   "cat": "boon",
+   "refraction": false,
+   "en": "Boon of Athena",
+   "card": "ub/cards/boon-of-athena.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/boon-of-athena.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "boon-of-destiny": {
+   "cat": "boon",
+   "refraction": false,
+   "en": "Boon of Destiny",
+   "card": "ub/cards/boon-of-destiny.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/boon-of-destiny.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "boon-of-hades": {
+   "cat": "boon",
+   "refraction": false,
+   "en": "Boon of Hades",
+   "card": "ub/cards/boon-of-hades.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/boon-of-hades.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "boon-of-hermes": {
+   "cat": "boon",
+   "refraction": false,
+   "en": "Boon of Hermes",
+   "card": "ub/cards/boon-of-hermes.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/boon-of-hermes.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "boon-of-osiris": {
+   "cat": "boon",
+   "refraction": false,
+   "en": "Boon of Osiris",
+   "card": "ub/cards/boon-of-osiris.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/boon-of-osiris.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "boon-of-persephone": {
+   "cat": "boon",
+   "refraction": false,
+   "en": "Boon of Persephone",
+   "card": "ub/cards/boon-of-persephone.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/boon-of-persephone.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "boon-of-thoth": {
+   "cat": "boon",
+   "refraction": false,
+   "en": "Boon of Thoth",
+   "card": "ub/cards/boon-of-thoth.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/boon-of-thoth.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "boon-of-the-ancients": {
+   "cat": "boon",
+   "refraction": false,
+   "en": "Boon of the Ancients",
+   "card": "ub/cards/boon-of-the-ancients.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/boon-of-the-ancients.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "boon-of-the-morrigan": {
+   "cat": "boon",
+   "refraction": false,
+   "en": "Boon of the Morrígan",
+   "card": "ub/cards/boon-of-the-morrigan.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/boon-of-the-morrigan.webp",
+   "tw": 132,
+   "th": 183
+  }
+ }
+}

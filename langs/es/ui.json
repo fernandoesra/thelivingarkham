@@ -182,7 +182,20 @@
     "vernew": "Novedades de la v{v}",
     "viewall": "Ver todo",
     "viewas": "Ver",
-    "viewdiag": "Ver solo diagramas"
+    "viewdiag": "Ver solo diagramas",
+    "ubintro": "Los Ultimátums son reglas que hacen la partida más difícil para un grupo de investigadores; las Ayudas, al contrario, la hacen más fácil. Aquí puedes explorarlos carta a carta. El texto de cada regla está tomado del capítulo «Reglas opcionales» del Grimorio.",
+    "ubtablabel": "Tipo de carta",
+    "ubultimatums": "Ultimátums",
+    "ubboons": "Ayudas",
+    "ubrefractions": "Refracciones",
+    "ubrefsoon": "Las Refracciones son variantes de Ultimátums y Ayudas de campañas anteriores. Se añadirán próximamente.",
+    "ubcredit": "Marcos de carta cedidos por 5argon (comunidad); el texto es el del Grimorio oficial.",
+    "ubcreditlink": "Plantillas de 5argon",
+    "ubtypeultimatum": "Ultimátum.",
+    "ubtypeboon": "Ayuda.",
+    "ubtyperefraction": "Refracción.",
+    "ubpending": "A la espera de traducción oficial.",
+    "ubpendingv": "Añadido en la versión {v} · a la espera de traducción oficial."
   },
   "blurbs": {
     "additional-rules": "Fundamentos y reglas que amplían el reglamento básico.",
@@ -203,6 +216,6 @@
     "setup": "Paso a paso para preparar un escenario.",
     "skill-tests": "El orden exacto para resolver una prueba de habilidad.",
     "timing": "Cómo se resuelven las fases y el orden de juego.",
-    "ultimatums": "Ultimátums, ayudas y refracciones de campaña."
+    "ultimatums": "Ultimátums, Ayudas y Refracciones para ajustar la dificultad."
   }
 }

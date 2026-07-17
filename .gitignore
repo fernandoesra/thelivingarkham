@@ -4,6 +4,10 @@ node_modules/
 data/_nodes_*.json
 assets/img/images_*.json
 assets/icons/_contact_sheet.png
+# Ultimatums & Boons DESIGN SOURCES (~1 GB: .afdesign projects + full-res frames).
+# The site ships the optimized WebP in assets/ub/ instead — these are kept locally
+# for reference only and must never reach the repo (GitHub rejects >100 MB files).
+assets/templates/
 # scratch renders from tools/inspect_pdf.py --grid
 assets/img/_inspect-*.png
 # test output

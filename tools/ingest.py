@@ -47,25 +47,15 @@ def run_pack(pack, all_packs):
     intro, sections, title_index = assemble.assemble(pack, nodes, images)
     allsecs = [intro] + sections
 
-    added = changed = None
     if len(pack.versions) > 1:
         print('-- version history (comparing the editions)')
-        newest = {}
-        for s in allsecs:
-            if s.get('intro'):
-                newest[history.SEC + s['id']] = {'blocks': s['intro']}
-            for e in s.get('entries', []):
-                newest[e['id']] = e
-        added, changed, parsed, notes = history.build(pack, newest_units=newest)
-        for n in notes:
-            print(f'  [note] {n}')
-
-    versions, whatsnew = assemble.apply_versions(allsecs, pack, added, changed)
-    links = assemble.linkify(allsecs, title_index, pack)
-    autolinks = assemble.autolink(allsecs, title_index, pack)
-    data = {'lang': pack.code, 'sections': allsecs, 'versions': versions, 'whatsnew': whatsnew}
+    # One shared path with tools/assemble.py — history, versions, links, the
+    # Ultimatums & Boons viewer, groupOrder — so a build here matches a build there.
+    data, rep = assemble.finalize(pack, allsecs, title_index)
     with open(pack.data_path, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False)
+    versions, whatsnew, links, autolinks = (
+        rep['versions'], rep['whatsnew'], rep['links'], rep['autolinks'])
     total = sum(len(s['entries']) for s in allsecs)
     print(f'  {len(allsecs)} sections · {total} entries · {links} cross-links · '
           f'{autolinks} auto-links -> data/grimoire_{pack.code}.json')
@@ -73,6 +63,10 @@ def run_pack(pack, all_packs):
         wn = whatsnew.get(v['v'])
         if wn:
             print(f'  v{v["v"]}: {len(wn["new"])} new entries, {len(wn["updated"])} rewritten')
+    if rep['ub']:
+        u = rep['ub']
+        print(f'  ultimatums viewer: {u["ultimatums"]} ultimatum(s), {u["boons"]} boon(s), '
+              f'{u["refractions"]} refraction(s)')
 
     print('-- check the parsed text against the PDF')
     validate_coverage.report(pack, data)
@@ -134,6 +128,17 @@ def main(argv):
         except Exception:
             failed.append((pack.code, 'unexpected error (traceback above)'))
             traceback.print_exc()
+
+    # Fill the Ultimatums & Boons viewer across languages: cards English has and the
+    # others do not yet are shown in English, flagged. Needs every language built first,
+    # so it runs here, once, after the loop — never inside a single pack's build.
+    if built:
+        step('ultimatums & boons — cross-language fill')
+        import ub_merge
+        try:
+            ub_merge.merge()
+        except Exception as e:
+            print(f'  [warn] cross-language fill skipped: {e}', file=sys.stderr)
 
     step('language registry')
     langpack.write_registry()

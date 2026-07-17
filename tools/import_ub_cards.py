@@ -1,0 +1,158 @@
+# -*- coding: utf-8 -*-
+"""Build the Ultimatums & Boons card pictures for the site — art only, no text.
+
+The site renders each card's TEXT live, in the reader's language, over a fixed
+picture. So the picture must carry the illustration and 5argon's frame but NOT
+the printed English title and rule. This makes that picture: it lays the frame
+(assets/templates/.../frames, its centre transparent, its title/type/text bands
+opaque) over the full rendered card, which hides the baked English text and
+leaves the art showing through the window. Then it crops the print bleed and
+re-encodes small as WebP — ~760 px for the detail card, a thumbnail for the list.
+
+Two source folders (a Google Drive mount the artist publishes, outside the repo):
+  Cards-V2/       full rendered fronts WITH bleed  (1432x2000, ~2.8 MB each)
+  ...and the frames are the local copies under assets/templates.
+
+The frame and the with-bleed card share an aspect ratio, so the frame is resized
+to the card and composited 1:1; the no-bleed crop is the same centre crop the
+artist's own no-bleed export uses. Output: assets/ub/<cards|thumbs>/<slug>.webp
+plus assets/ub/index.json, a language-neutral registry keyed by a slug from the
+English card name. Nothing here knows any language.
+
+Refractions belong to past campaigns and come in on request (--refractions).
+
+Usage:
+  python tools/import_ub_cards.py [--src DIR] [--refractions] [--width N] [--thumb N]
+"""
+import argparse, json, os, re, sys, unicodedata
+from PIL import Image
+
+Image.MAX_IMAGE_PIXELS = None            # the frames are big by design, not a bomb
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT = os.path.join(ROOT, 'assets', 'ub')
+FRAMES = os.path.join(ROOT, 'assets', 'templates', 'ultimatums_boons', 'frames')
+DEFAULT_SRC = ('C:/Users/Fernando/Mi unidad/Rincon Miskatonic/Contenido AH LCG/'
+               'Ultimatums and Boons/Ingles original')
+CARDS_SUB = 'Cards-V2'                    # WITH bleed, to match the frame's bleed
+
+# The frame that hides the text and rims the art, by (category, is-refraction).
+FRAME = {
+    ('ultimatum', False): 'Ultimatum-Common.png',
+    ('boon', False): 'Boon-Common.png',
+    ('ultimatum', True): 'Ultimatum-Refraction.png',
+    ('boon', True): 'Boon-Refraction.png',
+}
+# Centre crop that turns the bleed card into the no-bleed one (60/1432, 91/2000):
+# the artist's own no-bleed export is this exact crop (verified pixel-identical).
+BLEED_X, BLEED_Y = 60 / 1432, 91 / 2000
+
+
+def slugify(name):
+    s = unicodedata.normalize('NFKD', name).encode('ascii', 'ignore').decode()
+    return re.sub(r'[^A-Za-z0-9]+', '-', s).strip('-').lower()
+
+
+def parse(fname):
+    """('Ultimatum of Chaos', 'ultimatum', False) from a front-image filename."""
+    base = fname[:-len('-A.png')]
+    refraction = base.startswith('Refraction-')
+    if refraction:
+        base = base[len('Refraction-'):]
+    if base.startswith('Ultimatum'):
+        cat = 'ultimatum'
+    elif base.startswith('Boon'):
+        cat = 'boon'
+    else:
+        cat = None
+    return base, cat, refraction
+
+
+_frame_cache = {}
+
+
+def framed(card_path, frame_name):
+    """The card with the frame over it (text hidden), bleed cropped, RGBA."""
+    card = Image.open(card_path).convert('RGBA')
+    key = (frame_name, card.size)
+    fr = _frame_cache.get(key)
+    if fr is None:
+        fr = Image.open(os.path.join(FRAMES, frame_name)).convert('RGBA').resize(
+            card.size, Image.LANCZOS)
+        _frame_cache[key] = fr
+    comp = Image.alpha_composite(card, fr)
+    W, H = comp.size
+    dx, dy = round(W * BLEED_X), round(H * BLEED_Y)
+    return comp.crop((dx, dy, W - dx, H - dy))
+
+
+def save_webp(im, dst, width, quality):
+    h = round(im.height * width / im.width)
+    im = im.resize((width, h), Image.LANCZOS).convert('RGB')
+    os.makedirs(os.path.dirname(dst), exist_ok=True)
+    im.save(dst, 'WEBP', quality=quality, method=6)
+    return width, h
+
+
+def main():
+    sys.stdout.reconfigure(encoding='utf-8')
+    ap = argparse.ArgumentParser()
+    ap.add_argument('--src', default=DEFAULT_SRC, help='the "Ingles original" folder')
+    ap.add_argument('--refractions', action='store_true',
+                    help='also import the past-campaign Refraction cards')
+    ap.add_argument('--width', type=int, default=760, help='detail image width')
+    ap.add_argument('--thumb', type=int, default=132, help='thumbnail width')
+    args = ap.parse_args()
+
+    cards_dir = os.path.join(args.src, CARDS_SUB)
+    if not os.path.isdir(cards_dir):
+        print(f'ERROR: card source not found: {cards_dir}', file=sys.stderr)
+        return 1
+    if not os.path.isdir(FRAMES):
+        print(f'ERROR: frames not found: {FRAMES}\n'
+              f'  (they live under assets/templates, kept out of git for size)',
+              file=sys.stderr)
+        return 1
+
+    fronts = sorted(f for f in os.listdir(cards_dir) if f.endswith('-A.png'))
+    registry = {}
+    seen = {}
+    n = 0
+    for fname in fronts:
+        name, cat, refraction = parse(fname)
+        if cat is None:
+            print(f'  skip (unknown type): {fname}')
+            continue
+        if refraction and not args.refractions:
+            continue
+        frame_name = FRAME.get((cat, refraction))
+        if not frame_name or not os.path.exists(os.path.join(FRAMES, frame_name)):
+            print(f'  skip (no frame for {cat}{"/refraction" if refraction else ""}): {fname}')
+            continue
+        slug = slugify(name)
+        if slug in seen:
+            raise SystemExit(f'slug collision {slug!r}: {seen[slug]} vs {fname}')
+        seen[slug] = fname
+
+        pic = framed(os.path.join(cards_dir, fname), frame_name)
+        cw, ch = save_webp(pic, os.path.join(OUT, 'cards', slug + '.webp'), args.width, 82)
+        tw, th = save_webp(pic, os.path.join(OUT, 'thumbs', slug + '.webp'), args.thumb, 80)
+        registry[slug] = {
+            'cat': cat, 'refraction': refraction, 'en': name,
+            'card': f'ub/cards/{slug}.webp', 'w': cw, 'h': ch,
+            'thumb': f'ub/thumbs/{slug}.webp', 'tw': tw, 'th': th,
+        }
+        n += 1
+        print(f'  {slug}  {cw}x{ch}  ({cat}{", refraction" if refraction else ""})')
+
+    order = {'ultimatum': 0, 'boon': 1}
+    registry = dict(sorted(registry.items(),
+                           key=lambda kv: (kv[1]['refraction'],
+                                           order[kv[1]['cat']], kv[1]['en'])))
+    with open(os.path.join(OUT, 'index.json'), 'w', encoding='utf-8') as fh:
+        json.dump({'cards': registry}, fh, ensure_ascii=False, indent=1)
+    print(f'\n  {n} card(s) -> assets/ub/  (textless, framed; index.json)')
+    return 0
+
+
+if __name__ == '__main__':
+    sys.exit(main())
