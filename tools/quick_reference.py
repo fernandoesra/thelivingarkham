@@ -151,14 +151,18 @@ def prose(pack):
         return {'block': ln['block'], 'bullet': P.bullet_level(ln),
                 'runs': P.merge_runs(P.build_runs(ln['spans'], reds)), 'page': ln['page']}
 
-    # The left column, whole, top to bottom — NOT merged with the footer by y. Sorting the
-    # two columns together by height would slot a footer line between a paragraph and its
-    # own wrapped continuation and orphan it ("...capacidad de" | "carta").
-    left = sorted((ln for ln in lines if ln['page'] == page and x0 - 1 <= ln['x0'] < mid),
-                  key=lambda ln: round(ln['y']))
-    # The action-types footer: right-half prose below every badge, in its own reading order.
-    footer = sorted((ln for ln in lines if ln['page'] == page and ln['x0'] >= mid and ln['y'] > floor),
-                    key=lambda ln: round(ln['y']))
+    # The prose: the sheet's left half in full, plus any right-half text BELOW the symbol
+    # badges. That second part is the bottom text block's right mini-column, which on the
+    # single-page edition is drawn under the symbol grid (the two-column action list —
+    # "Fight | Move", "Evade | Resource"); the badge floor is what tells it apart from the
+    # grid's own captions above it.
+    keep = [ln for ln in lines if ln['page'] == page
+            and (x0 - 1 <= ln['x0'] < mid or (ln['x0'] >= mid and ln['y'] > floor))]
+    # Ordered by COLUMN first, then height — never height alone. collect_lines has already
+    # split the mini-columns (a two-column action list comes back as two cols), so this
+    # reads each column top to bottom instead of zig-zagging between them and shredding the
+    # sentences, which is exactly what a plain y-sort did to the English action types.
+    keep.sort(key=lambda ln: (ln['col'], round(ln['y'])))
 
     out, raw = [], []
 
@@ -166,7 +170,7 @@ def prose(pack):
         if out and raw:
             out[-1]['blocks'] = P.finalize_body(raw)
 
-    for ln in left:
+    for ln in keep:
         lvl = P.line_is_heading(ln)
         if lvl is not None and lvl <= 2:        # 18.9pt sheet title: not a sub-section
             continue
@@ -176,9 +180,9 @@ def prose(pack):
             continue
         if not out:                             # body before the first heading: ignore
             continue
+        # A later column has no heading of its own (the action list's right half), so it
+        # lands in the section the last heading opened — the action types it continues.
         raw.append(as_body(ln))
-    # The footer belongs to the last (bottom) section — the action types it continues.
-    raw.extend(as_body(ln) for ln in footer)
     flush()
     return [s for s in out if s['blocks']]
 

@@ -143,16 +143,17 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
      they live here, once. Fixed, not theme-adapted: each symbol shows on a light chip
      whose background never changes, exactly as the book prints a badge on a light
      shield, so the colour reads the same on every theme.
-     PROVISIONAL: --sym-seeker and --sym-elderthing came off the badge art too pale to
-     meet 3:1 on the chip, so they are darkened here pending the authoritative palette;
-     the glyph contour (.tla-symchip .ico) is what makes any pale fill legible meanwhile. */
+     seeker/skull/elder-thing were the three the badge rip read badly (a highlight or a
+     shadow, not the mark's colour); they are set here from the printed badges instead —
+     amber, maroon, navy-purple. The glyph contour (.tla-symchip .ico) keeps any fill,
+     pale or not, legible against the chip regardless. */
   --sym-chip:#ece3cb;
-  --sym-guardian:#0465aa; --sym-seeker:#96741f; --sym-mystic:#3a2058;
+  --sym-guardian:#0465aa; --sym-seeker:#9c7015; --sym-mystic:#3a2058;
   --sym-rogue:#0a7e5e; --sym-survivor:#ad2731;
   --sym-willpower:#004a73; --sym-intellect:#4b1848; --sym-combat:#6d2613;
   --sym-agility:#005439; --sym-wild:#725b07;
-  --sym-eldersign:#348792; --sym-autofail:#64070f; --sym-skull:#753620;
-  --sym-cultist:#004a17; --sym-tablet:#0f2f4b; --sym-elderthing:#6b5d3a;
+  --sym-eldersign:#348792; --sym-autofail:#64070f; --sym-skull:#7c2b26;
+  --sym-cultist:#004a17; --sym-tablet:#0f2f4b; --sym-elderthing:#37335f;
   font-size:16px; color:var(--ink); font-family:var(--ff-body); line-height:1.65;
   -webkit-font-smoothing:antialiased;
   height:100dvh; display:flex; flex-direction:column; position:relative; overflow:hidden;
@@ -307,10 +308,22 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
 /* The shelf headings in the side menu. A rule above each one rather than a box around
    it: the menu is already a column of bordered things, and another border would read as
    one more item rather than as what separates them. */
+/* A collapsible shelf. The summary is the whole clickable row; the h2 inside keeps the
+   heading in the outline. The rule/spacing that used to live on the h2 moves to the
+   summary so the fold line sits above the whole shelf, not just its label. */
+.tla-navgrp{margin:0}
+.tla-nav-grp-s{display:flex; align-items:center; gap:8px; cursor:pointer; list-style:none;
+  margin:14px 0 4px; padding:12px 10px 2px; border-top:1px solid var(--edge)}
+.tla-navgrp:first-of-type .tla-nav-grp-s{margin-top:2px; padding-top:0; border-top:0}
+.tla-nav-grp-s::-webkit-details-marker{display:none}
+.tla-nav-grp-s::before{content:''; flex:0 0 auto; width:6px; height:6px; margin-right:1px;
+  border-right:2px solid var(--muted); border-bottom:2px solid var(--muted);
+  transform:rotate(-45deg); transition:transform .15s ease}
+.tla-navgrp[open] > .tla-nav-grp-s::before{transform:rotate(45deg)}
+.tla-nav-grp-s:hover{color:var(--ink)}
+.tla-nav-grp-s:focus-visible{outline:3px solid var(--gold); outline-offset:2px; border-radius:6px}
 .tla-nav-grp{font-family:var(--ff-ui); font-size:11px; font-weight:700; letter-spacing:1.2px;
-  text-transform:uppercase; color:var(--muted); margin:18px 0 6px; padding:12px 10px 0;
-  border-top:1px solid var(--edge)}
-.tla-nav-grp:first-child{margin-top:2px; padding-top:0; border-top:0}
+  text-transform:uppercase; color:var(--muted); margin:0}
 .tla-nav-sec{margin-bottom:2px}
 /* Announced, not written: dimmer than a chapter, but never so dim it fails contrast —
    the word "Próximamente" is the whole content of the row. */
@@ -1051,6 +1064,11 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
   -webkit-mask-size:contain; mask-size:contain}
 .tla-substmark.is-none{background:none; border:1px dashed var(--edge2); border-radius:6px}
 .tla-substname{font-size:15px; color:var(--ink); min-width:0}
+/* A fan-out row's targets stack vertically with the operator between them, so the row
+   reads as one-on-the-left, two-on-the-right — the shape the book draws with its brace,
+   and the shape its own diagrams use. The source cell centres against the taller stack. */
+.tla-substto.is-multi{display:flex; flex-direction:column; align-items:flex-start; gap:6px}
+.tla-substto.is-multi .tla-substop{margin:0}
 /* The operator the book prints between two replacements. Kept visible and kept as the
    book sets it; the word beside it is for the reader who cannot see a glyph. */
 .tla-substop{display:inline-flex; align-items:center; justify-content:center;
@@ -1091,6 +1109,20 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
 .tla-extras-l a:hover{color:var(--gold2)}
 .tla-extras-l a svg{width:14px; height:14px; flex:0 0 auto}
 .tla-extras-n{font-family:var(--ff-body); font-size:13px; color:var(--muted); max-width:66ch}
+
+/* The banner that points to the printable sheet at the foot — the shape of the book's
+   own callout, in the calm teal rather than the red STOP, because it invites rather than
+   interrupts. */
+.tla-qrbanner{display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+  margin:6px 0 20px; padding:14px 18px; border-radius:12px;
+  border:1px solid var(--edge2); border-left:3px solid var(--teal2); background:var(--panel)}
+.tla-qrbanner svg{width:20px; height:20px; flex:0 0 auto; color:var(--teal2)}
+.tla-qrbanner-t{flex:1 1 220px; margin:0; font-family:var(--ff-body); font-size:14.5px; color:var(--ink2)}
+.tla-qrbanner-go{flex:0 0 auto; min-height:38px; padding:0 16px; cursor:pointer;
+  font-family:var(--ff-ui); font-size:13.5px; font-weight:600; color:var(--on-gold);
+  background:var(--gold); border:0; border-radius:9px}
+.tla-qrbanner-go:hover{background:var(--gold2)}
+.tla-qrbanner-go:focus-visible{outline:3px solid var(--gold); outline-offset:2px}
 
 /* ---------- quick reference: the interactive symbol key ---------- */
 .tla-qref{display:grid; gap:24px; margin:8px 0 20px}

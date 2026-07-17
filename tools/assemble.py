@@ -900,10 +900,10 @@ def main():
     if len(pack.versions) > 1:
         newest = {}
         for s in allsecs:
-            # The quick-reference sheet is a static key, not versioned rules — and its
-            # entries only exist when the PDF is open, so history.py (which re-reads older
-            # editions with no images) could never find them in v1.0 and would brand every
-            # one "new" in the latest. Left out of the diff, exactly as it is unversioned.
+            # The quick-reference sheet is left out of history's diff on purpose: its
+            # entries only exist when the PDF is open, so the imageless re-read of an older
+            # edition could never find them and would brand every one "new" in the latest.
+            # Its version info is read from the page's own marks instead, just below.
             if s.get('kind') == 'quickref':
                 continue
             if s.get('intro'):
@@ -913,10 +913,26 @@ def main():
         added, changed, _parsed, notes = history.build(pack, newest_units=newest)
         for n in notes:
             print(f'  [note] {n}')
+        # The reference sheet is foundational — present since the first edition, so never
+        # "new" — but the publisher DOES print its reworded lines red, exactly as in the
+        # chapters. So read its history straight off those marks: added in the first
+        # edition, changed in the latest wherever a run is red. This runs before
+        # apply_versions, which consumes the red flag (turning it into the inline "new"
+        # highlight) and feeds these same dicts to the What's New index — so the sheet's
+        # update shows both as a badge and in the changelog, like every other chapter.
+        first, last = pack.versions[0]['v'], pack.versions[-1]['v']
+        for s in allsecs:
+            if s.get('kind') != 'quickref':
+                continue
+            for e in s.get('entries', []):
+                added.setdefault(e['id'], first)
+                if any(r.get('red') for b in e['blocks'] for r in b['runs']):
+                    changed.setdefault(e['id'], []).append(last)
     versions, whatsnew = apply_versions(allsecs, pack, added, changed)
     links = linkify(allsecs, title_index, pack)
     autolinks = autolink(allsecs, title_index, pack)
-    data = {'lang': lang, 'sections': allsecs, 'versions': versions, 'whatsnew': whatsnew}
+    data = {'lang': lang, 'sections': allsecs, 'versions': versions, 'whatsnew': whatsnew,
+            'groupOrder': list(langpack.SECTION_GROUPS)}
     json.dump(data, open(pack.data_path, 'w', encoding='utf-8'), ensure_ascii=False)
     # ---- report ----
     print(f'[{lang}] sections: {len(allsecs)}  cross-links: {links}  auto-links: {autolinks}  versions: {[v["v"] for v in versions]}')

@@ -468,7 +468,11 @@ function substHTML(e){
     /* data-h carries the column header onto the cell: narrow screens drop the <thead>,
        and without it a stack of set names loses which side of the swap it is on. */
     h+='<td class="tla-substfrom" data-h="'+esc(t('substfrom'))+'">'+substCell(r.from)+'</td>';
-    h+='<td class="tla-substto" data-h="'+esc(t('substto'))+'">';
+    /* A row that fans out reads as two columns, like the book's own diagrams: the source
+       centred on the left, the two (or more) replacements stacked on the right with the
+       operator between them. A one-to-one row stays a single line. */
+    var multi=r.to.length>1;
+    h+='<td class="tla-substto'+(multi?' is-multi':'')+'" data-h="'+esc(t('substto'))+'">';
     r.to.forEach(function(c,j){
       if(j)h+=substOp(r.op||'+');
       h+=substCell(c);
@@ -873,19 +877,31 @@ function navGroups(){
     if(!by[g]){by[g]={id:g, items:[]}; out.push(by[g]);}
     by[g].items.push({s:s, si:si});
   });
+  /* Shelf order is the pack's to set (data.groupOrder), so "Recursos before the Grimoire"
+     is a data change, not a code one. The ungrouped home link stays pinned at the top;
+     a group the order forgot to mention falls to the end rather than vanishing. */
+  var order=data.groupOrder||[];
+  out.sort(function(a,b){
+    if(!a.id)return -1; if(!b.id)return 1;
+    var ia=order.indexOf(a.id), ib=order.indexOf(b.id);
+    return (ia<0?99:ia)-(ib<0?99:ib);
+  });
   return out;
 }
 function buildNav(){
   var h='';
   navGroups().forEach(function(g){
-    /* An h2 per shelf, and the list it labels announced as its own group: without this a
-       screen reader reads nineteen buttons in a row with no idea where the book ends. */
+    /* Each shelf collapses, so a reader can fold the whole Grimoire away to reach
+       Recursos or Ayudas. Native <details open>: keyboard-operable and announced as
+       expandable for free, open by default. The heading stays a real h2 inside the
+       summary, so the outline is unbroken and the labelled group semantics hold. */
     if(g.id){
-      h+='<h2 class="tla-nav-grp" id="navgrp-'+esc(g.id)+'">'+esc(t('grp'+g.id))+'</h2>';
+      h+='<details class="tla-navgrp" open>';
+      h+='<summary class="tla-nav-grp-s"><h2 class="tla-nav-grp" id="navgrp-'+esc(g.id)+'">'+esc(t('grp'+g.id))+'</h2></summary>';
       h+='<div class="tla-nav-grpbody" role="group" aria-labelledby="navgrp-'+esc(g.id)+'">';
     }
     h+=navItems(g.items);
-    if(g.id)h+='</div>';
+    if(g.id)h+='</div></details>';
   });
   elNav.innerHTML=h;
 }
@@ -1196,7 +1212,15 @@ function render(sid,eid,flash){
   /* quickref renders its text sub-sections through the normal entries loop below (so
      their terms autolink to the glossary and they land in the table of contents), then
      the colour symbol key and the downloadable image after them — the sheet read top to
-     bottom: the phases and terms first, the icon legend next, the printable sheet last. */
+     bottom: the phases and terms first, the icon legend next, the printable sheet last.
+     A banner up top points to that download, the way the book flags its own callouts. */
+  if(s.kind==='quickref'&&s.figures&&s.figures.length){
+    h+='<aside class="tla-qrbanner">'
+      +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
+      +'<path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>'
+      +'<p class="tla-qrbanner-t">'+esc(t('qrbanner'))+'</p>'
+      +'<button type="button" class="tla-qrbanner-go">'+esc(t('qrbannergo'))+'</button></aside>';
+  }
   /* Announced, not written. The book does the same with its own empty icon groups, and
      the reason is the same: saying a thing is coming tells the reader the site knows
      about it, where an absence tells them nothing at all. */
@@ -1243,7 +1267,7 @@ function render(sid,eid,flash){
       /* The image is a KEEPSAKE — the whole sheet in one file to print or save — so it
          names itself a download and carries a real download link, an addition to the
          interactive version above rather than the only version. */
-      h+='<figure class="tla-fig is-download"><img loading="lazy" src="assets/img/'+esc(f.file)+'" alt="'+esc(t('qrimgalt'))+'">'
+      h+='<figure class="tla-fig is-download" id="qr-download"><img loading="lazy" src="assets/img/'+esc(f.file)+'" alt="'+esc(t('qrimgalt'))+'">'
         +'<figcaption><a class="tla-dl" href="assets/img/'+esc(f.file)+'" download>'
         +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
         +'<path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>'
@@ -1350,9 +1374,9 @@ function renderWhatsNew(){
    entries live inside it. This is not a FAQ special case: the glossary will get there.
 
    Native <details>: keyboard-operable, announced as expandable, and remembers nothing —
-   none of which is ours to get right. Small groups open on sight, because making someone
-   click to reveal a single entry is a worse trade than the space it costs. */
-var WN_OPEN_UPTO=3;
+   none of which is ours to get right. All start collapsed: a mix of open and shut rows
+   read as noise (some chapters "done", others not), so every chapter is a shut row the
+   reader opens on purpose. */
 function wnList(items,cls){
   var by={}, order=[];
   items.forEach(function(it){
@@ -1363,7 +1387,7 @@ function wnList(items,cls){
   var h='';
   order.forEach(function(k){
     var g=by[k], n=g.items.length;
-    h+='<details class="tla-wngrp"'+(n<=WN_OPEN_UPTO?' open':'')+'>';
+    h+='<details class="tla-wngrp">';
     h+='<summary class="tla-wngrp-s">'
       +(g.num?('<span class="tla-wngrp-n">'+esc(g.num)+'</span>'):'<span class="tla-wngrp-n">•</span>')
       +'<span class="tla-wngrp-t">'+esc(g.sec)+'</span>'
@@ -1432,19 +1456,24 @@ function prodIconCount(s2){
   var n=0; (s2.groups||[]).forEach(function(g){n+=(g.items||[]).length;}); return n;
 }
 function cardMeta(s2){
-  var n=sectionEntries(s2).length;
-  var figs=(s2.figures||[]).length, keys=(s2.keys||[]).length, lead=(s2.intro||[]).length;
   var bits=[];
-  if(s2.kind==='figures'&&figs)      bits.push(figs+' '+plural('plates',figs));
-  else if(s2.kind==='anatomy'&&keys) bits.push(keys+' '+plural('cardkeys',keys));
-  /* Count the icons the chapter actually lists, not its groups: three of the five
-     groups are headings the book is holding open for products that do not exist yet,
-     and counting those would promise rows that are not there. */
-  else if(s2.kind==='icons')         bits.push(prodIconCount(s2)+' '+t('iconscard'));
-  else if(s2.kind==='quickref')      bits.push(qrefSymbolCount()+' '+t('qrsymbols'));
-  else if(n>1)                       bits.push(n+' '+plural('entries',n));
-  else if(lead)                      bits.push(t('prosechapter'));
-  else if(n)                         bits.push(n+' '+plural('entries',n));
+  /* What the section IS, not how big it is — a reader browsing the shelf wants "terms
+     and keywords, A to Z", not "163 entries". The blurb is the pack's, keyed by the
+     language-neutral section key. Novedades keeps its version line (handled by its
+     caller); a section with no blurb falls back to a count so nothing renders blank. */
+  var blurb=pick(lang,'blurbs',s2.key);
+  if(blurb)                          bits.push(blurb);
+  else{
+    var n=sectionEntries(s2).length;
+    var figs=(s2.figures||[]).length, keys=(s2.keys||[]).length, lead=(s2.intro||[]).length;
+    if(s2.kind==='figures'&&figs)      bits.push(figs+' '+plural('plates',figs));
+    else if(s2.kind==='anatomy'&&keys) bits.push(keys+' '+plural('cardkeys',keys));
+    else if(s2.kind==='icons')         bits.push(prodIconCount(s2)+' '+t('iconscard'));
+    else if(s2.kind==='quickref')      bits.push(qrefSymbolCount()+' '+t('qrsymbols'));
+    else if(n>1)                       bits.push(n+' '+plural('entries',n));
+    else if(lead)                      bits.push(t('prosechapter'));
+    else if(n)                         bits.push(n+' '+plural('entries',n));
+  }
   /* Flowed as text, not an icon with an aria-label: the card's accessible name is
      built from its contents, so this lands in it for free and a screen reader gets
      the same sentence the sighted reader does. It is not a second pennant — the two
@@ -1872,6 +1901,13 @@ function wireEvents(){
       return;
     }
     var wc=e.target.closest('.tla-wncard'); if(wc){gotoTarget(wc.getAttribute('data-eid'),true); return;}
+    /* The quick-reference banner scrolls to the download at the foot — an action on this
+       page, so a button, not a link, and it never touches the URL. */
+    if(e.target.closest('.tla-qrbanner-go')){
+      var dl=document.getElementById('qr-download');
+      if(dl){dl.scrollIntoView({block:'center'}); var a=dl.querySelector('.tla-dl'); if(a){try{a.focus();}catch(x){}}}
+      return;
+    }
     if(e.target.closest('.tla-aztoggle')){toggleAz(); return;}
     /* radios: 'change' is the event, and it is bound below — a click here would miss
        the keyboard entirely (arrow keys move a radio group without ever clicking) */

@@ -43,9 +43,11 @@ SECTION_KEYS = [
 # kept in step with. Fixed vocabulary for the same reason as SECTION_KEYS: the id is
 # language-neutral and each pack translates it in its own ui.json, under "grp"+id.
 #
-# ORDER MATTERS: the groups come out in the order a pack first mentions them, so this
-# tuple is only the vocabulary, never the running order.
-SECTION_GROUPS = ('grimoire', 'resources', 'aids')
+# This tuple's ORDER is the shelf order the site shows, top to bottom — Resources sit
+# above the Grimoire — independent of where the sections happen to fall in the pack (a
+# chapter keeps its number wherever its shelf lands). It is emitted into the data so JS
+# reads the order instead of hardcoding it.
+SECTION_GROUPS = ('resources', 'grimoire', 'aids')
 # How a chapter is read:
 #   glossary  A-Z entries          rules     prose entries
 #   figures   shown as page images (nothing to read back out)
