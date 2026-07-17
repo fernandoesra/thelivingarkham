@@ -194,7 +194,9 @@
     "ubtypeboon": "Boon.",
     "ubtyperefraction": "Refraction.",
     "ubpending": "Awaiting official translation.",
-    "ubpendingv": "Added in version {v} · awaiting official translation."
+    "ubpendingv": "Added in version {v} · awaiting official translation.",
+    "ubillus": "Illus.",
+    "ubnoart": "Illustration coming soon"
   },
   "blurbs": {
     "additional-rules": "Fundamentals and rules that extend the core rulebook.",

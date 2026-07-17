@@ -141,6 +141,10 @@ def attach(sections, pack):
                 'card': card['card'], 'w': card['w'], 'h': card['h'],
                 'thumb': card['thumb'], 'tw': card['tw'], 'th': card['th'],
             }
+            if card.get('illus'):
+                rec['illus'] = card['illus']
+            if card.get('noart'):
+                rec['noart'] = True
             if it.get('since'):
                 rec['since'] = it['since']
             cats[bucket].append(rec)

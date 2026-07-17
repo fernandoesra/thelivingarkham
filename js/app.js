@@ -1245,11 +1245,13 @@ function ubDetailHTML(it){
      a screen reader switches voice, and the banner says why. */
   var L=it.pending?' lang="en"':'';
   var h=it.pending?ubPendingHTML(it):'';
-  h+='<div class="tla-ubc">';
+  h+='<div class="tla-ubc'+(it.noart?' is-noart':'')+'">';
   h+='<img class="tla-ubc-pic" src="assets/'+esc(it.card)+'" width="'+it.w+'" height="'+it.h+'" alt="" draggable="false">';
+  if(it.noart)h+='<div class="tla-ubc-noart">'+esc(t('ubnoart'))+'</div>';
   h+='<h2 class="tla-ubc-title"'+L+'>'+esc(it.name)+'</h2>';
   h+='<div class="tla-ubc-type">'+esc(ubTypeLine(it))+'</div>';
   h+='<div class="tla-ubc-rule"'+L+'>'+blocksHTML(it.blocks,true,true)+'</div>';
+  if(it.illus)h+='<div class="tla-ubc-illus">'+esc(t('ubillus'))+' '+esc(it.illus)+'</div>';
   h+='</div>';
   return h;
 }
@@ -1609,7 +1611,7 @@ function rmPanel(){
    (langpack.SECTION_KEYS), so this needs no translation and no pack changes. */
 var FLAGS=[
   {id:'relevant',    keys:['whatsnew','glossary']},
-  {id:'recommended', keys:['timing','skill-tests','errata']}
+  {id:'recommended', keys:['timing','skill-tests','errata','ultimatums']}
 ];
 function flagOf(s2){
   for(var i=0;i<FLAGS.length;i++){ if(FLAGS[i].keys.indexOf(s2.key)>=0)return FLAGS[i].id; }

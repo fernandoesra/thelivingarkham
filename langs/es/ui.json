@@ -195,7 +195,9 @@
     "ubtypeboon": "Ayuda.",
     "ubtyperefraction": "Refracción.",
     "ubpending": "A la espera de traducción oficial.",
-    "ubpendingv": "Añadido en la versión {v} · a la espera de traducción oficial."
+    "ubpendingv": "Añadido en la versión {v} · a la espera de traducción oficial.",
+    "ubillus": "Ilus.",
+    "ubnoart": "Ilustración próximamente"
   },
   "blurbs": {
     "additional-rules": "Fundamentos y reglas que amplían el reglamento básico.",

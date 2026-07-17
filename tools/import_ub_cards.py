@@ -31,6 +31,9 @@ Image.MAX_IMAGE_PIXELS = None            # the frames are big by design, not a b
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(ROOT, 'assets', 'ub')
 FRAMES = os.path.join(ROOT, 'assets', 'templates', 'ultimatums_boons', 'frames')
+# Curated slug -> illustrator, read off the printed cards (bottom-left "Illus. X").
+# Language-neutral, so it lives here and the site renders it under a localized "Illus."
+ILLUS = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ub_illustrators.json')
 DEFAULT_SRC = ('C:/Users/Fernando/Mi unidad/Rincon Miskatonic/Contenido AH LCG/'
                'Ultimatums and Boons/Ingles original')
 CARDS_SUB = 'Cards-V2'                    # WITH bleed, to match the frame's bleed
@@ -70,19 +73,47 @@ def parse(fname):
 _frame_cache = {}
 
 
-def framed(card_path, frame_name):
-    """The card with the frame over it (text hidden), bleed cropped, RGBA."""
-    card = Image.open(card_path).convert('RGBA')
-    key = (frame_name, card.size)
+def _frame(frame_name, size):
+    key = (frame_name, size)
     fr = _frame_cache.get(key)
     if fr is None:
         fr = Image.open(os.path.join(FRAMES, frame_name)).convert('RGBA').resize(
-            card.size, Image.LANCZOS)
+            size, Image.LANCZOS)
         _frame_cache[key] = fr
-    comp = Image.alpha_composite(card, fr)
+    return fr
+
+
+def _crop_bleed(comp):
     W, H = comp.size
     dx, dy = round(W * BLEED_X), round(H * BLEED_Y)
     return comp.crop((dx, dy, W - dx, H - dy))
+
+
+def framed(card_path, frame_name):
+    """The card with the frame over it (text hidden), bleed cropped, RGBA."""
+    card = Image.open(card_path).convert('RGBA')
+    comp = Image.alpha_composite(card, _frame(frame_name, card.size))
+    return _crop_bleed(comp)
+
+
+# A card the manual names but has no fan art yet: the frame over a plain dark ground,
+# so the viewer shows it (title + rule, rendered live) with an empty art window until
+# the illustration arrives. Standard bleed size, so the same crop applies.
+PLACEHOLDER_SIZE = (1432, 2000)
+PLACEHOLDER_BG = (14, 14, 18, 255)
+
+
+def placeholder(frame_name):
+    bg = Image.new('RGBA', PLACEHOLDER_SIZE, PLACEHOLDER_BG)
+    return _crop_bleed(Image.alpha_composite(bg, _frame(frame_name, PLACEHOLDER_SIZE)))
+
+
+# Cards in the Grimoire with no art anywhere (not even the refraction set). Rendered
+# from the frame alone so they still appear; the illustration is dropped in later.
+PLACEHOLDERS = [
+    {'slug': 'ultimatum-of-scorched-earth', 'en': 'Ultimatum of Scorched Earth',
+     'cat': 'ultimatum', 'refraction': True, 'frame': 'Ultimatum-Refraction.png'},
+]
 
 
 def save_webp(im, dst, width, quality):
@@ -113,6 +144,8 @@ def main():
               file=sys.stderr)
         return 1
 
+    illus = json.load(open(ILLUS, encoding='utf-8')) if os.path.exists(ILLUS) else {}
+
     fronts = sorted(f for f in os.listdir(cards_dir) if f.endswith('-A.png'))
     registry = {}
     seen = {}
@@ -141,8 +174,29 @@ def main():
             'card': f'ub/cards/{slug}.webp', 'w': cw, 'h': ch,
             'thumb': f'ub/thumbs/{slug}.webp', 'tw': tw, 'th': th,
         }
+        if illus.get(slug):
+            registry[slug]['illus'] = illus[slug]
         n += 1
         print(f'  {slug}  {cw}x{ch}  ({cat}{", refraction" if refraction else ""})')
+
+    # Art-less cards the manual lists: the frame over a dark ground, marked noart so the
+    # viewer knows there is no illustrator line to draw and shows an "illustration soon" hint.
+    for pl in PLACEHOLDERS:
+        if pl['slug'] in registry:
+            continue
+        if not os.path.exists(os.path.join(FRAMES, pl['frame'])):
+            print(f'  skip placeholder (no frame): {pl["slug"]}')
+            continue
+        pic = placeholder(pl['frame'])
+        cw, ch = save_webp(pic, os.path.join(OUT, 'cards', pl['slug'] + '.webp'), args.width, 82)
+        tw, th = save_webp(pic, os.path.join(OUT, 'thumbs', pl['slug'] + '.webp'), args.thumb, 80)
+        registry[pl['slug']] = {
+            'cat': pl['cat'], 'refraction': pl['refraction'], 'en': pl['en'], 'noart': True,
+            'card': f'ub/cards/{pl["slug"]}.webp', 'w': cw, 'h': ch,
+            'thumb': f'ub/thumbs/{pl["slug"]}.webp', 'tw': tw, 'th': th,
+        }
+        n += 1
+        print(f'  {pl["slug"]}  {cw}x{ch}  (placeholder, no art)')
 
     order = {'ultimatum': 0, 'boon': 1}
     registry = dict(sorted(registry.items(),
