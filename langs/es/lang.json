@@ -26,7 +26,8 @@
       "id": "glosario",
       "title": "Glosario de términos y palabras clave",
       "kind": "glossary",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "II",
@@ -34,7 +35,8 @@
       "id": "fundamentos",
       "title": "Fundamentos y reglas adicionales",
       "kind": "rules",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "III",
@@ -42,7 +44,8 @@
       "id": "juego-orden",
       "title": "Juego y orden de resolución",
       "kind": "rules",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "IV",
@@ -50,7 +53,8 @@
       "id": "pruebas-habilidad",
       "title": "Orden de resolución de las pruebas de habilidad",
       "kind": "rules",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "V",
@@ -58,7 +62,8 @@
       "id": "iniciacion",
       "title": "Secuencia de iniciación",
       "kind": "rules",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "VI",
@@ -66,7 +71,8 @@
       "id": "preparacion",
       "title": "Preparación de un escenario",
       "kind": "rules",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "VII",
@@ -79,7 +85,8 @@
         "card-agenda-act-treachery-enemy",
         "card-investigator",
         "card-asset-event-skill"
-      ]
+      ],
+      "group": "grimoire"
     },
     {
       "num": "VIII",
@@ -87,7 +94,8 @@
       "id": "campana",
       "title": "Juego de campaña",
       "kind": "rules",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "IX",
@@ -95,7 +103,8 @@
       "id": "mazos",
       "title": "Personalización de mazos",
       "kind": "rules",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "X",
@@ -103,15 +112,17 @@
       "id": "erratas",
       "title": "Notas y fe de erratas",
       "kind": "rules",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "XI",
       "key": "faq",
       "id": "faq",
       "title": "Preguntas frecuentes",
-      "kind": "rules",
-      "figures": []
+      "kind": "faq",
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "XII",
@@ -119,7 +130,8 @@
       "id": "opcionales",
       "title": "Reglas opcionales",
       "kind": "rules",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "XIII",
@@ -127,38 +139,89 @@
       "id": "reimpresiones",
       "title": "Reimpresiones modificadas",
       "kind": "rules",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "XIV",
       "key": "icon-reference",
       "id": "ref-iconos",
       "title": "Referencia de iconos",
-      "kind": "figures",
+      "kind": "icons",
       "figures": [
         "icons-products"
-      ]
+      ],
+      "qr": "https://www.asmodee.es/product/arkham-horror-el-juego-de-cartas/",
+      "group": "grimoire"
     },
     {
       "num": "XV",
       "key": "encounter-icons",
       "id": "ref-iconos-encuentros",
       "title": "Referencia de iconos de conjuntos de encuentros",
-      "kind": "figures",
+      "kind": "icons",
       "figures": [
-        "icons-encounter-1",
-        "icons-encounter-2"
-      ]
+        "icons-encounter-1"
+      ],
+      "group": "grimoire"
+    },
+    {
+      "num": "",
+      "key": "errata-viewer",
+      "id": "visor-erratas",
+      "title": "Visor de erratas",
+      "kind": "placeholder",
+      "group": "resources",
+      "figures": []
+    },
+    {
+      "num": "",
+      "key": "ultimatums",
+      "id": "ultimatums-refracciones",
+      "title": "Ultimátums, ayudas y Refracciones",
+      "kind": "placeholder",
+      "group": "resources",
+      "figures": []
+    },
+    {
+      "num": "",
+      "key": "encounter-variation",
+      "id": "variacion-conjuntos",
+      "title": "Variación de conjuntos de encuentros: Cómo usar la caja básica nueva para jugar escenarios de legado",
+      "kind": "substitution",
+      "tableHeading": "Tabla de sustitución de conjuntos de encuentros básicos",
+      "figures": [
+        "encounter-variation"
+      ],
+      "group": "aids",
+      "qr": "https://www.asmodee.es/product/arkham-horror-el-juego-de-cartas/",
+      "extras": {
+        "under": "Conjuntos de encuentros de legado",
+        "source": "Rincón Miskatonic",
+        "items": [
+          {
+            "title": "Conjuntos de arte extendido: La noche de la Fanática",
+            "url": "https://rinconmiskatonic.org/2026/04/04/conjuntos-arte-extendido-la-noche-de-la-fanatica/",
+            "note": "Los 13 conjuntos de encuentros de la campaña introductoria, maquetados con arte extendido en un solo PDF."
+          },
+          {
+            "title": "Conjuntos de arte extendido: campañas del capítulo uno",
+            "url": "https://rinconmiskatonic.org/2026/04/07/conjuntos-arte-extendido-campanas-del-capitulo-1/",
+            "note": "Un PDF por campaña. El Legado de Dunwich está completo, con sus 8 conjuntos; el resto de campañas del capítulo uno están en proceso."
+          }
+        ]
+      }
     },
     {
       "num": "",
       "key": "quick-reference",
       "id": "ref-rapida",
       "title": "Referencia rápida",
-      "kind": "figures",
+      "kind": "quickref",
       "figures": [
         "quick-reference"
-      ]
+      ],
+      "group": "aids"
     }
   ],
   "patterns": {
@@ -265,10 +328,10 @@
       "name": "icons-products",
       "page": 46,
       "clip": [
-        2,
-        150,
-        305,
-        705
+        307,
+        28,
+        606,
+        730
       ]
     },
     {
@@ -277,7 +340,7 @@
       "clip": null
     },
     {
-      "name": "icons-encounter-2",
+      "name": "encounter-variation",
       "page": 48,
       "clip": null
     },

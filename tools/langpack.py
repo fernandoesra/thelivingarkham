@@ -33,15 +33,37 @@ DEFAULT_LANG = 'es'
 SECTION_KEYS = [
     'glossary', 'additional-rules', 'timing', 'skill-tests', 'initiation', 'setup',
     'card-anatomy', 'campaign', 'deck-building', 'errata', 'faq', 'optional-rules',
-    'reprints', 'icon-reference', 'encounter-icons', 'quick-reference',
+    'reprints', 'icon-reference', 'encounter-icons', 'errata-viewer', 'ultimatums',
+    'encounter-variation', 'quick-reference',
 ]
+
+# What the site files a section under. The site is growing past the book — some of what
+# it will hold is not a chapter of anything — so a section says which shelf it sits on
+# and the navigation reads that, rather than JS carrying a list of keys it has to be
+# kept in step with. Fixed vocabulary for the same reason as SECTION_KEYS: the id is
+# language-neutral and each pack translates it in its own ui.json, under "grp"+id.
+#
+# ORDER MATTERS: the groups come out in the order a pack first mentions them, so this
+# tuple is only the vocabulary, never the running order.
+SECTION_GROUPS = ('grimoire', 'resources', 'aids')
 # How a chapter is read:
 #   glossary  A-Z entries          rules     prose entries
 #   figures   shown as page images (nothing to read back out)
 #   anatomy   picture pages that ARE read back out — the cards stay images, the
 #             key and the callouts are rebuilt (tools/card_anatomy.py). The pages
 #             come from the chapter's declared figures, so opting in is one word.
-SECTION_KINDS = ('glossary', 'rules', 'figures', 'anatomy')
+#   icons     icon galleries, rebuilt from the page's vector art (icon_reference.py)
+#   substitution  prose, plus a table that is drawn rather than written: its rows are
+#             rebuilt from the art (substitution.py) and the prose is kept as usual.
+#   placeholder  announced, not written yet: the site says a thing is coming and gives
+#             it its place in the navigation. It backs onto no PDF heading, so it is the
+#             one kind assemble.py must not go looking for.
+#   quickref  the one-page reference sheet: an interactive symbol key (classes, skills,
+#             chaos tokens — each in its own colour) plus the page image kept for
+#             download. The symbols are game-universal, so the app builds them from the
+#             icon list; the figure travels as usual.
+SECTION_KINDS = ('glossary', 'rules', 'figures', 'anatomy', 'faq', 'icons', 'substitution',
+                 'placeholder', 'quickref')
 
 
 class PackError(Exception):
@@ -353,6 +375,19 @@ def _validate(code, raw, ui):
         if s['kind'] not in SECTION_KINDS:
             _fail(code, f'section "{s["id"]}" has kind {s["kind"]!r}; must be one of '
                         f'{", ".join(SECTION_KINDS)}.')
+        if s.get('group') and s['group'] not in SECTION_GROUPS:
+            _fail(code, f'section "{s["id"]}" is in group {s["group"]!r}, which is not one of '
+                        f'{", ".join(SECTION_GROUPS)}.\n'
+                        f'  (A group is the shelf the site files a section under. Like "key" it '
+                        f'is language-neutral — each pack names it in its own ui.json, under '
+                        f'"grp{s["group"]}".)')
+        if s['kind'] == 'substitution' and not s.get('tableHeading'):
+            _fail(code, f'section "{s["id"]}" is "kind": "substitution" but declares no '
+                        f'"tableHeading".\n'
+                        f'  The table is drawn, not written, so its rows are rebuilt from the '
+                        f'page\'s art — but the heading the book prints over it is a string, '
+                        f'and strings live here. Copy it exactly as the PDF prints it; the '
+                        f'build checks it against the heading standing over the art.')
         if s['id'] != slugify(s['id']):
             _fail(code, f'section id {s["id"]!r} is not URL-safe. Use lowercase letters, '
                         f'digits and hyphens, e.g. {slugify(s["id"])!r}.')
@@ -427,6 +462,21 @@ def _validate(code, raw, ui):
     if not isinstance(ui['months'], list) or len(ui['months']) != 12:
         raise PackError(f'langs/{code}/ui.json: "months" must be a list of exactly 12 names, '
                         f'January first.')
+    # A group the pack files sections under but never names would reach the navigation as
+    # a heading with no words in it. Checked here rather than left to the "en" fallback,
+    # because falling back would print a group heading in English inside a Spanish menu
+    # and nothing would look broken enough to notice.
+    used = []
+    for s in raw['sections']:
+        if s.get('group') and s['group'] not in used:
+            used.append(s['group'])
+    unnamed = [g for g in used if not ui['strings'].get('grp' + g)]
+    if unnamed:
+        raise PackError(
+            f'langs/{code}/ui.json: no name for the section group(s) '
+            f'{", ".join(repr(g) for g in unnamed)}.\n'
+            f'  langs/{code}/lang.json files sections under them, so the menu would print an '
+            f'empty heading. Add {", ".join(repr("grp" + g) for g in unnamed)} to "strings".')
 
 
 def load_all(only=None):

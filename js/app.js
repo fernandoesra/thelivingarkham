@@ -174,7 +174,11 @@ function wrap(s,r){if(r.bold)s='<strong>'+s+'</strong>'; if(r.italic)s='<em>'+s+
    flagged as added — which says nothing. The entry already carries its own
    "New vX" badge, so the per-run diff marks are suppressed there (the title
    does the same via titleHTML). */
-function blocksHTML(blocks,suppressNew){
+/* noFaq: the chapter already carries the link this prose is pointing at, so the
+   sentence must not sprout a second button to the same place. faqLink is a guess made
+   from the wording — it fires on the Spanish lead here and not the English one — while
+   a rebuilt chapter has the real thing off the page. The real thing wins. */
+function blocksHTML(blocks,suppressNew,noFaq){
   var h='',i=0;
   while(i<blocks.length){
     var b=blocks[i];
@@ -185,7 +189,7 @@ function blocksHTML(blocks,suppressNew){
       }
       h+='</ul>';
     } else if(b.type==='sym'){ h+='<div class="tla-sym">'+runsHTML(b.runs,suppressNew)+'</div>'; i++; }
-    else { h+='<p class="tla-p">'+runsHTML(b.runs,suppressNew)+'</p>'+faqLink(plainOfRuns(b.runs)); i++; }
+    else { h+='<p class="tla-p">'+runsHTML(b.runs,suppressNew)+'</p>'+(noFaq?'':faqLink(plainOfRuns(b.runs))); i++; }
   }
   return h;
 }
@@ -337,6 +341,202 @@ function layoutFlowLoops(){
   });
 }
 
+/* ---------- product icon reference ---------- */
+/* The book prints this chapter as a list of small marks with a name beside each. As a
+   photo of that page it could not be read, copied, searched or followed — and the QR
+   beside it was a picture of a link. Rebuilt: the marks are the page's own vector art,
+   the names are the pack's, and the QR is a real link.
+   The art is masked, not <img>: an SVG loaded through <img> is an isolated document, so
+   currentColor inside it resolves to its own black and the mark would vanish on a dark
+   theme. As a mask it is painted by the page, like every other icon here. */
+function prodIconHTML(it){
+  return it.art ? '<span class="tla-prodicon" aria-hidden="true" style="-webkit-mask-image:url(assets/products/'
+      +esc(it.art)+'.svg);mask-image:url(assets/products/'+esc(it.art)+'.svg)"></span>'
+    : '<span class="tla-prodicon is-none" aria-hidden="true"></span>';
+}
+/* The one-page reference sheet, made consultable.
+   The book prints its symbol key as coloured badges; on paper the colour is decoration,
+   here it is data — so each symbol is drawn in its own class/skill/token colour rather
+   than the theme's single ink. The groups are game-universal (the same five classes in
+   every language), so the structure lives here and only the labels come from the pack.
+   The page scan is kept underneath as a download, which is the whole sheet in one image. */
+var QREF_GROUPS=[
+  {key:'classes', names:['guardian','seeker','mystic','rogue','survivor']},
+  {key:'skills',  names:['willpower','intellect','combat','agility','wild']},
+  {key:'tokens',  names:['eldersign','autofail','skull','cultist','tablet','elderthing']}
+];
+function qrefSymbolCount(){var n=0; QREF_GROUPS.forEach(function(g){n+=g.names.length;}); return n;}
+function symChip(name){
+  /* The icon in its brand colour on a fixed light chip — the book's own device (a
+     coloured mark on a light shield), and the reason the colour survives every theme:
+     it is always read against the same chip, never against the page. */
+  return '<span class="tla-symchip"><i class="ico ico-'+esc(name)+'" style="--icon:var(--sym-'+esc(name)+')"></i></span>';
+}
+function quickrefHTML(s){
+  var h='<div class="tla-qref">';
+  QREF_GROUPS.forEach(function(g){
+    h+='<section class="tla-qref-grp" aria-labelledby="qr-'+g.key+'">';
+    h+='<h2 class="tla-qref-h" id="qr-'+g.key+'">'+esc(t('qr'+g.key))+'</h2>';
+    h+='<ul class="tla-symgrid">';
+    g.names.forEach(function(n){
+      h+='<li class="tla-symrow">'+symChip(n)
+        +'<span class="tla-symname">'+esc(iconLabel(n))+'</span></li>';
+    });
+    h+='</ul></section>';
+  });
+  h+='</div>';
+  return h;
+}
+function iconsHTML(s){
+  var h='';
+  if(s.qr){
+    /* The book prints a QR because it is paper. This is not paper: the same target is
+       a link you can click, middle-click, copy or have read aloud. */
+    h+='<a class="tla-qrlink" href="'+esc(s.qr)+'" target="_blank" rel="noopener">'
+      +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
+      +'<path d="M14 3h7v7"/><path d="M21 3l-9 9"/><path d="M19 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>'
+      +esc(t('iconsqr'))+'</a>';
+  }
+  var gs=s.groups||[];
+  gs.forEach(function(g,gi){
+    var lvl=g.level||1;
+    /* A heading with no icons of its own is only empty if nothing hangs under it. The
+       encounter chapter nests — an expansion heading owns grids, and the grids own the
+       icons — so "nothing here yet" on the parent would be a lie printed above
+       twenty-three of them. */
+    var parent=gi+1<gs.length && (gs[gi+1].level||1)>lvl;
+    h+='<section class="tla-icongrp is-l'+lvl+'">';
+    h+='<h'+(lvl+1)+' class="tla-icongrp-h">'+esc(g.title)+'</h'+(lvl+1)+'>';
+    if(g.blurb)h+='<p class="tla-icongrp-d">'+esc(g.blurb)+'</p>';
+    if(!g.items.length){
+      /* The book ships these headings empty on purpose — the products are not out yet.
+         Saying so is what the book does; dropping the group would tell the reader the
+         game has fewer kinds of product than it has. */
+      if(!parent)h+='<p class="tla-iconsoon">'+esc(t('iconsoon'))+'</p>';
+    }else{
+      h+='<ul class="tla-icontable">';
+      g.items.forEach(function(it){
+        h+='<li class="tla-iconrow">'+prodIconHTML(it)
+          +(it.code?('<span class="tla-iconcode">'+esc(it.code)+'</span>'):'')
+          +'<span class="tla-iconname">'+esc(it.name)+'</span></li>';
+      });
+      h+='</ul>';
+    }
+    h+='</section>';
+  });
+  return h;
+}
+
+/* The substitution table. The book draws it — two marks and an arrow per row — so on
+   paper the only way to use it is to scan fourteen rows for the icon you hold. Here it
+   is a real table you can filter, and every row is readable as a sentence, because the
+   mark alone means nothing to anyone who cannot see it. */
+function substMark(art){
+  return art ? '<span class="tla-substmark" aria-hidden="true" style="-webkit-mask-image:url(assets/products/'
+      +esc(art)+'.svg);mask-image:url(assets/products/'+esc(art)+'.svg)"></span>'
+    : '<span class="tla-substmark is-none" aria-hidden="true"></span>';
+}
+function substCell(c){
+  return '<span class="tla-substset">'+substMark(c.art)+'<span class="tla-substname">'+esc(c.label)+'</span></span>';
+}
+/* The book prints the operator as a bare "+" or "o" between two marks. A "+" read aloud
+   is "plus", which is not what the row says, so the token stays visible exactly as the
+   book sets it and the pack supplies the words underneath it. Which of the two a row is
+   was decided by the page's geometry, not by the token: the book draws a tall brace for
+   a row that fans out and a small arrow for one that does not. */
+function substOp(op){
+  var word=/^[^\W\d_]+$/.test(op)?'substany':'substall';
+  return '<span class="tla-substop"><span aria-hidden="true">'+esc(op)+'</span>'
+    +'<span class="tla-sr">'+esc(t(word))+'</span></span>';
+}
+function substHTML(e){
+  var id='subst-'+esc(e.id);
+  var h='<div class="tla-subst" data-subst="'+id+'">';
+  h+='<div class="tla-substbar">'
+    +'<label class="tla-substlab" for="'+id+'-q">'+esc(t('substfilter'))+'</label>'
+    +'<input id="'+id+'-q" class="tla-substq" type="search" autocomplete="off" '
+    +'placeholder="'+esc(t('substph'))+'">'
+    +'<p class="tla-substcount" id="'+id+'-n" role="status" aria-live="polite"></p></div>';
+  h+='<table class="tla-substtable" id="'+id+'-t"><thead><tr>'
+    +'<th scope="col">'+esc(t('substfrom'))+'</th>'
+    +'<th scope="col">'+esc(t('substto'))+'</th></tr></thead><tbody>';
+  (e.table||[]).forEach(function(r,i){
+    /* The row's identity is its place in the table, never its art: the book prints the
+       same Midnight Masks mark on two different rows. */
+    var hay=r.from.label+' '+r.to.map(function(c){return c.label;}).join(' ');
+    h+='<tr class="tla-substrow" data-hay="'+esc(hay.toLowerCase())+'" data-i="'+i+'">';
+    /* data-h carries the column header onto the cell: narrow screens drop the <thead>,
+       and without it a stack of set names loses which side of the swap it is on. */
+    h+='<td class="tla-substfrom" data-h="'+esc(t('substfrom'))+'">'+substCell(r.from)+'</td>';
+    h+='<td class="tla-substto" data-h="'+esc(t('substto'))+'">';
+    r.to.forEach(function(c,j){
+      if(j)h+=substOp(r.op||'+');
+      h+=substCell(c);
+    });
+    h+='</td></tr>';
+  });
+  h+='</tbody></table>';
+  h+='<p class="tla-substnone" hidden>'+esc(t('substnone'))+'</p>';
+  h+='</div>';
+  return h;
+}
+/* Filtering is done on the rows already in the DOM rather than by re-rendering: the
+   marks are masked images, and re-rendering would flicker them on every keystroke. */
+function substFilter(root){
+  var q=root.querySelector('.tla-substq'), tb=root.querySelector('tbody');
+  if(!q||!tb)return;
+  var rows=[].slice.call(tb.querySelectorAll('.tla-substrow'));
+  var count=root.querySelector('.tla-substcount'), none=root.querySelector('.tla-substnone');
+  function run(){
+    var v=q.value.trim().toLowerCase(), n=0;
+    rows.forEach(function(tr){
+      var hit=!v||tr.getAttribute('data-hay').indexOf(v)>=0;
+      tr.hidden=!hit; if(hit)n++;
+    });
+    none.hidden=!!n;
+    /* Silent while untouched: a count announced on load is noise, and the table is
+       right there. It only speaks once the reader has actually filtered. */
+    count.textContent=v?(n+' '+t('of')+' '+rows.length+' '+plural('substrows',rows.length)):'';
+  }
+  q.addEventListener('input',run);
+  run();
+}
+
+function extLinkIcon(){
+  return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
+    +'<path d="M14 3h7v7"/><path d="M21 3l-9 9"/>'
+    +'<path d="M19 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>';
+}
+/* The book ends a sentence with a colon and prints a QR, because it is paper. This is
+   not paper: the same target is a link you can click, copy or have read aloud. */
+function qrLinkHTML(e){
+  if(!e.qr)return '';
+  return '<a class="tla-qrlink" href="'+esc(e.qr)+'" target="_blank" rel="noopener">'
+    +extLinkIcon()+esc(t('printplay'))+'</a>';
+}
+/* Material the book does not have, that this language's pack adds.
+   Fenced and attributed, always. A reader has to be able to tell what FFG published from
+   what a community did — so this never blends into the prose above it, it names its
+   source in its own heading, and it says outright that it is not part of the Grimoire.
+   That the block is Spanish-only is not enforced here: only the Spanish pack declares
+   any, so only Spanish has any to show. */
+function extrasHTML(e){
+  var x=e.extras;
+  if(!x||!x.items||!x.items.length)return '';
+  var h='<aside class="tla-extras" aria-labelledby="ex-'+esc(e.id)+'">';
+  h+='<p class="tla-extras-h" id="ex-'+esc(e.id)+'">'
+    +'<span class="tla-extras-tag">'+esc(t('extrastag'))+'</span> '
+    +esc(t('extrasby').replace('{s}',x.source))+'</p>';
+  h+='<p class="tla-extras-d">'+esc(t('extrasnote'))+'</p>';
+  h+='<ul class="tla-extras-l">';
+  x.items.forEach(function(it){
+    h+='<li><a href="'+esc(it.url)+'" target="_blank" rel="noopener">'+extLinkIcon()+esc(it.title)+'</a>';
+    if(it.note)h+='<span class="tla-extras-n">'+esc(it.note)+'</span>';
+    h+='</li>';
+  });
+  return h+'</ul></aside>';
+}
+
 /* montage figures (example card-art resources) shown inside a glossary entry,
    with an "i" that reveals the textual alternative (card data). */
 function figSrc(f){  // credit band: original page + document version
@@ -383,21 +583,51 @@ function closeFigInfo(){
    choice. The order here is the order in the picker. Keep it in step with the
    pre-paint script in index.html — that one runs before this file exists. */
 var THEMES=['slate','moss','midnight','plum','neon','parchment'];
-var OLDTHEMES={light:'parchment',dark:'slate'};   // what the two-theme toggle saved
+/* The default is named, not THEMES[0]: the array's order is the PICKER's order, and
+   which theme comes first in a list has nothing to do with which one a new reader
+   should land on. Keep in step with index.html's pre-paint script. */
+var DEFTHEME='midnight';
+var OLDTHEMES={light:'parchment',dark:'midnight'};   // what the two-theme toggle saved
 function themeName(id){return pick(lang,'themes',id)||id;}
 function currentTheme(){
   var t=document.documentElement.getAttribute('data-theme');
   if(OLDTHEMES[t])t=OLDTHEMES[t];
-  return THEMES.indexOf(t)>=0?t:THEMES[0];
+  return THEMES.indexOf(t)>=0?t:DEFTHEME;
 }
 function applyThemeLabel(){
   if(elTheme)elTheme.setAttribute('aria-label',t('themetip')+': '+themeName(currentTheme()));
 }
 function setTheme(th){
-  if(THEMES.indexOf(th)<0)th=THEMES[0];
+  if(THEMES.indexOf(th)<0)th=DEFTHEME;
   document.documentElement.setAttribute('data-theme',th);
   try{localStorage.setItem('tla-theme',th);}catch(e){}
   applyThemeLabel(); markTheme();
+}
+/* Six themes are worth nothing if nobody finds the palette button. So it says so —
+   once, on a first visit, and never again. Dismissed by opening the picker (the
+   point was made), by the close button, or by choosing a theme.
+   Not a modal, not a blocker, and not shown to someone who already has a theme
+   saved: they have plainly found it. */
+function themeTipSeen(){
+  try{return !!localStorage.getItem('tla-themetip')||!!localStorage.getItem('tla-theme');}catch(e){return true;}
+}
+function dropThemeTip(){
+  var el=document.getElementById('tla-themetip');
+  if(el&&el.parentNode)el.parentNode.removeChild(el);
+  try{localStorage.setItem('tla-themetip','1');}catch(e){}
+}
+function showThemeTip(){
+  if(themeTipSeen())return;
+  var wrap=document.querySelector('.tla-themewrap'); if(!wrap)return;
+  var d=document.createElement('div');
+  d.className='tla-themetip'; d.id='tla-themetip';
+  /* role=status, not alert: this is an offer, not a problem, and it must not
+     interrupt whatever a screen reader is already saying. */
+  d.setAttribute('role','status');
+  d.innerHTML='<span class="tla-themetip-t">'+esc(t('themetip1'))+'</span>'
+    +'<button class="tla-themetip-x" type="button" aria-label="'+esc(t('close'))+'">×</button>';
+  wrap.appendChild(d);
+  d.querySelector('.tla-themetip-x').addEventListener('click',function(e){e.stopPropagation(); dropThemeTip();});
 }
 /* Swatches are painted BY the theme they offer — .tla-pal-<id> carries that
    theme's own tokens — so they can never drift from what they promise. The name
@@ -427,6 +657,7 @@ function markTheme(){
 function themeMenuOpen(){return elThemeMenu&&!elThemeMenu.hidden;}
 function openThemeMenu(){
   if(!elThemeMenu)return;
+  dropThemeTip();                     // they found it; stop saying so
   buildThemePicker();
   elThemeMenu.hidden=false; elTheme.setAttribute('aria-expanded','true');
   var on=elThemeMenu.querySelector('input:checked')||elThemeMenu.querySelector('input');
@@ -484,7 +715,11 @@ function normalizeData(g){
   /* The chapter also exists when this language has no news of its own but another
      language does — that IS the news. */
   if((li||langsAhead(g.lang).length) && !g.sections.some(function(x){return x.id==='novedades';})){
-    g.sections.splice(1,0,{num:'',key:'whatsnew',id:'novedades',kind:'whatsnew',
+    /* group: this chapter is built here rather than declared, so unlike every other
+       section it has no pack to say which shelf it belongs on — and it is the book's
+       own news, so it belongs on the book's. Not a hardcoded list of keys: the object
+       is made here, so its shelf travels with it exactly as its kind does. */
+    g.sections.splice(1,0,{num:'',key:'whatsnew',id:'novedades',kind:'whatsnew',group:'grimoire',
       title:pick(g.lang,'strings','news')||'What\'s New',ver:li,intro:[],entries:[],figures:[]});
   }
 }
@@ -528,6 +763,10 @@ var diagOnly=false;
 function hasDiagrams(s){return sectionEntries(s).some(function(e){return !!e.flow;});}
 function visibleEntries(s){
   var all=sectionEntries(s);
+  /* First, and composing with the others rather than replacing them: "the glossary
+     entries under R that v1.1 touched" is a reasonable thing to ask for, and the two
+     filters are about different axes. */
+  if(verOnly)all=all.filter(function(e){return inVer(e,verOnly);});
   if(s.kind==='glossary' && glossFilter!=='all'){return all.filter(function(e){return entryLetter(e)===glossFilter;});}
   if(diagOnly && hasDiagrams(s)){return all.filter(function(e){return !!e.flow;});}
   return all;
@@ -541,14 +780,68 @@ function visibleEntries(s){
    aria-pressed buttons: that announces two unrelated toggles and never says they are
    one choice of two. The fieldset gives group semantics, "1 of 2", arrow keys and a
    single tab stop for free — authored by the browser, so not authorable wrong. */
+/* The segmented pill lives in its own row inside the fieldset, and the fieldset
+   carries no border. A <legend> is not a flex item: the browser lays it INTO the
+   top border, whatever display it is given — which is why the label sat half over
+   the frame. Borderless fieldset, legend as an ordinary line above, and the row
+   owns the frame. Same shape as the theme picker, for the same reason. */
+/* ---------- version filter (any chapter) ----------
+   The book is a living document, so "what changed in v1.1?" is a question about every
+   chapter, not only about the What's New list. It is also the answer to the FAQ: once a
+   chapter holds eighty questions, "the twelve that are new" is the only way in.
+
+   Only offered where it can mean something: a language with one edition has nothing to
+   compare, and the FIRST edition is never an option — everything is "added" in it, so
+   filtering by it would show the whole chapter under a name that promises less. Today
+   that means the filter shows in en and not in es, which is not a gap but the truth:
+   es has only ever had v1.0. */
+var verOnly=null;              // null = show everything
+function verOptions(s){
+  var f=firstV(), have={};
+  sectionEntries(s).forEach(function(e){
+    if(e.addedIn)have[e.addedIn]=1;
+    if(e.changedIn)e.changedIn.forEach(function(v){have[v]=1;});
+  });
+  /* The pack's own version order, newest first — never a string sort, which would put
+     v1.10 before v1.9. */
+  return (data.versions||[]).map(function(x){return x.v;})
+    .filter(function(v){return v!==f && have[v];}).reverse();
+}
+function inVer(e,v){return isNewIn(e,v)||isChangedIn(e,v);}
+function verSwitch(s){
+  var opts=verOptions(s);
+  if(!opts.length)return '';
+  var h='<fieldset class="tla-diagpick tla-verpick"><legend class="tla-diagpick-lg">'+esc(t('viewas'))+'</legend>';
+  h+='<div class="tla-diagpick-row">';
+  var all=[['',t('all')]].concat(opts.map(function(v){return [v,t('vernew').replace('{v}',v)];}));
+  all.forEach(function(o){
+    var on=(o[0]||null)===verOnly;
+    h+='<label class="tla-diagopt"><input type="radio" name="tla-verview" value="'+esc(o[0])+'"'
+      +(on?' checked':'')+'><span>'+esc(o[1])+'</span></label>';
+  });
+  return h+'</div></fieldset>';
+}
+function setVerOnly(v){
+  v=v||null;
+  if(verOnly===v)return;
+  verOnly=v;
+  render(curSec.id,null,false); elMain.scrollTop=0;
+  /* render() destroyed the radio that was just pressed; focus its replacement, or the
+     reader is dropped at the top of the document. Same reason setDiagOnly re-focuses. */
+  var again=elMain.querySelector('.tla-verpick input[value="'+(v||'')+'"]');
+  if(again){try{again.focus();}catch(e){}}
+  var n=visibleEntries(curSec).length;
+  announce((verOnly?t('vernew').replace('{v}',verOnly):t('all'))+': '+n+' '+plural('entries',n));
+}
 function diagSwitch(s){
   var h='<fieldset class="tla-diagpick"><legend class="tla-diagpick-lg">'+esc(t('viewas'))+'</legend>';
+  h+='<div class="tla-diagpick-row">';
   [['all',t('viewall')],['diag',t('viewdiag')]].forEach(function(o){
     var on=(o[0]==='diag')===diagOnly;
     h+='<label class="tla-diagopt"><input type="radio" name="tla-diagview" value="'+o[0]+'"'
       +(on?' checked':'')+'><span>'+esc(o[1])+'</span></label>';
   });
-  return h+'</fieldset>';
+  return h+'</div></fieldset>';
 }
 function setDiagOnly(on){
   if(diagOnly===on)return;
@@ -569,15 +862,47 @@ function setDiagOnly(on){
 }
 
 /* ---------- NAV ---------- */
+/* The shelves the site files its sections under, in the order the pack first mentions
+   one. Read from the data, never a list of keys held here: the site is growing past the
+   book, and which shelf a thing sits on is the pack's to say. A section with no group
+   (the intro) comes first and stands outside them all. */
+function navGroups(){
+  var out=[], by={};
+  data.sections.forEach(function(s,si){
+    var g=s.group||'';
+    if(!by[g]){by[g]={id:g, items:[]}; out.push(by[g]);}
+    by[g].items.push({s:s, si:si});
+  });
+  return out;
+}
 function buildNav(){
-  var h=''; data.sections.forEach(function(s,si){
+  var h='';
+  navGroups().forEach(function(g){
+    /* An h2 per shelf, and the list it labels announced as its own group: without this a
+       screen reader reads nineteen buttons in a row with no idea where the book ends. */
+    if(g.id){
+      h+='<h2 class="tla-nav-grp" id="navgrp-'+esc(g.id)+'">'+esc(t('grp'+g.id))+'</h2>';
+      h+='<div class="tla-nav-grpbody" role="group" aria-labelledby="navgrp-'+esc(g.id)+'">';
+    }
+    h+=navItems(g.items);
+    if(g.id)h+='</div>';
+  });
+  elNav.innerHTML=h;
+}
+function navItems(items){
+  var h=''; items.forEach(function(it){
+    var s=it.s, si=it.si;
     var news=s.kind==='whatsnew';
+    var soon=s.kind==='placeholder';
     var n=sectionEntries(s).length;
     var num=news?'<span class="tla-nav-num"><i class="tla-eldersign" aria-hidden="true"></i></span>'
                 :(s.num?('<span class="tla-nav-num">'+esc(s.num)+'</span>'):'<span class="tla-nav-num">•</span>');
     var wc=news?wnCount(s):0;
-    var cnt=news?(wc?('<span class="tla-nav-cnt new">'+wc+'</span>'):''):(n?('<span class="tla-nav-cnt">'+n+'</span>'):'');
-    h+='<div class="tla-nav-sec'+(news?' is-news':'')+'" data-si="'+si+'" id="navsec-'+s.id+'">';
+    /* A placeholder counts nothing, so it shows the word instead of a number — otherwise
+       it reads as a chapter that happens to be empty rather than one not written yet. */
+    var cnt=soon?('<span class="tla-nav-cnt is-soon">'+esc(t('soon'))+'</span>')
+          :news?(wc?('<span class="tla-nav-cnt new">'+wc+'</span>'):''):(n?('<span class="tla-nav-cnt">'+n+'</span>'):'');
+    h+='<div class="tla-nav-sec'+(news?' is-news':'')+(soon?' is-soon':'')+'" data-si="'+si+'" id="navsec-'+s.id+'">';
     h+='<button class="tla-nav-btn" type="button" data-si="'+si+'">'+num+'<span>'+esc(s.title)+'</span>'+cnt+'</button>';
     if(s.kind!=='glossary' && n){
       var subs=sectionEntries(s).filter(inToc);
@@ -589,7 +914,7 @@ function buildNav(){
     }
     h+='</div>';
   });
-  elNav.innerHTML=h;
+  return h;
 }
 
 /* ---------- A-Z filter bar (glossary) ---------- */
@@ -862,14 +1187,28 @@ function render(sid,eid,flash){
   /* First thing under the title: the diagrams ARE the summary, so the offer to read
      only them belongs where it is seen before the reading starts. */
   if(hasDiagrams(s))h+=diagSwitch(s);
+  h+=verSwitch(s);
   /* The lead is prose too, so diagrams-only hides it. That is the whole feature in a
      chapter the book writes as one procedure with a single diagram at the end. */
-  if(s.intro&&s.intro.length&&!(diagOnly&&hasDiagrams(s))){h+='<div class="tla-lead">'+blocksHTML(s.intro)+'</div>';}
+  if(s.intro&&s.intro.length&&!(diagOnly&&hasDiagrams(s))){h+='<div class="tla-lead">'+blocksHTML(s.intro,false,s.kind==='icons'&&!!s.qr)+'</div>';}
   if(s.kind==='anatomy'){h+=anatomyHTML(s);}
-  if(s.figures&&s.figures.length){
+  if(s.kind==='icons'){h+=iconsHTML(s);}
+  /* quickref renders its text sub-sections through the normal entries loop below (so
+     their terms autolink to the glossary and they land in the table of contents), then
+     the colour symbol key and the downloadable image after them — the sheet read top to
+     bottom: the phases and terms first, the icon legend next, the printable sheet last. */
+  /* Announced, not written. The book does the same with its own empty icon groups, and
+     the reason is the same: saying a thing is coming tells the reader the site knows
+     about it, where an absence tells them nothing at all. */
+  if(s.kind==='placeholder'){
+    h+='<div class="tla-soon"><p class="tla-soon-h">'+esc(t('soon'))+'</p>'
+      +'<p class="tla-soon-d">'+esc(t('soondesc'))+'</p></div>';
+  }
+  if(s.figures&&s.figures.length&&s.kind!=='quickref'){
     h+='<div class="tla-figs">';
     s.figures.forEach(function(f){
-      h+='<figure class="tla-fig"><img loading="lazy" src="assets/img/'+esc(f.file)+'" alt=""><figcaption>'+t('fig')+' '+f.page+'</figcaption></figure>';});
+      h+='<figure class="tla-fig"><img loading="lazy" src="assets/img/'+esc(f.file)+'" alt=""><figcaption>'+t('fig')+' '+f.page+'</figcaption></figure>';
+    });
     h+='</div>';
   }
   if(s.kind==='glossary'){h+=azFilterBar(s);}
@@ -883,18 +1222,40 @@ function render(sid,eid,flash){
     var role=e.role?(' is-'+e.role):'';
     /* h2: an entry sits directly under the chapter's h1. Jumping straight to h3
        would leave a hole in the outline a screen reader navigates by. */
-    h+='<article class="tla-entry'+role+(brandNew?' is-new':'')+(lv&&isChangedIn(e,lv)?' is-upd':'')+'" id="e-'+esc(e.id)+'">';
+    /* data-kind, so a chapter can style its own entries without the CSS having to
+       know a section id or a title. The FAQ uses it to set the answer in from the
+       question — the book runs both flush left, so the indent is ours, and it is what
+       makes a page of alternating questions and answers scannable. */
+    h+='<article class="tla-entry'+role+(brandNew?' is-new':'')+(lv&&isChangedIn(e,lv)?' is-upd':'')
+      +'" data-kind="'+esc(s.kind)+'" id="e-'+esc(e.id)+'">';
     h+='<h2>'+titleHTML(e)+diagBadge(e)+verBadge(e)+'<a class="anchor" href="#'+lang+'/'+esc(e.id)+'" title="'+esc(t('jump'))+'" aria-label="'+esc(t('jump'))+'">§</a></h2>';
-    h+=e.flow?flowHTML(e):blocksHTML(e.blocks,brandNew);
+    h+=e.table?substHTML(e):(e.flow?flowHTML(e):blocksHTML(e.blocks,brandNew));
+    h+=qrLinkHTML(e);
+    h+=extrasHTML(e);
     h+=verProvenance(e);
     h+=figuresHTML(e,esc(e.id));
     h+='</article>';
   });
+  /* After the text: the colour symbol key, then the whole sheet as a download. */
+  if(s.kind==='quickref'){
+    h+=quickrefHTML(s);
+    (s.figures||[]).forEach(function(f){
+      /* The image is a KEEPSAKE — the whole sheet in one file to print or save — so it
+         names itself a download and carries a real download link, an addition to the
+         interactive version above rather than the only version. */
+      h+='<figure class="tla-fig is-download"><img loading="lazy" src="assets/img/'+esc(f.file)+'" alt="'+esc(t('qrimgalt'))+'">'
+        +'<figcaption><a class="tla-dl" href="assets/img/'+esc(f.file)+'" download>'
+        +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
+        +'<path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>'
+        +esc(t('qrdownload'))+'</a></figcaption></figure>';
+    });
+  }
   h+='</div>';
   elMain.innerHTML=h;
   syncStickyHeight();          // before any scroll-to, so the target clears the toolbar
   layoutFlowLoops();
   bindAnatomy();
+  [].forEach.call(elMain.querySelectorAll('.tla-subst'),substFilter);
   buildToc(s,ents);
   markNav(sid);
   if(eid){var el=document.getElementById('e-'+eid); if(el){el.scrollIntoView({block:'start'}); if(flash){el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}}}
@@ -980,17 +1341,45 @@ function renderWhatsNew(){
   h+='</div>';
   elMain.innerHTML=h; elToc.innerHTML=''; elMain.scrollTop=0;
 }
+/* One row per chapter, not one per entry.
+
+   The FAQ is the reason. An edition that answers eighty questions would arrive as eighty
+   cards, and the three rules changes worth knowing about would be buried among them —
+   which is exactly backwards, since a chapter is the unit a reader scans by and an entry
+   is what they open once they know where to look. So the chapter is the row and its
+   entries live inside it. This is not a FAQ special case: the glossary will get there.
+
+   Native <details>: keyboard-operable, announced as expandable, and remembers nothing —
+   none of which is ours to get right. Small groups open on sight, because making someone
+   click to reveal a single entry is a worse trade than the space it costs. */
+var WN_OPEN_UPTO=3;
 function wnList(items,cls){
-  var h='<div class="tla-wngrid">';
+  var by={}, order=[];
   items.forEach(function(it){
-    // a whole chapter can change too — the FAQ gains answers in its own lead text
-    var where=it.chapter?esc(t('chapter')):((it.num?esc(it.num)+' · ':'')+esc(it.sec));
-    /* The card already says "rewritten", so the title's own diff marks would only
-       repeat it — same reason titleHTML suppresses them. */
-    h+='<button class="tla-wncard '+cls+(it.chapter?' is-chapter':'')+'" type="button" data-eid="'+esc(it.id)+'">'
-      +'<span class="tla-wntitle">'+(it.titleRuns?runsHTML(it.titleRuns,true):esc(it.title))+'</span>'
-      +'<span class="tla-wnsec">'+where+'</span></button>';});
-  return h+'</div>';
+    var k=it.sid||it.sec||'?';
+    if(!by[k]){by[k]={items:[], sec:it.sec, num:it.num}; order.push(k);}
+    by[k].items.push(it);
+  });
+  var h='';
+  order.forEach(function(k){
+    var g=by[k], n=g.items.length;
+    h+='<details class="tla-wngrp"'+(n<=WN_OPEN_UPTO?' open':'')+'>';
+    h+='<summary class="tla-wngrp-s">'
+      +(g.num?('<span class="tla-wngrp-n">'+esc(g.num)+'</span>'):'<span class="tla-wngrp-n">•</span>')
+      +'<span class="tla-wngrp-t">'+esc(g.sec)+'</span>'
+      +'<span class="tla-wngrp-c '+cls+'">'+n+' '+esc(plural('entries',n))+'</span></summary>';
+    h+='<div class="tla-wngrid">';
+    g.items.forEach(function(it){
+      /* The card already says "rewritten", so the title's own diff marks would only
+         repeat it — same reason titleHTML suppresses them. */
+      h+='<button class="tla-wncard '+cls+(it.chapter?' is-chapter':'')+'" type="button" data-eid="'+esc(it.id)+'">'
+        +'<span class="tla-wntitle">'+(it.titleRuns?runsHTML(it.titleRuns,true):esc(it.title))+'</span>'
+        // a whole chapter can change too — the FAQ gains answers in its own lead text
+        +(it.chapter?('<span class="tla-wnsec">'+esc(t('chapter'))+'</span>'):'')+'</button>';
+    });
+    h+='</div></details>';
+  });
+  return h;
 }
 function rmPanel(){
   return '<section class="tla-rm">'
@@ -1039,12 +1428,20 @@ function flagKeyHTML(){
    One entry is not a structure either — Pruebas de habilidad has a single entry (the
    diagram) and 27 blocks of lead, so "1 entrada" would describe the chapter by its one
    heading and repeat the same mistake in the other direction. */
+function prodIconCount(s2){
+  var n=0; (s2.groups||[]).forEach(function(g){n+=(g.items||[]).length;}); return n;
+}
 function cardMeta(s2){
   var n=sectionEntries(s2).length;
   var figs=(s2.figures||[]).length, keys=(s2.keys||[]).length, lead=(s2.intro||[]).length;
   var bits=[];
   if(s2.kind==='figures'&&figs)      bits.push(figs+' '+plural('plates',figs));
   else if(s2.kind==='anatomy'&&keys) bits.push(keys+' '+plural('cardkeys',keys));
+  /* Count the icons the chapter actually lists, not its groups: three of the five
+     groups are headings the book is holding open for products that do not exist yet,
+     and counting those would promise rows that are not there. */
+  else if(s2.kind==='icons')         bits.push(prodIconCount(s2)+' '+t('iconscard'));
+  else if(s2.kind==='quickref')      bits.push(qrefSymbolCount()+' '+t('qrsymbols'));
   else if(n>1)                       bits.push(n+' '+plural('entries',n));
   else if(lead)                      bits.push(t('prosechapter'));
   else if(n)                         bits.push(n+' '+plural('entries',n));
@@ -1069,18 +1466,39 @@ function renderLanding(s){
   h+=rmPanel();
   h+='<h2 class="tla-cards-h">'+esc(t('browse'))+'</h2>';
   h+=flagKeyHTML();
-  h+='<div class="tla-cards">';
-  data.sections.forEach(function(s2,si){
-    if(s2.kind==='intro')return;
+  /* One grid per shelf, each under its own h3. The h2 above still names the whole thing,
+     so the outline stays h1 > h2 > h3 with nothing skipped. */
+  navGroups().forEach(function(g){
+    var items=g.items.filter(function(it){return it.s.kind!=='intro';});
+    if(!items.length)return;
+    if(g.id)h+='<h3 class="tla-cards-grp" id="cardgrp-'+esc(g.id)+'">'+esc(t('grp'+g.id))+'</h3>';
+    h+='<div class="tla-cards"'+(g.id?(' aria-labelledby="cardgrp-'+esc(g.id)+'"'):'')+'>';
+    h+=landingCards(items);
+    h+='</div>';
+  });
+  if(s.intro&&s.intro.length){
+    h+='<section class="tla-landing-about"><h2>'+esc(t('about'))+'</h2><div class="tla-lead">'+blocksHTML(s.intro)+'</div></section>';
+  }
+  h+='</div>';
+  elMain.innerHTML=h; elToc.innerHTML=''; elMain.scrollTop=0;
+}
+function landingCards(items){
+  var h=''; items.forEach(function(it){
+    var s2=it.s, si=it.si;
     var news=s2.kind==='whatsnew';
+    var soon=s2.kind==='placeholder';
     var num=news?'<i class="tla-eldersign" aria-hidden="true"></i>':esc(s2.num||'•');
     var meta;
-    if(!news)meta=cardMeta(s2);
+    /* A placeholder says so on its face. It is still a button and still opens: the page
+       it opens repeats the promise, which is better than a dead card that ignores a
+       click and leaves the reader wondering whether the site is broken. */
+    if(soon)meta=t('soon');
+    else if(!news)meta=cardMeta(s2);
     else if(s2.ver)meta=t('newver')+' · v'+s2.ver.v;
     else{var ah=langsAhead(lang)[0];
       meta=ah?t('pendingcard').replace('{v}',ah.v).replace('{l}',langName(ah.code)):t('news');}
     var fl=flagOf(s2);
-    h+='<button class="tla-card'+(news?' news':'')+(fl?' has-pennant':'')+'" type="button" data-si="'+si+'">';
+    h+='<button class="tla-card'+(news?' news':'')+(soon?' is-soon':'')+(fl?' has-pennant':'')+'" type="button" data-si="'+si+'">';
     /* The ribbon is text, not decoration: it is the whole point of the flag, so a
        screen reader gets it as part of the card's name rather than a coloured
        shape it cannot see. */
@@ -1091,12 +1509,7 @@ function renderLanding(s){
     if(meta)h+='<span class="tla-card-meta">'+esc(meta)+'</span>';
     h+='</button>';
   });
-  h+='</div>';
-  if(s.intro&&s.intro.length){
-    h+='<section class="tla-landing-about"><h2>'+esc(t('about'))+'</h2><div class="tla-lead">'+blocksHTML(s.intro)+'</div></section>';
-  }
-  h+='</div>';
-  elMain.innerHTML=h; elToc.innerHTML=''; elMain.scrollTop=0;
+  return h;
 }
 
 /* ---------- TOC (right) ---------- */
@@ -1142,8 +1555,21 @@ function markNav(sid){
 var spyRAF=null;
 function spy(){
   if(spyRAF)return; spyRAF=requestAnimationFrame(function(){spyRAF=null;
-    var arts=elMain.querySelectorAll('.tla-entry'); var top=140,cur=null;
-    for(var i=0;i<arts.length;i++){var r=arts[i].getBoundingClientRect(); if(r.top<=top+40)cur=arts[i].id.slice(2); else break;}
+    var arts=elMain.querySelectorAll('.tla-entry'); var cur=null;
+    if(!arts.length){syncHash(null); return;}
+    /* Measured against the SCROLLPORT, and against the very rule that parks an entry
+       there. getBoundingClientRect() is viewport-relative while an entry is scrolled to
+       its own scroll-margin-top from elMain's top edge, so a fixed viewport threshold
+       was short by however tall the header is: the entry you just jumped to always
+       measured below it and the spy named the one BEFORE it instead. A deep link to
+       "…--search" rewrote itself to "…--seal" — you landed right and the URL lied, so
+       sharing it or pressing Back sent you somewhere else.
+       Reading scroll-margin-top back off the element ties the two together: whatever
+       CSS decides is "parked at the top" is what this calls "the one you're reading". */
+    var base=elMain.getBoundingClientRect().top;
+    var pad=parseFloat(getComputedStyle(arts[0]).scrollMarginTop)||0;
+    for(var i=0;i<arts.length;i++){var r=arts[i].getBoundingClientRect();
+      if(r.top-base<=pad+40)cur=arts[i].id.slice(2); else break;}
     [].forEach.call(elToc.querySelectorAll('a'),function(a){a.classList.toggle('on',a.getAttribute('data-eid')===cur);});
     syncHash(cur);
   });
@@ -1254,7 +1680,7 @@ function route(){
        "#es/juego-orden--i-fase-de-mitos" (a prose entry): were diagOnly sticky, its
        element would not exist, render()'s scroll-to would silently find nothing, and
        the reader would land mid-page on a chapter without the thing they clicked. */
-    glossFilter='all'; diagOnly=false;
+    glossFilter='all'; diagOnly=false; verOnly=null;
     if(L!==lang||data!==GRIM[L])applyLang(L);
     var f=target?findEntry(L,target):null;
     if(f){render(f.sid,f.eid,lastFlash);} else {render(data.sections[0].id,null,false);}
@@ -1309,7 +1735,10 @@ function renderResults(list,terms){
      reader learns which result is highlighted is aria-activedescendant. */
   var h=''; list.forEach(function(o,i){var it=o.it;
     h+='<div class="tla-res" role="option" id="tla-res-'+i+'" aria-selected="false" data-eid="'+esc(it.eid)+'" data-i="'+i+'">';
-    h+='<div class="rt">'+(it.titleRuns?runsHTML(it.titleRuns):hl(it.title,terms))+'<span class="rs">'+(it.num?it.num+' · ':'')+esc(it.sec)+'</span></div>';
+    /* A real space, not only the CSS gap: this whole row is the option's accessible name,
+       so without it a screen reader says "Mazo de EncuentrosI" as one word — and it is
+       also what the reader sees if the stylesheet ever fails to load. */
+    h+='<div class="rt">'+(it.titleRuns?runsHTML(it.titleRuns):hl(it.title,terms))+' <span class="rs">'+(it.num?it.num+' · ':'')+esc(it.sec)+'</span></div>';
     h+='<div class="rx">'+hl(snippet(it.text,terms),terms)+'</div></div>';
   });
   elRes.innerHTML=h; elRes.classList.add('on'); resSel=-1; clearActiveDesc(); setExpanded(true);
@@ -1475,6 +1904,8 @@ function wireEvents(){
   elMain.addEventListener('change',function(e){
     var r=e.target.closest('.tla-diagpick input[name=tla-diagview]');
     if(r)setDiagOnly(r.value==='diag');
+    var v=e.target.closest('.tla-verpick input[name=tla-verview]');
+    if(v)setVerOnly(v.value);
   });
   elToc.addEventListener('click',function(e){var a=e.target.closest('[data-eid]'); if(a){e.preventDefault(); gotoTarget(a.getAttribute('data-eid'),true);}});
   elRes.addEventListener('click',function(e){var r=e.target.closest('.tla-res'); if(r){gotoTarget(r.getAttribute('data-eid'),true); closeSearch();}});
@@ -1646,6 +2077,7 @@ function boot(){
     applyLang(L);
     wireEvents();
     route();
+    showThemeTip();          // after applyLang: it needs the pack's own words
   }).catch(fatal);
 }
 boot();

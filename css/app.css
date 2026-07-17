@@ -135,6 +135,24 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
   /* Icons are drawn at their true font size. On paper that is right; on a screen
      a touch larger reads better, without disturbing their proportions. */
   --icon-scale:1.15;
+  /* Symbol brand colours. The game's class/skill/token identity — Guardian blue, Mystic
+     purple — which the book prints as small colour badges on its Quick Reference page.
+     tools/quick_reference.py rips a starting point off those badges (see it for why the
+     exact values want a human eye: the badges are tiny and edition-noisy, so the hue is
+     trustworthy but the precise hex is not). They are game identity, not language, so
+     they live here, once. Fixed, not theme-adapted: each symbol shows on a light chip
+     whose background never changes, exactly as the book prints a badge on a light
+     shield, so the colour reads the same on every theme.
+     PROVISIONAL: --sym-seeker and --sym-elderthing came off the badge art too pale to
+     meet 3:1 on the chip, so they are darkened here pending the authoritative palette;
+     the glyph contour (.tla-symchip .ico) is what makes any pale fill legible meanwhile. */
+  --sym-chip:#ece3cb;
+  --sym-guardian:#0465aa; --sym-seeker:#96741f; --sym-mystic:#3a2058;
+  --sym-rogue:#0a7e5e; --sym-survivor:#ad2731;
+  --sym-willpower:#004a73; --sym-intellect:#4b1848; --sym-combat:#6d2613;
+  --sym-agility:#005439; --sym-wild:#725b07;
+  --sym-eldersign:#348792; --sym-autofail:#64070f; --sym-skull:#753620;
+  --sym-cultist:#004a17; --sym-tablet:#0f2f4b; --sym-elderthing:#6b5d3a;
   font-size:16px; color:var(--ink); font-family:var(--ff-body); line-height:1.65;
   -webkit-font-smoothing:antialiased;
   height:100dvh; display:flex; flex-direction:column; position:relative; overflow:hidden;
@@ -179,6 +197,25 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
   background:var(--panel); border:1px solid var(--edge2); border-radius:12px;
   box-shadow:var(--shadow); padding:10px}
 .tla-thememenu[hidden]{display:none}
+/* The first-visit nudge at the palette button. Anchored to .tla-themewrap, which is
+   already position:relative. right:0 so it can never push the header wide, and
+   max-width so a long translation wraps instead of leaving the screen. */
+.tla-themetip{position:absolute; top:calc(100% + 8px); right:0; z-index:59;
+  display:flex; align-items:center; gap:8px; width:max-content; max-width:min(74vw,260px);
+  background:var(--gold); color:var(--on-gold); border-radius:10px; padding:8px 6px 8px 11px;
+  box-shadow:var(--shadow); font-family:var(--ff-ui); font-size:13px; line-height:1.3;
+  animation:tlatip .5s ease both}
+/* the notch, pointing back at the button it is about */
+.tla-themetip::before{content:''; position:absolute; top:-5px; right:15px; width:10px; height:10px;
+  background:var(--gold); transform:rotate(45deg)}
+.tla-themetip-t{position:relative}
+.tla-themetip-x{flex:0 0 auto; width:26px; height:26px; border:0; border-radius:6px; cursor:pointer;
+  background:transparent; color:var(--on-gold); font-size:17px; line-height:1;
+  display:inline-flex; align-items:center; justify-content:center}
+.tla-themetip-x:hover{background:rgba(0,0,0,.14)}
+@keyframes tlatip{from{opacity:0; transform:translateY(-5px)}to{opacity:1; transform:none}}
+@media (prefers-reduced-motion:reduce){ .tla-themetip{animation:none} }
+
 .tla-themeset{border:0; margin:0; padding:0}
 .tla-themeset-h{font-family:var(--ff-ui); font-size:11px; text-transform:uppercase;
   letter-spacing:1px; color:var(--muted); padding:0 6px 8px}
@@ -246,7 +283,11 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
 .tla-res:last-child{border-bottom:0}
 .tla-res:hover,.tla-res.sel{background:var(--panel2)}
 .tla-res .rt{font-weight:600; color:var(--ink); font-size:15px}
-.tla-res .rt .tla-res .rs{font-size:12px; color:var(--gold2); margin-left:8px; font-weight:600}
+/* Two selectors, not one. They were welded into ".tla-res .rt .tla-res .rs", which asks
+   for a .rs inside a .tla-res inside a .rt inside a .tla-res — nothing on the page is
+   that, so this was the only .rs rule in the file and it never matched. The chapter then
+   rendered in the title's own size and weight with no gap: "Mazo de EncuentrosI · Glosario". */
+.tla-res .rs{font-size:12px; color:var(--gold2); margin-left:8px; font-weight:600}
 .tla-res .rt .ico{--icon:var(--gold2)}
 .tla-res .rx{font-size:13px; color:var(--muted); margin-top:3px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
 .tla-res mark{background:var(--mark); color:var(--mark-ink); border-radius:2px; padding:0 1px}
@@ -263,7 +304,18 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
 .tla-nav::-webkit-scrollbar-thumb,.tla-toc::-webkit-scrollbar-thumb,.tla-main::-webkit-scrollbar-thumb,.tla-results::-webkit-scrollbar-thumb{background:var(--edge2); border-radius:6px}
 
 /* nav */
+/* The shelf headings in the side menu. A rule above each one rather than a box around
+   it: the menu is already a column of bordered things, and another border would read as
+   one more item rather than as what separates them. */
+.tla-nav-grp{font-family:var(--ff-ui); font-size:11px; font-weight:700; letter-spacing:1.2px;
+  text-transform:uppercase; color:var(--muted); margin:18px 0 6px; padding:12px 10px 0;
+  border-top:1px solid var(--edge)}
+.tla-nav-grp:first-child{margin-top:2px; padding-top:0; border-top:0}
 .tla-nav-sec{margin-bottom:2px}
+/* Announced, not written: dimmer than a chapter, but never so dim it fails contrast —
+   the word "Próximamente" is the whole content of the row. */
+.tla-nav-cnt.is-soon{font-size:11px; letter-spacing:.4px; text-transform:uppercase;
+  color:var(--teal2); border-color:var(--edge2); background:var(--panel)}
 .tla-nav-btn{display:flex; align-items:center; gap:10px; width:100%; text-align:left; cursor:pointer;
   background:transparent; border:0; color:var(--ink2); font-family:var(--ff-ui); font-size:16px;
   padding:11px 11px; border-radius:9px; line-height:1.35; min-height:44px}
@@ -379,6 +431,18 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
 @media (prefers-reduced-motion:reduce){ .tla-pennant{animation:none} }
 
 .tla-cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:24px 0 8px}
+/* A shelf heading over its own grid. h3 under the "Explorar" h2, so the outline runs
+   h1 > h2 > h3 with nothing skipped. */
+.tla-cards-grp{font-family:var(--ff-head); font-size:16px; color:var(--teal2);
+  margin:26px 0 -10px; letter-spacing:.3px}
+.tla-card.is-soon{border-style:dashed}
+.tla-card.is-soon .tla-card-meta{color:var(--teal2)}
+/* The placeholder's own page: the promise, repeated, so a card that opens is not a
+   card that opens onto nothing. */
+.tla-soon{margin:18px 0 0; padding:22px 20px; text-align:center;
+  border:1px dashed var(--edge2); border-radius:12px; background:var(--panel)}
+.tla-soon-h{font-family:var(--ff-head); font-size:20px; color:var(--teal2); margin:0 0 6px; letter-spacing:.3px}
+.tla-soon-d{font-family:var(--ff-body); font-size:15px; color:var(--muted); margin:0}
 .tla-card{position:relative; display:flex; flex-direction:column; gap:7px; width:100%; text-align:left; cursor:pointer;
   padding:18px 20px; border-radius:12px; border:1px solid var(--edge2); background:var(--panel); color:inherit;
   transition:transform .12s ease, border-color .12s, background .12s}
@@ -524,24 +588,41 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
 /* A real fieldset with real radios: the segmented look is painted onto the labels,
    while the inputs stay real and focusable — moved out of sight, never hidden — so
    arrow keys, the single tab stop and "1 of 2" are the browser's own. */
-.tla-diagpick{display:inline-flex; align-items:center; gap:4px; flex-wrap:wrap;
-  border:1px solid var(--edge2); border-radius:999px; margin:0 0 18px; padding:4px 4px 4px 12px;
-  background:var(--panel)}
-.tla-diagpick-lg{float:none; font-family:var(--ff-ui); font-size:11px; text-transform:uppercase;
-  letter-spacing:1px; color:var(--muted); padding:0 6px 0 0}
-.tla-diagopt{position:relative; display:inline-flex; align-items:center; border-radius:999px;
-  cursor:pointer; font-family:var(--ff-ui); font-size:13.5px; color:var(--ink2);
-  padding:0 14px; min-height:34px}
+/* Borderless, so the legend lays out as an ordinary line instead of being notched
+   into a frame. The frame belongs to the row below it. */
+.tla-diagpick{border:0; margin:0 0 18px; padding:0; min-width:0}
+.tla-diagpick-lg{font-family:var(--ff-ui); font-size:11px; text-transform:uppercase;
+  letter-spacing:1px; color:var(--muted); padding:0 0 7px}
+/* The pill nests inside the frame's radius only because both are pills and the
+   padding is EQUAL on all four sides: outer radius = inner radius + padding exactly.
+   An asymmetric padding is what pushed the right-hand option's corner through the
+   frame's curve. */
+.tla-diagpick-row{display:inline-flex; align-items:center; gap:4px; max-width:100%;
+  border:1px solid var(--edge2); border-radius:999px; padding:4px; background:var(--panel)}
+.tla-diagopt{position:relative; display:inline-flex; align-items:center; justify-content:center;
+  border-radius:999px; cursor:pointer; font-family:var(--ff-ui); font-size:13.5px; color:var(--ink2);
+  padding:0 14px; min-height:34px; text-align:center}
 .tla-diagopt:hover{background:var(--panel2); color:var(--ink)}
 .tla-diagopt input{position:absolute; width:1px; height:1px; opacity:0; margin:0}
 .tla-diagopt:has(input:focus-visible){outline:3px solid var(--gold); outline-offset:2px}
 /* Checked is not colour alone (WCAG 1.4.1): the pill is a filled shape a colour-blind
    reader still reads as "this one". */
 .tla-diagopt:has(input:checked){background:var(--gold); color:var(--on-gold); font-weight:700}
-@media (max-width:520px){
-  .tla-diagpick{display:flex; width:100%; border-radius:12px; padding:8px}
-  .tla-diagpick-lg{width:100%; padding:0 0 6px 4px}
-  .tla-diagopt{flex:1; justify-content:center}
+@media (max-width:560px){
+  .tla-diagpick-row{display:flex; width:100%; border-radius:14px}
+  .tla-diagopt{flex:1 1 0; min-width:0}
+}
+/* Fallback for an engine without :has() (pre-2023). The visible label wraps the hidden
+   radio, so :has() paints its focus ring and its checked fill; without it a keyboard user
+   would see neither which option has focus (WCAG 2.4.7) nor which is selected. focus-within
+   is old and universal, and the checked option is emphasised through the input's own
+   sibling. Scoped to where :has() is missing so modern engines are untouched (there,
+   focus-within would also fire on a mouse click). */
+@supports not (selector(:has(*))){
+  .tla-themeopt:focus-within,.tla-diagopt:focus-within{outline:3px solid var(--gold); outline-offset:2px}
+  .tla-themeopt input:checked ~ .tla-themeopt-n{color:var(--ink); font-weight:700}
+  .tla-themeopt input:checked ~ .tla-themeopt-n::before{content:'\2713\00a0'}
+  .tla-diagopt input:checked ~ span{text-decoration:underline; text-underline-offset:3px; font-weight:700}
 }
 
 /* A <button>, because it acts on this page rather than going anywhere — so it needs
@@ -656,6 +737,34 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
 .tla-entry.is-new{border-left:3px solid var(--new-edge); padding-left:16px; margin-left:-19px}
 .tla-entry.is-upd{border-left:3px solid var(--gold); padding-left:16px; margin-left:-19px}
 
+/* ---------- FAQ ---------- */
+/* Here the heading is a whole question, not a term: 24px of display face across two
+   hundred characters is a wall, so it reads at close to body size and stays a heading.
+   Serif, because it is a sentence to be read rather than a label to be spotted.
+   display:block, NOT the flex row every other heading uses. A normal title is one
+   text node, so flex lays out [title][badge][anchor] and is right. A question is
+   dozens of runs — words, icons, more words — and flex makes every one of them a flex
+   item with an 8px gap, which shreds the sentence into a column of fragments. It has
+   to flow as text; the badge and the anchor are inline and follow it. */
+.tla-entry[data-kind="faq"] h2{display:block; font-family:var(--ff-body); font-size:17.5px;
+  font-style:italic; font-weight:600; line-height:1.45; color:var(--ink);
+  margin:26px 0 8px; letter-spacing:0}
+.tla-entry[data-kind="faq"] h2 .tla-vbadge{font-style:normal; margin-left:6px}
+.tla-entry[data-kind="faq"] h2 .anchor{margin-left:4px}
+/* The answer sets in from its question. The book runs both flush left — I checked all
+   three editions, the x-offset is 0.00 — so this indent is the site's, and on a page
+   of alternating questions and answers it is what tells them apart at a glance.
+   `> p.tla-p, > ul` and not `> p`: verProvenance emits <p class="tla-prov"> as a
+   direct child as well, and that is a note about the entry, not part of the answer. */
+.tla-entry[data-kind="faq"] > p.tla-p,
+.tla-entry[data-kind="faq"] > ul{margin-left:2px; padding-left:15px; border-left:2px solid var(--edge2)}
+.tla-entry[data-kind="faq"] > p.tla-p{margin-top:0; margin-bottom:0; padding-top:3px; padding-bottom:3px}
+/* A question is a sentence, and the nav and contents rails are narrow. Clamped here
+   rather than cut in JS: where a sentence may be broken is a language's business, and
+   the app knows no language. */
+.tla-sublink,.tla-toc a{overflow:hidden; display:-webkit-box; -webkit-box-orient:vertical;
+  -webkit-line-clamp:3; line-clamp:3}
+
 /* new-version banner on the landing */
 .tla-verbanner{display:flex; align-items:center; gap:14px; width:100%; text-align:left; cursor:pointer;
   margin:0 0 22px; padding:16px 20px; border-radius:12px; font-family:var(--ff-ui);
@@ -730,7 +839,31 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
 .tla-wnh{font-family:var(--ff-head); font-size:24px; color:var(--gold2); margin:28px 0 12px; display:flex; align-items:center; gap:10px}
 .tla-wncount{font-family:var(--ff-ui); font-size:15.5px; color:var(--muted); font-weight:600}
 .tla-wnh .tla-vbadge{font-size:11px}
-.tla-wngrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(248px,1fr)); gap:12px}
+/* One row per chapter. The row is the scannable thing; the cards inside are what you
+   open once you know where to look. */
+.tla-wngrp{border:1px solid var(--edge); border-radius:11px; background:var(--panel); margin:0 0 8px}
+.tla-wngrp-s{display:flex; align-items:center; gap:10px; padding:11px 14px; cursor:pointer;
+  min-height:44px; border-radius:11px; list-style:none}
+.tla-wngrp-s::-webkit-details-marker{display:none}
+/* The disclosure triangle, drawn rather than inherited: the native marker cannot be
+   placed, and this one has to sit at the head of a flex row. */
+.tla-wngrp-s::before{content:''; flex:0 0 auto; width:7px; height:7px; margin-right:2px;
+  border-right:2px solid var(--muted); border-bottom:2px solid var(--muted);
+  transform:rotate(-45deg); transition:transform .15s ease}
+.tla-wngrp[open] > .tla-wngrp-s::before{transform:rotate(45deg)}
+.tla-wngrp-s:hover{background:var(--bg)}
+.tla-wngrp-s:focus-visible{outline:2px solid var(--teal2); outline-offset:-2px}
+.tla-wngrp-n{flex:0 0 auto; min-width:2.2em; font-family:var(--ff-ui); font-size:12px;
+  font-weight:700; letter-spacing:.5px; color:var(--muted)}
+.tla-wngrp-t{font-family:var(--ff-head); font-size:16px; color:var(--ink); min-width:0; letter-spacing:.2px}
+/* The count carries the same colour the badges use, so "new" and "rewritten" read the
+   same here as they do on an entry — and it is a word plus a number, never colour alone. */
+.tla-wngrp-c{margin-left:auto; flex:0 0 auto; font-family:var(--ff-ui); font-size:12.5px;
+  padding:2px 9px; border-radius:11px; border:1px solid var(--edge2); background:var(--bg); color:var(--muted)}
+.tla-wngrp-c.new{color:var(--teal2)}
+.tla-wngrp-c.upd{color:var(--gold2)}
+.tla-wngrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(248px,1fr)); gap:12px;
+  padding:0 14px 14px}
 .tla-wncard{display:flex; flex-direction:column; gap:4px; text-align:left; cursor:pointer;
   padding:13px 15px; border-radius:10px; border:1px solid var(--edge2); background:var(--panel); transition:transform .1s, border-color .12s}
 .tla-wncard:hover{transform:translateY(-2px); border-color:var(--gold)}
@@ -861,3 +994,129 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
   *{animation-duration:.001ms !important; transition-duration:.001ms !important}
   html{scroll-behavior:auto}
 }
+
+/* ---------- product icon reference ---------- */
+/* The mark is a CSS mask, painted by the page — an <img> of an SVG is an isolated
+   document, so its currentColor would resolve to black and it would disappear on five
+   of the six themes. Same mechanism as the game icons in css/icons.css. */
+.tla-prodicon{flex:0 0 auto; width:30px; height:30px; background-color:var(--gold2);
+  -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
+  -webkit-mask-position:center; mask-position:center;
+  -webkit-mask-size:contain; mask-size:contain}
+.tla-prodicon.is-none{background:none; border:1px dashed var(--edge2); border-radius:6px}
+.tla-icongrp{margin:26px 0 0}
+.tla-icongrp-h{font-family:var(--ff-head); font-size:19px; color:var(--teal2); margin:0 0 6px; letter-spacing:.3px}
+.tla-icongrp-d{font-family:var(--ff-body); font-size:15px; color:var(--ink2); margin:0 0 12px; max-width:66ch}
+/* "not out yet" is content, not an error: the book prints the heading and leaves it
+   blank, so the site says why rather than hiding the group. */
+.tla-iconsoon{font-family:var(--ff-ui); font-size:13.5px; color:var(--muted); margin:0;
+  padding:10px 14px; border:1px dashed var(--edge2); border-radius:10px; background:var(--panel)}
+.tla-icontable{list-style:none; margin:0; padding:0; display:grid; gap:8px;
+  grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}
+.tla-iconrow{display:flex; align-items:center; gap:12px; min-width:0;
+  padding:8px 12px; border:1px solid var(--edge); border-radius:10px; background:var(--panel)}
+.tla-iconcode{flex:0 0 auto; font-family:var(--ff-ui); font-size:12px; font-weight:700;
+  letter-spacing:.5px; color:var(--muted)}
+.tla-iconname{font-family:var(--ff-body); font-size:15px; color:var(--ink); min-width:0}
+.tla-qrlink{display:inline-flex; align-items:center; gap:7px; margin:4px 0 6px;
+  font-family:var(--ff-ui); font-size:13.5px; color:var(--teal2);
+  text-decoration:underline; text-underline-offset:3px; min-height:24px}
+.tla-qrlink:hover{color:var(--gold2)}
+.tla-qrlink svg{width:15px; height:15px; flex:0 0 auto}
+/* A nested group: an expansion heading owns grids, and the grids own the icons. */
+.tla-icongrp.is-l2{margin-left:14px; padding-left:14px; border-left:2px solid var(--edge)}
+.tla-icongrp.is-l2 .tla-icongrp-h{font-size:16px; color:var(--gold2)}
+
+/* The substitution table. A real <table>, because it IS one: two columns of sets and a
+   header that says which is which — which the book leaves to an arrow the reader has to
+   interpret, and a screen reader cannot. */
+.tla-subst{margin:14px 0 0}
+.tla-substbar{display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin:0 0 12px}
+.tla-substlab{font-family:var(--ff-ui); font-size:13px; color:var(--muted)}
+.tla-substq{flex:1 1 200px; max-width:320px; min-height:36px; padding:6px 12px;
+  font-family:var(--ff-body); font-size:15px; color:var(--ink);
+  background:var(--panel); border:1px solid var(--edge2); border-radius:9px}
+.tla-substq:focus-visible{outline:2px solid var(--teal2); outline-offset:1px}
+.tla-substcount{flex:0 0 auto; margin:0; font-family:var(--ff-ui); font-size:13px; color:var(--muted)}
+.tla-substtable{width:100%; border-collapse:collapse; font-family:var(--ff-body)}
+.tla-substtable th{font-family:var(--ff-ui); font-size:12px; font-weight:700;
+  letter-spacing:.5px; text-transform:uppercase; color:var(--muted);
+  text-align:left; padding:0 12px 8px; border-bottom:1px solid var(--edge2)}
+.tla-substtable td{padding:10px 12px; border-bottom:1px solid var(--edge); vertical-align:middle}
+.tla-substrow:last-child td{border-bottom:0}
+.tla-substset{display:inline-flex; align-items:center; gap:10px; min-width:0}
+.tla-substmark{flex:0 0 auto; width:28px; height:28px; background-color:var(--gold2);
+  -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
+  -webkit-mask-position:center; mask-position:center;
+  -webkit-mask-size:contain; mask-size:contain}
+.tla-substmark.is-none{background:none; border:1px dashed var(--edge2); border-radius:6px}
+.tla-substname{font-size:15px; color:var(--ink); min-width:0}
+/* The operator the book prints between two replacements. Kept visible and kept as the
+   book sets it; the word beside it is for the reader who cannot see a glyph. */
+.tla-substop{display:inline-flex; align-items:center; justify-content:center;
+  margin:0 10px; padding:0 8px; min-height:22px;
+  font-family:var(--ff-ui); font-size:13px; font-weight:700; color:var(--teal2);
+  background:var(--panel); border:1px solid var(--edge2); border-radius:999px}
+.tla-substnone{font-family:var(--ff-ui); font-size:13.5px; color:var(--muted); margin:12px 0 0;
+  padding:10px 14px; border:1px dashed var(--edge2); border-radius:10px; background:var(--panel)}
+/* Narrow: a two-column table of long set names stops being a table. Each row becomes a
+   block, and the column headers move onto the cells so the "which is which" survives. */
+@media (max-width:560px){
+  .tla-substtable thead{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)}
+  .tla-substtable, .tla-substtable tbody, .tla-substrow, .tla-substtable td{display:block; width:auto}
+  .tla-substrow{padding:10px 0; border-bottom:1px solid var(--edge)}
+  .tla-substtable td{border-bottom:0; padding:4px 0}
+  .tla-substtable td::before{display:block; margin:0 0 4px;
+    font-family:var(--ff-ui); font-size:11px; font-weight:700; letter-spacing:.5px;
+    text-transform:uppercase; color:var(--muted); content:attr(data-h)}
+  .tla-substop{margin:6px 0 6px 38px}
+}
+
+/* Material the site adds that the book does not have. Fenced on purpose: it is set off
+   from the prose, tagged, and attributed, because a reader must be able to tell what FFG
+   published from what a community laid out. Dashed, like every other "not the book"
+   surface here (the placeholder card, the empty icon group). */
+.tla-extras{margin:14px 0 0; padding:14px 16px; border:1px dashed var(--edge2);
+  border-left:3px solid var(--teal2); border-radius:10px; background:var(--panel)}
+.tla-extras-h{display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:0 0 4px;
+  font-family:var(--ff-ui); font-size:13.5px; color:var(--ink)}
+.tla-extras-tag{font-size:10.5px; font-weight:700; letter-spacing:.8px; text-transform:uppercase;
+  color:var(--teal2); border:1px solid var(--edge2); border-radius:999px; padding:2px 8px; background:var(--bg)}
+.tla-extras-d{font-family:var(--ff-body); font-size:13px; color:var(--muted); margin:0 0 10px; max-width:66ch}
+.tla-extras-l{list-style:none; margin:0; padding:0; display:grid; gap:10px}
+.tla-extras-l li{display:flex; flex-direction:column; gap:2px}
+.tla-extras-l a{display:inline-flex; align-items:center; gap:7px; min-height:24px;
+  font-family:var(--ff-ui); font-size:14px; color:var(--teal2);
+  text-decoration:underline; text-underline-offset:3px}
+.tla-extras-l a:hover{color:var(--gold2)}
+.tla-extras-l a svg{width:14px; height:14px; flex:0 0 auto}
+.tla-extras-n{font-family:var(--ff-body); font-size:13px; color:var(--muted); max-width:66ch}
+
+/* ---------- quick reference: the interactive symbol key ---------- */
+.tla-qref{display:grid; gap:24px; margin:8px 0 20px}
+.tla-qref-h{font-family:var(--ff-head); font-size:19px; color:var(--teal2); margin:0 0 12px;
+  letter-spacing:.3px}
+.tla-symgrid{list-style:none; margin:0; padding:0; display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px}
+.tla-symrow{display:flex; align-items:center; gap:12px; min-width:0;
+  padding:8px 12px; border:1px solid var(--edge); border-radius:10px; background:var(--panel)}
+/* The colour lives against a fixed light chip, never the theme — so Guardian blue reads
+   the same on Midnight as on Parchment, the way the book prints a badge on a light shield. */
+.tla-symchip{flex:0 0 auto; width:40px; height:40px; border-radius:9px;
+  display:inline-flex; align-items:center; justify-content:center;
+  background:var(--sym-chip); border:1px solid rgba(40,36,24,.18)}
+/* A faint dark contour on the glyph, so a pale fill still reads as a shape against the
+   light chip (WCAG 1.4.11) — a safety net that holds for whatever colours replace the
+   provisional ones, not just today's. The mask's alpha IS the glyph, so drop-shadow
+   outlines it. */
+.tla-symchip .ico{width:24px; height:24px;
+  filter:drop-shadow(0 0 .6px rgba(26,20,10,.7)) drop-shadow(0 0 .6px rgba(26,20,10,.55))}
+.tla-symname{font-family:var(--ff-body); font-size:15px; color:var(--ink); min-width:0}
+/* the sheet image, kept as a download under the interactive key */
+.tla-fig.is-download{border:1px dashed var(--edge2); border-radius:12px; overflow:hidden; background:var(--figbg)}
+.tla-fig.is-download img{display:block; width:100%; height:auto}
+.tla-dl{display:inline-flex; align-items:center; gap:8px; min-height:40px; padding:0 4px;
+  font-family:var(--ff-ui); font-size:14px; color:var(--teal2);
+  text-decoration:underline; text-underline-offset:3px}
+.tla-dl:hover{color:var(--gold2)}
+.tla-dl svg{width:16px; height:16px; flex:0 0 auto}

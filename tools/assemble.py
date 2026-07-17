@@ -36,6 +36,81 @@ def title_variants(title):
 
 ROMAN = re.compile(r'^\s*([IVXLC]+)\.\s*(.*)$')
 
+# ---- questions and answers -------------------------------------------------
+# The FAQ has no headings, so the parser sees one long chapter lead and the site
+# showed it as one: no anchors, no version marks, no place in the index — a wall of
+# text. But the chapter IS a list of entries; the book just uses the question as the
+# heading. It says so in its own lead: "The entries are presented in a question-and-
+# answer format, with the newest questions at the end of the list."
+#
+# The signal is typographic, not verbal: every question is set in italic and every
+# answer in roman. Measured over all three editions, a question is 98.9-100% italic
+# and an answer is 0.0% — not one answer contains a single italic character, so any
+# threshold between them is the same threshold.
+#
+# That matters because the words CANNOT be used. English prints "Q:"/"A:"; Spanish
+# prints no label at all, so a rule keyed on those letters finds every question in
+# English and none in Spanish. The italic finds both.
+def _italic_ratio(b):
+    """How much of a paragraph is italic, by character. Measured rather than tested
+    with any(): a question can carry a non-italic space between two icon glyphs (one
+    is 98.9% italic, not 100%), and an answer can carry an italic card name."""
+    tot = it = 0
+    for r in b['runs']:
+        if r.get('kind') != 'text':
+            continue
+        n = len(r.get('t', '')); tot += n
+        if r.get('italic'):
+            it += n
+    return (it / tot) if tot else 0.0
+
+# A label the book may put in front of a question: ONE letter and a colon. English
+# prints "Q:"/"A:", Spanish prints nothing, so this is cosmetic — the italic decides.
+# Deliberately one letter, not one-or-two: an answer opening "No: you cannot" would
+# otherwise be silently inverted into "you cannot".
+QA_LABEL = re.compile(r'^[^\W\d_]\s*:\s*')
+
+def _strip_label(runs):
+    """Drop the "Q: " label from the first text run, keeping every other run and every
+    run property — a red diff mark, a bold word, an icon — exactly as it was."""
+    out = []
+    done = False
+    for r in runs:
+        if not done and r.get('kind') == 'text' and r.get('t', '').strip():
+            r = dict(r); r['t'] = QA_LABEL.sub('', r['t'], count=1); done = True
+        out.append(r)
+    return out
+
+def split_qa(sec):
+    """A chapter written as alternating italic questions and roman answers is a list
+    of entries whose headings happen to be the questions. Rebuilt as real entries, so
+    each Q&A gets what every other entry gets: an id, a § anchor, its own line in the
+    version history and in the search index, and the red rule down its left when an
+    edition rewrites it.
+
+    The question becomes titleRuns, which is a HEADING — and a heading is reused as a
+    button in the left nav and as a link in the contents. So it must never contain a
+    link of its own: autolink() skips titles for that reason, and the answer restates
+    the term anyway. See the autolink() apply loop."""
+    lead, groups = [], []
+    for b in sec['intro']:
+        if b['type'] == 'p' and _italic_ratio(b) >= 0.5:
+            groups.append({'q': b, 'a': []})
+        elif groups:
+            groups[-1]['a'].append(b)
+        else:
+            lead.append(b)
+    if not groups:
+        return                      # a FAQ chapter with no questions yet
+    sec['intro'] = lead
+    for g in groups:
+        runs = _strip_label(g['q']['runs'])
+        sec['entries'].append({
+            'title': flat_text(runs).strip(),
+            'titleRuns': runs,
+            'blocks': [{'type': b['type'], 'runs': _strip_label(b['runs'])} for b in g['a']],
+        })
+
 # ---- heading numerals ------------------------------------------------------
 # A chapter numbers its headings "<numeral>. <text>". An edition can misprint one:
 # the ES v1.0 sets the Mythos phase detail heading as "1. Fase de Mitos" two spans
@@ -45,6 +120,101 @@ ROMAN = re.compile(r'^\s*([IVXLC]+)\.\s*(.*)$')
 # The evidence is the chapter's own: which notation it mostly uses, and the fact
 # that the odd heading has a twin. No word is read, so this holds in any language,
 # and a language that does not number its headings never matches.
+def attach_table(sec, lang):
+    """Hand the rebuilt rows to the entry the table is printed under.
+
+    The book gives the table its own heading, so the parser makes an entry of it — and
+    fills that entry with the captions in reading order, which is a jumble. That jumble
+    is dropped whether or not the rows were rebuilt, so that every edition of the page
+    reads the same way here: history.py re-reads older editions with no images, and if
+    the jumble survived in those and not in this one, the table would report itself
+    rewritten in whichever edition happens to be newest.
+
+    Which entry is the table's is the pack's to say, for the same reason every other
+    string is: this code reads no words. The pack's claim is checked against the page —
+    substitution.py reports the heading standing at the top of the art's own column, and
+    the two must agree."""
+    head = sec.pop('tableHeading', None)
+    geom = sec.pop('geomHeading', None)
+    rows = sec.pop('table', None)
+    if not head:
+        raise langpack.PackError(
+            f'langs/{lang}/lang.json: section {sec["key"]!r} is "kind": "substitution" '
+            f'but declares no "tableHeading", so there is no way to tell which of its '
+            f'entries the table is printed under.')
+    if geom and norm(geom) != norm(head):
+        raise langpack.PackError(
+            f'langs/{lang}/lang.json: section {sec["key"]!r} declares its table is headed '
+            f'{head!r}, but the heading standing over the art on the page is {geom!r}. '
+            f'The declared heading is what picks the entry, so these must agree.')
+    for e in sec['entries']:
+        if norm(e['title']) == norm(head):
+            e['blocks'] = []       # the captions, in reading order: the table's shadow
+            if rows:
+                e['table'] = rows
+            return
+    raise langpack.PackError(
+        f'langs/{lang}/lang.json: section {sec["key"]!r} declares its table is headed '
+        f'{head!r}, but it has no entry by that name '
+        f'({", ".join(repr(e["title"]) for e in sec["entries"]) or "no entries at all"}).')
+
+
+def attach_qr(sec, lang):
+    """Hand the QR's link to the entry the book prints the code inside.
+
+    The book runs a sentence that ends in a colon and then prints a QR, because it is
+    paper. This is not paper, so the same target becomes a link — but it belongs to that
+    sentence's entry and nowhere else, which is why the page is asked (substitution.py
+    reports the heading standing over the code) instead of the pack being asked to say.
+
+    Silently dropping it would be the bad outcome: the sentence would end in a colon
+    promising something that never arrives."""
+    url = sec.pop('qr', None)
+    under = sec.pop('qrUnder', None)
+    if not url:
+        return
+    for e in sec['entries']:
+        if under and norm(e['title']) == norm(under):
+            e['qr'] = url
+            return
+    raise langpack.PackError(
+        f'langs/{lang}/lang.json: section {sec["key"]!r} declares a "qr" link and the page '
+        f'prints its code under {under!r}, but the section has no entry by that name. The '
+        f'sentence that introduces the link would end in a colon with nothing after it.')
+
+
+def attach_extras(sec, seclist, lang):
+    """Material this language adds that the book does not have.
+
+    The only content on the site that is not the book. It exists because a language can
+    have somewhere better to point than the book does — the Spanish edition's own QR goes
+    to a generic shop page, while a Spanish community has laid the same sets out with
+    extended art — and it is the pack's to declare, which is what keeps it to the packs
+    that mean it. English declares none, so English shows none: not a flag in the code,
+    just the absence of data.
+
+    It is never mixed into the book's prose. The app fences it off and names the source,
+    because a reader has to be able to tell what FFG published from what did not."""
+    sc = next((x for x in seclist if x['key'] == sec['key']), None)
+    ex = (sc or {}).get('extras')
+    if not ex:
+        return
+    under, items = ex.get('under'), ex.get('items') or []
+    if not (under and items and ex.get('source')):
+        raise langpack.PackError(
+            f'langs/{lang}/lang.json: section {sec["key"]!r} has "extras" but is missing '
+            f'"under", "source" or "items". A reader must always be told whose material '
+            f'this is and what it hangs off.')
+    for e in sec['entries']:
+        if norm(e['title']) == norm(under):
+            e['extras'] = {'source': ex['source'], 'items': items}
+            return
+    raise langpack.PackError(
+        f'langs/{lang}/lang.json: section {sec["key"]!r} hangs its "extras" under '
+        f'{under!r}, but has no entry by that name '
+        f'({", ".join(repr(e["title"]) for e in sec["entries"]) or "no entries at all"}).')
+
+
 HEADNUM = re.compile(r'^\s*([IVXLC]+|\d+)\.\s+(\S.*)$')
 _RV = {'I': 1, 'V': 5, 'X': 10, 'L': 50, 'C': 100}
 
@@ -221,7 +391,7 @@ def assemble(pack, nodes, images):
     def mk(idx):
         sc = seclist[idx]
         s = {'num':sc['num'],'key':sc['key'],'id':sc['id'],'title':sc['title'],'kind':sc['kind'],
-             'intro':[], 'entries':[], 'figures':[]}
+             'group':sc.get('group'), 'intro':[], 'entries':[], 'figures':[]}
         if sc['kind'] == 'anatomy':
             # rebuilt by card_anatomy.py at render time; only the cards are images
             s['keys'] = images.get('_anatomy') or []
@@ -229,25 +399,71 @@ def assemble(pack, nodes, images):
                 # the rebuild found nothing (or was never run): fall back to the
                 # page scans, so the chapter is never silently blank
                 s['kind'] = 'figures'
-        if s['kind'] == 'figures':
+        if sc['kind'] == 'icons':
+            # rebuilt by icon_reference.py at render time: the groups, their prose, and
+            # one row per product. The art is shared, so it is named, not carried.
+            built = [b for b in (images.get('_icons') or []) if b.get('key') == sc['key']]
+            if built:
+                s['groups'] = built[0]['groups']
+                s['qr'] = built[0].get('qr')
+            else:
+                s['kind'] = 'figures'      # never silently blank
+        if sc['kind'] == 'substitution':
+            # Rebuilt by substitution.py at render time: the table is drawn, and read in
+            # reading order its captions are a jumble, so the rows come from the art.
+            #
+            # This kind never downgrades to 'figures' the way 'anatomy' and 'icons' do.
+            # Those chapters ARE their art, so falling back to a scan loses nothing; this
+            # page is mostly prose and only its table column is a jumble. Downgrading it
+            # would drop that prose — and silently, since history.py re-reads every older
+            # edition through here with no images at all (it compares text, not pictures).
+            # Every entry would then look like it first appeared in the newest edition.
+            s['tableHeading'] = sc.get('tableHeading')
+            built = [b for b in (images.get('_subst') or []) if b.get('key') == sc['key']]
+            if built:
+                s['table'] = built[0]['rows']
+                s['geomHeading'] = built[0].get('heading')
+                s['qr'] = built[0].get('qr')
+                s['qrUnder'] = built[0].get('qrUnder')
+        if s['kind'] in ('figures', 'quickref'):
+            # quickref keeps its page scan too, as a download — the interactive symbol
+            # key the app draws on top is an addition, not a replacement.
             for f in sc.get('figures', []):
                 info = images.get(f)
                 if info: s['figures'].append({'file':info['file'],'w':info['w'],'h':info['h'],'page':info['page']})
+        if s['kind'] == 'quickref':
+            # The sheet's text sub-sections (phase sequence, keywords, action types),
+            # rebuilt from the page's own left column (quick_reference.py) so their terms
+            # can autolink to the glossary. Entries like any other; ids get slugged below.
+            for sub in images.get('_quickref', []):
+                s['entries'].append({'title': sub['title'], 'blocks': sub['blocks']})
         sections[idx]=s
         return s
+
+    # A placeholder is announced, not written: the site gives it its place in the menu and
+    # says it is coming. It backs onto no PDF heading, so it is built up front and marked
+    # started — which is not a shortcut but the whole of what it needs, at once:
+    #   * "never found" below sees it as found, so the build does not fail;
+    #   * the by-name matcher skips started sections, so a real heading can never
+    #     wander into it and quietly fill an empty shelf with someone else's chapter;
+    #   * with an empty intro it mints no history unit, so it never claims a version.
+    for idx, sc in enumerate(seclist):
+        if sc['kind'] == 'placeholder':
+            mk(idx)
+            started[idx] = True
 
     intro_blocks = []
     cur = None            # current section dict
     cur_kind = None
 
-    def match_section(title):
+    def match_section(title, level=1):
         m = ROMAN.match(title)
         n = norm(title)
         # index -> stop
-        if n.startswith(pack.parse['indexStart']):
+        if level == 1 and n.startswith(pack.parse['indexStart']):
             return 'INDEX'
         # roman numeral exact match to an unstarted section
-        if m:
+        if level == 1 and m:
             num = m.group(1)
             if num in by_num and not started[by_num[num]]:
                 return by_num[num]
@@ -257,6 +473,13 @@ def assemble(pack, nodes, images):
                 continue
             if n.startswith(norm(sc['title'])):
                 return idx
+        if level != 1:
+            # An H2 is a chapter's own subheading and belongs to it as an entry. Only
+            # the numberless-by-name branch above may open a section from one, and only
+            # for a title the pack asked for by name: the encounter-set variation sheet
+            # is set at 16.8pt, one point under a chapter's 18.9pt, so it arrives as an
+            # H2 and would otherwise be swallowed whole by the chapter printed above it.
+            return None
         # numbered specials matched by name (a book may misprint a numeral: the ES
         # edition labels its "Reimpresiones modificadas" chapter XII twice)
         for idx, sc in enumerate(seclist):
@@ -269,8 +492,8 @@ def assemble(pack, nodes, images):
     reached_first = False
     for node in nodes:
         lvl = node['level']; title = node['title']; blocks = node['blocks']
-        if lvl == 1:
-            hit = match_section(title)
+        if lvl <= 2:
+            hit = match_section(title, lvl)
             if hit == 'INDEX':
                 break
             if isinstance(hit, int):
@@ -292,11 +515,13 @@ def assemble(pack, nodes, images):
         # content of current section
         if cur is None:
             continue
-        if cur_kind in ('figures', 'anatomy'):
+        if cur_kind in ('figures', 'anatomy', 'icons', 'quickref'):
             # Dense picture-page text: the key, the card names and the numbers are
             # laid out around the art, so read in reading order they are noise. The
-            # anatomy chapter gets them back properly via card_anatomy.py; here only
-            # the section intro already captured survives.
+            # anatomy and icon chapters get them back properly via card_anatomy.py and
+            # icon_reference.py; the quickref sheet redraws its symbol key from the icon
+            # list, so its jumble of symbol names is noise too. Here only the section
+            # intro already captured survives.
             continue
         if lvl == 1:
             # wrapped banner fragment or stray -> fold body into intro if any
@@ -349,6 +574,23 @@ def assemble(pack, nodes, images):
             f'  See the headings your PDF actually has:\n'
             f'    python tools/inspect_pdf.py {lang} --sections')
     sections = [s for s in sections if s]
+    # The FAQ's questions become entries. Here, and not in main(), because history.py
+    # re-parses every edition through assemble() — so this is what lets each question
+    # carry the edition that answered it, instead of the whole chapter carrying one
+    # "something changed" stamp. After the numerals and the diagrams (a question is
+    # neither), and before the ids, so questions are slugged like everything else.
+    for s in sections:
+        if s['kind'] == 'faq':
+            split_qa(s)
+    for s in sections:
+        if s['kind'] == 'substitution':
+            attach_table(s, lang)
+            attach_qr(s, lang)
+    # extras is not a substitution feature — any section may add community material. Its
+    # own loop, so a pack that declares extras elsewhere is honoured (and a bad "under"
+    # still raises loudly) instead of being silently ignored.
+    for s in sections:
+        attach_extras(s, seclist, lang)
     # assign entry ids (unique within language)
     used = set()
     title_index = {}       # norm(title) -> entry id
@@ -551,7 +793,7 @@ def autolink(sections, title_index, pack):
     # first-mention rule read per chapter-lead rather than being spent on whichever
     # entry happened to come first.
     for s in sections:
-        if s.get('kind') not in ('glossary', 'rules'):
+        if s.get('kind') not in ('glossary', 'rules', 'faq', 'quickref'):
             continue
         if s['intro']:
             process_entry({'id': s['id'], 'blocks': s['intro']})
@@ -658,6 +900,12 @@ def main():
     if len(pack.versions) > 1:
         newest = {}
         for s in allsecs:
+            # The quick-reference sheet is a static key, not versioned rules — and its
+            # entries only exist when the PDF is open, so history.py (which re-reads older
+            # editions with no images) could never find them in v1.0 and would brand every
+            # one "new" in the latest. Left out of the diff, exactly as it is unversioned.
+            if s.get('kind') == 'quickref':
+                continue
             if s.get('intro'):
                 newest[history.SEC + s['id']] = {'blocks': s['intro']}
             for e in s.get('entries', []):

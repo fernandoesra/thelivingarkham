@@ -31,7 +31,8 @@
       "id": "glossary",
       "title": "Glossary of Terms and Keywords",
       "kind": "glossary",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "II",
@@ -39,7 +40,8 @@
       "id": "additional-rules",
       "title": "Additional Rules and Fundamentals",
       "kind": "rules",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "III",
@@ -47,7 +49,8 @@
       "id": "timing-gameplay",
       "title": "Timing and Gameplay",
       "kind": "rules",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "IV",
@@ -55,7 +58,8 @@
       "id": "skill-test-timing",
       "title": "Skill Test Timing",
       "kind": "rules",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "V",
@@ -63,7 +67,8 @@
       "id": "initiation",
       "title": "Initiation Sequence",
       "kind": "rules",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "VI",
@@ -71,7 +76,8 @@
       "id": "scenario-setup",
       "title": "Scenario Setup",
       "kind": "rules",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "VII",
@@ -82,7 +88,8 @@
       "figures": [
         "card-anatomy-1",
         "card-anatomy-2"
-      ]
+      ],
+      "group": "grimoire"
     },
     {
       "num": "VIII",
@@ -90,7 +97,8 @@
       "id": "campaign",
       "title": "Campaign Play",
       "kind": "rules",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "IX",
@@ -98,7 +106,8 @@
       "id": "deck-customization",
       "title": "Deck Customization",
       "kind": "rules",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "X",
@@ -106,15 +115,17 @@
       "id": "notes-errata",
       "title": "Notes and Errata",
       "kind": "rules",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "XI",
       "key": "faq",
       "id": "faq",
       "title": "Frequently Asked Questions",
-      "kind": "rules",
-      "figures": []
+      "kind": "faq",
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "XII",
@@ -122,7 +133,8 @@
       "id": "optional-rules",
       "title": "Optional Rules",
       "kind": "rules",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "XIII",
@@ -130,38 +142,73 @@
       "id": "modified-reprints",
       "title": "Modified Reprints",
       "kind": "rules",
-      "figures": []
+      "figures": [],
+      "group": "grimoire"
     },
     {
       "num": "XIV",
       "key": "icon-reference",
       "id": "icon-reference",
       "title": "Icon Reference",
-      "kind": "figures",
+      "kind": "icons",
       "figures": [
         "icons-ref-a"
-      ]
+      ],
+      "qr": "https://ffgapp.com/qr/legacy-faq",
+      "group": "grimoire"
     },
     {
       "num": "XV",
       "key": "encounter-icons",
       "id": "encounter-icons",
       "title": "Encounter Set Icon Reference",
-      "kind": "figures",
+      "kind": "icons",
       "figures": [
-        "icons-ref-a",
-        "icons-ref-b"
-      ]
+        "icons-ref-a"
+      ],
+      "group": "grimoire"
+    },
+    {
+      "num": "",
+      "key": "errata-viewer",
+      "id": "errata-viewer",
+      "title": "Errata Viewer",
+      "kind": "placeholder",
+      "group": "resources",
+      "figures": []
+    },
+    {
+      "num": "",
+      "key": "ultimatums",
+      "id": "ultimatums-refractions",
+      "title": "Ultimatums, Boons and Refractions",
+      "kind": "placeholder",
+      "group": "resources",
+      "figures": []
+    },
+    {
+      "num": "",
+      "key": "encounter-variation",
+      "id": "encounter-variation",
+      "title": "Encounter Set Variation: Using the New Core Set to Play Legacy Scenarios",
+      "kind": "substitution",
+      "tableHeading": "Core Encounter Set Substitution Table",
+      "figures": [
+        "encounter-variation"
+      ],
+      "group": "aids",
+      "qr": "https://ffgapp.com/qr/core-encounters"
     },
     {
       "num": "",
       "key": "quick-reference",
       "id": "quick-reference",
       "title": "Quick Reference",
-      "kind": "figures",
+      "kind": "quickref",
       "figures": [
         "icons-ref-b"
-      ]
+      ],
+      "group": "aids"
     }
   ],
   "patterns": {
@@ -254,9 +301,24 @@
       "clip": null
     },
     {
+      "name": "encounter-variation",
+      "page": 24,
+      "clip": [
+        0,
+        0,
+        612,
+        792
+      ]
+    },
+    {
       "name": "icons-ref-b",
       "page": 24,
-      "clip": null
+      "clip": [
+        612,
+        0,
+        1224,
+        792
+      ]
     }
   ],
   "montages": [

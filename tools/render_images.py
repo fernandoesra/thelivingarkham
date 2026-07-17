@@ -19,7 +19,7 @@ finding it needs the PDF, and this is already the step that has the PDF open.
 """
 import fitz, sys, os, json
 from PIL import Image
-import langpack, card_anatomy
+import langpack, card_anatomy, icon_reference, substitution, quick_reference
 
 IMG_DIR = os.path.join(langpack.ROOT, 'assets', 'img')
 
@@ -36,6 +36,123 @@ def anatomy_pages(pack):
     a section "kind": "anatomy" is the only change a pack makes to opt in."""
     byname = {f['name']: f for f in pack.figures}
     return sorted({byname[n]['page'] for n in anatomy_figures(pack) if n in byname})
+
+
+ICON_DIR = os.path.join('assets', 'products')
+
+
+def icon_reference_build(pack, doc):
+    """Rebuild every kind='icons' chapter, and write the product art as SVG.
+
+    The art is the same drawing in every language — the paths agree to 0.01 units in a
+    0..100 viewBox — so it is written once, keyed by the product code the book prints
+    untranslated beside each icon. Whichever pack builds first writes it; the rest find
+    it there. Same reasoning as the game icons (langpack.icon_art_pack), and the reason
+    an SVG is right rather than a JPG: it is a flat two-colour mark, it recolours from
+    the theme through a CSS mask, and it is 3KB instead of 130KB."""
+    out = []
+    for sc in pack.sections:
+        if sc.get('kind') != 'icons':
+            continue
+        byname = {f['name']: f for f in pack.figures}
+        pages = sorted({byname[n]['page'] for n in sc.get('figures', []) if n in byname})
+        for pno in pages:
+            page = doc[pno - 1]
+            built = icon_reference.build(page, sc)
+            if not built:
+                continue
+            os.makedirs(ICON_DIR, exist_ok=True)
+            for g in built['groups']:
+                for it in g['items']:
+                    box = it.pop('_box', None)
+                    if not (box and it.get('art')):
+                        continue
+                    svg = icon_reference.icon_svg(page, box)
+                    if not svg:
+                        it['art'] = None
+                        continue
+                    with open(os.path.join(ICON_DIR, it['art'] + '.svg'), 'w',
+                              encoding='utf-8') as fh:
+                        fh.write(svg)
+            built['key'] = sc['key']
+            built.pop('qr', None)          # a page rect means nothing to the app; the
+            built['qr'] = sc.get('qr')     # pack carries the link the code encodes
+            out.append(built)
+    return out
+
+
+def substitution_build(pack, doc):
+    """Rebuild every kind='substitution' table, and write its marks as SVG.
+
+    Same reasoning as the product icons: flat two-colour marks that recolour from the
+    theme through a CSS mask, drawn identically in every edition, so each is written
+    once under a name taken from its own geometry and whichever pack builds first wins.
+
+    A row is never named by its art. The book prints the SAME mark on two different
+    rows — the Midnight Masks locations and its treacheries — so art that is shared is
+    correct, and art used as an identity would collide."""
+    out = []
+    byname = {f['name']: f for f in pack.figures}
+    for sc in pack.sections:
+        if sc.get('kind') != 'substitution':
+            continue
+        made = False
+        for n in sc.get('figures', []):
+            f = byname.get(n)
+            if not f:
+                continue
+            page = doc[f['page'] - 1]
+            built = substitution.build(page, sc, f.get('clip'))
+            if not built:
+                # A section may list a figure that is not the table; that one just yields
+                # nothing here. But a substitution section whose table never rebuilds on
+                # the CURRENT edition is a failure, not a fallback: assemble.py has no page
+                # scan to drop back to (unlike anatomy/icons), so it would ship an empty
+                # entry and drop the pack's QR in silence. The per-section guard below
+                # turns that into a loud stop, like every other rebuild here.
+                continue
+            made = True
+            os.makedirs(ICON_DIR, exist_ok=True)
+            art = {}
+            for r in built['rows']:
+                for cell in [r['from']] + r['to']:
+                    box = cell.pop('_box', None)
+                    svg = icon_reference.icon_svg(page, box) if box else None
+                    if not svg:
+                        cell['art'] = None
+                        continue
+                    name = substitution.fingerprint(page, box)
+                    cell['art'] = name
+                    prev = art.get(name)
+                    if prev is None:
+                        art[name] = svg
+                        with open(os.path.join(ICON_DIR, name + '.svg'), 'w',
+                                  encoding='utf-8') as fh:
+                            fh.write(svg)
+                    elif not substitution.same_art(prev, svg):
+                        raise langpack.PackError(
+                            f'langs/{pack.code}/lang.json: two DIFFERENT marks in section '
+                            f'{sc["key"]!r} both name themselves {name!r}. The art is named '
+                            f'by its own geometry, so one drawing would silently be shown '
+                            f'in place of another.')
+            built['key'] = sc['key']
+            built.pop('qr', None)          # a page rect means nothing to the app; the
+            built['qr'] = sc.get('qr')     # pack carries the link the code encodes
+            if built['qr'] and not built.get('qrUnder'):
+                raise langpack.PackError(
+                    f'langs/{pack.code}/lang.json: section {sc["key"]!r} declares a "qr" link, '
+                    f'but no heading stands above the code on its page — so there is no entry '
+                    f'to show the link under, and it would be dropped in silence.')
+            out.append(built)
+        if not made:
+            figs = ', '.join(repr(n) for n in sc.get('figures', [])) or 'none'
+            raise langpack.PackError(
+                f'langs/{pack.code}/lang.json: section {sc["key"]!r} is "kind": '
+                f'"substitution" but no table could be rebuilt from its figure(s) ({figs}). '
+                f'The page geometry did not read as a table (run tools/render_images.py to '
+                f'see substitution.py\'s reason). Shipping it would blank the entry and drop '
+                f'its QR silently, so the build stops instead.')
+    return out
 
 
 def render(doc, page, clip, zoom, quality, out):
@@ -67,6 +184,32 @@ def render_pack(pack, outdir=IMG_DIR, zoom=2.2, quality=88):
     # rendered only when the rebuild came back empty and the section falls back to
     # scans (assemble.py does the matching downgrade).
     skip = anatomy_figures(pack) if keys else set()
+    # The icon-reference chapter, same idea: rebuilt from the page's own vector art, so
+    # the scan of it is only worth keeping if the rebuild came back empty. Its figures
+    # are NOT unconditionally skipped though — an edition can print two chapters on one
+    # spread and share the figure with a chapter that still needs the picture, so only
+    # the ones nobody else claims are dropped.
+    icons = icon_reference_build(pack, doc)
+    if icons:
+        mine = {n for sc in pack.sections if sc.get('kind') == 'icons' for n in sc.get('figures', [])}
+        theirs = {n for sc in pack.sections if sc.get('kind') != 'icons' for n in sc.get('figures', [])}
+        skip = skip | (mine - theirs)
+        manifest['_icons'] = icons
+    # The substitution table, same idea again — and the same care about sharing: an
+    # edition that prints two book pages on one PDF page hands the same figure to two
+    # sections, so only a figure nobody else still needs as a picture is dropped.
+    subst = substitution_build(pack, doc)
+    if subst:
+        mine = {n for sc in pack.sections if sc.get('kind') == 'substitution' for n in sc.get('figures', [])}
+        theirs = {n for sc in pack.sections if sc.get('kind') != 'substitution' for n in sc.get('figures', [])}
+        skip = skip | (mine - theirs)
+        manifest['_subst'] = subst
+    # The Quick Reference sheet's text sub-sections, read off the left column (the image
+    # is kept as a download, so its figure is NOT skipped). Built here because pulling the
+    # prose needs the PDF open, then carried in the manifest like every other rebuild.
+    qref = quick_reference.prose(pack)
+    if qref:
+        manifest['_quickref'] = qref
     for f in pack.figures:
         if f['name'] in skip:
             continue
