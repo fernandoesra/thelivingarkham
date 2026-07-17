@@ -489,6 +489,12 @@ def build_registry(packs=None):
             'order': p.order,
             'ui': f'langs/{p.code}/ui.json',
             'data': f'data/grimoire_{p.code}.json',
+            # The newest edition this language has. A translation lands months
+            # after the English original, and the registry is the only thing the
+            # browser reads before choosing a language — so it is the only place
+            # a language can find out that another one is already ahead of it.
+            'v': p.current['v'],
+            'date': p.current['date'],
         }
         # A pack may ship a flag next to its config. It is decoration: the label
         # is what names the language, so a pack without one is perfectly fine.

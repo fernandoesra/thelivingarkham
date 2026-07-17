@@ -150,6 +150,13 @@ def whatsnew_index(allsecs, added, changed, versions):
             add(SEC + s['id'], {'id': s['id'], 'title': s['title'], 'sid': s['id'],
                                 'sec': s['title'], 'num': s['num'], 'chapter': True})
         for e in s.get('entries', []):
-            add(e['id'], {'id': e['id'], 'title': e['title'], 'sid': s['id'],
-                          'sec': s['title'], 'num': s['num']})
+            item = {'id': e['id'], 'title': e['title'], 'sid': s['id'],
+                    'sec': s['title'], 'num': s['num']}
+            # A title can contain a game icon — "Unique ()" is a word and a glyph.
+            # The plain string keeps that glyph as its raw codepoint in the icon
+            # font, and nothing on the page is set in that font, so on its own it
+            # renders as tofu. The runs carry the icon as an icon.
+            if e.get('titleRuns'):
+                item['titleRuns'] = e['titleRuns']
+            add(e['id'], item)
     return index

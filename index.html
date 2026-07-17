@@ -82,9 +82,15 @@
   </div>
 
   <!-- FOOTER -->
+  <!-- The credits fold away on a phone, where they cost a sixth of the screen.
+       The button only exists below the breakpoint; on a wide screen it is hidden
+       and the panel is simply always open, so nothing is ever unreachable. -->
   <footer class="tla-foot">
-    <span id="tla-foot-src" data-i18n-html="footsrc">Basado en <b>El Grimorio de Arkham</b> v1.0 (ES) / v1.1 (EN) · reglas © sus autores · Arkham Horror: LCG ™ Fantasy Flight Games</span>
-    <span id="tla-foot-by" data-i18n-html="footby">The Living Arkham <b>v0.1.0 · beta</b> · un proyecto de <a href="https://rinconmiskatonic.org/" target="_blank" rel="noopener">Rincón Miskatonic</a></span>
+    <button class="tla-foot-toggle" id="tla-foot-toggle" type="button" aria-expanded="false" aria-controls="tla-foot-body" data-i18n="footinfo">Créditos</button>
+    <div class="tla-foot-body" id="tla-foot-body">
+      <span id="tla-foot-src" data-i18n-html="footsrc">Basado en <b>El Grimorio de Arkham</b> v1.0 (ES) / v1.1 (EN) · reglas © sus autores · Arkham Horror: LCG ™ Fantasy Flight Games</span>
+      <span id="tla-foot-by" data-i18n-html="footby">The Living Arkham <b>v0.1.0 · beta</b> · un proyecto de <a href="https://rinconmiskatonic.org/" target="_blank" rel="noopener">Rincón Miskatonic</a></span>
+    </div>
   </footer>
 
   <!-- SEARCH OVERLAY -->

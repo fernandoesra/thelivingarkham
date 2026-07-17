@@ -157,7 +157,13 @@ So: **the only way to know an entry is new is to have the previous PDF.** That i
 * **Ship only the newest** and the build says so. It can still highlight the red text — "these words are new" — but it will not claim any entry is new, because it cannot know.
 * Skipping an edition in the middle is reported too: its changes get credited to the next edition that has a PDF.
 
-Nothing here is language-specific. A language with a single edition simply has no history, and no What's New page appears.
+Nothing here is language-specific. A language with a single edition simply has no history of its own.
+
+### While a translation is on its way
+
+A new edition comes out in English and the translations arrive months later. In the meantime, the language that is behind does **not** go quiet: its What's New page says that v1.1 exists, in which language, when it was published, and offers a button straight to it — and still shows which edition your language actually is on.
+
+You do not configure any of this. The registry (`data/languages.json`) records each language's newest edition, so a language can tell that another one is ahead; ship the translated PDF and the notice is replaced by the real changelog on the next build. No language is hard-coded as "the source": whoever is ahead is ahead, so if a translation ever leads, the English page says the same thing.
 
 ## How it fits together
 

@@ -376,15 +376,43 @@ function buildIndex(L){
 /* "What's New" is not a chapter of the book: it is derived from the version
    history, so the app inserts it. Its id stays 'novedades' in every language —
    it is a permalink that has been shared, not user-visible prose. */
+/* A new edition of the Grimoire comes out in English and the translations follow
+   months later. Until one lands, this language's own history is simply older —
+   and saying nothing would look like nothing had happened, when in fact the news
+   is exactly that there IS a new edition, just not in your language yet.
+   The registry carries every language's newest edition, which is what makes that
+   knowable before any of them is loaded. */
+function cmpV(a,b){
+  var x=String(a||'').split('.'), y=String(b||'').split('.');
+  for(var i=0;i<Math.max(x.length,y.length);i++){
+    var p=parseInt(x[i],10), q=parseInt(y[i],10);
+    if(isNaN(p))p=0; if(isNaN(q))q=0;
+    if(p!==q)return p<q?-1:1;
+  }
+  return 0;
+}
+function myVer(code){
+  for(var i=0;i<LANGS.length;i++){if(LANGS[i].code===code)return LANGS[i].v||null;}
+  return null;
+}
+/* Languages whose newest edition is newer than this one's, newest first. No
+   language is "the source": whoever is ahead is ahead. */
+function langsAhead(code){
+  var me=myVer(code); if(!me)return [];
+  return LANGS.filter(function(L){return L.code!==code && L.v && cmpV(L.v,me)>0;})
+              .sort(function(a,b){return cmpV(b.v,a.v);});
+}
 function normalizeData(g){
   var li=latestInfo(g);
-  if(li && !g.sections.some(function(x){return x.id==='novedades';})){
+  /* The chapter also exists when this language has no news of its own but another
+     language does — that IS the news. */
+  if((li||langsAhead(g.lang).length) && !g.sections.some(function(x){return x.id==='novedades';})){
     g.sections.splice(1,0,{num:'',key:'whatsnew',id:'novedades',kind:'whatsnew',
       title:pick(g.lang,'strings','news')||'What\'s New',ver:li,intro:[],entries:[],figures:[]});
   }
 }
 /* the nav badge counts what the newest edition brought */
-function wnCount(s){var wn=data.whatsnew&&data.whatsnew[s.ver.v]; return wn?(wn['new'].length+wn.updated.length):0;}
+function wnCount(s){var wn=s.ver&&data.whatsnew&&data.whatsnew[s.ver.v]; return wn?(wn['new'].length+wn.updated.length):0;}
 
 /* ---------- entries / filtering ---------- */
 function sectionEntries(s){return s.entries||[];}
@@ -415,7 +443,8 @@ function buildNav(){
     var n=sectionEntries(s).length;
     var num=news?'<span class="tla-nav-num"><i class="tla-eldersign" aria-hidden="true"></i></span>'
                 :(s.num?('<span class="tla-nav-num">'+esc(s.num)+'</span>'):'<span class="tla-nav-num">•</span>');
-    var cnt=news?('<span class="tla-nav-cnt new">'+wnCount(s)+'</span>'):(n?('<span class="tla-nav-cnt">'+n+'</span>'):'');
+    var wc=news?wnCount(s):0;
+    var cnt=news?(wc?('<span class="tla-nav-cnt new">'+wc+'</span>'):''):(n?('<span class="tla-nav-cnt">'+n+'</span>'):'');
     h+='<div class="tla-nav-sec'+(news?' is-news':'')+'" data-si="'+si+'" id="navsec-'+s.id+'">';
     h+='<button class="tla-nav-btn" type="button" data-si="'+si+'">'+num+'<span>'+esc(s.title)+'</span>'+cnt+'</button>';
     if(s.kind!=='glossary' && n){
@@ -447,16 +476,65 @@ function azOrder(present){
   if(present['#'])order.push('#');
   return order;
 }
+/* The A-Z bar is pinned, so whatever it takes it takes forever. On a 375px phone
+   its 27 letters wrap to five rows — 203px of a 667px screen, a third of the
+   device, permanently. So it folds.
+   `azOpen` is the reader's own answer and starts as null, meaning "not asked":
+   until they touch it, the bar follows the screen (open on a desktop, folded on a
+   phone), and once they do, their answer sticks through re-renders and resizes.
+   That is why it is a tri-state and not a boolean. */
+var azOpen=null;
+var AZ_AUTO='(max-width:820px)';                  // the width the nav folds at too
+function azFolds(){return window.matchMedia&&window.matchMedia(AZ_AUTO).matches;}
+function azIsOpen(){return azOpen===null?!azFolds():azOpen;}
+function azSummary(s){
+  var total=sectionEntries(s).length, shown=visibleEntries(s).length;
+  /* Folded, this line is the only thing saying a filter is on at all — so it
+     names the letter, not just the tally. */
+  return glossFilter==='all' ? (total+' '+t('entries'))
+       : (glossFilter+' · '+shown+' '+t('of')+' '+total+' '+t('entries'));
+}
 function azFilterBar(s){
   var present={}; sectionEntries(s).forEach(function(e){present[entryLetter(e)]=1;});
   var order=azOrder(present);
-  var total=sectionEntries(s).length, shown=visibleEntries(s).length;
-  var h='<div class="tla-azfilter"><div class="tla-azlabel">'+t('filterby')+'</div><div class="tla-azrow">';
+  var open=azIsOpen();
+  var h='<div class="tla-azfilter'+(open?'':' is-folded')+'">';
+  h+='<button class="tla-aztoggle" type="button" id="tla-aztoggle" aria-expanded="'+open+'" aria-controls="tla-azpanel">';
+  h+='<span class="tla-azlabel">'+esc(t('filterby'))+'</span>';
+  h+='<span class="tla-azcount">'+esc(azSummary(s))+'</span>';
+  h+='<svg class="tla-azchev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+  h+='</button>';
+  h+='<div class="tla-azpanel" id="tla-azpanel"'+(open?'':' hidden')+'><div class="tla-azrow">';
   h+='<button class="tla-azbtn all'+(glossFilter==='all'?' active':'')+'" type="button" data-az="all" aria-pressed="'+(glossFilter==='all')+'">'+t('all')+'</button>';
   order.forEach(function(c){ h+='<button class="tla-azbtn'+(glossFilter===c?' active':'')+'" type="button" data-az="'+esc(c)+'" aria-pressed="'+(glossFilter===c)+'">'+esc(c)+'</button>'; });
-  h+='<span class="tla-azcount">'+(glossFilter==='all'?total:shown+' '+t('of')+' '+total)+' '+t('entries')+'</span>';
-  h+='</div></div>';
+  h+='</div></div></div>';
   return h;
+}
+/* The footer's credits. Unlike the A-Z bar there is no tri-state: above the
+   breakpoint there is room, so they are simply always there and the button does
+   not exist. JS owns the `hidden` attribute rather than CSS hiding the panel,
+   because `hidden` is what takes it out of the accessibility tree and the tab
+   order — and it must never be set on a wide screen, where the credits ARE on
+   the page and saying otherwise would be a lie to a screen reader. */
+var FOOT_FOLDS='(max-width:820px)';
+var footOpen=false;
+function footFolds(){return !!(window.matchMedia&&window.matchMedia(FOOT_FOLDS).matches);}
+function syncFoot(){
+  var b=document.getElementById('tla-foot-body'), btn=document.getElementById('tla-foot-toggle');
+  if(!b||!btn)return;
+  var folded=footFolds()&&!footOpen;
+  b.hidden=folded;
+  btn.setAttribute('aria-expanded',String(!folded));
+}
+function toggleFoot(){footOpen=!footOpen; syncFoot();}
+function toggleAz(){
+  azOpen=!azIsOpen();
+  var bar=elMain.querySelector('.tla-azfilter'); if(!bar)return;
+  var btn=bar.querySelector('.tla-aztoggle'), panel=bar.querySelector('.tla-azpanel');
+  bar.classList.toggle('is-folded',!azOpen);
+  btn.setAttribute('aria-expanded',String(azOpen));
+  panel.hidden=!azOpen;
+  syncStickyHeight();          // the pinned bar just changed height
 }
 function setGlossFilter(v){
   glossFilter=v; render(curSec.id,null,false); elMain.scrollTop=0;
@@ -700,24 +778,47 @@ function wnVersions(){
   /* newest first: history reads backwards */
   return (data.versions||[]).filter(function(v){return data.whatsnew&&data.whatsnew[v.v];}).reverse();
 }
+/* "There is a newer edition, but not in your language yet." Named languages, a
+   real date, and a way straight into the edition that does exist — a notice the
+   reader can act on rather than just be told. */
+function pendingHTML(){
+  var ahead=langsAhead(lang); if(!ahead.length)return '';
+  var top=ahead[0];
+  var names=ahead.map(function(L){return L.name;}).join(', ');
+  var h='<section class="tla-pending">';
+  h+='<i class="tla-eldersign tla-pending-star" aria-hidden="true"></i>';
+  h+='<div class="tla-pending-body">';
+  h+='<h2 class="tla-pending-t">'+esc(t('pendingt').replace('{v}',top.v).replace('{l}',names))+'</h2>';
+  h+='<p class="tla-pending-d">'+esc(t('pendingd').replace('{v}',top.v)
+      .replace('{d}',fmtDate(top.date)).replace('{l}',names))+'</p>';
+  /* Switching language is what this button does, so it says so: the reader is
+     about to leave their own language, and that should not be a surprise. */
+  h+='<button class="tla-pending-cta" type="button" data-golang="'+esc(top.code)+'" lang="'+esc(top.code)+'">'
+    +esc(t('pendingcta').replace('{l}',top.name))+' →</button>';
+  h+='</div></section>';
+  return h;
+}
 function renderWhatsNew(){
   var vs=wnVersions();
-  if(!vs.length){elMain.innerHTML=''; elToc.innerHTML=''; return;}
+  var pending=pendingHTML();
+  if(!vs.length && !pending){elMain.innerHTML=''; elToc.innerHTML=''; return;}
   var cur=null;
   for(var i=0;i<vs.length;i++){if(vs[i].v===wnPick)cur=vs[i];}
   if(!cur)cur=vs[0];
-  var wn=data.whatsnew[cur.v];
+  var wn=cur?data.whatsnew[cur.v]:null;
 
   var h='<div class="tla-doc">';
   h+='<div class="tla-crumb">The Living Arkham</div>';
   h+='<h1 class="tla-h1">'+esc(t('news'))+'</h1><div class="tla-rule"></div>';
+  h+=pending;
 
-  // the whole history, always — one chip per edition, newest first
+  // the whole history, always — one chip per edition, newest first. It still
+  // matters when there is no news: it says which edition you are actually on.
   h+='<div class="tla-vertabs" role="group" aria-label="'+esc(t('history'))+'">';
   vs.forEach(function(v){
     var n=data.whatsnew[v.v], count=n['new'].length+n.updated.length;
-    h+='<button class="tla-vertab'+(v.v===cur.v?' active':'')+'" type="button" data-wnv="'+esc(v.v)+'"'
-      +' aria-pressed="'+(v.v===cur.v)+'">'
+    h+='<button class="tla-vertab'+(cur&&v.v===cur.v?' active':'')+'" type="button" data-wnv="'+esc(v.v)+'"'
+      +' aria-pressed="'+(!!cur&&v.v===cur.v)+'">'
       +'<span class="tla-vertab-v">v'+esc(v.v)+'</span>'
       +'<span class="tla-vertab-d">'+esc(fmtDate(v.date))+'</span>'
       +'<span class="tla-vertab-n">'+count+'</span></button>';
@@ -729,11 +830,13 @@ function renderWhatsNew(){
   }
   h+='</div>';
 
-  h+='<div class="tla-note">'+esc(t('newsintro'))+'</div>';
-  if(wn['new'].length){h+='<h2 class="tla-wnh"><span class="tla-vbadge new">'+esc(t('newbadge'))+'</span> '+esc(t('newentries'))+' <span class="tla-wncount">'+wn['new'].length+'</span></h2>'
-    +'<p class="tla-wnhelp">'+esc(t('newhelp').replace('{v}',cur.v))+'</p>'+wnList(wn['new'],'new');}
-  if(wn.updated.length){h+='<h2 class="tla-wnh"><span class="tla-vbadge upd">'+esc(t('updbadge'))+'</span> '+esc(t('updentries'))+' <span class="tla-wncount">'+wn.updated.length+'</span></h2>'
-    +'<p class="tla-wnhelp">'+esc(t('updhelp').replace('{v}',cur.v))+'</p>'+wnList(wn.updated,'upd');}
+  if(cur){
+    h+='<div class="tla-note">'+esc(t('newsintro'))+'</div>';
+    if(wn['new'].length){h+='<h2 class="tla-wnh"><span class="tla-vbadge new">'+esc(t('newbadge'))+'</span> '+esc(t('newentries'))+' <span class="tla-wncount">'+wn['new'].length+'</span></h2>'
+      +'<p class="tla-wnhelp">'+esc(t('newhelp').replace('{v}',cur.v))+'</p>'+wnList(wn['new'],'new');}
+    if(wn.updated.length){h+='<h2 class="tla-wnh"><span class="tla-vbadge upd">'+esc(t('updbadge'))+'</span> '+esc(t('updentries'))+' <span class="tla-wncount">'+wn.updated.length+'</span></h2>'
+      +'<p class="tla-wnhelp">'+esc(t('updhelp').replace('{v}',cur.v))+'</p>'+wnList(wn.updated,'upd');}
+  }
   h+='</div>';
   elMain.innerHTML=h; elToc.innerHTML=''; elMain.scrollTop=0;
 }
@@ -742,8 +845,10 @@ function wnList(items,cls){
   items.forEach(function(it){
     // a whole chapter can change too — the FAQ gains answers in its own lead text
     var where=it.chapter?esc(t('chapter')):((it.num?esc(it.num)+' · ':'')+esc(it.sec));
+    /* The card already says "rewritten", so the title's own diff marks would only
+       repeat it — same reason titleHTML suppresses them. */
     h+='<button class="tla-wncard '+cls+(it.chapter?' is-chapter':'')+'" type="button" data-eid="'+esc(it.id)+'">'
-      +'<span class="tla-wntitle">'+esc(it.title)+'</span>'
+      +'<span class="tla-wntitle">'+(it.titleRuns?runsHTML(it.titleRuns,true):esc(it.title))+'</span>'
       +'<span class="tla-wnsec">'+where+'</span></button>';});
   return h+'</div>';
 }
@@ -757,6 +862,33 @@ function rmPanel(){
     +'<div class="tla-rm-mark" aria-hidden="true">'+SIGIL_SVG+'</div>'
   +'</section>';
 }
+/* Which chapters are worth pointing at, by the pack's shared section keys and
+   never by their titles — the same chapter is "Glosario" in one language and
+   "Glossary of Terms and Keywords" in the next, and a German pack will name it a
+   third thing. The keys are the fixed vocabulary every pack already agrees on
+   (langpack.SECTION_KEYS), so this needs no translation and no pack changes. */
+var FLAGS=[
+  {id:'relevant',    keys:['whatsnew','glossary']},
+  {id:'recommended', keys:['timing','skill-tests','errata']}
+];
+function flagOf(s2){
+  for(var i=0;i<FLAGS.length;i++){ if(FLAGS[i].keys.indexOf(s2.key)>=0)return FLAGS[i].id; }
+  return null;
+}
+/* The two flags, explained once above the grid, so the ribbons below mean
+   something the first time they are seen. */
+function flagKeyHTML(){
+  var live={}; data.sections.forEach(function(s2){var f=flagOf(s2); if(f)live[f]=1;});
+  var shown=FLAGS.filter(function(f){return live[f.id];});
+  if(!shown.length)return '';
+  var h='<ul class="tla-pennantkey">';
+  shown.forEach(function(f){
+    h+='<li class="tla-pennantkey-i"><span class="tla-pennant is-'+f.id+'">'+esc(t('flag'+f.id))+'</span>'
+      +'<span class="tla-pennant-d">'+esc(t('flag'+f.id+'d'))+'</span></li>';
+  });
+  return h+'</ul>';
+}
+
 function renderLanding(s){
   var li=latestInfo(data);
   var h='<div class="tla-doc tla-landing">';
@@ -767,14 +899,24 @@ function renderLanding(s){
   if(li){h+=verBanner(li);}
   h+=rmPanel();
   h+='<h2 class="tla-cards-h">'+esc(t('browse'))+'</h2>';
+  h+=flagKeyHTML();
   h+='<div class="tla-cards">';
   data.sections.forEach(function(s2,si){
     if(s2.kind==='intro')return;
     var news=s2.kind==='whatsnew';
     var n=sectionEntries(s2).length;
     var num=news?'<i class="tla-eldersign" aria-hidden="true"></i>':esc(s2.num||'•');
-    var meta=news?(t('newver')+' · v'+s2.ver.v):(n+' '+t('entries'));
-    h+='<button class="tla-card'+(news?' news':'')+'" type="button" data-si="'+si+'">';
+    var meta;
+    if(!news)meta=n+' '+t('entries');
+    else if(s2.ver)meta=t('newver')+' · v'+s2.ver.v;
+    else{var ah=langsAhead(lang)[0];
+      meta=ah?t('pendingcard').replace('{v}',ah.v).replace('{l}',ah.name):t('news');}
+    var fl=flagOf(s2);
+    h+='<button class="tla-card'+(news?' news':'')+(fl?' has-pennant':'')+'" type="button" data-si="'+si+'">';
+    /* The ribbon is text, not decoration: it is the whole point of the flag, so a
+       screen reader gets it as part of the card's name rather than a coloured
+       shape it cannot see. */
+    if(fl)h+='<span class="tla-pennant tla-cardpennant is-'+fl+'">'+esc(t('flag'+fl))+'</span>';
     h+='<span class="tla-card-top"><span class="tla-card-num">'+num+'</span><span class="tla-card-title">'+esc(s2.title)+'</span></span>';
     h+='<span class="tla-card-meta">'+esc(meta)+'</span></button>';
   });
@@ -1110,6 +1252,8 @@ function wireEvents(){
   });
   elMain.addEventListener('click',function(e){
     var cd=e.target.closest('.tla-card'); if(cd){navigate(data.sections[+cd.getAttribute('data-si')].id,false); return;}
+    var gl=e.target.closest('[data-golang]');
+    if(gl){setLang(gl.getAttribute('data-golang')); return;}
     var go=e.target.closest('[data-go]'); if(go){navigate(go.getAttribute('data-go'),false); return;}
     /* Picking an edition re-renders the page, which destroys the button you just
        pressed: put focus back on its replacement and say what happened. */
@@ -1123,6 +1267,7 @@ function wireEvents(){
       return;
     }
     var wc=e.target.closest('.tla-wncard'); if(wc){gotoTarget(wc.getAttribute('data-eid'),true); return;}
+    if(e.target.closest('.tla-aztoggle')){toggleAz(); return;}
     var az=e.target.closest('.tla-azbtn'); if(az){setGlossFilter(az.getAttribute('data-az')); return;}
     /* a step number inside a diagram: jump to that box and flash it, so the
        loops the book draws with arrows can actually be followed */
@@ -1198,7 +1343,19 @@ function wireEvents(){
   elMain.addEventListener('scroll',spy,{passive:true});
   window.addEventListener('hashchange',route);
   // the toolbar re-wraps as the pane narrows, changing how much it covers
-  window.addEventListener('resize',function(){syncStickyHeight(); layoutFlowLoops();},{passive:true});
+  document.getElementById('tla-foot-toggle').addEventListener('click',toggleFoot);
+  syncFoot();
+  var azWas=azIsOpen();
+  window.addEventListener('resize',function(){
+    /* Crossing the fold width changes what "auto" means, so the bar has to be
+       rebuilt — but only if the reader has not overridden it, and only when the
+       answer really flipped: this fires on every pixel of a drag. */
+    if(azOpen===null && azIsOpen()!==azWas && curSec && curSec.kind==='glossary'){
+      azWas=azIsOpen(); render(curSec.id);
+    }
+    syncFoot();                       // the breakpoint decides whether it folds at all
+    syncStickyHeight(); layoutFlowLoops();
+  },{passive:true});
 
   // clicking the backdrop (or the image) dismisses it, as before — but the
   // close button must not have its own click swallowed by the backdrop rule.

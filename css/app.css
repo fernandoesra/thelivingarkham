@@ -40,7 +40,7 @@ html[data-theme="slate"] #tla-root, .tla-pal-slate{
   --new:#db9385; --new-bg:rgba(206,105,86,.16); --new-edge:rgba(206,105,86,.55);
   --shadow:0 14px 34px rgba(0,0,0,.42);
   --figbg:#121820; --bggrad:#222a34;
-  --page:#1a1f26; --scrim:rgba(8,10,14,.55); --navtint:rgba(0,0,0,.10);
+  --on-accent:#121820; --page:#1a1f26; --scrim:rgba(8,10,14,.55); --navtint:rgba(0,0,0,.10);
   --stickyshadow:0 10px 26px -12px rgba(0,0,0,.6);
   color-scheme:dark;
 }
@@ -56,7 +56,7 @@ html[data-theme="moss"] #tla-root, .tla-pal-moss{
   --new:#d08a84; --new-bg:rgba(196,116,110,.15); --new-edge:rgba(196,116,110,.5);
   --shadow:0 14px 34px rgba(0,0,0,.5);
   --figbg:#0d110c; --bggrad:#1a2118;
-  --page:#121711; --scrim:rgba(7,9,7,.6); --navtint:rgba(0,0,0,.16);
+  --on-accent:#0d110c; --page:#121711; --scrim:rgba(7,9,7,.6); --navtint:rgba(0,0,0,.16);
   --stickyshadow:0 10px 26px -12px rgba(0,0,0,.7);
   color-scheme:dark;
 }
@@ -71,7 +71,7 @@ html[data-theme="midnight"] #tla-root, .tla-pal-midnight{
   --new:#e59aa1; --new-bg:rgba(191,97,106,.18); --new-edge:rgba(191,97,106,.6);
   --shadow:0 14px 34px rgba(0,0,0,.45);
   --figbg:#1c212c; --bggrad:#2f3746;
-  --page:#232936; --scrim:rgba(9,12,18,.6); --navtint:rgba(0,0,0,.14);
+  --on-accent:#12161d; --page:#232936; --scrim:rgba(9,12,18,.6); --navtint:rgba(0,0,0,.14);
   --stickyshadow:0 10px 26px -12px rgba(0,0,0,.6);
   color-scheme:dark;
 }
@@ -89,7 +89,7 @@ html[data-theme="plum"] #tla-root, .tla-pal-plum{
   --new:#cf7f78; --new-bg:rgba(196,116,110,.16); --new-edge:rgba(196,116,110,.52);
   --shadow:0 14px 34px rgba(0,0,0,.55);
   --figbg:#0a060b; --bggrad:#1a121c;
-  --page:#0f0a10; --scrim:rgba(5,3,6,.62); --navtint:rgba(0,0,0,.18);
+  --on-accent:#0a060b; --page:#0f0a10; --scrim:rgba(5,3,6,.62); --navtint:rgba(0,0,0,.18);
   --stickyshadow:0 10px 26px -12px rgba(0,0,0,.75);
   color-scheme:dark;
 }
@@ -105,7 +105,7 @@ html[data-theme="neon"] #tla-root, .tla-pal-neon{
   --new:#ff9a6b; --new-bg:rgba(255,120,70,.15); --new-edge:rgba(255,120,70,.5);
   --shadow:0 14px 34px rgba(0,0,0,.6);
   --figbg:#0a0709; --bggrad:#1d1219;
-  --page:#0d0a0c; --scrim:rgba(6,3,5,.62); --navtint:rgba(0,0,0,.2);
+  --on-accent:#16000c; --page:#0d0a0c; --scrim:rgba(6,3,5,.62); --navtint:rgba(0,0,0,.2);
   --stickyshadow:0 10px 26px -12px rgba(0,0,0,.75);
   color-scheme:dark;
 }
@@ -122,7 +122,7 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
   --new:#a43c28; --new-bg:rgba(164,60,40,.12); --new-edge:rgba(164,60,40,.45);
   --shadow:0 10px 28px rgba(70,52,20,.18);
   --figbg:#e5dcc6; --bggrad:#f8f2e6;
-  --page:#e9e1cf; --scrim:rgba(44,34,14,.34); --navtint:rgba(90,68,20,.05);
+  --on-accent:#fff8ea; --page:#e9e1cf; --scrim:rgba(44,34,14,.34); --navtint:rgba(90,68,20,.05);
   --stickyshadow:0 12px 28px -14px rgba(70,52,20,.4);
   color-scheme:light;
 }
@@ -265,17 +265,17 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
 /* nav */
 .tla-nav-sec{margin-bottom:2px}
 .tla-nav-btn{display:flex; align-items:center; gap:10px; width:100%; text-align:left; cursor:pointer;
-  background:transparent; border:0; color:var(--ink2); font-family:var(--ff-ui); font-size:14.5px;
-  padding:10px 11px; border-radius:9px; line-height:1.3; min-height:40px}
+  background:transparent; border:0; color:var(--ink2); font-family:var(--ff-ui); font-size:16px;
+  padding:11px 11px; border-radius:9px; line-height:1.35; min-height:44px}
 .tla-nav-btn:hover{background:var(--panel); color:var(--ink)}
 .tla-nav-btn.active{background:linear-gradient(90deg,var(--mark),transparent); color:var(--gold2); box-shadow:inset 3px 0 0 var(--gold)}
-.tla-nav-num{font-family:var(--ff-head); font-size:13px; color:var(--gold); min-width:28px; opacity:.9}
+.tla-nav-num{font-family:var(--ff-head); font-size:14.5px; color:var(--gold); min-width:28px; opacity:.9}
 .tla-nav-btn.active .tla-nav-num{opacity:1}
-.tla-nav-cnt{margin-left:auto; font-size:12px; color:var(--muted); background:var(--bg); border:1px solid var(--edge); border-radius:11px; padding:1px 8px; font-family:var(--ff-ui)}
+.tla-nav-cnt{margin-left:auto; font-size:13px; color:var(--muted); background:var(--bg); border:1px solid var(--edge); border-radius:11px; padding:1px 8px; font-family:var(--ff-ui)}
 .tla-sublist{margin:2px 0 10px 14px; padding-left:10px; border-left:1px solid var(--edge); display:none}
 .tla-nav-sec.open .tla-sublist{display:block}
-.tla-sublink{display:block; padding:7px 9px; font-family:var(--ff-ui); font-size:13.5px; color:var(--muted); border-radius:7px; cursor:pointer;
-  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; border:0; background:transparent; width:100%; text-align:left; min-height:32px}
+.tla-sublink{display:block; padding:8px 9px; font-family:var(--ff-ui); font-size:15px; color:var(--muted); border-radius:7px; cursor:pointer;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; border:0; background:transparent; width:100%; text-align:left; min-height:36px}
 .tla-sublink:hover{background:var(--panel); color:var(--ink2)}
 .tla-sublink.active{color:var(--gold2)}
 
@@ -314,8 +314,72 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
 .tla-landing-lead{font-size:19px; line-height:1.7; color:var(--ink2); max-width:68ch; margin:0 0 6px}
 .tla-landing-lead b{color:var(--gold2)} .tla-landing-lead i{color:var(--ink)}
 .tla-cards-h{font-family:var(--ff-head); font-size:21px; color:var(--gold2); margin:24px 0 4px; letter-spacing:.3px}
+/* ---------- pennants ----------
+   Two of these, explained once above the grid and then flown on the chapters
+   they point at. A swallowtail cut and a slow wave: they should read as cloth on
+   a pole, which is why the tail is notched rather than merely rounded. */
+.tla-pennant{--flag:var(--gold); --flag-ink:var(--on-gold);
+  position:relative; display:inline-block; flex:0 0 auto;
+  font-family:var(--ff-ui); font-size:12px; font-weight:700; letter-spacing:.7px;
+  text-transform:uppercase; white-space:nowrap;
+  /* The box is 5px taller than the cloth top and bottom. That gap is headroom:
+     a clip-path cannot draw outside its own box, so without it the fly could
+     only ever pinch inwards — it could never wave UP. The right padding is the
+     fly's length, keeping the text clear of the notch. */
+  padding:10px 40px 10px 11px; color:var(--flag-ink); background:var(--flag);
+  /* Everything is in px, not %, because calc() interpolates in a clip-path (the
+     midpoint of 34px and 26px really does compute to 30px). So the notch is the
+     same length and the ripple the same depth whether the label is one word or
+     four — with percentages both would stretch with the text. */
+  clip-path:polygon(
+    0 5px, calc(100% - 56px) 5px, calc(100% - 28px) 5px, 100% 5px,
+    calc(100% - 34px) 50%,
+    100% calc(100% - 5px), calc(100% - 28px) calc(100% - 5px),
+    calc(100% - 56px) calc(100% - 5px), 0 calc(100% - 5px));
+  animation:tlafly 3.8s ease-in-out infinite}
+.tla-pennant.is-relevant{--flag:var(--new); --flag-ink:var(--on-accent)}
+.tla-pennant.is-recommended{--flag:var(--teal); --flag-ink:var(--on-accent)}
+/* the pole it hangs from */
+.tla-pennant::before{content:''; position:absolute; left:0; top:3px; bottom:3px; width:2px;
+  background:var(--flag); opacity:.55; border-radius:2px}
+/* Only the fly moves. The four points at the hoist and at `100% - 56px` are the
+   same in every keyframe, so the body is a rectangle that cannot budge and the
+   text keeps a straight edge to sit against. Past that, the cloth is loose.
+   The fly FLAPS rather than pinches: top and bottom shift together, so the cloth
+   keeps its thickness instead of squeezing — a flag bends, it does not deflate.
+   The two loose points are out of phase (when the middle is up the tip is still
+   coming down), so a wave travels out along the fly rather than the whole tip
+   bobbing as one lump. That phase lag is the whole difference between cloth and
+   a windscreen wiper, which is also why none of these numbers form a sine. */
+@keyframes tlafly{
+  0%,100%{clip-path:polygon(0 5px, calc(100% - 56px) 5px, calc(100% - 28px) 5px,  100% 5px,
+           calc(100% - 34px) 50%,
+           100% calc(100% - 5px),  calc(100% - 28px) calc(100% - 5px), calc(100% - 56px) calc(100% - 5px), 0 calc(100% - 5px))}
+  22%    {clip-path:polygon(0 5px, calc(100% - 56px) 5px, calc(100% - 28px) 1px,  100% 7px,
+           calc(100% - 31px) 50%,
+           100% calc(100% - 3px),  calc(100% - 28px) calc(100% - 9px), calc(100% - 56px) calc(100% - 5px), 0 calc(100% - 5px))}
+  44%    {clip-path:polygon(0 5px, calc(100% - 56px) 5px, calc(100% - 28px) 6px,  100% 1px,
+           calc(100% - 37px) 50%,
+           100% calc(100% - 9px),  calc(100% - 28px) calc(100% - 4px), calc(100% - 56px) calc(100% - 5px), 0 calc(100% - 5px))}
+  66%    {clip-path:polygon(0 5px, calc(100% - 56px) 5px, calc(100% - 28px) 9px,  100% 5px,
+           calc(100% - 32px) 50%,
+           100% calc(100% - 5px),  calc(100% - 28px) calc(100% - 1px), calc(100% - 56px) calc(100% - 5px), 0 calc(100% - 5px))}
+  84%    {clip-path:polygon(0 5px, calc(100% - 56px) 5px, calc(100% - 28px) 4px,  100% 8px,
+           calc(100% - 35px) 50%,
+           100% calc(100% - 2px),  calc(100% - 28px) calc(100% - 6px), calc(100% - 56px) calc(100% - 5px), 0 calc(100% - 5px))}
+}
+.tla-pennantkey{list-style:none; display:flex; flex-wrap:wrap; gap:8px 24px; margin:14px 0 0; padding:0}
+.tla-pennantkey-i{display:flex; align-items:center; gap:6px; min-width:0}
+.tla-pennant-d{font-family:var(--ff-ui); font-size:14px; color:var(--muted)}
+/* on a card the pennant flies from the top-left corner, over the border */
+.tla-cardpennant{position:absolute; top:8px; left:-5px; z-index:1; font-size:10.5px;
+  padding:9px 38px 9px 9px; animation-duration:4.6s}
+.tla-card.has-pennant{padding-top:44px}
+/* Cloth does not flap for someone who asked the page to hold still. */
+@media (prefers-reduced-motion:reduce){ .tla-pennant{animation:none} }
+
 .tla-cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:24px 0 8px}
-.tla-card{display:flex; flex-direction:column; gap:7px; width:100%; text-align:left; cursor:pointer;
+.tla-card{position:relative; display:flex; flex-direction:column; gap:7px; width:100%; text-align:left; cursor:pointer;
   padding:18px 20px; border-radius:12px; border:1px solid var(--edge2); background:var(--panel); color:inherit;
   transition:transform .12s ease, border-color .12s, background .12s}
 .tla-card:hover{transform:translateY(-2px); border-color:var(--gold); background:var(--panel2)}
@@ -367,14 +431,28 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
   background:var(--panel); border:0; border-bottom:1px solid var(--edge2);
   border-radius:0 0 12px 12px;
   box-shadow:var(--stickyshadow)}
-.tla-azfilter .tla-azlabel{font-family:var(--ff-ui); font-size:12px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:9px}
+/* The whole header row is the toggle: a 27-letter bar is worth folding on a
+   phone (five rows, a third of the screen) and worth folding on a desktop too
+   once you know your letter. */
+.tla-aztoggle{display:flex; align-items:center; gap:10px; width:100%; cursor:pointer;
+  background:transparent; border:0; padding:0; min-height:34px; text-align:left; color:inherit}
+.tla-azfilter .tla-azlabel{font-family:var(--ff-ui); font-size:12px; text-transform:uppercase;
+  letter-spacing:1px; color:var(--muted); flex:0 0 auto}
+.tla-azchev{width:18px; height:18px; flex:0 0 auto; color:var(--muted); transition:transform .18s ease}
+.tla-azfilter.is-folded .tla-azchev{transform:rotate(-90deg)}
+.tla-aztoggle:hover .tla-azlabel,.tla-aztoggle:hover .tla-azchev{color:var(--ink2)}
+.tla-azpanel{padding-top:10px}
+.tla-azpanel[hidden]{display:none}
 .tla-azrow{display:flex; flex-wrap:wrap; gap:6px; align-items:center}
 .tla-azbtn{min-width:36px; height:36px; padding:0 8px; border-radius:8px; border:1px solid var(--edge2); background:var(--bg2);
   color:var(--ink2); font-family:var(--ff-ui); font-size:14px; font-weight:600; cursor:pointer}
 .tla-azbtn:hover{background:var(--panel2); color:var(--ink); border-color:var(--gold)}
 .tla-azbtn.active{background:var(--gold); color:var(--on-gold); border-color:var(--gold)}
 .tla-azbtn.all{width:auto; padding:0 14px}
-.tla-azcount{font-family:var(--ff-ui); font-size:13px; color:var(--muted); margin-left:6px; align-self:center; white-space:nowrap}
+/* pushed right, and the last thing to be given up when the bar is narrow */
+.tla-azcount{font-family:var(--ff-ui); font-size:13px; color:var(--muted);
+  margin-left:auto; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0}
+.tla-azfilter.is-folded .tla-azcount{color:var(--gold2)}
 
 /* Jumping to an entry must land it BELOW the pinned toolbar, not behind it. The
    toolbar's height changes with the alphabet and the width (it wraps to two rows
@@ -415,7 +493,7 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
 .tla-diagbadge{font-family:var(--ff-ui); font-size:11px; font-weight:700; letter-spacing:.6px;
   text-transform:uppercase; color:var(--teal2); border:1px solid var(--teal);
   border-radius:6px; padding:1px 7px; vertical-align:middle; white-space:nowrap}
-.tla-toc a .tla-diagbadge{font-size:9.5px; padding:0 5px; margin-left:4px}
+.tla-toc a .tla-diagbadge{font-size:10.5px; padding:0 5px; margin-left:4px}
 .tla-flowwrap{position:relative; max-width:620px; margin:22px auto 30px}
 .tla-flow{list-style:none; margin:0; padding:0}
 /* the loops the book curves back up the right-hand side. The boxes' own words
@@ -541,7 +619,7 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
 /* inline "new since last version" text */
 .tla-new{background:var(--new-bg); box-shadow:inset 0 -2px 0 var(--new-edge); border-radius:3px; padding:0 .05em}
 /* version badges next to entry titles */
-.tla-vbadge{font-family:var(--ff-ui); font-size:11px; font-weight:700; letter-spacing:.5px; text-transform:uppercase;
+.tla-vbadge{font-family:var(--ff-ui); font-size:12px; font-weight:700; letter-spacing:.5px; text-transform:uppercase;
   padding:2px 8px; border-radius:20px; white-space:nowrap; vertical-align:middle; line-height:1.4}
 .tla-vbadge.new{color:var(--new); border:1px solid var(--new-edge); background:transparent}
 .tla-vbadge.upd{color:var(--gold2); border:1px solid var(--gold); background:transparent}
@@ -569,6 +647,26 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
 .tla-vb-d{font-size:13px; color:var(--muted); margin-top:2px}
 .tla-vb-cta{margin-left:auto; font-weight:700; color:var(--new); white-space:nowrap; align-self:center}
 
+/* ---------- waiting on a translation ----------
+   Deliberately NOT the red of a new edition: nothing here is new in THIS
+   language yet. It is a notice, so it is built like the STOP! callout's
+   register rather than like the version banner it sits above. */
+.tla-pending{display:flex; align-items:flex-start; gap:16px; font-family:var(--ff-ui);
+  margin:0 0 22px; padding:18px 20px; border-radius:12px;
+  background:linear-gradient(100deg, var(--mark), transparent 62%), var(--panel);
+  border:1px solid var(--gold)}
+.tla-pending-star{font-size:28px; color:var(--gold2); flex:0 0 auto; margin-top:2px}
+.tla-pending-body{min-width:0}
+.tla-pending-t{font-family:var(--ff-head); font-size:21px; font-weight:400;
+  color:var(--gold2); margin:0 0 6px; letter-spacing:.3px}
+.tla-pending-d{font-size:15px; color:var(--ink2); margin:0; max-width:70ch; line-height:1.55}
+.tla-pending-cta{display:inline-flex; align-items:center; min-height:40px; margin-top:12px;
+  padding:0 16px; border-radius:9px; cursor:pointer; font-family:var(--ff-ui);
+  font-size:14.5px; font-weight:700;
+  background:var(--gold); color:var(--on-gold); border:1px solid var(--gold)}
+.tla-pending-cta:hover{background:var(--gold2); border-color:var(--gold2)}
+@media (max-width:560px){ .tla-pending{gap:12px; padding:15px 14px} .tla-pending-star{font-size:22px} }
+
 /* version history: one chip per edition, newest first */
 .tla-vertabs{display:flex; flex-wrap:wrap; gap:8px; align-items:stretch; margin:0 0 18px}
 .tla-vertab{display:flex; flex-direction:column; align-items:flex-start; gap:1px; cursor:pointer;
@@ -576,8 +674,8 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
   background:var(--panel); border:1px solid var(--edge2); color:var(--ink2)}
 .tla-vertab:hover{background:var(--panel2); border-color:var(--gold)}
 .tla-vertab.active{background:var(--gold); border-color:var(--gold); color:var(--on-gold)}
-.tla-vertab-v{font-size:15px; font-weight:700}
-.tla-vertab-d{font-size:11.5px; opacity:.8}
+.tla-vertab-v{font-size:16px; font-weight:700}
+.tla-vertab-d{font-size:13px; opacity:.8}
 /* full strength on the gold chip: at .8 the date measures 3.6:1 there, under the
    4.5:1 this size needs */
 .tla-vertab.active .tla-vertab-d{opacity:1}
@@ -589,7 +687,7 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
 .tla-vertab.is-origin{cursor:default; background:transparent; border-style:dashed;
   color:var(--muted); font-size:12.5px; justify-content:center}
 .tla-vertab.is-origin:hover{background:transparent; border-color:var(--edge2)}
-.tla-wnhelp{font-family:var(--ff-ui); font-size:13.5px; color:var(--muted); margin:-4px 0 14px; max-width:70ch}
+.tla-wnhelp{font-family:var(--ff-ui); font-size:15px; color:var(--muted); margin:-4px 0 14px; max-width:70ch}
 
 /* where an entry came from, and when it was touched */
 .tla-prov{font-family:var(--ff-ui); font-size:12px; color:var(--muted); margin:10px 0 0;
@@ -600,17 +698,17 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
 .tla-nav-sec.is-news .tla-nav-num{color:var(--new)}
 
 /* what's-new view */
-.tla-wnh{font-family:var(--ff-head); font-size:22px; color:var(--gold2); margin:28px 0 12px; display:flex; align-items:center; gap:10px}
-.tla-wncount{font-family:var(--ff-ui); font-size:14px; color:var(--muted); font-weight:600}
+.tla-wnh{font-family:var(--ff-head); font-size:24px; color:var(--gold2); margin:28px 0 12px; display:flex; align-items:center; gap:10px}
+.tla-wncount{font-family:var(--ff-ui); font-size:15.5px; color:var(--muted); font-weight:600}
 .tla-wnh .tla-vbadge{font-size:11px}
-.tla-wngrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:12px}
+.tla-wngrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(248px,1fr)); gap:12px}
 .tla-wncard{display:flex; flex-direction:column; gap:4px; text-align:left; cursor:pointer;
   padding:13px 15px; border-radius:10px; border:1px solid var(--edge2); background:var(--panel); transition:transform .1s, border-color .12s}
 .tla-wncard:hover{transform:translateY(-2px); border-color:var(--gold)}
 .tla-wncard.new{border-left:3px solid var(--new-edge)}
 .tla-wncard.upd{border-left:3px solid var(--gold)}
-.tla-wntitle{font-family:var(--ff-head); font-size:17px; color:var(--ink)}
-.tla-wnsec{font-family:var(--ff-ui); font-size:12px; color:var(--muted)}
+.tla-wntitle{font-family:var(--ff-head); font-size:19px; color:var(--ink); line-height:1.25}
+.tla-wnsec{font-family:var(--ff-ui); font-size:13.5px; color:var(--muted)}
 
 /* ---------- game icons (recolourable PNG masks) ---------- */
 .tla-entry h2 .ico,.tla-wnh .ico,.tla-h1 .ico{--icon:var(--gold2)}
@@ -661,16 +759,21 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
 .tla-note b{color:var(--gold2)}
 
 /* ---------- toc (right) ---------- */
-.tla-toc-h{font-family:var(--ff-ui); font-size:12px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--muted); margin:0 0 12px}
-.tla-toc a{display:block; font-family:var(--ff-ui); font-size:13.5px; color:var(--muted); padding:5px 9px; border-left:2px solid transparent; line-height:1.4}
+.tla-toc-h{font-family:var(--ff-ui); font-size:13px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--muted); margin:0 0 12px}
+.tla-toc a{display:block; font-family:var(--ff-ui); font-size:15px; color:var(--muted); padding:7px 9px; border-left:2px solid transparent; line-height:1.45}
 .tla-toc a:hover{color:var(--ink2); text-decoration:none}
 .tla-toc a.on{color:var(--gold2); border-left-color:var(--gold)}
 .tla-toc a.is-subhead{color:var(--teal2); font-weight:700; margin-top:8px}
 .tla-toc a .ico{--icon:var(--muted)}
 
-/* ---------- footer (always visible) ---------- */
+/* ---------- footer ---------- */
 .tla-foot{flex:0 0 auto; border-top:1px solid var(--edge); padding:14px 22px; font-family:var(--ff-ui); font-size:13px; color:var(--muted);
   display:flex; gap:14px; flex-wrap:wrap; align-items:center; justify-content:space-between; background:var(--bg2)}
+.tla-foot-body{display:contents}
+/* No fold on a wide screen: there is room, so the credits just sit there. The
+   button is display:none rather than merely invisible, so it is out of the tab
+   order too — there is nothing for it to do here. */
+.tla-foot-toggle{display:none}
 /* Underlined, not just tinted: a link inside a run of text must be findable
    without seeing colour (WCAG 1.4.1) — the tint alone sits at 1.5:1 against the
    surrounding footer text. Qualified with #tla-root to outrank the blanket
@@ -710,6 +813,20 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
   .tla-searchbtn-kbd{display:none}
   .tla-title{font-size:21px}
   .tla-sub{display:none}
+  /* The credits fold: two wrapped lines cost ~100px of a 667px phone, and they
+     are the least urgent thing on the screen. One tap brings them back. */
+  .tla-foot{padding:0 14px; gap:0}
+  .tla-foot-toggle{display:flex; align-items:center; justify-content:space-between; gap:8px;
+    width:100%; min-height:40px; padding:0; cursor:pointer;
+    background:transparent; border:0; color:var(--muted);
+    font-family:var(--ff-ui); font-size:12.5px; text-transform:uppercase; letter-spacing:.9px}
+  .tla-foot-toggle::after{content:''; width:9px; height:9px; flex:0 0 auto;
+    border-right:2px solid currentColor; border-bottom:2px solid currentColor;
+    transform:rotate(-135deg) translate(-2px,-2px); transition:transform .18s ease}
+  .tla-foot-toggle[aria-expanded=true]::after{transform:rotate(45deg) translate(-3px,-3px)}
+  .tla-foot-toggle:hover{color:var(--ink2)}
+  .tla-foot-body{display:flex; flex-direction:column; gap:6px; width:100%; padding:2px 0 12px}
+  .tla-foot-body[hidden]{display:none}
 }
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:.001ms !important; transition-duration:.001ms !important}

@@ -9,6 +9,8 @@
       "order": 1,
       "ui": "langs/es/ui.json",
       "data": "data/grimoire_es.json",
+      "v": "1.0",
+      "date": "2026-05-11",
       "flag": "langs/es/flag.svg"
     },
     {
@@ -19,6 +21,8 @@
       "order": 2,
       "ui": "langs/en/ui.json",
       "data": "data/grimoire_en.json",
+      "v": "1.1",
+      "date": "2026-06-22",
       "flag": "langs/en/flag.svg"
     }
   ]
