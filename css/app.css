@@ -290,7 +290,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-searchmodal{position:fixed; inset:0; z-index:120; display:flex; align-items:flex-start; justify-content:center;
   padding:clamp(56px,11vh,132px) 16px 24px; background:var(--scrim); backdrop-filter:blur(3px)}
 .tla-searchmodal[hidden]{display:none}
-.tla-searchmodal-box{width:min(680px,100%); max-height:80vh; display:flex; flex-direction:column; overflow:hidden;
+.tla-searchmodal-box{width:min(940px,100%); max-height:80vh; display:flex; flex-direction:column; overflow:hidden;
   background:var(--panel); border:1px solid var(--edge2); border-radius:14px; box-shadow:var(--shadow)}
 .tla-searchmodal-bar{display:flex; align-items:center; gap:10px; padding:13px 14px; border-bottom:1px solid var(--edge); flex:0 0 auto}
 .tla-searchmodal-bar > svg{width:20px;height:20px;color:var(--muted);flex:0 0 auto}
@@ -326,11 +326,40 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
   color:var(--gold2); background:var(--panel2); border-bottom:1px solid var(--edge)}
 .tla-res-grpn{color:var(--muted); font-weight:600}
+/* Two corpora side by side: the Grimoire on the left, the FAQ chapter 1 on the right, split
+   by a rule. Stacks to one column on a narrow screen. Each corpus keeps its own sticky
+   heading; the shared scroll is the results container. */
+.tla-res-cols{display:grid; grid-template-columns:1fr 1fr}
+.tla-res-col{min-width:0; border-left:1px solid var(--edge)}
+.tla-res-col:first-child{border-left:0}
+@media (max-width:640px){
+  .tla-res-cols{grid-template-columns:1fr}
+  .tla-res-col{border-left:0; border-top:1px solid var(--edge2)}
+  .tla-res-col:first-child{border-top:0}
+}
 .tla-faqlink svg{transform:none}
 /* Set/campaign/scenario icons recovered from the FAQ's vector art. Sized like a small
    square glyph sitting in a line of text; recoloured through the mask like every game icon
    (the .ico base sets background-color:var(--icon) and the mask props). */
 .tla-seticon{width:calc(1.02em*var(--icon-scale)); height:calc(1.02em*var(--icon-scale)); vertical-align:-.16em}
+/* Cross-corpus confirm: a FAQ chapter 1 link that leads into the Grimoire names where it
+   goes before following it. Above the lightbox (300) so it is never hidden. */
+.tla-confirm{position:fixed; inset:0; z-index:320; display:flex; align-items:center; justify-content:center;
+  padding:20px; background:var(--scrim); backdrop-filter:blur(3px)}
+.tla-confirm-box{width:min(460px,100%); background:var(--panel); border:1px solid var(--edge2);
+  border-radius:14px; box-shadow:var(--shadow); padding:20px}
+.tla-confirm-t{font-family:var(--ff-head); font-size:20px; color:var(--ink); margin:0 0 10px}
+.tla-confirm-d{font-family:var(--ff-ui); font-size:14px; color:var(--ink2); line-height:1.55; margin:0 0 14px}
+.tla-confirm-d b{color:var(--ink)}
+.tla-confirm-rm{display:flex; align-items:center; gap:8px; font-family:var(--ff-ui); font-size:13px;
+  color:var(--muted); margin-bottom:16px; cursor:pointer}
+.tla-confirm-btns{display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap}
+.tla-confirm-cancel,.tla-confirm-ok{font-family:var(--ff-ui); font-size:14px; font-weight:600;
+  padding:9px 16px; border-radius:9px; cursor:pointer; border:1px solid var(--edge2)}
+.tla-confirm-cancel{background:var(--bg); color:var(--ink2)}
+.tla-confirm-cancel:hover{background:var(--panel2); color:var(--ink)}
+.tla-confirm-ok{background:var(--gold); color:var(--on-gold); border-color:transparent}
+.tla-confirm-ok:hover{filter:brightness(1.06)}
 
 /* ---------- app-shell layout (full height) ---------- */
 .tla-body{flex:1 1 auto; min-height:0; display:grid; grid-template-columns:308px minmax(0,1fr) 264px}
@@ -381,6 +410,11 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   white-space:nowrap; overflow:hidden; text-overflow:ellipsis; border:0; background:transparent; width:100%; text-align:left; min-height:36px}
 .tla-sublink:hover{background:var(--panel); color:var(--ink2)}
 .tla-sublink.active{color:var(--gold2)}
+/* A nav sublink is a label, not prose: entry titles that are set bold or italic in the text
+   (the FAQ's "(1.1) …" rulings, its wholly-bold definition terms) must read as plain menu
+   items here, not shout. */
+#tla-root .tla-sublink strong,#tla-root .tla-sublink b{font-weight:400; color:inherit}
+#tla-root .tla-sublink em,#tla-root .tla-sublink i{font-style:normal}
 
 /* ---------- content ---------- */
 .tla-crumb{font-family:var(--ff-ui); font-size:13px; color:var(--muted); letter-spacing:.4px; margin-bottom:8px; text-transform:uppercase}
@@ -750,6 +784,14 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-ub-viewbtn.is-on{background:var(--gold); border-color:var(--gold); color:var(--on-gold)}
 .tla-ub-viewbtn svg{width:15px; height:15px; flex:0 0 auto}
 @media (max-width:560px){.tla-ub-view{margin-left:0}.tla-ub-viewbtn span{display:none}}
+/* Chapter filter (all / cap 1 / cap 2), same segmented look as the view toggle. */
+.tla-ub-chap{display:inline-flex; gap:2px; padding:3px; border-radius:10px;
+  border:1px solid var(--edge2); background:var(--bg2)}
+.tla-ub-chapbtn{cursor:pointer; min-height:32px; font-family:var(--ff-ui); font-size:13px;
+  font-weight:600; padding:5px 12px; border-radius:8px; border:1px solid transparent;
+  background:transparent; color:var(--ink2)}
+.tla-ub-chapbtn:hover{color:var(--ink)}
+.tla-ub-chapbtn.is-on{background:var(--gold); border-color:var(--gold); color:var(--on-gold)}
 .tla-ub-tabs{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 20px;
   border-bottom:1px solid var(--edge2); padding-bottom:10px}
 .tla-ub-tab{font-family:var(--ff-ui); font-size:14px; line-height:1.2;
@@ -758,10 +800,10 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-ub-tab:hover{background:var(--panel2); color:var(--ink)}
 .tla-ub-tab[aria-selected=true]{background:var(--gold); border-color:var(--gold);
   color:var(--on-gold); font-weight:700}
-.tla-ub-n{font-size:12px; font-weight:400; opacity:.72; margin-left:2px}
-/* Full opacity on the selected (gold) tab: dimming blends the count toward the
-   gold and drops it under 4.5:1 on the lighter themes. on-gold already contrasts. */
-.tla-ub-tab[aria-selected=true] .tla-ub-n{opacity:1}
+/* The count keeps full opacity: dimming it blended the ink toward the tab background and
+   dropped it under 4.5:1 on several themes (and toward gold on the selected tab). The
+   smaller size already reads it as secondary. */
+.tla-ub-n{font-size:12px; font-weight:400; margin-left:2px}
 /* Gallery: every card of the tab at once, filling the width (5argon-style). A card
    enlarges to a full-size render in the lightbox on click; its glossary links stay
    visible but non-interactive so a click zooms rather than also navigating away. */

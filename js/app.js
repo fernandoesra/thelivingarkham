@@ -962,11 +962,13 @@ function buildNav(){
   var h='';
   navGroups().forEach(function(g){
     /* Each shelf collapses, so a reader can fold the whole Grimoire away to reach
-       Recursos or Ayudas. Native <details open>: keyboard-operable and announced as
-       expandable for free, open by default. The heading stays a real h2 inside the
-       summary, so the outline is unbroken and the labelled group semantics hold. */
+       Recursos or Ayudas. Native <details>: keyboard-operable and announced as
+       expandable for free. Collapsed by default now that there are four shelves — markNav
+       opens the one holding the section you are on, so you always see where you are. The
+       heading stays a real h2 inside the summary, so the outline is unbroken and the
+       labelled group semantics hold. */
     if(g.id){
-      h+='<details class="tla-navgrp" open>';
+      h+='<details class="tla-navgrp">';
       h+='<summary class="tla-nav-grp-s"><h2 class="tla-nav-grp" id="navgrp-'+esc(g.id)+'">'+esc(t('grp'+g.id))+'</h2></summary>';
       h+='<div class="tla-nav-grpbody" role="group" aria-labelledby="navgrp-'+esc(g.id)+'">';
     }
@@ -1289,7 +1291,15 @@ var ubSel={};
 /* How the viewer shows a tab: 'list' (a sidebar list + one large card, as before) or
    'gallery' (every card at once, 5argon-style). Remembered across the session. */
 var ubView=(function(){try{return localStorage.getItem('tla-ubview')==='gallery'?'gallery':'list';}catch(e){return 'list';}})();
-function ubBucket(s,cat){var ub=s&&s.ub||{}; return cat==='ultimatum'?(ub.ultimatums||[]):cat==='boon'?(ub.boons||[]):(ub.refractions||[]);}
+/* Which chapter's cards to show: 'all', 'cap1' (the retired FAQ — many more refractions) or
+   'cap2' (the 2026 Grimoire). Ultimatums and boons are the same in both, so they are tagged
+   'both' and show under any filter; only the refractions differ. Remembered for the session. */
+var ubChap=(function(){try{var v=localStorage.getItem('tla-ubchap'); return (v==='cap1'||v==='cap2')?v:'all';}catch(e){return 'all';}})();
+function ubChapOK(it){return ubChap==='all'||!it.chapter||it.chapter==='both'||it.chapter===ubChap;}
+function ubBucket(s,cat){var ub=s&&s.ub||{}; var a=cat==='ultimatum'?(ub.ultimatums||[]):cat==='boon'?(ub.boons||[]):(ub.refractions||[]); return a.filter(ubChapOK);}
+/* Whether the corpus even has both chapters' cards (the FAQ was built) — the filter is only
+   worth showing then. */
+function ubHasChapters(s){var ub=s&&s.ub||{}; return (ub.refractions||[]).some(function(it){return it.chapter==='cap1';});}
 function ubFindItem(s,cat,slug){var a=ubBucket(s,cat); for(var i=0;i<a.length;i++)if(a[i].slug===slug)return a[i]; return null;}
 function ubLabel(cat){return t(cat==='ultimatum'?'ubultimatums':cat==='boon'?'ubboons':'ubrefractions');}
 function ubChosen(s,cat){
@@ -1662,6 +1672,16 @@ function ubHTML(s){
     +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
     +'<path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>'
     +'<span class="tla-ub-tool-label">'+esc(t('ubdownall'))+'</span></button>';
+  /* Chapter filter: the 2026 Grimoire (cap 2), the retired FAQ (cap 1, many more refractions)
+     or both. Only shown when this language actually carries the chapter-1 cards. */
+  if(ubHasChapters(s)){
+    h+='<div class="tla-ub-chap" role="group" aria-label="'+esc(t('ubchaplabel'))+'">';
+    ['all','cap1','cap2'].forEach(function(ch){
+      var on=ubChap===ch;
+      h+='<button type="button" class="tla-ub-chapbtn'+(on?' is-on':'')+'" data-ubchap="'+ch+'" aria-pressed="'+on+'">'+esc(t('ubchap'+ch))+'</button>';
+    });
+    h+='</div>';
+  }
   /* View toggle: the classic list (with one large card) or a gallery of every card. */
   h+='<div class="tla-ub-view" role="group" aria-label="'+esc(t('ubviewlabel'))+'">';
   h+='<button type="button" class="tla-ub-viewbtn'+(ubView==='list'?' is-on':'')+'" data-ubview="list" aria-pressed="'+(ubView==='list')+'" aria-label="'+esc(t('ubviewlist'))+'">'
@@ -1743,6 +1763,12 @@ function ubSetView(v){
   ubView=v; try{localStorage.setItem('tla-ubview',v);}catch(e){}
   if(curSec)render(curSec.id,null,false);
 }
+/* Switch chapter filter (all / cap1 / cap2) and re-render — counts and every panel change. */
+function ubSetChap(v){
+  if((v!=='all'&&v!=='cap1'&&v!=='cap2')||v===ubChap)return;
+  ubChap=v; try{localStorage.setItem('tla-ubchap',v);}catch(e){}
+  if(curSec)render(curSec.id,null,false);
+}
 function ubSelectTab(root,cat){
   ubTab=cat;
   [].forEach.call(root.querySelectorAll('.tla-ub-tab'),function(b){
@@ -1791,6 +1817,7 @@ function bindUB(){
     if(e.target.closest('#ubdraw-open')){openDraw(); return;}
     var da=e.target.closest('#ubdownall'); if(da){ubDownloadAll(da); return;}
     var vb=e.target.closest('.tla-ub-viewbtn'); if(vb){ubSetView(vb.getAttribute('data-ubview')); return;}
+    var cb=e.target.closest('.tla-ub-chapbtn'); if(cb){ubSetChap(cb.getAttribute('data-ubchap')); return;}
     var tab=e.target.closest('.tla-ub-tab'); if(tab){ubSelectTab(root,tab.getAttribute('data-ubtab')); tab.focus(); return;}
     // gallery mode: a card (anywhere but its download button) enlarges in the lightbox
     var gc=e.target.closest('.tla-ub-gcard .tla-ubc'); if(gc){ubZoomCard(gc); return;}
@@ -2096,8 +2123,8 @@ function rmPanel(){
    third thing. The keys are the fixed vocabulary every pack already agrees on
    (langpack.SECTION_KEYS), so this needs no translation and no pack changes. */
 var FLAGS=[
-  {id:'relevant',    keys:['whatsnew','glossary','errata-viewer']},
-  {id:'recommended', keys:['timing','skill-tests','errata','faq']},
+  {id:'relevant',    keys:['whatsnew','glossary','errata-viewer','faq-errata']},
+  {id:'recommended', keys:['timing','skill-tests','errata','faq','faq-questions']},
   {id:'extra',       keys:['ultimatums','taboos']}
 ];
 function flagOf(s2){
@@ -2256,7 +2283,11 @@ function markNav(sid){
   [].forEach.call(elNav.querySelectorAll('.tla-nav-btn'),function(b){b.classList.remove('active'); b.removeAttribute('aria-current');});
   [].forEach.call(elNav.querySelectorAll('.tla-nav-sec'),function(d){d.classList.remove('open');});
   var sec=document.getElementById('navsec-'+sid);
-  if(sec){sec.classList.add('open'); var b=sec.querySelector('.tla-nav-btn');
+  if(sec){sec.classList.add('open');
+    /* The shelves start collapsed; open the one holding the active section so it is never
+       hidden inside a folded shelf. Others are left as the reader set them. */
+    var grp=sec.closest('.tla-navgrp'); if(grp)grp.open=true;
+    var b=sec.querySelector('.tla-nav-btn');
     if(b){b.classList.add('active'); b.setAttribute('aria-current','true'); keepInView(b,elNav);}}
 }
 
@@ -2371,6 +2402,50 @@ function setHash(L,target,flash){
 function navigate(target,flash){setHash(lang,target,flash);}
 function gotoTarget(eid,flash){var f=findEntry(lang,eid); if(f)setHash(lang,f.eid||f.sid,flash);}
 
+/* A cross-reference inside the FAQ chapter 1 that points into the Grimoire crosses a decade
+   of rules changes — the two can contradict — so, the first time in a session (until the
+   reader opts out), a small dialog names where it leads before following it. Same-corpus
+   links and Grimoire links go straight through. */
+var xcorpOK=false;
+function secById(sid){for(var i=0;i<data.sections.length;i++){if(data.sections[i].id===sid)return data.sections[i];}return null;}
+function targetCorpus(eid){var f=findEntry(lang,eid); if(!f)return null; var s=secById(f.sid); return s?(s.corpus||'grimoire'):null;}
+function targetTitle(eid){var f=findEntry(lang,eid); if(!f)return eid; var s=secById(f.sid); if(!s)return eid;
+  if(!f.eid)return s.title;
+  for(var j=0;j<(s.entries||[]).length;j++){if(s.entries[j].id===f.eid)return s.entries[j].title;}
+  return s.title;}
+function navGuard(eid,proceed){
+  if(!xcorpOK && curSec && curSec.corpus==='faq1' && targetCorpus(eid)==='grimoire'){openConfirm(eid,proceed);}
+  else proceed();
+}
+function openConfirm(eid,proceed){
+  var prev=document.activeElement;
+  var ov=document.createElement('div');
+  ov.className='tla-confirm'; ov.setAttribute('role','dialog'); ov.setAttribute('aria-modal','true');
+  ov.setAttribute('aria-labelledby','tla-confirm-t'); ov.setAttribute('aria-describedby','tla-confirm-d');
+  ov.innerHTML='<div class="tla-confirm-box">'
+    +'<h2 class="tla-confirm-t" id="tla-confirm-t">'+esc(t('xcorptitle'))+'</h2>'
+    +'<p class="tla-confirm-d" id="tla-confirm-d">'+t('xcorpbody').replace('{t}',esc(targetTitle(eid)))+'</p>'
+    +'<label class="tla-confirm-rm"><input type="checkbox" class="tla-confirm-rm-cb"> '+esc(t('xcorpremember'))+'</label>'
+    +'<div class="tla-confirm-btns">'
+    +'<button type="button" class="tla-confirm-cancel">'+esc(t('cancel'))+'</button>'
+    +'<button type="button" class="tla-confirm-ok">'+esc(t('xcorpok'))+' →</button></div></div>';
+  (root||document.body).appendChild(ov);
+  function close(){document.removeEventListener('keydown',onKey,true); ov.remove(); try{prev&&prev.focus();}catch(e){}}
+  function ok(){if(ov.querySelector('.tla-confirm-rm-cb').checked)xcorpOK=true; close(); proceed();}
+  function foci(){return [].slice.call(ov.querySelectorAll('button,input'));}
+  function onKey(e){
+    if(e.key==='Escape'){e.preventDefault(); close(); return;}
+    if(e.key==='Tab'){var f=foci(); if(!f.length)return; var i=f.indexOf(document.activeElement);
+      if(e.shiftKey){if(i<=0){e.preventDefault(); f[f.length-1].focus();}}
+      else{if(i===f.length-1){e.preventDefault(); f[0].focus();}}}
+  }
+  document.addEventListener('keydown',onKey,true);
+  ov.addEventListener('click',function(e){if(e.target===ov)close();});
+  ov.querySelector('.tla-confirm-cancel').addEventListener('click',close);
+  ov.querySelector('.tla-confirm-ok').addEventListener('click',ok);
+  ov.querySelector('.tla-confirm-ok').focus();
+}
+
 /* The hash is the single source of truth. A language in it is honoured only if
    the registry knows it — an unknown code falls back to the current language
    rather than being read as an entry id. */
@@ -2457,10 +2532,15 @@ function snippet(text,terms){
 function renderResults(groups,terms){
   var total=groups.reduce(function(n,g){return n+g.items.length;},0);
   if(!total){elRes.innerHTML='<div class="tla-res-empty">'+esc(t('nores'))+'</div>'; elRes.classList.add('on'); resSel=-1; clearActiveDesc(); setExpanded(true); return;}
-  var h='', i=0, single=groups.length<2;
+  /* Two corpora sit SIDE BY SIDE — the Grimoire (now) on the left, the FAQ chapter 1 (then)
+     on the right — so the reader compares them at a glance. One corpus alone is a plain list.
+     The option ids stay one flat sequence across both columns, so keyboard nav and
+     aria-activedescendant are unaffected by the two-column layout. */
+  var h='', i=0, multi=groups.length>1;
+  if(multi)h+='<div class="tla-res-cols">';
   groups.forEach(function(g){
-    /* One corpus alone needs no divider — the heading would just state the obvious. */
-    if(!single)h+='<div class="tla-res-grp" role="presentation">'+esc(g.label)+' <span class="tla-res-grpn">'+g.items.length+'</span></div>';
+    if(multi)h+='<div class="tla-res-col" role="group" aria-label="'+esc(g.label)+'">';
+    if(multi)h+='<div class="tla-res-grp" role="presentation">'+esc(g.label)+' <span class="tla-res-grpn">'+g.items.length+'</span></div>';
     g.items.forEach(function(o){var it=o.it;
       h+='<div class="tla-res" role="option" id="tla-res-'+i+'" aria-selected="false" data-eid="'+esc(it.eid)+'" data-i="'+i+'">';
       /* A real space, not only the CSS gap: this whole row is the option's accessible name,
@@ -2470,7 +2550,9 @@ function renderResults(groups,terms){
       h+='<div class="rx">'+hl(snippet(it.text,terms),terms)+'</div></div>';
       i++;
     });
+    if(multi)h+='</div>';
   });
+  if(multi)h+='</div>';
   elRes.innerHTML=h; elRes.classList.add('on'); resSel=-1; clearActiveDesc(); setExpanded(true);
 }
 /* The options are gone: stop pointing at one, or the attribute names a dead id. */
@@ -2682,8 +2764,8 @@ function wireEvents(){
        intercepting it would take "open in a new tab" away from the reader. Only a
        plain left click is ours, and only to add the flash. */
     if(!modClick(e)){
-      var x=e.target.closest('.xref'); if(x){e.preventDefault(); gotoTarget(x.getAttribute('data-t'),true); return;}
-      var a=e.target.closest('.anchor'); if(a){e.preventDefault(); gotoTarget(a.getAttribute('href').split('/')[1],true); return;}
+      var x=e.target.closest('.xref'); if(x){e.preventDefault(); var xt=x.getAttribute('data-t'); navGuard(xt,function(){gotoTarget(xt,true);}); return;}
+      var a=e.target.closest('.anchor'); if(a){e.preventDefault(); var at=a.getAttribute('href').split('/')[1]; navGuard(at,function(){gotoTarget(at,true);}); return;}
     }
     var mi=e.target.closest('.tla-montage-i'); if(mi){openFigInfo(mi); return;}
     var mimg=e.target.closest('.tla-montage-img'); if(mimg){openLightbox(mimg.src,mimg.alt); return;}

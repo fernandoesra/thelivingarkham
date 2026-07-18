@@ -25,6 +25,7 @@ import re
 import fitz
 
 import icon_reference as ir
+import parse_grimoire as pg
 import cardlinks
 import langpack
 
@@ -67,6 +68,136 @@ def _tight_box(page, gx0, gx1, gy0, gy1):
         return None
     return (min(b[0] for b in xs), min(b[1] for b in xs),
             max(b[2] for b in xs), max(b[3] for b in xs))
+
+
+def _cluster_icons(page):
+    """Every set/campaign/scenario icon on the page, as (box, svg, fingerprint).
+
+    The icons are dark vector art (the game icons are font glyphs, handled elsewhere), so
+    the filled dark paths are clustered by proximity — each cluster is one icon — and traced.
+    This finds ALL of them, wherever they sit in the text, not only before a card number."""
+    rects = []
+    for d in page.get_drawings():
+        if not ir._filled(d):
+            continue
+        r = d['rect']
+        if r.width <= 0 or r.height <= 0 or r.width > 40 or r.height > 40:
+            continue
+        rects.append([r.x0, r.y0, r.x1, r.y1])
+    n = len(rects)
+    parent = list(range(n))
+
+    def find(a):
+        while parent[a] != a:
+            parent[a] = parent[parent[a]]
+            a = parent[a]
+        return a
+
+    gap = 3.0
+    for i in range(n):
+        a = rects[i]
+        for j in range(i + 1, n):
+            b = rects[j]
+            if not (a[0] > b[2] + gap or b[0] > a[2] + gap or a[1] > b[3] + gap or b[1] > a[3] + gap):
+                pi, pj = find(i), find(j)
+                if pi != pj:
+                    parent[pi] = pj
+    clusters = {}
+    for i in range(n):
+        clusters.setdefault(find(i), []).append(rects[i])
+    out = []
+    for g in clusters.values():
+        box = (min(r[0] for r in g), min(r[1] for r in g),
+               max(r[2] for r in g), max(r[3] for r in g))
+        w, h = box[2] - box[0], box[3] - box[1]
+        if not (3 <= w <= 22 and 3 <= h <= 22):
+            continue                       # too small (a stray mark) or too big (not an icon)
+        svg = ir.icon_svg(page, box)
+        fp = _fingerprint(svg)
+        if fp and svg:
+            out.append((box, svg, fp))
+    return out
+
+
+_SETICON_FONT = 'TLA-SETICON'
+
+
+def _inject_icons(lines, doc, skip_pages=()):
+    """Slot every page's icons into the line stream as one-glyph pseudo-lines, positioned so
+    the parser joins each into the paragraph it interrupts. Returns {fingerprint: svg}."""
+    by_page = {}
+    for l in lines:
+        by_page.setdefault(l['page'], []).append(l)
+    svgs = {}
+    added = []
+    for pno in range(doc.page_count):
+        if (pno + 1) in skip_pages:
+            continue
+        page = doc[pno]
+        plines = by_page.get(pno + 1, [])
+        for box, svg, fp in _cluster_icons(page):
+            svgs.setdefault(fp, svg)
+            icx, icy = (box[0] + box[2]) / 2.0, (box[1] + box[3]) / 2.0
+            # the line this icon interrupts: same row, its text ending just left of the icon
+            host, hostd = None, 1e9
+            for l in plines:
+                if abs((l['y'] + l['y1']) / 2.0 - icy) > 6:
+                    continue
+                lx1 = max(s['bbox'][2] for s in l['spans'])
+                if lx1 <= icx + 3 and (icx - lx1) < hostd:
+                    hostd, host = icx - lx1, l
+            span = {'font': _SETICON_FONT, 'text': '', '_fp': fp,
+                    'bbox': (box[0], box[1], box[2], box[3]), 'size': 10.0, 'color': 0}
+            added.append({'page': pno + 1, 'col': host['col'] if host else 0, 'xedge': 0,
+                          'y': box[1], 'y1': box[3], 'x0': box[0], 'spans': [span],
+                          'block': host['block'] if host else -1})
+    lines.extend(added)
+    # Reading order, per page and column, but CLUSTER lines into visual rows first and sort
+    # left-to-right within a row. A card reference split by its inline icon leaves two spans on
+    # the same visual line a couple of points apart in y ("Name (" at y419, "255) …" at y417);
+    # sorting by rounded-y alone flips them ("255) …" before "Name ("). Grouping y within a few
+    # points and then ordering by x keeps the sentence — and the icon — in order.
+    lines.sort(key=lambda r: (r['page'], r['col'], r['y']))
+    rowid, prev = 0, None
+    for l in lines:
+        key = (l['page'], l['col'])
+        if prev is None or prev[0] != key or l['y'] - prev[1] > 4:
+            rowid += 1
+        l['_row'] = rowid
+        prev = (key, l['y'])
+    lines.sort(key=lambda r: (r['_row'], r['x0']))
+    for l in lines:
+        l.pop('_row', None)
+    return svgs
+
+
+def parse_with_icons(pdf, skip_pages=()):
+    """parse_grimoire.parse_pdf, but with the FAQ's vector set icons recovered and slotted
+    back into the text. Returns (nodes, doc, svgs). Done by patching the two module hooks
+    the parser resolves at call time — collect_lines (to inject the icons) and build_runs
+    (to turn an injected icon span into a `seticon` run) — so the parser is reused wholesale."""
+    orig_collect = pg.collect_lines
+    orig_build = pg.build_runs
+    captured = {}
+
+    def collect(pdf_, masks):
+        lines, doc = orig_collect(pdf_, masks)
+        captured['svgs'] = _inject_icons(lines, doc, skip_pages)
+        return lines, doc
+
+    def build(spans, reds=pg._KEEP):
+        if spans and all(s.get('font') == _SETICON_FONT for s in spans):
+            return [{'kind': 'seticon', 'fp': s['_fp']} for s in spans]
+        return orig_build(spans, reds)
+
+    pg.collect_lines = collect
+    pg.build_runs = build
+    try:
+        nodes, doc = pg.parse_pdf(pdf, {})
+    finally:
+        pg.collect_lines = orig_collect
+        pg.build_runs = orig_build
+    return nodes, doc, captured.get('svgs', {})
 
 
 def _page_spans(page):
@@ -141,6 +272,8 @@ def write_svgs(svgs, outdir=FAQSETS_DIR):
 
 # ---- the icon-reference chapter (the campaign/product/starter/promo tables) --
 PRODUCTS_DIR = os.path.join(langpack.ROOT, 'assets', 'products')
+ICONS_DIR = os.path.join(langpack.ROOT, 'assets', 'icons')
+CORESET_ART = 'faq-coreset'            # the core set's icon is the elder-sign glyph, not vector
 _HEAD_MIN = 15.0                       # a group heading is Teutonic and at least this big
 _COL_SPLIT = 260.0                     # left/right column boundary on the two-up icon page
 
@@ -171,6 +304,10 @@ def extract_iconref(pdf_path):
     The reader gets a searchable table instead of a flattened, uncopyable picture."""
     doc = fitz.open(pdf_path)
     page = doc[doc.page_count - 1]
+    # icon-font glyphs on the page (the core set's mark is one) — kept to spot a product whose
+    # icon is a glyph rather than vector art, since it sits on its own line beside the name.
+    glyph_boxes = [s['bbox'] for b in page.get_text('dict')['blocks'] if 'lines' in b
+                   for l in b['lines'] for s in l['spans'] if pg.is_icon_font(s.get('font', ''))]
     rows = []                          # (col, y, x, is_head, text, spans, y1)
     for b in page.get_text('dict')['blocks']:
         if 'lines' not in b:
@@ -183,17 +320,20 @@ def extract_iconref(pdf_path):
                 continue                # page number / running header
             x0, y0, y1 = l['bbox'][0], l['bbox'][1], l['bbox'][3]
             is_head = any('Teutonic' in s['font'] and s['size'] >= _HEAD_MIN for s in l['spans'])
-            rows.append((0 if x0 < _COL_SPLIT else 1, round(y0), x0, is_head, txt, l['spans'], y1))
+            # Column by a coarse x bucket, not a single left/right split: the English page sets
+            # two heading columns on its right half ("Campaign …" beside "Standalone …"), which a
+            # 2-column model interleaves and mis-merges. ~120pt keeps each heading with its items.
+            rows.append((int(x0 / 120), round(y0), x0, is_head, txt, l['spans'], y1))
     rows.sort()
 
     groups = []
     svgs = {}
-    cur = {0: None, 1: None}           # the open group per column
-    lasthead = {0: None, 1: None}      # (y0, y1) of the last heading line, for wrap-merge
+    cur = {}                           # the open group per column bucket
+    lasthead = {}                      # (y0, y1) of the last heading line per column, for wrap-merge
     for col, y, x, is_head, txt, spans, y1 in rows:
         if is_head:
-            g = cur[col]
-            prev = lasthead[col]
+            g = cur.get(col)
+            prev = lasthead.get(col)
             # A heading that wrapped onto a second line: only merge when the two lines are
             # vertically adjacent — otherwise two separate group headings ("Campaign Product
             # Icons" then "Standalone Product Icons") would fuse into one.
@@ -214,18 +354,25 @@ def extract_iconref(pdf_path):
             cur[col] = g
             lasthead[col] = (y, y1)
             continue
-        g = cur[col]
+        g = cur.get(col)
         if g is None or g.get('_skip'):
             continue
         g['_wrap'] = False
-        col_left = 36.0 if col == 0 else 268.0
-        box = _icon_left(page, x, y, y1, col_left)
+        box = _icon_left(page, x, y, y1, x - 22.0)   # the icon sits just left of the name
+        namey = bool(re.match(r'^[“"A-ZÁÉÍÓÚÜÑ]', txt)) and len(txt) <= 62
+        # The core set's icon is a font glyph (the elder-sign mark), not vector art — so an
+        # item with a glyph to its left but no traced box is still a product ("Caja básica"),
+        # and must not be mistaken for the group's descriptive blurb.
+        glyph_left = any(gb[2] <= x + 1 and abs((gb[1] + gb[3]) / 2 - (y + y1) / 2) < 6
+                         for gb in glyph_boxes)
+        if box is None and glyph_left and namey:
+            g['items'].append({'name': txt, 'art': CORESET_ART})
+            continue
         # A product entry is a short, capitalised name with a small square-ish icon to its
         # left. Anything else on the page (a sentence of the environments prose that happens
         # to carry an inline icon) fails one of these and is treated as descriptive text.
         square = box is not None and 3 <= (box[2] - box[0]) <= 18 and \
             0.3 <= (box[2] - box[0]) / max(box[3] - box[1], 0.1) <= 2.6
-        namey = bool(re.match(r'^[“"A-ZÁÉÍÓÚÜÑ]', txt)) and len(txt) <= 62
         if box is None or not (square and namey):
             g['blurb'] = (g['blurb'] + ' ' + txt).strip()   # a descriptive line, not a product
             continue
@@ -239,6 +386,11 @@ def extract_iconref(pdf_path):
     for g in groups:
         g.pop('_wrap', None); g.pop('_skip', None)
     groups = [g for g in groups if g['items']]           # keep only real icon tables
+    # The core-set icon is the elder-sign glyph (already rendered as a game icon); reuse it.
+    if any(it['art'] == CORESET_ART for g in groups for it in g['items']):
+        eld = os.path.join(ICONS_DIR, 'eldersign.svg')
+        if os.path.exists(eld):
+            svgs[CORESET_ART] = open(eld, encoding='utf-8').read().strip()
     return groups, svgs
 
 

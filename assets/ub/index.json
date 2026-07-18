@@ -336,6 +336,61 @@
    "th": 183,
    "illus": "Romana Kendelic"
   },
+  "ultimatum-of-ambuscade": {
+   "cat": "ultimatum",
+   "refraction": true,
+   "en": "Ultimatum of Ambuscade",
+   "card": "ub/cards/ultimatum-of-ambuscade.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-ambuscade.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-annoyance": {
+   "cat": "ultimatum",
+   "refraction": true,
+   "en": "Ultimatum of Annoyance",
+   "card": "ub/cards/ultimatum-of-annoyance.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-annoyance.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-death": {
+   "cat": "ultimatum",
+   "refraction": true,
+   "en": "Ultimatum of Death",
+   "card": "ub/cards/ultimatum-of-death.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-death.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-invisibility": {
+   "cat": "ultimatum",
+   "refraction": true,
+   "en": "Ultimatum of Invisibility",
+   "card": "ub/cards/ultimatum-of-invisibility.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-invisibility.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-multiplication": {
+   "cat": "ultimatum",
+   "refraction": true,
+   "en": "Ultimatum of Multiplication",
+   "card": "ub/cards/ultimatum-of-multiplication.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-multiplication.webp",
+   "tw": 132,
+   "th": 183
+  },
   "ultimatum-of-scorched-earth": {
    "cat": "ultimatum",
    "refraction": true,
@@ -349,6 +404,149 @@
    "illus": "Peter Polach & Frej Agelii",
    "set": "e2-217-216",
    "collection": "AHC100"
+  },
+  "ultimatum-of-spoilage": {
+   "cat": "ultimatum",
+   "refraction": true,
+   "en": "Ultimatum of Spoilage",
+   "card": "ub/cards/ultimatum-of-spoilage.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-spoilage.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-the-man": {
+   "cat": "ultimatum",
+   "refraction": true,
+   "en": "Ultimatum of The Man",
+   "card": "ub/cards/ultimatum-of-the-man.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-the-man.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-venom": {
+   "cat": "ultimatum",
+   "refraction": true,
+   "en": "Ultimatum of Venom",
+   "card": "ub/cards/ultimatum-of-venom.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-venom.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-the-brass-crown": {
+   "cat": "ultimatum",
+   "refraction": true,
+   "en": "Ultimatum of the Brass Crown",
+   "card": "ub/cards/ultimatum-of-the-brass-crown.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-the-brass-crown.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-the-drowned": {
+   "cat": "ultimatum",
+   "refraction": true,
+   "en": "Ultimatum of the Drowned",
+   "card": "ub/cards/ultimatum-of-the-drowned.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-the-drowned.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-the-faulty-carburetor": {
+   "cat": "ultimatum",
+   "refraction": true,
+   "en": "Ultimatum of the Faulty Carburetor",
+   "card": "ub/cards/ultimatum-of-the-faulty-carburetor.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-the-faulty-carburetor.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-the-sleeper": {
+   "cat": "ultimatum",
+   "refraction": true,
+   "en": "Ultimatum of the Sleeper",
+   "card": "ub/cards/ultimatum-of-the-sleeper.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-the-sleeper.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "ultimatum-of-the-unspeakable-name": {
+   "cat": "ultimatum",
+   "refraction": true,
+   "en": "Ultimatum of the Unspeakable Name",
+   "card": "ub/cards/ultimatum-of-the-unspeakable-name.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/ultimatum-of-the-unspeakable-name.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "boon-of-atonement": {
+   "cat": "boon",
+   "refraction": true,
+   "en": "Boon of Atonement",
+   "card": "ub/cards/boon-of-atonement.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/boon-of-atonement.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "boon-of-bliss": {
+   "cat": "boon",
+   "refraction": true,
+   "en": "Boon of Bliss",
+   "card": "ub/cards/boon-of-bliss.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/boon-of-bliss.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "boon-of-the-dreamer": {
+   "cat": "boon",
+   "refraction": true,
+   "en": "Boon of The Dreamer",
+   "card": "ub/cards/boon-of-the-dreamer.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/boon-of-the-dreamer.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "boon-of-the-dance": {
+   "cat": "boon",
+   "refraction": true,
+   "en": "Boon of the Dance",
+   "card": "ub/cards/boon-of-the-dance.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/boon-of-the-dance.webp",
+   "tw": 132,
+   "th": 183
+  },
+  "boon-of-the-miners": {
+   "cat": "boon",
+   "refraction": true,
+   "en": "Boon of the Miners",
+   "card": "ub/cards/boon-of-the-miners.webp",
+   "w": 760,
+   "h": 1053,
+   "thumb": "ub/thumbs/boon-of-the-miners.webp",
+   "tw": 132,
+   "th": 183
   }
  }
 }

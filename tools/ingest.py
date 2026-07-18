@@ -158,6 +158,19 @@ def main(argv):
         except Exception as e:
             print(f'  [warn] cross-language fill skipped: {e}', file=sys.stderr)
 
+    # The FAQ chapter-1 refractions: pair each with its imported card and append it to the
+    # Grimoire's ub.refractions, tagged chapter='cap1' (existing items get 'both'/'cap2'), so
+    # the viewer's chapter filter can show cap 1, cap 2 or all. Runs AFTER the cross-language
+    # fill so its campaign-ordered refractions are the final word (ub_merge sorts by name).
+    if built:
+        step('ultimatums & boons — FAQ chapter-1 refractions')
+        import ub_cap1
+        for pack in packs:
+            try:
+                ub_cap1.build(pack)
+            except Exception as e:
+                print(f'  [warn] chapter-1 refractions skipped for {pack.code}: {e}', file=sys.stderr)
+
     step('language registry')
     langpack.write_registry()
 

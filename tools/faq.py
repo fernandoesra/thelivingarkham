@@ -30,6 +30,8 @@ import os
 import re
 import sys
 
+import fitz
+
 import langpack
 import parse_grimoire
 import assemble
@@ -273,64 +275,78 @@ def glossary_section(gdata):
     return None
 
 
-_SETNUM = re.compile(r'^(\s*\(\s*)(\d+[a-z]?)')
-
-
-def attach_seticons(sections, keymap):
-    """Slot each set/campaign/scenario icon back in front of the card number it belongs to.
-
-    cardlinks turned "Name ( 20)" into an ArkhamDB link on the name plus the text " ( 20)";
-    the icon that stood between "(" and "20" was vector art the parser dropped. Here, when a
-    card link is followed by that "( number)" text and the (name, number) is in the keymap,
-    the text is split and a `seticon` run inserted: link · "( " · [icon] · "20)"."""
-    def process(runs):
-        out, i, n = [], 0, 0
-        while i < len(runs):
-            r = runs[i]
-            out.append(r)
-            nxt = runs[i + 1] if i + 1 < len(runs) else None
-            if r.get('kind') == 'adbcard' and nxt and nxt.get('kind') == 'text':
-                m = _SETNUM.match(nxt.get('t', ''))
-                if m:
-                    fp = keymap.get((faq_seticons._fold_name(r.get('t', '')), m.group(2)))
-                    if fp:
-                        out.append({'kind': 'text', 't': m.group(1)})
-                        out.append({'kind': 'seticon', 'fp': fp})
-                        out.append({'kind': 'text', 't': nxt['t'][m.end(1):]})
-                        i += 2
-                        n += 1
-                        continue
-            i += 1
-        return out, n
-    total = 0
+def count_seticons(sections):
+    """How many set/campaign/scenario icons were slotted into the text (for the report)."""
+    n = 0
     for s in sections:
         for b in s.get('intro', []):
-            b['runs'], k = process(b['runs']); total += k
+            n += sum(1 for r in b.get('runs', []) if r.get('kind') == 'seticon')
         for e in s.get('entries', []):
-            if e.get('titleRuns'):
-                e['titleRuns'], k = process(e['titleRuns']); total += k
+            for r in (e.get('titleRuns') or []):
+                if r.get('kind') == 'seticon':
+                    n += 1
             for b in e.get('blocks', []):
-                b['runs'], k = process(b['runs']); total += k
-    return total
+                n += sum(1 for r in b.get('runs', []) if r.get('kind') == 'seticon')
+    return n
+
+
+# A card reference now reads "Name ( <seticon> 20)" — the set icon was slotted between the
+# parenthesis and the number. So the ArkhamDB matcher must see through that icon: the seticon
+# runs are swapped for a sentinel char the pattern treats as whitespace, the card name is
+# linked as usual, and the sentinels are turned back into seticon runs afterwards.
+_SENT = ''
+_FAQ_REF = re.compile('(' + cardlinks._NAME + r')\s*(\(\s*[\s]*\d+[a-z]?'
+                      r'(?:[\s,]*\d+[a-z]?)*[\s]*\))')
+
+
+def _relink_block(runs, stops):
+    conv, style = [], {'bold': False, 'italic': False}
+    for r in runs:
+        if r.get('kind') == 'seticon':
+            conv.append({'kind': 'text', 't': _SENT, 'bold': style['bold'],
+                         'italic': style['italic'], 'ref': False, 'red': False})
+        else:
+            conv.append(r)
+            if r.get('kind') == 'text':
+                style = {'bold': r.get('bold', False), 'italic': r.get('italic', False)}
+    linked, changed = cardlinks._link_runs(conv, stops)
+    out, fps = [], iter([r['fp'] for r in runs if r.get('kind') == 'seticon'])
+    for r in linked:
+        if r.get('kind') == 'text' and _SENT in r.get('t', ''):
+            pieces = r['t'].split(_SENT)
+            for pi, piece in enumerate(pieces):
+                if piece:
+                    out.append(dict(r, t=piece))
+                if pi < len(pieces) - 1:
+                    out.append({'kind': 'seticon', 'fp': next(fps)})
+        else:
+            out.append(r)
+    return out, changed
 
 
 def link_cards(sections, pack):
     """ArkhamDB links for "Name ( 20)" card references. Unlike the Grimoire (where card
-    refs live only in errata/FAQ), the FAQ names cards throughout — errata, rulings,
-    taboos, refractions — so every section is scanned, not just those two kinds."""
+    refs live only in errata/FAQ), the FAQ names cards throughout — errata, rulings, taboos,
+    refractions — so every section is scanned; and the set icon now sitting inside the
+    parenthesis is stepped over (see _relink_block / _FAQ_REF)."""
     stops = cardlinks._stops(pack)
+    orig_ref = cardlinks._REF
+    cardlinks._REF = _FAQ_REF
     n = 0
-    for s in sections:
-        for b in s.get('intro', []):
-            b['runs'], ch = cardlinks._link_runs(b.get('runs', []), stops)
-            n += ch
-        for e in s.get('entries', []):
-            if e.get('titleRuns'):
-                e['titleRuns'], ch = cardlinks._link_runs(e['titleRuns'], stops)
+    try:
+        for s in sections:
+            for b in s.get('intro', []):
+                b['runs'], ch = _relink_block(b.get('runs', []), stops)
                 n += ch
-            for b in e.get('blocks', []):
-                b['runs'], ch = cardlinks._link_runs(b.get('runs', []), stops)
-                n += ch
+            for e in s.get('entries', []):
+                if e.get('titleRuns'):
+                    e['titleRuns'], ch = _relink_block(e['titleRuns'], stops)
+                    n += ch
+                for b in e.get('blocks', []):
+                    b['runs'], ch = _relink_block(b.get('runs', []), stops)
+                    n += ch
+    finally:
+        cardlinks._REF = orig_ref
     return n
 
 
@@ -375,7 +391,12 @@ def build(pack, grimoire_data):
     if cfg is None:
         return None, None
     pdf = faq_pdf(pack, cfg)
-    nodes, _doc = parse_grimoire.parse_pdf(pdf, {})
+    # Parse WITH the set/campaign/scenario icons recovered from the page's vector art and
+    # slotted back into the text (they are invisible to a plain text parse). The last page —
+    # the icon-reference tables — is left to extract_iconref, so its icons are not also
+    # injected into the environments prose that shares it.
+    doc_pages = fitz.open(pdf).page_count
+    nodes, _doc, seticon_svgs = faq_seticons.parse_with_icons(pdf, skip_pages=(doc_pages,))
     nodes = merge_wrapped_headings(nodes)
 
     raw = group_sections(nodes, cfg)
@@ -407,12 +428,10 @@ def build(pack, grimoire_data):
     # Links: card refs -> ArkhamDB first (so a whole card name is not half-eaten by the
     # glossary auto-linker), then cross-refs and auto-links into the GRIMOIRE.
     cards = link_cards(sections, pack)
-    # The set/campaign/scenario icon in front of each card number: vector art the text
-    # parser dropped, recovered from the page and slotted back in. Art shared across
-    # languages (written once), keyed per language from this language's own PDF.
-    svgs, keymap = faq_seticons.extract(pdf, cardlinks._stops(pack))
-    seticons = attach_seticons(sections, keymap)
-    faq_seticons.write_svgs(svgs)
+    # The set/campaign/scenario icons were recovered during the parse (parse_with_icons) and
+    # are already inline as `seticon` runs; just write their shared SVG art.
+    faq_seticons.write_svgs(seticon_svgs)
+    seticons = count_seticons(sections)
     tindex = grimoire_title_index(grimoire_data)
     gloss = glossary_section(grimoire_data)
     links = assemble.linkify(sections, tindex, pack)
@@ -431,7 +450,7 @@ def build(pack, grimoire_data):
     report = {'sections': len(sections),
               'entries': sum(len(s['entries']) for s in sections),
               'cards': cards, 'links': links, 'autolinks': autolinks,
-              'seticons': seticons, 'seticon_art': len(svgs), 'iconref': iconref}
+              'seticons': seticons, 'seticon_art': len(seticon_svgs), 'iconref': iconref}
     return data, report
 
 
