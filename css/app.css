@@ -777,6 +777,10 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-ub-isub{display:inline-flex; align-items:center; gap:6px; margin-top:3px;
   font-family:var(--ff-ui); font-size:13px; font-style:italic; color:var(--muted); line-height:1.2}
 .tla-ub-isub .tla-ubc-sym{width:16px; height:16px; flex:0 0 auto; background-color:var(--gold2); filter:none}
+/* A scenario refraction lists its campaign and scenario on two labelled lines. */
+.tla-ub-isub2{flex-direction:column; align-items:flex-start; gap:4px; margin-top:5px}
+.tla-ub-isubrow{display:inline-flex; align-items:center; gap:6px}
+.tla-ub-isublbl{font-style:normal; font-weight:700; color:var(--ink2)}
 /* "EN": this card is still in English, awaiting translation. */
 .tla-ub-en{margin-left:auto; flex:0 0 auto; align-self:center; font-family:var(--ff-ui);
   font-size:10px; font-weight:700; letter-spacing:.5px; color:var(--gold2);

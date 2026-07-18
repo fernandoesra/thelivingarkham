@@ -1264,17 +1264,37 @@ function ubSymHTML(art,cls){
    "{scenario} ({campaign})", so split on the parenthesis and put the encounter-set symbol
    before the scenario and the collection (box) symbol before the campaign. Any other
    subtitle (or a shape we do not recognise) renders as plain runs, unchanged. */
-function ubSubtitleHTML(it){
+/* A refraction affects a whole campaign, or a single scenario within one. The Grimoire's
+   subtitle reads "{scenario} ({word} {campaign})" (or just a campaign phrase), so split it
+   into named parts: the collection symbol marks the campaign, the encounter-set symbol the
+   scenario. The campaign word ("campaña"/"campaign") is stripped so the name stands alone.
+   Returns null for any subtitle shape we do not recognise. */
+function ubRefractionParts(it){
   var runs=it.subtitle;
-  if(it.refraction&&it.set&&it.collection&&runs&&runs.length===1&&runs[0].kind==='text'){
-    var m=(runs[0].t||'').match(/^(.*?)\s*\(([^)]*)\)\s*$/);
-    if(m&&m[1].trim()&&m[2].trim()){
-      return '<span class="tla-ubc-subpart">'+ubSymHTML(it.set,'tla-ubc-subsym')+'<span>'+esc(m[1].trim())+'</span></span>'
-        +'<span class="tla-ubc-subsep" aria-hidden="true">·</span>'
-        +'<span class="tla-ubc-subpart">'+ubSymHTML(it.collection,'tla-ubc-subsym')+'<span>'+esc(m[2].trim())+'</span></span>';
+  if(!(it.refraction&&it.collection&&runs&&runs.length===1&&runs[0].kind==='text'))return null;
+  var txt=(runs[0].t||'').trim(), scenario='', campaign=txt;
+  var m=txt.match(/^(.*?)\s*\(([^)]*)\)\s*$/);
+  if(m){ scenario=m[1].trim(); campaign=m[2].trim(); }
+  var word=t('refrcampaignword');
+  if(word){var wx=word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+    campaign=campaign.replace(new RegExp('^'+wx+'\\s+|\\s+'+wx+'$','i'),'').trim();}
+  return {scenario:scenario, campaign:campaign, hasScenario:!!(scenario&&it.set),
+          setIcon:it.set, collIcon:it.collection};
+}
+/* Card subtitle: the scenario (with its set symbol), then the campaign (with its collection
+   symbol) as "Campaign X" — capital C. A campaign-wide refraction shows only "Campaign X". */
+function ubSubtitleHTML(it){
+  var p=ubRefractionParts(it);
+  if(p){
+    var h='';
+    if(p.hasScenario){
+      h+='<span class="tla-ubc-subpart">'+ubSymHTML(p.setIcon,'tla-ubc-subsym')+'<span class="tla-ubc-subtxt">'+esc(p.scenario)+'</span></span>'
+        +'<span class="tla-ubc-subsep" aria-hidden="true">·</span>';
     }
+    h+='<span class="tla-ubc-subpart">'+ubSymHTML(p.collIcon,'tla-ubc-subsym')+'<span class="tla-ubc-subtxt">'+esc(t('refrcampaign')+' '+p.campaign)+'</span></span>';
+    return h;
   }
-  return runsHTML(runs,true);
+  return runsHTML(it.subtitle,true);
 }
 function ubDetailHTML(it){
   if(!it)return '';
@@ -1393,12 +1413,16 @@ function ubCardToBlob(card){
         out.forEach(function(l){ctx.strokeText(l,x,y); ctx.fillText(l,x,y); y+=lh;});
       }
       line(card.querySelector('.tla-ubc-title'));
-      line(card.querySelector('.tla-ubc-subtitle'));
+      /* The subtitle flows text and inline symbols; draw each text span at its own place so
+         the symbols (drawn below with the other marks) land between them, as on screen. */
+      var subtxts=card.querySelectorAll('.tla-ubc-subtitle .tla-ubc-subtxt,.tla-ubc-subtitle .tla-ubc-subsep');
+      if(subtxts.length){ [].forEach.call(subtxts,line); }
+      else line(card.querySelector('.tla-ubc-subtitle'));
       line(card.querySelector('.tla-ubc-type'));
       line(card.querySelector('.tla-ubc-illus'));
       line(card.querySelector('.tla-ubc-noart'));
       para(card.querySelector('.tla-ubc-rule'));
-      var syms=[].slice.call(card.querySelectorAll('.tla-ubc-setmark .tla-ubc-sym,.tla-ubc-coll .tla-ubc-sym'));
+      var syms=[].slice.call(card.querySelectorAll('.tla-ubc-setmark .tla-ubc-sym,.tla-ubc-coll .tla-ubc-sym,.tla-ubc-subtitle .tla-ubc-sym'));
       Promise.all(syms.map(function(sy){
         return new Promise(function(res){
           var s=getComputedStyle(sy), m=s.maskImage||s.webkitMaskImage||'';
@@ -1622,9 +1646,21 @@ function ubHTML(s){
       h+='<div class="tla-ub-main"><ul class="tla-ub-list" role="listbox" aria-label="'+esc(ubLabel(cat))+'">';
       items.forEach(function(it){
         var o=it.slug===sel;
-        var sub=it.subtitle&&it.subtitle.length
-          ?'<span class="tla-ub-isub"'+(it.pending?' lang="en"':'')+'>'
-            +(it.set?ubSymHTML(it.set):'')+'<span>'+runsHTML(it.subtitle,true)+'</span></span>':'';
+        var sub='';
+        if(it.subtitle&&it.subtitle.length){
+          var rp=ubRefractionParts(it);
+          if(rp){
+            /* Two lines: the campaign, then (if this refraction is scenario-specific) the
+               scenario — each labelled and shown with its symbol, like 5argon's list. */
+            sub='<span class="tla-ub-isub tla-ub-isub2"'+(it.pending?' lang="en"':'')+'>'
+              +'<span class="tla-ub-isubrow"><span class="tla-ub-isublbl">'+esc(t('refrcampaign'))+':</span>'+ubSymHTML(rp.collIcon)+'<span>'+esc(rp.campaign)+'</span></span>';
+            if(rp.hasScenario)sub+='<span class="tla-ub-isubrow"><span class="tla-ub-isublbl">'+esc(t('refrscenario'))+':</span>'+ubSymHTML(rp.setIcon)+'<span>'+esc(rp.scenario)+'</span></span>';
+            sub+='</span>';
+          }else{
+            sub='<span class="tla-ub-isub"'+(it.pending?' lang="en"':'')+'>'
+              +(it.set?ubSymHTML(it.set):'')+'<span>'+runsHTML(it.subtitle,true)+'</span></span>';
+          }
+        }
         h+='<li role="option" class="tla-ub-item'+(o?' is-sel':'')+(it.pending?' is-pending':'')+'" id="ubopt-'+esc(it.slug)
           +'" data-ubitem="'+esc(it.slug)+'" aria-selected="'+(o?'true':'false')+'" tabindex="'+(o?'0':'-1')+'">'
           +'<img class="tla-ub-thumb" src="assets/'+esc(it.thumb)+'" width="'+it.tw+'" height="'+it.th
