@@ -820,25 +820,27 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   background:transparent; color:var(--ink2)}
 .tla-ub-chapbtn:hover{color:var(--ink)}
 .tla-ub-chapbtn.is-on{background:var(--gold); border-color:var(--gold); color:var(--on-gold)}
-/* The refractions panel's own filter bar: chapter toggle + campaign/scenario selectors. */
-.tla-ub-rfilter{display:flex; flex-wrap:wrap; align-items:center; gap:12px 16px; margin:0 0 18px;
-  padding:12px 14px; border:1px solid var(--edge2); border-radius:12px; background:var(--bg2)}
-.tla-ub-flabel{font-family:var(--ff-ui); font-size:12.5px; font-weight:700; letter-spacing:.4px;
-  text-transform:uppercase; color:var(--muted); margin-right:2px}
-.tla-ub-selects{display:flex; flex-wrap:wrap; align-items:flex-end; gap:10px 14px}
-.tla-ub-sel{display:flex; flex-direction:column; gap:4px; font-family:var(--ff-ui);
-  font-size:12.5px; font-weight:700; letter-spacing:.3px; color:var(--muted)}
-.tla-ub-selbox{font-family:var(--ff-ui); font-size:14px; font-weight:400; color:var(--ink);
-  min-height:36px; min-width:190px; max-width:min(280px,70vw); padding:7px 30px 7px 11px; cursor:pointer;
-  border:1px solid var(--edge2); border-radius:9px; background:var(--panel);
-  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'><path d='M6 9l6 6 6-6'/></svg>");
-  background-repeat:no-repeat; background-position:right 9px center; appearance:none; -webkit-appearance:none}
+/* The refractions panel's own filter bar: chapter toggle + campaign/scenario selectors, each a
+   labelled column so the three read as one row of filters with room to breathe. */
+.tla-ub-rfilter{display:flex; flex-wrap:wrap; align-items:flex-end; gap:16px 26px; margin:0 0 20px;
+  padding:15px 18px; border:1px solid var(--edge2); border-radius:12px; background:var(--bg2)}
+.tla-ub-fgroup{display:flex; flex-direction:column; gap:7px}
+.tla-ub-flabel{display:block; font-family:var(--ff-ui); font-size:11.5px; font-weight:700;
+  letter-spacing:.6px; text-transform:uppercase; color:var(--muted)}
+.tla-ub-sel{display:flex; flex-direction:column; gap:7px; min-width:0}
+.tla-ub-selbox{font-family:var(--ff-ui); font-size:14.5px; font-weight:600; color:var(--ink);
+  min-height:40px; min-width:210px; max-width:min(300px,72vw); padding:8px 34px 8px 13px; cursor:pointer;
+  border:1px solid var(--edge2); border-radius:10px; background:var(--panel);
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23b89a5f' stroke-width='2.4'><path d='M6 9l6 6 6-6'/></svg>");
+  background-repeat:no-repeat; background-position:right 11px center; appearance:none; -webkit-appearance:none;
+  transition:border-color .12s, box-shadow .12s}
 .tla-ub-selbox:hover{border-color:var(--gold)}
-.tla-ub-selbox:focus-visible{outline:2px solid var(--teal2); outline-offset:1px}
-.tla-ub-selbox:disabled{opacity:.5; cursor:not-allowed}
+.tla-ub-selbox:focus-visible{outline:none; border-color:var(--gold); box-shadow:0 0 0 3px var(--focus-ring,rgba(184,154,95,.35))}
+.tla-ub-selbox:disabled{opacity:.45; cursor:not-allowed; background-image:none}
+.tla-ub-selbox option{color:var(--ink); background:var(--panel)}
 .tla-ub-clear{display:inline-flex; align-items:center; gap:6px; font-family:var(--ff-ui);
-  font-size:13px; font-weight:600; color:var(--ink2); cursor:pointer; min-height:36px;
-  padding:6px 12px; border:1px solid var(--edge2); border-radius:9px; background:var(--panel)}
+  font-size:13.5px; font-weight:600; color:var(--ink2); cursor:pointer; min-height:40px;
+  padding:8px 14px; border:1px solid var(--edge2); border-radius:10px; background:var(--panel)}
 .tla-ub-clear:hover{background:var(--panel2); color:var(--ink); border-color:var(--gold)}
 .tla-ub-clear svg{width:14px; height:14px}
 /* Which chapter a refraction belongs to (Cap. 1 / Cap. 2) — shown as a labelled pill, never

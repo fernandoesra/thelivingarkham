@@ -253,13 +253,19 @@ def parse_with_icons(pdf, skip_pages=()):
             out.extend(orig_build(buf, reds))
         return out
 
+    orig_cols = pg.column_edges
     pg.collect_lines = collect
     pg.build_runs = build
+    # Detect columns the support-aware way for the FAQ: its Q&A/rulings pages are single-column but
+    # peppered with wrapped card references, which the plain detector mistook for a right column and
+    # scrambled (splitting questions into "( 96)?" fragments). The Grimoire keeps the plain detector.
+    pg.column_edges = pg.column_edges_dense
     try:
         nodes, doc = pg.parse_pdf(pdf, {})
     finally:
         pg.collect_lines = orig_collect
         pg.build_runs = orig_build
+        pg.column_edges = orig_cols
     return nodes, doc, captured.get('svgs', {})
 
 

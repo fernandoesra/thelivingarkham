@@ -95,7 +95,14 @@ def split_qa(sec):
     lead, groups = [], []
     for b in sec['intro']:
         if b['type'] == 'p' and _italic_ratio(b) >= 0.5:
-            groups.append({'q': b, 'a': []})
+            if groups and not groups[-1]['a']:
+                # A question that wrapped into a second italic block — the tail after an inline
+                # card reference that broke the paragraph ("…like Amnesia (\\n 96)?") — is a
+                # continuation, not a new question. Merge it in; a real new question only ever
+                # follows an answer.
+                groups[-1]['q'] = {'type': 'p', 'runs': groups[-1]['q']['runs'] + b['runs']}
+            else:
+                groups.append({'q': b, 'a': []})
         elif groups:
             groups[-1]['a'].append(b)
         else:

@@ -249,6 +249,33 @@ def column_edges(blocks):
     return edges
 
 
+def column_edges_dense(blocks):
+    """Like column_edges, but a candidate column is kept only if a fair share of the page's blocks
+    start in it. A card reference that WRAPPED across a line ("Name (\\n 164) …") leaves a lone
+    fragment far to the right; the plain detector reads that as a second column and flings the
+    wrapped number to the end of the page. Requiring support treats a single-column page — even one
+    dotted with wrapped card refs — as the single column it is, while still finding real columns.
+
+    Used only by the FAQ parse (faq_seticons.parse_with_icons), whose Q&A/rulings pages are
+    single-column but riddled with wrapped card references; the Grimoire keeps the plain detector."""
+    xs = sorted(min(s['bbox'][0] for l in b['lines'] for s in l['spans'] if s['text'].strip())
+                for b in blocks if any(s['text'].strip() for l in b['lines'] for s in l['spans']))
+    if not xs:
+        return [0.0]
+    clusters = [[xs[0]]]
+    for x in xs[1:]:
+        if x - clusters[-1][-1] <= 40:
+            clusters[-1].append(x)
+        else:
+            clusters.append([x])
+    need = max(3, int(0.12 * len(xs)))
+    edges = []
+    for c in clusters:
+        if not edges or len(c) >= need:          # always keep the leftmost (main) column
+            edges.append(min(c))
+    return edges or [xs[0]]
+
+
 def col_of(x0, edges):
     """Return (column index, that column's left edge) for a line starting at x0."""
     idx = 0

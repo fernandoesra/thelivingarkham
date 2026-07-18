@@ -345,7 +345,8 @@
    "h": 1053,
    "thumb": "ub/thumbs/ultimatum-of-ambuscade.webp",
    "tw": 132,
-   "th": 183
+   "th": 183,
+   "illus": "Borja Pindado"
   },
   "ultimatum-of-annoyance": {
    "cat": "ultimatum",
@@ -356,7 +357,8 @@
    "h": 1053,
    "thumb": "ub/thumbs/ultimatum-of-annoyance.webp",
    "tw": 132,
-   "th": 183
+   "th": 183,
+   "illus": "Michele Giorgi"
   },
   "ultimatum-of-death": {
    "cat": "ultimatum",
@@ -367,7 +369,8 @@
    "h": 1053,
    "thumb": "ub/thumbs/ultimatum-of-death.webp",
    "tw": 132,
-   "th": 183
+   "th": 183,
+   "illus": "Greg Bobrowski"
   },
   "ultimatum-of-invisibility": {
    "cat": "ultimatum",
@@ -378,7 +381,8 @@
    "h": 1053,
    "thumb": "ub/thumbs/ultimatum-of-invisibility.webp",
    "tw": 132,
-   "th": 183
+   "th": 183,
+   "illus": "Romana Kendelic"
   },
   "ultimatum-of-multiplication": {
    "cat": "ultimatum",
@@ -389,7 +393,8 @@
    "h": 1053,
    "thumb": "ub/thumbs/ultimatum-of-multiplication.webp",
    "tw": 132,
-   "th": 183
+   "th": 183,
+   "illus": "Tomasz Jedruszek"
   },
   "ultimatum-of-scorched-earth": {
    "cat": "ultimatum",
@@ -414,7 +419,8 @@
    "h": 1053,
    "thumb": "ub/thumbs/ultimatum-of-spoilage.webp",
    "tw": 132,
-   "th": 183
+   "th": 183,
+   "illus": "Pixoloid Studios"
   },
   "ultimatum-of-the-man": {
    "cat": "ultimatum",
@@ -425,7 +431,8 @@
    "h": 1053,
    "thumb": "ub/thumbs/ultimatum-of-the-man.webp",
    "tw": 132,
-   "th": 183
+   "th": 183,
+   "illus": "Adam Lane"
   },
   "ultimatum-of-venom": {
    "cat": "ultimatum",
@@ -436,7 +443,8 @@
    "h": 1053,
    "thumb": "ub/thumbs/ultimatum-of-venom.webp",
    "tw": 132,
-   "th": 183
+   "th": 183,
+   "illus": "Greg Bobrowski"
   },
   "ultimatum-of-the-brass-crown": {
    "cat": "ultimatum",
@@ -447,7 +455,8 @@
    "h": 1053,
    "thumb": "ub/thumbs/ultimatum-of-the-brass-crown.webp",
    "tw": 132,
-   "th": 183
+   "th": 183,
+   "illus": "Felipe Escobar"
   },
   "ultimatum-of-the-drowned": {
    "cat": "ultimatum",
@@ -458,7 +467,8 @@
    "h": 1053,
    "thumb": "ub/thumbs/ultimatum-of-the-drowned.webp",
    "tw": 132,
-   "th": 183
+   "th": 183,
+   "illus": "Daria Khlebnikova"
   },
   "ultimatum-of-the-faulty-carburetor": {
    "cat": "ultimatum",
@@ -469,7 +479,8 @@
    "h": 1053,
    "thumb": "ub/thumbs/ultimatum-of-the-faulty-carburetor.webp",
    "tw": 132,
-   "th": 183
+   "th": 183,
+   "illus": "Jorge Ramos Márquez"
   },
   "ultimatum-of-the-sleeper": {
    "cat": "ultimatum",
@@ -480,7 +491,8 @@
    "h": 1053,
    "thumb": "ub/thumbs/ultimatum-of-the-sleeper.webp",
    "tw": 132,
-   "th": 183
+   "th": 183,
+   "illus": "JB Casacop"
   },
   "ultimatum-of-the-unspeakable-name": {
    "cat": "ultimatum",
@@ -491,7 +503,8 @@
    "h": 1053,
    "thumb": "ub/thumbs/ultimatum-of-the-unspeakable-name.webp",
    "tw": 132,
-   "th": 183
+   "th": 183,
+   "illus": "Alexandr Elichev"
   },
   "boon-of-atonement": {
    "cat": "boon",
@@ -502,7 +515,8 @@
    "h": 1053,
    "thumb": "ub/thumbs/boon-of-atonement.webp",
    "tw": 132,
-   "th": 183
+   "th": 183,
+   "illus": "Borja Pindado"
   },
   "boon-of-bliss": {
    "cat": "boon",
@@ -513,7 +527,8 @@
    "h": 1053,
    "thumb": "ub/thumbs/boon-of-bliss.webp",
    "tw": 132,
-   "th": 183
+   "th": 183,
+   "illus": "Brian Valenzuela"
   },
   "boon-of-the-dreamer": {
    "cat": "boon",
@@ -524,7 +539,8 @@
    "h": 1053,
    "thumb": "ub/thumbs/boon-of-the-dreamer.webp",
    "tw": 132,
-   "th": 183
+   "th": 183,
+   "illus": "Borja Pindado"
   },
   "boon-of-the-dance": {
    "cat": "boon",
@@ -535,7 +551,8 @@
    "h": 1053,
    "thumb": "ub/thumbs/boon-of-the-dance.webp",
    "tw": 132,
-   "th": 183
+   "th": 183,
+   "illus": "Mauro Dal Bo"
   },
   "boon-of-the-miners": {
    "cat": "boon",
@@ -546,7 +563,8 @@
    "h": 1053,
    "thumb": "ub/thumbs/boon-of-the-miners.webp",
    "tw": 132,
-   "th": 183
+   "th": 183,
+   "illus": "Mauro Dal Bo"
   }
  }
 }

@@ -1361,23 +1361,23 @@ function ubChapChip(it){
 function ubRefracFilterBar(s){
   var h='<div class="tla-ub-rfilter">';
   if(ubHasChapters(s)){
-    h+='<div class="tla-ub-chap" role="group" aria-label="'+esc(t('ubchaplabel'))+'">'
-      +'<span class="tla-ub-flabel">'+esc(t('ubchaplabel'))+'</span>';
+    h+='<div class="tla-ub-fgroup">'
+      +'<span class="tla-ub-flabel" id="ubchap-lbl">'+esc(t('ubchaplabel'))+'</span>'
+      +'<div class="tla-ub-chap" role="group" aria-labelledby="ubchap-lbl">';
     ['all','cap1','cap2'].forEach(function(ch){
       var on=ubChap===ch;
       h+='<button type="button" class="tla-ub-chapbtn'+(on?' is-on':'')+'" data-ubchap="'+ch+'" aria-pressed="'+on+'">'+esc(t('ubchap'+ch))+'</button>';
     });
-    h+='</div>';
+    h+='</div></div>';
   }
   var camps=ubCampaignList(s);
   if(camps.length){
     var scens=ubScenarioList(s);
-    h+='<div class="tla-ub-selects">';
-    h+='<label class="tla-ub-sel"><span>'+esc(t('refrcampaign'))+'</span>'
+    h+='<label class="tla-ub-sel"><span class="tla-ub-flabel">'+esc(t('refrcampaign'))+'</span>'
       +'<select class="tla-ub-selbox" data-ubcamp><option value="">'+esc(t('ubcampall'))+'</option>';
     camps.forEach(function(c){h+='<option value="'+esc(c)+'"'+(c===ubCampaign?' selected':'')+'>'+esc(c)+'</option>';});
     h+='</select></label>';
-    h+='<label class="tla-ub-sel"><span>'+esc(t('refrscenario'))+'</span>'
+    h+='<label class="tla-ub-sel"><span class="tla-ub-flabel">'+esc(t('refrscenario'))+'</span>'
       +'<select class="tla-ub-selbox" data-ubscen'+((ubCampaign&&scens.length)?'':' disabled')+'><option value="">'+esc(t('ubscenall'))+'</option>';
     scens.forEach(function(sc){h+='<option value="'+esc(sc)+'"'+(sc===ubScenario?' selected':'')+'>'+esc(sc)+'</option>';});
     h+='</select></label>';
@@ -1386,7 +1386,6 @@ function ubRefracFilterBar(s){
         +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>'
         +esc(t('ubclearfilter'))+'</button>';
     }
-    h+='</div>';
   }
   h+='</div>';
   return h;
@@ -1852,37 +1851,51 @@ function ubHTML(s){
     +esc(t('ubcreditlink'))+'</a></p>';
   return h;
 }
-/* Switch view mode (list / gallery) and re-render the section, keeping tab + selection. */
+/* Re-render only the viewer in place, keeping the reader's scroll position — a full render()
+   rebuilds the whole chapter and resets the scroll to the top, which made every filter click jump
+   the page. Replacing just the `.tla-ub` block avoids both the jump and the flash. */
+function ubReRender(){
+  if(!curSec)return;
+  var old=elMain.querySelector('.tla-ub');
+  if(!old){render(curSec.id,null,false); return;}
+  var top=elMain.scrollTop;
+  var tmp=document.createElement('div');
+  tmp.innerHTML=ubHTML(curSec);
+  var neo=tmp.querySelector('.tla-ub');
+  if(neo){old.parentNode.replaceChild(neo, old); bindUB();}
+  elMain.scrollTop=top;
+}
+/* Switch view mode (list / gallery), keeping tab + selection + scroll. */
 function ubSetView(v){
   if((v!=='list'&&v!=='gallery')||v===ubView)return;
   ubView=v; try{localStorage.setItem('tla-ubview',v);}catch(e){}
-  if(curSec)render(curSec.id,null,false);
+  ubReRender();
 }
-/* Switch chapter filter (all / cap1 / cap2) and re-render — counts and every panel change. The
-   campaign/scenario filter is cleared with it: those live in a chapter, so a stale pick could
-   point at nothing under the new chapter. */
+/* Switch chapter filter (all / cap1 / cap2) — counts and every panel change. The campaign/
+   scenario filter is cleared with it: those live in a chapter, so a stale pick could point at
+   nothing under the new chapter. */
 function ubSetChap(v){
   if((v!=='all'&&v!=='cap1'&&v!=='cap2')||v===ubChap)return;
   ubChap=v; ubCampaign=''; ubScenario='';
   try{localStorage.setItem('tla-ubchap',v);}catch(e){}
-  if(curSec)render(curSec.id,null,false);
+  ubReRender();
 }
 /* Pick a campaign to filter the refractions by: this also drops any scenario pick and forces the
    chapter filter to 'all', so the two filters never hide each other. */
 function ubSetCampaign(v){
   ubCampaign=v||''; ubScenario='';
   if(ubCampaign)ubChap='all';
-  if(curSec)render(curSec.id,null,false);
+  ubReRender();
 }
 function ubSetScenario(v){
   ubScenario=v||'';
-  if(curSec)render(curSec.id,null,false);
+  ubReRender();
 }
 /* Reset the refractions filter to its default: no campaign, no scenario, all chapters. */
 function ubClearFilter(){
   ubCampaign=''; ubScenario=''; ubChap='all';
   try{localStorage.setItem('tla-ubchap','all');}catch(e){}
-  if(curSec)render(curSec.id,null,false);
+  ubReRender();
 }
 function ubSelectTab(root,cat){
   ubTab=cat;
@@ -2022,8 +2035,10 @@ function taboosHTML(s){
     +'<span class="tla-taboo-ver">'+esc(t('tabooversion').replace('{d}',fmtDate(tb.date)))+'</span></summary>';
   h+='<div class="tla-taboos-body">';
   (tb.groups||[]).forEach(function(g){
-    h+='<section class="tla-taboo-grp"><h3 class="tla-taboo-h">'+esc(t('taboocat_'+g.cat))
-      +' <span class="tla-taboo-n">'+g.cards.length+'</span></h3>';
+    /* h2: these bucket headings sit under the chapter's h1, at the same level as its entries —
+       an h3 here would skip a level (the taboo index renders before those entries). */
+    h+='<section class="tla-taboo-grp"><h2 class="tla-taboo-h">'+esc(t('taboocat_'+g.cat))
+      +' <span class="tla-taboo-n">'+g.cards.length+'</span></h2>';
     h+='<ul class="tla-taboo-list">';
     g.cards.forEach(function(c){
       h+='<li class="tla-taboo-card is-'+esc(g.cat)+'">';
