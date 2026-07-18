@@ -101,7 +101,7 @@
     "flowlabel": "Timing diagram, step by step",
     "footby": "The Living Arkham <b>v1.0</b> · a project by <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
     "footinfo": "Credits",
-    "footsrc": "All content belongs to its respective authors, chiefly Fantasy Flight Games.",
+    "footsrc": "<a href=\"https://www.fantasyflightgames.com/en/products/arkham-horror-the-card-game/\" target=\"_blank\" rel=\"noopener\">Arkham Horror: The Card Game</a>™ and all related content © <a href=\"https://www.fantasyflightgames.com/en/index/\" target=\"_blank\" rel=\"noopener\">Fantasy Flight Games (FFG)</a>. This site is not produced, endorsed by or affiliated with FFG.",
     "glossnone": "No entry matches this filter.",
     "grpaids": "Aids",
     "grpgrimoire": "The Grimoire",
@@ -198,17 +198,31 @@
     "ubillus": "Illus.",
     "ubnoart": "Illustration coming soon",
     "footlogo": "Rincón Miskatonic",
-    "footmaillabel": "Email us",
     "donateopen": "Support our work",
     "donatelabel": "Donate",
     "donatetitle": "Support our work",
     "donatebody": "We are a Spanish community that makes content for free, on a non-profit basis. If you like, you can support our work with a donation. Everything we do, today and always, will stay free: donations go entirely toward covering running costs and paying artists to improve our work. Thank you so much!",
     "donatecta": "Contribute via PayPal",
     "ubdownload": "Download card",
+    "ubdownall": "Download all",
+    "ubdownalltip": "Download all cards as a .zip (current language)",
+    "ubdownallwait": "Preparing…",
+    "ubdraw": "Draw at random",
+    "ubdrawtitle": "Draw at random",
+    "ubdrawdesc": "Choose how many cards to draw of each type and we'll show you a random selection.",
+    "ubdrawgo": "Draw",
+    "ubdrawmax": "0 to {n}",
+    "ubdrawlist": "Cards drawn",
+    "ubdrawempty": "Choose at least one card.",
     "viewadb": "View on ArkhamDB",
     "reprintset": "Set",
     "reprintnum": "No.",
-    "reprintcard": "Card"
+    "reprintcard": "Card",
+    "cardstopwords": "Can Cannot What Whatever Which Whichever Does Do When Where Whenever How However Should Could Would May Might Must Will If While Since Each Every Any Another Only Both While",
+    "flagextra": "Additional content",
+    "flagextrad": "Resources that expand the game, beyond the Grimoire.",
+    "footgh": "View the code and contribute on GitHub",
+    "landingnotice": "<b>Note:</b> the Grimoire is updated in English first and translated into the other languages over time, so some content may take a while to reach yours. To see the very latest, check the English version. And if you have a Grimoire, FAQ or errata document you think is not on the site yet, email us at <a href=\"mailto:rinconmiskatonic@gmail.com\">rinconmiskatonic@gmail.com</a> and we will add it. Thank you!"
   },
   "blurbs": {
     "additional-rules": "Fundamentals and rules that extend the core rulebook.",
@@ -229,6 +243,7 @@
     "setup": "Step by step for setting up a scenario.",
     "skill-tests": "The exact order for resolving a skill test.",
     "timing": "How phases resolve and the order of play.",
-    "ultimatums": "Ultimatums, Boons and Refractions to tune the difficulty."
+    "ultimatums": "Ultimatums, Boons and Refractions to tune the difficulty.",
+    "taboos": "The restricted-card list that keeps the most powerful decks in check."
   }
 }

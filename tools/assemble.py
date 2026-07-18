@@ -15,7 +15,7 @@ Outputs data/grimoire_<lang>.json plus a validation report.
 """
 import json, re, sys, os, unicodedata
 from collections import Counter
-import langpack, history, ultimatums, reprints
+import langpack, history, ultimatums, reprints, cardlinks
 from langpack import slugify
 
 def norm(t):
@@ -928,6 +928,10 @@ def finalize(pack, allsecs, title_index):
                 if any(r.get('red') for b in e['blocks'] for r in b['runs']):
                     changed.setdefault(e['id'], []).append(last)
     versions, whatsnew = apply_versions(allsecs, pack, added, changed)
+    # Card references in the errata/FAQ ("Name ( 20)") -> ArkhamDB search links. Before
+    # the auto-linker, so a card name like "Hunter's Instinct" is claimed whole here and
+    # not half-eaten by the glossary auto-link matching the keyword "Hunter" inside it.
+    cardlinks.attach(allsecs, pack)
     links = linkify(allsecs, title_index, pack)
     autolinks = autolink(allsecs, title_index, pack)
     # The Ultimatums & Boons viewer reads its items out of the optional-rules chapter, so

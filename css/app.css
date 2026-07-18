@@ -45,7 +45,7 @@ html[data-theme="slate"] #tla-root, .tla-pal-slate{
   --bg:#1a1f26; --bg2:#1f252d; --panel:#252d36; --panel2:#2f3945;
   --edge:rgba(200,214,222,.09); --edge2:rgba(200,214,222,.15);
   --ink:#d7dde2; --ink2:#abb5bd; --muted:#8b97a0;
-  --gold:#b89a5f; --gold2:#cbae74; --teal:#6ba295; --teal2:#8fc2b6; --icon:#c6ad78;
+  --gold:#b89a5f; --gold2:#cbae74; --teal:#6ba295; --green:#6fa86e; --teal2:#8fc2b6; --icon:#c6ad78;
   --on-gold:#17130a;
   --mark:rgba(184,154,95,.24); --mark-ink:#d6bd85;
   --new:#db9385; --new-bg:rgba(206,105,86,.16); --new-edge:rgba(206,105,86,.55);
@@ -61,7 +61,7 @@ html[data-theme="moss"] #tla-root, .tla-pal-moss{
   --bg:#121711; --bg2:#171d16; --panel:#1c231a; --panel2:#262e24;
   --edge:rgba(197,201,197,.09); --edge2:rgba(197,201,197,.16);
   --ink:#ccd0cb; --ink2:#a6ada3; --muted:#8d958a;
-  --gold:#8fb28f; --gold2:#abc9ab; --teal:#7fada4; --teal2:#a4cabf; --icon:#a3c1a3;
+  --gold:#8fb28f; --gold2:#abc9ab; --teal:#7fada4; --green:#86b07a; --teal2:#a4cabf; --icon:#a3c1a3;
   --on-gold:#0d110d;
   --mark:rgba(143,178,143,.20); --mark-ink:#bcd6bc;
   --new:#d08a84; --new-bg:rgba(196,116,110,.15); --new-edge:rgba(196,116,110,.5);
@@ -76,7 +76,7 @@ html[data-theme="midnight"] #tla-root, .tla-pal-midnight{
   --bg:#232936; --bg2:#2a313f; --panel:#333b4c; --panel2:#3e4759;
   --edge:rgba(216,222,233,.10); --edge2:rgba(216,222,233,.17);
   --ink:#e2e7f0; --ink2:#bac3d3; --muted:#9aa5b8;
-  --gold:#9fb6cc; --gold2:#c3d2e2; --teal:#7fb4cc; --teal2:#a7d3e6; --icon:#aec4d8;
+  --gold:#9fb6cc; --gold2:#c3d2e2; --teal:#7fb4cc; --green:#7ec185; --teal2:#a7d3e6; --icon:#aec4d8;
   --on-gold:#12161d;
   --mark:rgba(159,182,204,.20); --mark-ink:#d3e0ee;
   --new:#e59aa1; --new-bg:rgba(191,97,106,.18); --new-edge:rgba(191,97,106,.6);
@@ -94,7 +94,7 @@ html[data-theme="plum"] #tla-root, .tla-pal-plum{
   --bg:#0f0a10; --bg2:#150f16; --panel:#1c141d; --panel2:#271e28;
   --edge:rgba(205,202,198,.10); --edge2:rgba(205,202,198,.17);
   --ink:#e4e0dd; --ink2:#b3aeaa; --muted:#98928d;
-  --gold:#a572a0; --gold2:#cbabc9; --teal:#a87ba2; --teal2:#c9a1c2; --icon:#bb93b5;
+  --gold:#a572a0; --gold2:#cbabc9; --teal:#a87ba2; --green:#8bb37f; --teal2:#c9a1c2; --icon:#bb93b5;
   --on-gold:#120a11;
   --mark:rgba(165,114,160,.22); --mark-ink:#dcbdd8;
   --new:#cf7f78; --new-bg:rgba(196,116,110,.16); --new-edge:rgba(196,116,110,.52);
@@ -110,7 +110,7 @@ html[data-theme="neon"] #tla-root, .tla-pal-neon{
   --bg:#0d0a0c; --bg2:#141013; --panel:#1c161a; --panel2:#282027;
   --edge:rgba(242,233,238,.10); --edge2:rgba(242,233,238,.18);
   --ink:#f2e9ee; --ink2:#c9bcc4; --muted:#a89aa4;
-  --gold:#ff4da3; --gold2:#ff8cc2; --teal:#d9b46a; --teal2:#efcf90; --icon:#ff6fb0;
+  --gold:#ff4da3; --gold2:#ff8cc2; --teal:#d9b46a; --green:#5fe08a; --teal2:#efcf90; --icon:#ff6fb0;
   --on-gold:#16000c;
   --mark:rgba(255,77,163,.20); --mark-ink:#ffaed5;
   --new:#ff9a6b; --new-bg:rgba(255,120,70,.15); --new-edge:rgba(255,120,70,.5);
@@ -125,7 +125,7 @@ html[data-theme="parchment"] #tla-root, .tla-pal-parchment{
   --bg:#efe8d8; --bg2:#f5efe1; --panel:#f7f2e7; --panel2:#e9e0cd;
   --edge:rgba(60,44,18,.16); --edge2:rgba(60,44,18,.26);
   --ink:#241f16; --ink2:#43392a; --muted:#5f5540;
-  --gold:#8a6c1c; --gold2:#6a5310; --teal:#3c7a6f; --teal2:#215a50; --icon:#6f5714;
+  --gold:#8a6c1c; --gold2:#6a5310; --teal:#3c7a6f; --green:#3f7a3c; --teal2:#215a50; --icon:#6f5714;
   --on-gold:#fff8ea;
   /* the wash under the open chapter: it used to be strong enough to take the
      gold text on it below 4.5:1, which axe cannot see through a gradient */
@@ -143,7 +143,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   --bg:#e6eaef; --bg2:#eef1f5; --panel:#f4f6f9; --panel2:#dde3e9;
   --edge:rgba(28,38,52,.13); --edge2:rgba(28,38,52,.22);
   --ink:#1c2330; --ink2:#39434f; --muted:#586372;
-  --gold:#6f6a2a; --gold2:#514c14; --teal:#2f6d70; --teal2:#1c5257; --icon:#5b6470;
+  --gold:#6f6a2a; --gold2:#514c14; --teal:#2f6d70; --green:#2f7442; --teal2:#1c5257; --icon:#5b6470;
   --on-gold:#f4f6f9;
   --mark:rgba(111,106,42,.18); --mark-ink:#4a4512;
   --new:#b23c2e; --new-bg:rgba(178,60,46,.12); --new-edge:rgba(178,60,46,.45);
@@ -431,6 +431,15 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   animation:tlafly 3.8s ease-in-out infinite}
 .tla-pennant.is-relevant{--flag:var(--new); --flag-ink:var(--on-accent)}
 .tla-pennant.is-recommended{--flag:var(--teal); --flag-ink:var(--on-accent)}
+.tla-pennant.is-extra{--flag:var(--green); --flag-ink:var(--on-accent)}
+/* Landing notice: English-leads-translation, and how to help fill a gap. */
+.tla-notice{display:flex; gap:12px; align-items:flex-start; margin:18px 0 2px; padding:14px 18px;
+  border:1px solid var(--edge2); border-left:3px solid var(--teal); border-radius:12px; background:var(--bg2)}
+.tla-notice svg{width:20px; height:20px; flex:0 0 auto; color:var(--teal2); margin-top:2px}
+.tla-notice p{margin:0; font-family:var(--ff-body); font-size:15px; line-height:1.6; color:var(--ink2)}
+.tla-notice b{color:var(--gold2)}
+#tla-root .tla-notice a{color:var(--gold2); text-decoration:underline; text-underline-offset:2px}
+#tla-root .tla-notice a:hover{color:var(--ink)}
 /* the pole it hangs from */
 .tla-pennant::before{content:''; position:absolute; left:0; top:3px; bottom:3px; width:2px;
   background:var(--flag); opacity:.55; border-radius:2px}
@@ -712,6 +721,14 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 
 /* ---- Ultimatums & Boons viewer ---- */
 .tla-ub{margin:6px 0 0}
+/* Viewer-wide tools row (draw a random hand, download all as .zip). */
+.tla-ub-tools{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px}
+.tla-ub-tool{display:inline-flex; align-items:center; gap:7px; cursor:pointer; min-height:38px;
+  font-family:var(--ff-ui); font-size:14px; font-weight:600; padding:8px 15px; border-radius:9px;
+  border:1px solid var(--edge2); background:var(--panel); color:var(--ink2)}
+.tla-ub-tool:hover{background:var(--panel2); color:var(--ink); border-color:var(--gold)}
+.tla-ub-tool:disabled{opacity:.6; cursor:progress}
+.tla-ub-tool svg{width:16px; height:16px; flex:0 0 auto}
 .tla-ub-tabs{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 20px;
   border-bottom:1px solid var(--edge2); padding-bottom:10px}
 .tla-ub-tab{font-family:var(--ff-ui); font-size:14px; line-height:1.2;
@@ -808,19 +825,25 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   filter:drop-shadow(0 .06cqw .12cqw #000)}
 /* A refraction lifts its title to make room for the encounter-set subtitle under it. */
 .tla-ubc.is-refraction .tla-ubc-title{top:2.3%; height:6.6%}
-.tla-ubc-subtitle{position:absolute; top:9%; left:8%; right:8%; color:#f4ecd8; text-align:center;
+.tla-ubc-subtitle{position:absolute; top:10.8%; left:8%; right:8%; color:#f4ecd8; text-align:center;
   font-family:'ubbody',var(--ff-body); font-style:italic; font-size:2.9cqw; line-height:1.15;
   text-shadow:0 0 .3cqw #000,.07cqw .07cqw .12cqw #000}
-/* The set symbol goes inside the refraction diamond, centred above the type line. */
-.tla-ubc-setmark{position:absolute; top:60.3%; left:0; right:0; height:5.6%;
+/* Links AND emphasis inside a card keep the card's fixed cream. The theme rules
+   `#tla-root em{color:var(--ink2)}` (and the teal on links) otherwise leak a dark
+   ink that is invisible on the black title band under a light theme. Id-qualified
+   so it outranks those theme rules on specificity. */
+#tla-root .tla-ubc a,#tla-root .tla-ubc em,#tla-root .tla-ubc i,
+#tla-root .tla-ubc b,#tla-root .tla-ubc strong{color:#f4ecd8}
+/* The set symbol fills the refraction diamond, centred above the type line. */
+.tla-ubc-setmark{position:absolute; top:60.3%; left:0; right:0; height:6.6%;
   display:flex; align-items:center; justify-content:center}
-.tla-ubc-setmark .tla-ubc-sym{width:3.3cqw; height:3.3cqw}
+.tla-ubc-setmark .tla-ubc-sym{width:5.4cqw; height:5.4cqw}
 .tla-ubc-coll{position:absolute; bottom:2.1%; right:7.5%; line-height:0}
 .tla-ubc-coll .tla-ubc-sym{width:5.4cqw; height:5.4cqw}
 /* Item present in English but not yet in this language: shown in English, flagged. */
 .tla-ub-pending{display:flex; align-items:flex-start; gap:9px; max-width:400px;
   margin:0 auto 16px; padding:9px 13px; border-radius:10px; font-family:var(--ff-ui);
-  font-size:13px; line-height:1.35; background:var(--mark); color:var(--ink2);
+  font-size:13px; line-height:1.35; background:var(--mark); color:var(--mark-ink);
   border:1px solid var(--gold)}
 .tla-ub-pending svg{width:17px; height:17px; flex:0 0 auto; margin-top:1px; color:var(--gold2)}
 .tla-ub-pending b{color:var(--gold2); font-weight:700}
@@ -1114,11 +1137,13 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 /* project line + logo, then a contact cluster (email + donate) pushed to the end */
 .tla-foot-by-wrap{display:inline-flex; align-items:center; gap:9px}
 .tla-foot-logo{display:inline-flex; line-height:0; flex:0 0 auto}
-.tla-foot-logo img{width:22px; height:22px; display:block; border-radius:5px}
-.tla-foot-contact{display:inline-flex; align-items:center; gap:8px 16px; flex-wrap:wrap}
-#tla-root .tla-foot-mail{display:inline-flex; align-items:center; gap:6px; text-decoration:none}
-#tla-root .tla-foot-mail:hover{text-decoration:underline}
-.tla-foot-mail svg{width:15px; height:15px; flex:0 0 auto}
+.tla-foot-logo img{width:24px; height:24px; display:block; border-radius:50%}
+.tla-foot-contact{display:inline-flex; align-items:center; gap:8px 12px; flex-wrap:wrap}
+/* The action cluster: a bare mailto (just the address, opens the reader's mail
+   client) and a GitHub link (icon + label) to the — soon public — source. */
+#tla-root .tla-foot-mail,#tla-root .tla-foot-gh{display:inline-flex; align-items:center; gap:6px; text-decoration:none}
+#tla-root .tla-foot-mail:hover,#tla-root .tla-foot-gh:hover{text-decoration:underline}
+.tla-foot-gh svg{width:15px; height:15px; flex:0 0 auto}
 .tla-foot-paypal{display:inline-flex; align-items:center; gap:7px; cursor:pointer; min-height:32px;
   font-family:var(--ff-ui); font-size:13px; font-weight:600; padding:4px 12px; border-radius:8px;
   border:1px solid var(--edge2); background:var(--panel); color:var(--gold2)}
@@ -1143,6 +1168,11 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   font-size:13.5px; font-weight:600; text-decoration:none}
 #tla-root .tla-adb:hover{color:var(--gold2); text-decoration:underline}
 .tla-adb svg{width:14px; height:14px; flex:0 0 auto}
+/* A card name in the errata/FAQ, linked out to ArkhamDB. Dotted underline so it reads as
+   an outbound card link, distinct from the solid-underlined in-book cross-references. */
+#tla-root .tla-adbcard{color:var(--teal2); text-decoration:underline; text-decoration-style:dotted;
+  text-underline-offset:2px; text-decoration-thickness:1px}
+#tla-root .tla-adbcard:hover{color:var(--gold2); text-decoration-style:solid}
 @media (max-width:560px){
   .tla-reprints th.tla-rp-link{display:none}
   .tla-rp-link .tla-adb span{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)}
@@ -1168,6 +1198,32 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   background:var(--gold); color:var(--on-gold)}
 #tla-root .tla-donate-cta:hover{background:var(--gold2); color:var(--on-gold); text-decoration:none}
 .tla-donate-cta svg{width:17px; height:18px; flex:0 0 auto}
+
+/* ---------- draw-at-random modal ---------- */
+/* Wider than the default modal so drawn cards sit two-up; scrolls if the hand is tall.
+   Later in the file than .tla-modal-box, so its max-width wins at equal specificity. */
+.tla-ubdraw-box{max-width:780px; max-height:calc(100vh - 40px); overflow-y:auto}
+.tla-ubdraw-form{display:flex; flex-wrap:wrap; align-items:flex-end; gap:14px 18px; margin:0}
+.tla-ubdraw-field{display:flex; flex-direction:column; gap:6px}
+.tla-ubdraw-field label{font-family:var(--ff-ui); font-size:13px; font-weight:700; color:var(--ink2)}
+.tla-ubdraw-num{display:inline-flex; align-items:center; gap:9px}
+.tla-ubdraw-num input{width:76px; font-family:var(--ff-ui); font-size:15px; padding:8px 10px;
+  border-radius:8px; border:1px solid var(--edge2); background:var(--bg2); color:var(--ink)}
+.tla-ubdraw-max{font-family:var(--ff-ui); font-size:12px; color:var(--muted); white-space:nowrap}
+#tla-root .tla-ubdraw-go{display:inline-flex; align-items:center; gap:8px; cursor:pointer; min-height:40px;
+  font-family:var(--ff-ui); font-size:15px; font-weight:700; padding:9px 20px; border-radius:10px;
+  border:1px solid var(--gold); background:var(--gold); color:var(--on-gold)}
+#tla-root .tla-ubdraw-go:hover{background:var(--gold2); color:var(--on-gold)}
+.tla-ubdraw-go svg{width:17px; height:17px; flex:0 0 auto}
+.tla-ubdraw-out{margin-top:20px}
+.tla-ubdraw-out:empty{margin:0}
+.tla-ubdraw-h{font-family:var(--ff-head); font-size:18px; color:var(--gold2); margin:0 0 8px; outline:none}
+.tla-ubdraw-list ol{margin:0; padding-left:22px; font-family:var(--ff-body); font-size:15px; line-height:1.7; color:var(--ink2)}
+.tla-ubdraw-list b{color:var(--ink)}
+.tla-ubdraw-type{color:var(--muted); font-style:italic; font-size:13px}
+.tla-ubdraw-empty{font-family:var(--ff-body); color:var(--ink2); margin:6px 0 0}
+.tla-ubdraw-cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:18px; margin-top:18px}
+.tla-ubdraw-card{min-width:0}
 
 /* ---------- lightbox ---------- */
 .tla-lb{position:fixed; inset:0; background:rgba(6,7,10,.93); z-index:200; display:none; align-items:center; justify-content:center; padding:24px; cursor:zoom-out}

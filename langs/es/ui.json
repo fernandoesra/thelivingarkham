@@ -102,7 +102,7 @@
     "flowlabel": "Diagrama de orden de resolución, paso a paso",
     "footby": "The Living Arkham <b>v1.0</b> · un proyecto de <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
     "footinfo": "Créditos",
-    "footsrc": "Todo el contenido pertenece a sus respectivos autores, principalmente Fantasy Flight Games.",
+    "footsrc": "<a href=\"https://www.fantasyflightgames.com/en/products/arkham-horror-the-card-game/\" target=\"_blank\" rel=\"noopener\">Arkham Horror: The Card Game</a>™ y todo el contenido relacionado © <a href=\"https://www.fantasyflightgames.com/en/index/\" target=\"_blank\" rel=\"noopener\">Fantasy Flight Games (FFG)</a>. Este sitio web no está producido ni avalado por FFG, ni afiliado a ella.",
     "glossnone": "Ninguna entrada coincide con este filtro.",
     "grpaids": "Ayudas",
     "grpgrimoire": "El Grimorio",
@@ -199,17 +199,31 @@
     "ubillus": "Ilus.",
     "ubnoart": "Ilustración próximamente",
     "footlogo": "Rincón Miskatonic",
-    "footmaillabel": "Escríbenos por correo",
     "donateopen": "Apoya nuestro trabajo",
     "donatelabel": "Donar",
     "donatetitle": "Apoya nuestro trabajo",
     "donatebody": "Somos una comunidad española que crea contenido de forma gratuita y sin ánimo de lucro. Si quieres, puedes apoyar nuestra labor con una donación. Todo lo que hacemos, hoy y siempre, seguirá siendo gratis: las donaciones se destinan íntegramente a cubrir gastos de gestión y a pagar a artistas para mejorar nuestro trabajo. ¡Muchas gracias!",
     "donatecta": "Contribuir con PayPal",
     "ubdownload": "Descargar carta",
+    "ubdownall": "Descargar todo",
+    "ubdownalltip": "Descargar todas las cartas en un .zip (idioma actual)",
+    "ubdownallwait": "Preparando…",
+    "ubdraw": "Robar aleatoriamente",
+    "ubdrawtitle": "Robar aleatoriamente",
+    "ubdrawdesc": "Elige cuántas cartas robar de cada tipo y te mostraremos una selección al azar.",
+    "ubdrawgo": "Robar",
+    "ubdrawmax": "de 0 a {n}",
+    "ubdrawlist": "Cartas robadas",
+    "ubdrawempty": "Elige al menos una carta.",
     "viewadb": "Ver en ArkhamDB",
     "reprintset": "Colección",
     "reprintnum": "Nº",
-    "reprintcard": "Carta"
+    "reprintcard": "Carta",
+    "cardstopwords": "Puede Pueden Puedo Podría Podrían Qué Cuál Cuáles Cuándo Cómo Dónde Debe Deben Debería Se Si Cuando Una Un Unos Unas Otro Otra Sólo Solo Al",
+    "flagextra": "Contenido adicional",
+    "flagextrad": "Recursos que amplían el juego, más allá del Grimorio.",
+    "footgh": "Ver el código y colaborar en GitHub",
+    "landingnotice": "<b>Importante:</b> el Grimorio se actualiza antes en inglés y, con el tiempo, se traduce a los demás idiomas, así que parte del contenido puede tardar en llegar al tuyo. Si quieres consultar lo más reciente, revisa la versión en inglés. Y si tienes algún documento de Grimorio, FAQ o erratas que creas que aún no está en la web, escríbenos a <a href=\"mailto:rinconmiskatonic@gmail.com\">rinconmiskatonic@gmail.com</a> y lo añadiremos. ¡Muchas gracias!"
   },
   "blurbs": {
     "additional-rules": "Fundamentos y reglas que amplían el reglamento básico.",
@@ -230,6 +244,7 @@
     "setup": "Paso a paso para preparar un escenario.",
     "skill-tests": "El orden exacto para resolver una prueba de habilidad.",
     "timing": "Cómo se resuelven las fases y el orden de juego.",
-    "ultimatums": "Ultimátums, Ayudas y Refracciones para ajustar la dificultad."
+    "ultimatums": "Ultimátums, Ayudas y Refracciones para ajustar la dificultad.",
+    "taboos": "La lista de cartas restringidas para equilibrar los mazos más potentes."
   }
 }

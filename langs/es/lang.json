@@ -185,6 +185,15 @@
     },
     {
       "num": "",
+      "key": "taboos",
+      "id": "lista-de-tabues",
+      "title": "The List of Taboos",
+      "kind": "placeholder",
+      "group": "resources",
+      "figures": []
+    },
+    {
+      "num": "",
       "key": "encounter-variation",
       "id": "variacion-conjuntos",
       "title": "Variación de conjuntos de encuentros: Cómo usar la caja básica nueva para jugar escenarios de legado",
@@ -237,7 +246,19 @@
       "evitar": "Evitar, acción de evitar",
       "investigar": "Acción de investigar",
       "enfrentarse": "Acción de enfrentarse",
-      "activar": "Acción de activar"
+      "activar": "Acción de activar",
+      "asignar daño": "Infligir daño/horror",
+      "colección": "Colección",
+      "recursos": "Recursos",
+      "trauma": "Traumas",
+      "cura": "Curar",
+      "obligado": "Capacidad Obligado",
+      "traición": "Cartas de Traición",
+      "cancelar": "Cancelar",
+      "ficha de fracaso automático": "Fracaso/Éxito automático",
+      "buscar": "Buscar",
+      "copia": "Copia",
+      "eliminado": "Eliminación"
     },
     "allowSingleWord": [
       "agotado",

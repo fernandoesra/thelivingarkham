@@ -133,7 +133,8 @@ var elNav=document.getElementById('tla-nav'), elMain=document.getElementById('tl
     elFigBody=document.getElementById('tla-figmodal-body'),
     elFigClose=document.getElementById('tla-figmodal-close'),
     elLb=document.getElementById('tla-lb'),
-    elDonate=document.getElementById('tla-donate');
+    elDonate=document.getElementById('tla-donate'),
+    elUbDraw=document.getElementById('tla-ubdraw');
 var lastFigBtn=null;
 /* set by boot() from the registry — never hardcoded to any language */
 var lang='', data=null, curSec=null, searchIndex={}, resSel=-1, glossFilter='all', firstRoute=true;
@@ -147,12 +148,17 @@ function announce(msg){if(elLive){elLive.textContent=''; setTimeout(function(){e
 /* Labels come from a pack, so they are escaped like any other authored text:
    a label containing a quote would otherwise break out of the attribute. */
 function iconHTML(name){return '<i class="ico ico-'+esc(name)+'" title="'+esc(iconLabel(name))+'"></i>';}
-function runsHTML(runs,suppressNew){
+/* flat: render every interactive run (link, card link, flow ref) as plain text. A title
+   goes inside a nav <button> and a table-of-contents <a>, and an interactive element
+   nested in either is invalid HTML and a "nested-interactive" a11y failure — the outer
+   control already navigates, so the inner link is redundant there anyway. */
+function runsHTML(runs,suppressNew,flat){
   var h='';
   for(var i=0;i<runs.length;i++){var r=runs[i];
     if(r.kind==='icon'){h+=iconHTML(r.name); continue;}
     if(r.kind==='pageref'){h+='<span class="tla-pageref" title="'+esc(t('origpage')+' '+r.n)+'">('+esc(t('origpage'))+' '+esc(r.n)+')</span>'; continue;}
     var inner;
+    if(flat && (r.kind==='link'||r.kind==='adbcard'||r.kind==='flowref')){h+=wrap(esc(r.t),r); continue;}
     /* A real href, not a bare <a>. Without one an anchor is not focusable, is not in
        the tab order, and the accessibility tree drops it entirely (role "none",
        ignored) — so every cross-reference in the book was mouse-only and silent to a
@@ -160,6 +166,9 @@ function runsHTML(runs,suppressNew){
        middle-click a term into a new tab. The delegated handler intercepts a plain
        left click to add the flash; anything else is left to the browser. */
     if(r.kind==='link')          inner='<a class="xref" href="#'+esc(lang)+'/'+esc(r.target)+'" data-t="'+esc(r.target)+'">'+wrap(esc(r.t),r)+'</a>';
+    /* A card named in the errata/FAQ: a link out to an ArkhamDB search for it, in this
+       language. External, so it opens in a new tab like the other outbound links. */
+    else if(r.kind==='adbcard') inner='<a class="tla-adbcard" href="'+esc(adbSearchUrl(r.q))+'" target="_blank" rel="noopener" title="'+esc(t('viewadb'))+'">'+wrap(esc(r.t),r)+'</a>';
     /* A button, not a link: this scrolls to a box inside the same diagram and must
        NOT touch the URL — the hash is the router's, and "#fl-…" would route to the
        landing page. It is an action on this page, so it is a button. */
@@ -209,6 +218,8 @@ function faqLink(txt){
 function plainOfRuns(runs,L){var s='';for(var i=0;i<runs.length;i++){s+=runs[i].kind==='text'||runs[i].kind==='link'?runs[i].t:(' '+(pick(L||lang,'icons',runs[i].name)||'')+' ');}return s;}
 function plainOfBlocks(blocks,L){return blocks.map(function(b){return plainOfRuns(b.runs,L);}).join(' ');}
 function titleHTML(e){return e.titleRuns?runsHTML(e.titleRuns,true):esc(e.title);}
+/* Same title with its links flattened, for a nav button or a contents link (see runsHTML). */
+function titleFlat(e){return e.titleRuns?runsHTML(e.titleRuns,true,true):esc(e.title);}
 /* An entry's history, as the data actually records it:
      addedIn    the edition it first appeared in
      changedIn  every later edition that rewrote part of it
@@ -925,7 +936,7 @@ function navItems(items){
       var subs=sectionEntries(s).filter(inToc);
       if(subs.length){
         h+='<div class="tla-sublist">';
-        subs.forEach(function(e){h+='<button class="tla-sublink" type="button" data-eid="'+esc(e.id)+'">'+titleHTML(e)+diagBadge(e)+'</button>';});
+        subs.forEach(function(e){h+='<button class="tla-sublink" type="button" data-eid="'+esc(e.id)+'">'+titleFlat(e)+diagBadge(e)+'</button>';});
         h+='</div>';
       }
     }
@@ -1288,73 +1299,179 @@ function ubFitVisible(root){
   var p=(root||elMain).querySelector('.tla-ub-panel:not([hidden]) .tla-ubc-rule');
   ubFit(p);
 }
-/* Download the shown card as a PNG: the fixed picture with the live text drawn onto a
-   canvas in the reader's language, square (no rounded corners). Each text layer's real
-   position and font are read off the DOM, so the wrapping and the auto-fit size come out
-   as seen. Same-origin picture and symbols, so the canvas stays untainted. */
-function ubDownload(card){
-  if(!card)return;
-  var img=card.querySelector('.tla-ubc-pic'); if(!img||!img.naturalWidth)return;
-  var slug=card.getAttribute('data-slug')||'card';
-  (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){
-    var CW=1000, CH=Math.round(CW*img.naturalHeight/img.naturalWidth);
-    var cr=card.getBoundingClientRect(), sc=CW/cr.width;
-    var cv=document.createElement('canvas'); cv.width=CW; cv.height=CH;
-    var ctx=cv.getContext('2d');
-    ctx.drawImage(img,0,0,CW,CH);
-    var X=function(px){return (px-cr.left)*sc;}, Y=function(py){return (py-cr.top)*sc;};
-    var outline=function(fs){ctx.lineJoin='round'; ctx.strokeStyle='rgba(0,0,0,.92)'; ctx.lineWidth=Math.max(1,fs*0.16);};
-    function line(el){
-      if(!el)return; var t=(el.textContent||'').trim(); if(!t)return;
-      var r=el.getBoundingClientRect(), s=getComputedStyle(el), fs=parseFloat(s.fontSize)*sc;
-      ctx.font=s.fontStyle+' '+s.fontWeight+' '+fs+'px '+s.fontFamily;
-      ctx.fillStyle=s.color; ctx.textBaseline='middle'; outline(fs);
-      var cen=s.textAlign==='center', x=cen?X(r.left+r.width/2):X(r.left), y=Y(r.top+r.height/2);
-      ctx.textAlign=cen?'center':'left';
-      ctx.strokeText(t,x,y); ctx.fillText(t,x,y);
-    }
-    function para(el){
-      if(!el)return; var t=(el.textContent||'').replace(/\s+/g,' ').trim(); if(!t)return;
-      var r=el.getBoundingClientRect(), s=getComputedStyle(el);
-      var fs=parseFloat(s.fontSize)*sc, lh=parseFloat(s.lineHeight)*sc||fs*1.3, bw=r.width*sc;
-      ctx.font='normal '+s.fontWeight+' '+fs+'px '+s.fontFamily;
-      ctx.fillStyle=s.color; ctx.textAlign='left'; ctx.textBaseline='top'; outline(fs);
-      var words=t.split(' '), ln='', out=[];
-      words.forEach(function(w){var tt=ln?ln+' '+w:w; if(ln&&ctx.measureText(tt).width>bw){out.push(ln);ln=w;}else ln=tt;});
-      if(ln)out.push(ln);
-      var x=X(r.left), y=Y(r.top);
-      out.forEach(function(l){ctx.strokeText(l,x,y); ctx.fillText(l,x,y); y+=lh;});
-    }
-    line(card.querySelector('.tla-ubc-title'));
-    line(card.querySelector('.tla-ubc-subtitle'));
-    line(card.querySelector('.tla-ubc-type'));
-    line(card.querySelector('.tla-ubc-illus'));
-    line(card.querySelector('.tla-ubc-noart'));
-    para(card.querySelector('.tla-ubc-rule'));
-    var syms=[].slice.call(card.querySelectorAll('.tla-ubc-setmark .tla-ubc-sym,.tla-ubc-coll .tla-ubc-sym'));
-    Promise.all(syms.map(function(sy){
-      return new Promise(function(res){
-        var s=getComputedStyle(sy), m=s.maskImage||s.webkitMaskImage||'';
-        var url=(m.match(/url\(["']?([^"')]+)/)||[])[1]; if(!url){res();return;}
-        var r=sy.getBoundingClientRect(), w=Math.max(1,r.width*sc), h=Math.max(1,r.height*sc);
-        var im=new Image();
-        im.onload=function(){
-          var tc=document.createElement('canvas'); tc.width=w; tc.height=h;
-          var tx=tc.getContext('2d'); tx.drawImage(im,0,0,w,h);
-          tx.globalCompositeOperation='source-in'; tx.fillStyle='#f4ecd8'; tx.fillRect(0,0,w,h);
-          ctx.drawImage(tc,X(r.left),Y(r.top)); res();
-        };
-        im.onerror=function(){res();}; im.src=url;
-      });
-    })).then(function(){
-      cv.toBlob(function(b){
-        if(!b)return;
-        var a=document.createElement('a'); a.href=URL.createObjectURL(b);
-        a.download=slug+'-'+lang+'.png'; document.body.appendChild(a); a.click();
-        document.body.removeChild(a); setTimeout(function(){URL.revokeObjectURL(a.href);},1500);
-      },'image/png');
+/* Draw the shown card onto a canvas at a fixed width, in the reader's language, square
+   (no rounded corners). Each text layer's real position and font are read off the DOM, so
+   the wrapping and the auto-fit size come out as seen. Same-origin picture and symbols, so
+   the canvas stays untainted. Resolves to a PNG Blob (null if the picture is not ready). */
+function ubCardToBlob(card){
+  return new Promise(function(resolve){
+    if(!card){resolve(null);return;}
+    var img=card.querySelector('.tla-ubc-pic'); if(!img||!img.naturalWidth){resolve(null);return;}
+    (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){
+      var CW=1000, CH=Math.round(CW*img.naturalHeight/img.naturalWidth);
+      var cr=card.getBoundingClientRect(), sc=CW/cr.width;
+      var cv=document.createElement('canvas'); cv.width=CW; cv.height=CH;
+      var ctx=cv.getContext('2d');
+      ctx.drawImage(img,0,0,CW,CH);
+      var X=function(px){return (px-cr.left)*sc;}, Y=function(py){return (py-cr.top)*sc;};
+      var outline=function(fs){ctx.lineJoin='round'; ctx.strokeStyle='rgba(0,0,0,.92)'; ctx.lineWidth=Math.max(1,fs*0.16);};
+      function line(el){
+        if(!el)return; var t=(el.textContent||'').trim(); if(!t)return;
+        var r=el.getBoundingClientRect(), s=getComputedStyle(el), fs=parseFloat(s.fontSize)*sc;
+        ctx.font=s.fontStyle+' '+s.fontWeight+' '+fs+'px '+s.fontFamily;
+        ctx.fillStyle=s.color; ctx.textBaseline='middle'; outline(fs);
+        var cen=s.textAlign==='center', x=cen?X(r.left+r.width/2):X(r.left), y=Y(r.top+r.height/2);
+        ctx.textAlign=cen?'center':'left';
+        ctx.strokeText(t,x,y); ctx.fillText(t,x,y);
+      }
+      function para(el){
+        if(!el)return; var t=(el.textContent||'').replace(/\s+/g,' ').trim(); if(!t)return;
+        var r=el.getBoundingClientRect(), s=getComputedStyle(el);
+        var fs=parseFloat(s.fontSize)*sc, lh=parseFloat(s.lineHeight)*sc||fs*1.3, bw=r.width*sc;
+        ctx.font='normal '+s.fontWeight+' '+fs+'px '+s.fontFamily;
+        ctx.fillStyle=s.color; ctx.textAlign='left'; ctx.textBaseline='top'; outline(fs);
+        var words=t.split(' '), ln='', out=[];
+        words.forEach(function(w){var tt=ln?ln+' '+w:w; if(ln&&ctx.measureText(tt).width>bw){out.push(ln);ln=w;}else ln=tt;});
+        if(ln)out.push(ln);
+        var x=X(r.left), y=Y(r.top);
+        out.forEach(function(l){ctx.strokeText(l,x,y); ctx.fillText(l,x,y); y+=lh;});
+      }
+      line(card.querySelector('.tla-ubc-title'));
+      line(card.querySelector('.tla-ubc-subtitle'));
+      line(card.querySelector('.tla-ubc-type'));
+      line(card.querySelector('.tla-ubc-illus'));
+      line(card.querySelector('.tla-ubc-noart'));
+      para(card.querySelector('.tla-ubc-rule'));
+      var syms=[].slice.call(card.querySelectorAll('.tla-ubc-setmark .tla-ubc-sym,.tla-ubc-coll .tla-ubc-sym'));
+      Promise.all(syms.map(function(sy){
+        return new Promise(function(res){
+          var s=getComputedStyle(sy), m=s.maskImage||s.webkitMaskImage||'';
+          var url=(m.match(/url\(["']?([^"')]+)/)||[])[1]; if(!url){res();return;}
+          var r=sy.getBoundingClientRect(), w=Math.max(1,r.width*sc), h=Math.max(1,r.height*sc);
+          var im=new Image();
+          im.onload=function(){
+            var tc=document.createElement('canvas'); tc.width=w; tc.height=h;
+            var tx=tc.getContext('2d'); tx.drawImage(im,0,0,w,h);
+            tx.globalCompositeOperation='source-in'; tx.fillStyle='#f4ecd8'; tx.fillRect(0,0,w,h);
+            ctx.drawImage(tc,X(r.left),Y(r.top)); res();
+          };
+          im.onerror=function(){res();}; im.src=url;
+        });
+      })).then(function(){ cv.toBlob(function(b){resolve(b);},'image/png'); });
     });
   });
+}
+/* Trigger a browser download of a blob under the given filename. */
+function ubSaveBlob(b,name){
+  if(!b)return;
+  var a=document.createElement('a'); a.href=URL.createObjectURL(b);
+  a.download=name; document.body.appendChild(a); a.click();
+  document.body.removeChild(a); setTimeout(function(){URL.revokeObjectURL(a.href);},1500);
+}
+/* Download one card (the small button on the picture). */
+function ubDownload(card){
+  if(!card)return;
+  var slug=card.getAttribute('data-slug')||'card';
+  ubCardToBlob(card).then(function(b){ ubSaveBlob(b, slug+'-'+lang+'.png'); });
+}
+/* ---- minimal STORE-mode ZIP writer (no deps): PNGs are already compressed, so
+   storing them uncompressed keeps the archive small and the code tiny. ---- */
+var _crcTable=null;
+function crc32(bytes){
+  if(!_crcTable){_crcTable=[];for(var n=0;n<256;n++){var c=n;for(var k=0;k<8;k++)c=(c&1)?(0xEDB88320^(c>>>1)):(c>>>1);_crcTable[n]=c>>>0;}}
+  var c=0xFFFFFFFF;
+  for(var i=0;i<bytes.length;i++)c=_crcTable[(c^bytes[i])&0xFF]^(c>>>8);
+  return (c^0xFFFFFFFF)>>>0;
+}
+function ubZip(files){
+  var enc=new TextEncoder(), parts=[], central=[], offset=0;
+  var u16=function(n){return [n&0xFF,(n>>>8)&0xFF];};
+  var u32=function(n){return [n&0xFF,(n>>>8)&0xFF,(n>>>16)&0xFF,(n>>>24)&0xFF];};
+  files.forEach(function(f){
+    var name=enc.encode(f.name), data=f.data, crc=crc32(data), n=data.length;
+    var lh=[].concat(u32(0x04034b50),u16(20),u16(0),u16(0),u16(0),u16(0),u32(crc),u32(n),u32(n),u16(name.length),u16(0));
+    parts.push(new Uint8Array(lh),name,data);
+    var cd=[].concat(u32(0x02014b50),u16(20),u16(20),u16(0),u16(0),u16(0),u16(0),u32(crc),u32(n),u32(n),
+      u16(name.length),u16(0),u16(0),u16(0),u16(0),u32(0),u32(offset));
+    central.push(new Uint8Array(cd),name);
+    offset+=lh.length+name.length+n;
+  });
+  var csize=0; central.forEach(function(c){csize+=c.length;});
+  var end=new Uint8Array([].concat(u32(0x06054b50),u16(0),u16(0),u16(files.length),u16(files.length),u32(csize),u32(offset),u16(0)));
+  return new Blob(parts.concat(central,[end]),{type:'application/zip'});
+}
+/* Every card of the current section, across all three buckets. */
+function ubAllItems(){
+  var s=curSec, out=[];
+  UB_TABS.forEach(function(cat){ ubBucket(s,cat).forEach(function(it){out.push(it);}); });
+  return out;
+}
+/* Render one card into an off-screen host (kept in layout so getBoundingClientRect and
+   the container-query sizing are real) and resolve once its picture is decoded + fitted. */
+function ubRenderOffscreen(it,host){
+  host.innerHTML=ubDetailHTML(it);
+  var card=host.querySelector('.tla-ubc'), img=card.querySelector('.tla-ubc-pic');
+  return new Promise(function(res){
+    var done=function(){ ubFit(card.querySelector('.tla-ubc-rule')); res(card); };
+    if(img.complete&&img.naturalWidth)done();
+    else{img.onload=done; img.onerror=done;}
+  });
+}
+/* Download every card of the section as a single .zip, in the selected language. Cards
+   are rendered one at a time off-screen at the card's natural max width, so the PNGs match
+   what the viewer shows. */
+function ubDownloadAll(btn){
+  var items=ubAllItems(); if(!items.length)return;
+  var label=btn&&btn.querySelector('.tla-ub-tool-label'), orig=label?label.textContent:'';
+  if(btn){btn.disabled=true; btn.setAttribute('aria-busy','true'); if(label)label.textContent=t('ubdownallwait');}
+  var host=document.createElement('div');
+  host.style.cssText='position:fixed;left:-10000px;top:0;width:460px;pointer-events:none;opacity:0';
+  document.body.appendChild(host);
+  var files=[], seq=Promise.resolve();
+  items.forEach(function(it){
+    seq=seq.then(function(){
+      return ubRenderOffscreen(it,host)
+        .then(function(card){return ubCardToBlob(card);})
+        .then(function(b){ if(b)return b.arrayBuffer().then(function(ab){files.push({name:it.slug+'.png',data:new Uint8Array(ab)});}); });
+    });
+  });
+  var finish=function(){
+    try{document.body.removeChild(host);}catch(e){}
+    if(btn){btn.disabled=false; btn.removeAttribute('aria-busy'); if(label)label.textContent=orig;}
+  };
+  seq.then(function(){ finish(); if(files.length)ubSaveBlob(ubZip(files),'the-living-arkham-ultimatums-'+lang+'.zip'); })
+     .catch(function(){ finish(); });
+}
+/* Fisher-Yates: take n distinct items from arr at random (Math.random is fine client-side). */
+function ubSample(arr,n){
+  var a=arr.slice(); n=Math.max(0,Math.min(n,a.length));
+  for(var i=0;i<n;i++){var j=i+Math.floor(Math.random()*(a.length-i)); var tmp=a[i];a[i]=a[j];a[j]=tmp;}
+  return a.slice(0,n);
+}
+/* Draw nu random ultimatums + nb random boons: a short readable list first, then the live
+   cards below it. Called from the draw modal's form. */
+function ubDrawRun(){
+  var s=curSec, out=document.getElementById('tla-ubdraw-out'); if(!out)return;
+  var uMax=ubBucket(s,'ultimatum').length, bMax=ubBucket(s,'boon').length;
+  var uEl=document.getElementById('tla-ubdraw-u'), bEl=document.getElementById('tla-ubdraw-b');
+  var nu=Math.max(0,Math.min(parseInt(uEl.value,10)||0,uMax));
+  var nb=Math.max(0,Math.min(parseInt(bEl.value,10)||0,bMax));
+  uEl.value=nu; bEl.value=nb;
+  if(nu+nb===0){ out.innerHTML='<p class="tla-ubdraw-empty" role="alert">'+esc(t('ubdrawempty'))+'</p>'; return; }
+  var picks=ubSample(ubBucket(s,'ultimatum'),nu).concat(ubSample(ubBucket(s,'boon'),nb));
+  var h='<div class="tla-ubdraw-list"><h3 class="tla-ubdraw-h" tabindex="-1">'+esc(t('ubdrawlist'))+'</h3><ol>';
+  picks.forEach(function(it){
+    h+='<li'+(it.pending?' lang="en"':'')+'><b>'+esc(it.name)+'</b> <span class="tla-ubdraw-type">'+esc(ubTypeLine(it))+'</span>'
+      +(it.pending?' <span class="tla-ub-en" title="'+esc(t('ubpending'))+'">EN</span>':'')+'</li>';
+  });
+  h+='</ol></div><div class="tla-ubdraw-cards">';
+  picks.forEach(function(it){ h+='<div class="tla-ubdraw-card">'+ubDetailHTML(it)+'</div>'; });
+  h+='</div>';
+  out.innerHTML=h;
+  var fit=function(){ [].forEach.call(out.querySelectorAll('.tla-ubc-rule'),function(r){ubFit(r);}); };
+  fit();
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit).catch(function(){});
+  var head=out.querySelector('.tla-ubdraw-h'); if(head){try{head.focus();}catch(e){}}
 }
 function ubHTML(s){
   if(UB_TABS.indexOf(ubTab)<0)ubTab='ultimatum';
@@ -1366,6 +1483,19 @@ function ubHTML(s){
     :'');
   var h='<div class="tla-lead"><p class="tla-p">'+lead+'</p></div>';
   h+='<div class="tla-ub">';
+  /* Viewer-wide tools: draw a random hand, or download every card as a .zip. */
+  h+='<div class="tla-ub-tools">';
+  h+='<button type="button" class="tla-ub-tool" id="ubdraw-open">'
+    +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
+    +'<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.3" fill="currentColor" stroke="none"/>'
+    +'<circle cx="15.5" cy="8.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="8.5" cy="15.5" r="1.3" fill="currentColor" stroke="none"/>'
+    +'<circle cx="15.5" cy="15.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg>'
+    +'<span>'+esc(t('ubdraw'))+'</span></button>';
+  h+='<button type="button" class="tla-ub-tool" id="ubdownall" title="'+esc(t('ubdownalltip'))+'">'
+    +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
+    +'<path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>'
+    +'<span class="tla-ub-tool-label">'+esc(t('ubdownall'))+'</span></button>';
+  h+='</div>';
   h+='<div class="tla-ub-tabs" role="tablist" aria-label="'+esc(t('ubtablabel'))+'">';
   UB_TABS.forEach(function(cat){
     var on=cat===ubTab, items=ubBucket(s,cat);
@@ -1455,6 +1585,8 @@ function bindUB(){
   var root=elMain.querySelector('.tla-ub'); if(!root)return;
   root.addEventListener('click',function(e){
     var dl=e.target.closest('.tla-ubc-dl'); if(dl){ubDownload(dl.closest('.tla-ubc')); return;}
+    if(e.target.closest('#ubdraw-open')){openDraw(); return;}
+    var da=e.target.closest('#ubdownall'); if(da){ubDownloadAll(da); return;}
     var tab=e.target.closest('.tla-ub-tab'); if(tab){ubSelectTab(root,tab.getAttribute('data-ubtab')); tab.focus(); return;}
     var li=e.target.closest('.tla-ub-item'); if(li){ubSelectItem(li); li.focus();}
   });
@@ -1475,6 +1607,12 @@ function bindUB(){
 function adbCardUrl(id){
   var sub=(lang&&lang!=='en')?lang+'.':'';
   return 'https://'+sub+'arkhamdb.com/card/'+encodeURIComponent(id);
+}
+/* A card search on ArkhamDB in the reader's language — lists every printing of the name
+   and its forum, so it needs no exact card id or version. */
+function adbSearchUrl(q){
+  var sub=(lang&&lang!=='en')?lang+'.':'';
+  return 'https://'+sub+'arkhamdb.com/find?q='+encodeURIComponent(q);
 }
 function prodIcon(art){
   return art?'<span class="tla-prodicon" aria-hidden="true" style="-webkit-mask-image:url(assets/products/'
@@ -1742,8 +1880,9 @@ function rmPanel(){
    third thing. The keys are the fixed vocabulary every pack already agrees on
    (langpack.SECTION_KEYS), so this needs no translation and no pack changes. */
 var FLAGS=[
-  {id:'relevant',    keys:['whatsnew','glossary']},
-  {id:'recommended', keys:['timing','skill-tests','errata','ultimatums']}
+  {id:'relevant',    keys:['whatsnew','glossary','errata-viewer']},
+  {id:'recommended', keys:['timing','skill-tests','errata','faq']},
+  {id:'extra',       keys:['ultimatums','taboos']}
 ];
 function flagOf(s2){
   for(var i=0;i<FLAGS.length;i++){ if(FLAGS[i].keys.indexOf(s2.key)>=0)return FLAGS[i].id; }
@@ -1814,6 +1953,10 @@ function renderLanding(s){
   h+='</div></div>';
   if(li){h+=verBanner(li);}
   h+=rmPanel();
+  /* English leads; the other languages follow. Say so up front, and how to help fill a
+     gap. The email is a real mailto link, so it travels with the translated notice. */
+  h+='<aside class="tla-notice"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>'
+    +'<p data-i18n-html="landingnotice">'+t('landingnotice')+'</p></aside>';
   h+='<h2 class="tla-cards-h">'+esc(t('browse'))+'</h2>';
   h+=flagKeyHTML();
   /* One grid per shelf, each under its own h3. The h2 above still names the whole thing,
@@ -1872,7 +2015,7 @@ function buildToc(s,ents){
      hanging under them — it used to be the indented one, which was backwards. */
   list.forEach(function(e){
     h+='<a href="#'+lang+'/'+esc(e.id)+'" data-eid="'+esc(e.id)+'"'
-      +(e.role==='subhead'?' class="is-subhead"':'')+'>'+titleHTML(e)+diagBadge(e)+'</a>';
+      +(e.role==='subhead'?' class="is-subhead"':'')+'>'+titleFlat(e)+diagBadge(e)+'</a>';
   });
   elToc.innerHTML=h;
 }
@@ -2149,7 +2292,8 @@ function dialogs(){
     {box:elSModal,   isOpen:searchOpen,  close:closeSearch},
     {box:elFigModal, isOpen:figInfoOpen, close:closeFigInfo},
     {box:elLb,       isOpen:lbOpen,      close:closeLightbox},
-    {box:elDonate,   isOpen:donateOpen,  close:closeDonate}
+    {box:elDonate,   isOpen:donateOpen,  close:closeDonate},
+    {box:elUbDraw,   isOpen:drawOpen,    close:closeDraw}
   ];
 }
 function openDialog(){
@@ -2200,6 +2344,35 @@ function closeDonate(){
   elDonate.classList.remove('on'); elDonate.hidden=true;
   try{if(lastDonate)lastDonate.focus();}catch(e){}
   lastDonate=null;
+}
+
+/* ---------- draw-at-random modal ---------- */
+var lastDraw=null;
+function drawOpen(){return elUbDraw.classList.contains('on');}
+function openDraw(){
+  var s=curSec; if(!s)return;
+  lastDraw=document.activeElement;
+  /* Labels and caps come from the current section's own buckets, in the reader's
+     language — never hardcoded, so a new language and new cards need no code change. */
+  var uMax=ubBucket(s,'ultimatum').length, bMax=ubBucket(s,'boon').length;
+  var setField=function(labelId,inputId,maxId,label,max){
+    var l=document.getElementById(labelId), inp=document.getElementById(inputId), mx=document.getElementById(maxId);
+    if(l)l.textContent=label;
+    if(inp){inp.max=max; if((parseInt(inp.value,10)||0)>max)inp.value=max;}
+    if(mx)mx.textContent=t('ubdrawmax').replace('{n}',max);
+  };
+  setField('tla-ubdraw-ul','tla-ubdraw-u','tla-ubdraw-umax',ubLabel('ultimatum'),uMax);
+  setField('tla-ubdraw-bl','tla-ubdraw-b','tla-ubdraw-bmax',ubLabel('boon'),bMax);
+  var out=document.getElementById('tla-ubdraw-out'); if(out)out.innerHTML='';
+  elUbDraw.hidden=false; elUbDraw.classList.add('on');
+  try{document.getElementById('tla-ubdraw-close').focus();}catch(e){}
+}
+function closeDraw(){
+  if(!drawOpen())return;
+  elUbDraw.classList.remove('on'); elUbDraw.hidden=true;
+  var out=document.getElementById('tla-ubdraw-out'); if(out)out.innerHTML='';
+  try{if(lastDraw)lastDraw.focus();}catch(e){}
+  lastDraw=null;
 }
 
 /* ---------- mobile nav ---------- */
@@ -2364,6 +2537,26 @@ function wireEvents(){
   document.getElementById('tla-donate-close').addEventListener('click',closeDonate);
   // backdrop only — a click inside the box must not close it
   elDonate.addEventListener('click',function(e){if(e.target===elDonate)closeDonate();});
+
+  document.getElementById('tla-ubdraw-close').addEventListener('click',closeDraw);
+  elUbDraw.addEventListener('click',function(e){
+    if(e.target===elUbDraw){closeDraw(); return;}
+    // the result cards carry their own download button, inside this modal
+    var dl=e.target.closest('.tla-ubc-dl'); if(dl)ubDownload(dl.closest('.tla-ubc'));
+  });
+  document.getElementById('tla-ubdraw-form').addEventListener('submit',function(e){e.preventDefault(); ubDrawRun();});
+  /* Live clamp to [0, max]: the field never shows an out-of-range count. The form is
+     novalidate (native rangeOverflow would otherwise block submit), so ubDrawRun's own
+     clamp is the safety net. */
+  ['tla-ubdraw-u','tla-ubdraw-b'].forEach(function(id){
+    var inp=document.getElementById(id);
+    inp.addEventListener('input',function(){
+      var max=parseInt(inp.max,10), v=parseInt(inp.value,10);
+      if(inp.value==='')return;
+      if(isNaN(v)||v<0)inp.value=0;
+      else if(!isNaN(max)&&v>max)inp.value=max;
+    });
+  });
 }
 
 /* ---------- boot ---------- */
