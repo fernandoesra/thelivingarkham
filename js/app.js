@@ -19,6 +19,7 @@ var BOOT = {
 
 var GRIM = {},        // code -> grimoire data (loaded on demand)
     FAQ = {},         // code -> FAQ chapter 1 corpus (loaded on demand, may be absent)
+    TABOO = {},       // code -> interactive taboo list (loaded on demand, may be absent)
     PACKS = {},       // code -> ui.json
     REG = null,       // the language registry
     LANGS = [];       // registry entries, in display order
@@ -796,6 +797,16 @@ function mergeFaq(g, faq){
   g.sections=g.sections.concat(fsecs);
   g._faqMerged=true;
 }
+/* Hang the interactive taboo list (built from ArkhamDB) on the FAQ chapter-1 taboo chapter
+   (key "faq-taboos"): it renders as a per-card index — name, collection, icon, a direct ArkhamDB
+   link — above the chapter's own full Spanish text. The Resources "taboos" section is left as its
+   placeholder for the richer viewer to come. No taboo data -> nothing changes. Idempotent. */
+function attachTaboos(g, taboo){
+  if(!g||!taboo)return;
+  for(var i=0;i<g.sections.length;i++){
+    if(g.sections[i].key==='faq-taboos'){ g.sections[i].taboos=taboo; break; }
+  }
+}
 /* the nav badge counts what the newest edition brought — in whichever corpus the
    What's New section belongs to (the FAQ carries its own history). */
 function wnCount(s){var w=(s.corpusWhatsnew||data.whatsnew); var wn=s.ver&&w&&w[s.ver.v]; return wn?(wn['new'].length+wn.updated.length):0;}
@@ -1300,10 +1311,90 @@ function ubBucket(s,cat){var ub=s&&s.ub||{}; var a=cat==='ultimatum'?(ub.ultimat
 /* Whether the corpus even has both chapters' cards (the FAQ was built) — the filter is only
    worth showing then. */
 function ubHasChapters(s){var ub=s&&s.ub||{}; return (ub.refractions||[]).some(function(it){return it.chapter==='cap1';});}
-function ubFindItem(s,cat,slug){var a=ubBucket(s,cat); for(var i=0;i<a.length;i++)if(a[i].slug===slug)return a[i]; return null;}
+/* Refraction-only filters: narrow by campaign, then by a scenario within it. Selecting either
+   forces the chapter filter to 'all' (so the two cuts never fight). Transient — a way to answer
+   "which refractions apply to my scenario?" — so not remembered across sessions. */
+var ubCampaign='', ubScenario='';
+/* The refractions to show: the chapter bucket, then (campaign picked) that campaign, then
+   (scenario picked too) the campaign-wide ones plus that one scenario's specific ones. */
+function ubRefracList(s){
+  var a=ubBucket(s,'refraction');
+  if(ubCampaign){
+    a=a.filter(function(r){var p=ubRefractionParts(r); return !!(p&&p.campaign===ubCampaign);});
+    if(ubScenario)a=a.filter(function(r){var p=ubRefractionParts(r); return !!(p&&(!p.scenario||p.scenario===ubScenario));});
+  }
+  return a;
+}
+/* Display items for a tab: refractions also honour the campaign/scenario filter. */
+function ubItems(s,cat){return cat==='refraction'?ubRefracList(s):ubBucket(s,cat);}
+/* Every refraction (chapter-independent): the campaign/scenario filter forces the chapter to
+   'all' anyway, so its options offer every campaign, not just the current chapter's. */
+function ubAllRefractions(s){return (s&&s.ub&&s.ub.refractions)||[];}
+/* Distinct campaigns present in the refractions, in campaign (first-seen) order. */
+function ubCampaignList(s){
+  var seen={}, out=[];
+  ubAllRefractions(s).forEach(function(r){var p=ubRefractionParts(r); var c=p&&p.campaign; if(c&&!seen[c]){seen[c]=1; out.push(c);}});
+  return out;
+}
+/* Distinct scenarios of the chosen campaign that carry a scenario-specific refraction. */
+function ubScenarioList(s){
+  if(!ubCampaign)return [];
+  var seen={}, out=[];
+  ubAllRefractions(s).forEach(function(r){
+    var p=ubRefractionParts(r); if(!p||p.campaign!==ubCampaign)return;
+    var sc=p.scenario; if(sc&&!seen[sc]){seen[sc]=1; out.push(sc);}
+  });
+  return out;
+}
+/* A small chapter tag on a refraction (Cap. 1 / Cap. 2), shown only when the corpus carries both
+   chapters — so a single-chapter viewer is not littered with the same tag on every card. */
+function ubChapChip(it){
+  if(!curSec||!ubHasChapters(curSec))return '';
+  var ch=it&&it.chapter;
+  if(ch!=='cap1'&&ch!=='cap2')return '';
+  return '<span class="tla-ub-chip tla-chip-'+ch+'">'+esc(t('ubchap'+ch))+'</span>';
+}
+/* The refractions panel's own filter bar: the chapter toggle (moved here from the viewer-wide
+   tools, since only refractions differ by chapter) plus a campaign selector and, once a campaign
+   is chosen, a scenario selector — the way a player asks "which refractions apply to my scenario?"
+   A clear button resets all three to their defaults. */
+function ubRefracFilterBar(s){
+  var h='<div class="tla-ub-rfilter">';
+  if(ubHasChapters(s)){
+    h+='<div class="tla-ub-chap" role="group" aria-label="'+esc(t('ubchaplabel'))+'">'
+      +'<span class="tla-ub-flabel">'+esc(t('ubchaplabel'))+'</span>';
+    ['all','cap1','cap2'].forEach(function(ch){
+      var on=ubChap===ch;
+      h+='<button type="button" class="tla-ub-chapbtn'+(on?' is-on':'')+'" data-ubchap="'+ch+'" aria-pressed="'+on+'">'+esc(t('ubchap'+ch))+'</button>';
+    });
+    h+='</div>';
+  }
+  var camps=ubCampaignList(s);
+  if(camps.length){
+    var scens=ubScenarioList(s);
+    h+='<div class="tla-ub-selects">';
+    h+='<label class="tla-ub-sel"><span>'+esc(t('refrcampaign'))+'</span>'
+      +'<select class="tla-ub-selbox" data-ubcamp><option value="">'+esc(t('ubcampall'))+'</option>';
+    camps.forEach(function(c){h+='<option value="'+esc(c)+'"'+(c===ubCampaign?' selected':'')+'>'+esc(c)+'</option>';});
+    h+='</select></label>';
+    h+='<label class="tla-ub-sel"><span>'+esc(t('refrscenario'))+'</span>'
+      +'<select class="tla-ub-selbox" data-ubscen'+((ubCampaign&&scens.length)?'':' disabled')+'><option value="">'+esc(t('ubscenall'))+'</option>';
+    scens.forEach(function(sc){h+='<option value="'+esc(sc)+'"'+(sc===ubScenario?' selected':'')+'>'+esc(sc)+'</option>';});
+    h+='</select></label>';
+    if(ubCampaign||ubScenario||ubChap!=='all'){
+      h+='<button type="button" class="tla-ub-clear" data-ubclear>'
+        +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>'
+        +esc(t('ubclearfilter'))+'</button>';
+    }
+    h+='</div>';
+  }
+  h+='</div>';
+  return h;
+}
+function ubFindItem(s,cat,slug){var a=ubItems(s,cat); for(var i=0;i<a.length;i++)if(a[i].slug===slug)return a[i]; return null;}
 function ubLabel(cat){return t(cat==='ultimatum'?'ubultimatums':cat==='boon'?'ubboons':'ubrefractions');}
 function ubChosen(s,cat){
-  var a=ubBucket(s,cat); if(!a.length)return null;
+  var a=ubItems(s,cat); if(!a.length)return null;
   var want=ubSel[cat];
   for(var i=0;i<a.length;i++)if(a[i].slug===want)return want;
   ubSel[cat]=a[0].slug; return a[0].slug;
@@ -1338,16 +1429,25 @@ function ubSymHTML(art,cls){
    scenario. The campaign word ("campaña"/"campaign") is stripped so the name stands alone.
    Returns null for any subtitle shape we do not recognise. */
 function ubRefractionParts(it){
-  var runs=it.subtitle;
-  if(!(it.refraction&&it.collection&&runs&&runs.length===1&&runs[0].kind==='text'))return null;
-  var txt=(runs[0].t||'').trim(), scenario='', campaign=txt;
-  var m=txt.match(/^(.*?)\s*\(([^)]*)\)\s*$/);
-  if(m){ scenario=m[1].trim(); campaign=m[2].trim(); }
-  var word=t('refrcampaignword');
-  if(word){var wx=word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-    campaign=campaign.replace(new RegExp('^'+wx+'\\s+|\\s+'+wx+'$','i'),'').trim();}
-  return {scenario:scenario, campaign:campaign, hasScenario:!!(scenario&&it.set),
-          setIcon:it.set, collIcon:it.collection};
+  if(!it.refraction)return null;
+  var scenario=it.scenario||'', campaign=it.campaign||'';
+  if(!campaign){
+    /* Fallback for a refraction that carries no split fields (the Grimoire's own Scorched
+       Earth): read the "{scenario} ({word} {campaign})" subtitle the book prints. */
+    var runs=it.subtitle;
+    if(!(runs&&runs.length===1&&runs[0].kind==='text'))return null;
+    var txt=(runs[0].t||'').trim(); campaign=txt;
+    var m=txt.match(/^(.*?)\s*\(([^)]*)\)\s*$/);
+    if(m){ scenario=m[1].trim(); campaign=m[2].trim(); }
+    var word=t('refrcampaignword');
+    if(word){var wx=word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+      campaign=campaign.replace(new RegExp('^'+wx+'\\s+|\\s+'+wx+'$','i'),'').trim();}
+  }
+  if(!campaign)return null;
+  /* The scenario name shows even when its encounter-set symbol is not known (the FAQ has no
+     per-scenario icon table); the campaign symbol comes from the FAQ's campaign-icon table. */
+  return {scenario:scenario, campaign:campaign, hasScenario:!!scenario,
+          setIcon:it.set||'', collIcon:it.collection||''};
 }
 /* Card subtitle: the scenario (with its set symbol), then the campaign (with its collection
    symbol) as "Campaign X" — capital C. A campaign-wide refraction shows only "Campaign X". */
@@ -1356,10 +1456,10 @@ function ubSubtitleHTML(it){
   if(p){
     var h='';
     if(p.hasScenario){
-      h+='<span class="tla-ubc-subpart">'+ubSymHTML(p.setIcon,'tla-ubc-subsym')+'<span class="tla-ubc-subtxt">'+esc(p.scenario)+'</span></span>'
+      h+='<span class="tla-ubc-subpart">'+(p.setIcon?ubSymHTML(p.setIcon,'tla-ubc-subsym'):'')+'<span class="tla-ubc-subtxt">'+esc(p.scenario)+'</span></span>'
         +'<span class="tla-ubc-subsep" aria-hidden="true">·</span>';
     }
-    h+='<span class="tla-ubc-subpart">'+ubSymHTML(p.collIcon,'tla-ubc-subsym')+'<span class="tla-ubc-subtxt">'+esc(t('refrcampaign')+' '+p.campaign)+'</span></span>';
+    h+='<span class="tla-ubc-subpart">'+(p.collIcon?ubSymHTML(p.collIcon,'tla-ubc-subsym'):'')+'<span class="tla-ubc-subtxt">'+esc(t('refrcampaign')+' '+p.campaign)+'</span></span>';
     return h;
   }
   return runsHTML(it.subtitle,true);
@@ -1434,9 +1534,11 @@ function ubFontsReady(){
    the translated "Refraction" word in front, as the reader asked. */
 function ubRefractionWord(){return t('ubtyperefraction').replace(/[.]+$/,'').trim();}
 function ubSanitizeName(n){return (n||'card').replace(/[\/\\:*?"<>|]+/g,'').replace(/\s+/g,' ').trim();}
+/* The translated folder a card goes in inside the "download all" zip — Ultimatums, Boons or
+   Refractions, each its tab's own name, so the archive sorts itself the way the viewer does. */
+function ubFolderName(it){return ubSanitizeName(it.refraction?t('ubrefractions'):it.cat==='boon'?t('ubboons'):t('ubultimatums'));}
 function ubItemFileName(it){
-  var n=it.name; if(it.refraction)n=ubRefractionWord()+' - '+n;
-  return ubSanitizeName(n)+'.png';
+  return ubFolderName(it)+'/'+ubSanitizeName(it.name)+'.png';
 }
 function ubCardFileName(card){
   var n=((card.querySelector('.tla-ubc-title')||{}).textContent||'card');
@@ -1672,16 +1774,8 @@ function ubHTML(s){
     +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
     +'<path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>'
     +'<span class="tla-ub-tool-label">'+esc(t('ubdownall'))+'</span></button>';
-  /* Chapter filter: the 2026 Grimoire (cap 2), the retired FAQ (cap 1, many more refractions)
-     or both. Only shown when this language actually carries the chapter-1 cards. */
-  if(ubHasChapters(s)){
-    h+='<div class="tla-ub-chap" role="group" aria-label="'+esc(t('ubchaplabel'))+'">';
-    ['all','cap1','cap2'].forEach(function(ch){
-      var on=ubChap===ch;
-      h+='<button type="button" class="tla-ub-chapbtn'+(on?' is-on':'')+'" data-ubchap="'+ch+'" aria-pressed="'+on+'">'+esc(t('ubchap'+ch))+'</button>';
-    });
-    h+='</div>';
-  }
+  /* The chapter filter (Todo / Cap. 1 / Cap. 2) applies only to refractions — ultimatums and
+     boons are shared by both chapters — so it lives inside the refractions panel now, not here. */
   /* View toggle: the classic list (with one large card) or a gallery of every card. */
   h+='<div class="tla-ub-view" role="group" aria-label="'+esc(t('ubviewlabel'))+'">';
   h+='<button type="button" class="tla-ub-viewbtn'+(ubView==='list'?' is-on':'')+'" data-ubview="list" aria-pressed="'+(ubView==='list')+'" aria-label="'+esc(t('ubviewlist'))+'">'
@@ -1694,7 +1788,7 @@ function ubHTML(s){
   h+='</div>';
   h+='<div class="tla-ub-tabs" role="tablist" aria-label="'+esc(t('ubtablabel'))+'">';
   UB_TABS.forEach(function(cat){
-    var on=cat===ubTab, items=ubBucket(s,cat);
+    var on=cat===ubTab, items=ubItems(s,cat);
     h+='<button type="button" role="tab" class="tla-ub-tab'+(on?' is-on':'')+'" id="ubtab-'+cat
       +'" data-ubtab="'+cat+'" aria-selected="'+(on?'true':'false')+'" aria-controls="ubpanel-'+cat
       +'" tabindex="'+(on?'0':'-1')+'">'+esc(ubLabel(cat))
@@ -1702,19 +1796,21 @@ function ubHTML(s){
   });
   h+='</div>';
   UB_TABS.forEach(function(cat){
-    var on=cat===ubTab, items=ubBucket(s,cat);
+    var on=cat===ubTab, items=ubItems(s,cat);
     h+='<div class="tla-ub-panel" id="ubpanel-'+cat+'" role="tabpanel" aria-labelledby="ubtab-'+cat+'"'
       +(on?'':' hidden')+'>';
+    /* Refractions carry the chapter + campaign/scenario filters, above their content. */
+    if(cat==='refraction')h+=ubRefracFilterBar(s);
     if(!items.length){
       h+='<div class="tla-soon"><p class="tla-soon-h">'+esc(t('soon'))+'</p>'
-        +'<p class="tla-soon-d">'+esc(t('ubrefsoon'))+'</p></div>';
+        +'<p class="tla-soon-d">'+esc(t(cat==='refraction'&&(ubCampaign||ubScenario)?'ubreffilternone':'ubrefsoon'))+'</p></div>';
     }else if(ubView==='gallery'){
       /* Gallery: every card in the tab (like 5argon's page), using the full width;
          a card enlarges to a full-size render in the lightbox on click. */
       h+='<div class="tla-ub-gallery">';
       items.forEach(function(it){
         h+='<div class="tla-ub-gcard'+(it.pending?' is-pending':'')+'" data-slug="'+esc(it.slug)+'">'
-          +ubDetailHTML(it)+'</div>';
+          +ubChapChip(it)+ubDetailHTML(it)+'</div>';
       });
       h+='</div>';
     }else{
@@ -1725,25 +1821,24 @@ function ubHTML(s){
       items.forEach(function(it){
         var o=it.slug===sel;
         var sub='';
-        if(it.subtitle&&it.subtitle.length){
-          var rp=ubRefractionParts(it);
-          if(rp){
-            /* Two lines: the campaign, then (if this refraction is scenario-specific) the
-               scenario — each labelled and shown with its symbol, like 5argon's list. */
-            sub='<span class="tla-ub-isub tla-ub-isub2"'+(it.pending?' lang="en"':'')+'>'
-              +'<span class="tla-ub-isubrow"><span class="tla-ub-isublbl">'+esc(t('refrcampaign'))+':</span>'+ubSymHTML(rp.collIcon)+'<span>'+esc(rp.campaign)+'</span></span>';
-            if(rp.hasScenario)sub+='<span class="tla-ub-isubrow"><span class="tla-ub-isublbl">'+esc(t('refrscenario'))+':</span>'+ubSymHTML(rp.setIcon)+'<span>'+esc(rp.scenario)+'</span></span>';
-            sub+='</span>';
-          }else{
-            sub='<span class="tla-ub-isub"'+(it.pending?' lang="en"':'')+'>'
-              +(it.set?ubSymHTML(it.set):'')+'<span>'+runsHTML(it.subtitle,true)+'</span></span>';
-          }
+        var rp=it.refraction?ubRefractionParts(it):null;
+        if(rp){
+          /* Two lines: the campaign, then (if this refraction is scenario-specific) the
+             scenario — each labelled and shown with its symbol where known, like 5argon's list. */
+          sub='<span class="tla-ub-isub tla-ub-isub2"'+(it.pending?' lang="en"':'')+'>'
+            +'<span class="tla-ub-isubrow"><span class="tla-ub-isublbl">'+esc(t('refrcampaign'))+':</span>'+(rp.collIcon?ubSymHTML(rp.collIcon):'')+'<span>'+esc(rp.campaign)+'</span></span>';
+          if(rp.hasScenario)sub+='<span class="tla-ub-isubrow"><span class="tla-ub-isublbl">'+esc(t('refrscenario'))+':</span>'+(rp.setIcon?ubSymHTML(rp.setIcon):'')+'<span>'+esc(rp.scenario)+'</span></span>';
+          sub+='</span>';
+        }else if(it.subtitle&&it.subtitle.length){
+          sub='<span class="tla-ub-isub"'+(it.pending?' lang="en"':'')+'>'
+            +(it.set?ubSymHTML(it.set):'')+'<span>'+runsHTML(it.subtitle,true)+'</span></span>';
         }
+        var chip=ubChapChip(it);
         h+='<li role="option" class="tla-ub-item'+(o?' is-sel':'')+(it.pending?' is-pending':'')+'" id="ubopt-'+esc(it.slug)
           +'" data-ubitem="'+esc(it.slug)+'" aria-selected="'+(o?'true':'false')+'" tabindex="'+(o?'0':'-1')+'">'
           +'<img class="tla-ub-thumb" src="assets/'+esc(it.thumb)+'" width="'+it.tw+'" height="'+it.th
           +'" loading="lazy" alt=""><span class="tla-ub-iwrap"><span class="tla-ub-iname"'+(it.pending?' lang="en"':'')+'>'+esc(it.name)+'</span>'+sub+'</span>'
-          +(it.pending?'<span class="tla-ub-en" title="'+esc(t('ubpending'))+'">EN</span>':'')+'</li>';
+          +chip+(it.pending?'<span class="tla-ub-en" title="'+esc(t('ubpending'))+'">EN</span>':'')+'</li>';
       });
       h+='</ul><div class="tla-ub-detail">'+ubDetailHTML(ubFindItem(s,cat,sel))+'</div></div>';
     }
@@ -1763,10 +1858,30 @@ function ubSetView(v){
   ubView=v; try{localStorage.setItem('tla-ubview',v);}catch(e){}
   if(curSec)render(curSec.id,null,false);
 }
-/* Switch chapter filter (all / cap1 / cap2) and re-render — counts and every panel change. */
+/* Switch chapter filter (all / cap1 / cap2) and re-render — counts and every panel change. The
+   campaign/scenario filter is cleared with it: those live in a chapter, so a stale pick could
+   point at nothing under the new chapter. */
 function ubSetChap(v){
   if((v!=='all'&&v!=='cap1'&&v!=='cap2')||v===ubChap)return;
-  ubChap=v; try{localStorage.setItem('tla-ubchap',v);}catch(e){}
+  ubChap=v; ubCampaign=''; ubScenario='';
+  try{localStorage.setItem('tla-ubchap',v);}catch(e){}
+  if(curSec)render(curSec.id,null,false);
+}
+/* Pick a campaign to filter the refractions by: this also drops any scenario pick and forces the
+   chapter filter to 'all', so the two filters never hide each other. */
+function ubSetCampaign(v){
+  ubCampaign=v||''; ubScenario='';
+  if(ubCampaign)ubChap='all';
+  if(curSec)render(curSec.id,null,false);
+}
+function ubSetScenario(v){
+  ubScenario=v||'';
+  if(curSec)render(curSec.id,null,false);
+}
+/* Reset the refractions filter to its default: no campaign, no scenario, all chapters. */
+function ubClearFilter(){
+  ubCampaign=''; ubScenario=''; ubChap='all';
+  try{localStorage.setItem('tla-ubchap','all');}catch(e){}
   if(curSec)render(curSec.id,null,false);
 }
 function ubSelectTab(root,cat){
@@ -1818,11 +1933,16 @@ function bindUB(){
     var da=e.target.closest('#ubdownall'); if(da){ubDownloadAll(da); return;}
     var vb=e.target.closest('.tla-ub-viewbtn'); if(vb){ubSetView(vb.getAttribute('data-ubview')); return;}
     var cb=e.target.closest('.tla-ub-chapbtn'); if(cb){ubSetChap(cb.getAttribute('data-ubchap')); return;}
+    var clr=e.target.closest('[data-ubclear]'); if(clr){ubClearFilter(); return;}
     var tab=e.target.closest('.tla-ub-tab'); if(tab){ubSelectTab(root,tab.getAttribute('data-ubtab')); tab.focus(); return;}
     // gallery mode: a card (anywhere but its download button) enlarges in the lightbox
     var gc=e.target.closest('.tla-ub-gcard .tla-ubc'); if(gc){ubZoomCard(gc); return;}
     // list mode: a name swaps the shown card
     var li=e.target.closest('.tla-ub-item'); if(li){ubSelectItem(li); li.focus();}
+  });
+  root.addEventListener('change',function(e){
+    var camp=e.target.closest('[data-ubcamp]'); if(camp){ubSetCampaign(camp.value); return;}
+    var scen=e.target.closest('[data-ubscen]'); if(scen){ubSetScenario(scen.value); return;}
   });
   root.addEventListener('keydown',function(e){
     if(e.target.closest('.tla-ub-tab')){ubTabKeys(e,root); return;}
@@ -1857,6 +1977,73 @@ function adbLink(id){
     +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3h7v7"/><path d="M21 3l-9 9"/><path d="M19 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>'
     +esc(t('viewadb'))+'</a>';
 }
+/* ---- the interactive Taboo list (Resources), built from ArkhamDB by tools/taboos.py ---- */
+/* ArkhamDB writes the taboo mutation text with its own icon tokens ([reaction], [willpower]…)
+   and light HTML. Convert the tokens to the site's game icons, keep bold/italic, and escape
+   everything else — so nothing but <strong>/<em>/icons is emitted from that external text. */
+function adbTokenIcon(tok){
+  var map={action:'action',reaction:'reaction',fast:'fast',free:'fast',lightning:'fast',
+    willpower:'willpower',intellect:'intellect',combat:'combat',agility:'agility',wild:'wild',
+    skull:'skull',cultist:'cultist',tablet:'tablet',elder_thing:'elderthing',elderthing:'elderthing',
+    auto_fail:'autofail',elder_sign:'eldersign',bless:'bless',curse:'curse',frost:'frost',
+    per_investigator:'perinvestigator',guardian:'guardian',seeker:'seeker',rogue:'rogue',
+    mystic:'mystic',survivor:'survivor'};
+  return map[tok]||null;
+}
+function adbText(html){
+  if(!html)return '';
+  // Drop every HTML tag (ArkhamDB's text is light HTML), then split out its icon tokens
+  // ([reaction], [willpower]…): text is escaped and a known token becomes a game icon, so
+  // nothing but game icons and escaped text is ever emitted from this external string.
+  var s=String(html).replace(/<[^>]*>/g,'');
+  var parts=s.split(/(\[[a-z_]+\])/i), out='';
+  for(var i=0;i<parts.length;i++){
+    var pp=parts[i]; if(!pp)continue;
+    var m=pp.match(/^\[([a-z_]+)\]$/i);
+    if(m){var ic=adbTokenIcon(m[1].toLowerCase()); out+=ic?iconHTML(ic):esc(pp);}
+    else out+=esc(pp);
+  }
+  return out;
+}
+function faqTabooTarget(){
+  var secs=(data&&data.sections)||[];
+  for(var i=0;i<secs.length;i++){if(secs[i].corpus==='faq1'&&secs[i].key==='faq-taboos')return secs[i].id;}
+  return null;
+}
+function tabooCount(s){var t2=s&&s.taboos; return t2?(t2.groups||[]).reduce(function(n,g){return n+g.cards.length;},0):0;}
+/* A per-card index of the current taboo list, above the chapter's own full text: every card as a
+   direct link to ArkhamDB (in the reader's language), with its product icon and collection number
+   and its bucket (Chained/Mutated/Forbidden). The mutation text itself is the chapter's prose
+   below — official and in the reader's language — so it is not repeated here. */
+function taboosHTML(s){
+  var tb=s.taboos; if(!tb)return '';
+  var h='<details class="tla-taboos" open>';
+  h+='<summary class="tla-taboos-sum"><span class="tla-taboos-sumt">'+esc(t('tabooindex'))+'</span>'
+    +'<span class="tla-taboo-ver">'+esc(t('tabooversion').replace('{d}',fmtDate(tb.date)))+'</span></summary>';
+  h+='<div class="tla-taboos-body">';
+  (tb.groups||[]).forEach(function(g){
+    h+='<section class="tla-taboo-grp"><h3 class="tla-taboo-h">'+esc(t('taboocat_'+g.cat))
+      +' <span class="tla-taboo-n">'+g.cards.length+'</span></h3>';
+    h+='<ul class="tla-taboo-list">';
+    g.cards.forEach(function(c){
+      h+='<li class="tla-taboo-card is-'+esc(g.cat)+'">';
+      h+='<a class="tla-taboo-name" href="'+esc(adbCardUrl(c.code))+'" target="_blank" rel="noopener">'+esc(c.name)
+        +'<svg class="tla-taboo-ext" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3h7v7"/><path d="M21 3l-9 9"/><path d="M19 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg></a>';
+      h+='<span class="tla-taboo-coll">'+(c.art?prodIcon(c.art):'')
+        +(c.packName?'<span class="tla-taboo-pack">'+esc(c.packName)+'</span>':'')
+        +(c.position?'<span class="tla-taboo-pos">'+esc(String(c.position))+'</span>':'')+'</span>';
+      if(g.cat==='chained')h+='<span class="tla-taboo-tag tla-taboo-xp">'+esc((c.xp>0?'+':'')+c.xp+' '+t('tabooxp'))+'</span>';
+      else if(g.cat==='forbidden')h+='<span class="tla-taboo-tag tla-taboo-forb">'+esc(t('taboocat_forbidden'))+'</span>';
+      h+='</li>';
+    });
+    h+='</ul></section>';
+  });
+  h+='<p class="tla-taboo-src"><a class="tla-extlink" href="'+esc(tb.source||'https://arkhamdb.com/rules')+'" target="_blank" rel="noopener">'
+    +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3h7v7"/><path d="M21 3l-9 9"/><path d="M19 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>'
+    +esc(t('taboosource'))+'</a></p>';
+  h+='</div></details>';
+  return h;
+}
 /* The Modified Reprints chapter as a table: set symbol, collection number, card name,
    and a link to the card on ArkhamDB in the reader's language. */
 function reprintsHTML(s){
@@ -1876,6 +2063,15 @@ function reprintsHTML(s){
   return h+'</tbody></table></div>';
 }
 
+/* The Grimoire's living definition of the environments (in the optional rules), for the FAQ's
+   obsolete-Beta warning to link to. Found by the shared section key, then its environments
+   subhead, so it lands right in every language; falls back to the section, then null. */
+function grimoireEnvTarget(){
+  var opt=(data.sections||[]).filter(function(x){return x.key==='optional-rules';})[0];
+  if(!opt)return null;
+  var e=(opt.entries||[]).filter(function(en){return en.role==='subhead'&&/entorno|environment/i.test(en.title||'');})[0];
+  return e?e.id:opt.id;
+}
 function render(sid,eid,flash){
   var s=data.sections.filter(function(x){return x.id===sid;})[0]; if(!s)s=data.sections[0];
   curSec=s;
@@ -1886,6 +2082,17 @@ function render(sid,eid,flash){
   h+='<div class="tla-crumb">'+(s.num?('· '+s.num+' ·'):'')+' The Living Arkham</div>';
   h+='<h1 class="tla-h1">'+(s.num?'<span class="tla-rn">'+s.num+'.</span>':'')+esc(s.title)+'</h1>';
   h+='<div class="tla-rule"></div>';
+  /* The retired FAQ's Beta environments are superseded by the Grimoire's optional-rules
+     environments. Flag it loudly, like the book's own STOP! callout, and point at the living
+     definition — so no one reads this obsolete text as current. */
+  if(s.key==='faq-environments'){
+    var envt=grimoireEnvTarget();
+    h+='<aside class="tla-obsolete" role="note">'
+      +'<div class="tla-obsolete-tag">'+esc(t('obsoleteword'))+'</div>'
+      +'<div class="tla-obsolete-body"><p class="tla-obsolete-lead">'+esc(t('envobsolete'))+'</p>'
+      +(envt?'<a class="tla-obsolete-go" href="#'+lang+'/'+esc(envt)+'">'+esc(t('envobsoletego'))+' <span aria-hidden="true">→</span></a>':'')
+      +'</div></aside>';
+  }
   /* First thing under the title: the diagrams ARE the summary, so the offer to read
      only them belongs where it is seen before the reading starts. */
   if(hasDiagrams(s))h+=diagSwitch(s);
@@ -1896,6 +2103,7 @@ function render(sid,eid,flash){
   if(s.kind==='anatomy'){h+=anatomyHTML(s);}
   if(s.kind==='icons'){h+=iconsHTML(s);}
   if(s.kind==='ultimatums'){h+=ubHTML(s);}
+  if(s.taboos){h+=taboosHTML(s);}
   if(s.reprints){h+=reprintsHTML(s);}
   /* quickref renders its text sub-sections through the normal entries loop below (so
      their terms autolink to the glossary and they land in the table of contents), then
@@ -2107,12 +2315,19 @@ function wnList(items,cls){
   });
   return h;
 }
+/* "Rincón Miskatonic" is the project's proper name (a Spanish-language site), so it is set in
+   italics wherever it is named — the same way a publication title is. The label is translated as
+   usual; only the name inside it is emphasised. Escaped first, then the (accented, HTML-safe) name
+   is wrapped, so this stays injection-safe. */
+function rmName(s){
+  return esc(s).replace(/Rincón Miskatonic/g,'<em class="tla-rm-name">Rincón Miskatonic</em>');
+}
 function rmPanel(){
   return '<section class="tla-rm">'
     +'<div class="tla-rm-body">'
-      +'<h2 class="tla-rm-title">'+esc(t('rmtitle'))+'</h2>'
+      +'<h2 class="tla-rm-title">'+rmName(t('rmtitle'))+'</h2>'
       +'<p>'+t('rmbody')+'</p>'
-      +'<a class="tla-rm-cta" href="'+BLOG+'" target="_blank" rel="noopener">'+esc(t('rmcta'))+' <span aria-hidden="true">↗</span></a>'
+      +'<a class="tla-rm-cta" href="'+BLOG+'" target="_blank" rel="noopener">'+rmName(t('rmcta'))+' <span aria-hidden="true">↗</span></a>'
     +'</div>'
     +'<div class="tla-rm-mark" aria-hidden="true">'+SIGIL_SVG+'</div>'
   +'</section>';
@@ -2934,14 +3149,19 @@ function loadLang(L){
     // The FAQ chapter 1 corpus is optional: a language without one (or whose file
     // 404s) simply has no FAQ shelf. Best-effort, never fatal to the language.
     (FAQ[L]||!reg.faqData)?Promise.resolve(FAQ[L]||null)
-      :getJSON(reg.faqData).then(function(f){return f;},function(){return null;})
+      :getJSON(reg.faqData).then(function(f){return f;},function(){return null;}),
+    // The interactive taboo list is optional too: absent or 404 -> the Resources section keeps
+    // its "coming soon" placeholder. Never fatal to the language.
+    (TABOO[L]||!reg.tabooData)?Promise.resolve(TABOO[L]||null)
+      :getJSON(reg.tabooData).then(function(f){return f;},function(){return null;})
   ]).then(function(res){
-    GRIM[L]=res[0]; PACKS[L]=res[1]; if(res[2])FAQ[L]=res[2];
+    GRIM[L]=res[0]; PACKS[L]=res[1]; if(res[2])FAQ[L]=res[2]; if(res[3])TABOO[L]=res[3];
     return loadChain(L);
   }).then(function(){
     // after the chain, so both may use strings that come from a fallback
     normalizeData(GRIM[L]);
     mergeFaq(GRIM[L], FAQ[L]);          // splice the FAQ corpus in as its own shelf
+    attachTaboos(GRIM[L], TABOO[L]);    // hang the taboo list on the Resources section
     buildIndex(L);
     delete loading[L];
     return L;

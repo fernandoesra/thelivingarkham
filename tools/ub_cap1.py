@@ -15,10 +15,56 @@ Usage:  python tools/ub_cap1.py [<lang> ...]
 """
 import json
 import os
+import re
 import sys
 
 import langpack
 import ultimatums
+
+
+def _campaign_key(name):
+    """Alphanumeric-only fold of a campaign name, with any trailing "(...)" — or an unclosed
+    "(Investigator…" the English icon table truncates — stripped first. So "The Dream-Eaters",
+    "The Scarlet Keys (Investigator Expansion)" and a refraction's plain "The Scarlet Keys" all
+    collapse onto the same key."""
+    n = re.sub(r'\s*\([^)]*\)?\s*$', '', name or '')
+    return re.sub(r'[^a-z0-9]+', '', langpack.fold(n))
+
+
+def _campaign_icon_map(fdata):
+    """From the FAQ's own icon-reference (the "Iconos de campaña" / "Campaign Product Icons"
+    table), a map campaign-key -> product SVG art id. Lets a chapter-1 refraction show its
+    campaign symbol, exactly as the Grimoire's Scorched Earth refraction does. The campaign-
+    expansion variant wins over the investigator-expansion one, and a bare name over both."""
+    prio = {}
+    for s in fdata.get('sections', []):
+        if s.get('kind') != 'icons':
+            continue
+        for g in s.get('groups', []):
+            if not re.search(r'campa|campaign', langpack.fold(g.get('title', ''))):
+                continue
+            for it in g.get('items', []):
+                name, art = it.get('name', ''), it.get('art', '')
+                if not art:
+                    continue
+                fold = langpack.fold(name)
+                base = _campaign_key(name)
+                p = 1 if ('investigador' in fold or 'investigator' in fold) \
+                    else 3 if ('campa' in fold or 'campaign' in fold) else 2
+                if base and (base not in prio or p > prio[base][0]):
+                    prio[base] = (p, art)
+    return {k: v[1] for k, v in prio.items()}
+
+
+def _split_subtitle(sub):
+    """A refraction subtitle reads "{scenario} (campaña {campaign})" — or just "campaña
+    {campaign}" for a campaign-wide one. Return (scenario, campaign) as plain names, the campaign
+    word stripped, so the viewer can show and FILTER by campaign and scenario."""
+    txt = ''.join(r.get('t', '') for r in (sub or []) if r.get('kind') in ('text', 'link')).strip()
+    m = re.match(r'^(.*?)\s*\(([^)]*)\)\s*$', txt)
+    scenario, campaign = (m.group(1).strip(), m.group(2).strip()) if m else ('', txt)
+    campaign = re.sub(r'(?i)^\s*(campaña|campaign)\s+|\s+(campaña|campaign)\s*$', '', campaign).strip()
+    return scenario, campaign
 
 
 def _grim_path(code):
@@ -79,6 +125,7 @@ def build(pack, quiet=False):
 
     registry = ultimatums._registry()
     namemap = ultimatums._namemap(pack)
+    campmap = _campaign_icon_map(fdata)
 
     def resolve(name):
         if namemap is not None:
@@ -105,6 +152,18 @@ def build(pack, quiet=False):
         }
         if sub:
             rec['subtitle'] = sub
+        # Campaign + scenario names (for display and the viewer's campaign/scenario filter), and
+        # the campaign symbol looked up from the FAQ's own campaign-icon table.
+        scenario, campaign = _split_subtitle(sub)
+        if campaign:
+            rec['campaign'] = campaign
+            art = campmap.get(_campaign_key(campaign))
+            if art:
+                rec['collection'] = art
+        if scenario:
+            rec['scenario'] = scenario
+        # Curated icons (encounter-set symbol, illustrator) override, if ub_refractions.json /
+        # ub_illustrators.json name this slug (they carry it into the registry at import time).
         for k in ('set', 'collection', 'illus'):
             if card.get(k):
                 rec[k] = card[k]

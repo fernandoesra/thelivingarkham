@@ -122,14 +122,48 @@ def _cluster_icons(page):
 _SETICON_FONT = 'TLA-SETICON'
 
 
+def _place_icon(plines, box, fp):
+    """Slot one icon into the text as a `seticon` span, INSIDE the line it interrupts, at its own
+    x. A card reference "Name ( <icon> 20)" prints a dedicated space span where the vector icon is
+    drawn (between the "(" span and the number span), so the icon goes at that x. Placing it as a
+    span (not a separate pseudo-line, as it was before) is what stops stray "[icon]" paragraphs and
+    split words ("espe <icon> cial") when the whole reference sits inside one line."""
+    icx, icy = (box[0] + box[2]) / 2.0, (box[1] + box[3]) / 2.0
+    span = {'font': _SETICON_FONT, 'text': '', '_fp': fp,
+            'bbox': (box[0], box[1], box[2], box[3]), 'size': 10.0, 'color': 0}
+    row = [l for l in plines if l['y'] - 3 <= icy <= l['y1'] + 3]     # lines on the icon's row
+    if not row:
+        if not plines:
+            return
+        row = [min(plines, key=lambda l: abs((l['y'] + l['y1']) / 2.0 - icy))]
+    # 1) the icon sits within a line's x-range (the usual "( <icon> 20)" on one line): insert the
+    #    seticon span before the first span starting to its right, so it lands between "(" and "20".
+    for l in row:
+        xs = [s['bbox'][0] for s in l['spans']]
+        xe = [s['bbox'][2] for s in l['spans']]
+        if min(xs) - 2 <= icx <= max(xe) + 2:
+            idx = len(l['spans'])
+            for i, s in enumerate(l['spans']):
+                if s['bbox'][0] >= icx:
+                    idx = i
+                    break
+            l['spans'].insert(idx, span)
+            return
+    # 2) the reference is split across two lines ("Name (" then "20) ..." a couple of points apart
+    #    in y): append to the same-row line ending just left of the icon, so the row sort keeps it
+    #    in order.
+    left = [l for l in row if max(s['bbox'][2] for s in l['spans']) <= icx + 3]
+    host = max(left, key=lambda l: max(s['bbox'][2] for s in l['spans'])) if left else row[0]
+    host['spans'].append(span)
+
+
 def _inject_icons(lines, doc, skip_pages=()):
-    """Slot every page's icons into the line stream as one-glyph pseudo-lines, positioned so
-    the parser joins each into the paragraph it interrupts. Returns {fingerprint: svg}."""
+    """Slot every page's icons into the text as `seticon` spans (see _place_icon), then restore
+    reading order. Returns {fingerprint: svg}."""
     by_page = {}
     for l in lines:
         by_page.setdefault(l['page'], []).append(l)
     svgs = {}
-    added = []
     for pno in range(doc.page_count):
         if (pno + 1) in skip_pages:
             continue
@@ -137,21 +171,7 @@ def _inject_icons(lines, doc, skip_pages=()):
         plines = by_page.get(pno + 1, [])
         for box, svg, fp in _cluster_icons(page):
             svgs.setdefault(fp, svg)
-            icx, icy = (box[0] + box[2]) / 2.0, (box[1] + box[3]) / 2.0
-            # the line this icon interrupts: same row, its text ending just left of the icon
-            host, hostd = None, 1e9
-            for l in plines:
-                if abs((l['y'] + l['y1']) / 2.0 - icy) > 6:
-                    continue
-                lx1 = max(s['bbox'][2] for s in l['spans'])
-                if lx1 <= icx + 3 and (icx - lx1) < hostd:
-                    hostd, host = icx - lx1, l
-            span = {'font': _SETICON_FONT, 'text': '', '_fp': fp,
-                    'bbox': (box[0], box[1], box[2], box[3]), 'size': 10.0, 'color': 0}
-            added.append({'page': pno + 1, 'col': host['col'] if host else 0, 'xedge': 0,
-                          'y': box[1], 'y1': box[3], 'x0': box[0], 'spans': [span],
-                          'block': host['block'] if host else -1})
-    lines.extend(added)
+            _place_icon(plines, box, fp)
     # Reading order, per page and column, but CLUSTER lines into visual rows first and sort
     # left-to-right within a row. A card reference split by its inline icon leaves two spans on
     # the same visual line a couple of points apart in y ("Name (" at y419, "255) …" at y417);
@@ -171,6 +191,34 @@ def _inject_icons(lines, doc, skip_pages=()):
     return svgs
 
 
+def _drop_footers(lines, doc):
+    """The running footer the FAQ prints on EVERY page — a small blackletter "PREGUNTAS
+    FRECUENTES" / "FREQUENTLY ASKED QUESTIONS" and the page number beside it — leaks into the
+    prose (it landed as a stray "12 PREGUNTAS FRECUENTES" paragraph inside entries, even inside
+    a refraction). The Grimoire drops footers by an absolute y (FOOT_Y, tuned to its 792pt page);
+    the FAQ page is only 684pt tall, so that cut misses it. Dropped here by signature instead —
+    bottom band + a bare page number or a small heading-font span — page-height- and
+    language-neutral, and confined to the FAQ (this is only reached from parse_with_icons)."""
+    heights = {}
+
+    def page_h(pno):
+        if pno not in heights:
+            heights[pno] = doc[pno - 1].rect.height
+        return heights[pno]
+
+    def is_footer(l):
+        if l['y'] < page_h(l['page']) - 45:       # not in the bottom band
+            return False
+        spans = l['spans']
+        txt = ''.join(s['text'] for s in spans).strip()
+        if re.fullmatch(r'\d{1,4}', txt):         # a bare page number
+            return True
+        return any('Teutonic' in s.get('font', '') and s.get('size', 99) < 13
+                   and s['text'].strip() for s in spans)   # the running blackletter footer
+
+    return [l for l in lines if not is_footer(l)]
+
+
 def parse_with_icons(pdf, skip_pages=()):
     """parse_grimoire.parse_pdf, but with the FAQ's vector set icons recovered and slotted
     back into the text. Returns (nodes, doc, svgs). Done by patching the two module hooks
@@ -182,13 +230,28 @@ def parse_with_icons(pdf, skip_pages=()):
 
     def collect(pdf_, masks):
         lines, doc = orig_collect(pdf_, masks)
+        lines[:] = _drop_footers(lines, doc)
         captured['svgs'] = _inject_icons(lines, doc, skip_pages)
         return lines, doc
 
     def build(spans, reds=pg._KEEP):
-        if spans and all(s.get('font') == _SETICON_FONT for s in spans):
-            return [{'kind': 'seticon', 'fp': s['_fp']} for s in spans]
-        return orig_build(spans, reds)
+        # A line now carries seticon spans mixed in with text (the icon sits between "(" and the
+        # number of a card reference), so split at each seticon: text segments go through the real
+        # builder (which merges runs, detects icons/links/red), the seticon becomes its own run.
+        if not any(s.get('font') == _SETICON_FONT for s in spans):
+            return orig_build(spans, reds)
+        out, buf = [], []
+        for s in spans:
+            if s.get('font') == _SETICON_FONT:
+                if buf:
+                    out.extend(orig_build(buf, reds))
+                    buf = []
+                out.append({'kind': 'seticon', 'fp': s['_fp']})
+            else:
+                buf.append(s)
+        if buf:
+            out.extend(orig_build(buf, reds))
+        return out
 
     pg.collect_lines = collect
     pg.build_runs = build

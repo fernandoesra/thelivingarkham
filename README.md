@@ -219,12 +219,18 @@ Notes:
 * The **set / campaign / scenario icons** printed before each card number are vector art, not font glyphs — recovered from the page, deduplicated by shape and slotted back in front of the number (`tools/faq_seticons.py`, shared SVGs in `assets/faqsets/`). The same tool rebuilds the icon-reference tables (campaigns, standalone products, starter decks, promos) into `assets/products/`.
 * The FAQ prints the **bless/curse** chaos-token icons the Grimoire never uses; their glyphs are traced from the FAQ font and filled in automatically (`extract_icons.fill_from_faq`).
 
+## The interactive taboo list
+
+The Resources shelf carries a live **taboo list**, built from ArkhamDB's public API (`tools/taboos.py` → `data/taboos_<code>.json`). Every card on the current taboo list is grouped the way the book groups them — *Chained/Unchained* (an experience cost), *Mutated* (a rules-text change) and *Forbidden* (barred) — each with its collection number, its product icon (matched to the FAQ's own icon tables), and a **direct link** to the card on ArkhamDB in the reader's language. The mutation text ArkhamDB stores is English only, so it is tagged `lang="en"` and the list cross-links to the FAQ's own taboo chapter for the full write-up. It refreshes as part of `ingest.py` (network, best-effort: an offline build keeps the committed data). Run it on its own with `python tools/taboos.py`.
+
+The **Ultimatums, Boons & Refractions** viewer merges the FAQ's chapter-1 refractions (5argon's card art, `tools/ub_cap1.py`) with the Grimoire's own, filterable by chapter (Cap. 1 / Cap. 2) and, within the refractions, by campaign and scenario.
+
 ## How it fits together
 
 ```
 langs/<code>/        the only thing a translator writes  (lang.json · ui.json · flag.svg · source/*.pdf · source_faq/*.pdf)
 tools/               the pipeline — knows no language     (python tools/ingest.py)
-data/                generated: grimoire_<code>.json + faq_<code>.json + languages.json (the registry)
+data/                generated: grimoire_<code>.json + faq_<code>.json + taboos_<code>.json + languages.json (the registry)
 assets/              generated figures + the game icons (shared by every language)
 index.html js/ css/  the app — knows no language
 ```

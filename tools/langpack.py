@@ -562,6 +562,12 @@ def build_registry(packs=None):
             if faq_versions:
                 entry['faqV'] = faq_versions[-1]['v']
                 entry['faqDate'] = faq_versions[-1]['date']
+        # The interactive taboo list (data/taboos_<code>.json, built from ArkhamDB by
+        # tools/taboos.py). Listed only when built, so the Resources section shows the live
+        # list where it exists and its "coming soon" placeholder where it does not.
+        taboo_path = os.path.join(DATA_DIR, f'taboos_{p.code}.json')
+        if os.path.exists(taboo_path):
+            entry['tabooData'] = f'data/taboos_{p.code}.json'
         # A pack may ship a flag next to its config. It is decoration: the label
         # is what names the language, so a pack without one is perfectly fine.
         # Listed rather than os.path.exists()-ed: that check is case-insensitive

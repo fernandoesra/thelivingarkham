@@ -171,6 +171,18 @@ def main(argv):
             except Exception as e:
                 print(f'  [warn] chapter-1 refractions skipped for {pack.code}: {e}', file=sys.stderr)
 
+    # The interactive taboo list is fetched from ArkhamDB (tools/taboos.py). Network, so it is
+    # best-effort: if it fails (offline, API down) the committed data/taboos_<code>.json is kept.
+    if built:
+        step('taboo list — from ArkhamDB')
+        import taboos
+        for pack in packs:
+            try:
+                taboos.build_and_write(pack.code)
+            except Exception as e:
+                print(f'  [warn] taboo list not refreshed for {pack.code} '
+                      f'(keeping the committed one): {type(e).__name__}: {e}', file=sys.stderr)
+
     step('language registry')
     langpack.write_registry()
 

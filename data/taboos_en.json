@@ -1,0 +1,898 @@
+{
+  "lang": "en",
+  "tabooId": 10,
+  "date": "2026-02-19",
+  "source": "https://arkhamdb.com/rules#Taboo",
+  "groups": [
+    {
+      "cat": "chained",
+      "cards": [
+        {
+          "code": "11117",
+          "name": "Archibald MacVeigh",
+          "pack": "tdcp",
+          "packName": "The Drowned City Investigator Expansion",
+          "position": 117,
+          "cat": "chained",
+          "xp": -2
+        },
+        {
+          "code": "11055",
+          "name": "Bum's Rush",
+          "pack": "tdcp",
+          "packName": "The Drowned City Investigator Expansion",
+          "position": 55,
+          "cat": "chained",
+          "xp": 1
+        },
+        {
+          "code": "05159",
+          "name": "Drawing Thin",
+          "pack": "wos",
+          "packName": "The Wages of Sin",
+          "position": 159,
+          "cat": "chained",
+          "xp": 3
+        },
+        {
+          "code": "04305",
+          "name": "Flamethrower",
+          "pack": "sha",
+          "packName": "Shattered Aeons",
+          "position": 305,
+          "cat": "chained",
+          "xp": 1
+        },
+        {
+          "code": "10037",
+          "name": "Flurry of Blows",
+          "pack": "fhvp",
+          "packName": "The Feast of Hemlock Vale Investigator Expansion",
+          "position": 37,
+          "cat": "chained",
+          "xp": -2
+        },
+        {
+          "code": "08099",
+          "name": "Gené Beauregard",
+          "pack": "eoep",
+          "packName": "Edge of the Earth Investigator Expansion",
+          "position": 99,
+          "cat": "chained",
+          "xp": 2
+        },
+        {
+          "code": "05231",
+          "name": "Knowledge is Power",
+          "pack": "uad",
+          "packName": "Union and Disillusion",
+          "position": 231,
+          "cat": "chained",
+          "xp": 2
+        },
+        {
+          "code": "02300",
+          "name": "Monster Slayer",
+          "pack": "litas",
+          "packName": "Lost in Time and Space",
+          "position": 300,
+          "cat": "chained",
+          "xp": -2
+        },
+        {
+          "code": "09117",
+          "name": "Old Keyring",
+          "pack": "tskp",
+          "packName": "The Scarlet Keys Investigator Expansion",
+          "position": 117,
+          "cat": "chained",
+          "xp": 1
+        },
+        {
+          "code": "02108",
+          "name": "Pathfinder",
+          "pack": "tmm",
+          "packName": "The Miskatonic Museum",
+          "position": 108,
+          "cat": "chained",
+          "xp": 1
+        },
+        {
+          "code": "11031",
+          "name": "Quick Shot",
+          "pack": "tdcp",
+          "packName": "The Drowned City Investigator Expansion",
+          "position": 31,
+          "cat": "chained",
+          "xp": -2
+        },
+        {
+          "code": "10060",
+          "name": "Ravenous Myconid",
+          "pack": "fhvp",
+          "packName": "The Feast of Hemlock Vale Investigator Expansion",
+          "position": 60,
+          "cat": "chained",
+          "xp": 1
+        },
+        {
+          "code": "07308",
+          "name": "Rite of Equilibrium",
+          "pack": "itm",
+          "packName": "Into the Maelstrom",
+          "position": 308,
+          "cat": "chained",
+          "xp": -2
+        },
+        {
+          "code": "10085",
+          "name": "Rod of Carnamagos",
+          "pack": "fhvp",
+          "packName": "The Feast of Hemlock Vale Investigator Expansion",
+          "position": 85,
+          "cat": "chained",
+          "xp": 2
+        },
+        {
+          "code": "10098",
+          "name": "Rod of Carnamagos",
+          "pack": "fhvp",
+          "packName": "The Feast of Hemlock Vale Investigator Expansion",
+          "position": 98,
+          "cat": "chained",
+          "xp": 2
+        },
+        {
+          "code": "01073",
+          "name": "Scavenging",
+          "pack": "core",
+          "packName": "Core Set",
+          "position": 73,
+          "cat": "chained",
+          "art": "fc-1-64ef94fd",
+          "xp": 2
+        },
+        {
+          "code": "01573",
+          "name": "Scavenging",
+          "pack": "rcore",
+          "packName": "Revised Core Set",
+          "position": 73,
+          "cat": "chained",
+          "xp": 2
+        },
+        {
+          "code": "06332",
+          "name": "Scavenging",
+          "pack": "woc",
+          "packName": "Weaver of the Cosmos",
+          "position": 332,
+          "cat": "chained",
+          "xp": 2
+        },
+        {
+          "code": "60327",
+          "name": "Sharpshooter",
+          "pack": "win",
+          "packName": "Winifred Habbamock",
+          "position": 27,
+          "cat": "chained",
+          "art": "fc-5-8a67f738",
+          "xp": -1
+        },
+        {
+          "code": "09108",
+          "name": "Shed a Light",
+          "pack": "tskp",
+          "packName": "The Scarlet Keys Investigator Expansion",
+          "position": 108,
+          "cat": "chained",
+          "xp": 2
+        },
+        {
+          "code": "07197",
+          "name": "Signum Crucis",
+          "pack": "hhg",
+          "packName": "Horror in High Gear",
+          "position": 197,
+          "cat": "chained",
+          "xp": -2
+        },
+        {
+          "code": "10031",
+          "name": "Strong-Armed",
+          "pack": "fhvp",
+          "packName": "The Feast of Hemlock Vale Investigator Expansion",
+          "position": 31,
+          "cat": "chained",
+          "xp": 1
+        },
+        {
+          "code": "09077",
+          "name": "Underworld Market",
+          "pack": "tskp",
+          "packName": "The Scarlet Keys Investigator Expansion",
+          "position": 77,
+          "cat": "chained",
+          "xp": 2
+        }
+      ]
+    },
+    {
+      "cat": "mutated",
+      "cards": [
+        {
+          "code": "06195",
+          "name": ".35 Winchester",
+          "pack": "dsm",
+          "packName": "Dark Side of the Moon",
+          "position": 195,
+          "cat": "mutated",
+          "text": "This card's [action] ability now reads: \"[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack. If a chaos token with a non-negative modifier is revealed during this attack, this attack deals +2 damage.\""
+        },
+        {
+          "code": "07269",
+          "name": "A Watchful Peace",
+          "pack": "lod",
+          "packName": "The Lair of Dagon",
+          "position": 269,
+          "cat": "mutated",
+          "text": "This card's ability gains: \"Remove A Watchful Peace from the game.\""
+        },
+        {
+          "code": "02266",
+          "name": "Ace in the Hole",
+          "pack": "wda",
+          "packName": "Where Doom Awaits",
+          "position": 266,
+          "cat": "mutated",
+          "text": "This card gains: \"Max once per round.\""
+        },
+        {
+          "code": "04309",
+          "name": "All In",
+          "pack": "sha",
+          "packName": "Shattered Aeons",
+          "position": 309,
+          "cat": "mutated",
+          "text": "At the end of its ability, this card gains: \"Remove All In from the game.\""
+        },
+        {
+          "code": "07122",
+          "name": "Ancient Covenant",
+          "pack": "itd",
+          "packName": "In Too Deep",
+          "position": 122,
+          "cat": "mutated",
+          "text": "This card's [reaction] ability now reads: \"When you resolve a [bless] token during a skill test...\""
+        },
+        {
+          "code": "05113",
+          "name": "Banish",
+          "pack": "tsn",
+          "packName": "The Secret Name",
+          "position": 113,
+          "cat": "mutated",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "08055",
+          "name": "Black Market",
+          "pack": "eoep",
+          "packName": "Edge of the Earth Investigator Expansion",
+          "position": 55,
+          "cat": "mutated",
+          "text": "This card gains: \"Max once per round.\""
+        },
+        {
+          "code": "11065",
+          "name": "Blood of Thoth",
+          "pack": "tdcp",
+          "packName": "The Drowned City Investigator Expansion",
+          "position": 65,
+          "cat": "mutated",
+          "text": "This card’s [reaction] ability reads \"[reaction] When doom is placed on a card you control: Place 1 resource (from the token pool) on Blood of Thoth, as an offering.\"\nThis card’s [fast] ability reads \"[fast] During the investigation phase, except during an action, spend 2 offerings and exhaust Blood of Thoth: Choose an investigator at your location to immediately take an action as if it were their turn.\""
+        },
+        {
+          "code": "60332",
+          "name": "Chuck Fergus",
+          "pack": "win",
+          "packName": "Winifred Habbamock",
+          "position": 32,
+          "cat": "mutated",
+          "art": "fc-5-8a67f738",
+          "text": "This card's first bullet point now reads: \"That event gains: \"Fast. Play only during your turn.\"\""
+        },
+        {
+          "code": "09072",
+          "name": "Chuck Fergus",
+          "pack": "tskp",
+          "packName": "The Scarlet Keys Investigator Expansion",
+          "position": 72,
+          "cat": "mutated",
+          "text": "This card's first bullet point now reads: \"That event gains: \"Fast. Play only during your turn.\"\""
+        },
+        {
+          "code": "04110",
+          "name": "Counterspell",
+          "pack": "tof",
+          "packName": "Threads of Fate",
+          "position": 110,
+          "cat": "mutated",
+          "text": "This card now reads \"a non-[auto_fail] symbol\" instead of \"a [skull], [cultist], [tablet], or [elder_thing] chaos token.\""
+        },
+        {
+          "code": "03019",
+          "name": "Crisis of Identity",
+          "pack": "ptc",
+          "packName": "The Path to Carcosa",
+          "position": 19,
+          "cat": "mutated",
+          "art": "fc-1-0e79d900",
+          "text": "This card's revelation ability now reads: \"Discard 1 card in your hand or play area of your current role. Then...\""
+        },
+        {
+          "code": "08093",
+          "name": "Cyclopean Hammer",
+          "pack": "eoep",
+          "packName": "Edge of the Earth Investigator Expansion",
+          "position": 93,
+          "cat": "mutated",
+          "text": "This card's parenthetical now reads: \"...(If you succeed by 3 or more, you may exhaust Cyclopean Hammer to instead deal +2 damage and move the enemy up to two locations away from you.)\""
+        },
+        {
+          "code": "60318",
+          "name": "Daredevil",
+          "pack": "win",
+          "packName": "Winifred Habbamock",
+          "position": 18,
+          "cat": "mutated",
+          "art": "fc-5-8a67f738",
+          "text": "Instead of \"Shuffle each weakness that was discarded…\", this card's ability now reads: \"After this skill test resolves, draw each weakness discarded by this effect.\""
+        },
+        {
+          "code": "60417",
+          "name": "Dark Prophecy",
+          "pack": "jac",
+          "packName": "Jacqueline Fine",
+          "position": 17,
+          "cat": "mutated",
+          "art": "fc-2-fec6c2ef",
+          "text": "This card now reads \"a non-[auto_fail] symbol\" instead of \"a [skull], [cultist], [tablet], or [elder_thing] chaos token.\""
+        },
+        {
+          "code": "04032",
+          "name": "Dark Prophecy",
+          "pack": "tfa",
+          "packName": "The Forgotten Age",
+          "position": 32,
+          "cat": "mutated",
+          "art": "fc-3-eff0397b",
+          "text": "This card now reads \"a non-[elder_sign] symbol\" instead of \"a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol.\""
+        },
+        {
+          "code": "03112",
+          "name": "David Renfield",
+          "pack": "eotp",
+          "packName": "Echoes of the Past",
+          "position": 112,
+          "cat": "mutated",
+          "text": "This card's [fast] ability now reads: \"...Gain 1 resource for each doom on David Renfield (to a maximum of 3 resources).\""
+        },
+        {
+          "code": "02111",
+          "name": "Delve Too Deep",
+          "pack": "tmm",
+          "packName": "The Miskatonic Museum",
+          "position": 111,
+          "cat": "mutated",
+          "text": "This card gains: \"Group limit 2 copies of Delve Too Deep in the victory display.\""
+        },
+        {
+          "code": "01033",
+          "name": "Dr. Milan Christopher",
+          "pack": "core",
+          "packName": "Core Set",
+          "position": 33,
+          "cat": "mutated",
+          "art": "fc-1-64ef94fd",
+          "text": "This card's [reaction] ability now reads: \"After you successfully investigate, exhaust Dr. Milan Christopher...\""
+        },
+        {
+          "code": "01050",
+          "name": "Elusive",
+          "pack": "core",
+          "packName": "Core Set",
+          "position": 50,
+          "cat": "mutated",
+          "art": "fc-1-64ef94fd",
+          "text": "This card now reads: \"Disengage from each enemy engaged with you and move to a connecting location with no enemies.\""
+        },
+        {
+          "code": "09041",
+          "name": "Empirical Hypothesis",
+          "pack": "tskp",
+          "packName": "The Scarlet Keys Investigator Expansion",
+          "position": 41,
+          "cat": "mutated",
+          "text": "This card's [fast] ability gains \"(Limit twice per round.)\""
+        },
+        {
+          "code": "08098",
+          "name": "Eon Chart",
+          "pack": "eoep",
+          "packName": "Edge of the Earth Investigator Expansion",
+          "position": 98,
+          "cat": "mutated",
+          "text": "This card should read \"basic actions\" instead of \"actions.\""
+        },
+        {
+          "code": "08100",
+          "name": "Eon Chart",
+          "pack": "eoep",
+          "packName": "Edge of the Earth Investigator Expansion",
+          "position": 100,
+          "cat": "mutated",
+          "text": "This card should read \"basic actions\" instead of \"actions.\""
+        },
+        {
+          "code": "05324",
+          "name": "Eucatastrophe",
+          "pack": "bbt",
+          "packName": "Before the Black Throne",
+          "position": 324,
+          "cat": "mutated",
+          "text": "This card's ability gains: \"Remove Eucatastrophe from the game.\""
+        },
+        {
+          "code": "07268",
+          "name": "Flute of the Outer Gods",
+          "pack": "lod",
+          "packName": "The Lair of Dagon",
+          "position": 268,
+          "cat": "mutated",
+          "text": "This card loses the exceptional keyword and gains \"Limit 1 per deck.\""
+        },
+        {
+          "code": "08019",
+          "name": "Geared Up",
+          "pack": "eoep",
+          "packName": "Edge of the Earth Investigator Expansion",
+          "position": 19,
+          "cat": "mutated",
+          "text": "This card's <b>Forced</b> effect now reads: \"<b>Forced</b> – When your first turn of the game begins: One at a time, play up to 5 [[Item]] assets...\""
+        },
+        {
+          "code": "07301",
+          "name": "Hallow",
+          "pack": "itm",
+          "packName": "Into the Maelstrom",
+          "position": 301,
+          "cat": "mutated",
+          "text": "This card's ability gains: \"Remove Hallow from the game.\""
+        },
+        {
+          "code": "10030",
+          "name": "Hand-Eye Coordination",
+          "pack": "fhvp",
+          "packName": "The Feast of Hemlock Vale Investigator Expansion",
+          "position": 30,
+          "cat": "mutated",
+          "text": "This card’s ability reads: \"Resolve an [action] ability on a level 0–3 [[Tool]] or [[Weapon]] asset you control, ignoring all costs.\""
+        },
+        {
+          "code": "10026",
+          "name": "Hold Up",
+          "pack": "fhvp",
+          "packName": "The Feast of Hemlock Vale Investigator Expansion",
+          "position": 26,
+          "cat": "mutated",
+          "text": "This card’s ability reads: \"...If you succeed, play the chosen asset, reducing its cost by the amount you succeeded by.\""
+        },
+        {
+          "code": "60414",
+          "name": "Hypnotic Gaze",
+          "pack": "jac",
+          "packName": "Jacqueline Fine",
+          "position": 14,
+          "cat": "mutated",
+          "art": "fc-2-fec6c2ef",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "60423",
+          "name": "Hypnotic Gaze",
+          "pack": "jac",
+          "packName": "Jacqueline Fine",
+          "position": 23,
+          "cat": "mutated",
+          "art": "fc-2-fec6c2ef",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "02153",
+          "name": "Hypnotic Gaze",
+          "pack": "tece",
+          "packName": "The Essex County Express",
+          "position": 153,
+          "cat": "mutated",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "05020",
+          "name": "Interrogate",
+          "pack": "tcu",
+          "packName": "The Circle Undone",
+          "position": 20,
+          "cat": "mutated",
+          "art": "fc-12-95315dea",
+          "text": "This card's ability now reads \"<b>Parley.</b> Choose a non-[[Elite]] enemy at your location…\""
+        },
+        {
+          "code": "08032",
+          "name": "Jeremiah Kirby",
+          "pack": "eoep",
+          "packName": "Edge of the Earth Investigator Expansion",
+          "position": 32,
+          "cat": "mutated",
+          "text": "This card's ability gains: \"(Max twice per game.)\""
+        },
+        {
+          "code": "02269",
+          "name": "Jewel of Aureolus",
+          "pack": "wda",
+          "packName": "Where Doom Awaits",
+          "position": 269,
+          "cat": "mutated",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "03315",
+          "name": "Key of Ys",
+          "pack": "dca",
+          "packName": "Dim Carcosa",
+          "position": 315,
+          "cat": "mutated",
+          "text": "This card gains the Exceptional keyword.",
+          "exceptional": true
+        },
+        {
+          "code": "11118",
+          "name": "Library Pass",
+          "pack": "tdcp",
+          "packName": "The Drowned City Investigator Expansion",
+          "position": 118,
+          "cat": "mutated",
+          "text": "This card’s <b>Forced</b> effect now reads \"When your turn endsL Place attaced asset on the bottom of your deck unless you spend 1 resource.\""
+        },
+        {
+          "code": "03006",
+          "name": "Lola Hayes",
+          "pack": "ptc",
+          "packName": "The Path to Carcosa",
+          "position": 6,
+          "cat": "mutated",
+          "art": "fc-1-0e79d900",
+          "text": "This card's forced ability is moved to its reverse side, and it should now read: \"<b>Additional Setup</b>: After you draw your opening hand, choose a role ([survivor], [guardian], [seeker], [rogue], [mystic], or Neutral).\"\nThis card's front side additionally gains: \"[action]: Switch roles. Does not provoke attacks of opportunity.\""
+        },
+        {
+          "code": "06002",
+          "name": "Mandy Thompson",
+          "pack": "tde",
+          "packName": "The Dream-Eaters",
+          "position": 2,
+          "cat": "mutated",
+          "art": "fc-1-cd95e989",
+          "text": "This investigator now reads: \"Deck Size: 50\" and \"Deckbuilding Requirements (do not count towards deck size): 3 copies of Occult Evidence...\""
+        },
+        {
+          "code": "05153",
+          "name": "Mr. \"Rook\"",
+          "pack": "wos",
+          "packName": "The Wages of Sin",
+          "position": 153,
+          "cat": "mutated",
+          "text": "This card's [fast] ability is now a [action] ability."
+        },
+        {
+          "code": "11120",
+          "name": "On Their Heels",
+          "pack": "tdcp",
+          "packName": "The Drowned City Investigator Expansion",
+          "position": 120,
+          "cat": "mutated",
+          "text": "The first line of this card gains: \"If On Their Heels has no leads, discard it.\""
+        },
+        {
+          "code": "04233",
+          "name": "Pay Day",
+          "pack": "tcoa",
+          "packName": "The City of Archives",
+          "position": 233,
+          "cat": "mutated",
+          "text": "This card’s ability now reads: “Gain 1 resource for each action you spent this turn…”"
+        },
+        {
+          "code": "06022",
+          "name": "Pendant of the Queen",
+          "pack": "tde",
+          "packName": "The Dream-Eaters",
+          "position": 22,
+          "cat": "mutated",
+          "art": "fc-1-cd95e989",
+          "text": "This card's constant ability now reads: \"If this card has no charges, remove it from the game.\""
+        },
+        {
+          "code": "04105",
+          "name": "Persuasion",
+          "pack": "tof",
+          "packName": "Threads of Fate",
+          "position": 105,
+          "cat": "mutated",
+          "text": "This card's ability now reads \"<b>Parley.</b> Choose a non-weakness enemy at your location…\""
+        },
+        {
+          "code": "09081",
+          "name": "Power Word",
+          "pack": "tskp",
+          "packName": "The Scarlet Keys Investigator Expansion",
+          "position": 81,
+          "cat": "mutated",
+          "text": "This card’s text box now reads: \"[action] If attached enemy is at your location: <b>Parley.</b> Test [willpower](2). If you succeed, give it a command (limit once per round per command) – \"Go.\" This enemy moves once in a direction of your choice.\"\nThis card’s customizable sheet loses the \"Mercy\" ability and gains\"☐Cower. Add the command: \"- ‘Cower.’ This enemy exhausts.\""
+        },
+        {
+          "code": "08045",
+          "name": "Prophesiae Profana",
+          "pack": "eoep",
+          "packName": "Edge of the Earth Investigator Expansion",
+          "position": 45,
+          "cat": "mutated",
+          "text": "This card's constant ability now reads: \"...you get +1 [intellect], +1 [agility], and ignore the first attack of opportunity you take each turn.\""
+        },
+        {
+          "code": "02229",
+          "name": "Quick Thinking",
+          "pack": "uau",
+          "packName": "Undimensioned and Unseen",
+          "position": 229,
+          "cat": "mutated",
+          "text": "At the end of its ability, this card gains: \"(max once per round).\""
+        },
+        {
+          "code": "10059",
+          "name": "Ravenous Myconid",
+          "pack": "fhvp",
+          "packName": "The Feast of Hemlock Vale Investigator Expansion",
+          "position": 59,
+          "cat": "mutated",
+          "text": "This card’s [reaction] ability reads: \"[reaction] When an investigator draws a non-weakness treachery card, if their location's shroud is less than Ravenous Myconid's growth...\""
+        },
+        {
+          "code": "09045",
+          "name": "Research Notes",
+          "pack": "tskp",
+          "packName": "The Scarlet Keys Investigator Expansion",
+          "position": 45,
+          "cat": "mutated",
+          "text": "This card's second ability gains: \"(max 3 evidence spent per round).\""
+        },
+        {
+          "code": "02002",
+          "name": "Rex Murphy",
+          "pack": "dwl",
+          "packName": "The Dunwich Legacy",
+          "position": 2,
+          "cat": "mutated",
+          "art": "fc-6-9264a7b8",
+          "text": "This card's [reaction] ability gains: \"(Limit once per round.)\""
+        },
+        {
+          "code": "60405",
+          "name": "Ritual Candles",
+          "pack": "jac",
+          "packName": "Jacqueline Fine",
+          "position": 5,
+          "cat": "mutated",
+          "art": "fc-2-fec6c2ef",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "02029",
+          "name": "Ritual Candles",
+          "pack": "dwl",
+          "packName": "The Dunwich Legacy",
+          "position": 29,
+          "cat": "mutated",
+          "art": "fc-6-9264a7b8",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "05116",
+          "name": "Scroll of Secrets",
+          "pack": "tsn",
+          "packName": "The Secret Name",
+          "position": 116,
+          "cat": "mutated",
+          "text": "This card's [action] ability is now a [fast] ability."
+        },
+        {
+          "code": "05188",
+          "name": "Scroll of Secrets",
+          "pack": "fgg",
+          "packName": "For the Greater Good",
+          "position": 188,
+          "cat": "mutated",
+          "text": "This card's [action] ability is now a [fast] ability."
+        },
+        {
+          "code": "05189",
+          "name": "Scroll of Secrets",
+          "pack": "fgg",
+          "packName": "For the Greater Good",
+          "position": 189,
+          "cat": "mutated",
+          "text": "This card's [action] ability is now a [fast] ability."
+        },
+        {
+          "code": "03029",
+          "name": "Sleight of Hand",
+          "pack": "ptc",
+          "packName": "The Path to Carcosa",
+          "position": 29,
+          "cat": "mutated",
+          "art": "fc-1-0e79d900",
+          "text": "This card's ability now reads: \"Put a level 0-3 [[Item]] asset into play from your hand.\""
+        },
+        {
+          "code": "11071",
+          "name": "Spectral Shield",
+          "pack": "tdcp",
+          "packName": "The Drowned City Investigator Expansion",
+          "position": 71,
+          "cat": "mutated",
+          "text": "This card's <b>Forced</b> effect now reads \"The first time attached card takes 1 or more damage/horror each round...\""
+        },
+        {
+          "code": "11075",
+          "name": "Spiritual Echo",
+          "pack": "tdcp",
+          "packName": "The Drowned City Investigator Expansion",
+          "position": 75,
+          "cat": "mutated",
+          "text": "This card gains \"Fast. Play only during your turn.\"\nThis card's [reaction] ability now reads \"...Return Spiritual Echo to your hand at the end of your turn.\" and gains \"(Limit once per round.)\""
+        },
+        {
+          "code": "02226",
+          "name": "Springfield M1903",
+          "pack": "uau",
+          "packName": "Undimensioned and Unseen",
+          "position": 226,
+          "cat": "mutated",
+          "text": "This card's [action] ability gains: \"This attack may target a non-[[Elite]] enemy up to one location away from its standard range, ignoring the aloof and retaliate keywords.\""
+        },
+        {
+          "code": "02263",
+          "name": "Strange Solution",
+          "pack": "wda",
+          "packName": "Where Doom Awaits",
+          "position": 263,
+          "cat": "mutated",
+          "text": "This card's fight ability now reads \"+1 damage\" instead of \"+2 damage.\""
+        },
+        {
+          "code": "05156",
+          "name": "Swift Reflexes",
+          "pack": "wos",
+          "packName": "The Wages of Sin",
+          "position": 156,
+          "cat": "mutated",
+          "text": "This card gains \"(Limit twice per round.)\""
+        },
+        {
+          "code": "05230",
+          "name": "Telescopic Sight",
+          "pack": "uad",
+          "packName": "Union and Disillusion",
+          "position": 230,
+          "cat": "mutated",
+          "text": "This card loses the text: \"Attached asset cannot be used to attack enemies engaged with you.\""
+        },
+        {
+          "code": "06199",
+          "name": "Three Aces",
+          "pack": "dsm",
+          "packName": "Dark Side of the Moon",
+          "position": 199,
+          "cat": "mutated",
+          "text": "This card's ability gains: \"Remove each committed copy of Three Aces from the game.\""
+        },
+        {
+          "code": "07003",
+          "name": "Trish Scarborough",
+          "pack": "tic",
+          "packName": "The Innsmouth Conspiracy",
+          "position": 3,
+          "cat": "mutated",
+          "art": "fc-2-16c981ac",
+          "text": "This card's [reaction] ability now reads: \"After you discover 1 or more clues at a location with an enemy: Either discover 1 additional clue at that location, or automatically evade that enemy if it is non-[[Elite]]. (Limit once per round.)\""
+        },
+        {
+          "code": "08113",
+          "name": "Unscrupulous Loan",
+          "pack": "eoep",
+          "packName": "Edge of the Earth Investigator Expansion",
+          "position": 113,
+          "cat": "mutated",
+          "text": "The first line of this card gains: \"Campaign Mode only.\""
+        },
+        {
+          "code": "60416",
+          "name": "Voice of Ra",
+          "pack": "jac",
+          "packName": "Jacqueline Fine",
+          "position": 16,
+          "cat": "mutated",
+          "art": "fc-2-fec6c2ef",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "05157",
+          "name": "Wither",
+          "pack": "wos",
+          "packName": "The Wages of Sin",
+          "position": 157,
+          "cat": "mutated",
+          "text": "This card now reads \"a symbol token\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "05321",
+          "name": "Wither",
+          "pack": "bbt",
+          "packName": "Before the Black Throne",
+          "position": 321,
+          "cat": "mutated",
+          "text": "This card's [action] ability now reads \"...If a symbol token is revealed during this attack, the attacked enemy gets -1 fight, -1 health, and -1 evade until the end of the phase (to a minimum of 1)."
+        }
+      ]
+    },
+    {
+      "cat": "forbidden",
+      "cards": [
+        {
+          "code": "08076",
+          "name": "Burn After Reading",
+          "pack": "eoep",
+          "packName": "Edge of the Earth Investigator Expansion",
+          "position": 76,
+          "cat": "forbidden",
+          "text": "Forbidden."
+        },
+        {
+          "code": "02026",
+          "name": "Double or Nothing",
+          "pack": "dwl",
+          "packName": "The Dunwich Legacy",
+          "position": 26,
+          "cat": "forbidden",
+          "art": "fc-6-9264a7b8",
+          "text": "Forbidden."
+        },
+        {
+          "code": "60233",
+          "name": "The Necronomicon",
+          "pack": "har",
+          "packName": "Harvey Walters",
+          "position": 33,
+          "cat": "forbidden",
+          "art": "fc-2-1416ddd0",
+          "text": "Forbidden."
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "chained": 23,
+    "mutated": 68,
+    "forbidden": 3
+  }
+}

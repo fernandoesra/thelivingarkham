@@ -151,9 +151,40 @@ def split_terms(blocks):
     return lead, entries
 
 
+def _split_at_numbered_leads(block):
+    """Split a block wherever a bold '(N.NN)' heading begins part-way through it. When a
+    clarification's heading flows straight out of the previous one — across a column or page
+    break — it lands glued inside the previous block (often a bullet), so its "(1.19) …" is not
+    that block's first run and the numbered split walks right past it. Cutting the block at each
+    such lead makes every heading a block start again (this recovered 1.3, 1.15–1.17, 1.19)."""
+    runs = block.get('runs', [])
+    cuts = [i for i, r in enumerate(runs)
+            if i > 0 and r.get('kind') == 'text' and r.get('bold')
+            and _NUM_LEAD.match(r.get('t', ''))]
+    if not cuts:
+        return [block]
+    bounds = [0] + cuts + [len(runs)]
+    out = []
+    for k in range(len(bounds) - 1):
+        seg = runs[bounds[k]:bounds[k + 1]]
+        if not seg:
+            continue
+        # A segment that STARTS with a numbered heading is a paragraph (a clarification is never
+        # a bullet); the leading segment keeps the block's own type.
+        nb = dict(block)
+        nb['runs'] = seg
+        nb['type'] = block.get('type', 'p') if k == 0 else 'p'
+        out.append(nb)
+    return out
+
+
 def split_numbered(blocks):
     """Rulings: a paragraph opening with a bold '(N.NN)' is a clarification. Its bold lead is
     the heading; the rest of that paragraph and the blocks under it are the body."""
+    expanded = []
+    for b in blocks:
+        expanded.extend(_split_at_numbered_leads(b))
+    blocks = expanded
     lead, entries, cur = [], [], None
     for b in blocks:
         r0 = b['runs'][0] if b['runs'] else {}
@@ -168,6 +199,17 @@ def split_numbered(blocks):
         else:
             lead.append(b)
     return lead, entries
+
+
+# The icon-reference chapter's group headings — "Iconos de campaña", "Iconos promocionales",
+# "Campaign Product Icons", "Promo Icons", … — all name icons, and nothing else in the FAQ does
+# at heading level (the "(1.9) Iconos de habilidad comodín" ruling is an inline bold lead inside
+# prose, never a heading node). Folded, both languages carry the word "icon"/"icono"/"icons".
+_ICONREF_HEAD = re.compile(r'\bicono?s?\b')
+
+
+def _is_iconref_heading(node):
+    return bool(node.get('title') and _ICONREF_HEAD.search(assemble.norm(node['title'])))
 
 
 def group_sections(nodes, cfg):
@@ -199,6 +241,13 @@ def group_sections(nodes, cfg):
         if sc is not None:
             cur = {'cfg': sc, 'intro': list(n['blocks']), 'members': []}
             secs.append(cur)
+        elif _is_iconref_heading(n):
+            # The icon-reference tables ("Iconos de campaña" / "Campaign Product Icons", …) are
+            # rebuilt structurally by faq_seticons.extract_iconref, not read as prose. They sit
+            # at the very end — a whole last page (ES) or the second column of it (EN) — with no
+            # anchor of their own, so without this they fall into the last prose section
+            # (Environments), dragging the campaign list and "Iconos de campaña" heading into it.
+            cur = None
         elif cur is not None:
             cur['members'].append(n)
     return secs
@@ -235,14 +284,27 @@ def build_section(raw, code):
         sec['intro'] = lead
         sec['entries'] = entries
     elif split == 'numbered':
-        # Rulings: the numbered clarifications live inside the two topic sub-headings; pool
-        # their prose and split it, so each "(N.NN)" becomes its own entry (the number keeps
-        # the topic: 1.x is general play, 2.x is card-ability interpretation).
-        pooled = []
+        # Rulings: the numbered clarifications live inside two topic sub-headings the PDF prints
+        # ("1. Juego general", "2. Interpretación de las capacidades de las cartas"). Keep that
+        # structure — split each sub-heading's prose on its own, and tag every "(N.NN)" entry
+        # with its sub-heading as a `group`, so the reader sees the same two parts (the number
+        # already carries the topic: 1.x general play, 2.x card-ability interpretation).
+        sec['intro'] = list(raw['intro'])
+        entries = []
         for n in raw['members']:
-            pooled.extend(n['blocks'])
-        lead, entries = split_numbered(pooled)
-        sec['intro'] = raw['intro'] + lead
+            lead, ents = split_numbered(n['blocks'])
+            title = (n.get('title') or '').strip()
+            if title:
+                # A real subsection heading (role='subhead'): the same device the Grimoire uses
+                # for "Entornos actual, legado…", so it heads its clarifications in the page, the
+                # contents list and the nav, and carries any lead prose the PDF prints under it.
+                sub = {'title': title, 'blocks': lead, 'role': 'subhead'}
+                if n.get('title_runs'):
+                    sub['titleRuns'] = n['title_runs']
+                entries.append(sub)
+            elif lead:
+                sec['intro'].extend(lead)
+            entries.extend(ents)
         sec['entries'] = entries
     else:
         for n in raw['members']:
@@ -324,6 +386,73 @@ def _relink_block(runs, stops):
     return out, changed
 
 
+def _reseat_seticons_runs(runs):
+    """Move each inline set icon to the '(' of its card reference. Geometry places almost every
+    icon right, but a reference whose card name wraps across a line ("Mercado de los bajos fon-
+    dos ( 77)") can strand the icon at the hyphen, or drop it just before the '(' instead of after
+    it. Here the icons are lifted out and re-seated, in order, into the reference parentheses of
+    the same block — a slot being a '(' whose next real character is a digit (a card number) or a
+    ')' (a bare set-icon reference). Only done when the counts match exactly, so an ambiguous block
+    keeps its geometric placement untouched."""
+    if not any(r.get('kind') == 'seticon' for r in runs):
+        return runs
+    atoms = []
+    for r in runs:
+        if r.get('kind') == 'seticon':
+            atoms.append(('s', r.get('fp')))
+        elif r.get('kind') == 'text' and 't' in r:
+            style = {k: r.get(k, False) for k in ('bold', 'italic', 'ref', 'red')}
+            for ch in r['t']:
+                atoms.append(('c', ch, style))
+        else:
+            atoms.append(('o', r))
+    fps = [a[1] for a in atoms if a[0] == 's']
+    base = [a for a in atoms if a[0] != 's']
+    slots = []
+    for i, a in enumerate(base):
+        if a[0] == 'c' and a[1] == '(':
+            j = i + 1
+            while j < len(base) and base[j][0] == 'c' and base[j][1] == ' ':
+                j += 1
+            if j < len(base) and base[j][0] == 'c' and (base[j][1].isdigit() or base[j][1] == ')'):
+                slots.append(i + 1)
+    if len(slots) != len(fps):
+        return runs
+    inserts = dict(zip(slots, fps))
+    out = []
+    for i in range(len(base) + 1):
+        if i in inserts:
+            out.append(('s', inserts[i]))
+        if i < len(base):
+            out.append(base[i])
+    result = []
+    for a in out:
+        if a[0] == 'c':
+            ch, style = a[1], a[2]
+            last = result[-1] if result else None
+            if last and last.get('kind') == 'text' and all(last.get(k, False) == style[k] for k in style):
+                last['t'] += ch
+            else:
+                result.append(dict(kind='text', t=ch, **style))
+        elif a[0] == 's':
+            result.append({'kind': 'seticon', 'fp': a[1]})
+        else:
+            result.append(a[1])
+    return result
+
+
+def reseat_seticons(sections):
+    """Apply _reseat_seticons_runs to every block/title in every section."""
+    for s in sections:
+        for b in s.get('intro', []):
+            b['runs'] = _reseat_seticons_runs(b.get('runs', []))
+        for e in s.get('entries', []):
+            if e.get('titleRuns'):
+                e['titleRuns'] = _reseat_seticons_runs(e['titleRuns'])
+            for b in e.get('blocks', []):
+                b['runs'] = _reseat_seticons_runs(b.get('runs', []))
+
+
 def link_cards(sections, pack):
     """ArkhamDB links for "Name ( 20)" card references. Unlike the Grimoire (where card
     refs live only in errata/FAQ), the FAQ names cards throughout — errata, rulings, taboos,
@@ -363,6 +492,17 @@ def assign_ids(sections):
                 i += 1
             used.add(k)
             e['id'] = k
+
+
+def drop_empty_entries(sections):
+    """Drop an entry that has no body at all (and is not a subsection heading). These are stray
+    heading fragments — chiefly the icon-reference table titles that survive as an empty node when
+    two of them ("Campaign" + "Standalone") get fused by merge_wrapped_headings and so miss the
+    icon-word cut in group_sections. A real FAQ entry always carries prose; a subhead may be empty
+    on purpose (it heads the entries after it), so those are kept."""
+    for s in sections:
+        s['entries'] = [e for e in s['entries']
+                        if e.get('blocks') or e.get('role') == 'subhead']
 
 
 def strip_red(sections):
@@ -421,10 +561,14 @@ def build(pack, grimoire_data):
                          'title': sc['title'], 'kind': 'icons', 'group': GROUP,
                          'intro': [], 'entries': [], 'figures': [], 'groups': groups})
 
+    drop_empty_entries(sections)
     strip_red(sections)
     # Ids before links: the auto-linker reads each entry's id to avoid self-linking.
     assign_ids(sections)
 
+    # Tidy any inline set icon a line-wrap left off its reference parenthesis, before the card
+    # linker reads "Name ( <icon> 20)" through those parentheses.
+    reseat_seticons(sections)
     # Links: card refs -> ArkhamDB first (so a whole card name is not half-eaten by the
     # glossary auto-linker), then cross-refs and auto-links into the GRIMOIRE.
     cards = link_cards(sections, pack)

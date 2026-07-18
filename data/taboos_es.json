@@ -1,0 +1,931 @@
+{
+  "lang": "es",
+  "tabooId": 10,
+  "date": "2026-02-19",
+  "source": "https://es.arkhamdb.com/rules#Taboo",
+  "groups": [
+    {
+      "cat": "chained",
+      "cards": [
+        {
+          "code": "11055",
+          "name": "A la calle",
+          "pack": "tdcp",
+          "packName": "La ciudad sumergida Expansión de investigadores",
+          "position": 55,
+          "cat": "chained",
+          "art": "fc-1-3c78b52f",
+          "xp": 1
+        },
+        {
+          "code": "09108",
+          "name": "Alumbrar",
+          "pack": "tskp",
+          "packName": "Las llaves escarlata Expansión de investigadores",
+          "position": 108,
+          "cat": "chained",
+          "art": "fc-1-1b5bc68d",
+          "xp": 2
+        },
+        {
+          "code": "05159",
+          "name": "Apurando",
+          "pack": "wos",
+          "packName": "La paga del pecado",
+          "position": 159,
+          "cat": "chained",
+          "xp": 3
+        },
+        {
+          "code": "11117",
+          "name": "Archibald MacVeigh",
+          "pack": "tdcp",
+          "packName": "La ciudad sumergida Expansión de investigadores",
+          "position": 117,
+          "cat": "chained",
+          "art": "fc-1-3c78b52f",
+          "xp": -2
+        },
+        {
+          "code": "02300",
+          "name": "Asesino de monstruos",
+          "pack": "litas",
+          "packName": "Perdidos en el tiempo y el espacio",
+          "position": 300,
+          "cat": "chained",
+          "xp": -2
+        },
+        {
+          "code": "02108",
+          "name": "Batidor",
+          "pack": "tmm",
+          "packName": "El museo Miskatonic",
+          "position": 108,
+          "cat": "chained",
+          "xp": 1
+        },
+        {
+          "code": "11031",
+          "name": "Disparo rápido",
+          "pack": "tdcp",
+          "packName": "La ciudad sumergida Expansión de investigadores",
+          "position": 31,
+          "cat": "chained",
+          "art": "fc-1-3c78b52f",
+          "xp": -2
+        },
+        {
+          "code": "05231",
+          "name": "El conocimiento es poder",
+          "pack": "uad",
+          "packName": "Unión y desilusión",
+          "position": 231,
+          "cat": "chained",
+          "xp": 2
+        },
+        {
+          "code": "08099",
+          "name": "Gené Beauregard",
+          "pack": "eoep",
+          "packName": "Los confines de la Tierra Expansión de investigadores",
+          "position": 99,
+          "cat": "chained",
+          "art": "fc-18-e385e0f8",
+          "xp": 2
+        },
+        {
+          "code": "04305",
+          "name": "Lanzallamas",
+          "pack": "sha",
+          "packName": "Eones destrozados",
+          "position": 305,
+          "cat": "chained",
+          "xp": 1
+        },
+        {
+          "code": "09117",
+          "name": "Llavero viejo",
+          "pack": "tskp",
+          "packName": "Las llaves escarlata Expansión de investigadores",
+          "position": 117,
+          "cat": "chained",
+          "art": "fc-1-1b5bc68d",
+          "xp": 1
+        },
+        {
+          "code": "10037",
+          "name": "Lluvia de golpes",
+          "pack": "fhvp",
+          "packName": "La fiesta del Valle de la Cicuta Expansión de investigadores",
+          "position": 37,
+          "cat": "chained",
+          "art": "fc-3-195d46d1",
+          "xp": -2
+        },
+        {
+          "code": "10031",
+          "name": "Mano dura",
+          "pack": "fhvp",
+          "packName": "La fiesta del Valle de la Cicuta Expansión de investigadores",
+          "position": 31,
+          "cat": "chained",
+          "art": "fc-3-195d46d1",
+          "xp": 1
+        },
+        {
+          "code": "09077",
+          "name": "Mercado de los bajos fondos",
+          "pack": "tskp",
+          "packName": "Las llaves escarlata Expansión de investigadores",
+          "position": 77,
+          "cat": "chained",
+          "art": "fc-1-1b5bc68d",
+          "xp": 2
+        },
+        {
+          "code": "10060",
+          "name": "Micónido voraz",
+          "pack": "fhvp",
+          "packName": "La fiesta del Valle de la Cicuta Expansión de investigadores",
+          "position": 60,
+          "cat": "chained",
+          "art": "fc-3-195d46d1",
+          "xp": 1
+        },
+        {
+          "code": "01073",
+          "name": "Reutilizar",
+          "pack": "core",
+          "packName": "Caja básica",
+          "position": 73,
+          "cat": "chained",
+          "art": "faq-coreset",
+          "xp": 2
+        },
+        {
+          "code": "01573",
+          "name": "Reutilizar",
+          "pack": "rcore",
+          "packName": "Caja básica. Edición revisada",
+          "position": 73,
+          "cat": "chained",
+          "xp": 2
+        },
+        {
+          "code": "06332",
+          "name": "Reutilizar",
+          "pack": "woc",
+          "packName": "Tejedora del cosmos",
+          "position": 332,
+          "cat": "chained",
+          "xp": 2
+        },
+        {
+          "code": "07308",
+          "name": "Rito de equilibrio",
+          "pack": "itm",
+          "packName": "Hacia el remolino",
+          "position": 308,
+          "cat": "chained",
+          "xp": -2
+        },
+        {
+          "code": "07197",
+          "name": "Señal de la cruz",
+          "pack": "hhg",
+          "packName": "Horror a toda máquina",
+          "position": 197,
+          "cat": "chained",
+          "xp": -2
+        },
+        {
+          "code": "60327",
+          "name": "Tirador de primera",
+          "pack": "win",
+          "packName": "Winifred Habbamock",
+          "position": 27,
+          "cat": "chained",
+          "art": "fc-5-8a67f738",
+          "xp": -1
+        },
+        {
+          "code": "10085",
+          "name": "Vara de Carnamagos",
+          "pack": "fhvp",
+          "packName": "La fiesta del Valle de la Cicuta Expansión de investigadores",
+          "position": 85,
+          "cat": "chained",
+          "art": "fc-3-195d46d1",
+          "xp": 2
+        },
+        {
+          "code": "10098",
+          "name": "Vara de Carnamagos",
+          "pack": "fhvp",
+          "packName": "La fiesta del Valle de la Cicuta Expansión de investigadores",
+          "position": 98,
+          "cat": "chained",
+          "art": "fc-3-195d46d1",
+          "xp": 2
+        }
+      ]
+    },
+    {
+      "cat": "mutated",
+      "cards": [
+        {
+          "code": "10026",
+          "name": "A punta de pistola",
+          "pack": "fhvp",
+          "packName": "La fiesta del Valle de la Cicuta Expansión de investigadores",
+          "position": 26,
+          "cat": "mutated",
+          "art": "fc-3-195d46d1",
+          "text": "This card’s ability reads: \"...If you succeed, play the chosen asset, reducing its cost by the amount you succeeded by.\""
+        },
+        {
+          "code": "07122",
+          "name": "Acuerdo antiguo",
+          "pack": "itd",
+          "packName": "Hasta el cuello",
+          "position": 122,
+          "cat": "mutated",
+          "text": "This card's [reaction] ability now reads: \"When you resolve a [bless] token during a skill test...\""
+        },
+        {
+          "code": "02111",
+          "name": "Ahondar demasiado",
+          "pack": "tmm",
+          "packName": "El museo Miskatonic",
+          "position": 111,
+          "cat": "mutated",
+          "text": "This card gains: \"Group limit 2 copies of Delve Too Deep in the victory display.\""
+        },
+        {
+          "code": "05157",
+          "name": "Ajar",
+          "pack": "wos",
+          "packName": "La paga del pecado",
+          "position": 157,
+          "cat": "mutated",
+          "text": "This card now reads \"a symbol token\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "05321",
+          "name": "Ajar",
+          "pack": "bbt",
+          "packName": "Ante el trono negro",
+          "position": 321,
+          "cat": "mutated",
+          "text": "This card's [action] ability now reads \"...If a symbol token is revealed during this attack, the attacked enemy gets -1 fight, -1 health, and -1 evade until the end of the phase (to a minimum of 1)."
+        },
+        {
+          "code": "02266",
+          "name": "As en la manga",
+          "pack": "wda",
+          "packName": "Donde aguarda la perdición",
+          "position": 266,
+          "cat": "mutated",
+          "text": "This card gains: \"Max once per round.\""
+        },
+        {
+          "code": "08098",
+          "name": "Carta de los evos",
+          "pack": "eoep",
+          "packName": "Los confines de la Tierra Expansión de investigadores",
+          "position": 98,
+          "cat": "mutated",
+          "art": "fc-18-e385e0f8",
+          "text": "This card should read \"basic actions\" instead of \"actions.\""
+        },
+        {
+          "code": "08100",
+          "name": "Carta de los evos",
+          "pack": "eoep",
+          "packName": "Los confines de la Tierra Expansión de investigadores",
+          "position": 100,
+          "cat": "mutated",
+          "art": "fc-18-e385e0f8",
+          "text": "This card should read \"basic actions\" instead of \"actions.\""
+        },
+        {
+          "code": "60332",
+          "name": "Chuck Fergus",
+          "pack": "win",
+          "packName": "Winifred Habbamock",
+          "position": 32,
+          "cat": "mutated",
+          "art": "fc-5-8a67f738",
+          "text": "This card's first bullet point now reads: \"That event gains: \"Fast. Play only during your turn.\"\""
+        },
+        {
+          "code": "09072",
+          "name": "Chuck Fergus",
+          "pack": "tskp",
+          "packName": "Las llaves escarlata Expansión de investigadores",
+          "position": 72,
+          "cat": "mutated",
+          "art": "fc-1-1b5bc68d",
+          "text": "This card's first bullet point now reads: \"That event gains: \"Fast. Play only during your turn.\"\""
+        },
+        {
+          "code": "06022",
+          "name": "Colgante de la reina",
+          "pack": "tde",
+          "packName": "Los devoradores de sueños",
+          "position": 22,
+          "cat": "mutated",
+          "art": "fc-1-ee4832dd",
+          "text": "This card's constant ability now reads: \"If this card has no charges, remove it from the game.\""
+        },
+        {
+          "code": "07301",
+          "name": "Consagrar",
+          "pack": "itm",
+          "packName": "Hacia el remolino",
+          "position": 301,
+          "cat": "mutated",
+          "text": "This card's ability gains: \"Remove Hallow from the game.\""
+        },
+        {
+          "code": "04110",
+          "name": "Contrahechizo",
+          "pack": "tof",
+          "packName": "Los hilos del destino",
+          "position": 110,
+          "cat": "mutated",
+          "text": "This card now reads \"a non-[auto_fail] symbol\" instead of \"a [skull], [cultist], [tablet], or [elder_thing] chaos token.\""
+        },
+        {
+          "code": "10030",
+          "name": "Coordinación ojo-mano",
+          "pack": "fhvp",
+          "packName": "La fiesta del Valle de la Cicuta Expansión de investigadores",
+          "position": 30,
+          "cat": "mutated",
+          "art": "fc-3-195d46d1",
+          "text": "This card’s ability reads: \"Resolve an [action] ability on a level 0–3 [[Tool]] or [[Weapon]] asset you control, ignoring all costs.\""
+        },
+        {
+          "code": "03019",
+          "name": "Crisis de identidad",
+          "pack": "ptc",
+          "packName": "El camino a Carcosa",
+          "position": 19,
+          "cat": "mutated",
+          "art": "fc-1-fad9e2ec",
+          "text": "This card's revelation ability now reads: \"Discard 1 card in your hand or play area of your current role. Then...\""
+        },
+        {
+          "code": "03112",
+          "name": "David Renfield",
+          "pack": "eotp",
+          "packName": "Ecos del pasado",
+          "position": 112,
+          "cat": "mutated",
+          "text": "This card's [fast] ability now reads: \"...Gain 1 resource for each doom on David Renfield (to a maximum of 3 resources).\""
+        },
+        {
+          "code": "05113",
+          "name": "Desterrar",
+          "pack": "tsn",
+          "packName": "El nombre secreto",
+          "position": 113,
+          "cat": "mutated",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "04233",
+          "name": "Día de cobro",
+          "pack": "tcoa",
+          "packName": "La Ciudad de los Archivos",
+          "position": 233,
+          "cat": "mutated",
+          "text": "This card’s ability now reads: “Gain 1 resource for each action you spent this turn…”"
+        },
+        {
+          "code": "01033",
+          "name": "Dr. Milan Christopher",
+          "pack": "core",
+          "packName": "Caja básica",
+          "position": 33,
+          "cat": "mutated",
+          "art": "faq-coreset",
+          "text": "This card's [reaction] ability now reads: \"After you successfully investigate, exhaust Dr. Milan Christopher...\""
+        },
+        {
+          "code": "11075",
+          "name": "Eco espiritual",
+          "pack": "tdcp",
+          "packName": "La ciudad sumergida Expansión de investigadores",
+          "position": 75,
+          "cat": "mutated",
+          "art": "fc-1-3c78b52f",
+          "text": "This card gains \"Fast. Play only during your turn.\"\nThis card's [reaction] ability now reads \"...Return Spiritual Echo to your hand at the end of your turn.\" and gains \"(Limit once per round.)\""
+        },
+        {
+          "code": "11071",
+          "name": "Escudo espectral",
+          "pack": "tdcp",
+          "packName": "La ciudad sumergida Expansión de investigadores",
+          "position": 71,
+          "cat": "mutated",
+          "art": "fc-1-3c78b52f",
+          "text": "This card's <b>Forced</b> effect now reads \"The first time attached card takes 1 or more damage/horror each round...\""
+        },
+        {
+          "code": "01050",
+          "name": "Escurridizo",
+          "pack": "core",
+          "packName": "Caja básica",
+          "position": 50,
+          "cat": "mutated",
+          "art": "faq-coreset",
+          "text": "This card now reads: \"Disengage from each enemy engaged with you and move to a connecting location with no enemies.\""
+        },
+        {
+          "code": "05324",
+          "name": "Eucatástrofe",
+          "pack": "bbt",
+          "packName": "Ante el trono negro",
+          "position": 324,
+          "cat": "mutated",
+          "text": "This card's ability gains: \"Remove Eucatastrophe from the game.\""
+        },
+        {
+          "code": "07268",
+          "name": "Flauta de los Dioses Exteriores",
+          "pack": "lod",
+          "packName": "La guarida de Dagón",
+          "position": 268,
+          "cat": "mutated",
+          "text": "This card loses the exceptional keyword and gains \"Limit 1 per deck.\""
+        },
+        {
+          "code": "09041",
+          "name": "Hipótesis empírica",
+          "pack": "tskp",
+          "packName": "Las llaves escarlata Expansión de investigadores",
+          "position": 41,
+          "cat": "mutated",
+          "art": "fc-1-1b5bc68d",
+          "text": "This card's [fast] ability gains \"(Limit twice per round.)\""
+        },
+        {
+          "code": "05020",
+          "name": "Interrogar",
+          "pack": "tcu",
+          "packName": "El círculo roto",
+          "position": 20,
+          "cat": "mutated",
+          "art": "fc-12-41da5e74",
+          "text": "This card's ability now reads \"<b>Parley.</b> Choose a non-[[Elite]] enemy at your location…\""
+        },
+        {
+          "code": "08032",
+          "name": "Jeremiah Kirby",
+          "pack": "eoep",
+          "packName": "Los confines de la Tierra Expansión de investigadores",
+          "position": 32,
+          "cat": "mutated",
+          "art": "fc-18-e385e0f8",
+          "text": "This card's ability gains: \"(Max twice per game.)\""
+        },
+        {
+          "code": "02269",
+          "name": "Joya de Aureolus",
+          "pack": "wda",
+          "packName": "Donde aguarda la perdición",
+          "position": 269,
+          "cat": "mutated",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "03315",
+          "name": "Llave de Ys",
+          "pack": "dca",
+          "packName": "Penumbrosa Carcosa",
+          "position": 315,
+          "cat": "mutated",
+          "text": "This card gains the Exceptional keyword.",
+          "exceptional": true
+        },
+        {
+          "code": "03006",
+          "name": "Lola Hayes",
+          "pack": "ptc",
+          "packName": "El camino a Carcosa",
+          "position": 6,
+          "cat": "mutated",
+          "art": "fc-1-fad9e2ec",
+          "text": "This card's forced ability is moved to its reverse side, and it should now read: \"<b>Additional Setup</b>: After you draw your opening hand, choose a role ([survivor], [guardian], [seeker], [rogue], [mystic], or Neutral).\"\nThis card's front side additionally gains: \"[action]: Switch roles. Does not provoke attacks of opportunity.\""
+        },
+        {
+          "code": "06002",
+          "name": "Mandy Thompson",
+          "pack": "tde",
+          "packName": "Los devoradores de sueños",
+          "position": 2,
+          "cat": "mutated",
+          "art": "fc-1-ee4832dd",
+          "text": "This investigator now reads: \"Deck Size: 50\" and \"Deckbuilding Requirements (do not count towards deck size): 3 copies of Occult Evidence...\""
+        },
+        {
+          "code": "08093",
+          "name": "Martillo ciclópeo",
+          "pack": "eoep",
+          "packName": "Los confines de la Tierra Expansión de investigadores",
+          "position": 93,
+          "cat": "mutated",
+          "art": "fc-18-e385e0f8",
+          "text": "This card's parenthetical now reads: \"...(If you succeed by 3 or more, you may exhaust Cyclopean Hammer to instead deal +2 damage and move the enemy up to two locations away from you.)\""
+        },
+        {
+          "code": "08055",
+          "name": "Mercado negro",
+          "pack": "eoep",
+          "packName": "Los confines de la Tierra Expansión de investigadores",
+          "position": 55,
+          "cat": "mutated",
+          "art": "fc-18-e385e0f8",
+          "text": "This card gains: \"Max once per round.\""
+        },
+        {
+          "code": "10059",
+          "name": "Micónido voraz",
+          "pack": "fhvp",
+          "packName": "La fiesta del Valle de la Cicuta Expansión de investigadores",
+          "position": 59,
+          "cat": "mutated",
+          "art": "fc-3-195d46d1",
+          "text": "This card’s [reaction] ability reads: \"[reaction] When an investigator draws a non-weakness treachery card, if their location's shroud is less than Ravenous Myconid's growth...\""
+        },
+        {
+          "code": "05230",
+          "name": "Mira telescópica",
+          "pack": "uad",
+          "packName": "Unión y desilusión",
+          "position": 230,
+          "cat": "mutated",
+          "text": "This card loses the text: \"Attached asset cannot be used to attack enemies engaged with you.\""
+        },
+        {
+          "code": "60414",
+          "name": "Mirada hipnótica",
+          "pack": "jac",
+          "packName": "Jacqueline Fine",
+          "position": 14,
+          "cat": "mutated",
+          "art": "fc-2-09307c83",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "60423",
+          "name": "Mirada hipnótica",
+          "pack": "jac",
+          "packName": "Jacqueline Fine",
+          "position": 23,
+          "cat": "mutated",
+          "art": "fc-2-09307c83",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "02153",
+          "name": "Mirada hipnótica",
+          "pack": "tece",
+          "packName": "El Essex County Express",
+          "position": 153,
+          "cat": "mutated",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "04309",
+          "name": "No va más",
+          "pack": "sha",
+          "packName": "Eones destrozados",
+          "position": 309,
+          "cat": "mutated",
+          "text": "At the end of its ability, this card gains: \"Remove All In from the game.\""
+        },
+        {
+          "code": "09045",
+          "name": "Notas de investigación",
+          "pack": "tskp",
+          "packName": "Las llaves escarlata Expansión de investigadores",
+          "position": 45,
+          "cat": "mutated",
+          "art": "fc-1-1b5bc68d",
+          "text": "This card's second ability gains: \"(max 3 evidence spent per round).\""
+        },
+        {
+          "code": "09081",
+          "name": "Palabra de poder",
+          "pack": "tskp",
+          "packName": "Las llaves escarlata Expansión de investigadores",
+          "position": 81,
+          "cat": "mutated",
+          "art": "fc-1-1b5bc68d",
+          "text": "This card’s text box now reads: \"[action] If attached enemy is at your location: <b>Parley.</b> Test [willpower](2). If you succeed, give it a command (limit once per round per command) – \"Go.\" This enemy moves once in a direction of your choice.\"\nThis card’s customizable sheet loses the \"Mercy\" ability and gains\"☐Cower. Add the command: \"- ‘Cower.’ This enemy exhausts.\""
+        },
+        {
+          "code": "11118",
+          "name": "Pase de biblioteca",
+          "pack": "tdcp",
+          "packName": "La ciudad sumergida Expansión de investigadores",
+          "position": 118,
+          "cat": "mutated",
+          "art": "fc-1-3c78b52f",
+          "text": "This card’s <b>Forced</b> effect now reads \"When your turn endsL Place attaced asset on the bottom of your deck unless you spend 1 resource.\""
+        },
+        {
+          "code": "07269",
+          "name": "Paz vigilante",
+          "pack": "lod",
+          "packName": "La guarida de Dagón",
+          "position": 269,
+          "cat": "mutated",
+          "text": "This card's ability gains: \"Remove A Watchful Peace from the game.\""
+        },
+        {
+          "code": "05116",
+          "name": "Pergamino de secretos",
+          "pack": "tsn",
+          "packName": "El nombre secreto",
+          "position": 116,
+          "cat": "mutated",
+          "text": "This card's [action] ability is now a [fast] ability."
+        },
+        {
+          "code": "05188",
+          "name": "Pergamino de secretos",
+          "pack": "fgg",
+          "packName": "Por el bien común",
+          "position": 188,
+          "cat": "mutated",
+          "text": "This card's [action] ability is now a [fast] ability."
+        },
+        {
+          "code": "05189",
+          "name": "Pergamino de secretos",
+          "pack": "fgg",
+          "packName": "Por el bien común",
+          "position": 189,
+          "cat": "mutated",
+          "text": "This card's [action] ability is now a [fast] ability."
+        },
+        {
+          "code": "04105",
+          "name": "Persuasión",
+          "pack": "tof",
+          "packName": "Los hilos del destino",
+          "position": 105,
+          "cat": "mutated",
+          "text": "This card's ability now reads \"<b>Parley.</b> Choose a non-weakness enemy at your location…\""
+        },
+        {
+          "code": "08019",
+          "name": "Pertrechado",
+          "pack": "eoep",
+          "packName": "Los confines de la Tierra Expansión de investigadores",
+          "position": 19,
+          "cat": "mutated",
+          "art": "fc-18-e385e0f8",
+          "text": "This card's <b>Forced</b> effect now reads: \"<b>Forced</b> – When your first turn of the game begins: One at a time, play up to 5 [[Item]] assets...\""
+        },
+        {
+          "code": "11120",
+          "name": "Pisándoles los talones",
+          "pack": "tdcp",
+          "packName": "La ciudad sumergida Expansión de investigadores",
+          "position": 120,
+          "cat": "mutated",
+          "art": "fc-1-3c78b52f",
+          "text": "The first line of this card gains: \"If On Their Heels has no leads, discard it.\""
+        },
+        {
+          "code": "08113",
+          "name": "Préstamo sin escrúpulos",
+          "pack": "eoep",
+          "packName": "Los confines de la Tierra Expansión de investigadores",
+          "position": 113,
+          "cat": "mutated",
+          "art": "fc-18-e385e0f8",
+          "text": "The first line of this card gains: \"Campaign Mode only.\""
+        },
+        {
+          "code": "60417",
+          "name": "Profecía oscura",
+          "pack": "jac",
+          "packName": "Jacqueline Fine",
+          "position": 17,
+          "cat": "mutated",
+          "art": "fc-2-09307c83",
+          "text": "This card now reads \"a non-[auto_fail] symbol\" instead of \"a [skull], [cultist], [tablet], or [elder_thing] chaos token.\""
+        },
+        {
+          "code": "04032",
+          "name": "Profecía oscura",
+          "pack": "tfa",
+          "packName": "La era olvidada",
+          "position": 32,
+          "cat": "mutated",
+          "art": "fc-3-383a8afd",
+          "text": "This card now reads \"a non-[elder_sign] symbol\" instead of \"a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol.\""
+        },
+        {
+          "code": "08045",
+          "name": "Prophesiae Profana",
+          "pack": "eoep",
+          "packName": "Los confines de la Tierra Expansión de investigadores",
+          "position": 45,
+          "cat": "mutated",
+          "art": "fc-18-e385e0f8",
+          "text": "This card's constant ability now reads: \"...you get +1 [intellect], +1 [agility], and ignore the first attack of opportunity you take each turn.\""
+        },
+        {
+          "code": "02229",
+          "name": "Reacción rápida",
+          "pack": "uau",
+          "packName": "Invisibles y sin dimensión",
+          "position": 229,
+          "cat": "mutated",
+          "text": "At the end of its ability, this card gains: \"(max once per round).\""
+        },
+        {
+          "code": "05156",
+          "name": "Reflejos rápidos",
+          "pack": "wos",
+          "packName": "La paga del pecado",
+          "position": 156,
+          "cat": "mutated",
+          "text": "This card gains \"(Limit twice per round.)\""
+        },
+        {
+          "code": "02002",
+          "name": "Rex Murphy",
+          "pack": "dwl",
+          "packName": "El legado de Dunwich",
+          "position": 2,
+          "cat": "mutated",
+          "art": "fc-5-6cc1b92c",
+          "text": "This card's [reaction] ability gains: \"(Limit once per round.)\""
+        },
+        {
+          "code": "11065",
+          "name": "Sangre de Thoth",
+          "pack": "tdcp",
+          "packName": "La ciudad sumergida Expansión de investigadores",
+          "position": 65,
+          "cat": "mutated",
+          "art": "fc-1-3c78b52f",
+          "text": "This card’s [reaction] ability reads \"[reaction] When doom is placed on a card you control: Place 1 resource (from the token pool) on Blood of Thoth, as an offering.\"\nThis card’s [fast] ability reads \"[fast] During the investigation phase, except during an action, spend 2 offerings and exhaust Blood of Thoth: Choose an investigator at your location to immediately take an action as if it were their turn.\""
+        },
+        {
+          "code": "02263",
+          "name": "Solución extraña",
+          "pack": "wda",
+          "packName": "Donde aguarda la perdición",
+          "position": 263,
+          "cat": "mutated",
+          "text": "This card's fight ability now reads \"+1 damage\" instead of \"+2 damage.\""
+        },
+        {
+          "code": "02226",
+          "name": "Springfield M1903",
+          "pack": "uau",
+          "packName": "Invisibles y sin dimensión",
+          "position": 226,
+          "cat": "mutated",
+          "text": "This card's [action] ability gains: \"This attack may target a non-[[Elite]] enemy up to one location away from its standard range, ignoring the aloof and retaliate keywords.\""
+        },
+        {
+          "code": "05153",
+          "name": "Sr. \"Torre\"",
+          "pack": "wos",
+          "packName": "La paga del pecado",
+          "position": 153,
+          "cat": "mutated",
+          "text": "This card's [fast] ability is now a [action] ability."
+        },
+        {
+          "code": "60318",
+          "name": "Temerario",
+          "pack": "win",
+          "packName": "Winifred Habbamock",
+          "position": 18,
+          "cat": "mutated",
+          "art": "fc-5-8a67f738",
+          "text": "Instead of \"Shuffle each weakness that was discarded…\", this card's ability now reads: \"After this skill test resolves, draw each weakness discarded by this effect.\""
+        },
+        {
+          "code": "06199",
+          "name": "Tres ases",
+          "pack": "dsm",
+          "packName": "El lado oscuro de la luna",
+          "position": 199,
+          "cat": "mutated",
+          "text": "This card's ability gains: \"Remove each committed copy of Three Aces from the game.\""
+        },
+        {
+          "code": "07003",
+          "name": "Trish Scarborough",
+          "pack": "tic",
+          "packName": "La conspiración de Innsmouth",
+          "position": 3,
+          "cat": "mutated",
+          "art": "fc-2-ecbc80c7",
+          "text": "This card's [reaction] ability now reads: \"After you discover 1 or more clues at a location with an enemy: Either discover 1 additional clue at that location, or automatically evade that enemy if it is non-[[Elite]]. (Limit once per round.)\""
+        },
+        {
+          "code": "03029",
+          "name": "Truco de manos",
+          "pack": "ptc",
+          "packName": "El camino a Carcosa",
+          "position": 29,
+          "cat": "mutated",
+          "art": "fc-1-fad9e2ec",
+          "text": "This card's ability now reads: \"Put a level 0-3 [[Item]] asset into play from your hand.\""
+        },
+        {
+          "code": "60405",
+          "name": "Velas rituales",
+          "pack": "jac",
+          "packName": "Jacqueline Fine",
+          "position": 5,
+          "cat": "mutated",
+          "art": "fc-2-09307c83",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "02029",
+          "name": "Velas rituales",
+          "pack": "dwl",
+          "packName": "El legado de Dunwich",
+          "position": 29,
+          "cat": "mutated",
+          "art": "fc-5-6cc1b92c",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "60416",
+          "name": "Voz de Ra",
+          "pack": "jac",
+          "packName": "Jacqueline Fine",
+          "position": 16,
+          "cat": "mutated",
+          "art": "fc-2-09307c83",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "06195",
+          "name": "Winchester del .35",
+          "pack": "dsm",
+          "packName": "El lado oscuro de la luna",
+          "position": 195,
+          "cat": "mutated",
+          "text": "This card's [action] ability now reads: \"[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack. If a chaos token with a non-negative modifier is revealed during this attack, this attack deals +2 damage.\""
+        }
+      ]
+    },
+    {
+      "cat": "forbidden",
+      "cards": [
+        {
+          "code": "02026",
+          "name": "Doble o nada",
+          "pack": "dwl",
+          "packName": "El legado de Dunwich",
+          "position": 26,
+          "cat": "forbidden",
+          "art": "fc-5-6cc1b92c",
+          "text": "Forbidden."
+        },
+        {
+          "code": "60233",
+          "name": "El Necronomicón",
+          "pack": "har",
+          "packName": "Harvey Walters",
+          "position": 33,
+          "cat": "forbidden",
+          "art": "fc-2-b57bfb56",
+          "text": "Forbidden."
+        },
+        {
+          "code": "08076",
+          "name": "Quemar después de leer",
+          "pack": "eoep",
+          "packName": "Los confines de la Tierra Expansión de investigadores",
+          "position": 76,
+          "cat": "forbidden",
+          "art": "fc-18-e385e0f8",
+          "text": "Forbidden."
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "chained": 23,
+    "mutated": 68,
+    "forbidden": 3
+  }
+}
