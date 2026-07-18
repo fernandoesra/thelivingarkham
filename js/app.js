@@ -1228,6 +1228,9 @@ function cssEsc(s){
 var UB_TABS=['ultimatum','boon','refraction'];
 var ubTab='ultimatum';
 var ubSel={};
+/* How the viewer shows a tab: 'list' (a sidebar list + one large card, as before) or
+   'gallery' (every card at once, 5argon-style). Remembered across the session. */
+var ubView=(function(){try{return localStorage.getItem('tla-ubview')==='gallery'?'gallery':'list';}catch(e){return 'list';}})();
 function ubBucket(s,cat){var ub=s&&s.ub||{}; return cat==='ultimatum'?(ub.ultimatums||[]):cat==='boon'?(ub.boons||[]):(ub.refractions||[]);}
 function ubFindItem(s,cat,slug){var a=ubBucket(s,cat); for(var i=0;i<a.length;i++)if(a[i].slug===slug)return a[i]; return null;}
 function ubLabel(cat){return t(cat==='ultimatum'?'ubultimatums':cat==='boon'?'ubboons':'ubrefractions');}
@@ -1577,6 +1580,15 @@ function ubHTML(s){
     +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
     +'<path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>'
     +'<span class="tla-ub-tool-label">'+esc(t('ubdownall'))+'</span></button>';
+  /* View toggle: the classic list (with one large card) or a gallery of every card. */
+  h+='<div class="tla-ub-view" role="group" aria-label="'+esc(t('ubviewlabel'))+'">';
+  h+='<button type="button" class="tla-ub-viewbtn'+(ubView==='list'?' is-on':'')+'" data-ubview="list" aria-pressed="'+(ubView==='list')+'" aria-label="'+esc(t('ubviewlist'))+'">'
+    +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg>'
+    +'<span>'+esc(t('ubviewlist'))+'</span></button>';
+  h+='<button type="button" class="tla-ub-viewbtn'+(ubView==='gallery'?' is-on':'')+'" data-ubview="gallery" aria-pressed="'+(ubView==='gallery')+'" aria-label="'+esc(t('ubviewgallery'))+'">'
+    +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>'
+    +'<span>'+esc(t('ubviewgallery'))+'</span></button>';
+  h+='</div>';
   h+='</div>';
   h+='<div class="tla-ub-tabs" role="tablist" aria-label="'+esc(t('ubtablabel'))+'">';
   UB_TABS.forEach(function(cat){
@@ -1594,8 +1606,8 @@ function ubHTML(s){
     if(!items.length){
       h+='<div class="tla-soon"><p class="tla-soon-h">'+esc(t('soon'))+'</p>'
         +'<p class="tla-soon-d">'+esc(t('ubrefsoon'))+'</p></div>';
-    }else{
-      /* A gallery of every card in the tab (like 5argon's page), using the full width;
+    }else if(ubView==='gallery'){
+      /* Gallery: every card in the tab (like 5argon's page), using the full width;
          a card enlarges to a full-size render in the lightbox on click. */
       h+='<div class="tla-ub-gallery">';
       items.forEach(function(it){
@@ -1603,6 +1615,23 @@ function ubHTML(s){
           +ubDetailHTML(it)+'</div>';
       });
       h+='</div>';
+    }else{
+      /* List: a scrollable list of names + thumbnails (big, 5argon-style) beside one
+         large live card. Picking a name swaps the card. */
+      var sel=ubChosen(s,cat);
+      h+='<div class="tla-ub-main"><ul class="tla-ub-list" role="listbox" aria-label="'+esc(ubLabel(cat))+'">';
+      items.forEach(function(it){
+        var o=it.slug===sel;
+        var sub=it.subtitle&&it.subtitle.length
+          ?'<span class="tla-ub-isub"'+(it.pending?' lang="en"':'')+'>'
+            +(it.set?ubSymHTML(it.set):'')+'<span>'+runsHTML(it.subtitle,true)+'</span></span>':'';
+        h+='<li role="option" class="tla-ub-item'+(o?' is-sel':'')+(it.pending?' is-pending':'')+'" id="ubopt-'+esc(it.slug)
+          +'" data-ubitem="'+esc(it.slug)+'" aria-selected="'+(o?'true':'false')+'" tabindex="'+(o?'0':'-1')+'">'
+          +'<img class="tla-ub-thumb" src="assets/'+esc(it.thumb)+'" width="'+it.tw+'" height="'+it.th
+          +'" loading="lazy" alt=""><span class="tla-ub-iwrap"><span class="tla-ub-iname"'+(it.pending?' lang="en"':'')+'>'+esc(it.name)+'</span>'+sub+'</span>'
+          +(it.pending?'<span class="tla-ub-en" title="'+esc(t('ubpending'))+'">EN</span>':'')+'</li>';
+      });
+      h+='</ul><div class="tla-ub-detail">'+ubDetailHTML(ubFindItem(s,cat,sel))+'</div></div>';
     }
     h+='</div>';
   });
@@ -1613,6 +1642,12 @@ function ubHTML(s){
     +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3h7v7"/><path d="M21 3l-9 9"/><path d="M19 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>'
     +esc(t('ubcreditlink'))+'</a></p>';
   return h;
+}
+/* Switch view mode (list / gallery) and re-render the section, keeping tab + selection. */
+function ubSetView(v){
+  if((v!=='list'&&v!=='gallery')||v===ubView)return;
+  ubView=v; try{localStorage.setItem('tla-ubview',v);}catch(e){}
+  if(curSec)render(curSec.id,null,false);
 }
 function ubSelectTab(root,cat){
   ubTab=cat;
@@ -1661,12 +1696,16 @@ function bindUB(){
     var dl=e.target.closest('.tla-ubc-dl'); if(dl){ubDownload(dl.closest('.tla-ubc')); return;}
     if(e.target.closest('#ubdraw-open')){openDraw(); return;}
     var da=e.target.closest('#ubdownall'); if(da){ubDownloadAll(da); return;}
+    var vb=e.target.closest('.tla-ub-viewbtn'); if(vb){ubSetView(vb.getAttribute('data-ubview')); return;}
     var tab=e.target.closest('.tla-ub-tab'); if(tab){ubSelectTab(root,tab.getAttribute('data-ubtab')); tab.focus(); return;}
-    // a gallery card (anywhere but its download button) enlarges in the lightbox
-    var gc=e.target.closest('.tla-ub-gcard .tla-ubc'); if(gc)ubZoomCard(gc);
+    // gallery mode: a card (anywhere but its download button) enlarges in the lightbox
+    var gc=e.target.closest('.tla-ub-gcard .tla-ubc'); if(gc){ubZoomCard(gc); return;}
+    // list mode: a name swaps the shown card
+    var li=e.target.closest('.tla-ub-item'); if(li){ubSelectItem(li); li.focus();}
   });
   root.addEventListener('keydown',function(e){
-    if(e.target.closest('.tla-ub-tab'))ubTabKeys(e,root);
+    if(e.target.closest('.tla-ub-tab')){ubTabKeys(e,root); return;}
+    var li=e.target.closest('.tla-ub-item'); if(li)ubListKeys(e,li);
   });
   ubFitVisible(root);
   /* The card fonts load lazily; their real metrics differ from the fallback, so the

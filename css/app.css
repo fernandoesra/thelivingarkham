@@ -729,6 +729,16 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-ub-tool:hover{background:var(--panel2); color:var(--ink); border-color:var(--gold)}
 .tla-ub-tool:disabled{opacity:.6; cursor:progress}
 .tla-ub-tool svg{width:16px; height:16px; flex:0 0 auto}
+/* View-mode toggle (list / gallery), pushed to the end of the tools row. */
+.tla-ub-view{margin-left:auto; display:inline-flex; gap:2px; padding:3px; border-radius:10px;
+  border:1px solid var(--edge2); background:var(--bg2)}
+.tla-ub-viewbtn{display:inline-flex; align-items:center; gap:6px; cursor:pointer; min-height:32px;
+  font-family:var(--ff-ui); font-size:13px; font-weight:600; padding:5px 12px; border-radius:8px;
+  border:1px solid transparent; background:transparent; color:var(--ink2)}
+.tla-ub-viewbtn:hover{color:var(--ink)}
+.tla-ub-viewbtn.is-on{background:var(--gold); border-color:var(--gold); color:var(--on-gold)}
+.tla-ub-viewbtn svg{width:15px; height:15px; flex:0 0 auto}
+@media (max-width:560px){.tla-ub-view{margin-left:0}.tla-ub-viewbtn span{display:none}}
 .tla-ub-tabs{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 20px;
   border-bottom:1px solid var(--edge2); padding-bottom:10px}
 .tla-ub-tab{font-family:var(--ff-ui); font-size:14px; line-height:1.2;
@@ -748,25 +758,25 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   gap:26px 24px; align-items:start}
 .tla-ub-gcard{min-width:0; cursor:zoom-in}
 .tla-ub-gcard .tla-ubc a{pointer-events:none}
-/* list beside the chosen card: both on screen at once */
-.tla-ub-main{display:grid; grid-template-columns:minmax(220px,300px) minmax(0,1fr);
-  gap:22px 30px; align-items:start}
-.tla-ub-list{list-style:none; margin:0; padding:6px; max-height:640px; overflow-y:auto;
+/* List mode: a big names+thumbnails list (5argon-style) beside one large card. */
+.tla-ub-main{display:grid; grid-template-columns:minmax(300px,380px) minmax(0,1fr);
+  gap:22px 34px; align-items:start}
+.tla-ub-list{list-style:none; margin:0; padding:8px; max-height:78vh; overflow-y:auto;
   border:1px solid var(--edge2); border-radius:12px; background:var(--bg2)}
-.tla-ub-item{display:flex; align-items:center; gap:12px; padding:7px 10px; margin:2px 0;
-  border-radius:9px; cursor:pointer; border:1px solid transparent}
+.tla-ub-item{display:flex; align-items:center; gap:15px; padding:10px 12px; margin:3px 0;
+  border-radius:10px; cursor:pointer; border:1px solid transparent}
 .tla-ub-item:hover{background:var(--panel2)}
 .tla-ub-item.is-sel{background:var(--panel); border-color:var(--edge2);
   box-shadow:inset 3px 0 0 var(--gold)}
-.tla-ub-thumb{width:46px; height:auto; flex:0 0 auto; display:block; border-radius:5px;
+.tla-ub-thumb{width:72px; height:auto; flex:0 0 auto; display:block; border-radius:6px;
   background:var(--figbg); box-shadow:0 1px 3px rgba(0,0,0,.4)}
 .tla-ub-iwrap{display:flex; flex-direction:column; min-width:0}
-.tla-ub-iname{font-family:var(--ff-ui); font-size:14px; color:var(--ink2); line-height:1.25}
+.tla-ub-iname{font-family:var(--ff-ui); font-size:16.5px; color:var(--ink2); line-height:1.3}
 .tla-ub-item.is-sel .tla-ub-iname{color:var(--gold2); font-weight:600}
 /* A refraction's campaign/scenario, under its name in the list. */
-.tla-ub-isub{display:inline-flex; align-items:center; gap:5px; margin-top:2px;
-  font-family:var(--ff-ui); font-size:11.5px; font-style:italic; color:var(--muted); line-height:1.2}
-.tla-ub-isub .tla-ubc-sym{width:14px; height:14px; flex:0 0 auto; background-color:var(--gold2); filter:none}
+.tla-ub-isub{display:inline-flex; align-items:center; gap:6px; margin-top:3px;
+  font-family:var(--ff-ui); font-size:13px; font-style:italic; color:var(--muted); line-height:1.2}
+.tla-ub-isub .tla-ubc-sym{width:16px; height:16px; flex:0 0 auto; background-color:var(--gold2); filter:none}
 /* "EN": this card is still in English, awaiting translation. */
 .tla-ub-en{margin-left:auto; flex:0 0 auto; align-self:center; font-family:var(--ff-ui);
   font-size:10px; font-weight:700; letter-spacing:.5px; color:var(--gold2);
