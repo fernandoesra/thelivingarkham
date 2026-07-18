@@ -736,8 +736,13 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   box-shadow:inset 3px 0 0 var(--gold)}
 .tla-ub-thumb{width:46px; height:auto; flex:0 0 auto; display:block; border-radius:5px;
   background:var(--figbg); box-shadow:0 1px 3px rgba(0,0,0,.4)}
+.tla-ub-iwrap{display:flex; flex-direction:column; min-width:0}
 .tla-ub-iname{font-family:var(--ff-ui); font-size:14px; color:var(--ink2); line-height:1.25}
 .tla-ub-item.is-sel .tla-ub-iname{color:var(--gold2); font-weight:600}
+/* A refraction's campaign/scenario, under its name in the list. */
+.tla-ub-isub{display:inline-flex; align-items:center; gap:5px; margin-top:2px;
+  font-family:var(--ff-ui); font-size:11.5px; font-style:italic; color:var(--muted); line-height:1.2}
+.tla-ub-isub .tla-ubc-sym{width:14px; height:14px; flex:0 0 auto; background-color:var(--gold2); filter:none}
 /* "EN": this card is still in English, awaiting translation. */
 .tla-ub-en{margin-left:auto; flex:0 0 auto; align-self:center; font-family:var(--ff-ui);
   font-size:10px; font-weight:700; letter-spacing:.5px; color:var(--gold2);
@@ -754,6 +759,13 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-ubc{position:relative; width:100%; max-width:460px; margin:0 auto;
   container-type:inline-size; border-radius:16px; overflow:hidden; box-shadow:var(--shadow)}
 .tla-ubc-pic{display:block; width:100%; height:auto}
+/* Download the card as shown: a small button on the picture, always reachable. */
+.tla-ubc-dl{position:absolute; top:2.5%; right:2.5%; z-index:2; width:14%; max-width:44px;
+  aspect-ratio:1; display:flex; align-items:center; justify-content:center; cursor:pointer;
+  border-radius:50%; border:1px solid rgba(244,236,216,.4); background:rgba(12,10,14,.62);
+  color:#f4ecd8; -webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px)}
+.tla-ubc-dl:hover{background:rgba(12,10,14,.85); border-color:#f4ecd8}
+.tla-ubc-dl svg{width:52%; height:52%}
 .tla-ubc-title,.tla-ubc-type,.tla-ubc-rule,.tla-ubc-illus,.tla-ubc-noart{position:absolute; color:#f4ecd8}
 /* The card text sits over artwork and, at the title, over gold line-work — measured as
    low as 1:1 against the brightest of it. A dark halo around every glyph is what keeps
@@ -775,7 +787,9 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-ubc-rule{top:74%; left:9.5%; right:9.5%; bottom:9.4%; overflow:hidden;
   font-family:'ubbody',var(--ff-body); font-size:calc(var(--ubfit,1)*4.1cqw);
   line-height:1.28; text-align:left}
-.tla-ubc-rule .tla-p{margin:0 0 .45em; font-size:inherit; line-height:inherit}
+/* color:inherit, or the global .tla-p{color:var(--ink)} wins and the rule turns dark —
+   invisible on the dark card under a light theme (var(--ink) is dark there). */
+.tla-ubc-rule .tla-p{margin:0 0 .45em; font-size:inherit; line-height:inherit; color:inherit}
 .tla-ubc-rule .tla-p:last-child{margin-bottom:0}
 .tla-ubc-rule a.xref{color:inherit; text-decoration:underline; text-underline-offset:2px}
 .tla-ubc-rule .ico{background-color:#f4ecd8}
@@ -794,11 +808,13 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   filter:drop-shadow(0 .06cqw .12cqw #000)}
 /* A refraction lifts its title to make room for the encounter-set subtitle under it. */
 .tla-ubc.is-refraction .tla-ubc-title{top:2.3%; height:6.6%}
-.tla-ubc-subtitle{position:absolute; top:9.1%; left:9%; right:9%; color:#f4ecd8;
-  display:flex; align-items:center; justify-content:center; gap:.7cqw; text-align:center;
-  font-family:'ubbody',var(--ff-body); font-style:italic; font-size:2.9cqw; line-height:1.05;
+.tla-ubc-subtitle{position:absolute; top:9%; left:8%; right:8%; color:#f4ecd8; text-align:center;
+  font-family:'ubbody',var(--ff-body); font-style:italic; font-size:2.9cqw; line-height:1.15;
   text-shadow:0 0 .3cqw #000,.07cqw .07cqw .12cqw #000}
-.tla-ubc-subtitle .tla-ubc-sym{width:1.4em; height:1.4em; flex:0 0 auto}
+/* The set symbol goes inside the refraction diamond, centred above the type line. */
+.tla-ubc-setmark{position:absolute; top:60.3%; left:0; right:0; height:5.6%;
+  display:flex; align-items:center; justify-content:center}
+.tla-ubc-setmark .tla-ubc-sym{width:3.3cqw; height:3.3cqw}
 .tla-ubc-coll{position:absolute; bottom:2.1%; right:7.5%; line-height:0}
 .tla-ubc-coll .tla-ubc-sym{width:5.4cqw; height:5.4cqw}
 /* Item present in English but not yet in this language: shown in English, flagged. */
@@ -1095,6 +1111,63 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 #tla-root .tla-foot a{color:var(--gold2); text-decoration:underline; text-underline-offset:2px}
 #tla-root .tla-foot a:hover{color:var(--ink)}
 .tla-foot b{color:var(--ink2)}
+/* project line + logo, then a contact cluster (email + donate) pushed to the end */
+.tla-foot-by-wrap{display:inline-flex; align-items:center; gap:9px}
+.tla-foot-logo{display:inline-flex; line-height:0; flex:0 0 auto}
+.tla-foot-logo img{width:22px; height:22px; display:block; border-radius:5px}
+.tla-foot-contact{display:inline-flex; align-items:center; gap:8px 16px; flex-wrap:wrap}
+#tla-root .tla-foot-mail{display:inline-flex; align-items:center; gap:6px; text-decoration:none}
+#tla-root .tla-foot-mail:hover{text-decoration:underline}
+.tla-foot-mail svg{width:15px; height:15px; flex:0 0 auto}
+.tla-foot-paypal{display:inline-flex; align-items:center; gap:7px; cursor:pointer; min-height:32px;
+  font-family:var(--ff-ui); font-size:13px; font-weight:600; padding:4px 12px; border-radius:8px;
+  border:1px solid var(--edge2); background:var(--panel); color:var(--gold2)}
+.tla-foot-paypal:hover{background:var(--panel2); border-color:var(--gold); color:var(--ink)}
+.tla-foot-paypal svg{width:14px; height:15px; flex:0 0 auto}
+
+/* ---------- Modified Reprints table ---------- */
+.tla-rp-wrap{overflow-x:auto; margin:20px 0 0}
+.tla-reprints{border-collapse:collapse; width:100%; font-family:var(--ff-ui); font-size:15px}
+.tla-reprints th{text-align:left; font-size:11.5px; text-transform:uppercase; letter-spacing:.7px;
+  color:var(--muted); font-weight:700; padding:0 14px 9px; border-bottom:1px solid var(--edge2)}
+.tla-reprints td{padding:9px 14px; border-bottom:1px solid var(--edge); vertical-align:middle}
+.tla-reprints tbody tr:hover td{background:var(--bg2)}
+.tla-rp-set{width:44px}
+/* inline-block, or the shared .tla-prodicon (a flex item elsewhere) is an inline span
+   here and collapses to 0x0 in the table cell. */
+.tla-rp-set .tla-prodicon{display:inline-block; vertical-align:middle; width:26px; height:26px}
+.tla-rp-num{width:52px; color:var(--gold2); font-weight:600; font-variant-numeric:tabular-nums}
+.tla-rp-card{color:var(--ink); font-weight:600}
+.tla-rp-link{text-align:right; white-space:nowrap}
+#tla-root .tla-adb{display:inline-flex; align-items:center; gap:6px; color:var(--teal2);
+  font-size:13.5px; font-weight:600; text-decoration:none}
+#tla-root .tla-adb:hover{color:var(--gold2); text-decoration:underline}
+.tla-adb svg{width:14px; height:14px; flex:0 0 auto}
+@media (max-width:560px){
+  .tla-reprints th.tla-rp-link{display:none}
+  .tla-rp-link .tla-adb span{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0)}
+}
+
+/* ---------- generic centred modal (donation) ---------- */
+.tla-modal{position:fixed; inset:0; z-index:200; display:none; align-items:center;
+  justify-content:center; padding:20px; background:rgba(0,0,0,.66)}
+.tla-modal.on{display:flex}
+.tla-modal-box{position:relative; width:100%; max-width:460px; background:var(--panel);
+  border:1px solid var(--edge2); border-radius:16px; box-shadow:var(--shadow); padding:28px 26px 24px}
+.tla-modal-close{position:absolute; top:10px; right:10px; width:38px; height:38px; cursor:pointer;
+  border-radius:9px; border:1px solid var(--edge2); background:var(--bg2); color:var(--ink2);
+  font-size:17px; line-height:1}
+.tla-modal-close:hover{background:var(--panel2); color:var(--ink)}
+.tla-modal-t{font-family:var(--ff-head); font-size:24px; color:var(--gold2); letter-spacing:.3px;
+  margin:0 30px 12px 0}
+.tla-modal-p{font-family:var(--ff-body); font-size:15px; line-height:1.6; color:var(--ink2); margin:0 0 20px}
+/* #tla-root-qualified so its colour outranks the blanket `#tla-root a` link colour —
+   otherwise the label renders in the teal link colour on the gold button (1.3:1). */
+#tla-root .tla-donate-cta{display:inline-flex; align-items:center; gap:9px; text-decoration:none;
+  font-family:var(--ff-ui); font-size:15px; font-weight:700; padding:11px 20px; border-radius:10px;
+  background:var(--gold); color:var(--on-gold)}
+#tla-root .tla-donate-cta:hover{background:var(--gold2); color:var(--on-gold); text-decoration:none}
+.tla-donate-cta svg{width:17px; height:18px; flex:0 0 auto}
 
 /* ---------- lightbox ---------- */
 .tla-lb{position:fixed; inset:0; background:rgba(6,7,10,.93); z-index:200; display:none; align-items:center; justify-content:center; padding:24px; cursor:zoom-out}

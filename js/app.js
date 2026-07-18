@@ -132,7 +132,8 @@ var elNav=document.getElementById('tla-nav'), elMain=document.getElementById('tl
     elFigHead=document.getElementById('tla-figmodal-h'),
     elFigBody=document.getElementById('tla-figmodal-body'),
     elFigClose=document.getElementById('tla-figmodal-close'),
-    elLb=document.getElementById('tla-lb');
+    elLb=document.getElementById('tla-lb'),
+    elDonate=document.getElementById('tla-donate');
 var lastFigBtn=null;
 /* set by boot() from the registry — never hardcoded to any language */
 var lang='', data=null, curSec=null, searchIndex={}, resSel=-1, glossFilter='all', firstRoute=true;
@@ -1251,16 +1252,19 @@ function ubDetailHTML(it){
      a screen reader switches voice, and the banner says why. */
   var L=it.pending?' lang="en"':'';
   var h=it.pending?ubPendingHTML(it):'';
-  h+='<div class="tla-ubc'+(it.noart?' is-noart':'')+(it.refraction?' is-refraction':'')+'">';
-  h+='<img class="tla-ubc-pic" src="assets/'+esc(it.card)+'" width="'+it.w+'" height="'+it.h+'" alt="" draggable="false">';
+  h+='<div class="tla-ubc'+(it.noart?' is-noart':'')+(it.refraction?' is-refraction':'')+'" data-slug="'+esc(it.slug)+'">';
+  h+='<img class="tla-ubc-pic" src="assets/'+esc(it.card)+'" width="'+it.w+'" height="'+it.h+'" alt="" draggable="false" crossorigin="anonymous">';
+  h+='<button type="button" class="tla-ubc-dl" data-ubdl aria-label="'+esc(t('ubdownload'))+'" title="'+esc(t('ubdownload'))+'">'
+    +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg></button>';
   if(it.noart)h+='<div class="tla-ubc-noart">'+esc(t('ubnoart'))+'</div>';
   h+='<h2 class="tla-ubc-title"'+L+'>'+esc(it.name)+'</h2>';
-  /* A refraction's subtitle names its encounter set, with the set symbol before it; the
-     product symbol sits in the bottom corner, where the printed card carries it. */
+  /* A refraction's subtitle names its encounter set, centred under the title; its set
+     symbol sits in the diamond above the type line, and its product symbol in the bottom
+     corner — where the printed card carries each. */
   if(it.subtitle&&it.subtitle.length){
-    h+='<div class="tla-ubc-subtitle"'+L+'>'+(it.set?ubSymHTML(it.set):'')
-      +'<span>'+runsHTML(it.subtitle,true)+'</span></div>';
+    h+='<div class="tla-ubc-subtitle"'+L+'>'+runsHTML(it.subtitle,true)+'</div>';
   }
+  if(it.set)h+='<div class="tla-ubc-setmark">'+ubSymHTML(it.set)+'</div>';
   h+='<div class="tla-ubc-type">'+esc(ubTypeLine(it))+'</div>';
   h+='<div class="tla-ubc-rule"'+L+'>'+blocksHTML(it.blocks,true,true)+'</div>';
   if(it.collection)h+='<div class="tla-ubc-coll">'+ubSymHTML(it.collection)+'</div>';
@@ -1283,6 +1287,74 @@ function ubFit(rule){
 function ubFitVisible(root){
   var p=(root||elMain).querySelector('.tla-ub-panel:not([hidden]) .tla-ubc-rule');
   ubFit(p);
+}
+/* Download the shown card as a PNG: the fixed picture with the live text drawn onto a
+   canvas in the reader's language, square (no rounded corners). Each text layer's real
+   position and font are read off the DOM, so the wrapping and the auto-fit size come out
+   as seen. Same-origin picture and symbols, so the canvas stays untainted. */
+function ubDownload(card){
+  if(!card)return;
+  var img=card.querySelector('.tla-ubc-pic'); if(!img||!img.naturalWidth)return;
+  var slug=card.getAttribute('data-slug')||'card';
+  (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){
+    var CW=1000, CH=Math.round(CW*img.naturalHeight/img.naturalWidth);
+    var cr=card.getBoundingClientRect(), sc=CW/cr.width;
+    var cv=document.createElement('canvas'); cv.width=CW; cv.height=CH;
+    var ctx=cv.getContext('2d');
+    ctx.drawImage(img,0,0,CW,CH);
+    var X=function(px){return (px-cr.left)*sc;}, Y=function(py){return (py-cr.top)*sc;};
+    var outline=function(fs){ctx.lineJoin='round'; ctx.strokeStyle='rgba(0,0,0,.92)'; ctx.lineWidth=Math.max(1,fs*0.16);};
+    function line(el){
+      if(!el)return; var t=(el.textContent||'').trim(); if(!t)return;
+      var r=el.getBoundingClientRect(), s=getComputedStyle(el), fs=parseFloat(s.fontSize)*sc;
+      ctx.font=s.fontStyle+' '+s.fontWeight+' '+fs+'px '+s.fontFamily;
+      ctx.fillStyle=s.color; ctx.textBaseline='middle'; outline(fs);
+      var cen=s.textAlign==='center', x=cen?X(r.left+r.width/2):X(r.left), y=Y(r.top+r.height/2);
+      ctx.textAlign=cen?'center':'left';
+      ctx.strokeText(t,x,y); ctx.fillText(t,x,y);
+    }
+    function para(el){
+      if(!el)return; var t=(el.textContent||'').replace(/\s+/g,' ').trim(); if(!t)return;
+      var r=el.getBoundingClientRect(), s=getComputedStyle(el);
+      var fs=parseFloat(s.fontSize)*sc, lh=parseFloat(s.lineHeight)*sc||fs*1.3, bw=r.width*sc;
+      ctx.font='normal '+s.fontWeight+' '+fs+'px '+s.fontFamily;
+      ctx.fillStyle=s.color; ctx.textAlign='left'; ctx.textBaseline='top'; outline(fs);
+      var words=t.split(' '), ln='', out=[];
+      words.forEach(function(w){var tt=ln?ln+' '+w:w; if(ln&&ctx.measureText(tt).width>bw){out.push(ln);ln=w;}else ln=tt;});
+      if(ln)out.push(ln);
+      var x=X(r.left), y=Y(r.top);
+      out.forEach(function(l){ctx.strokeText(l,x,y); ctx.fillText(l,x,y); y+=lh;});
+    }
+    line(card.querySelector('.tla-ubc-title'));
+    line(card.querySelector('.tla-ubc-subtitle'));
+    line(card.querySelector('.tla-ubc-type'));
+    line(card.querySelector('.tla-ubc-illus'));
+    line(card.querySelector('.tla-ubc-noart'));
+    para(card.querySelector('.tla-ubc-rule'));
+    var syms=[].slice.call(card.querySelectorAll('.tla-ubc-setmark .tla-ubc-sym,.tla-ubc-coll .tla-ubc-sym'));
+    Promise.all(syms.map(function(sy){
+      return new Promise(function(res){
+        var s=getComputedStyle(sy), m=s.maskImage||s.webkitMaskImage||'';
+        var url=(m.match(/url\(["']?([^"')]+)/)||[])[1]; if(!url){res();return;}
+        var r=sy.getBoundingClientRect(), w=Math.max(1,r.width*sc), h=Math.max(1,r.height*sc);
+        var im=new Image();
+        im.onload=function(){
+          var tc=document.createElement('canvas'); tc.width=w; tc.height=h;
+          var tx=tc.getContext('2d'); tx.drawImage(im,0,0,w,h);
+          tx.globalCompositeOperation='source-in'; tx.fillStyle='#f4ecd8'; tx.fillRect(0,0,w,h);
+          ctx.drawImage(tc,X(r.left),Y(r.top)); res();
+        };
+        im.onerror=function(){res();}; im.src=url;
+      });
+    })).then(function(){
+      cv.toBlob(function(b){
+        if(!b)return;
+        var a=document.createElement('a'); a.href=URL.createObjectURL(b);
+        a.download=slug+'-'+lang+'.png'; document.body.appendChild(a); a.click();
+        document.body.removeChild(a); setTimeout(function(){URL.revokeObjectURL(a.href);},1500);
+      },'image/png');
+    });
+  });
 }
 function ubHTML(s){
   if(UB_TABS.indexOf(ubTab)<0)ubTab='ultimatum';
@@ -1315,10 +1387,15 @@ function ubHTML(s){
       h+='<div class="tla-ub-main"><ul class="tla-ub-list" role="listbox" aria-label="'+esc(ubLabel(cat))+'">';
       items.forEach(function(it){
         var o=it.slug===sel;
+        /* A refraction names its campaign/scenario under the title in the list, the way
+           5argon's does, so you can tell which one it belongs to before opening it. */
+        var sub=it.subtitle&&it.subtitle.length
+          ?'<span class="tla-ub-isub"'+(it.pending?' lang="en"':'')+'>'
+            +(it.set?ubSymHTML(it.set):'')+'<span>'+runsHTML(it.subtitle,true)+'</span></span>':'';
         h+='<li role="option" class="tla-ub-item'+(o?' is-sel':'')+(it.pending?' is-pending':'')+'" id="ubopt-'+esc(it.slug)
           +'" data-ubitem="'+esc(it.slug)+'" aria-selected="'+(o?'true':'false')+'" tabindex="'+(o?'0':'-1')+'">'
           +'<img class="tla-ub-thumb" src="assets/'+esc(it.thumb)+'" width="'+it.tw+'" height="'+it.th
-          +'" loading="lazy" alt=""><span class="tla-ub-iname"'+(it.pending?' lang="en"':'')+'>'+esc(it.name)+'</span>'
+          +'" loading="lazy" alt=""><span class="tla-ub-iwrap"><span class="tla-ub-iname"'+(it.pending?' lang="en"':'')+'>'+esc(it.name)+'</span>'+sub+'</span>'
           +(it.pending?'<span class="tla-ub-en" title="'+esc(t('ubpending'))+'">EN</span>':'')+'</li>';
       });
       h+='</ul><div class="tla-ub-detail">'+ubDetailHTML(ubFindItem(s,cat,sel))+'</div></div>';
@@ -1377,6 +1454,7 @@ function ubListKeys(e,li){
 function bindUB(){
   var root=elMain.querySelector('.tla-ub'); if(!root)return;
   root.addEventListener('click',function(e){
+    var dl=e.target.closest('.tla-ubc-dl'); if(dl){ubDownload(dl.closest('.tla-ubc')); return;}
     var tab=e.target.closest('.tla-ub-tab'); if(tab){ubSelectTab(root,tab.getAttribute('data-ubtab')); tab.focus(); return;}
     var li=e.target.closest('.tla-ub-item'); if(li){ubSelectItem(li); li.focus();}
   });
@@ -1390,6 +1468,40 @@ function bindUB(){
   if(window.document&&document.fonts&&document.fonts.ready){
     document.fonts.ready.then(function(){ubFitVisible(root);}).catch(function(){});
   }
+}
+
+/* ArkhamDB is per-language on subdomains (es.arkhamdb.com, fr…); English is the bare
+   domain. The card id already carries the pack + padded number (e.g. 12020). */
+function adbCardUrl(id){
+  var sub=(lang&&lang!=='en')?lang+'.':'';
+  return 'https://'+sub+'arkhamdb.com/card/'+encodeURIComponent(id);
+}
+function prodIcon(art){
+  return art?'<span class="tla-prodicon" aria-hidden="true" style="-webkit-mask-image:url(assets/products/'
+    +esc(art)+'.svg);mask-image:url(assets/products/'+esc(art)+'.svg)"></span>':'';
+}
+function adbLink(id){
+  return '<a class="tla-adb" href="'+esc(adbCardUrl(id))+'" target="_blank" rel="noopener">'
+    +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3h7v7"/><path d="M21 3l-9 9"/><path d="M19 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>'
+    +esc(t('viewadb'))+'</a>';
+}
+/* The Modified Reprints chapter as a table: set symbol, collection number, card name,
+   and a link to the card on ArkhamDB in the reader's language. */
+function reprintsHTML(s){
+  var rows=s.reprints||[]; if(!rows.length)return '';
+  var icon=s.reprintsIcon;
+  var h='<div class="tla-rp-wrap"><table class="tla-reprints"><thead><tr>'
+    +'<th class="tla-rp-set"><span class="tla-sr">'+esc(t('reprintset'))+'</span></th>'
+    +'<th class="tla-rp-num">'+esc(t('reprintnum'))+'</th>'
+    +'<th class="tla-rp-card">'+esc(t('reprintcard'))+'</th>'
+    +'<th class="tla-rp-link"><span class="tla-sr">ArkhamDB</span></th></tr></thead><tbody>';
+  rows.forEach(function(r){
+    h+='<tr><td class="tla-rp-set">'+prodIcon(icon)+'</td>'
+      +'<td class="tla-rp-num">'+esc(r.num)+'</td>'
+      +'<td class="tla-rp-card">'+esc(r.name)+'</td>'
+      +'<td class="tla-rp-link">'+adbLink(r.adb)+'</td></tr>';
+  });
+  return h+'</tbody></table></div>';
 }
 
 function render(sid,eid,flash){
@@ -1412,6 +1524,7 @@ function render(sid,eid,flash){
   if(s.kind==='anatomy'){h+=anatomyHTML(s);}
   if(s.kind==='icons'){h+=iconsHTML(s);}
   if(s.kind==='ultimatums'){h+=ubHTML(s);}
+  if(s.reprints){h+=reprintsHTML(s);}
   /* quickref renders its text sub-sections through the normal entries loop below (so
      their terms autolink to the glossary and they land in the table of contents), then
      the colour symbol key and the downloadable image after them — the sheet read top to
@@ -1696,7 +1809,7 @@ function renderLanding(s){
   var li=latestInfo(data);
   var h='<div class="tla-doc tla-landing">';
   h+='<div class="tla-hero"><div class="tla-hero-inner">';
-  h+='<h1 class="tla-hero-title">The Living Arkham <span class="tla-beta">beta</span></h1>';
+  h+='<h1 class="tla-hero-title">The Living Arkham</h1>';
   h+='<p class="tla-hero-sub">'+esc(t('sub'))+'</p>';
   h+='</div></div>';
   if(li){h+=verBanner(li);}
@@ -2035,7 +2148,8 @@ function dialogs(){
      close:function(){closeThemeMenu(); elTheme.focus();}},
     {box:elSModal,   isOpen:searchOpen,  close:closeSearch},
     {box:elFigModal, isOpen:figInfoOpen, close:closeFigInfo},
-    {box:elLb,       isOpen:lbOpen,      close:closeLightbox}
+    {box:elLb,       isOpen:lbOpen,      close:closeLightbox},
+    {box:elDonate,   isOpen:donateOpen,  close:closeDonate}
   ];
 }
 function openDialog(){
@@ -2071,6 +2185,21 @@ function closeLightbox(){
   elLb.querySelector('img').src='';
   try{if(lastLbSrc)lastLbSrc.focus();}catch(e){}
   lastLbSrc=null;
+}
+
+/* ---------- donate modal ---------- */
+var lastDonate=null;
+function donateOpen(){return elDonate.classList.contains('on');}
+function openDonate(){
+  lastDonate=document.activeElement;
+  elDonate.hidden=false; elDonate.classList.add('on');
+  try{document.getElementById('tla-donate-close').focus();}catch(e){}
+}
+function closeDonate(){
+  if(!donateOpen())return;
+  elDonate.classList.remove('on'); elDonate.hidden=true;
+  try{if(lastDonate)lastDonate.focus();}catch(e){}
+  lastDonate=null;
 }
 
 /* ---------- mobile nav ---------- */
@@ -2230,6 +2359,11 @@ function wireEvents(){
   // clicking the backdrop (or the image) dismisses it, as before — but the
   // close button must not have its own click swallowed by the backdrop rule.
   elLb.addEventListener('click',closeLightbox);
+
+  document.getElementById('tla-donate-open').addEventListener('click',openDonate);
+  document.getElementById('tla-donate-close').addEventListener('click',closeDonate);
+  // backdrop only — a click inside the box must not close it
+  elDonate.addEventListener('click',function(e){if(e.target===elDonate)closeDonate();});
 }
 
 /* ---------- boot ---------- */

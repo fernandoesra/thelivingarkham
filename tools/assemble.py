@@ -15,7 +15,7 @@ Outputs data/grimoire_<lang>.json plus a validation report.
 """
 import json, re, sys, os, unicodedata
 from collections import Counter
-import langpack, history, ultimatums
+import langpack, history, ultimatums, reprints
 from langpack import slugify
 
 def norm(t):
@@ -520,12 +520,16 @@ def assemble(pack, nodes, images):
             continue
         # A wrapped title fragment on a picture page: when the chapter title runs to a
         # second line, that tail is its own L1 node and carries the chapter's intro
-        # paragraph — which sits above the art and is NOT picture-page noise. Capture it
-        # before the guard below would drop it, but only while the intro region is still
-        # open (no entries yet), so genuine noise later among the art is still cut. The
-        # Spanish "XV. Referencia de iconos de | conjuntos de encuentros" split hit this;
-        # the English single-line title captured its intro the ordinary way and never did.
-        if (lvl == 1 and blocks and not cur['entries']
+        # paragraph — which sits above the art and is NOT picture-page noise. The Spanish
+        # "XV. Referencia de iconos de | conjuntos de encuentros" split hit this; the
+        # English single-line title captured its intro the ordinary way and never did.
+        #
+        # Only when the intro is STILL EMPTY, though: that is the whole of the wrapped
+        # case (the title's first-line node carried no body, so the intro landed on the
+        # fragment). Without that guard this also swallowed every card node of the anatomy
+        # chapter — "Lugar revelado", "Plan", "Traición" are all L1 with body — dumping
+        # their callout text (card names, traits, numbers) into the intro as prose.
+        if (lvl == 1 and blocks and not cur['intro'] and not cur['entries']
                 and cur_kind in ('figures', 'anatomy', 'icons', 'quickref')):
             cur['intro'].extend(blocks)
             continue
@@ -932,10 +936,12 @@ def finalize(pack, allsecs, title_index):
     # The cross-language fill (missing cards shown in English) is a separate step, run once
     # every language is built — tools/ub_merge.py.
     ub = ultimatums.attach(allsecs, pack)
+    # The Modified Reprints chapter's two-column list, recovered into a clean table.
+    rp = reprints.attach(allsecs, pack)
     data = {'lang': pack.code, 'sections': allsecs, 'versions': versions, 'whatsnew': whatsnew,
             'groupOrder': list(langpack.SECTION_GROUPS)}
     return data, {'links': links, 'autolinks': autolinks, 'versions': versions,
-                  'whatsnew': whatsnew, 'ub': ub}
+                  'whatsnew': whatsnew, 'ub': ub, 'reprints': rp}
 
 
 def main():
