@@ -18,6 +18,9 @@ ICON_MAP = {
     0xF25B: 'skull', 0xF25C: 'cultist', 0xF25D: 'autofail', 0xF25E: 'elderthing',
     0xF25F: 'eldersign', 0xF260: 'tablet', 0xF261: 'unique', 0xF263: 'perinvestigator',
     0xF278: 'codex',
+    # The two newer chaos tokens. The Grimoire's own PDF never prints them, so their
+    # glyphs are traced from the FAQ font instead (see extract_icons.fill_from_faq).
+    0xF26E: 'bless', 0xF26F: 'curse',
 }
 
 

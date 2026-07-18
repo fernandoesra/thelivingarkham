@@ -40,6 +40,8 @@
     "unique": "Unique",
     "perinvestigator": "Per investigator",
     "codex": "Codex",
+    "bless": "Bless",
+    "curse": "Curse",
     "weakness": "Basic weakness symbol"
   },
   "themes": {
@@ -77,7 +79,7 @@
       "one": "diagram",
       "other": "diagrams"
     },
-    "docdesc": "Interactive resources for Arkham Horror: The Card Game: the Arkham Grimoire as a web edition, with a rules glossary, search and cross-references.",
+    "docdesc": "Interactive resources for Arkham Horror: The Card Game: the Arkham Grimoire and the FAQ chapter 1 as a web edition, with a rules glossary, search across both documents and cross-references.",
     "doctitle": "The Living Arkham · Interactive Arkham Horror LCG resources",
     "entries": {
       "one": "entry",
@@ -86,7 +88,7 @@
     "extrasby": "Material from {s}",
     "extrasnote": "Not part of the Arkham Grimoire, and not from Fantasy Flight Games. Community layouts.",
     "extrastag": "Added by this site",
-    "faqlabel": "Open document (retired FAQ)",
+    "faqlabel": "Go to FAQ chapter 1",
     "faqurl": "https://ffgapp.com/qr/legacy-faq",
     "fig": "Grimoire figure · p.",
     "figalt": "Grimoire resource",
@@ -99,13 +101,15 @@
     "flagrelevant": "Relevant section",
     "flagrelevantd": "The first thing you will want to look at.",
     "flowlabel": "Timing diagram, step by step",
-    "footby": "The Living Arkham <b>v1.0</b> · a project by <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
+    "footby": "The Living Arkham <b>v1.1</b> · a project by <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
     "footinfo": "Credits",
     "footsrc": "<a href=\"https://www.fantasyflightgames.com/en/products/arkham-horror-the-card-game/\" target=\"_blank\" rel=\"noopener\">Arkham Horror: The Card Game</a>™ and all related content © <a href=\"https://www.fantasyflightgames.com/en/index/\" target=\"_blank\" rel=\"noopener\">Fantasy Flight Games (FFG)</a>. This site is not produced, endorsed by or affiliated with FFG.",
     "glossnone": "No entry matches this filter.",
     "grpaids": "Aids",
     "grpgrimoire": "The Grimoire",
+    "grpchapter1": "FAQ chapter 1",
     "grpresources": "Resources",
+    "faqseticon": "Set or product icon",
     "history": "Version history",
     "home": "Home",
     "iconscard": "product icons",
@@ -148,7 +152,7 @@
     "qrsymbols": "symbols",
     "qrtokens": "Chaos tokens",
     "released": "released",
-    "rmbody": "<b>The Living Arkham</b> is the web edition —interactive and available in several languages— of <i>The Arkham Grimoire</i>, FFG's official rules-clarification compendium for <i>Arkham Horror: The Card Game</i>. It's a <b>free</b> tool created by <b>Rincón Miskatonic</b>, a Spanish blog about tabletop-gaming content, where you'll find scenarios, guides, resources and more <b>free material</b> for the game. Beyond reproducing the Grimoire interactively, it also offers <b>extra tools</b> to help and expand the game.",
+    "rmbody": "<b>The Living Arkham</b> is the web edition —interactive and available in several languages— of <i>The Arkham Grimoire</i>, FFG's official rules-clarification compendium for <i>Arkham Horror: The Card Game</i>, and of the <i>FAQ chapter 1</i> (the pre-2026 notes, errata and frequently asked questions). It's a <b>free</b> tool created by <b>Rincón Miskatonic</b>, a Spanish blog about tabletop-gaming content, where you'll find scenarios, guides, resources and more <b>free material</b> for the game. Beyond reproducing these documents interactively, it also offers <b>extra tools</b> to help and expand the game.",
     "rmcta": "Visit Rincón Miskatonic",
     "rmtitle": "A Rincón Miskatonic project",
     "searchph": "Search rules, keywords, icons…",
@@ -250,6 +254,13 @@
     "skill-tests": "The exact order for resolving a skill test.",
     "timing": "How phases resolve and the order of play.",
     "ultimatums": "Ultimatums, Boons and Refractions to tune the difficulty.",
-    "taboos": "The restricted-card list that keeps the most powerful decks in check."
+    "taboos": "The restricted-card list that keeps the most powerful decks in check.",
+    "faq-errata": "Errata for the rulebook, the campaign guide and the cards.",
+    "faq-definitions": "Definitions of terms with a precise function in the game.",
+    "faq-rulings": "Rulings on general play and how card abilities are read.",
+    "faq-questions": "Frequently asked questions and answers about the rules.",
+    "faq-taboos": "The earlier taboo list: chained, mutated and forbidden cards.",
+    "faq-optional": "Ultimatums, boons and refractions from the earlier version.",
+    "faq-environments": "Current, legacy and limited environments for deck-building."
   }
 }

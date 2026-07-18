@@ -320,6 +320,17 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-res .rx{font-size:13px; color:var(--muted); margin-top:3px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
 .tla-res mark{background:var(--mark); color:var(--mark-ink); border-radius:2px; padding:0 1px}
 .tla-res-empty{padding:18px; color:var(--muted); font-family:var(--ff-ui); font-size:14px; text-align:center}
+/* The corpus divider in split search results (Grimoire / FAQ chapter 1). A label, not an
+   option: sticky so the reader always knows which document the rows below belong to. */
+.tla-res-grp{position:sticky; top:0; z-index:1; padding:7px 14px; font-family:var(--ff-ui);
+  font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  color:var(--gold2); background:var(--panel2); border-bottom:1px solid var(--edge)}
+.tla-res-grpn{color:var(--muted); font-weight:600}
+.tla-faqlink svg{transform:none}
+/* Set/campaign/scenario icons recovered from the FAQ's vector art. Sized like a small
+   square glyph sitting in a line of text; recoloured through the mask like every game icon
+   (the .ico base sets background-color:var(--icon) and the mask props). */
+.tla-seticon{width:calc(1.02em*var(--icon-scale)); height:calc(1.02em*var(--icon-scale)); vertical-align:-.16em}
 
 /* ---------- app-shell layout (full height) ---------- */
 .tla-body{flex:1 1 auto; min-height:0; display:grid; grid-template-columns:308px minmax(0,1fr) 264px}

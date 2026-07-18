@@ -11,6 +11,9 @@
       "data": "data/grimoire_es.json",
       "v": "1.0",
       "date": "2026-05-11",
+      "faqData": "data/faq_es.json",
+      "faqV": "2.5",
+      "faqDate": "2026-02-01",
       "flag": "langs/es/flag.svg"
     },
     {
@@ -23,6 +26,9 @@
       "data": "data/grimoire_en.json",
       "v": "1.1",
       "date": "2026-06-22",
+      "faqData": "data/faq_en.json",
+      "faqV": "2.5",
+      "faqDate": "2026-02-01",
       "flag": "langs/en/flag.svg"
     }
   ]

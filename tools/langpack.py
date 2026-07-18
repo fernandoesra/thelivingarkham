@@ -552,6 +552,16 @@ def build_registry(packs=None):
             'v': p.current['v'],
             'date': p.current['date'],
         }
+        # The FAQ chapter 1 corpus is a second, parallel document (data/faq_<code>.json).
+        # Listed only once built, exactly like the grimoire, so a language without one (or
+        # not yet processed) simply has no FAQ shelf rather than a dead link.
+        faq_path = os.path.join(DATA_DIR, f'faq_{p.code}.json')
+        if os.path.exists(faq_path):
+            entry['faqData'] = f'data/faq_{p.code}.json'
+            faq_versions = (p.raw.get('faq') or {}).get('versions') or []
+            if faq_versions:
+                entry['faqV'] = faq_versions[-1]['v']
+                entry['faqDate'] = faq_versions[-1]['date']
         # A pack may ship a flag next to its config. It is decoration: the label
         # is what names the language, so a pack without one is perfectly fine.
         # Listed rather than os.path.exists()-ed: that check is case-insensitive

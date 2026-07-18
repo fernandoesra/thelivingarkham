@@ -1,10 +1,10 @@
 # The Living Arkham 🐙📖
 
-An interactive, multilingual edition of the **Arkham Grimoire** — the rules-clarification compendium for *Arkham Horror: The Card Game*. Searchable glossary, cross-references and game icons. **v0.1.0 · beta**.
+An interactive, multilingual edition of the **Arkham Grimoire** — the rules-clarification compendium for *Arkham Horror: The Card Game* — **and** of the pre-2026 **FAQ (chapter 1)**. Two rulesets a decade apart, shown as two shelves, searched together: a glossary and rules, notes, errata and frequently-asked questions, with cross-references, ArkhamDB links and game icons. **v1.1**.
 
 Run it locally: `npm run dev` → http://localhost:8080 · Static site, ready for GitHub Pages.
 
-Available in **español · English**. Want your language? → [Adding a language](#adding-a-language).
+Available in **español · English**. Want your language? → [Adding a language](#adding-a-language). Also have the FAQ document? → [The FAQ chapter 1 corpus](#the-faq-chapter-1-corpus).
 
 ---
 
@@ -188,17 +188,48 @@ A new edition comes out in English and the translations arrive months later. In 
 
 You do not configure any of this. The registry (`data/languages.json`) records each language's newest edition, so a language can tell that another one is ahead; ship the translated PDF and the notice is replaced by the real changelog on the next build. No language is hard-coded as "the source": whoever is ahead is ahead, so if a translation ever leads, the English page says the same thing.
 
+## The FAQ chapter 1 corpus
+
+Alongside the Grimoire (the 2026 rules), the site also carries the **retired FAQ** — FFG's pre-2026 *Notes, Errata, and Frequently Asked Questions*. They are two rulesets a decade apart, for the same game, and they can **contradict** each other — so the FAQ is a **separate, parallel corpus**, shown as its own **"FAQ chapter 1"** shelf below the Grimoire, and search runs over both at once and shows the results **split**, one document under each heading.
+
+It is built by the same pipeline (`tools/faq.py`, run automatically by `ingest.py` after the Grimoire), into `data/faq_<code>.json`, in the very same shape as a grimoire file. To add it for a language:
+
+1. Put the FAQ PDF in **`langs/<code>/source_faq/`**.
+2. Add a **`"faq"`** block to `lang.json`, beside `"book"` — its versions and the section layout (each section's `anchor` is the heading text that starts it in the PDF):
+
+```json
+"faq": {
+  "versions": [{"v": "2.5", "date": "2026-02-01", "pdf": "faq_de.pdf"}],
+  "sections": [
+    {"key": "faq-errata", "id": "c1-errata", "num": "", "title": "Notes and Errata",
+     "kind": "rules", "anchor": "Notes and Errata"},
+    {"key": "faq-questions", "id": "c1-questions", "num": "", "title": "Frequently Asked Questions",
+     "kind": "faq", "anchor": "Frequently Asked Questions"}
+  ]
+}
+```
+
+3. Rebuild (`python tools/ingest.py <code>`). The FAQ shelf appears once `data/faq_<code>.json` exists.
+
+Notes:
+
+* **One version is a base.** Like the Grimoire, ship a file per version for a full history; a single version entry is a clean baseline (v2.5 today) with an empty *What's New*, and the machinery is ready for the day a new FAQ edition lands.
+* **Links only ever point into the Grimoire.** The FAQ is retired, so its cross-references and auto-links resolve against the *Grimoire's* glossary, never inside itself; card references (`Name ( 20)`) go to **ArkhamDB**. Nothing links *into* the FAQ.
+* Section `kind` is `"rules"` for prose, `"faq"` for the question-and-answer chapter (split into one entry per question automatically, by the italic-question / roman-answer typography), and `"icons"` for the product-icon reference (add `"build": "iconref"`, no `anchor` — it is rebuilt from the last page's art, not anchored prose). A `"rules"` section may also carry `"split": "term"` (Definitions: each bold term becomes an entry) or `"split": "numbered"` (Rulings: each `(N.NN)` clarification becomes an entry).
+* The **set / campaign / scenario icons** printed before each card number are vector art, not font glyphs — recovered from the page, deduplicated by shape and slotted back in front of the number (`tools/faq_seticons.py`, shared SVGs in `assets/faqsets/`). The same tool rebuilds the icon-reference tables (campaigns, standalone products, starter decks, promos) into `assets/products/`.
+* The FAQ prints the **bless/curse** chaos-token icons the Grimoire never uses; their glyphs are traced from the FAQ font and filled in automatically (`extract_icons.fill_from_faq`).
+
 ## How it fits together
 
 ```
-langs/<code>/        the only thing a translator writes  (lang.json · ui.json · flag.svg · source/*.pdf)
+langs/<code>/        the only thing a translator writes  (lang.json · ui.json · flag.svg · source/*.pdf · source_faq/*.pdf)
 tools/               the pipeline — knows no language     (python tools/ingest.py)
-data/                generated: grimoire_<code>.json + languages.json (the registry)
+data/                generated: grimoire_<code>.json + faq_<code>.json + languages.json (the registry)
 assets/              generated figures + the game icons (shared by every language)
 index.html js/ css/  the app — knows no language
 ```
 
-The app reads `data/languages.json` to learn which languages exist, and fetches a language only when it is first shown. A language is listed there only once its content has actually been built, so a half-finished pack can sit in `langs/` without putting a dead button in the header.
+The app reads `data/languages.json` to learn which languages exist (and which have a FAQ corpus, via `faqData`), and fetches a language only when it is first shown. A language is listed there only once its content has actually been built, so a half-finished pack can sit in `langs/` without putting a dead button in the header. The FAQ is optional per language: a pack without a `"faq"` block simply has no FAQ shelf.
 
 Pipeline details (parser, auto-links, icons, montages): [`tools/README.md`](tools/README.md).
 

@@ -109,6 +109,49 @@ def trace_glyphs(font_path, gids):
     return out
 
 
+def fill_from_faq(glyphs, outdir):
+    """Trace any ICON_MAP glyph the Grimoire font does not carry from a FAQ font.
+
+    The Grimoire never prints some game icons (the bless/curse chaos tokens), so their
+    glyphs are absent from its embedded font. The FAQ documents do print them, in the
+    same icon font family with the same private-use codepoints, so the missing shapes
+    are traced from the first FAQ PDF that has them. Only genuinely-missing names are
+    filled — the Grimoire stays the canonical source for every icon it does carry."""
+    missing = set(ICON_MAP.values()) - set(glyphs)
+    if not missing:
+        return glyphs
+    for code in langpack.codes():
+        faq_dir = os.path.join(langpack.LANGS_DIR, code, 'source_faq')
+        if not os.path.isdir(faq_dir):
+            continue
+        for fname in sorted(os.listdir(faq_dir)):
+            if not fname.lower().endswith('.pdf'):
+                continue
+            doc = fitz.open(os.path.join(faq_dir, fname))
+            font_path = extract_font(doc, outdir)
+            if not font_path:
+                continue
+            traced = trace_glyphs(font_path, glyph_ids(doc))
+            os.remove(font_path)
+            added = []
+            for name in list(missing):
+                if name in traced:
+                    with open(os.path.join(outdir, name + '.svg'), 'w', encoding='utf-8',
+                              newline='\n') as f:
+                        f.write(traced[name][0])
+                    glyphs[name] = traced[name]
+                    missing.discard(name)
+                    added.append(name)
+            if added:
+                print(f'  {len(added)} icon(s) filled from the {code} FAQ font: '
+                      f'{", ".join(sorted(added))} -> assets/icons/*.svg')
+            if not missing:
+                return glyphs
+    if missing:
+        print(f'  [warn] these ICON_MAP icons were in no available font: {", ".join(sorted(missing))}')
+    return glyphs
+
+
 # ---- drawn symbols (not in the font) ----------------------------------------
 def render_mask(page, rect, zoom=16, pad=1.5):
     r = fitz.Rect(rect.x0-pad, rect.y0-pad, rect.x1+pad, rect.y1+pad)
@@ -198,6 +241,8 @@ def build(pack, outdir=ICONS_DIR):
                 f.write(svg)
         os.remove(font_path)
         print(f'  {len(glyphs)} icons traced from the font -> assets/icons/*.svg')
+        # Icons the Grimoire never prints (bless/curse) are traced from a FAQ font.
+        fill_from_faq(glyphs, outdir)
 
     # symbols the font does not carry: clipped from the page as before
     symbols = {}

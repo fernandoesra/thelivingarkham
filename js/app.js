@@ -18,6 +18,7 @@ var BOOT = {
 };
 
 var GRIM = {},        // code -> grimoire data (loaded on demand)
+    FAQ = {},         // code -> FAQ chapter 1 corpus (loaded on demand, may be absent)
     PACKS = {},       // code -> ui.json
     REG = null,       // the language registry
     LANGS = [];       // registry entries, in display order
@@ -148,6 +149,12 @@ function announce(msg){if(elLive){elLive.textContent=''; setTimeout(function(){e
 /* Labels come from a pack, so they are escaped like any other authored text:
    a label containing a quote would otherwise break out of the attribute. */
 function iconHTML(name){return '<i class="ico ico-'+esc(name)+'" title="'+esc(iconLabel(name))+'"></i>';}
+/* A set/campaign/scenario icon recovered from the FAQ's vector art (see tools/faq_seticons.py).
+   Not a font glyph, so it is not in icons.css: its mask is the per-shape SVG, named by the
+   shape's fingerprint. One generic label — the card it marks is named right beside it. */
+function seticonHTML(r){var u='assets/faqsets/'+esc(r.fp)+'.svg';
+  return '<i class="ico tla-seticon" role="img" aria-label="'+esc(t('faqseticon'))+'" title="'+esc(t('faqseticon'))
+    +'" style="-webkit-mask-image:url('+u+');mask-image:url('+u+')"></i>';}
 /* flat: render every interactive run (link, card link, flow ref) as plain text. A title
    goes inside a nav <button> and a table-of-contents <a>, and an interactive element
    nested in either is invalid HTML and a "nested-interactive" a11y failure — the outer
@@ -156,6 +163,7 @@ function runsHTML(runs,suppressNew,flat){
   var h='';
   for(var i=0;i<runs.length;i++){var r=runs[i];
     if(r.kind==='icon'){h+=iconHTML(r.name); continue;}
+    if(r.kind==='seticon'){if(!flat)h+=seticonHTML(r); continue;}
     if(r.kind==='pageref'){h+='<span class="tla-pageref" title="'+esc(t('origpage')+' '+r.n)+'">('+esc(t('origpage'))+' '+esc(r.n)+')</span>'; continue;}
     var inner;
     if(flat && (r.kind==='link'||r.kind==='adbcard'||r.kind==='flowref')){h+=wrap(esc(r.t),r); continue;}
@@ -206,11 +214,31 @@ function blocksHTML(blocks,suppressNew,noFaq){
 /* The PDF shows a QR code to the retired-FAQ document after a sentence ending in
    a colon; render a real link instead. Which sentence that is depends on the
    language, so the pack says (ui.json -> "faqAnchor"). No anchor, no link. */
+/* The landing section of the FAQ chapter 1 shelf (its first real section), for links
+   that used to point at the retired-FAQ document on an external site. Null if this
+   language has no FAQ corpus built. */
+function faqHome(){
+  var secs=(data&&data.sections)||[];
+  for(var i=0;i<secs.length;i++){if(secs[i].corpus==='faq1'&&secs[i].kind!=='whatsnew')return secs[i].id;}
+  return null;
+}
+/* The PDF shows a QR code to the retired-FAQ document after a sentence ending in a
+   colon. That document now lives ON THIS SITE, as the FAQ chapter 1 shelf, so the link
+   points there instead of off-site — an internal hash link, same tab. Which sentence
+   triggers it depends on the language (ui.json -> "faqAnchor"); if no FAQ corpus is built
+   the old external link is kept as a fallback. No anchor, no link. */
 function faqLink(txt){
   var s=(txt||'').trim(), anchor=uiOf(lang,'faqAnchor',null);
-  if(!anchor || !t('faqurl')) return '';
+  if(!anchor) return '';
   var re; try{ re=new RegExp(anchor,'i'); }catch(e){ return ''; }
   if(!re.test(s) || !/[:：]\s*$/.test(s)) return '';
+  var home=faqHome();
+  if(home){
+    return '<a class="tla-extlink tla-faqlink" href="#'+esc(lang)+'/'+esc(home)+'">'
+      +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>'
+      +esc(t('faqlabel'))+'</a>';
+  }
+  if(!t('faqurl')) return '';
   return '<a class="tla-extlink" href="'+t('faqurl')+'" target="_blank" rel="noopener">'
     +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3h7v7"/><path d="M21 3l-9 9"/><path d="M19 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>'
     +esc(t('faqlabel'))+'</a>';
@@ -690,8 +718,10 @@ function closeThemeMenu(){
    language happened to be active would carry that language's icon labels. */
 function buildIndex(L){
   var arr=[]; GRIM[L].sections.forEach(function(s){
-    if(s.intro&&s.intro.length){arr.push({sid:s.id,eid:s.id,title:s.title,sec:s.title,num:s.num,text:plainOfBlocks(s.intro,L),isSec:true});}
-    (s.entries||[]).forEach(function(e){arr.push({sid:s.id,eid:e.id,title:e.title,titleRuns:e.titleRuns,sec:s.title,num:s.num,text:plainOfBlocks(e.blocks,L)});});
+    if(s.kind==='whatsnew'||s.kind==='intro')return;       // not content to search
+    var corpus=s.corpus||'grimoire';
+    if(s.intro&&s.intro.length){arr.push({corpus:corpus,sid:s.id,eid:s.id,title:s.title,sec:s.title,num:s.num,text:plainOfBlocks(s.intro,L),isSec:true});}
+    (s.entries||[]).forEach(function(e){arr.push({corpus:corpus,sid:s.id,eid:e.id,title:e.title,titleRuns:e.titleRuns,sec:s.title,num:s.num,text:plainOfBlocks(e.blocks,L)});});
   });
   searchIndex[L]=arr;
 }
@@ -715,16 +745,17 @@ function cmpV(a,b){
   }
   return 0;
 }
-function myVer(code){
-  for(var i=0;i<LANGS.length;i++){if(LANGS[i].code===code)return LANGS[i].v||null;}
-  return null;
-}
 /* Languages whose newest edition is newer than this one's, newest first. No
-   language is "the source": whoever is ahead is ahead. */
-function langsAhead(code){
-  var me=myVer(code); if(!me)return [];
-  return LANGS.filter(function(L){return L.code!==code && L.v && cmpV(L.v,me)>0;})
-              .sort(function(a,b){return cmpV(b.v,a.v);});
+   language is "the source": whoever is ahead is ahead. `corpus` picks which document's
+   versions to compare — the grimoire (v/date) or the FAQ chapter 1 (faqV/faqDate) — so
+   the FAQ's own "a newer edition exists elsewhere" notice reads the FAQ's versions.
+   Returns normalised {code, v, date} so callers read the same fields either way. */
+function langsAhead(code,corpus){
+  var vf=(corpus==='faq1')?'faqV':'v', df=(corpus==='faq1')?'faqDate':'date';
+  var meL=regOf(code)||{}, me=meL[vf]; if(!me)return [];
+  return LANGS.filter(function(L){return L.code!==code && L[vf] && cmpV(L[vf],me)>0;})
+              .sort(function(a,b){return cmpV(b[vf],a[vf]);})
+              .map(function(L){return {code:L.code,v:L[vf],date:L[df]};});
 }
 function normalizeData(g){
   var li=latestInfo(g);
@@ -739,8 +770,35 @@ function normalizeData(g){
       title:pick(g.lang,'strings','news')||'What\'s New',ver:li,intro:[],entries:[],figures:[]});
   }
 }
-/* the nav badge counts what the newest edition brought */
-function wnCount(s){var wn=s.ver&&data.whatsnew&&data.whatsnew[s.ver.v]; return wn?(wn['new'].length+wn.updated.length):0;}
+/* Splice the FAQ chapter 1 corpus into the grimoire's section list as its own shelf.
+   Kept as one merged sections[] so routing, the nav, findEntry and the search index all
+   work unchanged — the corpus is carried on each section (s.corpus) for the few places
+   that must tell the two apart: the split search, the corpus-scoped What's New, and the
+   fact that links only ever point INTO the grimoire, never into this retired corpus.
+   Idempotent: a re-load must not splice it twice. */
+function mergeFaq(g, faq){
+  g.sections.forEach(function(s){ if(!s.corpus)s.corpus='grimoire'; });
+  if(!faq || g._faqMerged) return;
+  var fsecs=faq.sections.map(function(s){ s.corpus='faq1'; if(!s.group)s.group='chapter1'; return s; });
+  /* The FAQ has its own version history and its own "What's New": a base-version corpus
+     (one version, no diff) shows none yet, exactly as the grimoire would — the machinery
+     is here and ready for the day a new FAQ edition lands. It carries its own versions/
+     whatsnew so renderWhatsNew reads the right corpus. */
+  var li=latestInfo(faq);
+  if(li && !fsecs.some(function(x){return x.id==='faq-novedades';})){
+    fsecs.unshift({num:'',key:'faq-whatsnew',id:'faq-novedades',kind:'whatsnew',group:'chapter1',
+      corpus:'faq1',title:pick(g.lang,'strings','news')||'What\'s New',ver:li,
+      corpusVersions:faq.versions,corpusWhatsnew:faq.whatsnew,intro:[],entries:[],figures:[]});
+  }
+  /* the FAQ shelf sits directly below the grimoire's */
+  var go=(g.groupOrder||['resources','grimoire','aids']).slice();
+  if(go.indexOf('chapter1')<0){ var gi=go.indexOf('grimoire'); go.splice(gi>=0?gi+1:go.length,0,'chapter1'); g.groupOrder=go; }
+  g.sections=g.sections.concat(fsecs);
+  g._faqMerged=true;
+}
+/* the nav badge counts what the newest edition brought — in whichever corpus the
+   What's New section belongs to (the FAQ carries its own history). */
+function wnCount(s){var w=(s.corpusWhatsnew||data.whatsnew); var wn=s.ver&&w&&w[s.ver.v]; return wn?(wn['new'].length+wn.updated.length):0;}
 
 /* ---------- entries / filtering ---------- */
 function sectionEntries(s){return s.entries||[];}
@@ -1904,15 +1962,23 @@ function verBanner(li){
    book is a living document, so "what just changed" is the question people
    arrive with — but every edition stays reachable. */
 var wnPick=null;
+/* The active What's New page belongs to a corpus: the grimoire's reads data.versions/
+   data.whatsnew, the FAQ chapter 1's reads its own history, carried on its section. */
+function wnData(){
+  var s=curSec;
+  if(s&&s.corpusWhatsnew)return {versions:s.corpusVersions||[],whatsnew:s.corpusWhatsnew||{},corpus:s.corpus||'grimoire'};
+  return {versions:data.versions||[],whatsnew:data.whatsnew||{},corpus:'grimoire'};
+}
 function wnVersions(){
   /* newest first: history reads backwards */
-  return (data.versions||[]).filter(function(v){return data.whatsnew&&data.whatsnew[v.v];}).reverse();
+  var wd=wnData();
+  return (wd.versions||[]).filter(function(v){return wd.whatsnew&&wd.whatsnew[v.v];}).reverse();
 }
 /* "There is a newer edition, but not in your language yet." Named languages, a
    real date, and a way straight into the edition that does exist — a notice the
    reader can act on rather than just be told. */
-function pendingHTML(){
-  var ahead=langsAhead(lang); if(!ahead.length)return '';
+function pendingHTML(corpus){
+  var ahead=langsAhead(lang,corpus); if(!ahead.length)return '';
   var top=ahead[0];
   var names=ahead.map(function(L){return langName(L.code);}).join(', ');
   var h='<section class="tla-pending">';
@@ -1932,13 +1998,14 @@ function pendingHTML(){
   return h;
 }
 function renderWhatsNew(){
+  var wd=wnData();
   var vs=wnVersions();
-  var pending=pendingHTML();
+  var pending=pendingHTML(wd.corpus);
   if(!vs.length && !pending){elMain.innerHTML=''; elToc.innerHTML=''; return;}
   var cur=null;
   for(var i=0;i<vs.length;i++){if(vs[i].v===wnPick)cur=vs[i];}
   if(!cur)cur=vs[0];
-  var wn=cur?data.whatsnew[cur.v]:null;
+  var wn=cur?wd.whatsnew[cur.v]:null;
 
   var h='<div class="tla-doc">';
   h+='<div class="tla-crumb">The Living Arkham</div>';
@@ -1949,15 +2016,15 @@ function renderWhatsNew(){
   // matters when there is no news: it says which edition you are actually on.
   h+='<div class="tla-vertabs" role="group" aria-label="'+esc(t('history'))+'">';
   vs.forEach(function(v){
-    var n=data.whatsnew[v.v], count=n['new'].length+n.updated.length;
+    var n=wd.whatsnew[v.v], count=n['new'].length+n.updated.length;
     h+='<button class="tla-vertab'+(cur&&v.v===cur.v?' active':'')+'" type="button" data-wnv="'+esc(v.v)+'"'
       +' aria-pressed="'+(!!cur&&v.v===cur.v)+'">'
       +'<span class="tla-vertab-v">v'+esc(v.v)+'</span>'
       +'<span class="tla-vertab-d">'+esc(fmtDate(v.date))+'</span>'
       +'<span class="tla-vertab-n">'+count+'</span></button>';
   });
-  var first=(data.versions||[])[0];
-  if(first && !data.whatsnew[first.v]){
+  var first=(wd.versions||[])[0];
+  if(first && !wd.whatsnew[first.v]){
     h+='<span class="tla-vertab is-origin">'+esc(t('firstedition').replace('{v}',first.v))
       +' · '+esc(fmtDate(first.date))+'</span>';
   }
@@ -2346,9 +2413,16 @@ function setLang(L){
 
 /* ---------- SEARCH ---------- */
 function norm(s){return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');}
+/* The grimoire (2026) and the FAQ chapter 1 (pre-2026) are two rulesets a decade apart,
+   for the same game, and they can contradict each other — so search runs over BOTH at once
+   and the results are shown divided, each under its own heading, so a reader comparing
+   "what the rule is now" with "what it was" sees both side by side rather than one buried
+   under the other. Order and per-corpus cap are fixed here; renderResults draws the split. */
+var SEARCH_CORPORA=[{corpus:'grimoire',grp:'grpgrimoire'},{corpus:'faq1',grp:'grpchapter1'}];
+var SEARCH_CAP=30;
 function search(q){
   q=norm(q.trim()); if(q.length<2){closeResults();return;}
-  var terms=q.split(/\s+/), arr=searchIndex[lang], out=[];
+  var terms=q.split(/\s+/), arr=searchIndex[lang], by={};
   for(var i=0;i<arr.length;i++){var it=arr[i]; var hayT=norm(it.title), hayX=norm(it.text);
     var score=0,ok=true;
     for(var ti=0;ti<terms.length;ti++){var tm=terms[ti];
@@ -2356,10 +2430,15 @@ function search(q){
       if(inT<0&&inX<0){ok=false;break;}
       if(inT===0)score+=100; else if(inT>0)score+=40; if(inX>=0)score+=6;
     }
-    if(ok){out.push({it:it,score:score});}
+    if(ok){var c=it.corpus||'grimoire'; (by[c]||(by[c]=[])).push({it:it,score:score});}
   }
-  out.sort(function(a,b){return b.score-a.score||a.it.title.length-b.it.title.length;});
-  renderResults(out.slice(0,40),terms);
+  var groups=[];
+  SEARCH_CORPORA.forEach(function(cg){
+    var list=by[cg.corpus]; if(!list||!list.length)return;
+    list.sort(function(a,b){return b.score-a.score||a.it.title.length-b.it.title.length;});
+    groups.push({label:t(cg.grp),items:list.slice(0,SEARCH_CAP)});
+  });
+  renderResults(groups,terms);
 }
 function hl(text,terms){
   var out=esc(text);
@@ -2371,17 +2450,26 @@ function snippet(text,terms){
   var nt=norm(text),pos=-1; for(var i=0;i<terms.length;i++){var p=nt.indexOf(terms[i]); if(p>=0&&(pos<0||p<pos))pos=p;}
   if(pos<0)pos=0; var st=Math.max(0,pos-40); var frag=text.slice(st,st+160); if(st>0)frag='…'+frag; return frag;
 }
-function renderResults(list,terms){
-  if(!list.length){elRes.innerHTML='<div class="tla-res-empty">'+esc(t('nores'))+'</div>'; elRes.classList.add('on'); resSel=-1; clearActiveDesc(); setExpanded(true); return;}
-  /* Each option needs an id: the input keeps the focus, so the only way a screen
-     reader learns which result is highlighted is aria-activedescendant. */
-  var h=''; list.forEach(function(o,i){var it=o.it;
-    h+='<div class="tla-res" role="option" id="tla-res-'+i+'" aria-selected="false" data-eid="'+esc(it.eid)+'" data-i="'+i+'">';
-    /* A real space, not only the CSS gap: this whole row is the option's accessible name,
-       so without it a screen reader says "Mazo de EncuentrosI" as one word — and it is
-       also what the reader sees if the stylesheet ever fails to load. */
-    h+='<div class="rt">'+(it.titleRuns?runsHTML(it.titleRuns):hl(it.title,terms))+' <span class="rs">'+(it.num?it.num+' · ':'')+esc(it.sec)+'</span></div>';
-    h+='<div class="rx">'+hl(snippet(it.text,terms),terms)+'</div></div>';
+/* `groups` = [{label, items:[{it,score}]}], already split by corpus. The result rows keep
+   ONE flat id sequence (tla-res-0, tla-res-1, …) across every group so keyboard navigation
+   and aria-activedescendant span the whole list; the group headers are labels, not options,
+   so they carry role="presentation" and the listbox is wrapped in role="group" per corpus. */
+function renderResults(groups,terms){
+  var total=groups.reduce(function(n,g){return n+g.items.length;},0);
+  if(!total){elRes.innerHTML='<div class="tla-res-empty">'+esc(t('nores'))+'</div>'; elRes.classList.add('on'); resSel=-1; clearActiveDesc(); setExpanded(true); return;}
+  var h='', i=0, single=groups.length<2;
+  groups.forEach(function(g){
+    /* One corpus alone needs no divider — the heading would just state the obvious. */
+    if(!single)h+='<div class="tla-res-grp" role="presentation">'+esc(g.label)+' <span class="tla-res-grpn">'+g.items.length+'</span></div>';
+    g.items.forEach(function(o){var it=o.it;
+      h+='<div class="tla-res" role="option" id="tla-res-'+i+'" aria-selected="false" data-eid="'+esc(it.eid)+'" data-i="'+i+'">';
+      /* A real space, not only the CSS gap: this whole row is the option's accessible name,
+         so without it a screen reader says "Mazo de EncuentrosI" as one word — and it is
+         also what the reader sees if the stylesheet ever fails to load. */
+      h+='<div class="rt">'+(it.titleRuns?runsHTML(it.titleRuns):hl(it.title,terms))+' <span class="rs">'+(it.num?it.num+' · ':'')+esc(it.sec)+'</span></div>';
+      h+='<div class="rx">'+hl(snippet(it.text,terms),terms)+'</div></div>';
+      i++;
+    });
   });
   elRes.innerHTML=h; elRes.classList.add('on'); resSel=-1; clearActiveDesc(); setExpanded(true);
 }
@@ -2760,13 +2848,18 @@ function loadLang(L){
   uiTried[L]=true;
   loading[L]=Promise.all([
     GRIM[L]?Promise.resolve(GRIM[L]):getJSON(reg.data),
-    PACKS[L]?Promise.resolve(PACKS[L]):getJSON(reg.ui)
+    PACKS[L]?Promise.resolve(PACKS[L]):getJSON(reg.ui),
+    // The FAQ chapter 1 corpus is optional: a language without one (or whose file
+    // 404s) simply has no FAQ shelf. Best-effort, never fatal to the language.
+    (FAQ[L]||!reg.faqData)?Promise.resolve(FAQ[L]||null)
+      :getJSON(reg.faqData).then(function(f){return f;},function(){return null;})
   ]).then(function(res){
-    GRIM[L]=res[0]; PACKS[L]=res[1];
+    GRIM[L]=res[0]; PACKS[L]=res[1]; if(res[2])FAQ[L]=res[2];
     return loadChain(L);
   }).then(function(){
     // after the chain, so both may use strings that come from a fallback
     normalizeData(GRIM[L]);
+    mergeFaq(GRIM[L], FAQ[L]);          // splice the FAQ corpus in as its own shelf
     buildIndex(L);
     delete loading[L];
     return L;

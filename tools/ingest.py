@@ -18,6 +18,7 @@ sys.path.insert(0, HERE)
 
 import langpack                                  # noqa: E402
 import parse_grimoire, render_images, extract_icons, assemble, validate_coverage, history  # noqa: E402
+import faq                                        # noqa: E402
 
 IMG_DIR = os.path.join(langpack.ROOT, 'assets', 'img')
 
@@ -71,6 +72,23 @@ def run_pack(pack, all_packs):
     print('-- check the parsed text against the PDF')
     validate_coverage.report(pack, data)
     verify_labels(pack, all_packs)
+
+    # The FAQ chapter 1 corpus, if this language has one. Built after the Grimoire
+    # because its cross-references link into the Grimoire (see tools/faq.py). A missing
+    # or malformed FAQ is a warning, never fatal — the Grimoire is already written.
+    print('-- assemble FAQ chapter 1 JSON')
+    try:
+        fdata, frep = faq.build(pack, data)
+        if fdata is None:
+            print('  (no "faq" declared for this language — skipped)')
+        else:
+            with open(faq.data_path(pack.code), 'w', encoding='utf-8') as f:
+                json.dump(fdata, f, ensure_ascii=False)
+            print(f'  {frep["sections"]} sections · {frep["entries"]} entries · '
+                  f'{frep["cards"]} card links · {frep["links"]} cross-refs · '
+                  f'{frep["autolinks"]} auto-links -> data/faq_{pack.code}.json')
+    except langpack.PackError as e:
+        print(f'  [warn] FAQ chapter 1 not built for {pack.code}: {e}')
     return total
 
 

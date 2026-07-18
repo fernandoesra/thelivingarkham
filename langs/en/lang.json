@@ -19,6 +19,26 @@
       }
     ]
   },
+  "faq": {
+    "title": "FAQ chapter 1",
+    "versions": [
+      {
+        "v": "2.5",
+        "date": "2026-02-01",
+        "pdf": "ahc_faq_v25_february_2026-web_ENGLISH.pdf"
+      }
+    ],
+    "sections": [
+      {"key": "faq-errata", "id": "c1-errata", "num": "", "title": "Notes and Errata", "kind": "rules", "anchor": "Notes and Errata"},
+      {"key": "faq-definitions", "id": "c1-definitions", "num": "", "title": "Definitions and Terms", "kind": "rules", "anchor": "Definitions and Terms", "split": "term"},
+      {"key": "faq-rulings", "id": "c1-rulings", "num": "", "title": "Rulings and Clarifications", "kind": "rules", "anchor": "Rulings and Clarifications", "split": "numbered"},
+      {"key": "faq-questions", "id": "c1-questions", "num": "", "title": "Frequently Asked Questions", "kind": "faq", "anchor": "Frequently Asked Questions"},
+      {"key": "faq-taboos", "id": "c1-taboos", "num": "", "title": "The List of Taboos", "kind": "rules", "anchor": "The List of Taboos"},
+      {"key": "faq-optional", "id": "c1-ultimatums", "num": "", "title": "Ultimatums, Boons and Refractions", "kind": "rules", "anchor": "Ultimatums and Boons"},
+      {"key": "faq-environments", "id": "c1-environments", "num": "", "title": "Environments (Beta)", "kind": "rules", "anchor": "Current, Legacy, and Limited"},
+      {"key": "faq-icons", "id": "c1-icons", "num": "", "title": "Icon reference", "kind": "icons", "build": "iconref"}
+    ]
+  },
   "parse": {
     "introTitle": "Getting Started",
     "introStart": "using this book",

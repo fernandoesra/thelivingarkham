@@ -41,6 +41,8 @@
     "unique": "Única",
     "perinvestigator": "Por investigador",
     "codex": "El códice",
+    "bless": "Bendición",
+    "curse": "Maldición",
     "weakness": "Símbolo de Debilidad básica"
   },
   "themes": {
@@ -78,7 +80,7 @@
       "one": "diagrama",
       "other": "diagramas"
     },
-    "docdesc": "Recursos interactivos para Arkham Horror: El Juego de Cartas: el Grimorio de Arkham en versión web, con glosario de reglas, buscador y referencias cruzadas.",
+    "docdesc": "Recursos interactivos para Arkham Horror: El Juego de Cartas: el Grimorio de Arkham y el FAQ del capítulo 1 en versión web, con glosario de reglas, buscador en ambos documentos y referencias cruzadas.",
     "doctitle": "The Living Arkham · Recursos interactivos de Arkham Horror LCG",
     "entries": {
       "one": "entrada",
@@ -87,7 +89,7 @@
     "extrasby": "Material de {s}",
     "extrasnote": "No forma parte del Grimorio de Arkham ni de Fantasy Flight Games. Son maquetaciones de la comunidad, en español.",
     "extrastag": "Añadido por la web",
-    "faqlabel": "Ver documento (FAQ retiradas)",
+    "faqlabel": "Ver el FAQ capítulo 1",
     "faqurl": "https://www.asmodee.es/product/arkham-horror-el-juego-de-cartas/",
     "fig": "Figura del Grimorio · pág.",
     "figalt": "Recurso del Grimorio",
@@ -100,13 +102,15 @@
     "flagrelevant": "Sección relevante",
     "flagrelevantd": "Lo primero que querrás mirar.",
     "flowlabel": "Diagrama de orden de resolución, paso a paso",
-    "footby": "The Living Arkham <b>v1.0</b> · un proyecto de <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
+    "footby": "The Living Arkham <b>v1.1</b> · un proyecto de <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
     "footinfo": "Créditos",
     "footsrc": "<a href=\"https://www.fantasyflightgames.com/en/products/arkham-horror-the-card-game/\" target=\"_blank\" rel=\"noopener\">Arkham Horror: The Card Game</a>™ y todo el contenido relacionado © <a href=\"https://www.fantasyflightgames.com/en/index/\" target=\"_blank\" rel=\"noopener\">Fantasy Flight Games (FFG)</a>. Este sitio web no está producido ni avalado por FFG, ni afiliado a ella.",
     "glossnone": "Ninguna entrada coincide con este filtro.",
     "grpaids": "Ayudas",
     "grpgrimoire": "El Grimorio",
+    "grpchapter1": "FAQ capítulo 1",
     "grpresources": "Recursos",
+    "faqseticon": "Icono de conjunto o producto",
     "history": "Historial de versiones",
     "home": "Inicio",
     "iconscard": "iconos de producto",
@@ -149,7 +153,7 @@
     "qrsymbols": "símbolos",
     "qrtokens": "Fichas de Caos",
     "released": "publicada el",
-    "rmbody": "<b>The Living Arkham</b> es la edición web —interactiva y disponible en varios idiomas— de <i>El Grimorio de Arkham</i>, la recopilación oficial de aclaraciones de reglas de FFG para el juego <i>Arkham Horror: El Juego de Cartas</i>. Es una herramienta <b>gratuita</b> creada por <b>Rincón Miskatonic</b>, un blog español sobre contenido para juegos de mesa, donde encontrarás escenarios, guías, ayudas y más <b>material gratuito</b> del juego. Además de reproducir el Grimorio de forma interactiva, cuenta con <b>herramientas extra</b> para ayudar y expandir el juego.",
+    "rmbody": "<b>The Living Arkham</b> es la edición web —interactiva y disponible en varios idiomas— de <i>El Grimorio de Arkham</i>, la recopilación oficial de aclaraciones de reglas de FFG para el juego <i>Arkham Horror: El Juego de Cartas</i>, y también del <i>FAQ del capítulo 1</i> (las notas, erratas y preguntas frecuentes anteriores a 2026). Es una herramienta <b>gratuita</b> creada por <b>Rincón Miskatonic</b>, un blog español sobre contenido para juegos de mesa, donde encontrarás escenarios, guías, ayudas y más <b>material gratuito</b> del juego. Además de reproducir estos documentos de forma interactiva, cuenta con <b>herramientas extra</b> para ayudar y expandir el juego.",
     "rmcta": "Visitar Rincón Miskatonic",
     "rmtitle": "Un proyecto de Rincón Miskatonic",
     "searchph": "Buscar reglas, palabras clave, iconos…",
@@ -251,6 +255,13 @@
     "skill-tests": "El orden exacto para resolver una prueba de habilidad.",
     "timing": "Cómo se resuelven las fases y el orden de juego.",
     "ultimatums": "Ultimátums, Ayudas y Refracciones para ajustar la dificultad.",
-    "taboos": "La lista de cartas restringidas para equilibrar los mazos más potentes."
+    "taboos": "La lista de cartas restringidas para equilibrar los mazos más potentes.",
+    "faq-errata": "Fe de erratas del reglamento, la guía de campaña y las cartas.",
+    "faq-definitions": "Definiciones de términos con una función precisa en el juego.",
+    "faq-rulings": "Aclaraciones sobre el juego y la interpretación de las cartas.",
+    "faq-questions": "Preguntas y respuestas frecuentes sobre las reglas.",
+    "faq-taboos": "La lista de tabúes anterior: encadenadas, mutadas y prohibidas.",
+    "faq-optional": "Ultimátums, ayudas y refracciones de la versión anterior.",
+    "faq-environments": "Entornos actual, legado y limitado para crear tus mazos."
   }
 }
