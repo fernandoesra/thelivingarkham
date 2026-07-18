@@ -340,13 +340,15 @@
    "cat": "ultimatum",
    "refraction": true,
    "en": "Ultimatum of Scorched Earth",
-   "noart": true,
    "card": "ub/cards/ultimatum-of-scorched-earth.webp",
    "w": 760,
    "h": 1053,
    "thumb": "ub/thumbs/ultimatum-of-scorched-earth.webp",
    "tw": 132,
-   "th": 183
+   "th": 183,
+   "illus": "Peter Polach & Frej Agelii",
+   "set": "e2-217-216",
+   "collection": "AHC100"
   }
  }
 }

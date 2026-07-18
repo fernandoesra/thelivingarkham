@@ -183,7 +183,7 @@
     "viewall": "Ver todo",
     "viewas": "Ver",
     "viewdiag": "Ver solo diagramas",
-    "ubintro": "Los Ultimátums son reglas que hacen la partida más difícil para un grupo de investigadores; las Ayudas, al contrario, la hacen más fácil. Aquí puedes explorarlos carta a carta. El texto de cada regla está tomado del capítulo «Reglas opcionales» del Grimorio.",
+    "ubintro": "Los Ultimátums son reglas que hacen la partida más difícil para un grupo de investigadores; las Ayudas, al contrario, la hacen más fácil. Aquí puedes explorarlos carta a carta. El texto de cada regla está tomado del capítulo {opt} del Grimorio.",
     "ubtablabel": "Tipo de carta",
     "ubultimatums": "Ultimátums",
     "ubboons": "Ayudas",

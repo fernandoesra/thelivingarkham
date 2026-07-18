@@ -182,7 +182,7 @@
     "viewall": "View everything",
     "viewas": "View",
     "viewdiag": "Diagrams only",
-    "ubintro": "Ultimatums are rules that make the game harder for a group of investigators; Boons, conversely, make it easier. Browse them here card by card. Each rule's text is taken from the Grimoire's “Optional Rules” chapter.",
+    "ubintro": "Ultimatums are rules that make the game harder for a group of investigators; Boons, conversely, make it easier. Browse them here card by card. Each rule’s text is taken from the Grimoire’s {opt} chapter.",
     "ubtablabel": "Card type",
     "ubultimatums": "Ultimatums",
     "ubboons": "Boons",

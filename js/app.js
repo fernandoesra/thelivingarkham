@@ -1238,6 +1238,12 @@ function ubPendingHTML(it){
     +'<circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>'
     +'<span>'+esc(msg)+'</span></div>';
 }
+/* A masked SVG symbol drawn in the card's cream: encounter-set and product marks are
+   the same two-colour art the icon chapters recolour through a CSS mask. */
+function ubSymHTML(art,cls){
+  return '<span class="tla-ubc-sym'+(cls?' '+cls:'')+'" aria-hidden="true" style="-webkit-mask-image:url(assets/products/'
+    +esc(art)+'.svg);mask-image:url(assets/products/'+esc(art)+'.svg)"></span>';
+}
 function ubDetailHTML(it){
   if(!it)return '';
   /* The card is built from layers: the textless picture, then the title, type line
@@ -1245,12 +1251,19 @@ function ubDetailHTML(it){
      a screen reader switches voice, and the banner says why. */
   var L=it.pending?' lang="en"':'';
   var h=it.pending?ubPendingHTML(it):'';
-  h+='<div class="tla-ubc'+(it.noart?' is-noart':'')+'">';
+  h+='<div class="tla-ubc'+(it.noart?' is-noart':'')+(it.refraction?' is-refraction':'')+'">';
   h+='<img class="tla-ubc-pic" src="assets/'+esc(it.card)+'" width="'+it.w+'" height="'+it.h+'" alt="" draggable="false">';
   if(it.noart)h+='<div class="tla-ubc-noart">'+esc(t('ubnoart'))+'</div>';
   h+='<h2 class="tla-ubc-title"'+L+'>'+esc(it.name)+'</h2>';
+  /* A refraction's subtitle names its encounter set, with the set symbol before it; the
+     product symbol sits in the bottom corner, where the printed card carries it. */
+  if(it.subtitle&&it.subtitle.length){
+    h+='<div class="tla-ubc-subtitle"'+L+'>'+(it.set?ubSymHTML(it.set):'')
+      +'<span>'+runsHTML(it.subtitle,true)+'</span></div>';
+  }
   h+='<div class="tla-ubc-type">'+esc(ubTypeLine(it))+'</div>';
   h+='<div class="tla-ubc-rule"'+L+'>'+blocksHTML(it.blocks,true,true)+'</div>';
+  if(it.collection)h+='<div class="tla-ubc-coll">'+ubSymHTML(it.collection)+'</div>';
   if(it.illus)h+='<div class="tla-ubc-illus">'+esc(t('ubillus'))+' '+esc(it.illus)+'</div>';
   h+='</div>';
   return h;
@@ -1273,7 +1286,13 @@ function ubFitVisible(root){
 }
 function ubHTML(s){
   if(UB_TABS.indexOf(ubTab)<0)ubTab='ultimatum';
-  var h='<div class="tla-lead"><p class="tla-p">'+esc(t('ubintro'))+'</p></div>';
+  /* The intro names the Optional Rules chapter these cards are read from — as a link,
+     found by the shared key so it lands right in every language. */
+  var opt=data.sections.filter(function(x){return x.key==='optional-rules';})[0];
+  var lead=esc(t('ubintro')).replace('{opt}', opt
+    ?'«<a class="xref" href="#'+esc(lang)+'/'+esc(opt.id)+'" data-t="'+esc(opt.id)+'">'+esc(opt.title)+'</a>»'
+    :'');
+  var h='<div class="tla-lead"><p class="tla-p">'+lead+'</p></div>';
   h+='<div class="tla-ub">';
   h+='<div class="tla-ub-tabs" role="tablist" aria-label="'+esc(t('ubtablabel'))+'">';
   UB_TABS.forEach(function(cat){

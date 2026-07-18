@@ -34,6 +34,9 @@ FRAMES = os.path.join(ROOT, 'assets', 'templates', 'ultimatums_boons', 'frames')
 # Curated slug -> illustrator, read off the printed cards (bottom-left "Illus. X").
 # Language-neutral, so it lives here and the site renders it under a localized "Illus."
 ILLUS = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ub_illustrators.json')
+# Curated slug -> {set, collection} icon codes for refractions (their encounter set and
+# product symbols, drawn on the subtitle). Also language-neutral.
+REFR = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'ub_refractions.json')
 DEFAULT_SRC = ('C:/Users/Fernando/Mi unidad/Rincon Miskatonic/Contenido AH LCG/'
                'Ultimatums and Boons/Ingles original')
 CARDS_SUB = 'Cards-V2'                    # WITH bleed, to match the frame's bleed
@@ -108,12 +111,21 @@ def placeholder(frame_name):
     return _crop_bleed(Image.alpha_composite(bg, _frame(frame_name, PLACEHOLDER_SIZE)))
 
 
-# Cards in the Grimoire with no art anywhere (not even the refraction set). Rendered
-# from the frame alone so they still appear; the illustration is dropped in later.
-PLACEHOLDERS = [
+def pre_framed(path):
+    """An artist's own finished composite — frame already applied, no text. Bleed-crop only,
+    so nothing is drawn over the art a second time."""
+    return _crop_bleed(Image.open(path).convert('RGBA'))
+
+
+# Finished cards whose art lives outside the main export (an artist's own composite in the
+# "Nuevos" folder beside the source). `file` is that composite; it is bleed-cropped as is.
+EXTRA = [
     {'slug': 'ultimatum-of-scorched-earth', 'en': 'Ultimatum of Scorched Earth',
-     'cat': 'ultimatum', 'refraction': True, 'frame': 'Ultimatum-Refraction.png'},
+     'cat': 'ultimatum', 'refraction': True, 'file': 'Refraction_scorched_earth.png'},
 ]
+
+# Cards the Grimoire names but with no art anywhere yet — rendered from the frame alone.
+PLACEHOLDERS = []
 
 
 def save_webp(im, dst, width, quality):
@@ -179,6 +191,26 @@ def main():
         n += 1
         print(f'  {slug}  {cw}x{ch}  ({cat}{", refraction" if refraction else ""})')
 
+    # Finished cards whose art the artist composited themselves (the "Nuevos" folder).
+    nuevos = os.path.join(os.path.dirname(args.src), 'Nuevos')
+    for ex in EXTRA:
+        path = os.path.join(nuevos, ex['file'])
+        if not os.path.exists(path):
+            print(f'  skip extra (image not found: {path})')
+            continue
+        pic = pre_framed(path)
+        cw, ch = save_webp(pic, os.path.join(OUT, 'cards', ex['slug'] + '.webp'), args.width, 82)
+        tw, th = save_webp(pic, os.path.join(OUT, 'thumbs', ex['slug'] + '.webp'), args.thumb, 80)
+        registry[ex['slug']] = {
+            'cat': ex['cat'], 'refraction': ex['refraction'], 'en': ex['en'],
+            'card': f'ub/cards/{ex["slug"]}.webp', 'w': cw, 'h': ch,
+            'thumb': f'ub/thumbs/{ex["slug"]}.webp', 'tw': tw, 'th': th,
+        }
+        if illus.get(ex['slug']):
+            registry[ex['slug']]['illus'] = illus[ex['slug']]
+        n += 1
+        print(f'  {ex["slug"]}  {cw}x{ch}  (finished art, {ex["cat"]}{", refraction" if ex["refraction"] else ""})')
+
     # Art-less cards the manual lists: the frame over a dark ground, marked noart so the
     # viewer knows there is no illustrator line to draw and shows an "illustration soon" hint.
     for pl in PLACEHOLDERS:
@@ -197,6 +229,16 @@ def main():
         }
         n += 1
         print(f'  {pl["slug"]}  {cw}x{ch}  (placeholder, no art)')
+
+    # Refraction subtitle symbols (encounter set + collection), applied by slug.
+    refr = json.load(open(REFR, encoding='utf-8')) if os.path.exists(REFR) else {}
+    for slug, meta in refr.items():
+        if slug.startswith('_') or slug not in registry:
+            continue
+        if meta.get('set'):
+            registry[slug]['set'] = meta['set']
+        if meta.get('collection'):
+            registry[slug]['collection'] = meta['collection']
 
     order = {'ultimatum': 0, 'boon': 1}
     registry = dict(sorted(registry.items(),

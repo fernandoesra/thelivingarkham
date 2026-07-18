@@ -66,6 +66,28 @@ def _has_content(runs):
     return any((r.get('t', '').strip() or r.get('kind') == 'icon') for r in runs)
 
 
+def _subtitle(blocks):
+    """A refraction's first line is its encounter-set subtitle, set in italic; split it
+    off the rule so the card can place it under the title. Returns (subtitle_runs, rule
+    blocks) — subtitle None when the first block does not start italic (a base card)."""
+    if not blocks:
+        return None, blocks
+    runs = blocks[0].get('runs') or []
+    i, sub = 0, []
+    while i < len(runs) and runs[i].get('italic'):
+        sub.append(runs[i]); i += 1
+    if not sub:
+        return None, blocks
+    rest = [dict(r) for r in runs[i:]]
+    if rest and rest[0].get('kind') == 'text':
+        rest[0]['t'] = rest[0].get('t', '').lstrip()
+    out = []
+    if _has_content(rest):
+        out.append({'type': 'p', 'runs': rest})
+    out.extend(blocks[1:])
+    return sub, out
+
+
 def _items(entry):
     """Each item is a <p> whose leading run(s) are bold (its name); the rest is the
     rule. A following block with no bold lead continues the current item. The name
@@ -141,6 +163,14 @@ def attach(sections, pack):
                 'card': card['card'], 'w': card['w'], 'h': card['h'],
                 'thumb': card['thumb'], 'tw': card['tw'], 'th': card['th'],
             }
+            if refr:
+                sub, rule_blocks = _subtitle(rec['blocks'])
+                if sub:
+                    rec['subtitle'] = sub
+                    rec['blocks'] = rule_blocks
+                for k in ('set', 'collection'):
+                    if card.get(k):
+                        rec[k] = card[k]
             if card.get('illus'):
                 rec['illus'] = card['illus']
             if card.get('noart'):

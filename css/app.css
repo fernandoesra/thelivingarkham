@@ -787,6 +787,20 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-ubc-noart{top:40%; left:14%; right:14%; text-align:center;
   font-family:var(--ff-ui); font-size:3.1cqw; line-height:1.3;
   color:rgba(244,236,216,.55); letter-spacing:.3cqw; text-transform:uppercase}
+/* Encounter-set / product symbols, drawn in the card's cream through a mask. */
+.tla-ubc-sym{display:inline-block; background-color:#f4ecd8; vertical-align:middle;
+  -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; -webkit-mask-position:center;
+  mask-position:center; -webkit-mask-size:contain; mask-size:contain;
+  filter:drop-shadow(0 .06cqw .12cqw #000)}
+/* A refraction lifts its title to make room for the encounter-set subtitle under it. */
+.tla-ubc.is-refraction .tla-ubc-title{top:2.3%; height:6.6%}
+.tla-ubc-subtitle{position:absolute; top:9.1%; left:9%; right:9%; color:#f4ecd8;
+  display:flex; align-items:center; justify-content:center; gap:.7cqw; text-align:center;
+  font-family:'ubbody',var(--ff-body); font-style:italic; font-size:2.9cqw; line-height:1.05;
+  text-shadow:0 0 .3cqw #000,.07cqw .07cqw .12cqw #000}
+.tla-ubc-subtitle .tla-ubc-sym{width:1.4em; height:1.4em; flex:0 0 auto}
+.tla-ubc-coll{position:absolute; bottom:2.1%; right:7.5%; line-height:0}
+.tla-ubc-coll .tla-ubc-sym{width:5.4cqw; height:5.4cqw}
 /* Item present in English but not yet in this language: shown in English, flagged. */
 .tla-ub-pending{display:flex; align-items:flex-start; gap:9px; max-width:400px;
   margin:0 auto 16px; padding:9px 13px; border-radius:10px; font-family:var(--ff-ui);
