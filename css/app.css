@@ -741,6 +741,13 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 /* Full opacity on the selected (gold) tab: dimming blends the count toward the
    gold and drops it under 4.5:1 on the lighter themes. on-gold already contrasts. */
 .tla-ub-tab[aria-selected=true] .tla-ub-n{opacity:1}
+/* Gallery: every card of the tab at once, filling the width (5argon-style). A card
+   enlarges to a full-size render in the lightbox on click; its glossary links stay
+   visible but non-interactive so a click zooms rather than also navigating away. */
+.tla-ub-gallery{display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr));
+  gap:26px 24px; align-items:start}
+.tla-ub-gcard{min-width:0; cursor:zoom-in}
+.tla-ub-gcard .tla-ubc a{pointer-events:none}
 /* list beside the chosen card: both on screen at once */
 .tla-ub-main{display:grid; grid-template-columns:minmax(220px,300px) minmax(0,1fr);
   gap:22px 30px; align-items:start}
@@ -808,7 +815,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
    invisible on the dark card under a light theme (var(--ink) is dark there). */
 .tla-ubc-rule .tla-p{margin:0 0 .45em; font-size:inherit; line-height:inherit; color:inherit}
 .tla-ubc-rule .tla-p:last-child{margin-bottom:0}
-.tla-ubc-rule a.xref{color:inherit; text-decoration:underline; text-underline-offset:2px}
+.tla-ubc-rule a.xref{text-decoration:underline; text-underline-offset:2px}
 .tla-ubc-rule .ico{background-color:#f4ecd8}
 /* Illustrator credit, printed small at the bottom-left of every card. */
 .tla-ubc-illus{bottom:2.4%; left:9.5%; right:9.5%; text-align:left;
@@ -825,15 +832,23 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   filter:drop-shadow(0 .06cqw .12cqw #000)}
 /* A refraction lifts its title to make room for the encounter-set subtitle under it. */
 .tla-ubc.is-refraction .tla-ubc-title{top:2.3%; height:6.6%}
-.tla-ubc-subtitle{position:absolute; top:10.8%; left:8%; right:8%; color:#f4ecd8; text-align:center;
+.tla-ubc-subtitle{position:absolute; top:11.1%; left:8%; right:8%; color:#f4ecd8; text-align:center;
   font-family:'ubbody',var(--ff-body); font-style:italic; font-size:2.9cqw; line-height:1.15;
   text-shadow:0 0 .3cqw #000,.07cqw .07cqw .12cqw #000}
-/* Links AND emphasis inside a card keep the card's fixed cream. The theme rules
-   `#tla-root em{color:var(--ink2)}` (and the teal on links) otherwise leak a dark
-   ink that is invisible on the black title band under a light theme. Id-qualified
-   so it outranks those theme rules on specificity. */
-#tla-root .tla-ubc a,#tla-root .tla-ubc em,#tla-root .tla-ubc i,
+/* Emphasis inside a card keeps the card's fixed cream. The theme rule
+   `#tla-root em{color:var(--ink2)}` otherwise leaks a dark ink that is invisible on the
+   black title band under a light theme. Id-qualified to outrank that theme rule. */
+#tla-root .tla-ubc em,#tla-root .tla-ubc i,
 #tla-root .tla-ubc b,#tla-root .tla-ubc strong{color:#f4ecd8}
+/* Links get a fixed light teal — eye-catching against the card's warm gold/cream and
+   legible on any artwork thanks to the shared dark halo (the outline carries the
+   contrast, not the hue). Fixed, not var(--teal2): the card art is theme-independent,
+   so the theme's teal (which turns dark on light themes) must not reach it. */
+#tla-root .tla-ubc a{color:#a7d3e6}
+/* Refraction subtitle: the encounter-set and collection symbols sit inline, each in
+   front of the name it belongs to, sized to the italic type around them. */
+.tla-ubc-subtitle .tla-ubc-sym{width:3cqw; height:3cqw; vertical-align:-.45cqw; margin-right:.55cqw}
+.tla-ubc-subsep{margin:0 .8cqw; opacity:.75}
 /* The set symbol fills the refraction diamond, centred above the type line. */
 .tla-ubc-setmark{position:absolute; top:60.3%; left:0; right:0; height:6.6%;
   display:flex; align-items:center; justify-content:center}
@@ -1200,9 +1215,11 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-donate-cta svg{width:17px; height:18px; flex:0 0 auto}
 
 /* ---------- draw-at-random modal ---------- */
-/* Wider than the default modal so drawn cards sit two-up; scrolls if the hand is tall.
-   Later in the file than .tla-modal-box, so its max-width wins at equal specificity. */
-.tla-ubdraw-box{max-width:780px; max-height:calc(100vh - 40px); overflow-y:auto}
+/* Near-fullscreen so drawn cards are large and readable. Later in the file than
+   .tla-modal-box, so its sizing wins at equal specificity. */
+#tla-ubdraw{padding:14px}
+.tla-ubdraw-box{width:min(1500px,96vw); max-width:none; min-height:82vh;
+  max-height:calc(100vh - 28px); overflow-y:auto}
 .tla-ubdraw-form{display:flex; flex-wrap:wrap; align-items:flex-end; gap:14px 18px; margin:0}
 .tla-ubdraw-field{display:flex; flex-direction:column; gap:6px}
 .tla-ubdraw-field label{font-family:var(--ff-ui); font-size:13px; font-weight:700; color:var(--ink2)}
@@ -1217,16 +1234,26 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-ubdraw-go svg{width:17px; height:17px; flex:0 0 auto}
 .tla-ubdraw-out{margin-top:20px}
 .tla-ubdraw-out:empty{margin:0}
-.tla-ubdraw-h{font-family:var(--ff-head); font-size:18px; color:var(--gold2); margin:0 0 8px; outline:none}
-.tla-ubdraw-list ol{margin:0; padding-left:22px; font-family:var(--ff-body); font-size:15px; line-height:1.7; color:var(--ink2)}
+/* Two groups (Ultimatums / Boons), each its own panelled block so the two kinds read
+   apart at a glance. */
+.tla-ubdraw-group{margin:0 0 20px; padding:16px 16px 18px; border:1px solid var(--edge2);
+  border-radius:14px; background:var(--bg2)}
+.tla-ubdraw-group:last-child{margin-bottom:0}
+.tla-ubdraw-h{font-family:var(--ff-head); font-size:20px; color:var(--gold2); margin:0 0 12px; outline:none}
+.tla-ubdraw-n{font-family:var(--ff-ui); font-size:14px; font-weight:400; color:var(--muted)}
+.tla-ubdraw-list{margin:0 0 14px; padding-left:22px; font-family:var(--ff-body); font-size:15px; line-height:1.7; color:var(--ink2); columns:2; column-gap:34px}
+.tla-ubdraw-list li{break-inside:avoid}
 .tla-ubdraw-list b{color:var(--ink)}
-.tla-ubdraw-type{color:var(--muted); font-style:italic; font-size:13px}
 .tla-ubdraw-empty{font-family:var(--ff-body); color:var(--ink2); margin:6px 0 0}
-.tla-ubdraw-cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:18px; margin-top:18px}
-.tla-ubdraw-card{min-width:0}
+/* Bigger cards; the whole card zooms on click (a rendered PNG in the lightbox). */
+.tla-ubdraw-cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(270px,1fr)); gap:22px}
+.tla-ubdraw-card{min-width:0; cursor:zoom-in}
+/* The card is one zoom target here: its glossary links stay visible but non-interactive,
+   so a click zooms the card instead of also navigating away and shifting the page. */
+.tla-ubdraw-card .tla-ubc a{pointer-events:none}
 
 /* ---------- lightbox ---------- */
-.tla-lb{position:fixed; inset:0; background:rgba(6,7,10,.93); z-index:200; display:none; align-items:center; justify-content:center; padding:24px; cursor:zoom-out}
+.tla-lb{position:fixed; inset:0; background:rgba(6,7,10,.93); z-index:300; display:none; align-items:center; justify-content:center; padding:24px; cursor:zoom-out}
 .tla-lb.on{display:flex}
 .tla-lb img{max-width:96vw; max-height:92vh; border-radius:8px; box-shadow:0 20px 60px rgba(0,0,0,.7)}
 .tla-lb-close{position:absolute; top:18px; right:22px; color:#fff; font-size:30px; cursor:pointer; background:none; border:0; line-height:1}

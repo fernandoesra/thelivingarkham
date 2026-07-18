@@ -1256,6 +1256,23 @@ function ubSymHTML(art,cls){
   return '<span class="tla-ubc-sym'+(cls?' '+cls:'')+'" aria-hidden="true" style="-webkit-mask-image:url(assets/products/'
     +esc(art)+'.svg);mask-image:url(assets/products/'+esc(art)+'.svg)"></span>';
 }
+/* A refraction belongs to a scenario and, through it, to a campaign — both named on the
+   real card, each beside its symbol. The subtitle line the book prints reads
+   "{scenario} ({campaign})", so split on the parenthesis and put the encounter-set symbol
+   before the scenario and the collection (box) symbol before the campaign. Any other
+   subtitle (or a shape we do not recognise) renders as plain runs, unchanged. */
+function ubSubtitleHTML(it){
+  var runs=it.subtitle;
+  if(it.refraction&&it.set&&it.collection&&runs&&runs.length===1&&runs[0].kind==='text'){
+    var m=(runs[0].t||'').match(/^(.*?)\s*\(([^)]*)\)\s*$/);
+    if(m&&m[1].trim()&&m[2].trim()){
+      return '<span class="tla-ubc-subpart">'+ubSymHTML(it.set,'tla-ubc-subsym')+'<span>'+esc(m[1].trim())+'</span></span>'
+        +'<span class="tla-ubc-subsep" aria-hidden="true">·</span>'
+        +'<span class="tla-ubc-subpart">'+ubSymHTML(it.collection,'tla-ubc-subsym')+'<span>'+esc(m[2].trim())+'</span></span>';
+    }
+  }
+  return runsHTML(runs,true);
+}
 function ubDetailHTML(it){
   if(!it)return '';
   /* The card is built from layers: the textless picture, then the title, type line
@@ -1273,7 +1290,7 @@ function ubDetailHTML(it){
      symbol sits in the diamond above the type line, and its product symbol in the bottom
      corner — where the printed card carries each. */
   if(it.subtitle&&it.subtitle.length){
-    h+='<div class="tla-ubc-subtitle"'+L+'>'+runsHTML(it.subtitle,true)+'</div>';
+    h+='<div class="tla-ubc-subtitle"'+L+'>'+ubSubtitleHTML(it)+'</div>';
   }
   if(it.set)h+='<div class="tla-ubc-setmark">'+ubSymHTML(it.set)+'</div>';
   h+='<div class="tla-ubc-type">'+esc(ubTypeLine(it))+'</div>';
@@ -1295,9 +1312,45 @@ function ubFit(rule){
   for(var i=0;i<8;i++){var m=(lo+hi)/2; set(m); if(fits()){best=m;lo=m;}else{hi=m;}}
   set(best);
 }
+/* Fit the auto-sized rule of a card (its box and font both scale with the card width). */
+function ubFitCard(card){
+  if(!card)return;
+  ubFit(card.querySelector('.tla-ubc-rule'));
+}
 function ubFitVisible(root){
-  var p=(root||elMain).querySelector('.tla-ub-panel:not([hidden]) .tla-ubc-rule');
-  ubFit(p);
+  var cards=(root||elMain).querySelectorAll('.tla-ub-panel:not([hidden]) .tla-ubc');
+  [].forEach.call(cards,function(c){ubFitCard(c);});
+}
+/* Force the card fonts to actually load before we paint to a canvas. document.fonts.ready
+   only waits for loads a painted element already triggered — an off-screen card may not
+   trigger them, so canvas fillText would silently fall back to a serif. Loading each face
+   explicitly (and awaiting) guarantees the blackletter title and Arno body render as seen.
+   Also makes the auto-fit measure with the real metrics, so the sizes match too. */
+var UB_FONT_SPECS=['40px ubtitle','40px ubbody','700 40px ubbody','italic 40px ubbody','italic 700 40px ubbody'];
+function ubFontsReady(){
+  var d=window.document&&document.fonts;
+  if(!d||!d.load)return Promise.resolve();
+  // Load each face (specs kept lenient — 'ubtitle' declares no weight), then wait for the
+  // font set to settle, then warm the canvas cache so the first fillText already has them.
+  return Promise.all(UB_FONT_SPECS.map(function(f){return d.load(f);}))
+    .then(function(){return d.ready;})
+    .then(function(){
+      try{var c=document.createElement('canvas').getContext('2d');
+        UB_FONT_SPECS.forEach(function(f){c.font=f;c.fillText(' ',-20,-20);});}catch(e){}
+    }).catch(function(){});
+}
+/* A filesystem-safe file name from the card's own (translated) name: refractions carry
+   the translated "Refraction" word in front, as the reader asked. */
+function ubRefractionWord(){return t('ubtyperefraction').replace(/[.]+$/,'').trim();}
+function ubSanitizeName(n){return (n||'card').replace(/[\/\\:*?"<>|]+/g,'').replace(/\s+/g,' ').trim();}
+function ubItemFileName(it){
+  var n=it.name; if(it.refraction)n=ubRefractionWord()+' - '+n;
+  return ubSanitizeName(n)+'.png';
+}
+function ubCardFileName(card){
+  var n=((card.querySelector('.tla-ubc-title')||{}).textContent||'card');
+  if(card.classList.contains('is-refraction'))n=ubRefractionWord()+' - '+n;
+  return ubSanitizeName(n)+'.png';
 }
 /* Draw the shown card onto a canvas at a fixed width, in the reader's language, square
    (no rounded corners). Each text layer's real position and font are read off the DOM, so
@@ -1307,7 +1360,7 @@ function ubCardToBlob(card){
   return new Promise(function(resolve){
     if(!card){resolve(null);return;}
     var img=card.querySelector('.tla-ubc-pic'); if(!img||!img.naturalWidth){resolve(null);return;}
-    (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(function(){
+    ubFontsReady().then(function(){
       var CW=1000, CH=Math.round(CW*img.naturalHeight/img.naturalWidth);
       var cr=card.getBoundingClientRect(), sc=CW/cr.width;
       var cv=document.createElement('canvas'); cv.width=CW; cv.height=CH;
@@ -1371,8 +1424,7 @@ function ubSaveBlob(b,name){
 /* Download one card (the small button on the picture). */
 function ubDownload(card){
   if(!card)return;
-  var slug=card.getAttribute('data-slug')||'card';
-  ubCardToBlob(card).then(function(b){ ubSaveBlob(b, slug+'-'+lang+'.png'); });
+  ubCardToBlob(card).then(function(b){ ubSaveBlob(b, ubCardFileName(card)); });
 }
 /* ---- minimal STORE-mode ZIP writer (no deps): PNGs are already compressed, so
    storing them uncompressed keeps the archive small and the code tiny. ---- */
@@ -1385,13 +1437,14 @@ function crc32(bytes){
 }
 function ubZip(files){
   var enc=new TextEncoder(), parts=[], central=[], offset=0;
+  var FLAG=0x0800;                                   // bit 11: file names are UTF-8 (accents)
   var u16=function(n){return [n&0xFF,(n>>>8)&0xFF];};
   var u32=function(n){return [n&0xFF,(n>>>8)&0xFF,(n>>>16)&0xFF,(n>>>24)&0xFF];};
   files.forEach(function(f){
     var name=enc.encode(f.name), data=f.data, crc=crc32(data), n=data.length;
-    var lh=[].concat(u32(0x04034b50),u16(20),u16(0),u16(0),u16(0),u16(0),u32(crc),u32(n),u32(n),u16(name.length),u16(0));
+    var lh=[].concat(u32(0x04034b50),u16(20),u16(FLAG),u16(0),u16(0),u16(0),u32(crc),u32(n),u32(n),u16(name.length),u16(0));
     parts.push(new Uint8Array(lh),name,data);
-    var cd=[].concat(u32(0x02014b50),u16(20),u16(20),u16(0),u16(0),u16(0),u16(0),u32(crc),u32(n),u32(n),
+    var cd=[].concat(u32(0x02014b50),u16(20),u16(20),u16(FLAG),u16(0),u16(0),u16(0),u32(crc),u32(n),u32(n),
       u16(name.length),u16(0),u16(0),u16(0),u16(0),u32(0),u32(offset));
     central.push(new Uint8Array(cd),name);
     offset+=lh.length+name.length+n;
@@ -1412,7 +1465,7 @@ function ubRenderOffscreen(it,host){
   host.innerHTML=ubDetailHTML(it);
   var card=host.querySelector('.tla-ubc'), img=card.querySelector('.tla-ubc-pic');
   return new Promise(function(res){
-    var done=function(){ ubFit(card.querySelector('.tla-ubc-rule')); res(card); };
+    var done=function(){ ubFitCard(card); res(card); };
     if(img.complete&&img.naturalWidth)done();
     else{img.onload=done; img.onerror=done;}
   });
@@ -1424,15 +1477,22 @@ function ubDownloadAll(btn){
   var items=ubAllItems(); if(!items.length)return;
   var label=btn&&btn.querySelector('.tla-ub-tool-label'), orig=label?label.textContent:'';
   if(btn){btn.disabled=true; btn.setAttribute('aria-busy','true'); if(label)label.textContent=t('ubdownallwait');}
+  /* Off-screen host — the canvas reads document.fonts + the decoded picture, so the card
+     needs layout (for getBoundingClientRect) but not paint. It MUST hang inside #tla-root:
+     the card's `font-family:'ubtitle',var(--ff-head)` depends on --ff-head, which is defined
+     on #tla-root. Under document.body that var is undefined, the whole declaration becomes
+     invalid, and the title inherits the body serif — which is the wrong-font export bug. */
   var host=document.createElement('div');
-  host.style.cssText='position:fixed;left:-10000px;top:0;width:460px;pointer-events:none;opacity:0';
-  document.body.appendChild(host);
-  var files=[], seq=Promise.resolve();
+  host.style.cssText='position:fixed;left:-10000px;top:0;width:460px;pointer-events:none';
+  (root||document.body).appendChild(host);
+  /* Seed the chain with the font load so the very first card renders (and auto-fits) with
+     the real faces — otherwise it would bake in the fallback metrics. */
+  var files=[], seq=ubFontsReady();
   items.forEach(function(it){
     seq=seq.then(function(){
       return ubRenderOffscreen(it,host)
         .then(function(card){return ubCardToBlob(card);})
-        .then(function(b){ if(b)return b.arrayBuffer().then(function(ab){files.push({name:it.slug+'.png',data:new Uint8Array(ab)});}); });
+        .then(function(b){ if(b)return b.arrayBuffer().then(function(ab){files.push({name:ubItemFileName(it),data:new Uint8Array(ab)});}); });
     });
   });
   var finish=function(){
@@ -1458,20 +1518,42 @@ function ubDrawRun(){
   var nb=Math.max(0,Math.min(parseInt(bEl.value,10)||0,bMax));
   uEl.value=nu; bEl.value=nb;
   if(nu+nb===0){ out.innerHTML='<p class="tla-ubdraw-empty" role="alert">'+esc(t('ubdrawempty'))+'</p>'; return; }
-  var picks=ubSample(ubBucket(s,'ultimatum'),nu).concat(ubSample(ubBucket(s,'boon'),nb));
-  var h='<div class="tla-ubdraw-list"><h3 class="tla-ubdraw-h" tabindex="-1">'+esc(t('ubdrawlist'))+'</h3><ol>';
-  picks.forEach(function(it){
-    h+='<li'+(it.pending?' lang="en"':'')+'><b>'+esc(it.name)+'</b> <span class="tla-ubdraw-type">'+esc(ubTypeLine(it))+'</span>'
-      +(it.pending?' <span class="tla-ub-en" title="'+esc(t('ubpending'))+'">EN</span>':'')+'</li>';
+  /* One group per kind, so ultimatums and boons read apart: each a panelled block with a
+     quick name list and, below it, the drawn cards (large, and zoomable on click). */
+  var groups=[{cat:'ultimatum',picks:ubSample(ubBucket(s,'ultimatum'),nu)},
+              {cat:'boon',picks:ubSample(ubBucket(s,'boon'),nb)}]
+             .filter(function(g){return g.picks.length;});
+  var h='';
+  groups.forEach(function(g,gi){
+    h+='<section class="tla-ubdraw-group">';
+    h+='<h3 class="tla-ubdraw-h"'+(gi===0?' tabindex="-1"':'')+'>'+esc(ubLabel(g.cat))
+      +' <span class="tla-ubdraw-n">'+g.picks.length+'</span></h3>';
+    h+='<ol class="tla-ubdraw-list">';
+    g.picks.forEach(function(it){
+      h+='<li'+(it.pending?' lang="en"':'')+'><b>'+esc(it.name)+'</b>'
+        +(it.pending?' <span class="tla-ub-en" title="'+esc(t('ubpending'))+'">EN</span>':'')+'</li>';
+    });
+    h+='</ol><div class="tla-ubdraw-cards">';
+    g.picks.forEach(function(it){ h+='<div class="tla-ubdraw-card">'+ubDetailHTML(it)+'</div>'; });
+    h+='</div></section>';
   });
-  h+='</ol></div><div class="tla-ubdraw-cards">';
-  picks.forEach(function(it){ h+='<div class="tla-ubdraw-card">'+ubDetailHTML(it)+'</div>'; });
-  h+='</div>';
   out.innerHTML=h;
-  var fit=function(){ [].forEach.call(out.querySelectorAll('.tla-ubc-rule'),function(r){ubFit(r);}); };
+  var fit=function(){ [].forEach.call(out.querySelectorAll('.tla-ubc'),function(c){ubFitCard(c);}); };
   fit();
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit).catch(function(){});
   var head=out.querySelector('.tla-ubdraw-h'); if(head){try{head.focus();}catch(e){}}
+}
+/* Zoom a drawn card: render it (art + live text) to a PNG and open it big in the shared
+   image lightbox, so the rule reads at full size. */
+var ubZoomURL=null;
+function ubZoomCard(card){
+  if(!card)return;
+  ubCardToBlob(card).then(function(b){
+    if(!b)return;
+    if(ubZoomURL)try{URL.revokeObjectURL(ubZoomURL);}catch(e){}
+    ubZoomURL=URL.createObjectURL(b);
+    openLightbox(ubZoomURL,(card.querySelector('.tla-ubc-title')||{}).textContent||'');
+  });
 }
 function ubHTML(s){
   if(UB_TABS.indexOf(ubTab)<0)ubTab='ultimatum';
@@ -1513,22 +1595,14 @@ function ubHTML(s){
       h+='<div class="tla-soon"><p class="tla-soon-h">'+esc(t('soon'))+'</p>'
         +'<p class="tla-soon-d">'+esc(t('ubrefsoon'))+'</p></div>';
     }else{
-      var sel=ubChosen(s,cat);
-      h+='<div class="tla-ub-main"><ul class="tla-ub-list" role="listbox" aria-label="'+esc(ubLabel(cat))+'">';
+      /* A gallery of every card in the tab (like 5argon's page), using the full width;
+         a card enlarges to a full-size render in the lightbox on click. */
+      h+='<div class="tla-ub-gallery">';
       items.forEach(function(it){
-        var o=it.slug===sel;
-        /* A refraction names its campaign/scenario under the title in the list, the way
-           5argon's does, so you can tell which one it belongs to before opening it. */
-        var sub=it.subtitle&&it.subtitle.length
-          ?'<span class="tla-ub-isub"'+(it.pending?' lang="en"':'')+'>'
-            +(it.set?ubSymHTML(it.set):'')+'<span>'+runsHTML(it.subtitle,true)+'</span></span>':'';
-        h+='<li role="option" class="tla-ub-item'+(o?' is-sel':'')+(it.pending?' is-pending':'')+'" id="ubopt-'+esc(it.slug)
-          +'" data-ubitem="'+esc(it.slug)+'" aria-selected="'+(o?'true':'false')+'" tabindex="'+(o?'0':'-1')+'">'
-          +'<img class="tla-ub-thumb" src="assets/'+esc(it.thumb)+'" width="'+it.tw+'" height="'+it.th
-          +'" loading="lazy" alt=""><span class="tla-ub-iwrap"><span class="tla-ub-iname"'+(it.pending?' lang="en"':'')+'>'+esc(it.name)+'</span>'+sub+'</span>'
-          +(it.pending?'<span class="tla-ub-en" title="'+esc(t('ubpending'))+'">EN</span>':'')+'</li>';
+        h+='<div class="tla-ub-gcard'+(it.pending?' is-pending':'')+'" data-slug="'+esc(it.slug)+'">'
+          +ubDetailHTML(it)+'</div>';
       });
-      h+='</ul><div class="tla-ub-detail">'+ubDetailHTML(ubFindItem(s,cat,sel))+'</div></div>';
+      h+='</div>';
     }
     h+='</div>';
   });
@@ -1560,7 +1634,7 @@ function ubSelectItem(li){
     var on=x===li; x.classList.toggle('is-sel',on); x.setAttribute('aria-selected',on?'true':'false'); x.tabIndex=on?0:-1;
   });
   var det=main.querySelector('.tla-ub-detail'), it=ubFindItem(s,cat,slug);
-  if(det&&it){det.innerHTML=ubDetailHTML(it); ubFit(det.querySelector('.tla-ubc-rule'));}
+  if(det&&it){det.innerHTML=ubDetailHTML(it); ubFitCard(det.querySelector('.tla-ubc'));}
 }
 function ubTabKeys(e,root){
   var tab=e.target.closest('.tla-ub-tab'); if(!tab)return;
@@ -1588,11 +1662,11 @@ function bindUB(){
     if(e.target.closest('#ubdraw-open')){openDraw(); return;}
     var da=e.target.closest('#ubdownall'); if(da){ubDownloadAll(da); return;}
     var tab=e.target.closest('.tla-ub-tab'); if(tab){ubSelectTab(root,tab.getAttribute('data-ubtab')); tab.focus(); return;}
-    var li=e.target.closest('.tla-ub-item'); if(li){ubSelectItem(li); li.focus();}
+    // a gallery card (anywhere but its download button) enlarges in the lightbox
+    var gc=e.target.closest('.tla-ub-gcard .tla-ubc'); if(gc)ubZoomCard(gc);
   });
   root.addEventListener('keydown',function(e){
-    if(e.target.closest('.tla-ub-tab')){ubTabKeys(e,root); return;}
-    var li=e.target.closest('.tla-ub-item'); if(li)ubListKeys(e,li);
+    if(e.target.closest('.tla-ub-tab'))ubTabKeys(e,root);
   });
   ubFitVisible(root);
   /* The card fonts load lazily; their real metrics differ from the fallback, so the
@@ -2291,9 +2365,11 @@ function dialogs(){
      close:function(){closeThemeMenu(); elTheme.focus();}},
     {box:elSModal,   isOpen:searchOpen,  close:closeSearch},
     {box:elFigModal, isOpen:figInfoOpen, close:closeFigInfo},
-    {box:elLb,       isOpen:lbOpen,      close:closeLightbox},
     {box:elDonate,   isOpen:donateOpen,  close:closeDonate},
-    {box:elUbDraw,   isOpen:drawOpen,    close:closeDraw}
+    {box:elUbDraw,   isOpen:drawOpen,    close:closeDraw},
+    /* Last, so it wins when opened over another dialog (a drawn card zoomed over the
+       draw modal): openDialog() takes the last open entry, and trapTab/Escape follow it. */
+    {box:elLb,       isOpen:lbOpen,      close:closeLightbox}
   ];
 }
 function openDialog(){
@@ -2542,7 +2618,9 @@ function wireEvents(){
   elUbDraw.addEventListener('click',function(e){
     if(e.target===elUbDraw){closeDraw(); return;}
     // the result cards carry their own download button, inside this modal
-    var dl=e.target.closest('.tla-ubc-dl'); if(dl)ubDownload(dl.closest('.tla-ubc'));
+    var dl=e.target.closest('.tla-ubc-dl'); if(dl){ubDownload(dl.closest('.tla-ubc')); return;}
+    // clicking a drawn card (anywhere but its download button) zooms it
+    var card=e.target.closest('.tla-ubdraw-card .tla-ubc'); if(card)ubZoomCard(card);
   });
   document.getElementById('tla-ubdraw-form').addEventListener('submit',function(e){e.preventDefault(); ubDrawRun();});
   /* Live clamp to [0, max]: the field never shows an out-of-range count. The form is
