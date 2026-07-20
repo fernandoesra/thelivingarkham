@@ -223,7 +223,16 @@ Notes:
 
 The Resources shelf carries a live **taboo list**, built from ArkhamDB's public API (`tools/taboos.py` → `data/taboos_<code>.json`). Every card on the current taboo list is grouped the way the book groups them — *Chained/Unchained* (an experience cost), *Mutated* (a rules-text change) and *Forbidden* (barred) — each with its collection number, its product icon (matched to the FAQ's own icon tables), and a **direct link** to the card on ArkhamDB in the reader's language. The mutation text ArkhamDB stores is English only, so it is tagged `lang="en"` and the list cross-links to the FAQ's own taboo chapter for the full write-up. It refreshes as part of `ingest.py` (network, best-effort: an offline build keeps the committed data). Run it on its own with `python tools/taboos.py`.
 
-The **Ultimatums, Boons & Refractions** viewer merges the FAQ's chapter-1 refractions (5argon's card art, `tools/ub_cap1.py`) with the Grimoire's own, filterable by chapter (Cap. 1 / Cap. 2) and, within the refractions, by campaign and scenario.
+The **Ultimatums, Boons & Refractions** viewer merges the FAQ's chapter-1 refractions (5argon's card art, `tools/ub_cap1.py`) with the Grimoire's own, filterable by chapter (Cap. 1 / Cap. 2) and, within the refractions, by campaign and scenario. Each refraction card carries its scenario's encounter-set symbol, its campaign symbol and its illustrator: the campaign mark is derived from the FAQ's own icon table, and the scenario marks are cut from the artist's vector symbol sheets by `tools/scenario_icons.py` (which records exactly which mark on which sheet is which scenario — never a bitmap trace).
+
+## Corrections
+
+The parser is faithful: it copies the book's words and does not guess. A content audit turns up two things that leaves behind, and `tools/text_fixes.json` answers both, once and visibly, instead of hiding them in the parser:
+
+* **extraction** — the PDF says the right thing but its text layer breaks it (a word split across a line break, a hyphen lost at one);
+* **source** — the official PDF carries the typo itself. We correct it rather than teach it, and the rule records that we are knowingly diverging from the printed text.
+
+Every rule must match at least once or the build says so, so a rule left over from a reprint is never silently wrong. `python tools/text_fixes.py` lists them.
 
 ## How it fits together
 

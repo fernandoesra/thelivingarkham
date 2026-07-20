@@ -15,7 +15,7 @@ Outputs data/grimoire_<lang>.json plus a validation report.
 """
 import json, re, sys, os, unicodedata
 from collections import Counter
-import langpack, history, ultimatums, reprints, cardlinks
+import langpack, history, ultimatums, reprints, cardlinks, text_fixes
 from langpack import slugify
 
 def norm(t):
@@ -935,6 +935,10 @@ def finalize(pack, allsecs, title_index):
                 if any(r.get('red') for b in e['blocks'] for r in b['runs']):
                     changed.setdefault(e['id'], []).append(last)
     versions, whatsnew = apply_versions(allsecs, pack, added, changed)
+    # The curated text corrections go here: AFTER the edition diff, so a correction never reads as
+    # the newest edition having rewritten the entry; BEFORE the linkers, so a word we just rejoined
+    # ("Ju gador" -> "Jugador") can still be matched and linked.
+    text_fixes.apply(allsecs, pack.code)
     # Card references in the errata/FAQ ("Name ( 20)") -> ArkhamDB search links. Before
     # the auto-linker, so a card name like "Hunter's Instinct" is claimed whole here and
     # not half-eaten by the glossary auto-link matching the keyword "Hunter" inside it.

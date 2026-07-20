@@ -448,6 +448,20 @@
       "info": "<p><b>Coleccionista</b> — Apoyo · Neutral. En la esquina superior izquierda, donde iría el coste de recursos, lleva la imagen dorada que identifica a las cartas de recompensa de campaña.</p>"
     },
     {
+      "name": "montage-weakness-amnesia",
+      "page": 42,
+      "srcpage": 42,
+      "clip": [
+        148,
+        100,
+        252,
+        180
+      ],
+      "entry": "Debilidades básicas aleatorias",
+      "alt": "La carta de Debilidad básica Amnesia: el símbolo de debilidad sobre la banda de Traición, con el rasgo Locura.",
+      "info": "<p><b>Amnesia</b> — Traición · Debilidad básica · Locura. <i>Revelación – Elige 1 carta de tu mano y…</i></p><p>El libro la imprime aquí como ejemplo del símbolo que identifica a las Debilidades básicas.</p>"
+    },
+    {
       "name": "montage-level",
       "page": 41,
       "srcpage": 41,

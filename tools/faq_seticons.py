@@ -343,6 +343,15 @@ def write_svgs(svgs, outdir=FAQSETS_DIR):
 PRODUCTS_DIR = os.path.join(langpack.ROOT, 'assets', 'products')
 ICONS_DIR = os.path.join(langpack.ROOT, 'assets', 'icons')
 CORESET_ART = 'faq-coreset'            # the core set's icon is the elder-sign glyph, not vector
+# A row whose mark the page defeats the tracer on, answered with the real vector instead. The
+# "Return to the Night of the Zealot" mark is a white star knocked OUT of a filled disc: tracing
+# the page's filled paths yields the disc alone (a black blob), because the star is a hole, not a
+# path. Its true vector is cut from the artist's symbol sheet by tools/scenario_icons.py.
+# Keyed by the folded product name, so it answers in every language.
+ICONREF_OVERRIDES = {
+    'regreso a la noche de la fanatica': 'return-night-of-the-zealot',
+    'return to the night of the zealot': 'return-night-of-the-zealot',
+}
 _HEAD_MIN = 15.0                       # a group heading is Teutonic and at least this big
 _COL_SPLIT = 260.0                     # left/right column boundary on the two-up icon page
 
@@ -451,6 +460,9 @@ def extract_iconref(pdf_path):
         if fp and svg:
             art = 'fc-' + fp[1:] if fp.startswith('e') else fp
             svgs[art] = svg
+        over = ICONREF_OVERRIDES.get(langpack.fold(txt))
+        if over:
+            art = over                    # the page defeats the tracer here; use the real vector
         g['items'].append({'name': txt, 'art': art})
     for g in groups:
         g.pop('_wrap', None); g.pop('_skip', None)

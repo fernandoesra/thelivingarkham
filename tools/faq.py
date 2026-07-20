@@ -36,6 +36,7 @@ import langpack
 import parse_grimoire
 import assemble
 import cardlinks
+import text_fixes
 import faq_seticons
 
 DATA_DIR = langpack.DATA_DIR
@@ -569,6 +570,9 @@ def build(pack, grimoire_data):
     # Tidy any inline set icon a line-wrap left off its reference parenthesis, before the card
     # linker reads "Name ( <icon> 20)" through those parentheses.
     reseat_seticons(sections)
+    # The curated text corrections (see tools/text_fixes.py), before the linkers so a rejoined
+    # word can still be matched.
+    text_fixes.apply(sections, pack.code)
     # Links: card refs -> ArkhamDB first (so a whole card name is not half-eaten by the
     # glossary auto-linker), then cross-refs and auto-links into the GRIMOIRE.
     cards = link_cards(sections, pack)

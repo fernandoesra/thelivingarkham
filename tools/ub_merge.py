@@ -28,6 +28,18 @@ def _ub(data):
     return None
 
 
+def _unlink(runs):
+    """A copy of the runs with cross-reference links flattened to plain text (see merge)."""
+    out = []
+    for r in runs or []:
+        if r.get('kind') in ('link', 'flowref'):
+            out.append({'kind': 'text', 't': r.get('t', ''), 'bold': r.get('bold', False),
+                        'italic': r.get('italic', False), 'ref': False})
+        else:
+            out.append(dict(r))
+    return out
+
+
 def merge(datadir=None, quiet=False):
     datadir = datadir or langpack.DATA_DIR
     paths = {}
@@ -64,6 +76,14 @@ def merge(datadir=None, quiet=False):
                     continue                      # English is the canon; nothing to fill
                 p = {k: v for k, v in it.items() if k != 'since'}
                 p['pending'] = True
+                # The English text carries ENGLISH glossary ids ("glossary--deckbuilding"), which
+                # do not exist in this language's corpus — its cross-references would point at
+                # nothing. Copy the runs and flatten those links to plain text: the card still
+                # reads in English, and no link dangles. They come back the day it is translated.
+                if it.get('blocks'):
+                    p['blocks'] = [{**b, 'runs': _unlink(b.get('runs'))} for b in it['blocks']]
+                if it.get('subtitle'):
+                    p['subtitle'] = _unlink(it['subtitle'])
                 if it.get('since'):
                     p['sinceVer'] = it['since']
                 pend.append(p)

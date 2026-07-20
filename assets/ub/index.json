@@ -370,7 +370,8 @@
    "thumb": "ub/thumbs/ultimatum-of-death.webp",
    "tw": 132,
    "th": 183,
-   "illus": "Greg Bobrowski"
+   "illus": "Greg Bobrowski",
+   "set": "scen-the-pallid-mask"
   },
   "ultimatum-of-invisibility": {
    "cat": "ultimatum",
@@ -382,7 +383,8 @@
    "thumb": "ub/thumbs/ultimatum-of-invisibility.webp",
    "tw": 132,
    "th": 183,
-   "illus": "Romana Kendelic"
+   "illus": "Romana Kendelic",
+   "set": "scen-undimensioned-and-unseen"
   },
   "ultimatum-of-multiplication": {
    "cat": "ultimatum",
@@ -394,7 +396,8 @@
    "thumb": "ub/thumbs/ultimatum-of-multiplication.webp",
    "tw": 132,
    "th": 183,
-   "illus": "Tomasz Jedruszek"
+   "illus": "Tomasz Jedruszek",
+   "set": "scen-undimensioned-and-unseen"
   },
   "ultimatum-of-scorched-earth": {
    "cat": "ultimatum",
@@ -432,7 +435,8 @@
    "thumb": "ub/thumbs/ultimatum-of-the-man.webp",
    "tw": 132,
    "th": 183,
-   "illus": "Adam Lane"
+   "illus": "Adam Lane",
+   "set": "scen-the-pallid-mask"
   },
   "ultimatum-of-venom": {
    "cat": "ultimatum",
@@ -468,7 +472,8 @@
    "thumb": "ub/thumbs/ultimatum-of-the-drowned.webp",
    "tw": 132,
    "th": 183,
-   "illus": "Daria Khlebnikova"
+   "illus": "Daria Khlebnikova",
+   "set": "scen-into-the-maelstrom"
   },
   "ultimatum-of-the-faulty-carburetor": {
    "cat": "ultimatum",
@@ -480,7 +485,8 @@
    "thumb": "ub/thumbs/ultimatum-of-the-faulty-carburetor.webp",
    "tw": 132,
    "th": 183,
-   "illus": "Jorge Ramos Márquez"
+   "illus": "Jorge Ramos Márquez",
+   "set": "scen-horror-in-high-gear"
   },
   "ultimatum-of-the-sleeper": {
    "cat": "ultimatum",
@@ -492,7 +498,8 @@
    "thumb": "ub/thumbs/ultimatum-of-the-sleeper.webp",
    "tw": 132,
    "th": 183,
-   "illus": "JB Casacop"
+   "illus": "JB Casacop",
+   "set": "scen-doom-of-arkham-2"
   },
   "ultimatum-of-the-unspeakable-name": {
    "cat": "ultimatum",
@@ -516,7 +523,8 @@
    "thumb": "ub/thumbs/boon-of-atonement.webp",
    "tw": 132,
    "th": 183,
-   "illus": "Borja Pindado"
+   "illus": "Borja Pindado",
+   "set": "scen-shades-of-suffering"
   },
   "boon-of-bliss": {
    "cat": "boon",
@@ -528,7 +536,8 @@
    "thumb": "ub/thumbs/boon-of-bliss.webp",
    "tw": 132,
    "th": 183,
-   "illus": "Brian Valenzuela"
+   "illus": "Brian Valenzuela",
+   "set": "scen-fate-of-the-vale"
   },
   "boon-of-the-dreamer": {
    "cat": "boon",
@@ -540,7 +549,8 @@
    "thumb": "ub/thumbs/boon-of-the-dreamer.webp",
    "tw": 132,
    "th": 183,
-   "illus": "Borja Pindado"
+   "illus": "Borja Pindado",
+   "set": "scen-where-the-gods-dwell"
   },
   "boon-of-the-dance": {
    "cat": "boon",
@@ -564,7 +574,8 @@
    "thumb": "ub/thumbs/boon-of-the-miners.webp",
    "tw": 132,
    "th": 183,
-   "illus": "Mauro Dal Bo"
+   "illus": "Mauro Dal Bo",
+   "set": "scen-fate-of-the-vale"
   }
  }
 }

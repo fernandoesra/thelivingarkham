@@ -1,4 +1,17 @@
 {
-  "_comment": "Per-refraction icon codes, language-neutral. 'set' is the encounter-set symbol (section XV, encounter-icons); 'collection' is the product/box symbol (section XIV, icon-reference). Both are SVG names under assets/products/.",
-  "ultimatum-of-scorched-earth": { "set": "e2-217-216", "collection": "AHC100" }
+  "_comment": "Per-refraction icon codes, language-neutral. 'set' is the scenario's encounter-set symbol shown in the diamond above the type line (built by tools/scenario_icons.py from the artist's vector sheets); 'collection' is the product/box symbol in the bottom corner. Both are SVG names under assets/products/. A chapter-1 refraction whose 'collection' is omitted gets its campaign symbol derived from the FAQ's own campaign-icon table (see tools/ub_cap1.py); a campaign-wide refraction has no 'set' at all.",
+
+  "ultimatum-of-scorched-earth": { "set": "e2-217-216", "collection": "AHC100" },
+
+  "ultimatum-of-invisibility": { "set": "scen-undimensioned-and-unseen" },
+  "ultimatum-of-multiplication": { "set": "scen-undimensioned-and-unseen" },
+  "ultimatum-of-death": { "set": "scen-the-pallid-mask" },
+  "ultimatum-of-the-man": { "set": "scen-the-pallid-mask" },
+  "ultimatum-of-the-faulty-carburetor": { "set": "scen-horror-in-high-gear" },
+  "ultimatum-of-the-drowned": { "set": "scen-into-the-maelstrom" },
+  "boon-of-the-dreamer": { "set": "scen-where-the-gods-dwell" },
+  "boon-of-atonement": { "set": "scen-shades-of-suffering" },
+  "boon-of-bliss": { "set": "scen-fate-of-the-vale" },
+  "boon-of-the-miners": { "set": "scen-fate-of-the-vale" },
+  "ultimatum-of-the-sleeper": { "set": "scen-doom-of-arkham-2" }
 }

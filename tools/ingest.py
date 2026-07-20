@@ -162,6 +162,18 @@ def main(argv):
     # Grimoire's ub.refractions, tagged chapter='cap1' (existing items get 'both'/'cap2'), so
     # the viewer's chapter filter can show cap 1, cap 2 or all. Runs AFTER the cross-language
     # fill so its campaign-ordered refractions are the final word (ub_merge sorts by name).
+    # The scenario (encounter-set) symbols the refraction cards show, cut from the artist's vector
+    # sheets. Those live outside the repo, so this is best-effort: without them the committed
+    # assets/products/scen-*.svg are kept.
+    if built:
+        step('scenario icons — from the vector symbol sheets')
+        try:
+            import scenario_icons
+            scenario_icons.build()
+        except Exception as e:
+            print(f'  [warn] scenario icons not refreshed (keeping the committed ones): '
+                  f'{type(e).__name__}: {e}', file=sys.stderr)
+
     if built:
         step('ultimatums & boons — FAQ chapter-1 refractions')
         import ub_cap1
@@ -182,6 +194,11 @@ def main(argv):
             except Exception as e:
                 print(f'  [warn] taboo list not refreshed for {pack.code} '
                       f'(keeping the committed one): {type(e).__name__}: {e}', file=sys.stderr)
+
+    # Now that every corpus has been through, say which curated corrections found nothing.
+    if built:
+        import text_fixes
+        text_fixes.report_unused()
 
     step('language registry')
     langpack.write_registry()
