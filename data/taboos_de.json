@@ -43,7 +43,7 @@
           "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
           "position": 60,
           "cat": "chained",
-          "art": "fc-5-07551757",
+          "art": "fc-3-195d46d1",
           "xp": 1
         },
         {
@@ -53,7 +53,7 @@
           "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
           "position": 99,
           "cat": "chained",
-          "art": "fc-18-f732ab51",
+          "art": "fc-18-007cab1a",
           "xp": 2
         },
         {
@@ -101,7 +101,7 @@
           "packName": "Grundspiel",
           "position": 73,
           "cat": "chained",
-          "art": "fc-1-88b4c17d",
+          "art": "faq-coreset",
           "xp": 2
         },
         {
@@ -158,7 +158,7 @@
           "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
           "position": 37,
           "cat": "chained",
-          "art": "fc-5-07551757",
+          "art": "fc-3-195d46d1",
           "xp": -2
         },
         {
@@ -196,7 +196,7 @@
           "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
           "position": 85,
           "cat": "chained",
-          "art": "fc-5-07551757",
+          "art": "fc-3-195d46d1",
           "xp": 2
         },
         {
@@ -206,7 +206,7 @@
           "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
           "position": 98,
           "cat": "chained",
-          "art": "fc-5-07551757",
+          "art": "fc-3-195d46d1",
           "xp": 2
         },
         {
@@ -216,7 +216,7 @@
           "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
           "position": 31,
           "cat": "chained",
-          "art": "fc-5-07551757",
+          "art": "fc-3-195d46d1",
           "xp": 1
         },
         {
@@ -258,7 +258,7 @@
           "packName": "Die Traumfresser",
           "position": 22,
           "cat": "mutated",
-          "art": "fc-1-c6c64ff2",
+          "art": "fc-1-32b441de",
           "text": "This card's constant ability now reads: \"If this card has no charges, remove it from the game.\""
         },
         {
@@ -287,7 +287,7 @@
           "packName": "Der gebrochene Kreis",
           "position": 20,
           "cat": "mutated",
-          "art": "fc-12-be1b26ea",
+          "art": "fc-12-05e0449f",
           "text": "This card's ability now reads \"<b>Parley.</b> Choose a non-[[Elite]] enemy at your location…\""
         },
         {
@@ -346,7 +346,7 @@
           "packName": "Grundspiel",
           "position": 33,
           "cat": "mutated",
-          "art": "fc-1-88b4c17d",
+          "art": "faq-coreset",
           "text": "This card's [reaction] ability now reads: \"After you successfully investigate, exhaust Dr. Milan Christopher...\""
         },
         {
@@ -374,7 +374,7 @@
           "packName": "Das Vergessene Zeitalter",
           "position": 32,
           "cat": "mutated",
-          "art": "fc-3-9508e872",
+          "art": "fc-3-383a8afd",
           "text": "This card now reads \"a non-[elder_sign] symbol\" instead of \"a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol.\""
         },
         {
@@ -422,7 +422,7 @@
           "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
           "position": 59,
           "cat": "mutated",
-          "art": "fc-5-07551757",
+          "art": "fc-3-195d46d1",
           "text": "This card’s [reaction] ability reads: \"[reaction] When an investigator draws a non-weakness treachery card, if their location's shroud is less than Ravenous Myconid's growth...\""
         },
         {
@@ -460,7 +460,7 @@
           "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
           "position": 30,
           "cat": "mutated",
-          "art": "fc-5-07551757",
+          "art": "fc-3-195d46d1",
           "text": "This card’s ability reads: \"Resolve an [action] ability on a level 0–3 [[Tool]] or [[Weapon]] asset you control, ignoring all costs.\""
         },
         {
@@ -507,7 +507,7 @@
           "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
           "position": 26,
           "cat": "mutated",
-          "art": "fc-5-07551757",
+          "art": "fc-3-195d46d1",
           "text": "This card’s ability reads: \"...If you succeed, play the chosen asset, reducing its cost by the amount you succeeded by.\""
         },
         {
@@ -517,7 +517,7 @@
           "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
           "position": 32,
           "cat": "mutated",
-          "art": "fc-18-f732ab51",
+          "art": "fc-18-007cab1a",
           "text": "This card's ability gains: \"(Max twice per game.)\""
         },
         {
@@ -536,7 +536,7 @@
           "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
           "position": 98,
           "cat": "mutated",
-          "art": "fc-18-f732ab51",
+          "art": "fc-18-007cab1a",
           "text": "This card should read \"basic actions\" instead of \"actions.\""
         },
         {
@@ -546,7 +546,7 @@
           "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
           "position": 100,
           "cat": "mutated",
-          "art": "fc-18-f732ab51",
+          "art": "fc-18-007cab1a",
           "text": "This card should read \"basic actions\" instead of \"actions.\""
         },
         {
@@ -576,7 +576,7 @@
           "packName": "Die Traumfresser",
           "position": 2,
           "cat": "mutated",
-          "art": "fc-1-c6c64ff2",
+          "art": "fc-1-32b441de",
           "text": "This investigator now reads: \"Deck Size: 50\" and \"Deckbuilding Requirements (do not count towards deck size): 3 copies of Occult Evidence...\""
         },
         {
@@ -595,7 +595,7 @@
           "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
           "position": 45,
           "cat": "mutated",
-          "art": "fc-18-f732ab51",
+          "art": "fc-18-007cab1a",
           "text": "This card's constant ability now reads: \"...you get +1 [intellect], +1 [agility], and ignore the first attack of opportunity you take each turn.\""
         },
         {
@@ -605,7 +605,7 @@
           "packName": "Das Vermächtnis von Dunwich",
           "position": 2,
           "cat": "mutated",
-          "art": "fc-6-9264a7b8",
+          "art": "fc-5-6cc1b92c",
           "text": "This card's [reaction] ability gains: \"(Limit once per round.)\""
         },
         {
@@ -624,7 +624,7 @@
           "packName": "Das Vermächtnis von Dunwich",
           "position": 29,
           "cat": "mutated",
-          "art": "fc-6-9264a7b8",
+          "art": "fc-5-6cc1b92c",
           "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
         },
         {
@@ -680,7 +680,7 @@
           "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
           "position": 55,
           "cat": "mutated",
-          "art": "fc-18-f732ab51",
+          "art": "fc-18-007cab1a",
           "text": "This card gains: \"Max once per round.\""
         },
         {
@@ -690,7 +690,7 @@
           "packName": "Grundspiel",
           "position": 50,
           "cat": "mutated",
-          "art": "fc-1-88b4c17d",
+          "art": "faq-coreset",
           "text": "This card now reads: \"Disengage from each enemy engaged with you and move to a connecting location with no enemies.\""
         },
         {
@@ -757,7 +757,7 @@
           "packName": "Die Innsmouth-Verschwörung",
           "position": 3,
           "cat": "mutated",
-          "art": "fc-2-ecbc80c7",
+          "art": "fc-2-16c981ac",
           "text": "This card's [reaction] ability now reads: \"After you discover 1 or more clues at a location with an enemy: Either discover 1 additional clue at that location, or automatically evade that enemy if it is non-[[Elite]]. (Limit once per round.)\""
         },
         {
@@ -776,7 +776,7 @@
           "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
           "position": 113,
           "cat": "mutated",
-          "art": "fc-18-f732ab51",
+          "art": "fc-18-007cab1a",
           "text": "The first line of this card gains: \"Campaign Mode only.\""
         },
         {
@@ -804,7 +804,7 @@
           "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
           "position": 19,
           "cat": "mutated",
-          "art": "fc-18-f732ab51",
+          "art": "fc-18-007cab1a",
           "text": "This card's <b>Forced</b> effect now reads: \"<b>Forced</b> – When your first turn of the game begins: One at a time, play up to 5 [[Item]] assets...\""
         },
         {
@@ -877,7 +877,7 @@
           "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
           "position": 93,
           "cat": "mutated",
-          "art": "fc-18-f732ab51",
+          "art": "fc-18-007cab1a",
           "text": "This card's parenthetical now reads: \"...(If you succeed by 3 or more, you may exhaust Cyclopean Hammer to instead deal +2 damage and move the enemy up to two locations away from you.)\""
         }
       ]
@@ -892,7 +892,7 @@
           "packName": "Harvey Walters",
           "position": 33,
           "cat": "forbidden",
-          "art": "fc-3-b7886afb",
+          "art": "fc-2-1416ddd0",
           "text": "Forbidden."
         },
         {
@@ -902,7 +902,7 @@
           "packName": "Das Vermächtnis von Dunwich",
           "position": 26,
           "cat": "forbidden",
-          "art": "fc-6-9264a7b8",
+          "art": "fc-5-6cc1b92c",
           "text": "Forbidden."
         },
         {
@@ -912,7 +912,7 @@
           "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
           "position": 76,
           "cat": "forbidden",
-          "art": "fc-18-f732ab51",
+          "art": "fc-18-007cab1a",
           "text": "Forbidden."
         }
       ]

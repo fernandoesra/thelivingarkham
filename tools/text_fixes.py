@@ -141,8 +141,11 @@ def apply(sections, lang, quiet=False):
                     it['name'] = fix(it['name'])
                 fix_runs(it.get('subtitle'))
                 fix_blocks(it.get('blocks'))
-        # icon tables and anatomy keys carry prose too
+        # icon tables and anatomy keys carry prose too — headings included, which is where
+        # the Italian edition misprints its starter-deck table's name
         for g in s.get('groups', []) or []:
+            if isinstance(g.get('title'), str):
+                g['title'] = fix(g['title'])
             for it in g.get('items', []) or []:
                 if isinstance(it.get('name'), str):
                     it['name'] = fix(it['name'])

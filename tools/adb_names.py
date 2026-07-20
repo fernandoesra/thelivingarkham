@@ -78,7 +78,12 @@ def report_unused(quiet=False):
 # A reference can carry SEVERAL numbers ("( 29, 5)"): one card, printed in two products. The
 # first is the one the page names first, and its icon is the first too, so that is the printing
 # the link opens.
-_BRACKET = re.compile(r'\([\s\x00]*(\d+)[a-z]?(?:[\s,\x00]*\d+[a-z]?)*[\s\x00]*\)')
+# "( <icon> 20)", and also "(Grundspiel <icon> 73)" — the German edition names the product
+# inside the bracket as well as marking it. The name is allowed only when an icon follows
+# it, which is what keeps "(level 3)" or "(2016 or 2021)" from reading as a card reference:
+# those carry no mark, and a bracket with no mark still has to be just a number.
+_BRACKET = re.compile(
+    r'\(\s*(?:[^()\d\x00]{1,28}(?=\x00))?[\s\x00]*(\d+)[a-z]?(?:[\s,\x00]*\d+[a-z]?)*[\s\x00]*\)')
 # No punctuation stops the search backwards. It used to — a full stop, a bracket, a quote —
 # and every one of those cut a real name in half: `Dr. Milan Christopher`, `“Let me handle
 # this!”`, `Mr. “Rook”`, `Strange Solution (Restorative Concoction)`, `Barricade (level 3)`.

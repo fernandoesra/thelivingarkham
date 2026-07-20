@@ -40,9 +40,14 @@ def _campaign_icon_map(fdata):
     for s in fdata.get('sections', []):
         if s.get('kind') != 'icons':
             continue
-        for g in s.get('groups', []):
-            if not re.search(r'campa|campaign', langpack.fold(g.get('title', ''))):
-                continue
+        groups = s.get('groups', [])
+        # The campaigns are the chapter's first table in every edition, and that is the
+        # test — the word is only used to confirm it. "campa" alone matched Spanish,
+        # English and Italian and missed German, whose table is headed "Kampagnen": every
+        # German refraction lost its campaign symbol to one letter.
+        named = [g for g in groups
+                 if re.search(r'camp|kamp', langpack.fold(g.get('title', '')))]
+        for g in (named or groups[:1]):
             for it in g.get('items', []):
                 name, art = it.get('name', ''), it.get('art', '')
                 if not art:

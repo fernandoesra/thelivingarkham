@@ -17,9 +17,19 @@ so this simply finds nothing to link in a language whose errata/FAQ are still em
 """
 import re
 
-_PARTICLE = r"(?:de|del|la|las|los|y|en|a|con|para|por|of|the|and|or|in|on|at|to|from|for|with|von|van)"
+# The small words a title keeps in lower case. Every language the site ships has to be
+# here or its titles are cut at the first one: Italian "Uccisore di Mostri" and "La
+# Conoscenza è Potere" linked only their last word, because "di" and "è" ended the run.
+_PARTICLE = (r"(?:de|del|la|las|los|y|en|a|con|para|por"
+             r"|of|the|and|or|in|on|at|to|from|for|with"
+             r"|di|dei|del|della|dello|degli|delle|dell|al|alla|allo|ai|agli|alle"
+             r"|il|lo|le|un|una|uno|su|tra|fra|ed|è|e"
+             r"|von|van|der|die|das|den|dem|des|ein|eine|einer|eines"
+             r"|zu|zum|zur|im|auf|aus|nach|bei|um|vor|und|ohne)")
 _W = r"[\w’‘'.\-]"                     # a card-name word: letters, apostrophes, dot, hyphen
-_NAME = r"[A-ZÁÉÍÓÚÜÑ]" + _W + r"*(?:[ ](?:[A-ZÁÉÍÓÚÜÑ]" + _W + r"*|" + _PARTICLE + r"))*"
+# Any capital, not just the Spanish ones: German titles open on Ä/Ö/Ü and Italian on À/È.
+_CAP = r"[A-ZÁÉÍÓÚÜÑÀÈÌÒÙÄÖÜß]"
+_NAME = _CAP + _W + r"*(?:[ ](?:" + _CAP + _W + r"*|" + _PARTICLE + r"))*"
 _REF = re.compile(r"(" + _NAME + r")\s*(\(\s*\d+(?:\s*,\s*\d+)*\s*\))")
 
 

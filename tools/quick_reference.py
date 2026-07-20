@@ -162,7 +162,30 @@ def prose(pack):
     # split the mini-columns (a two-column action list comes back as two cols), so this
     # reads each column top to bottom instead of zig-zagging between them and shredding the
     # sentences, which is exactly what a plain y-sort did to the English action types.
-    keep.sort(key=lambda ln: (ln['col'], round(ln['y'])))
+    # Within one column, a wide gap between left edges is a second mini-column, not an
+    # indent. collect_lines splits the sheet's mini-columns in the Spanish and English
+    # editions, but the German and Italian ones come back as a single column with two left
+    # edges 139pt apart — and read by height alone the two halves interleave line by line
+    # ("Ermitteln … / einer Kartenfähigkeit … / an deinem Ort. / an deinem Ort."). The
+    # threshold is far wider than any bullet indent, so a column that really is one column
+    # keeps its single group and sorts exactly as before.
+    MINI_GAP = 60.0
+    starts = {}
+    for c in {ln['col'] for ln in keep}:
+        xs = sorted({round(ln['x0'], 1) for ln in keep if ln['col'] == c})
+        groups = []
+        for x in xs:
+            if groups and x - groups[-1][-1] <= MINI_GAP:
+                groups[-1].append(x)
+            else:
+                groups.append([x])
+        starts[c] = [g[0] for g in groups]
+
+    def mini(ln):
+        gs = starts[ln['col']]
+        return max((i for i, g in enumerate(gs) if ln['x0'] >= g - 0.5), default=0)
+
+    keep.sort(key=lambda ln: (ln['col'], mini(ln), round(ln['y'])))
 
     out, raw = [], []
 

@@ -47,6 +47,41 @@ def _filled(d):
     return 'f' in d['type'] and _dark(d.get('fill'))
 
 
+def _pale(f):
+    """Paper, or the ink's opposite — what a knocked-out mark is drawn in."""
+    return bool(f) and len(f) == 3 and min(f) > .75
+
+
+def _knocked_out(drawings):
+    """The white paths of a mark printed in reverse, or [] if it is printed normally.
+
+    Some products' marks are not drawn in ink on paper: they are drawn in PAPER on a plate
+    of ink — a shape cut out of a filled square. Tracing "the dark filled paths" then yields
+    the plate and throws the mark away, which is how the German edition's "Rückkehr zu…"
+    products came out as blank squares. (The English edition does this to exactly one mark,
+    Return to the Night of the Zealot, which is why that one alone needed a hand-written
+    answer.)
+
+    A plate is recognisable without knowing anything about the artwork: it is dark, it is
+    almost featureless (a rectangle or a rounded rectangle — a couple of items), and the
+    pale paths sit inside it and carry the detail. Requiring the pale paths to be the more
+    detailed of the two keeps a mark that merely sits on a tinted background from inverting."""
+    plates = [d for d in drawings if 'f' in d['type'] and _dark(d.get('fill'))
+              and len(d['items']) <= 2]
+    if not plates:
+        return None, []
+    plate = max(plates, key=lambda d: d['rect'].get_area())
+    inside = [d for d in drawings
+              if 'f' in d['type'] and _pale(d.get('fill')) and d is not plate
+              and d['rect'].x0 >= plate['rect'].x0 - 1 and d['rect'].x1 <= plate['rect'].x1 + 1
+              and d['rect'].y0 >= plate['rect'].y0 - 1 and d['rect'].y1 <= plate['rect'].y1 + 1]
+    if not inside:
+        return None, []
+    if sum(len(d['items']) for d in inside) <= sum(len(d['items']) for d in plates):
+        return None, []
+    return plate, inside
+
+
 def _rect(d):
     r = d['rect']
     return (r.x0, r.y0, r.x1, r.y1)
@@ -319,7 +354,7 @@ def _fmt(v):
     return f'{v:.2f}'.rstrip('0').rstrip('.')
 
 
-def icon_svg(page, box):
+def icon_svg(page, box, inner_only=False):
     """The icon, as an SVG path normalised into a 0..100 viewBox.
 
     Segments are chained: a fresh `M` per segment would cut every subpath into an open
@@ -332,12 +367,7 @@ def icon_svg(page, box):
     def P(p):
         return _fmt((p.x - ox) * sc), _fmt((p.y - oy) * sc)
 
-    paths = []
-    for d in page.get_drawings():
-        if not _filled(d):
-            continue
-        if not _inside(_rect(d), box, .6):
-            continue
+    def segs(d):
         parts = []
         cur = None
         for it in d['items']:
@@ -359,6 +389,40 @@ def icon_svg(page, box):
                 for p in pts[1:]:
                     parts.append('L%s %s' % P(p))
                 parts.append('Z'); cur = None
+        return parts
+
+    here = [d for d in page.get_drawings() if _inside(_rect(d), box, .6)]
+    if inner_only:
+        # The mark's identity rather than its printing: the shape cut out of the plate,
+        # without the plate. Editions disagree about the plate — the German book sets its
+        # "Rückkehr zu…" marks on a square where every other edition uses a disc — but they
+        # all cut out the same shape, so this is what says which product it is.
+        p, ins = _knocked_out(here)
+        if p is None:
+            return None
+        parts = []
+        for d in ins:
+            parts.extend(segs(d))
+        return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">'
+                '<path fill-rule="evenodd" d="%s"/></svg>' % ''.join(parts)) if parts else None
+    # A mark printed in reverse: the plate and the shapes cut out of it are ONE path with
+    # an even-odd rule, so the pale shapes become holes. Emitting the pale paths on their
+    # own would draw the mark the right way up but lose the plate around it — which is a
+    # different mark: "Return to X" is exactly "X" inside a filled disc.
+    plate, knocked = _knocked_out(here)
+    if plate is not None:
+        parts = []
+        for d in [plate] + knocked:
+            parts.extend(segs(d))
+        if parts:
+            return ('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">'
+                    '<path fill-rule="evenodd" d="%s"/></svg>' % ''.join(parts))
+
+    paths = []
+    for d in here:
+        if not _filled(d):
+            continue
+        parts = segs(d)
         if not parts:
             continue
         rule = 'evenodd' if d.get('even_odd') else 'nonzero'

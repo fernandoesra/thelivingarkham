@@ -50,7 +50,7 @@
           "packName": "Winifred Habbamock",
           "position": 27,
           "cat": "chained",
-          "art": "fc-5-b7328a5e",
+          "art": "fc-5-8a67f738",
           "xp": -1
         },
         {
@@ -79,7 +79,7 @@
           "packName": "La Festa di Hemlock Vale, Espansione Investigatori",
           "position": 31,
           "cat": "chained",
-          "art": "fc-5-9c4f8328",
+          "art": "fc-3-195d46d1",
           "xp": 1
         },
         {
@@ -117,7 +117,7 @@
           "packName": "La Festa di Hemlock Vale, Espansione Investigatori",
           "position": 60,
           "cat": "chained",
-          "art": "fc-5-9c4f8328",
+          "art": "fc-3-195d46d1",
           "xp": 1
         },
         {
@@ -154,7 +154,7 @@
           "packName": "La Festa di Hemlock Vale, Espansione Investigatori",
           "position": 37,
           "cat": "chained",
-          "art": "fc-5-9c4f8328",
+          "art": "fc-3-195d46d1",
           "xp": -2
         },
         {
@@ -211,7 +211,7 @@
           "packName": "La Festa di Hemlock Vale, Espansione Investigatori",
           "position": 85,
           "cat": "chained",
-          "art": "fc-5-9c4f8328",
+          "art": "fc-3-195d46d1",
           "xp": 2
         },
         {
@@ -221,7 +221,7 @@
           "packName": "La Festa di Hemlock Vale, Espansione Investigatori",
           "position": 98,
           "cat": "chained",
-          "art": "fc-5-9c4f8328",
+          "art": "fc-3-195d46d1",
           "xp": 2
         }
       ]
@@ -236,7 +236,7 @@
           "packName": "La Festa di Hemlock Vale, Espansione Investigatori",
           "position": 26,
           "cat": "mutated",
-          "art": "fc-5-9c4f8328",
+          "art": "fc-3-195d46d1",
           "text": "This card’s ability reads: \"...If you succeed, play the chosen asset, reducing its cost by the amount you succeeded by.\""
         },
         {
@@ -293,7 +293,7 @@
           "packName": "Jacqueline Fine",
           "position": 5,
           "cat": "mutated",
-          "art": "fc-2-fec6c2ef",
+          "art": "fc-2-09307c83",
           "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
         },
         {
@@ -303,7 +303,7 @@
           "packName": "L'Eredità di Dunwich",
           "position": 29,
           "cat": "mutated",
-          "art": "fc-6-9264a7b8",
+          "art": "fc-5-6cc1b92c",
           "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
         },
         {
@@ -323,7 +323,7 @@
           "packName": "Winifred Habbamock",
           "position": 32,
           "cat": "mutated",
-          "art": "fc-5-b7328a5e",
+          "art": "fc-5-8a67f738",
           "text": "This card's first bullet point now reads: \"That event gains: \"Fast. Play only during your turn.\"\""
         },
         {
@@ -361,7 +361,7 @@
           "packName": "La Festa di Hemlock Vale, Espansione Investigatori",
           "position": 30,
           "cat": "mutated",
-          "art": "fc-5-9c4f8328",
+          "art": "fc-3-195d46d1",
           "text": "This card’s ability reads: \"Resolve an [action] ability on a level 0–3 [[Tool]] or [[Weapon]] asset you control, ignoring all costs.\""
         },
         {
@@ -560,7 +560,7 @@
           "packName": "La Festa di Hemlock Vale, Espansione Investigatori",
           "position": 59,
           "cat": "mutated",
-          "art": "fc-5-9c4f8328",
+          "art": "fc-3-195d46d1",
           "text": "This card’s [reaction] ability reads: \"[reaction] When an investigator draws a non-weakness treachery card, if their location's shroud is less than Ravenous Myconid's growth...\""
         },
         {
@@ -663,7 +663,7 @@
           "packName": "Jacqueline Fine",
           "position": 17,
           "cat": "mutated",
-          "art": "fc-2-fec6c2ef",
+          "art": "fc-2-09307c83",
           "text": "This card now reads \"a non-[auto_fail] symbol\" instead of \"a [skull], [cultist], [tablet], or [elder_thing] chaos token.\""
         },
         {
@@ -673,7 +673,7 @@
           "packName": "L'Era Dimenticata",
           "position": 32,
           "cat": "mutated",
-          "art": "fc-3-9508e872",
+          "art": "fc-3-383a8afd",
           "text": "This card now reads \"a non-[elder_sign] symbol\" instead of \"a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol.\""
         },
         {
@@ -712,7 +712,7 @@
           "packName": "L'Eredità di Dunwich",
           "position": 2,
           "cat": "mutated",
-          "art": "fc-6-9264a7b8",
+          "art": "fc-5-6cc1b92c",
           "text": "This card's [reaction] ability gains: \"(Limit once per round.)\""
         },
         {
@@ -758,7 +758,7 @@
           "packName": "Jacqueline Fine",
           "position": 14,
           "cat": "mutated",
-          "art": "fc-2-fec6c2ef",
+          "art": "fc-2-09307c83",
           "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
         },
         {
@@ -768,7 +768,7 @@
           "packName": "Jacqueline Fine",
           "position": 23,
           "cat": "mutated",
-          "art": "fc-2-fec6c2ef",
+          "art": "fc-2-09307c83",
           "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
         },
         {
@@ -814,7 +814,7 @@
           "packName": "Winifred Habbamock",
           "position": 18,
           "cat": "mutated",
-          "art": "fc-5-b7328a5e",
+          "art": "fc-5-8a67f738",
           "text": "Instead of \"Shuffle each weakness that was discarded…\", this card's ability now reads: \"After this skill test resolves, draw each weakness discarded by this effect.\""
         },
         {
@@ -852,7 +852,7 @@
           "packName": "La Cospirazione di Innsmouth",
           "position": 3,
           "cat": "mutated",
-          "art": "fc-2-ecbc80c7",
+          "art": "fc-2-16c981ac",
           "text": "This card's [reaction] ability now reads: \"After you discover 1 or more clues at a location with an enemy: Either discover 1 additional clue at that location, or automatically evade that enemy if it is non-[[Elite]]. (Limit once per round.)\""
         },
         {
@@ -862,7 +862,7 @@
           "packName": "Jacqueline Fine",
           "position": 16,
           "cat": "mutated",
-          "art": "fc-2-fec6c2ef",
+          "art": "fc-2-09307c83",
           "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
         },
         {
@@ -896,7 +896,7 @@
           "packName": "L'Eredità di Dunwich",
           "position": 26,
           "cat": "forbidden",
-          "art": "fc-6-9264a7b8",
+          "art": "fc-5-6cc1b92c",
           "text": "Forbidden."
         },
         {
@@ -906,7 +906,7 @@
           "packName": "Harvey Walters",
           "position": 33,
           "cat": "forbidden",
-          "art": "fc-2-482aaca7",
+          "art": "fc-2-1416ddd0",
           "text": "Forbidden."
         }
       ]

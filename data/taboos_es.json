@@ -14,7 +14,7 @@
           "packName": "La ciudad sumergida Expansión de investigadores",
           "position": 55,
           "cat": "chained",
-          "art": "fc-1-3c78b52f",
+          "art": "fc-1-03766b1a",
           "xp": 1
         },
         {
@@ -43,7 +43,7 @@
           "packName": "La ciudad sumergida Expansión de investigadores",
           "position": 117,
           "cat": "chained",
-          "art": "fc-1-3c78b52f",
+          "art": "fc-1-03766b1a",
           "xp": -2
         },
         {
@@ -71,7 +71,7 @@
           "packName": "La ciudad sumergida Expansión de investigadores",
           "position": 31,
           "cat": "chained",
-          "art": "fc-1-3c78b52f",
+          "art": "fc-1-03766b1a",
           "xp": -2
         },
         {
@@ -90,7 +90,7 @@
           "packName": "Los confines de la Tierra Expansión de investigadores",
           "position": 99,
           "cat": "chained",
-          "art": "fc-18-e385e0f8",
+          "art": "fc-18-007cab1a",
           "xp": 2
         },
         {
@@ -295,7 +295,7 @@
           "packName": "Los confines de la Tierra Expansión de investigadores",
           "position": 98,
           "cat": "mutated",
-          "art": "fc-18-e385e0f8",
+          "art": "fc-18-007cab1a",
           "text": "This card should read \"basic actions\" instead of \"actions.\""
         },
         {
@@ -305,7 +305,7 @@
           "packName": "Los confines de la Tierra Expansión de investigadores",
           "position": 100,
           "cat": "mutated",
-          "art": "fc-18-e385e0f8",
+          "art": "fc-18-007cab1a",
           "text": "This card should read \"basic actions\" instead of \"actions.\""
         },
         {
@@ -335,7 +335,7 @@
           "packName": "Los devoradores de sueños",
           "position": 22,
           "cat": "mutated",
-          "art": "fc-1-ee4832dd",
+          "art": "fc-1-32b441de",
           "text": "This card's constant ability now reads: \"If this card has no charges, remove it from the game.\""
         },
         {
@@ -373,7 +373,7 @@
           "packName": "El camino a Carcosa",
           "position": 19,
           "cat": "mutated",
-          "art": "fc-1-fad9e2ec",
+          "art": "fc-1-0e79d900",
           "text": "This card's revelation ability now reads: \"Discard 1 card in your hand or play area of your current role. Then...\""
         },
         {
@@ -420,7 +420,7 @@
           "packName": "La ciudad sumergida Expansión de investigadores",
           "position": 75,
           "cat": "mutated",
-          "art": "fc-1-3c78b52f",
+          "art": "fc-1-03766b1a",
           "text": "This card gains \"Fast. Play only during your turn.\"\nThis card's [reaction] ability now reads \"...Return Spiritual Echo to your hand at the end of your turn.\" and gains \"(Limit once per round.)\""
         },
         {
@@ -430,7 +430,7 @@
           "packName": "La ciudad sumergida Expansión de investigadores",
           "position": 71,
           "cat": "mutated",
-          "art": "fc-1-3c78b52f",
+          "art": "fc-1-03766b1a",
           "text": "This card's <b>Forced</b> effect now reads \"The first time attached card takes 1 or more damage/horror each round...\""
         },
         {
@@ -478,7 +478,7 @@
           "packName": "El círculo roto",
           "position": 20,
           "cat": "mutated",
-          "art": "fc-12-41da5e74",
+          "art": "fc-12-05e0449f",
           "text": "This card's ability now reads \"<b>Parley.</b> Choose a non-[[Elite]] enemy at your location…\""
         },
         {
@@ -488,7 +488,7 @@
           "packName": "Los confines de la Tierra Expansión de investigadores",
           "position": 32,
           "cat": "mutated",
-          "art": "fc-18-e385e0f8",
+          "art": "fc-18-007cab1a",
           "text": "This card's ability gains: \"(Max twice per game.)\""
         },
         {
@@ -517,7 +517,7 @@
           "packName": "El camino a Carcosa",
           "position": 6,
           "cat": "mutated",
-          "art": "fc-1-fad9e2ec",
+          "art": "fc-1-0e79d900",
           "text": "This card's forced ability is moved to its reverse side, and it should now read: \"<b>Additional Setup</b>: After you draw your opening hand, choose a role ([survivor], [guardian], [seeker], [rogue], [mystic], or Neutral).\"\nThis card's front side additionally gains: \"[action]: Switch roles. Does not provoke attacks of opportunity.\""
         },
         {
@@ -527,7 +527,7 @@
           "packName": "Los devoradores de sueños",
           "position": 2,
           "cat": "mutated",
-          "art": "fc-1-ee4832dd",
+          "art": "fc-1-32b441de",
           "text": "This investigator now reads: \"Deck Size: 50\" and \"Deckbuilding Requirements (do not count towards deck size): 3 copies of Occult Evidence...\""
         },
         {
@@ -537,7 +537,7 @@
           "packName": "Los confines de la Tierra Expansión de investigadores",
           "position": 93,
           "cat": "mutated",
-          "art": "fc-18-e385e0f8",
+          "art": "fc-18-007cab1a",
           "text": "This card's parenthetical now reads: \"...(If you succeed by 3 or more, you may exhaust Cyclopean Hammer to instead deal +2 damage and move the enemy up to two locations away from you.)\""
         },
         {
@@ -547,7 +547,7 @@
           "packName": "Los confines de la Tierra Expansión de investigadores",
           "position": 55,
           "cat": "mutated",
-          "art": "fc-18-e385e0f8",
+          "art": "fc-18-007cab1a",
           "text": "This card gains: \"Max once per round.\""
         },
         {
@@ -634,7 +634,7 @@
           "packName": "La ciudad sumergida Expansión de investigadores",
           "position": 118,
           "cat": "mutated",
-          "art": "fc-1-3c78b52f",
+          "art": "fc-1-03766b1a",
           "text": "This card’s <b>Forced</b> effect now reads \"When your turn endsL Place attaced asset on the bottom of your deck unless you spend 1 resource.\""
         },
         {
@@ -689,7 +689,7 @@
           "packName": "Los confines de la Tierra Expansión de investigadores",
           "position": 19,
           "cat": "mutated",
-          "art": "fc-18-e385e0f8",
+          "art": "fc-18-007cab1a",
           "text": "This card's <b>Forced</b> effect now reads: \"<b>Forced</b> – When your first turn of the game begins: One at a time, play up to 5 [[Item]] assets...\""
         },
         {
@@ -699,7 +699,7 @@
           "packName": "La ciudad sumergida Expansión de investigadores",
           "position": 120,
           "cat": "mutated",
-          "art": "fc-1-3c78b52f",
+          "art": "fc-1-03766b1a",
           "text": "The first line of this card gains: \"If On Their Heels has no leads, discard it.\""
         },
         {
@@ -709,7 +709,7 @@
           "packName": "Los confines de la Tierra Expansión de investigadores",
           "position": 113,
           "cat": "mutated",
-          "art": "fc-18-e385e0f8",
+          "art": "fc-18-007cab1a",
           "text": "The first line of this card gains: \"Campaign Mode only.\""
         },
         {
@@ -739,7 +739,7 @@
           "packName": "Los confines de la Tierra Expansión de investigadores",
           "position": 45,
           "cat": "mutated",
-          "art": "fc-18-e385e0f8",
+          "art": "fc-18-007cab1a",
           "text": "This card's constant ability now reads: \"...you get +1 [intellect], +1 [agility], and ignore the first attack of opportunity you take each turn.\""
         },
         {
@@ -777,7 +777,7 @@
           "packName": "La ciudad sumergida Expansión de investigadores",
           "position": 65,
           "cat": "mutated",
-          "art": "fc-1-3c78b52f",
+          "art": "fc-1-03766b1a",
           "text": "This card’s [reaction] ability reads \"[reaction] When doom is placed on a card you control: Place 1 resource (from the token pool) on Blood of Thoth, as an offering.\"\nThis card’s [fast] ability reads \"[fast] During the investigation phase, except during an action, spend 2 offerings and exhaust Blood of Thoth: Choose an investigator at your location to immediately take an action as if it were their turn.\""
         },
         {
@@ -833,7 +833,7 @@
           "packName": "La conspiración de Innsmouth",
           "position": 3,
           "cat": "mutated",
-          "art": "fc-2-ecbc80c7",
+          "art": "fc-2-16c981ac",
           "text": "This card's [reaction] ability now reads: \"After you discover 1 or more clues at a location with an enemy: Either discover 1 additional clue at that location, or automatically evade that enemy if it is non-[[Elite]]. (Limit once per round.)\""
         },
         {
@@ -843,7 +843,7 @@
           "packName": "El camino a Carcosa",
           "position": 29,
           "cat": "mutated",
-          "art": "fc-1-fad9e2ec",
+          "art": "fc-1-0e79d900",
           "text": "This card's ability now reads: \"Put a level 0-3 [[Item]] asset into play from your hand.\""
         },
         {
@@ -907,7 +907,7 @@
           "packName": "Harvey Walters",
           "position": 33,
           "cat": "forbidden",
-          "art": "fc-2-b57bfb56",
+          "art": "fc-2-1416ddd0",
           "text": "Forbidden."
         },
         {
@@ -917,7 +917,7 @@
           "packName": "Los confines de la Tierra Expansión de investigadores",
           "position": 76,
           "cat": "forbidden",
-          "art": "fc-18-e385e0f8",
+          "art": "fc-18-007cab1a",
           "text": "Forbidden."
         }
       ]

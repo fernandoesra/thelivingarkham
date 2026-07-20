@@ -37,6 +37,32 @@ _UA = {'User-Agent': 'Mozilla/5.0 (TheLivingArkham build)'}
 _PUNCT = re.compile(r'[^a-z0-9]+')
 
 
+# A leading article, in every language the site ships. Needed for exactly two rows — the
+# English book prints "Labyrinths of Lunacy" where ArkhamDB has "The Labyrinths of Lunacy",
+# and the Italian "Gala di Mezzo Inverno" against "Il Gala di Mezzo Inverno" — and checked
+# not to collide: all 114 pack names stay distinct in all four languages once stripped.
+_ARTICLE = re.compile(r'^(?:the|la|le|el|los|las|il|lo|i|gli|l|der|die|das)\s+', re.I)
+_TAIL_PAREN = re.compile(r'\s*\([^()]*\)\s*$')
+
+
+def _pack_keys(name):
+    """The keys a printed product name may match a pack under, best first.
+
+    Tiered on purpose: the exact fold answers most rows, and the relaxations are only ever
+    reached by a row the exact one missed, so a loosened rule can never steal a row that
+    already had a confident answer."""
+    name = (name or '').strip()
+    if not name:
+        return []
+    out = []
+    for cand in (name, _ARTICLE.sub('', name), _TAIL_PAREN.sub('', name),
+                 _ARTICLE.sub('', _TAIL_PAREN.sub('', name))):
+        k = key(cand)
+        if k and k not in out:
+            out.append(k)
+    return out
+
+
 def host(code):
     """ArkhamDB is per-language on subdomains; English is the bare domain (as the app links)."""
     return ('https://%s.arkhamdb.com' % code) if code and code != 'en' else 'https://arkhamdb.com'
@@ -95,6 +121,14 @@ class Index(object):
     def __init__(self, code, cards, packs):
         self.code = code
         self.packs = {p['code']: p.get('name', p['code']) for p in packs}
+        # …and the way back: the product name a book prints -> the pack code. ArkhamDB gives
+        # every language the SAME 114 codes and translates only the names, which makes the
+        # code the one identity a product has in all four books — what lets the icon tables
+        # share a drawing per product instead of tracing one per language.
+        self.by_packname = {}
+        for p in packs:
+            for k in _pack_keys(p.get('name', '')):
+                self.by_packname.setdefault(k, p['code'])
         # The icon a book prints beside a card number is the CAMPAIGN's, and a campaign is
         # several products (a deluxe box and its mythos packs, or one big campaign expansion).
         # ArkhamDB calls that a cycle, so the cycle — not the pack — is what an icon identifies.
@@ -140,6 +174,16 @@ class Index(object):
 
     def pack_name(self, pack):
         return self.packs.get(pack, '')
+
+    def pack_code(self, name):
+        """-> the pack code a printed product name means, or '' if ArkhamDB has no such
+        product. A miss is not a failure: the promo rows ("Novella", "Parallel") are
+        CATEGORIES of promo, and ArkhamDB models no pack for them at all."""
+        for k in _pack_keys(name):
+            got = self.by_packname.get(k)
+            if got:
+                return got
+        return ''
 
     def campaign_name(self, cycle):
         return self.cycle_name.get(cycle, '')

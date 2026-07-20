@@ -438,8 +438,8 @@ def extract_iconref(pdf_path):
     for pno in range(doc.page_count - 1, max(doc.page_count - 4, 0) - 1, -1):
         groups, svgs = _iconref_page(doc[pno])
         if groups:
-            return groups, svgs
-    return [], {}
+            return groups, svgs, pno + 1
+    return [], {}, None
 
 
 def _iconref_page(page):
@@ -470,6 +470,7 @@ def _iconref_page(page):
     svgs = {}
     cur = {}                           # the open group per column bucket
     lasthead = {}                      # (y0, y1) of the last heading line per column, for wrap-merge
+    lastitem = {}                      # (item, x, y1) of the last product row per column
     for col, y, x, is_head, txt, spans, y1 in rows:
         if is_head:
             g = cur.get(col)
@@ -499,6 +500,19 @@ def _iconref_page(page):
             continue
         g['_wrap'] = False
         box = _icon_left(page, x, y, y1, x - 22.0)   # the icon sits just left of the name
+        # A product name too long for its column runs onto a second line — and that line starts
+        # further LEFT than the first, because the first was pushed right to clear the icon and
+        # the second has no icon to clear. Six English products were shipped cut in half by
+        # this ("Edge of the Earth (Investigator", with "Expansion)" lost into the group's
+        # blurb), and the two Hemlock Vale rows lost the very words that tell them apart.
+        prev = lastitem.get(col)
+        if (box is None and prev is not None and prev[0] in g['items']
+                and -3 <= y - prev[2] < 8 and x <= prev[1] + 1
+                and (prev[0]['name'].count('(') != prev[0]['name'].count(')')
+                     or txt.startswith('('))):
+            prev[0]['name'] = (prev[0]['name'] + ' ' + txt).strip()
+            lastitem[col] = (prev[0], prev[1], y1)
+            continue
         namey = bool(re.match(r'^[“"A-ZÁÉÍÓÚÜÑ]', txt)) and len(txt) <= 62
         # The core set's icon is a font glyph (the elder-sign mark), not vector art — so an
         # item with a glyph to its left but no traced box is still a product ("Caja básica"),
@@ -507,6 +521,7 @@ def _iconref_page(page):
                          for gb in glyph_boxes)
         if box is None and glyph_left and namey:
             g['items'].append({'name': txt, 'art': CORESET_ART})
+            lastitem[col] = (g['items'][-1], x, y1)
             continue
         # A product entry is a short, capitalised name with a small square-ish icon to its
         # left. Anything else on the page (a sentence of the environments prose that happens
@@ -526,6 +541,7 @@ def _iconref_page(page):
         if over:
             art = over                    # the page defeats the tracer here; use the real vector
         g['items'].append({'name': txt, 'art': art})
+        lastitem[col] = (g['items'][-1], x, y1)
     for g in groups:
         g.pop('_wrap', None); g.pop('_skip', None)
     groups = [g for g in groups if g['items']]           # keep only real icon tables

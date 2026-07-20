@@ -150,6 +150,14 @@
       "note": "the German FAQ misgenders the campaign's article here ('Der' for 'Die versunkene Stadt'); everywhere else it prints 'Die'. Left alone it splits the refractions' campaign filter into two entries for one campaign."
     }
   ],
+  "it": [
+    {
+      "find": "Icone Dei Prodotti Autoconclusivi",
+      "replace": "Icone dei Mazzi Investigatore",
+      "kind": "source",
+      "note": "the Italian FAQ heads its STARTER-DECK icon table with a second copy of the standalone table's name (differing only in the capital D). The table holds the five investigator decks — Nathaniel Cho, Harvey Walters, Winifred Habbamock, Jacqueline Fine, Stella Clark — and the Italian grimoire heads exactly this table 'Icone dei Mazzi Investigatore', which is the publisher's own wording for it. Left alone the chapter prints two identical headings, which is also two landmarks with the same name."
+    }
+  ],
   "_dropDuplicateLead_comment": "A bold sub-heading the parser folded into the paragraph that follows it, so the word renders twice ('Errata Errata will be added...'). Listed per language; the leading bold run is dropped ONLY when the text right after it repeats the very same word, so a genuine bold lead-in is never touched. This cannot be a find/replace above: the duplication straddles two runs.",
   "dropDuplicateLead": {
     "en": [

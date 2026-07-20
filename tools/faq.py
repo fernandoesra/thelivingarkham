@@ -796,13 +796,22 @@ def build(pack, grimoire_data):
     # icon-reference TABLES share the paper with the environments prose, so only the marks set
     # inside a sentence are taken there — the tables themselves are rebuilt by extract_iconref.
     doc_pages = fitz.open(pdf).page_count
-    nodes, _doc, seticon_svgs = faq_seticons.parse_with_icons(pdf, inline_only_pages=(doc_pages,))
+    # The icon tables are read first for two reasons: their headings are the only reliable
+    # way to keep them out of the prose chapter that shares their page (see
+    # _is_iconref_heading), and the page they sit on must be treated as inline-only before
+    # the parse runs.
+    iconref_groups, iconref_svgs, iconref_pno = faq_seticons.extract_iconref(pdf)
+
+    # A page of tables and diagrams is all vector art, and only the marks set INSIDE a
+    # sentence belong to the text. The tables' page is one; so is the last page, which in
+    # most editions is the same sheet. Where they differ — the Italian book closes with a
+    # chaos-token key and prints its tables and its enemy-spawn diagram a page earlier —
+    # the diagram's arrows and boxes were being read as card marks and dropped into the
+    # prose ("controlla se quel nemico riporta <mark> l'istruzione Generazione").
+    inline_only = tuple({doc_pages} | ({iconref_pno} if iconref_pno else set()))
+    nodes, _doc, seticon_svgs = faq_seticons.parse_with_icons(pdf, inline_only_pages=inline_only)
     nodes = merge_wrapped_headings(nodes)
 
-    # The icon tables are read first, not because this chapter is built first, but because
-    # their headings are the only reliable way to keep them out of the prose chapter that
-    # shares their page (see _is_iconref_heading).
-    iconref_groups, iconref_svgs = faq_seticons.extract_iconref(pdf)
     iconref_titles = {assemble.norm(g['title']) for g in iconref_groups if g.get('title')}
 
     raw = group_sections(nodes, cfg, iconref_titles)
@@ -827,6 +836,14 @@ def build(pack, grimoire_data):
         if sc.get('build') != 'iconref':
             continue
         groups, isvgs = iconref_groups, iconref_svgs
+        # Say which PRODUCT each row is, so every language can show one drawing per product
+        # instead of its own tracing of it (tools/packmap.py). A row that finds no product
+        # keeps its own art and is listed for a hand answer.
+        import packmap
+        rows = [it for g in groups for it in g.get('items', [])]
+        _got, _missing = packmap.resolve(rows, pack.code)
+        if _missing:
+            packmap.MISSED[pack.code] = _missing
         faq_seticons.write_products(isvgs)
         iconref = sum(len(g['items']) for g in groups)
         sections.append({'num': sc.get('num', ''), 'key': sc['key'], 'id': sc['id'],

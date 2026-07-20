@@ -184,6 +184,20 @@ def main(argv):
                 print(f'  [warn] chapter-1 refractions skipped for {pack.code}: {e}', file=sys.stderr)
 
     if built:
+        # One drawing per mark, shared by every language. Runs after the corpora are
+        # written and before the orphan report, so the report sees the final references.
+        step('shared art — one drawing per product mark')
+        import artshare
+        artshare.consolidate()
+        # …and one record per card. After artshare, so the symbols it writes into the shared
+        # record are already the canonical ones.
+        import ub_registry
+        ub_registry.build([p.code for p in packs])
+        # Anything the icon tables could not name a product for, written down so it can be
+        # answered by hand (tools/other/icon-products-unmatched.md).
+        import packmap
+        n = packmap.report(packmap.MISSED)
+        print(f'  {n} icon row(s) with no product identity -> tools/other/icon-products-unmatched.md')
         import faq_seticons as _fs
         _fs.report_orphans()
         import adb_names as _an

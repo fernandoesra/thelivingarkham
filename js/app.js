@@ -1333,6 +1333,26 @@ var ubView=(function(){try{return localStorage.getItem('tla-ubview')==='gallery'
    'both' and show under any filter; only the refractions differ. Remembered for the session. */
 var ubChap=(function(){try{var v=localStorage.getItem('tla-ubchap'); return (v==='cap1'||v==='cap2')?v:'all';}catch(e){return 'all';}})();
 function ubChapOK(it){return ubChap==='all'||!it.chapter||it.chapter==='both'||it.chapter===ubChap;}
+/* The shared half of every Ultimatums/Boons/Refractions card, loaded once. */
+var UBREG=null;
+/* Put a language's cards back together: the card's own facts (picture, illustrator,
+   encounter-set and campaign symbols, chapter) from the shared registry, the language's
+   words on top. Done once per language at load time, so every reader of s.ub below sees
+   exactly the record it always saw and nothing else in the viewer had to change. Runs
+   safely more than once, and does nothing at all when there is no registry. */
+function hydrateUB(g){
+  if(!g||!UBREG||!UBREG.cards)return;
+  (g.sections||[]).forEach(function(s){
+    if(!s||s.kind!=='ultimatums'||!s.ub)return;
+    ['ultimatums','boons','refractions'].forEach(function(b){
+      var a=s.ub[b];if(!a)return;
+      a.forEach(function(rec){
+        var shared=UBREG.cards[rec.slug];if(!shared)return;
+        for(var k in shared){if(!Object.prototype.hasOwnProperty.call(rec,k))rec[k]=shared[k];}
+      });
+    });
+  });
+}
 function ubBucket(s,cat){var ub=s&&s.ub||{}; var a=cat==='ultimatum'?(ub.ultimatums||[]):cat==='boon'?(ub.boons||[]):(ub.refractions||[]); return a.filter(ubChapOK);}
 /* Whether the corpus even has both chapters' cards (the FAQ was built) — the filter is only
    worth showing then. */
@@ -2610,7 +2630,10 @@ function renderLanding(s){
   if(li){h+=verBanner(li);}
   /* A pack whose interface was machine-translated says so, before anything else on the
      page claims authorship. Driven by the string being there, not by a list of language
-     codes: a pack translated by a person simply leaves it empty and no notice appears. */
+     codes: a pack translated by a person simply leaves it empty and no notice appears.
+     TODO: the notice names Discord as a way to report a mistake but cannot link it yet —
+     there is no invite URL in the project. Add the href to "mtnotice" in every ui.json
+     once there is one. The e-mail and GitHub links in it are real and work today. */
   var mt=t('mtnotice');
   if(mt&&mt!=='mtnotice'){
     h+='<aside class="tla-notice tla-notice-mt" role="note">'
@@ -3593,9 +3616,16 @@ function loadLang(L){
     // The interactive taboo list is optional too: absent or 404 -> the Resources section keeps
     // its "coming soon" placeholder. Never fatal to the language.
     (TABOO[L]||!reg.tabooData)?Promise.resolve(TABOO[L]||null)
-      :getJSON(reg.tabooData).then(function(f){return f;},function(){return null;})
+      :getJSON(reg.tabooData).then(function(f){return f;},function(){return null;}),
+    /* The Ultimatums viewer's cards, written once for every language (tools/ub_registry.py).
+       A card's picture, illustrator and symbols are not translations, so they live in one
+       file; the language carries only its name and rule text. Optional and never fatal: an
+       older build with no registry simply has the whole record in the language file. */
+    UBREG?Promise.resolve(UBREG):getJSON('data/ub.json').then(function(r){return r;},function(){return null;})
   ]).then(function(res){
     GRIM[L]=res[0]; PACKS[L]=res[1]; if(res[2])FAQ[L]=res[2]; if(res[3])TABOO[L]=res[3];
+    if(res[4])UBREG=res[4];
+    hydrateUB(GRIM[L]);
     return loadChain(L);
   }).then(function(){
     // after the chain, so both may use strings that come from a fallback

@@ -65,11 +65,55 @@ def _italic_ratio(b):
             it += n
     return (it / tot) if tot else 0.0
 
-# A label the book may put in front of a question: ONE letter and a colon. English
-# prints "Q:"/"A:", Spanish prints nothing, so this is cosmetic — the italic decides.
+# A label the book may put in front of a question or an answer: ONE letter and a colon
+# or a full stop. English prints "Q:"/"A:", German "F:"/"A:", Italian "D."/"R." on eight
+# of its eleven pages and "D:"/"R:" on the other three, Spanish prints nothing. Which
+# mark an edition uses is a typesetting habit, so both are accepted — the italic still
+# decides what is a question; this only says what to take off the front of it.
+#
 # Deliberately one letter, not one-or-two: an answer opening "No: you cannot" would
-# otherwise be silently inverted into "you cannot".
-QA_LABEL = re.compile(r'^[^\W\d_]\s*:\s*')
+# otherwise be silently inverted into "you cannot". The full-stop form additionally
+# requires whitespace after it, or the same rule would eat the "e." of "e.g." and the
+# "z." of "z. B."; with it, "e.g." cannot match, because "g" is not whitespace.
+QA_LABEL = re.compile(r'^[^\W\d_](?:\s*:\s*|\.\s+)')
+
+def _split_merged_qa(b):
+    """A question and its answer that the edition set as ONE paragraph -> the two of
+    them; anything else -> the block untouched.
+
+    The German and Italian editions run the answer straight on from the question inside
+    a single PDF paragraph — 125 of 144 German pairs, 114 of 130 Italian. Read whole,
+    such a paragraph measures only 0.21-0.27 italic, because the roman answer outweighs
+    the italic question by length. So split_qa's italic test fails on it, the question
+    is never opened as an entry, and the PREVIOUS answer swallows the pair whole: the
+    German chapter came out at 39 entries and the Italian at 31, against 144 printed
+    questions each.
+
+    The italic is still what decides. The label is only used to locate the seam, and the
+    cut is kept ONLY if it does in fact separate an italic question from a roman answer.
+    That test is what makes this safe rather than clever: a paragraph that is not a
+    merged pair has no seam that passes it and is returned as the same object. English
+    (no paragraph carries both labels — measured 0 of 249) and Spanish (no labels at all
+    — 0 of 245) therefore cannot reach the rewrite at all.
+
+    The seam falls on a RUN boundary, not inside a run, because the two halves are set in
+    different type and the parser already breaks a run where the type changes."""
+    runs = b.get('runs') or []
+    for i, r in enumerate(runs):
+        # not the first run: a block that OPENS with a label is a plain question or a
+        # plain answer, and has no seam to find.
+        if i == 0 or r.get('kind') != 'text' or r.get('italic'):
+            continue
+        t = r.get('t', '')
+        if not QA_LABEL.match(t.lstrip()):
+            continue
+        head = {'type': b['type'], 'runs': runs[:i]}
+        # the answer's own run may carry the space that separated it from the question
+        # ("… ?" + " A: No."); drop it so _strip_label sees the label at the front.
+        tail = {'type': b['type'], 'runs': [{**r, 't': t.lstrip()}] + runs[i + 1:]}
+        if _italic_ratio(head) >= 0.5 > _italic_ratio(tail):
+            return [head, tail]
+    return [b]
 
 def _strip_label(runs):
     """Drop the "Q: " label from the first text run, keeping every other run and every
@@ -94,7 +138,11 @@ def split_qa(sec):
     link of its own: autolink() skips titles for that reason, and the answer restates
     the term anyway. See the autolink() apply loop."""
     lead, groups = [], []
-    for b in sec['intro']:
+    # First put back apart any pair the edition set as one paragraph (see
+    # _split_merged_qa). A no-op wherever no paragraph holds both halves, so the loop
+    # below sees exactly what it saw before in every edition that does not do this.
+    blocks = [nb for b in sec['intro'] for nb in _split_merged_qa(b)]
+    for b in blocks:
         if b['type'] == 'p' and _italic_ratio(b) >= 0.5:
             if groups and not groups[-1]['a']:
                 # A question that wrapped into a second italic block — the tail after an inline
@@ -321,6 +369,33 @@ def normalise_heading_numerals(entries, report=None):
 STEP_LEAD = re.compile(r'(\d+(?:\.\d+)*)\s*:\s*$')
 
 
+def _rejoin_step_bodies(blocks):
+    """Put a flow box back together where the edition broke it in two.
+
+    A box reads "1.1: Mythos phase begins." — the number bold, the rest plain. Most
+    editions set that as one block; the German one splits it, so the sentence arrives as a
+    plain block of its own and the chart reads as prose. A plain block straight after a
+    step's number is that number's sentence, and nothing else ever is. Returns the same
+    list object when there was nothing to rejoin, so the caller can tell."""
+    out, changed = [], False
+    for b in blocks:
+        runs = b.get('runs') or []
+        first = runs[0] if runs else None
+        plain = (first is not None and first.get('kind') == 'text'
+                 and not first.get('bold') and not first.get('italic'))
+        prev = out[-1] if out else None
+        prev_first = (prev.get('runs') or [None])[0] if prev else None
+        prev_is_step = (prev_first is not None and prev_first.get('kind') == 'text'
+                        and prev_first.get('bold')
+                        and STEP_LEAD.search(prev_first.get('t', '')))
+        if plain and prev_is_step and b.get('type') != 'bullet':
+            prev['runs'] = list(prev['runs']) + list(runs)
+            changed = True
+            continue
+        out.append(dict(b))
+    return out if changed else blocks
+
+
 def flow_of(entry):
     """-> [{kind, n, i}] describing the entry's blocks as a flowchart, or None."""
     items = []
@@ -332,12 +407,15 @@ def flow_of(entry):
         if first.get('kind') == 'icon':
             items.append({'kind': 'window', 'i': i})
             continue
-        if first.get('kind') != 'text' or not first.get('bold'):
+        if first.get('kind') != 'text':
             return None
-        m = STEP_LEAD.search(first['t'])
+        m = STEP_LEAD.search(first['t']) if first.get('bold') else None
         if m and len(runs) >= 2:
             items.append({'kind': 'step', 'n': m.group(1), 'i': i})
             continue
+        # The arrow out of the diagram ("Proceed to the Investigation Phase."). Italic is
+        # what marks it; the bold is the English and Spanish editions' habit, and requiring
+        # it threw away every Italian diagram at the last box.
         if first.get('italic'):
             items.append({'kind': 'goto', 'i': i})
             continue
@@ -586,6 +664,17 @@ def assemble(pack, nodes, images):
             continue
         for e in s['entries']:
             fl = flow_of(e)
+            if not fl:
+                # Try again with each box's text rejoined to its number. The German edition
+                # breaks a flow box between the two ("Schritt 1.1:" / "Mythosphase beginnt."
+                # as two blocks), which is a plain block in the middle of the diagram and
+                # ended the whole chart — all four German phase diagrams came out as prose.
+                # Only kept if the rejoin actually yields a diagram, so an entry that is
+                # really prose is never rewritten.
+                merged = _rejoin_step_bodies(e['blocks'])
+                fl = flow_of({'blocks': merged}) if merged is not e['blocks'] else None
+                if fl:
+                    e['blocks'] = merged
             if fl:
                 e['flow'] = fl
                 lp = flow_loops(e, fl)

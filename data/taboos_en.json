@@ -14,6 +14,7 @@
           "packName": "The Drowned City Investigator Expansion",
           "position": 117,
           "cat": "chained",
+          "art": "fc-1-03766b1a",
           "xp": -2
         },
         {
@@ -23,6 +24,7 @@
           "packName": "The Drowned City Investigator Expansion",
           "position": 55,
           "cat": "chained",
+          "art": "fc-1-03766b1a",
           "xp": 1
         },
         {
@@ -50,6 +52,7 @@
           "packName": "The Feast of Hemlock Vale Investigator Expansion",
           "position": 37,
           "cat": "chained",
+          "art": "fc-3-195d46d1",
           "xp": -2
         },
         {
@@ -59,6 +62,7 @@
           "packName": "Edge of the Earth Investigator Expansion",
           "position": 99,
           "cat": "chained",
+          "art": "fc-18-007cab1a",
           "xp": 2
         },
         {
@@ -86,6 +90,7 @@
           "packName": "The Scarlet Keys Investigator Expansion",
           "position": 117,
           "cat": "chained",
+          "art": "fc-1-1b5bc68d",
           "xp": 1
         },
         {
@@ -104,6 +109,7 @@
           "packName": "The Drowned City Investigator Expansion",
           "position": 31,
           "cat": "chained",
+          "art": "fc-1-03766b1a",
           "xp": -2
         },
         {
@@ -113,6 +119,7 @@
           "packName": "The Feast of Hemlock Vale Investigator Expansion",
           "position": 60,
           "cat": "chained",
+          "art": "fc-3-195d46d1",
           "xp": 1
         },
         {
@@ -131,6 +138,7 @@
           "packName": "The Feast of Hemlock Vale Investigator Expansion",
           "position": 85,
           "cat": "chained",
+          "art": "fc-3-195d46d1",
           "xp": 2
         },
         {
@@ -140,6 +148,7 @@
           "packName": "The Feast of Hemlock Vale Investigator Expansion",
           "position": 98,
           "cat": "chained",
+          "art": "fc-3-195d46d1",
           "xp": 2
         },
         {
@@ -149,7 +158,7 @@
           "packName": "Core Set",
           "position": 73,
           "cat": "chained",
-          "art": "fc-1-64ef94fd",
+          "art": "faq-coreset",
           "xp": 2
         },
         {
@@ -187,6 +196,7 @@
           "packName": "The Scarlet Keys Investigator Expansion",
           "position": 108,
           "cat": "chained",
+          "art": "fc-1-1b5bc68d",
           "xp": 2
         },
         {
@@ -205,6 +215,7 @@
           "packName": "The Feast of Hemlock Vale Investigator Expansion",
           "position": 31,
           "cat": "chained",
+          "art": "fc-3-195d46d1",
           "xp": 1
         },
         {
@@ -214,6 +225,7 @@
           "packName": "The Scarlet Keys Investigator Expansion",
           "position": 77,
           "cat": "chained",
+          "art": "fc-1-1b5bc68d",
           "xp": 2
         }
       ]
@@ -282,6 +294,7 @@
           "packName": "Edge of the Earth Investigator Expansion",
           "position": 55,
           "cat": "mutated",
+          "art": "fc-18-007cab1a",
           "text": "This card gains: \"Max once per round.\""
         },
         {
@@ -291,6 +304,7 @@
           "packName": "The Drowned City Investigator Expansion",
           "position": 65,
           "cat": "mutated",
+          "art": "fc-1-03766b1a",
           "text": "This card’s [reaction] ability reads \"[reaction] When doom is placed on a card you control: Place 1 resource (from the token pool) on Blood of Thoth, as an offering.\"\nThis card’s [fast] ability reads \"[fast] During the investigation phase, except during an action, spend 2 offerings and exhaust Blood of Thoth: Choose an investigator at your location to immediately take an action as if it were their turn.\""
         },
         {
@@ -310,6 +324,7 @@
           "packName": "The Scarlet Keys Investigator Expansion",
           "position": 72,
           "cat": "mutated",
+          "art": "fc-1-1b5bc68d",
           "text": "This card's first bullet point now reads: \"That event gains: \"Fast. Play only during your turn.\"\""
         },
         {
@@ -338,6 +353,7 @@
           "packName": "Edge of the Earth Investigator Expansion",
           "position": 93,
           "cat": "mutated",
+          "art": "fc-18-007cab1a",
           "text": "This card's parenthetical now reads: \"...(If you succeed by 3 or more, you may exhaust Cyclopean Hammer to instead deal +2 damage and move the enemy up to two locations away from you.)\""
         },
         {
@@ -357,7 +373,7 @@
           "packName": "Jacqueline Fine",
           "position": 17,
           "cat": "mutated",
-          "art": "fc-2-fec6c2ef",
+          "art": "fc-2-09307c83",
           "text": "This card now reads \"a non-[auto_fail] symbol\" instead of \"a [skull], [cultist], [tablet], or [elder_thing] chaos token.\""
         },
         {
@@ -367,7 +383,7 @@
           "packName": "The Forgotten Age",
           "position": 32,
           "cat": "mutated",
-          "art": "fc-3-eff0397b",
+          "art": "fc-3-383a8afd",
           "text": "This card now reads \"a non-[elder_sign] symbol\" instead of \"a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol.\""
         },
         {
@@ -395,7 +411,7 @@
           "packName": "Core Set",
           "position": 33,
           "cat": "mutated",
-          "art": "fc-1-64ef94fd",
+          "art": "faq-coreset",
           "text": "This card's [reaction] ability now reads: \"After you successfully investigate, exhaust Dr. Milan Christopher...\""
         },
         {
@@ -405,7 +421,7 @@
           "packName": "Core Set",
           "position": 50,
           "cat": "mutated",
-          "art": "fc-1-64ef94fd",
+          "art": "faq-coreset",
           "text": "This card now reads: \"Disengage from each enemy engaged with you and move to a connecting location with no enemies.\""
         },
         {
@@ -415,6 +431,7 @@
           "packName": "The Scarlet Keys Investigator Expansion",
           "position": 41,
           "cat": "mutated",
+          "art": "fc-1-1b5bc68d",
           "text": "This card's [fast] ability gains \"(Limit twice per round.)\""
         },
         {
@@ -424,6 +441,7 @@
           "packName": "Edge of the Earth Investigator Expansion",
           "position": 98,
           "cat": "mutated",
+          "art": "fc-18-007cab1a",
           "text": "This card should read \"basic actions\" instead of \"actions.\""
         },
         {
@@ -433,6 +451,7 @@
           "packName": "Edge of the Earth Investigator Expansion",
           "position": 100,
           "cat": "mutated",
+          "art": "fc-18-007cab1a",
           "text": "This card should read \"basic actions\" instead of \"actions.\""
         },
         {
@@ -460,6 +479,7 @@
           "packName": "Edge of the Earth Investigator Expansion",
           "position": 19,
           "cat": "mutated",
+          "art": "fc-18-007cab1a",
           "text": "This card's <b>Forced</b> effect now reads: \"<b>Forced</b> – When your first turn of the game begins: One at a time, play up to 5 [[Item]] assets...\""
         },
         {
@@ -478,6 +498,7 @@
           "packName": "The Feast of Hemlock Vale Investigator Expansion",
           "position": 30,
           "cat": "mutated",
+          "art": "fc-3-195d46d1",
           "text": "This card’s ability reads: \"Resolve an [action] ability on a level 0–3 [[Tool]] or [[Weapon]] asset you control, ignoring all costs.\""
         },
         {
@@ -487,6 +508,7 @@
           "packName": "The Feast of Hemlock Vale Investigator Expansion",
           "position": 26,
           "cat": "mutated",
+          "art": "fc-3-195d46d1",
           "text": "This card’s ability reads: \"...If you succeed, play the chosen asset, reducing its cost by the amount you succeeded by.\""
         },
         {
@@ -496,7 +518,7 @@
           "packName": "Jacqueline Fine",
           "position": 14,
           "cat": "mutated",
-          "art": "fc-2-fec6c2ef",
+          "art": "fc-2-09307c83",
           "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
         },
         {
@@ -506,7 +528,7 @@
           "packName": "Jacqueline Fine",
           "position": 23,
           "cat": "mutated",
-          "art": "fc-2-fec6c2ef",
+          "art": "fc-2-09307c83",
           "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
         },
         {
@@ -525,7 +547,7 @@
           "packName": "The Circle Undone",
           "position": 20,
           "cat": "mutated",
-          "art": "fc-12-95315dea",
+          "art": "fc-12-05e0449f",
           "text": "This card's ability now reads \"<b>Parley.</b> Choose a non-[[Elite]] enemy at your location…\""
         },
         {
@@ -535,6 +557,7 @@
           "packName": "Edge of the Earth Investigator Expansion",
           "position": 32,
           "cat": "mutated",
+          "art": "fc-18-007cab1a",
           "text": "This card's ability gains: \"(Max twice per game.)\""
         },
         {
@@ -563,6 +586,7 @@
           "packName": "The Drowned City Investigator Expansion",
           "position": 118,
           "cat": "mutated",
+          "art": "fc-1-03766b1a",
           "text": "This card’s <b>Forced</b> effect now reads \"When your turn endsL Place attaced asset on the bottom of your deck unless you spend 1 resource.\""
         },
         {
@@ -582,7 +606,7 @@
           "packName": "The Dream-Eaters",
           "position": 2,
           "cat": "mutated",
-          "art": "fc-1-cd95e989",
+          "art": "fc-1-32b441de",
           "text": "This investigator now reads: \"Deck Size: 50\" and \"Deckbuilding Requirements (do not count towards deck size): 3 copies of Occult Evidence...\""
         },
         {
@@ -601,6 +625,7 @@
           "packName": "The Drowned City Investigator Expansion",
           "position": 120,
           "cat": "mutated",
+          "art": "fc-1-03766b1a",
           "text": "The first line of this card gains: \"If On Their Heels has no leads, discard it.\""
         },
         {
@@ -619,7 +644,7 @@
           "packName": "The Dream-Eaters",
           "position": 22,
           "cat": "mutated",
-          "art": "fc-1-cd95e989",
+          "art": "fc-1-32b441de",
           "text": "This card's constant ability now reads: \"If this card has no charges, remove it from the game.\""
         },
         {
@@ -638,6 +663,7 @@
           "packName": "The Scarlet Keys Investigator Expansion",
           "position": 81,
           "cat": "mutated",
+          "art": "fc-1-1b5bc68d",
           "text": "This card’s text box now reads: \"[action] If attached enemy is at your location: <b>Parley.</b> Test [willpower](2). If you succeed, give it a command (limit once per round per command) – \"Go.\" This enemy moves once in a direction of your choice.\"\nThis card’s customizable sheet loses the \"Mercy\" ability and gains\"☐Cower. Add the command: \"- ‘Cower.’ This enemy exhausts.\""
         },
         {
@@ -647,6 +673,7 @@
           "packName": "Edge of the Earth Investigator Expansion",
           "position": 45,
           "cat": "mutated",
+          "art": "fc-18-007cab1a",
           "text": "This card's constant ability now reads: \"...you get +1 [intellect], +1 [agility], and ignore the first attack of opportunity you take each turn.\""
         },
         {
@@ -665,6 +692,7 @@
           "packName": "The Feast of Hemlock Vale Investigator Expansion",
           "position": 59,
           "cat": "mutated",
+          "art": "fc-3-195d46d1",
           "text": "This card’s [reaction] ability reads: \"[reaction] When an investigator draws a non-weakness treachery card, if their location's shroud is less than Ravenous Myconid's growth...\""
         },
         {
@@ -674,6 +702,7 @@
           "packName": "The Scarlet Keys Investigator Expansion",
           "position": 45,
           "cat": "mutated",
+          "art": "fc-1-1b5bc68d",
           "text": "This card's second ability gains: \"(max 3 evidence spent per round).\""
         },
         {
@@ -683,7 +712,7 @@
           "packName": "The Dunwich Legacy",
           "position": 2,
           "cat": "mutated",
-          "art": "fc-6-9264a7b8",
+          "art": "fc-5-6cc1b92c",
           "text": "This card's [reaction] ability gains: \"(Limit once per round.)\""
         },
         {
@@ -693,7 +722,7 @@
           "packName": "Jacqueline Fine",
           "position": 5,
           "cat": "mutated",
-          "art": "fc-2-fec6c2ef",
+          "art": "fc-2-09307c83",
           "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
         },
         {
@@ -703,7 +732,7 @@
           "packName": "The Dunwich Legacy",
           "position": 29,
           "cat": "mutated",
-          "art": "fc-6-9264a7b8",
+          "art": "fc-5-6cc1b92c",
           "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
         },
         {
@@ -750,6 +779,7 @@
           "packName": "The Drowned City Investigator Expansion",
           "position": 71,
           "cat": "mutated",
+          "art": "fc-1-03766b1a",
           "text": "This card's <b>Forced</b> effect now reads \"The first time attached card takes 1 or more damage/horror each round...\""
         },
         {
@@ -759,6 +789,7 @@
           "packName": "The Drowned City Investigator Expansion",
           "position": 75,
           "cat": "mutated",
+          "art": "fc-1-03766b1a",
           "text": "This card gains \"Fast. Play only during your turn.\"\nThis card's [reaction] ability now reads \"...Return Spiritual Echo to your hand at the end of your turn.\" and gains \"(Limit once per round.)\""
         },
         {
@@ -823,6 +854,7 @@
           "packName": "Edge of the Earth Investigator Expansion",
           "position": 113,
           "cat": "mutated",
+          "art": "fc-18-007cab1a",
           "text": "The first line of this card gains: \"Campaign Mode only.\""
         },
         {
@@ -832,7 +864,7 @@
           "packName": "Jacqueline Fine",
           "position": 16,
           "cat": "mutated",
-          "art": "fc-2-fec6c2ef",
+          "art": "fc-2-09307c83",
           "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
         },
         {
@@ -865,6 +897,7 @@
           "packName": "Edge of the Earth Investigator Expansion",
           "position": 76,
           "cat": "forbidden",
+          "art": "fc-18-007cab1a",
           "text": "Forbidden."
         },
         {
@@ -874,7 +907,7 @@
           "packName": "The Dunwich Legacy",
           "position": 26,
           "cat": "forbidden",
-          "art": "fc-6-9264a7b8",
+          "art": "fc-5-6cc1b92c",
           "text": "Forbidden."
         },
         {
