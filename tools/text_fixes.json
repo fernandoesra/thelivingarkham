@@ -9,7 +9,8 @@
     { "find": "el mazo de u jugador", "replace": "el mazo de un jugador", "kind": "source", "note": "typo in the Grimoire PDF (glosario, Cartas de Apoyo)" },
     { "find": "incluyendo tantos las cartas", "replace": "incluyendo tanto las cartas", "kind": "source", "note": "'tanto... como' is invariable (juego-orden 4.3)" },
     { "find": "el anverso de esta carga obtiene", "replace": "el anverso de esta carta obtiene", "kind": "source", "note": "'carga' for 'carta' (tabues, Lola Hayes)" },
-    { "find": "“no puedes moverte” hiciera", "replace": "“no puedes moverte”) hiciera", "kind": "source", "note": "unclosed parenthesis (aclaracion 1.21)" }
+    { "find": "“no puedes moverte” hiciera", "replace": "“no puedes moverte”) hiciera", "kind": "source", "note": "unclosed parenthesis (aclaracion 1.21)" },
+    { "find": " 153. ", "replace": " 153, ", "kind": "source", "note": "a full stop where the list of collection numbers wants a comma — 'Mirada hipnotica ( 153. 14, 23)' in the taboo list; it is what stopped that reference being linked to its card" }
   ],
 
   "en": [

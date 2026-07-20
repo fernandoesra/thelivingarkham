@@ -21,6 +21,7 @@ where changes, and that is read per language from that language's own PDF.
 import hashlib
 import os
 import re
+import sys
 
 import fitz
 
@@ -157,19 +158,49 @@ def _place_icon(plines, box, fp):
     host['spans'].append(span)
 
 
-def _inject_icons(lines, doc, skip_pages=()):
+_NEAR = 26.0                           # how close the text on either side of an inline mark is
+
+
+def _inline_gap(plines, box):
+    """True when this mark sits in a GAP BETWEEN two pieces of text of the same column.
+
+    That is how an inline mark is set — "(Nathaniel Cho <icon>, Harvey Walters <icon>…" — and it
+    is never how the icon-reference tables set theirs: those sit at the left margin of their
+    column, with nothing of that column to their left. The column matters. On the FAQ's last
+    page the tables sit beside the environments prose, so a table's mark DOES have text a few
+    points to its left — the prose ending in the column before it. Asking per column tells the
+    two apart; asking of the whole row does not."""
+    cy = (box[1] + box[3]) / 2.0
+    row = [l for l in plines if l['y'] - 3 <= cy <= l['y1'] + 3]
+    for col in {l.get('col') for l in row}:
+        spans = [s for l in row if l.get('col') == col for s in l['spans']]
+        left = any(box[0] - _NEAR <= s['bbox'][2] <= box[0] + 1 for s in spans)
+        right = any(box[2] - 1 <= s['bbox'][0] <= box[2] + _NEAR for s in spans)
+        if left and right:
+            return True
+    return False
+
+
+def _inject_icons(lines, doc, inline_only_pages=()):
     """Slot every page's icons into the text as `seticon` spans (see _place_icon), then restore
-    reading order. Returns {fingerprint: svg}."""
+    reading order. Returns {fingerprint: svg}.
+
+    On a page in `inline_only_pages` only the marks set INSIDE the text are taken (see
+    _inline_gap). That is the FAQ's last page, where the icon-reference tables share the paper
+    with the environments prose: taking everything there dropped the tables' whole alphabet into
+    the prose, and taking nothing — which is what the build did until now — left the five starter
+    decks named in that prose with no marks at all."""
     by_page = {}
     for l in lines:
         by_page.setdefault(l['page'], []).append(l)
     svgs = {}
     for pno in range(doc.page_count):
-        if (pno + 1) in skip_pages:
-            continue
         page = doc[pno]
         plines = by_page.get(pno + 1, [])
+        inline_only = (pno + 1) in inline_only_pages
         for box, svg, fp in _cluster_icons(page):
+            if inline_only and not _inline_gap(plines, box):
+                continue
             svgs.setdefault(fp, svg)
             _place_icon(plines, box, fp)
     # Reading order, per page and column, but CLUSTER lines into visual rows first and sort
@@ -219,7 +250,7 @@ def _drop_footers(lines, doc):
     return [l for l in lines if not is_footer(l)]
 
 
-def parse_with_icons(pdf, skip_pages=()):
+def parse_with_icons(pdf, inline_only_pages=()):
     """parse_grimoire.parse_pdf, but with the FAQ's vector set icons recovered and slotted
     back into the text. Returns (nodes, doc, svgs). Done by patching the two module hooks
     the parser resolves at call time — collect_lines (to inject the icons) and build_runs
@@ -231,7 +262,7 @@ def parse_with_icons(pdf, skip_pages=()):
     def collect(pdf_, masks):
         lines, doc = orig_collect(pdf_, masks)
         lines[:] = _drop_footers(lines, doc)
-        captured['svgs'] = _inject_icons(lines, doc, skip_pages)
+        captured['svgs'] = _inject_icons(lines, doc, inline_only_pages)
         return lines, doc
 
     def build(spans, reds=pg._KEEP):
@@ -260,12 +291,19 @@ def parse_with_icons(pdf, skip_pages=()):
     # peppered with wrapped card references, which the plain detector mistook for a right column and
     # scrambled (splitting questions into "( 96)?" fragments). The Grimoire keeps the plain detector.
     pg.column_edges = pg.column_edges_dense
+    # A bullet the publisher sets partly in italic lands in its own PDF text block, so the
+    # continuation reads as an orphan paragraph starting mid-sentence ("if playing with the
+    # Current Environment…"). The FAQ asks the parser to rejoin those by geometry; the Grimoire,
+    # whose parse is measured against its printed page, keeps the plain block rule.
+    orig_fold = pg.FOLD_BULLET_CONTINUATION
+    pg.FOLD_BULLET_CONTINUATION = True
     try:
         nodes, doc = pg.parse_pdf(pdf, {})
     finally:
         pg.collect_lines = orig_collect
         pg.build_runs = orig_build
         pg.column_edges = orig_cols
+        pg.FOLD_BULLET_CONTINUATION = orig_fold
     return nodes, doc, captured.get('svgs', {})
 
 
@@ -481,3 +519,47 @@ def write_products(svgs, outdir=PRODUCTS_DIR):
         with open(os.path.join(outdir, art + '.svg'), 'w', encoding='utf-8', newline='\n') as f:
             f.write(svg + '\n')
     return len(svgs)
+
+
+def report_orphans(quiet=False):
+    """Traced marks on disk that no built corpus refers to any more.
+
+    Every build WRITES the art it traced and none of them ever removes any, so a change to how
+    the marks are traced leaves the old fingerprints behind — 183 of them, after one experiment
+    here. Reported rather than deleted: a partial build (one language, or one that failed part
+    way) legitimately refers to fewer marks than the repo holds, and quietly deleting the rest
+    would turn a half-finished run into a destructive one."""
+    import glob
+    import json as _json
+    used = set()
+    for path in glob.glob(os.path.join(langpack.DATA_DIR, 'faq_*.json')) + \
+            glob.glob(os.path.join(langpack.DATA_DIR, 'grimoire_*.json')):
+        with open(path, encoding='utf-8') as f:
+            data = _json.load(f)
+
+        def runs_of(sections):
+            for s in sections:
+                for b in s.get('intro') or []:
+                    yield b.get('runs') or []
+                for e in s.get('entries') or []:
+                    if e.get('titleRuns'):
+                        yield e['titleRuns']
+                    for b in e.get('blocks') or []:
+                        yield b.get('runs') or []
+                ub = s.get('ub') or {}
+                for bucket in ('ultimatums', 'boons', 'refractions'):
+                    for it in ub.get(bucket) or []:
+                        for b in it.get('blocks') or []:
+                            yield b.get('runs') or []
+        for runs in runs_of(data.get('sections') or []):
+            for r in runs:
+                if r.get('kind') == 'seticon' and r.get('fp'):
+                    used.add(r['fp'])
+    have = {os.path.basename(p)[:-4] for p in glob.glob(os.path.join(FAQSETS_DIR, '*.svg'))}
+    orphans = sorted(have - used)
+    if orphans and not quiet:
+        print(f'  [warn] {len(orphans)} traced mark(s) in assets/faqsets/ are no longer referenced '
+              f'by any corpus — delete them before committing if this was a full build:',
+              file=sys.stderr)
+        print('         ' + ', '.join(orphans[:8]) + (' …' if len(orphans) > 8 else ''), file=sys.stderr)
+    return orphans

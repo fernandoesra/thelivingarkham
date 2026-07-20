@@ -82,6 +82,40 @@ def _link_runs(runs, stops):
     return out, changed
 
 
+# A reference reads "Name ( <icon> 20)" once the product mark between the parenthesis and the
+# number has been recovered (faq_seticons / grim_vecicons). The pattern above cannot see past a
+# non-text run, so each icon is swapped for a sentinel character the pattern treats as ordinary
+# text, the name is linked as usual, and the sentinels become icon runs again afterwards. The
+# sentinel is a private-use codepoint: it can never occur in the book's own text.
+_ICON_SENT = ''
+
+
+def link_through_icons(runs, stops):
+    """_link_runs, but stepping over the inline set icons inside a reference's parenthesis."""
+    conv, style = [], {'bold': False, 'italic': False}
+    for r in runs:
+        if r.get('kind') == 'seticon':
+            conv.append({'kind': 'text', 't': _ICON_SENT, 'bold': style['bold'],
+                         'italic': style['italic'], 'ref': False, 'red': False})
+        else:
+            conv.append(r)
+            if r.get('kind') == 'text':
+                style = {'bold': r.get('bold', False), 'italic': r.get('italic', False)}
+    linked, changed = _link_runs(conv, stops)
+    out, icons = [], iter([r for r in runs if r.get('kind') == 'seticon'])
+    for r in linked:
+        if r.get('kind') == 'text' and _ICON_SENT in r.get('t', ''):
+            pieces = r['t'].split(_ICON_SENT)
+            for pi, piece in enumerate(pieces):
+                if piece:
+                    out.append(dict(r, t=piece))
+                if pi < len(pieces) - 1:
+                    out.append(next(icons))
+        else:
+            out.append(r)
+    return out, changed
+
+
 def attach(sections, pack):
     stops = _stops(pack)
     n = 0
@@ -89,13 +123,13 @@ def attach(sections, pack):
         if not (s.get('key') == 'errata' or s.get('kind') == 'faq'):
             continue
         for b in s.get('intro', []):
-            b['runs'], ch = _link_runs(b.get('runs', []), stops)
+            b['runs'], ch = link_through_icons(b.get('runs', []), stops)
             n += ch
         for e in s.get('entries', []):
             if e.get('titleRuns'):
-                e['titleRuns'], ch = _link_runs(e['titleRuns'], stops)
+                e['titleRuns'], ch = link_through_icons(e['titleRuns'], stops)
                 n += ch
             for b in e.get('blocks', []):
-                b['runs'], ch = _link_runs(b.get('runs', []), stops)
+                b['runs'], ch = link_through_icons(b.get('runs', []), stops)
                 n += ch
     return {'linked': n} if n else None

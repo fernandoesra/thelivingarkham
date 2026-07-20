@@ -24,6 +24,9 @@ var GRIM = {},        // code -> grimoire data (loaded on demand)
     REG = null,       // the language registry
     LANGS = [];       // registry entries, in display order
 var BLOG='https://rinconmiskatonic.org/', SIGIL_SVG='';
+/* Who drew the banner. A credit, not content: the same fact in every language, so it lives
+   here rather than in each pack's strings — only the word "Illus." is translated. */
+var HERO_ART={by:'Aurore Folny', url:'https://www.artstation.com/aurorefolny'};
 
 /* ---------- i18n ---------- */
 /* A string is looked up in the active language, then along its fallback chain,
@@ -150,11 +153,13 @@ function announce(msg){if(elLive){elLive.textContent=''; setTimeout(function(){e
 /* Labels come from a pack, so they are escaped like any other authored text:
    a label containing a quote would otherwise break out of the attribute. */
 function iconHTML(name){return '<i class="ico ico-'+esc(name)+'" title="'+esc(iconLabel(name))+'"></i>';}
-/* A set/campaign/scenario icon recovered from the FAQ's vector art (see tools/faq_seticons.py).
-   Not a font glyph, so it is not in icons.css: its mask is the per-shape SVG, named by the
-   shape's fingerprint. One generic label — the card it marks is named right beside it. */
-function seticonHTML(r){var u='assets/faqsets/'+esc(r.fp)+'.svg';
-  return '<i class="ico tla-seticon" role="img" aria-label="'+esc(t('faqseticon'))+'" title="'+esc(t('faqseticon'))
+/* A set/campaign/scenario icon recovered from the books' vector art (tools/faq_seticons.py and
+   tools/grim_vecicons.py). Not a font glyph, so it is not in icons.css: its mask is the
+   per-shape SVG, named by the shape's fingerprint. The build works out which campaign most of
+   these marks stand for (tools/adb_resolve.py) and stores it as `pn`, so the icon can say
+   "Legado de Dunwich" instead of the generic label; one that was never identified keeps it. */
+function seticonHTML(r){var u='assets/faqsets/'+esc(r.fp)+'.svg', lbl=r.pn||t('faqseticon');
+  return '<i class="ico tla-seticon" role="img" aria-label="'+esc(lbl)+'" title="'+esc(lbl)
     +'" style="-webkit-mask-image:url('+u+');mask-image:url('+u+')"></i>';}
 /* flat: render every interactive run (link, card link, flow ref) as plain text. A title
    goes inside a nav <button> and a table-of-contents <a>, and an interactive element
@@ -175,9 +180,15 @@ function runsHTML(runs,suppressNew,flat){
        middle-click a term into a new tab. The delegated handler intercepts a plain
        left click to add the flash; anything else is left to the browser. */
     if(r.kind==='link')          inner='<a class="xref" href="#'+esc(lang)+'/'+esc(r.target)+'" data-t="'+esc(r.target)+'">'+wrap(esc(r.t),r)+'</a>';
-    /* A card named in the errata/FAQ: a link out to an ArkhamDB search for it, in this
-       language. External, so it opens in a new tab like the other outbound links. */
-    else if(r.kind==='adbcard') inner='<a class="tla-adbcard" href="'+esc(adbSearchUrl(r.q))+'" target="_blank" rel="noopener" title="'+esc(t('viewadb'))+'">'+wrap(esc(r.t),r)+'</a>';
+    /* A card named in the errata/FAQ. The build resolves most references to the exact card
+       (name + collection number + the product's icon — tools/adb_resolve.py), and those link
+       straight to it, naming the product in the tooltip so the reader knows which printing
+       they are opening. Anything it could not pin down keeps the honest fallback: a search,
+       which lists every printing. External either way, so it opens in a new tab. */
+    else if(r.kind==='adbcard'){
+      var tip=t('viewadb')+(r.pn?' · '+r.pn:'');
+      inner='<a class="tla-adbcard" href="'+esc(r.code?adbCardUrl(r.code):adbSearchUrl(r.q))+'" target="_blank" rel="noopener" title="'+esc(tip)+'">'+wrap(esc(r.t),r)+'</a>';
+    }
     /* A button, not a link: this scrolls to a box inside the same diagram and must
        NOT touch the URL — the hash is the router's, and "#fl-…" would route to the
        landing page. It is an action on this page, so it is a button. */
@@ -841,7 +852,12 @@ function entryLetter(e){
    (tla-theme) outlive a session; a view that hides three quarters of a chapter must
    not greet a reader who has forgotten choosing it, and a shared link must not hand
    that to someone who never did. */
-var diagOnly=false;
+/* Which cut of the chapter is on screen: 'all', 'diag' (only what the book draws) or
+   'fanmade' (only the community's deeper diagram, where a chapter has one). One value rather
+   than a pair of booleans, because they are one question with one answer. */
+var docView='all';
+function diagOnly(){return docView==='diag';}
+function fmOnly(){return docView==='fanmade';}
 /* Which chapters offer it: the ones that actually draw something. Keyed off e.flow —
    never off the title, the index, or the "-2" id suffix, because the book inverts
    the pair on the Upkeep phase (there the flow entry comes first). */
@@ -853,7 +869,8 @@ function visibleEntries(s){
      filters are about different axes. */
   if(verOnly)all=all.filter(function(e){return inVer(e,verOnly);});
   if(s.kind==='glossary' && glossFilter!=='all'){return all.filter(function(e){return entryLetter(e)===glossFilter;});}
-  if(diagOnly && hasDiagrams(s)){return all.filter(function(e){return !!e.flow;});}
+  if(fmOnly())return [];
+  if(diagOnly() && hasDiagrams(s)){return all.filter(function(e){return !!e.flow;});}
   return all;
 }
 
@@ -912,30 +929,38 @@ function setVerOnly(v){
   verOnly=v;
   render(curSec.id,null,false); elMain.scrollTop=0;
   /* render() destroyed the radio that was just pressed; focus its replacement, or the
-     reader is dropped at the top of the document. Same reason setDiagOnly re-focuses. */
+     reader is dropped at the top of the document. Same reason setDocView re-focuses. */
   var again=elMain.querySelector('.tla-verpick input[value="'+(v||'')+'"]');
   if(again){try{again.focus();}catch(e){}}
   var n=visibleEntries(curSec).length;
   announce((verOnly?t('vernew').replace('{v}',verOnly):t('all'))+': '+n+' '+plural('entries',n));
 }
+/* The options this chapter offers. A chapter the community has diagrammed more deeply
+   (tools/fanmade.py) offers three cuts instead of two — and then "diagrams only" is named for
+   whose diagram it is, so the reader is never left wondering which one they are looking at. */
+function diagOptions(s){
+  if(s&&s.fanmade)return [['all',t('viewall')],['diag',t('fmofficial')],['fanmade',t('fmfanmade')]];
+  return [['all',t('viewall')],['diag',t('viewdiag')]];
+}
 function diagSwitch(s){
   var h='<fieldset class="tla-diagpick"><legend class="tla-diagpick-lg">'+esc(t('viewas'))+'</legend>';
   h+='<div class="tla-diagpick-row">';
-  [['all',t('viewall')],['diag',t('viewdiag')]].forEach(function(o){
-    var on=(o[0]==='diag')===diagOnly;
-    h+='<label class="tla-diagopt"><input type="radio" name="tla-diagview" value="'+o[0]+'"'
+  diagOptions(s).forEach(function(o){
+    var on=o[0]===docView;
+    h+='<label class="tla-diagopt"><input type="radio" name="tla-diagview" value="'+esc(o[0])+'"'
       +(on?' checked':'')+'><span>'+esc(o[1])+'</span></label>';
   });
   return h+'</div></fieldset>';
 }
-function setDiagOnly(on){
-  if(diagOnly===on)return;
-  diagOnly=on;
+function setDocView(v){
+  if(docView===v)return;
+  docView=v;
+  var on=v==='diag';
   render(curSec.id,null,false);
   /* render() destroyed the radio that was just pressed; focus its replacement, or
      the reader is dropped at the top of the document. Same reason the edition chips
      re-focus at the What's New handler. */
-  var again=elMain.querySelector('.tla-diagpick input[value="'+(on?'diag':'all')+'"]');
+  var again=elMain.querySelector('.tla-diagpick input[value="'+v+'"]');
   if(again){try{again.focus();}catch(e){}}
   /* The page silently rewrote itself underneath a screen reader, so say what it now
      holds — and count DIAGRAMS, not entries. Entries are the wrong axis: a chapter
@@ -943,7 +968,8 @@ function setDiagOnly(on){
      reporting that nothing happened, right after 27 blocks of rules text vanished.
      What the reader asked for is diagrams, so that is what is counted. */
   var shown=visibleEntries(curSec).length;
-  announce(on?(t('viewdiag')+': '+shown+' '+plural('diagrams',shown)):t('viewall'));
+  var lbl=(diagOptions(curSec).filter(function(o){return o[0]===v;})[0]||[0,v])[1];
+  announce(on?(lbl+': '+shown+' '+plural('diagrams',shown)):lbl);
 }
 
 /* ---------- NAV ---------- */
@@ -1106,7 +1132,7 @@ function setGlossFilter(v){
   glossFilter=v; render(curSec.id,null,false); elMain.scrollTop=0;
   /* render() destroyed the letter button that was just pressed; focus its replacement,
      or a keyboard reader is dropped at the top of the document — the same guard
-     setVerOnly and setDiagOnly already carry. */
+     setVerOnly and setDocView already carry. */
   var again=elMain.querySelector('.tla-azbtn[data-az="'+cssEsc(v)+'"]');
   if(again){try{again.focus();}catch(e){}}
   var n=visibleEntries(curSec).length;
@@ -1315,10 +1341,17 @@ function ubHasChapters(s){var ub=s&&s.ub||{}; return (ub.refractions||[]).some(f
    forces the chapter filter to 'all' (so the two cuts never fight). Transient — a way to answer
    "which refractions apply to my scenario?" — so not remembered across sessions. */
 var ubCampaign='', ubScenario='';
-/* The refractions to show: the chapter bucket, then (campaign picked) that campaign, then
-   (scenario picked too) the campaign-wide ones plus that one scenario's specific ones. */
+/* A refraction is itself either an ultimatum (it makes the game harder) or a boon (it makes it
+   easier), so the refractions panel can be cut that way too: 'all', 'ultimatum' or 'boon'.
+   Remembered like the chapter filter — it is a lasting preference ("show me only the boons"),
+   not a one-off question. */
+var ubType=(function(){try{var v=localStorage.getItem('tla-ubtype'); return (v==='ultimatum'||v==='boon')?v:'all';}catch(e){return 'all';}})();
+function ubTypeOK(it){return ubType==='all'||it.cat===ubType;}
+/* The refractions to show: the chapter bucket, then the ultimatum/boon cut, then (campaign
+   picked) that campaign, then (scenario picked too) the campaign-wide ones plus that one
+   scenario's specific ones. */
 function ubRefracList(s){
-  var a=ubBucket(s,'refraction');
+  var a=ubBucket(s,'refraction').filter(ubTypeOK);
   if(ubCampaign){
     a=a.filter(function(r){var p=ubRefractionParts(r); return !!(p&&p.campaign===ubCampaign);});
     if(ubScenario)a=a.filter(function(r){var p=ubRefractionParts(r); return !!(p&&(!p.scenario||p.scenario===ubScenario));});
@@ -1370,6 +1403,16 @@ function ubRefracFilterBar(s){
     });
     h+='</div></div>';
   }
+  /* Ultimatum or boon: the same segmented control as the chapter, because it answers the same
+     kind of question — "narrow this list" — and the two read as one row of filters. */
+  h+='<div class="tla-ub-fgroup">'
+    +'<span class="tla-ub-flabel" id="ubtype-lbl">'+esc(t('ubtypelabel'))+'</span>'
+    +'<div class="tla-ub-chap" role="group" aria-labelledby="ubtype-lbl">';
+  [['all','ubtypeall'],['ultimatum','ubultimatums'],['boon','ubboons']].forEach(function(p){
+    var on=ubType===p[0];
+    h+='<button type="button" class="tla-ub-chapbtn'+(on?' is-on':'')+'" data-ubtype="'+p[0]+'" aria-pressed="'+on+'">'+esc(t(p[1]))+'</button>';
+  });
+  h+='</div></div>';
   var camps=ubCampaignList(s);
   if(camps.length){
     var scens=ubScenarioList(s);
@@ -1381,7 +1424,7 @@ function ubRefracFilterBar(s){
       +'<select class="tla-ub-selbox" data-ubscen'+((ubCampaign&&scens.length)?'':' disabled')+'><option value="">'+esc(t('ubscenall'))+'</option>';
     scens.forEach(function(sc){h+='<option value="'+esc(sc)+'"'+(sc===ubScenario?' selected':'')+'>'+esc(sc)+'</option>';});
     h+='</select></label>';
-    if(ubCampaign||ubScenario||ubChap!=='all'){
+    if(ubCampaign||ubScenario||ubChap!=='all'||ubType!=='all'){
       h+='<button type="button" class="tla-ub-clear" data-ubclear>'
         +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>'
         +esc(t('ubclearfilter'))+'</button>';
@@ -1391,6 +1434,28 @@ function ubRefracFilterBar(s){
   return h;
 }
 function ubFindItem(s,cat,slug){var a=ubItems(s,cat); for(var i=0;i<a.length;i++)if(a[i].slug===slug)return a[i]; return null;}
+function ubIndexOf(s,cat,slug){var a=ubItems(s,cat); for(var i=0;i<a.length;i++)if(a[i].slug===slug)return i; return -1;}
+/* Step through the shown cards without going back to the list — the way you would leaf through
+   a physical stack. List mode only: the gallery already has every card on screen at once, so an
+   arrow there would mean nothing. The end of the stack disables its arrow rather than wrapping
+   around, so the reader can feel where the list ends. */
+function ubStepperHTML(s,cat,sel){
+  if(ubView!=='list')return '';
+  var a=ubItems(s,cat), i=ubIndexOf(s,cat,sel);
+  if(i<0||a.length<2)return '';
+  function btn(d,key,path){
+    var off=(d<0)?(i<=0):(i>=a.length-1);
+    return '<button type="button" class="tla-ub-stepbtn" data-ubstep="'+d+'"'+(off?' disabled':'')
+      +' aria-label="'+esc(t(key))+'" title="'+esc(t(key))+'">'
+      +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="'+path+'"/></svg></button>';
+  }
+  return '<div class="tla-ub-step">'+btn(-1,'ubprev','m15 18-6-6 6-6')
+    +'<span class="tla-ub-stepn">'+esc(t('ubpos').replace('{i}',i+1).replace('{n}',a.length))+'</span>'
+    +btn(1,'ubnext','m9 18 6-6-6-6')+'</div>';
+}
+/* What sits in the list view's right-hand pane: the card, and the stepper under it. Built in
+   one place because picking a name replaces the whole pane. */
+function ubPaneHTML(s,cat,sel){return ubDetailHTML(ubFindItem(s,cat,sel))+ubStepperHTML(s,cat,sel);}
 function ubLabel(cat){return t(cat==='ultimatum'?'ubultimatums':cat==='boon'?'ubboons':'ubrefractions');}
 function ubChosen(s,cat){
   var a=ubItems(s,cat); if(!a.length)return null;
@@ -1839,7 +1904,7 @@ function ubHTML(s){
           +'" loading="lazy" alt=""><span class="tla-ub-iwrap"><span class="tla-ub-iname"'+(it.pending?' lang="en"':'')+'>'+esc(it.name)+'</span>'+sub+'</span>'
           +chip+(it.pending?'<span class="tla-ub-en" title="'+esc(t('ubpending'))+'">EN</span>':'')+'</li>';
       });
-      h+='</ul><div class="tla-ub-detail">'+ubDetailHTML(ubFindItem(s,cat,sel))+'</div></div>';
+      h+='</ul><div class="tla-ub-detail">'+ubPaneHTML(s,cat,sel)+'</div></div>';
     }
     h+='</div>';
   });
@@ -1891,10 +1956,16 @@ function ubSetScenario(v){
   ubScenario=v||'';
   ubReRender();
 }
-/* Reset the refractions filter to its default: no campaign, no scenario, all chapters. */
+/* Switch the ultimatum/boon cut of the refractions. */
+function ubSetType(v){
+  if((v!=='all'&&v!=='ultimatum'&&v!=='boon')||v===ubType)return;
+  ubType=v; try{localStorage.setItem('tla-ubtype',v);}catch(e){}
+  ubReRender();
+}
+/* Reset the refractions filter to its default: every chapter, both types, no campaign. */
 function ubClearFilter(){
-  ubCampaign=''; ubScenario=''; ubChap='all';
-  try{localStorage.setItem('tla-ubchap','all');}catch(e){}
+  ubCampaign=''; ubScenario=''; ubChap='all'; ubType='all';
+  try{localStorage.setItem('tla-ubchap','all'); localStorage.setItem('tla-ubtype','all');}catch(e){}
   ubReRender();
 }
 function ubSelectTab(root,cat){
@@ -1917,7 +1988,23 @@ function ubSelectItem(li){
     var on=x===li; x.classList.toggle('is-sel',on); x.setAttribute('aria-selected',on?'true':'false'); x.tabIndex=on?0:-1;
   });
   var det=main.querySelector('.tla-ub-detail'), it=ubFindItem(s,cat,slug);
-  if(det&&it){det.innerHTML=ubDetailHTML(it); ubFitCard(det.querySelector('.tla-ubc'));}
+  if(det&&it){det.innerHTML=ubPaneHTML(s,cat,slug); ubFitCard(det.querySelector('.tla-ubc'));}
+}
+/* Move `d` cards along the shown list. Goes through ubSelectItem so the list, the card and the
+   stepper stay one thing; then puts focus back on the arrow that was clicked — or, when that
+   arrow has just become the end of the stack and disabled itself, on the other one, so keyboard
+   focus is never dropped on the floor mid-way through the deck. */
+function ubStep(root,d){
+  var s=curSec, cat=ubTab, a=ubItems(s,cat), i=ubIndexOf(s,cat,ubChosen(s,cat)), j=i+d;
+  if(i<0||j<0||j>=a.length)return;
+  var li=root.querySelector('#ubpanel-'+cat+' [data-ubitem="'+cssEsc(a[j].slug)+'"]');
+  if(!li)return;
+  ubSelectItem(li);
+  if(li.scrollIntoView)li.scrollIntoView({block:'nearest'});
+  var pane=root.querySelector('#ubpanel-'+cat+' .tla-ub-detail');
+  var want=pane&&pane.querySelector('[data-ubstep="'+d+'"]:not([disabled])');
+  if(!want&&pane)want=pane.querySelector('[data-ubstep]:not([disabled])');
+  if(want)want.focus();
 }
 function ubTabKeys(e,root){
   var tab=e.target.closest('.tla-ub-tab'); if(!tab)return;
@@ -1945,7 +2032,9 @@ function bindUB(){
     if(e.target.closest('#ubdraw-open')){openDraw(); return;}
     var da=e.target.closest('#ubdownall'); if(da){ubDownloadAll(da); return;}
     var vb=e.target.closest('.tla-ub-viewbtn'); if(vb){ubSetView(vb.getAttribute('data-ubview')); return;}
-    var cb=e.target.closest('.tla-ub-chapbtn'); if(cb){ubSetChap(cb.getAttribute('data-ubchap')); return;}
+    var cb=e.target.closest('[data-ubchap]'); if(cb){ubSetChap(cb.getAttribute('data-ubchap')); return;}
+    var tb=e.target.closest('[data-ubtype]'); if(tb){ubSetType(tb.getAttribute('data-ubtype')); return;}
+    var sb=e.target.closest('[data-ubstep]'); if(sb){ubStep(root,parseInt(sb.getAttribute('data-ubstep'),10)); return;}
     var clr=e.target.closest('[data-ubclear]'); if(clr){ubClearFilter(); return;}
     var tab=e.target.closest('.tla-ub-tab'); if(tab){ubSelectTab(root,tab.getAttribute('data-ubtab')); tab.focus(); return;}
     // gallery mode: a card (anywhere but its download button) enlarges in the lightbox
@@ -2049,6 +2138,13 @@ function taboosHTML(s){
         +(c.position?'<span class="tla-taboo-pos">'+esc(String(c.position))+'</span>':'')+'</span>';
       if(g.cat==='chained')h+='<span class="tla-taboo-tag tla-taboo-xp">'+esc((c.xp>0?'+':'')+c.xp+' '+t('tabooxp'))+'</span>';
       else if(g.cat==='forbidden')h+='<span class="tla-taboo-tag tla-taboo-forb">'+esc(t('taboocat_forbidden'))+'</span>';
+      /* What the mutation actually says. Everything else on this row is in the reader's
+         language — the card, its product, the category — but ArkhamDB keeps the mutation
+         wording in English only, so it is tagged lang="en" and labelled as such: a screen
+         reader switches voice for it, and a reader can see why it is the odd one out. The
+         FAQ's own taboo chapter, linked below the list, has it translated. */
+      if(c.text)h+='<p class="tla-taboo-mut" lang="en">'
+        +'<span class="tla-taboo-mutlbl">'+esc(t('taboomut'))+'</span>'+adbText(c.text)+'</p>';
       h+='</li>';
     });
     h+='</ul></section>';
@@ -2076,6 +2172,73 @@ function reprintsHTML(s){
       +'<td class="tla-rp-link">'+adbLink(r.adb)+'</td></tr>';
   });
   return h+'</tbody></table></div>';
+}
+
+/* ---- the community's deeper timing diagram (tools/fanmade.py) ----
+   A chapter the community has documented far past the book: the same procedure, broken into
+   every triggering point with the cards that fire there. It is NOT official, which is the first
+   thing said about it and the reason it is a separate cut of the chapter rather than mixed into
+   the book's own text. Rendered as a real table — three columns, a row per step — because that
+   is what it is; a screenshot of one would be unreadable, unsearchable and untranslatable. */
+var FM_MAIL='rinconmiskatonic@gmail.com';
+/* The Spanish source prints the elder-sign mark as a glyph in the middle of a sentence; the
+   transcription keeps it as ✷, and here it becomes the site's own icon, named like every other. */
+function fmText(str){
+  var parts=String(str||'').split('✷');
+  var h=esc(parts[0]);
+  for(var i=1;i<parts.length;i++)h+=iconHTML('eldersign')+esc(parts[i]);
+  return h;
+}
+function fmCellHTML(order){
+  if(!order||!order.length)return '';
+  var h='';
+  order.forEach(function(o){
+    if(o.type==='head')h+='<p class="tla-fm-h">'+fmText(o.t)+'</p>';
+    else if(o.type==='eg')h+='<p class="tla-fm-eg"><span class="tla-sr">'+esc(t('fmeg'))+': </span>'+fmText(o.t)+'</p>';
+    else h+='<p class="tla-fm-p">'+fmText(o.t)+'</p>';
+  });
+  return h;
+}
+function fanmadeHTML(s){
+  var fm=s.fanmade; if(!fm)return '';
+  var warn=t('fmwarn').split('{mail}');
+  /* Not aria-labelledby here: that would make this a landmark named by the same heading as the
+     scrollable table region inside it, and two landmarks with one name are indistinguishable in
+     a landmarks list. The h2 heads the part; the region below carries the name. */
+  var h='<section class="tla-fm">';
+  h+='<h2 class="tla-fm-title" id="fm-h">'+esc(fm.title||t('fmtitle'))+'</h2>';
+  /* Same loud callout the site uses for the obsolete environments: this is the one thing a
+     reader must take in before reading a line of it. */
+  h+='<aside class="tla-obsolete" role="note">'
+    +'<div class="tla-obsolete-tag">'+esc(t('noticeword'))+'</div>'
+    +'<div class="tla-obsolete-body"><p class="tla-obsolete-lead">'+esc(warn[0])
+    +'<a href="mailto:'+FM_MAIL+'">'+esc(FM_MAIL)+'</a>'+esc(warn[1]||'')+'</p></div></aside>';
+  (fm.lead||[]).forEach(function(l){
+    h+='<p class="tla-p">'+(l.h?'<strong>'+esc(l.h)+':</strong> ':'')+fmText(l.t)+'</p>';
+  });
+  /* The table is wider than a phone, so it scrolls in its own box — which then has to be
+     reachable by keyboard, and named, or a keyboard user can never scroll it. */
+  h+='<div class="tla-fm-wrap" tabindex="0" role="region" aria-labelledby="fm-h">'
+    +'<table class="tla-fm-table"><thead><tr>'
+    +'<th scope="col">'+esc(t('fmstep'))+'</th><th scope="col">'+esc(t('fmdesc'))+'</th>'
+    +'<th scope="col">'+esc(t('fmorder'))+'</th></tr></thead><tbody>';
+  (fm.steps||[]).forEach(function(st){
+    var win=st.kind==='window';
+    /* A player-window row is not a numbered step: it has no id, so rather than leave an empty
+       header cell it makes its own label the row's header, across both columns. That label is
+       the interface's own words, not the source's shouted caps — which a screen reader would
+       spell out letter by letter. */
+    h+='<tr'+(win?' class="is-window"':'')+'>';
+    if(win)h+='<th scope="row" colspan="2" class="tla-fm-win">'+esc(t('fmwindow'))+'</th>';
+    else h+='<th scope="row" class="tla-fm-id">'+esc(st.id||'')+'</th>'
+      +'<td class="tla-fm-desc">'+fmText(st.desc)+'</td>';
+    h+='<td class="tla-fm-order">'+fmCellHTML(st.order)+'</td></tr>';
+  });
+  h+='</tbody></table></div>';
+  var cr=fm.credit||{};
+  if(cr.author)h+='<p class="tla-fm-credit">'+esc(t('fmcredit').replace('{author}',cr.author))
+    +(cr.updated?' '+esc(t('fmupdated').replace('{date}',fmtDate(cr.updated))):'')+'</p>';
+  return h+'</section>';
 }
 
 /* The Grimoire's living definition of the environments (in the optional rules), for the FAQ's
@@ -2108,13 +2271,23 @@ function render(sid,eid,flash){
       +(envt?'<a class="tla-obsolete-go" href="#'+lang+'/'+esc(envt)+'">'+esc(t('envobsoletego'))+' <span aria-hidden="true">→</span></a>':'')
       +'</div></aside>';
   }
+  /* The FAQ opens by saying what it covers — and the one thing a reader most needs to know
+     before reading a word of it is that it is NOT the current ruleset. Same loud callout as
+     the obsolete environments, on the chapter that introduces the whole shelf. */
+  if(s.key==='faq-intro'){
+    h+='<aside class="tla-obsolete" role="note">'
+      +'<div class="tla-obsolete-tag">'+esc(t('noticeword'))+'</div>'
+      +'<div class="tla-obsolete-body"><p class="tla-obsolete-lead">'+esc(t('c1scope'))+'</p>'
+      +'<p class="tla-obsolete-p">'+esc(t('c1scopebody'))+'</p>'
+      +'</div></aside>';
+  }
   /* First thing under the title: the diagrams ARE the summary, so the offer to read
      only them belongs where it is seen before the reading starts. */
-  if(hasDiagrams(s))h+=diagSwitch(s);
+  if(hasDiagrams(s)||s.fanmade)h+=diagSwitch(s);
   h+=verSwitch(s);
   /* The lead is prose too, so diagrams-only hides it. That is the whole feature in a
      chapter the book writes as one procedure with a single diagram at the end. */
-  if(s.intro&&s.intro.length&&!(diagOnly&&hasDiagrams(s))){h+='<div class="tla-lead">'+blocksHTML(s.intro,false,s.kind==='icons'&&!!s.qr)+'</div>';}
+  if(s.intro&&s.intro.length&&!fmOnly()&&!(diagOnly()&&hasDiagrams(s))){h+='<div class="tla-lead">'+blocksHTML(s.intro,false,s.kind==='icons'&&!!s.qr)+'</div>';}
   if(s.kind==='anatomy'){h+=anatomyHTML(s);}
   if(s.kind==='icons'){h+=iconsHTML(s);}
   if(s.kind==='ultimatums'){h+=ubHTML(s);}
@@ -2189,6 +2362,9 @@ function render(sid,eid,flash){
         +esc(t('qrdownload'))+'</a></figcaption></figure>';
     });
   }
+  /* The community's diagram sits after the book's own text and diagram — an appendix, never a
+     substitute — unless the reader asked for it alone. */
+  if(s.fanmade&&!diagOnly())h+=fanmadeHTML(s);
   h+='</div>';
   elMain.innerHTML=h;
   syncStickyHeight();          // before any scroll-to, so the target clears the toolbar
@@ -2423,7 +2599,12 @@ function renderLanding(s){
   h+='<div class="tla-hero"><div class="tla-hero-inner">';
   h+='<h1 class="tla-hero-title">The Living Arkham</h1>';
   h+='<p class="tla-hero-sub">'+esc(t('sub'))+'</p>';
-  h+='</div></div>';
+  h+='</div>';
+  /* The banner is somebody's work, so it is signed — bottom left, the way the cards sign
+     theirs. "Illus." is the same word the card credits use, so it needs no new string. */
+  h+='<p class="tla-hero-illus">'+esc(t('ubillus'))+' '
+    +'<a href="'+esc(HERO_ART.url)+'" target="_blank" rel="noopener">'+esc(HERO_ART.by)+'</a></p>';
+  h+='</div>';
   if(li){h+=verBanner(li);}
   h+=rmPanel();
   /* English leads; the other languages follow. Say so up front, and how to help fill a
@@ -2616,6 +2797,9 @@ function applyLang(L){
   if(md && t('docdesc')!=='docdesc')md.setAttribute('content',t('docdesc'));
   buildLangBar();
   applyStaticStrings();
+  /* The tour, if it is open, is one of the things written in the old language — and the whole
+     point of its language stop is that a reader can change it from there. */
+  if(tourOpen())tourRender();
   elQ.setAttribute('placeholder',t('searchph'));
   document.getElementById('tla-searchhint').innerHTML=hintHTML();
   var home=document.getElementById('tla-home');
@@ -2694,12 +2878,14 @@ function route(){
        "#es/juego-orden--i-fase-de-mitos" (a prose entry): were diagOnly sticky, its
        element would not exist, render()'s scroll-to would silently find nothing, and
        the reader would land mid-page on a chapter without the thing they clicked. */
-    glossFilter='all'; diagOnly=false; verOnly=null;
+    glossFilter='all'; docView='all'; verOnly=null;
     if(L!==lang||data!==GRIM[L])applyLang(L);
     var f=target?findEntry(L,target):null;
     if(f){render(f.sid,f.eid,lastFlash);} else {render(data.sections[0].id,null,false);}
     lastFlash=false; closeResults();
-    if(!firstRoute){try{elMain.focus({preventScroll:true});}catch(e){}} firstRoute=false;
+    /* …but never out of an open dialog: the welcome tour is modal, and a route that ran
+       under it would pull focus onto the page the reader cannot reach. */
+    if(!firstRoute&&!tourOpen()){try{elMain.focus({preventScroll:true});}catch(e){}} firstRoute=false;
     try{localStorage.setItem('tla-lang',L);}catch(e){}
   }, function(err){ if(mine===routeSeq)fatal(err); });
 }
@@ -2844,7 +3030,10 @@ function dialogs(){
     {box:elUbDraw,   isOpen:drawOpen,    close:closeDraw},
     /* Last, so it wins when opened over another dialog (a drawn card zoomed over the
        draw modal): openDialog() takes the last open entry, and trapTab/Escape follow it. */
-    {box:elLb,       isOpen:lbOpen,      close:closeLightbox}
+    {box:elLb,       isOpen:lbOpen,      close:closeLightbox},
+    /* The tour is drawn over everything and is the only thing the reader can act on, so it
+       is last of all: Escape leaves it and Tab stays inside its card. */
+    {box:elTour,     isOpen:tourOpen,    close:tourClose}
   ];
 }
 function openDialog(){
@@ -2940,6 +3129,158 @@ function openNav(){
 function closeNav(){elNav.classList.remove('on');document.getElementById('tla-scrim').classList.remove('on');document.getElementById('tla-burger').setAttribute('aria-expanded','false');}
 
 /* ---------- events ---------- */
+/* ---------- the welcome tour ----------
+   Six short stops on a first visit: what this is, the language switch (and that English runs
+   ahead), the theme, the search, the two rulebooks in the sidebar, and who made it. Written
+   here rather than pulled from a tour library because the whole thing is one scrim, one card
+   and a rectangle — and a library would have to be loaded, styled and made accessible anyway.
+
+   It is a real modal dialog: focus moves into it, Tab is trapped, Escape leaves, and every stop
+   is announced by its own heading. The highlight is a plain box drawn OVER the page (a huge
+   spread shadow makes everything else dark), so no element on the page is restyled, re-stacked
+   or moved to make room for it. A target that is not on screen — the sidebar on a narrow
+   window — simply gets no rectangle, and the stop reads as a centred card. */
+var TOUR=[{t:'tour1t',d:'tour1d'},
+          {t:'tour2t',d:'tour2d',sel:'.tla-lang',langs:true},
+          {t:'tour3t',d:'tour3d',sel:'#tla-theme'},
+          {t:'tour4t',d:'tour4d',sel:'#tla-search-open'},
+          {t:'tour5t',d:'tour5d',sel:'#tla-nav'},
+          {t:'tour6t',d:'tour6d'}];
+var tourAt=-1, elTour=null, lastTour=null;
+function tourSeen(){try{return localStorage.getItem('tla-tour')==='done';}catch(e){return true;}}
+function tourMark(){try{localStorage.setItem('tla-tour','done');}catch(e){}}
+function tourOpen(){return tourAt>=0;}
+function tourTarget(step){
+  var el=step.sel&&document.querySelector(step.sel);
+  if(!el)return null;
+  var r=el.getBoundingClientRect();
+  /* Hidden, folded away or off the viewport: no rectangle rather than one drawn over nothing. */
+  if(!r.width||!r.height||r.bottom<0||r.top>window.innerHeight)return null;
+  return r;
+}
+function tourPlace(){
+  if(!elTour)return;
+  var step=TOUR[tourAt], r=tourTarget(step);
+  var hole=elTour.querySelector('.tla-tour-hole'), card=elTour.querySelector('.tla-tour-card');
+  var pad=8;
+  if(r){
+    hole.className='tla-tour-hole';
+    hole.style.left=(r.left-pad)+'px'; hole.style.top=(r.top-pad)+'px';
+    hole.style.width=(r.width+pad*2)+'px'; hole.style.height=(r.height+pad*2)+'px';
+  }else{
+    /* A stop with nothing to point at dims the whole screen. The inline geometry of the
+       PREVIOUS stop has to be cleared, not just overridden: an inline left/top/width/height
+       beats any stylesheet rule, so the full-screen class alone left the shadow painting
+       inside the last rectangle — which is why stepping Back, or reaching the last stop,
+       showed a page that was barely dimmed at all. */
+    hole.className='tla-tour-hole is-full';
+    hole.style.left=hole.style.top=hole.style.width=hole.style.height='';
+  }
+  card.classList.toggle('is-centred',!r);
+  if(!r){card.style.left=''; card.style.top=''; return;}
+  /* Under the target when there is room, above it when there is not, and always inside the
+     viewport — measured after the card is in the DOM, so its real height is used. */
+  var cw=card.offsetWidth, ch=card.offsetHeight, m=14;
+  var top=r.bottom+pad+m;
+  if(top+ch>window.innerHeight-m)top=Math.max(m,r.top-pad-m-ch);
+  var left=r.left+r.width/2-cw/2;
+  left=Math.max(m,Math.min(left,window.innerWidth-cw-m));
+  card.style.left=left+'px'; card.style.top=top+'px';
+}
+/* The language step carries the switch itself, not just a pointer at it. A reader who landed in
+   a language they cannot read is exactly the reader this stop is for, and asking them to reach
+   past a modal dialog to fix it would be the one place the tour actively got in the way. */
+function tourLangsHTML(){
+  if(LANGS.length<2)return '';
+  var h='<div class="tla-tour-langs" role="group" aria-label="'+esc(t('langgroup'))+'">';
+  LANGS.forEach(function(L){
+    var flag=L.flag?'<img class="tla-flag" src="'+esc(L.flag)+'" alt="" width="20" height="14" aria-hidden="true">':'';
+    h+='<button type="button" class="tla-tour-lang" data-tourlang="'+esc(L.code)+'" lang="'+esc(L.code)
+      +'" aria-pressed="'+(L.code===lang)+'">'+flag+'<span>'+esc(L.label||L.code.toUpperCase())+'</span>'
+      +'<span class="tla-sr">'+esc(L.name)+'</span></button>';
+  });
+  return h+'</div>';
+}
+function tourRender(){
+  var step=TOUR[tourAt], last=tourAt===TOUR.length-1;
+  elTour.querySelector('.tla-tour-step').textContent=t('tourstep').replace('{i}',tourAt+1).replace('{n}',TOUR.length);
+  elTour.querySelector('#tla-tour-t').textContent=t(step.t);
+  elTour.querySelector('.tla-tour-d').textContent=t(step.d);
+  elTour.querySelector('.tla-tour-extra').innerHTML=step.langs?tourLangsHTML():'';
+  /* Re-labelled on every render, not once at the start: a language switch inside the tour has
+     to change these words too. */
+  elTour.querySelector('.tla-tour-skip').textContent=t('tourskip');
+  elTour.querySelector('.tla-tour-back').textContent=t('tourback');
+  elTour.querySelector('[data-tour="back"]').hidden=tourAt===0;
+  elTour.querySelector('[data-tour="next"]').textContent=last?t('tourdone'):t('tournext');
+  elTour.querySelector('[data-tour="skip"]').hidden=last;
+  tourPlace();
+}
+function tourGo(i){
+  if(i<0)return;
+  if(i>=TOUR.length){tourClose(); return;}
+  tourAt=i; tourRender();
+  var next=elTour.querySelector('[data-tour="next"]');
+  if(next)try{next.focus();}catch(e){}
+}
+function tourStart(){
+  if(tourOpen())return;
+  lastTour=document.activeElement;
+  if(!elTour){
+    elTour=document.createElement('div');
+    elTour.className='tla-tour'; elTour.id='tla-tour';
+    elTour.setAttribute('role','dialog'); elTour.setAttribute('aria-modal','true');
+    elTour.setAttribute('aria-labelledby','tla-tour-t');
+    elTour.innerHTML='<div class="tla-tour-hole" aria-hidden="true"></div>'
+      +'<div class="tla-tour-card" tabindex="-1">'
+      +'<p class="tla-tour-step"></p>'
+      +'<h2 class="tla-tour-t" id="tla-tour-t"></h2>'
+      +'<p class="tla-tour-d"></p>'
+      +'<div class="tla-tour-extra"></div>'
+      +'<div class="tla-tour-btns">'
+      +'<button type="button" class="tla-tour-skip" data-tour="skip"></button>'
+      +'<span class="tla-tour-gap"></span>'
+      +'<button type="button" class="tla-tour-back" data-tour="back"></button>'
+      +'<button type="button" class="tla-tour-next" data-tour="next"></button>'
+      +'</div></div>';
+    /* Inside #tla-root, not on <body>: the theme's colours are custom properties declared
+       ON that element, so a dialog appended outside it renders unthemed — white text on a
+       transparent card, which is exactly what the contrast audit caught. */
+    root.appendChild(elTour);
+    elTour.addEventListener('click',function(e){
+      var b=e.target.closest('[data-tour]'); if(!b)return;
+      var k=b.getAttribute('data-tour');
+      if(k==='skip')tourClose();
+      else if(k==='back')tourGo(tourAt-1);
+      else tourGo(tourAt+1);
+    });
+    /* Switching language rebuilds the page under the tour; the tour itself lives outside
+       #tla-main so it survives, but its own words have to be said again in the new language. */
+    elTour.addEventListener('click',function(e){
+      var lb=e.target.closest('[data-tourlang]'); if(!lb)return;
+      var code=lb.getAttribute('data-tourlang');
+      if(code===lang)return;
+      loadLang(code).then(function(){
+        var s2=curSec, g=GRIM[code], m=s2&&s2.key&&g.sections.filter(function(x){return x.key===s2.key;})[0];
+        setHash(code,(m||g.sections[0]).id,false);
+        /* applyLang re-renders the tour once the route lands; just put the focus back on the
+           button that was pressed, since re-rendering replaced it. */
+        setTimeout(function(){var n=elTour&&elTour.querySelector('[data-tourlang="'+code+'"]'); if(n)n.focus();},60);
+      }, fatal);
+    });
+    window.addEventListener('resize',function(){if(tourOpen())tourPlace();});
+  }
+  elTour.hidden=false; root.classList.add('tla-tour-on');
+  tourGo(0);
+}
+function tourClose(){
+  if(!tourOpen())return;
+  tourAt=-1; tourMark();
+  if(elTour)elTour.hidden=true;
+  root.classList.remove('tla-tour-on');
+  if(lastTour&&lastTour.focus)try{lastTour.focus();}catch(e){}
+  lastTour=null;
+}
 function wireEvents(){
   elNav.addEventListener('click',function(e){
     var b=e.target.closest('.tla-nav-btn'); if(b){var si=+b.getAttribute('data-si'); navigate(data.sections[si].id,false); return;}
@@ -3005,7 +3346,7 @@ function wireEvents(){
      click handler would leave the keyboard unable to switch views at all. */
   elMain.addEventListener('change',function(e){
     var r=e.target.closest('.tla-diagpick input[name=tla-diagview]');
-    if(r)setDiagOnly(r.value==='diag');
+    if(r)setDocView(r.value);
     var v=e.target.closest('.tla-verpick input[name=tla-verview]');
     if(v)setVerOnly(v.value);
   });
@@ -3084,6 +3425,8 @@ function wireEvents(){
   // close button must not have its own click swallowed by the backdrop rule.
   elLb.addEventListener('click',closeLightbox);
 
+  var tourBtn=document.getElementById('tla-tour-open');
+  if(tourBtn)tourBtn.addEventListener('click',function(){tourAt=-1; tourStart();});
   document.getElementById('tla-donate-open').addEventListener('click',openDonate);
   document.getElementById('tla-donate-close').addEventListener('click',closeDonate);
   // backdrop only — a click inside the box must not close it
@@ -3216,7 +3559,12 @@ function boot(){
     applyLang(L);
     wireEvents();
     route();
-    showThemeTip();          // after applyLang: it needs the pack's own words
+    /* A first visit gets the tour, once — after the first route, so the header, the sidebar
+       and the search button it points at are all on the page to be pointed at. The theme tip
+       is the same reader's first second on the site and says the same thing the tour's third
+       stop does, so on a first visit the tour speaks and the tip stands down. */
+    if(tourSeen())showThemeTip();     // after applyLang: it needs the pack's own words
+    else{dropThemeTip(); setTimeout(tourStart,450);}
   }).catch(fatal);
 }
 boot();

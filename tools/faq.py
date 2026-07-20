@@ -38,6 +38,8 @@ import assemble
 import cardlinks
 import text_fixes
 import faq_seticons
+import adb_names
+import adb_resolve
 
 DATA_DIR = langpack.DATA_DIR
 GROUP = 'chapter1'                       # the navigation shelf, below the Grimoire
@@ -317,6 +319,120 @@ def build_section(raw, code):
 
 
 # ---- links -----------------------------------------------------------------
+# ---- the document's own opening ---------------------------------------------
+# The FAQ opens on two pages the section parser never reaches: a cover that says what the
+# document IS and what is new in this version, and a narrative page carrying the Lovecraft
+# epigraph the book chose. Both are the document introducing itself, and dropping them left the
+# shelf starting mid-sentence at "Notes and Errata". They are read straight off those two pages —
+# by the typography, which both editions set identically: the display face (Teutonic) titles, an
+# italic caption gives the version, roman prose describes the document, and a bold lead-in lists
+# the new content. Page two's epigraph is the italic block under its display heading.
+_DISPLAY = 'teutonic'
+_HEAD_SIZE = 15.0
+
+
+def _lines(page):
+    """(y, x, font, size, bold, italic, text) for every printed line, top to bottom."""
+    out = []
+    for b in page.get_text('dict')['blocks']:
+        if 'lines' not in b:
+            continue
+        for l in b['lines']:
+            txt = ''.join(s['text'] for s in l['spans']).strip()
+            if not txt:
+                continue
+            s0 = l['spans'][0]
+            font = s0.get('font', '')
+            low = font.lower()
+            # "ital", not "italic": the embedded name is truncated in these PDFs
+            # ("ACaslonPro-SemiboldItali"), and the full word never matched.
+            out.append((l['bbox'][1], l['bbox'][0], font, s0.get('size', 0),
+                        'bold' in low or 'smbd' in low or 'semibold' in low, 'ital' in low, txt))
+    out.sort(key=lambda r: r[0])
+    return out
+
+
+_COLUMN = 150.0            # how far from the title a line may start and still be its column
+
+
+def _join(lines):
+    """Join printed lines into a paragraph, healing the hyphen a line break left behind
+    ("añadi- dos" -> "añadidos"), the same way the Grimoire's body parser does."""
+    out = ''
+    for txt in lines:
+        if out.endswith('-') and len(out) > 1 and out[-2].isalpha():
+            out = out[:-1] + txt.lstrip()
+        else:
+            out = (out + ' ' + txt).strip() if out else txt
+    return out
+
+
+def _para(runs_text, bold=False, italic=False):
+    return {'type': 'p', 'runs': [{'kind': 'text', 't': runs_text, 'bold': bold,
+                                   'italic': italic, 'ref': False}]}
+
+
+def build_intro(pdf, sc):
+    """The cover and the epigraph, as a normal section: lead prose, then the epigraph entry."""
+    doc = fitz.open(pdf)
+    intro, entries = [], []
+
+    body, newcontent, version = [], '', ''
+    for _y, _x, font, _size, bold, italic, txt in _lines(doc[0]):
+        if _DISPLAY in font.lower():
+            continue                                   # the document's own title; the section has one
+        if italic and not version:
+            version = txt
+        elif bold:
+            newcontent = (newcontent + ' ' + txt).strip()
+        else:
+            body.append(txt)
+    if version:
+        intro.append(_para(version, italic=True))
+    if body:
+        intro.append(_para(_join(body)))
+    if newcontent:
+        intro.append(_para(newcontent, bold=True))
+
+    if doc.page_count > 1:
+        rows = _lines(doc[1])
+        heads = [r for r in rows if _DISPLAY in r[2].lower() and r[3] >= _HEAD_SIZE]
+        title, quote, source = '', [], ''
+        if heads:
+            # The narrative title is the biggest thing on the page — set over two lines in
+            # Spanish, one in English — and the first smaller display heading below it is the
+            # next chapter ("Notes and Errata"), which is where the epigraph stops.
+            top = max(h[3] for h in heads)
+            title = ' '.join(h[6] for h in heads if h[3] == top)
+            # Only its own column counts. The English page sets a second column beside the
+            # epigraph, and a heading over there ("Campaign Guide Errata") sits higher up the
+            # page than the epigraph's last line — so measured by y alone it would cut the
+            # attribution off, which is exactly what it did.
+            colx = min(h[1] for h in heads if h[3] == top)
+
+            def same_col(x):
+                return abs(x - colx) <= _COLUMN
+
+            below = [h[0] for h in heads if h[3] < top and h[0] > heads[0][0] and same_col(h[1])]
+            end = min(below) if below else 1e9
+            for y, x, _font, _size, _bold, italic, txt in rows:
+                if not italic or y >= end or not same_col(x):
+                    continue
+                if txt[:1] in '-–—':
+                    source = txt
+                else:
+                    quote.append(txt)
+        if title and quote:
+            blocks = [_para(_join(quote), italic=True)]
+            if source:
+                blocks.append(_para(source, italic=True))
+            entries.append({'title': title.strip(), 'blocks': blocks, 'role': 'epigraph'})
+
+    return {'num': sc.get('num', ''), 'key': sc['key'], 'id': sc['id'], 'title': sc['title'],
+            'kind': sc.get('kind', 'rules'), 'group': GROUP, 'intro': intro,
+            'entries': entries, 'figures': []}
+
+
 def grimoire_title_index(gdata):
     """norm(title) -> Grimoire entry id, for every Grimoire entry and section. The FAQ's
     cross-references and auto-links resolve against this, so they always land in the
@@ -353,38 +469,38 @@ def count_seticons(sections):
     return n
 
 
-# A card reference now reads "Name ( <seticon> 20)" — the set icon was slotted between the
-# parenthesis and the number. So the ArkhamDB matcher must see through that icon: the seticon
-# runs are swapped for a sentinel char the pattern treats as whitespace, the card name is
-# linked as usual, and the sentinels are turned back into seticon runs afterwards.
-_SENT = ''
-_FAQ_REF = re.compile('(' + cardlinks._NAME + r')\s*(\(\s*[\s]*\d+[a-z]?'
-                      r'(?:[\s,]*\d+[a-z]?)*[\s]*\))')
+# A card reference reads "Name ( <seticon> 20)" — the product mark sits between the parenthesis
+# and the number — so the matcher has to see through it. That is cardlinks.link_through_icons,
+# shared with the Grimoire, which recovers the same marks with grim_vecicons. Only the pattern
+# differs here: the FAQ also prints references carrying several numbers, "( 25, 26)".
+_FAQ_REF = re.compile('(' + cardlinks._NAME + r')\s*(\(\s*[\s]*\d+[a-z]?'
+                      r'(?:[\s,]*\d+[a-z]?)*[\s]*\))')
 
 
 def _relink_block(runs, stops):
-    conv, style = [], {'bold': False, 'italic': False}
-    for r in runs:
-        if r.get('kind') == 'seticon':
-            conv.append({'kind': 'text', 't': _SENT, 'bold': style['bold'],
-                         'italic': style['italic'], 'ref': False, 'red': False})
-        else:
-            conv.append(r)
-            if r.get('kind') == 'text':
-                style = {'bold': r.get('bold', False), 'italic': r.get('italic', False)}
-    linked, changed = cardlinks._link_runs(conv, stops)
-    out, fps = [], iter([r['fp'] for r in runs if r.get('kind') == 'seticon'])
-    for r in linked:
-        if r.get('kind') == 'text' and _SENT in r.get('t', ''):
-            pieces = r['t'].split(_SENT)
-            for pi, piece in enumerate(pieces):
-                if piece:
-                    out.append(dict(r, t=piece))
-                if pi < len(pieces) - 1:
-                    out.append({'kind': 'seticon', 'fp': next(fps)})
-        else:
-            out.append(r)
-    return out, changed
+    return cardlinks.link_through_icons(runs, stops)
+
+
+# What a card reference's brackets may hold and nothing else: one collection number, or several
+# ("( 25, 26)"), or nothing at all when the page prints the mark alone. Anything else in there is
+# not a reference — the environments chapter prints "core set <mark> (2016 or 2021)", and reading
+# that as a reference moved the mark inside the brackets, between "(" and "2016".
+_NUMS_ONLY = re.compile(r'^\s*(\d+[a-z]?(\s*,\s*\d+[a-z]?)*)?\s*$')
+
+
+def _bracket_text(base, i):
+    """The characters between the '(' at `i` and its closing ')'.
+
+    None when this is not a plain bracket at all: something other than a character inside it
+    (a game icon), or no closing bracket within a card number's reach."""
+    out = []
+    for j in range(i + 1, min(i + 26, len(base))):
+        if base[j][0] != 'c':
+            return None
+        if base[j][1] == ')':
+            return ''.join(out)
+        out.append(base[j][1])
+    return None
 
 
 def _reseat_seticons_runs(runs):
@@ -392,9 +508,9 @@ def _reseat_seticons_runs(runs):
     icon right, but a reference whose card name wraps across a line ("Mercado de los bajos fon-
     dos ( 77)") can strand the icon at the hyphen, or drop it just before the '(' instead of after
     it. Here the icons are lifted out and re-seated, in order, into the reference parentheses of
-    the same block — a slot being a '(' whose next real character is a digit (a card number) or a
-    ')' (a bare set-icon reference). Only done when the counts match exactly, so an ambiguous block
-    keeps its geometric placement untouched."""
+    the same block — a slot being a parenthesis that holds nothing but a collection number (or
+    nothing at all, a bare set-icon reference). Only done when the counts match exactly, so an
+    ambiguous block keeps its geometric placement untouched."""
     if not any(r.get('kind') == 'seticon' for r in runs):
         return runs
     atoms = []
@@ -411,12 +527,11 @@ def _reseat_seticons_runs(runs):
     base = [a for a in atoms if a[0] != 's']
     slots = []
     for i, a in enumerate(base):
-        if a[0] == 'c' and a[1] == '(':
-            j = i + 1
-            while j < len(base) and base[j][0] == 'c' and base[j][1] == ' ':
-                j += 1
-            if j < len(base) and base[j][0] == 'c' and (base[j][1].isdigit() or base[j][1] == ')'):
-                slots.append(i + 1)
+        if a[0] != 'c' or a[1] != '(':
+            continue
+        inner = _bracket_text(base, i)
+        if inner is not None and _NUMS_ONLY.match(inner):
+            slots.append(i + 1)
     if len(slots) != len(fps):
         return runs
     inserts = dict(zip(slots, fps))
@@ -533,11 +648,11 @@ def build(pack, grimoire_data):
         return None, None
     pdf = faq_pdf(pack, cfg)
     # Parse WITH the set/campaign/scenario icons recovered from the page's vector art and
-    # slotted back into the text (they are invisible to a plain text parse). The last page —
-    # the icon-reference tables — is left to extract_iconref, so its icons are not also
-    # injected into the environments prose that shares it.
+    # slotted back into the text (they are invisible to a plain text parse). On the last page the
+    # icon-reference TABLES share the paper with the environments prose, so only the marks set
+    # inside a sentence are taken there — the tables themselves are rebuilt by extract_iconref.
     doc_pages = fitz.open(pdf).page_count
-    nodes, _doc, seticon_svgs = faq_seticons.parse_with_icons(pdf, skip_pages=(doc_pages,))
+    nodes, _doc, seticon_svgs = faq_seticons.parse_with_icons(pdf, inline_only_pages=(doc_pages,))
     nodes = merge_wrapped_headings(nodes)
 
     raw = group_sections(nodes, cfg)
@@ -551,6 +666,12 @@ def build(pack, grimoire_data):
 
     # The icon-reference chapter: campaign / product / starter / promo icon tables, rebuilt
     # from the last page's vector art (not anchored prose, so built here, appended in place).
+    # The document's own opening (cover + epigraph) — read off the first two pages, and put
+    # FIRST, so the shelf starts where the document does instead of mid-errata.
+    for sc in cfg['sections']:
+        if sc.get('build') == 'intro':
+            sections.insert(0, build_intro(pdf, sc))
+
     iconref = 0
     for sc in cfg['sections']:
         if sc.get('build') != 'iconref':
@@ -576,6 +697,15 @@ def build(pack, grimoire_data):
     # Links: card refs -> ArkhamDB first (so a whole card name is not half-eaten by the
     # glossary auto-linker), then cross-refs and auto-links into the GRIMOIRE.
     cards = link_cards(sections, pack)
+    # The references the typographic matcher cannot see — Spanish titles a card in sentence case,
+    # so "Mercado de los bajos fondos ( 77)" never looked like a name — found by asking ArkhamDB
+    # which card sits at that number; then the exact card behind every reference.
+    cards += adb_names.link(sections, pack.code, quiet=True)
+    rep = adb_resolve.resolve(sections, pack.code, quiet=True) or {}
+    # Report the RESOLVER's own count of references, not the linkers' number of edits: a block
+    # holding three references counts once for the linker, so the two are not comparable and
+    # printing them side by side read as "more resolved than found".
+    refs, direct = rep.get('refs', cards), rep.get('direct', 0)
     # The set/campaign/scenario icons were recovered during the parse (parse_with_icons) and
     # are already inline as `seticon` runs; just write their shared SVG art.
     faq_seticons.write_svgs(seticon_svgs)
@@ -597,7 +727,7 @@ def build(pack, grimoire_data):
     }
     report = {'sections': len(sections),
               'entries': sum(len(s['entries']) for s in sections),
-              'cards': cards, 'links': links, 'autolinks': autolinks,
+              'cards': refs, 'direct': direct, 'links': links, 'autolinks': autolinks,
               'seticons': seticons, 'seticon_art': len(seticon_svgs), 'iconref': iconref}
     return data, report
 
@@ -625,7 +755,8 @@ def build_and_write(pack, quiet=False):
         f.write('\n')
     if not quiet:
         print(f'  faq {pack.code} -> data/faq_{pack.code}.json: {report["sections"]} sections, '
-              f'{report["entries"]} entries · {report["cards"]} card links, '
+              f'{report["entries"]} entries · {report["cards"]} card references '
+              f'({report["direct"]} straight to the card), '
               f'{report["seticons"]} set icons ({report["seticon_art"]} distinct), '
               f'{report["links"]} cross-refs, {report["autolinks"]} auto-links')
     return report

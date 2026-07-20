@@ -402,8 +402,39 @@ def bullet_level(line):
         return None   # first non-blank span isn't a bullet
     return None
 
+# A bullet whose continuation the PDF puts in a *different* text block. The join below is
+# normally keyed on the PDF's own block id, which is the honest signal — except when the
+# publisher sets part of a bullet in italic and the PDF splits it off as its own block. The
+# page shows one bullet ("…investigator expansions. (For example, if playing with…"); the
+# parse shows the bullet, then an orphan paragraph starting mid-sentence.
+#
+# Off by default, because the Grimoire's parse is tuned and measured against its printed page
+# and this changes how blocks join. The FAQ turns it on (faq_seticons.parse_with_icons), which
+# is where the split actually shows up.
+FOLD_BULLET_CONTINUATION = False
+_HANG = 6.0            # how far a continuation line is indented past its bullet's marker
+_STEP = 22.0           # the biggest vertical gap that is still the next line, not a new block
+
+
+def _continues_bullet(cur, ln):
+    """True when this line is the open bullet's next line, set in a block of its own.
+
+    Read off the page's geometry, not its words: same page and column, indented to the
+    bullet's hanging indent rather than back at the margin, and one line-step below it."""
+    if not FOLD_BULLET_CONTINUATION or cur is None or cur.get('type') != 'bullet':
+        return False
+    if ln.get('page') != cur.get('page') or ln.get('col') != cur.get('col'):
+        return False
+    if ln.get('x0') is None or cur.get('x0') is None:
+        return False
+    if ln['x0'] < cur['x0'] + _HANG:
+        return False                      # back at the margin: a new paragraph, not a wrap
+    gap = ln.get('y', 0) - cur.get('lasty', 0)
+    return 0 < gap <= _STEP
+
+
 def finalize_body(raw):
-    """raw = list of body lines [{block,bullet(level or None),runs,page}] ->
+    """raw = list of body lines [{block,bullet(level or None),runs,page,col,x0,y}] ->
     paragraphs & bullets. Consecutive non-bullet lines in the same PDF block join
     into one paragraph; each bullet marker starts a new bullet (continuation lines
     in the same block that are NOT new bullets fold into the current bullet)."""
@@ -412,10 +443,12 @@ def finalize_body(raw):
     for ln in raw:
         if ln['bullet']:
             cur = {'type': 'bullet', 'level': ln['bullet'], 'runs': list(ln['runs']),
-                   'block': ln['block']}
+                   'block': ln['block'], 'page': ln.get('page'), 'col': ln.get('col'),
+                   'x0': ln.get('x0'), 'lasty': ln.get('y')}
             blocks.append(cur)
         else:
-            same = cur is not None and cur['block'] == ln['block']
+            same = (cur is not None
+                    and (cur['block'] == ln['block'] or _continues_bullet(cur, ln)))
             if same:
                 prev = cur['runs']; nxt = ln['runs']
                 tight = False
@@ -435,9 +468,11 @@ def finalize_body(raw):
                         prev.append({'kind': 'text', 't': ' ', 'bold': False,
                                      'italic': False, 'ref': False, 'red': False})
                 cur['runs'].extend(nxt)
+                cur['lasty'] = ln.get('y', cur.get('lasty'))
             else:
                 cur = {'type': 'p', 'level': 0, 'runs': list(ln['runs']),
-                       'block': ln['block']}
+                       'block': ln['block'], 'page': ln.get('page'), 'col': ln.get('col'),
+                       'x0': ln.get('x0'), 'lasty': ln.get('y')}
                 blocks.append(cur)
     # merge runs & drop empties
     out = []
@@ -445,7 +480,8 @@ def finalize_body(raw):
         b['runs'] = merge_runs(b['runs'])
         if not b['runs']:
             continue
-        b.pop('block', None)
+        for k in ('block', 'page', 'col', 'x0', 'lasty'):
+            b.pop(k, None)                 # bookkeeping for the joins above; not part of a block
         if b['type'] == 'p':
             b.pop('level', None)
         out.append(b)
@@ -559,7 +595,8 @@ def parse_pdf(pdf, masks):
         runs = build_runs(line['spans'])
         if runs:
             cur['raw'].append({'block': line['block'], 'bullet': bullet_level(line),
-                               'runs': runs, 'page': line['page']})
+                               'runs': runs, 'page': line['page'],
+                               'col': line['col'], 'x0': line['x0'], 'y': line['y']})
         i += 1
 
     for n in nodes:

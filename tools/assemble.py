@@ -16,6 +16,7 @@ Outputs data/grimoire_<lang>.json plus a validation report.
 import json, re, sys, os, unicodedata
 from collections import Counter
 import langpack, history, ultimatums, reprints, cardlinks, text_fixes
+import grim_vecicons, faq_seticons, adb_names, adb_resolve, fanmade
 from langpack import slugify
 
 def norm(t):
@@ -630,6 +631,8 @@ def assemble(pack, nodes, images):
             used.add(k)
             e['id'] = k
             title_index.setdefault(norm(e['title']), k)
+    for s in sections:
+        order_phase_pairs(s)
     # attach montage figures (example card-art resources) to their glossary entries
     entry_by_title = {}
     for s in sections:
@@ -830,6 +833,12 @@ def autolink(sections, title_index, pack):
             # same phase sits on the same page and is linked, so nothing is lost.
             if e.get('flow'):
                 continue
+            # Nor the epigraph a document opens with. It is a quotation from a story, not
+            # rules text: turning "revelación" in a line of Lovecraft into a link to the
+            # glossary reads as a mistake, and the term is not being used in its game sense
+            # there at all.
+            if e.get('role') == 'epigraph':
+                continue
             process_entry(e)
     # The card-anatomy key defines the parts of a card in the glossary's own
     # vocabulary ("the difficulty of a skill test to investigate this location"),
@@ -894,6 +903,24 @@ def apply_versions(allsecs, pack, added=None, changed=None):
     return versions, history.whatsnew_index(allsecs, added, changed, versions)
 
 
+def order_phase_pairs(sec):
+    """Put the prose before the diagram in every phase of "Timing and Gameplay".
+
+    A DELIBERATE departure from the printed page. Each phase of that chapter is a pair of
+    entries under one heading — the written rules, and the flow diagram of the same phase —
+    and the book sets them prose-then-diagram for phases I, II and III but diagram-then-prose
+    for IV, purely because of how the page broke. On a screen there is no page to break, and
+    the inconsistency reads as a mistake: the reader who has learnt "text, then picture" three
+    times over is thrown by the fourth. So the pair is put back in the book's own dominant
+    order. Ids are already assigned, so each entry keeps its anchor and its place in the
+    version history; only the reading order changes."""
+    ents = sec.get('entries') or []
+    for i in range(len(ents) - 1):
+        a, b = ents[i], ents[i + 1]
+        if a.get('flow') and not b.get('flow') and a['title'] == b['title']:
+            ents[i], ents[i + 1] = b, a
+
+
 def finalize(pack, allsecs, title_index):
     """Everything after the sections are grouped: version history, cross-links,
     auto-links, the Ultimatums & Boons viewer, and the assembled data dict. Shared
@@ -939,10 +966,20 @@ def finalize(pack, allsecs, title_index):
     # the newest edition having rewritten the entry; BEFORE the linkers, so a word we just rejoined
     # ("Ju gador" -> "Jugador") can still be matched and linked.
     text_fixes.apply(allsecs, pack.code)
-    # Card references in the errata/FAQ ("Name ( 20)") -> ArkhamDB search links. Before
-    # the auto-linker, so a card name like "Hunter's Instinct" is claimed whole here and
-    # not half-eaten by the glossary auto-link matching the keyword "Hunter" inside it.
+    # The product marks the book draws INSIDE its sentences — the five investigator decks named
+    # in the optional rules, and the mark inside every "Name ( 20)" — are vector art the text
+    # parse cannot see, so they are scanned off the page and slotted back in here (see
+    # tools/grim_vecicons.py). Before the card linker, which then reads straight through them.
+    vicons, vsvgs = grim_vecicons.scan(pack.pdf, quiet=True)
+    faq_seticons.write_svgs(vsvgs)
+    grim_vecicons.attach(allsecs, vicons)
+    # Card references in the errata/FAQ ("Name ( 20)") -> ArkhamDB. Before the auto-linker, so a
+    # card name like "Hunter's Instinct" is claimed whole here and not half-eaten by the glossary
+    # auto-link matching the keyword "Hunter" inside it. Three steps: the typographic matcher,
+    # then the ones only ArkhamDB's own card list can recognise, then the exact card each names.
     cardlinks.attach(allsecs, pack)
+    adb_names.link(allsecs, pack.code)
+    adb_resolve.resolve(allsecs, pack.code)
     links = linkify(allsecs, title_index, pack)
     autolinks = autolink(allsecs, title_index, pack)
     # The Ultimatums & Boons viewer reads its items out of the optional-rules chapter, so
@@ -951,6 +988,8 @@ def finalize(pack, allsecs, title_index):
     # The cross-language fill (missing cards shown in English) is a separate step, run once
     # every language is built — tools/ub_merge.py.
     ub = ultimatums.attach(allsecs, pack)
+    # The community's deeper skill-test timing reference, as a second view of that chapter.
+    fanmade.attach(allsecs, pack.code)
     # The Modified Reprints chapter's two-column list, recovered into a clean table.
     rp = reprints.attach(allsecs, pack)
     data = {'lang': pack.code, 'sections': allsecs, 'versions': versions, 'whatsnew': whatsnew,

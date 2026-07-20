@@ -1,0 +1,537 @@
+{
+  "_comment": "Community-made ('fanmade') deep reference for skill-test timing, transcribed from the sources credited below. NOT official FFG content.",
+  "credit": {
+    "es": {
+      "author": "Àlex Xöul",
+      "updated": "2024-07-16",
+      "note": "Versión original: link"
+    },
+    "en": {
+      "author": "",
+      "updated": "",
+      "note": ""
+    }
+  },
+  "es": {
+    "title": "Orden de resolución de las pruebas de habilidad con ejemplos",
+    "lead": [
+      {
+        "h": "",
+        "t": "Como norma general, con la misma condición de activación, el orden siempre es:"
+      },
+      {
+        "h": "",
+        "t": "Cuando » Si » Después"
+      },
+      {
+        "h": "Información útil",
+        "t": "No es necesario tener una carta ya en la mano cuando se produce la condición de activación. Si el robo de esa carta se produce durante esa misma condición de activación desencadenante, es posible jugarla igualmente."
+      },
+      {
+        "h": "Ejemplo",
+        "t": "Después de fallar una prueba de habilidad por 2 o menos, ¿puedo usar la Pata de Conejo para robar una carta, que resulta ser \"¡Mira lo que he encontrado!\", y jugarla inmediatamente? ¡Sí!"
+      }
+    ],
+    "steps": [
+      {
+        "id": "PH.1",
+        "kind": "step",
+        "desc": "Determina la habilidad de la prueba. Comienza una prueba de habilidad de ese tipo.",
+        "order": [
+          {
+            "type": "p",
+            "t": "\"Cuando comience esta acción...\" (Quemarse las pestañas)"
+          },
+          {
+            "type": "p",
+            "t": "\"Cuando comience / inicies una prueba de habilidad \" (Recordar el futuro, Tomo Abisal)"
+          },
+          {
+            "type": "p",
+            "t": "\"Después de que comience una prueba de habilidad...\" (Péndulo de cristal)"
+          }
+        ]
+      },
+      {
+        "id": "",
+        "kind": "window",
+        "desc": "OPORTUNIDAD DE LOS JUGADORES",
+        "order": [
+          {
+            "type": "eg",
+            "t": "La práctica hace al maestro, gastar recursos en Entrenamiento físico, Hiperconsciencia..."
+          }
+        ]
+      },
+      {
+        "id": "PH.2",
+        "kind": "step",
+        "desc": "Asigna cartas de la mano a la prueba de habilidad.",
+        "order": [
+          {
+            "type": "p",
+            "t": "Las cartas asignadas dejan de estar en tu mano."
+          },
+          {
+            "type": "p",
+            "t": "\"Después de que asignes...\" (Incansable, Tótem macabro)"
+          }
+        ]
+      },
+      {
+        "id": "",
+        "kind": "window",
+        "desc": "OPORTUNIDAD DE LOS JUGADORES",
+        "order": [
+          {
+            "type": "eg",
+            "t": "La práctica hace al maestro, gastar recursos en Entrenamiento físico, Hiperconsciencia..."
+          }
+        ]
+      },
+      {
+        "id": "PH.3",
+        "kind": "step",
+        "desc": "Revela la ficha de Caos.",
+        "order": [
+          {
+            "type": "head",
+            "t": "Se aplican los efectos \"cuando fueses\" (antes de ejecutar la acción), primero las habilidades obligatorias."
+          },
+          {
+            "type": "eg",
+            "t": "\"Cuando fueses a revelar una ficha de Caos...\" (Estatua grotesca, Olive McBride, Profecía oscura)"
+          },
+          {
+            "type": "head",
+            "t": "Se aplican los efectos \"cuando\" (justo al sacar la ficha) que puedan interrumpir la condición de activación, primero las habilidades obligatorias."
+          },
+          {
+            "type": "eg",
+            "t": "\"Cuando reveles / sea revelada una ficha...\" (Efecto mariposa, Nkosi Mabati, La trompeta de Jim, Eucatástrofe (efecto retardado))"
+          },
+          {
+            "type": "head",
+            "t": "Se resuelve la condición de activación (“si”)"
+          },
+          {
+            "type": "eg",
+            "t": "Revela la(s) ficha(s) de Caos"
+          },
+          {
+            "type": "eg",
+            "t": "\"Si es revelado / se revela...\" (Consunción, Ojo del caos, Sexto sentido (efecto retardado), Canción de los muertos, Ajar, Luz cegadora, Rito de búsqueda, Recordar el futuro)"
+          },
+          {
+            "type": "head",
+            "t": "Se aplican los efectos \"después\" que responden a la condición de activación, primero las habilidades obligatorias."
+          },
+          {
+            "type": "eg",
+            "t": "\"Después de que sea revelado un símbolo / una ficha / Después de que reveles una ficha de Caos / un símbolo...\" (Joya de Aureolus, Jugar sobre seguro, Silas Marsh)"
+          }
+        ]
+      },
+      {
+        "id": "PH.4",
+        "kind": "step",
+        "desc": "Resuelve los efectos del símbolo de caos.",
+        "order": [
+          {
+            "type": "p",
+            "t": "Efectos en la carta de Referencia del Escenario"
+          },
+          {
+            "type": "p",
+            "t": "Efectos en El gato negro"
+          },
+          {
+            "type": "p",
+            "t": "Efectos del ✷ de la carta de Investigador"
+          },
+          {
+            "type": "p",
+            "t": "Efectos de las fichas de Bendición / Maldición (desencadenando una secuencia anidada de revelación de fichas adicionales)"
+          }
+        ]
+      },
+      {
+        "id": "PH.5",
+        "kind": "step",
+        "desc": "Determina el valor de habilidad modificado del investigador.",
+        "order": [
+          {
+            "type": "p",
+            "t": "Eucatástrofe"
+          }
+        ]
+      },
+      {
+        "id": "PH.6",
+        "kind": "step",
+        "desc": "Determina el éxito o fracaso de la prueba de habilidad.",
+        "order": [
+          {
+            "type": "head",
+            "t": "Se aplican los efectos \"cuando fueses\" (al comprobar que se va a fallar/pasar la prueba), primero las habilidades obligatorias."
+          },
+          {
+            "type": "eg",
+            "t": "\"Cuando fueses a tener éxito/fracasar en una prueba de habilidad...\" (Maldición de Rex, Maniobra osada, ¡Qué suerte!)"
+          },
+          {
+            "type": "head",
+            "t": "Se aplican los efectos \"cuando\" (justo al comprobar que se pasa la prueba) que puedan interrumpir la condición de activación, primero las habilidades obligatorias."
+          },
+          {
+            "type": "eg",
+            "t": "\"Cuando investigues/ataques/evites con éxito...\" (\"¡Me lo quedo!\")"
+          },
+          {
+            "type": "head",
+            "t": "Se resuelve la condición de activación (“si”)"
+          },
+          {
+            "type": "eg",
+            "t": "Formalmente tener éxito/fracasar"
+          },
+          {
+            "type": "head",
+            "t": "Se aplican los efectos \"después\" que responden a la condición de activación, primero las habilidades obligatorias."
+          },
+          {
+            "type": "eg",
+            "t": "\"Después de que tengas éxito/se fracase/fracases por X...\" (Pitillera de la suerte, Revólver Bull Dog, \"¡Mira lo que he encontrado!\", Pata de conejo, Intentarlo una y otra vez)"
+          },
+          {
+            "type": "eg",
+            "t": "\"Después de que ataques/investigues/evites/evitar con éxito...\" (Dr. Milan Christopher, Depósito de conocimiento, Reutilizar, Dr. Charles West III, Herida severa, Microscopio, Vientre de la bestia)"
+          }
+        ]
+      },
+      {
+        "id": "PH.7",
+        "kind": "step",
+        "desc": "Aplica los resultados de la prueba de habilidad.",
+        "order": [
+          {
+            "type": "head",
+            "t": "Se aplican los efectos \"cuando fueses\", primero las habilidades obligatorias."
+          },
+          {
+            "type": "eg",
+            "t": "\"Cuando fueses a descubrir una pista/infligir daño/evitar un enemigo...\" (Encubrimiento)"
+          },
+          {
+            "type": "head",
+            "t": "Se aplican los efectos \"cuando\" que puedan interrumpir la condición de activación, primero las habilidades obligatorias."
+          },
+          {
+            "type": "eg",
+            "t": "\"Cuando descubras una pista/inflijas/se inflija daño/evites a un enemigo...\". (Autodestructivo)"
+          },
+          {
+            "type": "head",
+            "t": "Se resuelve la condición de activación (“si”)"
+          },
+          {
+            "type": "eg",
+            "t": "Efectos de la propia prueba (por ejemplo, descubrir una pista en una investigación, infligir daño en un ataque, agotar y desenfrentarse de un enemigo en una evasión)"
+          },
+          {
+            "type": "eg",
+            "t": "\"Si esta prueba tiene éxito/fracasa...\" (Reacción rápida, Fuerza bruta, Habilidoso, Deducción ¡Eureka!, Agallas, Destreza manual, Dominar, Percepción, El ojo de la verdad, Intrépido, Doble o nada, Instinto de supervivencia, Golpe brutal, Sigilo)"
+          },
+          {
+            "type": "eg",
+            "t": "\"Si tienes éxito/no tienes éxito (por al menos)...\" (Ganzúas, Puñalada por la espalda, Dar esquinazo, \"¡Mira esto!\", Acertijo existencial, Interpretar las señales, Cuchilla espectral, Picahielos (descartar), Llavero viejo (quitar llave))"
+          },
+          {
+            "type": "eg",
+            "t": "“Si fracasas...” (Brújula de marinero (2), Cautivar, Derringer del .18, Textos médicos)"
+          },
+          {
+            "type": "eg",
+            "t": "\"Si este ataque/esta investigación...\" (Destral, Cuchillo de carnicero, Varita de zahorí)"
+          },
+          {
+            "type": "head",
+            "t": "Se aplican los efectos \"después\" que responden a la condición de activación, primero las habilidades obligatorias."
+          },
+          {
+            "type": "eg",
+            "t": "\"Después de infligir daño a un enemigo...\""
+          },
+          {
+            "type": "eg",
+            "t": "\"Después de evitar/de que evites a un enemigo...\" (Carterista, Pelear sucio)"
+          },
+          {
+            "type": "eg",
+            "t": "\"Después de que derrotes a un enemigo...\" (Gloria, William Yorick, ¡Una prueba!)"
+          },
+          {
+            "type": "eg",
+            "t": "\"Después de descubrir/de que descubras una pista...\" (Alice Luxley, Trish Scarborough)"
+          }
+        ]
+      },
+      {
+        "id": "PH.8",
+        "kind": "step",
+        "desc": "Termina la prueba de habilidad.",
+        "order": [
+          {
+            "type": "p",
+            "t": "Descartar las cartas asignadas."
+          },
+          {
+            "type": "p",
+            "t": "\"Cuando esta prueba termine...\" (Sello del símbolo arcano)"
+          },
+          {
+            "type": "p",
+            "t": "\"Después de que termine/se resuelva/acabe esta prueba...\" (Riesgo calculado, La práctica hace al maestro (añadir carta de habilidad a la mano), Osadía (robar carta), Reacción rápida (realizar la acción adicional), Vivir y aprender, Bate de béisbol (descartarlo o devolverlo a la mano))"
+          }
+        ]
+      }
+    ]
+  },
+  "en": {
+    "title": "Skill test timing with examples",
+    "lead": [
+      {
+        "h": "Good to know",
+        "t": "It is not necessary to have a card already in your hand when the triggering point occurs. If the drawing of that card is at the same triggering point, you may still play it."
+      },
+      {
+        "h": "Example",
+        "t": "After I fail a skill test by 2 or less, can I use Rabbit's Foot to draw a card, which happens to be \"Look what I found!\", and immediately play it? Yes!"
+      }
+    ],
+    "steps": [
+      {
+        "id": "ST.1",
+        "kind": "step",
+        "desc": "Determine skill of test. Skill test of that type begins.",
+        "order": [
+          {
+            "type": "p",
+            "t": "“When this action begins…” (Burning the Midnight Oil)"
+          }
+        ]
+      },
+      {
+        "id": "",
+        "kind": "window",
+        "desc": "Free triggered ability player window",
+        "order": [
+          {
+            "type": "eg",
+            "t": "Practice Makes Perfect, spending resources on Physical Training, Hyperawareness…"
+          }
+        ]
+      },
+      {
+        "id": "ST.2",
+        "kind": "step",
+        "desc": "Commit cards from hand to skill test.",
+        "order": [
+          {
+            "type": "p",
+            "t": "Committed cards are no longer in your hand."
+          },
+          {
+            "type": "p",
+            "t": "“After you commit…” (Unrelenting)"
+          }
+        ]
+      },
+      {
+        "id": "",
+        "kind": "window",
+        "desc": "Free triggered ability player window",
+        "order": [
+          {
+            "type": "eg",
+            "t": "Practice Makes Perfect, spending resources on Physical Training, Hyperawareness…"
+          }
+        ]
+      },
+      {
+        "id": "ST.3",
+        "kind": "step",
+        "desc": "Reveal chaos token.",
+        "order": [
+          {
+            "type": "head",
+            "t": "Execute “when” effects that can interrupt the triggering condition, forced abilities first"
+          },
+          {
+            "type": "eg",
+            "t": "“When you (would) reveal a chaos token…” (Grotesque Statue, Olive McBride, Nkosi Mabati, Jim’s Trumpet)"
+          },
+          {
+            "type": "head",
+            "t": "Resolve the triggering condition"
+          },
+          {
+            "type": "eg",
+            "t": "Reveal the chaos token(s)"
+          },
+          {
+            "type": "eg",
+            "t": "“If a symbol is revealed… (Shrivelling, Sixth Sense (delayed effect), Song of the Dead, Wither, Blinding Light, Rite of Seeking)"
+          },
+          {
+            "type": "head",
+            "t": "Execute “after” effects that respond to triggering condition, forced abilities first"
+          },
+          {
+            "type": "eg",
+            "t": "“After you reveal a chaos token…” (Jewel of Aureolus, Sure Gamble)"
+          }
+        ]
+      },
+      {
+        "id": "ST.4",
+        "kind": "step",
+        "desc": "Resolve chaos token symbols effect(s).",
+        "order": [
+          {
+            "type": "p",
+            "t": "Effects on Scenario Reference card"
+          },
+          {
+            "type": "p",
+            "t": "Effects on Black Cat"
+          },
+          {
+            "type": "p",
+            "t": "Elder Sign Effects on Investigator card"
+          },
+          {
+            "type": "p",
+            "t": "Effects of Bless/Curse tokens (leading to nested sequence of revealing add. tokens)"
+          }
+        ]
+      },
+      {
+        "id": "ST.5",
+        "kind": "step",
+        "desc": "Determine investigator’s modified skill value.",
+        "order": []
+      },
+      {
+        "id": "ST.6",
+        "kind": "step",
+        "desc": "Determine success/failure of skill test.",
+        "order": [
+          {
+            "type": "head",
+            "t": "Execute “when” effects that can interrupt the triggering condition, forced abilities first"
+          },
+          {
+            "type": "eg",
+            "t": "“When you (would) succeed/fail at a skill test…”"
+          },
+          {
+            "type": "eg",
+            "t": "“When you successfully evade an enemy…” (“I’ll take that”)"
+          },
+          {
+            "type": "head",
+            "t": "Resolve the triggering condition"
+          },
+          {
+            "type": "eg",
+            "t": "Formally succeeding/failing."
+          },
+          {
+            "type": "head",
+            "t": "Execute “after” effects that respond to triggering condition, forced abilities first"
+          },
+          {
+            "type": "eg",
+            "t": "“After you succeed/fail by x…” (Lucky Cigarette Case, British Bulldog, “Look what I found!”, Rabbit’s Foot,)"
+          },
+          {
+            "type": "eg",
+            "t": "“After you successfully attack/investigate/evade…” (Dr. Milan Christopher, Vault of Knowledge, Scavenging, Dr. Charles West III, Grievous Wound, Microscope)"
+          }
+        ]
+      },
+      {
+        "id": "ST.7",
+        "kind": "step",
+        "desc": "Apply skill test results.",
+        "order": [
+          {
+            "type": "head",
+            "t": "Execute “when” effects that can interrupt the triggering condition, forced abilities first"
+          },
+          {
+            "type": "eg",
+            "t": "“When you (would) discover a clue/deal damage/…” (Self-Destructive)"
+          },
+          {
+            "type": "head",
+            "t": "Resolve the triggering condition"
+          },
+          {
+            "type": "eg",
+            "t": "Effects of the test itself (e.g. discovering a clue in an investigate, dealing damage in an attack, exhaust and disengage an enemy in an evade)"
+          },
+          {
+            "type": "eg",
+            "t": "“If this skill test is successful…” (Quick Thinking, Brute Force, Resourceful, Deduction, Eureka!, Guts, Manual Dexterity, Overpower, Perception, The Eye of Truth, Fearless, Double or Nothing, Survival Instinct, Vicious Blow, Stealth)"
+          },
+          {
+            "type": "eg",
+            "t": "“If you succeed/do not succeed (by at least) …” (Lockpicks, Backstab, Slip Away, “Watch this”, Existential Riddle, Read the Signs, Spectral Razor, Ice Pick (discard))"
+          },
+          {
+            "type": "eg",
+            "t": "“If this attack defeats an enemy…” (Hatchet)"
+          },
+          {
+            "type": "head",
+            "t": "Execute “after” effects that respond to triggering condition, forced abilities first"
+          },
+          {
+            "type": "eg",
+            "t": "“After you deal damage to an enemy…”"
+          },
+          {
+            "type": "eg",
+            "t": "“After you evade an enemy…” (Pickpocketing)"
+          },
+          {
+            "type": "eg",
+            "t": "“After you defeat an enemy…” (Glory, William Yorrick, Evidence)"
+          },
+          {
+            "type": "eg",
+            "t": "“After you discover a clue…”"
+          }
+        ]
+      },
+      {
+        "id": "ST.8",
+        "kind": "step",
+        "desc": "Skill test ends.",
+        "order": [
+          {
+            "type": "p",
+            "t": "Discarding committed cards."
+          },
+          {
+            "type": "p",
+            "t": "“After this test ends…” (Calculated Risk, Practice Makes Perfect)"
+          }
+        ]
+      }
+    ]
+  },
+  "_note": "The Spanish source closes its lead with a line telling the reader to click the original PDF's hyperlinks to see every card of a step. Those links are not part of this transcription, so that line is left out rather than reproduced as a false instruction."
+}

@@ -30,6 +30,12 @@ and `assets/{icons,img}/`.
 | `card_anatomy.py`    | reads the card-anatomy chapter back out of the page's vector art |
 | `render_images.py`   | icon-gallery pages, montages and anatomy cards → JPEG figures |
 | `assemble.py`        | nodes → sections, cross-references, auto-links, figures → `grimoire_<code>.json` |
+| `grim_vecicons.py`   | the product marks the Grimoire draws *inside* its sentences, put back |
+| `adb.py`             | the ArkhamDB card index (cached under `tools/other/_adb/`) |
+| `adb_names.py`       | card references the typographic matcher cannot see, found by name lookup |
+| `adb_resolve.py`     | "Name ( 20)" → the exact ArkhamDB card, learning what each set icon means |
+| `iconsets.py`        | groups set-icon fingerprints that are the same mark traced differently |
+| `fanmade.py`         | files the community's skill-test timing table under its chapter |
 | `validate_coverage.py` | checks parsed text is present in the source PDF |
 | `ingest.py`          | runs the whole pipeline for one or every language |
 | `new_lang.py`        | scaffolds a new pack |

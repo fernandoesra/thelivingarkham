@@ -218,12 +218,35 @@ Notes:
 * Section `kind` is `"rules"` for prose, `"faq"` for the question-and-answer chapter (split into one entry per question automatically, by the italic-question / roman-answer typography), and `"icons"` for the product-icon reference (add `"build": "iconref"`, no `anchor` — it is rebuilt from the last page's art, not anchored prose). A `"rules"` section may also carry `"split": "term"` (Definitions: each bold term becomes an entry) or `"split": "numbered"` (Rulings: each `(N.NN)` clarification becomes an entry).
 * The **set / campaign / scenario icons** printed before each card number are vector art, not font glyphs — recovered from the page, deduplicated by shape and slotted back in front of the number (`tools/faq_seticons.py`, shared SVGs in `assets/faqsets/`). The same tool rebuilds the icon-reference tables (campaigns, standalone products, starter decks, promos) into `assets/products/`.
 * The FAQ prints the **bless/curse** chaos-token icons the Grimoire never uses; their glyphs are traced from the FAQ font and filled in automatically (`extract_icons.fill_from_faq`).
+* Its **first two pages** — the cover (what the document is, what is new in this version) and the narrative epigraph — are read straight off the page by typography, not by an anchor, and become the shelf's opening chapter. Declare it with `{"key": "faq-intro", "id": "c1-intro", "build": "intro"}` as the first section; the app puts the "this is chapter 1, and it may contradict the Grimoire" warning on it, and every link that used to point at the retired FAQ document now lands there.
+
+## Card links
+
+A card reference in the books is a name, the product's icon, and the card's **collection number** — the position it holds inside its product. That is not a card id: ArkhamDB numbers each product's cards in its own run, and position 1 is a different card in every product ever printed. So the links are resolved by asking ArkhamDB itself (`tools/adb.py`, cached under `tools/other/_adb/`):
+
+1. **Name and number** (`tools/adb_resolve.py`). One card printed at that position under that name *is* the card. Each unambiguous hit also **teaches** which campaign the reference's icon stands for — the icon is opaque vector art, but the cards beside it are not.
+2. **The icon** settles the rest: "Daniela Reyes ( 1)" is two different cards until the mark between the bracket and the number says which campaign it belongs to.
+
+Anything still unresolved keeps a **search** link, which lists every printing — an honest fallback beats a confident wrong card. Because the icon's campaign is *learned* rather than declared, each set icon also gets a real accessible name ("Legado de Dunwich") instead of a generic one, and a build where two references disagree about an icon says so.
+
+Two supporting pieces:
+
+* `tools/adb_names.py` finds the references the typographic matcher cannot see. That matcher recognises a reference by its *shape* — Capitalised Words before a bracketed number — which is how English titles are set and is why it quietly failed everywhere else. Spanish prints "Mercado de los bajos fondos ( 77)"; asking ArkhamDB "is there a card of this name at this position?" needs no capitalisation rule and cannot invent a card. It took the Spanish FAQ from 135 linked references to 365.
+* `tools/grim_vecicons.py` recovers the product marks the **Grimoire** draws inside its sentences — the five investigator decks named in the optional rules, and the mark inside every "Name ( 20)". The FAQ patches the parser to inject these while it reads; the Grimoire's parse is long-tuned and measured against the printed page, so nothing there is touched: the PDF is scanned separately, each mark keyed by the words on either side of it, and they are slotted into the finished blocks afterwards.
+
+## The community timing reference
+
+The skill-test chapter carries a second, **fanmade** view: the community's breakdown of every triggering point with the cards that fire at each. It is not official, so it lives behind the chapter's own "everything / official diagram / fanmade diagram" switch, under a red notice saying exactly that and giving an address to report errors to. The sources are pictures (a scanned Spanish PDF, an English PNG), so they were transcribed by hand into `tools/fanmade_skilltest.json` — one block per language, each from its own document — and `tools/fanmade.py` files it under the chapter. It renders as a real table, not a screenshot: readable, searchable, translatable.
 
 ## The interactive taboo list
 
 The Resources shelf carries a live **taboo list**, built from ArkhamDB's public API (`tools/taboos.py` → `data/taboos_<code>.json`). Every card on the current taboo list is grouped the way the book groups them — *Chained/Unchained* (an experience cost), *Mutated* (a rules-text change) and *Forbidden* (barred) — each with its collection number, its product icon (matched to the FAQ's own icon tables), and a **direct link** to the card on ArkhamDB in the reader's language. The mutation text ArkhamDB stores is English only, so it is tagged `lang="en"` and the list cross-links to the FAQ's own taboo chapter for the full write-up. It refreshes as part of `ingest.py` (network, best-effort: an offline build keeps the committed data). Run it on its own with `python tools/taboos.py`.
 
-The **Ultimatums, Boons & Refractions** viewer merges the FAQ's chapter-1 refractions (5argon's card art, `tools/ub_cap1.py`) with the Grimoire's own, filterable by chapter (Cap. 1 / Cap. 2) and, within the refractions, by campaign and scenario. Each refraction card carries its scenario's encounter-set symbol, its campaign symbol and its illustrator: the campaign mark is derived from the FAQ's own icon table, and the scenario marks are cut from the artist's vector symbol sheets by `tools/scenario_icons.py` (which records exactly which mark on which sheet is which scenario — never a bitmap trace).
+## The welcome tour
+
+A first visit runs a six-stop tour (`tourStart` in `js/app.js`): what the site is, the language switch (and that English runs ahead), the theme picker, the search, the two rulebooks in the sidebar — *they are different rulesets and can disagree* — and who made it. No library: it is one scrim, one rectangle and one card, drawn **over** the page so nothing on it is restyled or re-stacked, and it is a real modal dialog (focus moves in, Tab is trapped, Escape leaves, each stop is a heading). It runs once, remembered in `localStorage` under `tla-tour`; the footer offers to replay it. A target that is not on screen — the sidebar on a narrow window — simply gets no rectangle and the stop reads as a centred card. Every string is in `ui.json` (`tour1t`…`tour6d`).
+
+The **Ultimatums, Boons & Refractions** viewer merges the FAQ's chapter-1 refractions (5argon's card art, `tools/ub_cap1.py`) with the Grimoire's own, filterable by chapter (Cap. 1 / Cap. 2), by type (a refraction is itself either an ultimatum or a boon) and, within the refractions, by campaign and scenario; in list view a stepper leafs through the shown cards, dimming its arrow at each end of the stack. Each refraction card carries its scenario's encounter-set symbol, its campaign symbol and its illustrator: the campaign mark is derived from the FAQ's own icon table, and the scenario marks are cut from the artist's vector symbol sheets by `tools/scenario_icons.py` (which records exactly which mark on which sheet is which scenario — never a bitmap trace).
 
 ## Corrections
 
@@ -247,6 +270,7 @@ index.html js/ css/  the app — knows no language
 The app reads `data/languages.json` to learn which languages exist (and which have a FAQ corpus, via `faqData`), and fetches a language only when it is first shown. A language is listed there only once its content has actually been built, so a half-finished pack can sit in `langs/` without putting a dead button in the header. The FAQ is optional per language: a pack without a `"faq"` block simply has no FAQ shelf.
 
 Pipeline details (parser, auto-links, icons, montages): [`tools/README.md`](tools/README.md).
+Putting it on a server: [`deploy.md`](deploy.md).
 
 ## Commands
 

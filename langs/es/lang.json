@@ -24,14 +24,80 @@
       }
     ],
     "sections": [
-      {"key": "faq-errata", "id": "c1-erratas", "num": "", "title": "Notas y fe de erratas", "kind": "rules", "anchor": "Notas y fe de erratas"},
-      {"key": "faq-definitions", "id": "c1-definiciones", "num": "", "title": "Definiciones y términos", "kind": "rules", "anchor": "Definiciones y términos", "split": "term"},
-      {"key": "faq-rulings", "id": "c1-aclaraciones", "num": "", "title": "Aclaraciones de las reglas", "kind": "rules", "anchor": "Aclaraciones de las reglas", "split": "numbered"},
-      {"key": "faq-questions", "id": "c1-preguntas", "num": "", "title": "Preguntas frecuentes", "kind": "faq", "anchor": "Preguntas frecuentes"},
-      {"key": "faq-taboos", "id": "c1-tabues", "num": "", "title": "La lista de tabúes", "kind": "rules", "anchor": "La lista de tabúes"},
-      {"key": "faq-optional", "id": "c1-ultimatums", "num": "", "title": "Ultimátums, ayudas y refracciones", "kind": "rules", "anchor": "Ultimátums y ayudas"},
-      {"key": "faq-environments", "id": "c1-entornos", "num": "", "title": "Entornos (Beta)", "kind": "rules", "anchor": "Entornos actual, legado"},
-      {"key": "faq-icons", "id": "c1-iconos", "num": "", "title": "Referencia de iconos", "kind": "icons", "build": "iconref"}
+      {
+        "key": "faq-intro",
+        "id": "c1-intro",
+        "num": "",
+        "title": "Sobre estas FAQ",
+        "kind": "rules",
+        "build": "intro"
+      },
+      {
+        "key": "faq-errata",
+        "id": "c1-erratas",
+        "num": "",
+        "title": "Notas y fe de erratas",
+        "kind": "rules",
+        "anchor": "Notas y fe de erratas"
+      },
+      {
+        "key": "faq-definitions",
+        "id": "c1-definiciones",
+        "num": "",
+        "title": "Definiciones y términos",
+        "kind": "rules",
+        "anchor": "Definiciones y términos",
+        "split": "term"
+      },
+      {
+        "key": "faq-rulings",
+        "id": "c1-aclaraciones",
+        "num": "",
+        "title": "Aclaraciones de las reglas",
+        "kind": "rules",
+        "anchor": "Aclaraciones de las reglas",
+        "split": "numbered"
+      },
+      {
+        "key": "faq-questions",
+        "id": "c1-preguntas",
+        "num": "",
+        "title": "Preguntas frecuentes",
+        "kind": "faq",
+        "anchor": "Preguntas frecuentes"
+      },
+      {
+        "key": "faq-taboos",
+        "id": "c1-tabues",
+        "num": "",
+        "title": "La lista de tabúes",
+        "kind": "rules",
+        "anchor": "La lista de tabúes"
+      },
+      {
+        "key": "faq-optional",
+        "id": "c1-ultimatums",
+        "num": "",
+        "title": "Ultimátums, ayudas y refracciones",
+        "kind": "rules",
+        "anchor": "Ultimátums y ayudas"
+      },
+      {
+        "key": "faq-environments",
+        "id": "c1-entornos",
+        "num": "",
+        "title": "Entornos (Beta)",
+        "kind": "rules",
+        "anchor": "Entornos actual, legado"
+      },
+      {
+        "key": "faq-icons",
+        "id": "c1-iconos",
+        "num": "",
+        "title": "Referencia de iconos",
+        "kind": "icons",
+        "build": "iconref"
+      }
     ]
   },
   "parse": {

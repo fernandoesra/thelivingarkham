@@ -183,6 +183,10 @@ def main(argv):
             except Exception as e:
                 print(f'  [warn] chapter-1 refractions skipped for {pack.code}: {e}', file=sys.stderr)
 
+    if built:
+        import faq_seticons as _fs
+        _fs.report_orphans()
+
     # The interactive taboo list is fetched from ArkhamDB (tools/taboos.py). Network, so it is
     # best-effort: if it fails (offline, API down) the committed data/taboos_<code>.json is kept.
     if built:
