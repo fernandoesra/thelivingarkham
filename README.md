@@ -227,6 +227,8 @@ A card reference in the books is a name, the product's icon, and the card's **co
 1. **Name and number** (`tools/adb_resolve.py`). One card printed at that position under that name *is* the card. Each unambiguous hit also **teaches** which campaign the reference's icon stands for — the icon is opaque vector art, but the cards beside it are not.
 2. **The icon** settles the rest: "Daniela Reyes ( 1)" is two different cards until the mark between the bracket and the number says which campaign it belongs to.
 
+3. **A hand answer.** A residue no matching can settle — the book and ArkhamDB disagree on the card's *name* ("Pierde tu alma" / "Vende tu alma") or on its *number*, or the card type is one the API does not serve — is answered in **`tools/card_links.json`**, consulted only after every automatic attempt has failed, so a hand answer can never override what the data proves. Each entry must match at least once or the build says so. The reasoning behind every one of them is kept in `tools/other/arkhamdb-missing-cards.md`.
+
 Anything still unresolved keeps a **search** link, which lists every printing — an honest fallback beats a confident wrong card. Because the icon's campaign is *learned* rather than declared, each set icon also gets a real accessible name ("Legado de Dunwich") instead of a generic one, and a build where two references disagree about an icon says so.
 
 Two supporting pieces:

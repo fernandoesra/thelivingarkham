@@ -518,7 +518,8 @@ def _reseat_seticons_runs(runs):
         if r.get('kind') == 'seticon':
             atoms.append(('s', r.get('fp')))
         elif r.get('kind') == 'text' and 't' in r:
-            style = {k: r.get(k, False) for k in ('bold', 'italic', 'ref', 'red')}
+            # every property, including the edition's version stamp — see adb_names._atoms
+            style = {k: v for k, v in r.items() if k not in ('kind', 't')}
             for ch in r['t']:
                 atoms.append(('c', ch, style))
         else:
@@ -546,7 +547,8 @@ def _reseat_seticons_runs(runs):
         if a[0] == 'c':
             ch, style = a[1], a[2]
             last = result[-1] if result else None
-            if last and last.get('kind') == 'text' and all(last.get(k, False) == style[k] for k in style):
+            if (last and last.get('kind') == 'text'
+                    and {k: v for k, v in last.items() if k not in ('kind', 't')} == style):
                 last['t'] += ch
             else:
                 result.append(dict(kind='text', t=ch, **style))

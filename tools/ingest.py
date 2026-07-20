@@ -186,6 +186,8 @@ def main(argv):
     if built:
         import faq_seticons as _fs
         _fs.report_orphans()
+        import adb_names as _an
+        _an.report_unused()
 
     # The interactive taboo list is fetched from ArkhamDB (tools/taboos.py). Network, so it is
     # best-effort: if it fails (offline, API down) the committed data/taboos_<code>.json is kept.

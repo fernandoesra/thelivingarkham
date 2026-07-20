@@ -2119,7 +2119,9 @@ function tabooCount(s){var t2=s&&s.taboos; return t2?(t2.groups||[]).reduce(func
    below — official and in the reader's language — so it is not repeated here. */
 function taboosHTML(s){
   var tb=s.taboos; if(!tb)return '';
-  var h='<details class="tla-taboos" open>';
+  /* Closed by default: the chapter's own prose is what a reader came for, and ninety cards
+     between the heading and the first paragraph buries it. The summary says what is inside. */
+  var h='<details class="tla-taboos">';
   h+='<summary class="tla-taboos-sum"><span class="tla-taboos-sumt">'+esc(t('tabooindex'))+'</span>'
     +'<span class="tla-taboo-ver">'+esc(t('tabooversion').replace('{d}',fmtDate(tb.date)))+'</span></summary>';
   h+='<div class="tla-taboos-body">';
@@ -3033,6 +3035,7 @@ function dialogs(){
     {box:elLb,       isOpen:lbOpen,      close:closeLightbox},
     /* The tour is drawn over everything and is the only thing the reader can act on, so it
        is last of all: Escape leaves it and Tab stays inside its card. */
+    {box:elRel,      isOpen:relOpen,     close:closeRelease},
     {box:elTour,     isOpen:tourOpen,    close:tourClose}
   ];
 }
@@ -3072,6 +3075,54 @@ function closeLightbox(){
 }
 
 /* ---------- donate modal ---------- */
+/* ---------- release notes ----------
+   What changed and when. The site is a living document like the books it carries, so it says
+   so out loud. The notes themselves are CONTENT — one entry per release, per language — so they
+   live in each pack's ui.json ("releases"), not here; this only lays them out. A very small
+   subset of markdown is honoured (**bold**), because a release note is mostly a list of names
+   and one of them wants emphasis. */
+var elRel=null, lastRel=null;
+/* Visibility is the `on` class, as with every other modal here — `hidden` alone leaves the
+   box at display:none, so nothing inside it can take focus. */
+function relOpen(){return !!(elRel&&elRel.classList.contains('on'));}
+function relBold(str){
+  /* Escape first, then re-introduce the one tag we allow: nothing from the pack can inject
+     markup this way, only ask for emphasis. */
+  return esc(str).replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+}
+function relNotesHTML(){
+  var rel=uiOf(lang,'releases',null)||[];
+  if(!rel.length)return '<p class="tla-modal-p">'+esc(t('soon'))+'</p>';
+  var h='';
+  rel.forEach(function(r,i){
+    h+='<section class="tla-rel-item">';
+    h+='<h3 class="tla-rel-v">'+esc(r.v)+(r.title?' <span class="tla-rel-name">'+esc(r.title)+'</span>':'')+'</h3>';
+    h+='<p class="tla-rel-meta">'+(r.date?esc(fmtDate(r.date)):'')
+      +(i===0?' <span class="tla-rel-now">'+esc(t('relcurrent'))+'</span>':'')+'</p>';
+    if(r.items&&r.items.length){
+      h+='<ul class="tla-rel-list">';
+      r.items.forEach(function(x){h+='<li>'+relBold(x)+'</li>';});
+      h+='</ul>';
+    }
+    h+='</section>';
+  });
+  return h;
+}
+function openRelease(){
+  lastRel=document.activeElement;
+  var body=document.getElementById('tla-rel-body');
+  if(body)body.innerHTML=relNotesHTML();
+  elRel.hidden=false; elRel.classList.add('on');
+  var c=document.getElementById('tla-rel-close'); if(c)try{c.focus();}catch(e){}
+}
+function closeRelease(){
+  if(!relOpen())return;
+  elRel.classList.remove('on'); elRel.hidden=true;
+  var back=(lastRel&&document.contains(lastRel))?lastRel:document.getElementById('tla-rel-open');
+  lastRel=null;
+  if(back)try{back.focus();}catch(e){}
+}
+
 var lastDonate=null;
 function donateOpen(){return elDonate.classList.contains('on');}
 function openDonate(){
@@ -3140,8 +3191,11 @@ function closeNav(){elNav.classList.remove('on');document.getElementById('tla-sc
    spread shadow makes everything else dark), so no element on the page is restyled, re-stacked
    or moved to make room for it. A target that is not on screen — the sidebar on a narrow
    window — simply gets no rectangle, and the stop reads as a centred card. */
-var TOUR=[{t:'tour1t',d:'tour1d'},
-          {t:'tour2t',d:'tour2d',sel:'.tla-lang',langs:true},
+/* The language switch rides on the FIRST stop, not on the one that talks about languages: a
+   reader who landed in a language they cannot read has to be able to fix that before the
+   welcome makes any sense, and the flags say what the sentence cannot. */
+var TOUR=[{t:'tour1t',d:'tour1d',langs:true},
+          {t:'tour2t',d:'tour2d',sel:'.tla-lang'},
           {t:'tour3t',d:'tour3d',sel:'#tla-theme'},
           {t:'tour4t',d:'tour4d',sel:'#tla-search-open'},
           {t:'tour5t',d:'tour5d',sel:'#tla-nav'},
@@ -3178,14 +3232,25 @@ function tourPlace(){
   }
   card.classList.toggle('is-centred',!r);
   if(!r){card.style.left=''; card.style.top=''; return;}
-  /* Under the target when there is room, above it when there is not, and always inside the
-     viewport — measured after the card is in the DOM, so its real height is used. */
+  /* Under the target when there is room, above it when there is not, and BESIDE it when the
+     target is too tall for either — which is the sidebar, and the one stop where covering what
+     it points at defeats the stop. Always inside the viewport; measured after the card is in
+     the DOM, so its real height is used. */
   var cw=card.offsetWidth, ch=card.offsetHeight, m=14;
-  var top=r.bottom+pad+m;
-  if(top+ch>window.innerHeight-m)top=Math.max(m,r.top-pad-m-ch);
-  var left=r.left+r.width/2-cw/2;
-  left=Math.max(m,Math.min(left,window.innerWidth-cw-m));
-  card.style.left=left+'px'; card.style.top=top+'px';
+  var below=r.bottom+pad+m, above=r.top-pad-m-ch;
+  var fit=function(v,max){return Math.max(m,Math.min(v,max-m));};
+  if(below+ch<=window.innerHeight-m){
+    card.style.top=below+'px';
+    card.style.left=fit(r.left+r.width/2-cw/2,window.innerWidth-cw)+'px';
+  }else if(above>=m){
+    card.style.top=above+'px';
+    card.style.left=fit(r.left+r.width/2-cw/2,window.innerWidth-cw)+'px';
+  }else{
+    var side=r.right+pad+m;
+    if(side+cw>window.innerWidth-m)side=r.left-pad-m-cw;      // the other side, then
+    card.style.left=fit(side,window.innerWidth-cw)+'px';
+    card.style.top=fit(r.top,window.innerHeight-ch)+'px';
+  }
 }
 /* The language step carries the switch itself, not just a pointer at it. A reader who landed in
    a language they cannot read is exactly the reader this stop is for, and asking them to reach
@@ -3427,6 +3492,13 @@ function wireEvents(){
 
   var tourBtn=document.getElementById('tla-tour-open');
   if(tourBtn)tourBtn.addEventListener('click',function(){tourAt=-1; tourStart();});
+  elRel=document.getElementById('tla-rel');
+  var relBtn=document.getElementById('tla-rel-open');
+  if(relBtn)relBtn.addEventListener('click',openRelease);
+  var relX=document.getElementById('tla-rel-close');
+  if(relX)relX.addEventListener('click',closeRelease);
+  // backdrop only — a click inside the box must not close it
+  if(elRel)elRel.addEventListener('click',function(e){if(e.target===elRel)closeRelease();});
   document.getElementById('tla-donate-open').addEventListener('click',openDonate);
   document.getElementById('tla-donate-close').addEventListener('click',closeDonate);
   // backdrop only — a click inside the box must not close it

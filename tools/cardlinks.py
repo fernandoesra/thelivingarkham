@@ -69,8 +69,14 @@ def _link_runs(runs, stops):
             pre = t[pos:m.start()] + lead
             if pre:
                 pieces.append(dict(r, t=pre))
-            pieces.append({'kind': 'adbcard', 't': link, 'q': link,
-                           'bold': bool(r.get('bold')), 'italic': bool(r.get('italic'))})
+            card = {'kind': 'adbcard', 't': link, 'q': link,
+                    'bold': bool(r.get('bold')), 'italic': bool(r.get('italic'))}
+            # Carry the edition's version stamp onto the link. The card's NAME is part of what
+            # an edition added, so it has to keep reading as added — without this the errata
+            # chapter highlighted its rules text and left every card name black.
+            if r.get('v'):
+                card['v'] = r['v']
+            pieces.append(card)
             pieces.append(dict(r, t=' ' + m.group(2)))       # the " ( 20)" number, kept as text
             pos = m.end()
         if pieces:

@@ -138,12 +138,15 @@ def resolve(sections, code, quiet=False):
     votes, packvotes, pending = {}, {}, []
     for run, nums, icons in refs:
         name = run.get('q') or run.get('t') or ''
-        if not nums:
-            continue
-        # "( 29, 5)" is ONE card the publisher printed twice, not two cards. The page names the
-        # first printing first — and puts that printing's icon first — so that is the one the
-        # link opens, rather than dropping the reference for being ambiguous.
-        cands = idx.at(name, nums[0])
+        if run.get('code') or not nums:
+            continue                               # already answered by hand (tools/card_links.json)
+        # "( 29, 5)" is usually ONE card the publisher printed twice, and the page names the
+        # first printing first — so that is the one the link opens, rather than dropping the
+        # reference for being ambiguous. Sometimes, though, the bracket belongs to two different
+        # cards ("Dagón (…), Hidra (…) ( 330a, 331a)") and the name nearest it goes with the LAST
+        # number, so every number is tried until one names this card.
+        num = next((n for n in nums if idx.at(name, n)), nums[0])
+        cands = idx.at(name, num)
         if len(cands) == 1:
             run['code'] = cands[0]['code']
             gid, cyc = gid_of(icons), cands[0]['cycle']
@@ -153,7 +156,7 @@ def resolve(sections, code, quiet=False):
                 packvotes.setdefault(gid, {}).setdefault(cands[0]['pack'], 0)
                 packvotes[gid][cands[0]['pack']] += 1
         else:
-            pending.append((run, nums[0], icons, cands))
+            pending.append((run, num, icons, cands))
     learned = _learn(votes, quiet)
 
     # Pass 2 — the icon settles the rest.

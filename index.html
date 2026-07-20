@@ -96,7 +96,7 @@
     <div class="tla-foot-body" id="tla-foot-body">
       <span id="tla-foot-src" data-i18n-html="footsrc"><a href="https://www.fantasyflightgames.com/en/products/arkham-horror-the-card-game/" target="_blank" rel="noopener">Arkham Horror: The Card Game</a>™ y todo el contenido relacionado © <a href="https://www.fantasyflightgames.com/en/index/" target="_blank" rel="noopener">Fantasy Flight Games (FFG)</a>. Este sitio web no está producido ni avalado por FFG, ni afiliado a ella.</span>
       <span class="tla-foot-by-wrap">
-        <span id="tla-foot-by" data-i18n-html="footby">The Living Arkham <b>v1.1</b> · un proyecto de <a href="https://rinconmiskatonic.org/" target="_blank" rel="noopener">Rincón Miskatonic</a></span>
+        <span id="tla-foot-by" data-i18n-html="footby">The Living Arkham <b>v1.0.0</b> · un proyecto de <a href="https://rinconmiskatonic.org/" target="_blank" rel="noopener">Rincón Miskatonic</a></span>
         <a class="tla-foot-logo" href="https://rinconmiskatonic.org/" target="_blank" rel="noopener" data-i18n-attr="aria-label:footlogo" aria-label="Rincón Miskatonic"><img src="assets/rincon-logo.png" alt="" width="24" height="24"></a>
       </span>
       <span class="tla-foot-contact">
@@ -109,9 +109,23 @@
         <button class="tla-foot-paypal" id="tla-donate-open" type="button" data-i18n-attr="aria-label:donateopen" aria-label="Apoya nuestro trabajo">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.08 21.34H2.47a.64.64 0 0 1-.63-.74L4.94.9C5.03.38 5.47 0 6 0h7.46c2.57 0 4.58.54 5.69 1.81 1.01 1.15 1.3 2.42 1.01 4.29l-.08.44c-.98 5.05-4.35 6.8-8.65 6.8h-2.19c-.52 0-.97.38-1.05.9l-1.12 7.1zm14.15-14.42a3.35 3.35 0 0 0-.61-.54l-.04.25c-.93 4.78-4 7.2-9.14 7.2H9.25a.56.56 0 0 0-.56.48L7.5 21.44a.56.56 0 0 0 .55.65h3.34c.46 0 .85-.33.92-.79l.75-4.75a.93.93 0 0 1 .92-.79h.58c3.76 0 6.7-1.53 7.57-5.95.36-1.84.17-3.38-.78-4.47z"/></svg>
           <span data-i18n="donatelabel">Donar</span></button>
+        <!-- what changed, and when: the site is a living document like the books it carries -->
+        <button class="tla-foot-info" id="tla-rel-open" type="button" data-i18n-attr="aria-label:relnotes, title:relnotes" aria-label="Notas de versión" title="Notas de versión">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+        </button>
       </span>
     </div>
   </footer>
+
+  <!-- RELEASE NOTES -->
+  <div class="tla-modal" id="tla-rel" role="dialog" aria-modal="true" aria-labelledby="tla-rel-t" hidden>
+    <div class="tla-modal-box tla-rel-box">
+      <button class="tla-modal-close" id="tla-rel-close" type="button" data-i18n-attr="aria-label:close" aria-label="Cerrar">✕</button>
+      <h2 class="tla-modal-t" id="tla-rel-t" data-i18n="relnotes">Notas de versión</h2>
+      <!-- tabindex: the list scrolls, so a keyboard user has to be able to reach and scroll it -->
+      <div class="tla-rel-body" id="tla-rel-body" tabindex="0"></div>
+    </div>
+  </div>
 
   <!-- DONATE MODAL -->
   <div class="tla-modal" id="tla-donate" role="dialog" aria-modal="true" aria-labelledby="tla-donate-t" hidden>

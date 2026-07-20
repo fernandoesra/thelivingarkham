@@ -1,0 +1,210 @@
+{
+  "_comment": "Curated card links: references the automatic resolver cannot settle, answered by hand. Each entry says \"this printed phrase, carrying this collection number, in this language, is THIS ArkhamDB card\". Applied by tools/adb_names.py after every automatic attempt has failed, so an entry here never overrides something the data already proves. Every entry must match at least once or the build says so, the same guard tools/text_fixes.json uses. Set \"code\" to \"\" to say \"there is no card for this\" and silence it deliberately.",
+  "es": [
+    {
+      "printed": "\"Máscara\" maldita",
+      "num": 82,
+      "code": "11582",
+      "adbName": "\"Máscara\" macabra",
+      "note": "The FAQ prints a different rendering of \"Grisly\" — \"maldita\" instead of ArkhamDB's \"macabra\" — and uses curly quotes “ ” where ArkhamDB stores straight \", so both the exact-name and quote-normalized lookups miss. The builder additionally re"
+    },
+    {
+      "printed": "Acto 2d – En garras sombrías",
+      "num": 127,
+      "code": "04127",
+      "adbName": "En la comisaría",
+      "note": "Two compounding reasons: (1) the FAQ cites the act's BACK face, and ArkhamDB indexes this card under its front name \"En la comisaría\" — the builder almost certainly only matches against `name`/`subname`, never `back_name`; (2) even against "
+    },
+    {
+      "printed": "Agnes paralela",
+      "num": 17,
+      "code": "90017",
+      "adbName": "Agnes Baker",
+      "note": "The FAQ prints a colloquial descriptor, \"Agnes paralela\", instead of the card's actual ArkhamDB name \"Agnes Baker\" — ArkhamDB stores no \"parallel\" marker in the name field (the parallel version is distinguished only by its code/pack), so a "
+    },
+    {
+      "printed": "Cerrar el círculo",
+      "num": 63,
+      "code": "08062",
+      "adbName": "Cerrar el círculo",
+      "note": "The builder looked for a card at collection position 63 of the pack, but ArkhamDB records \"Cerrar el círculo\" at position 62 (08063 is \"Vientos de poder\"), so the name+number pair never resolved. The name itself is an exact match, so linkin"
+    },
+    {
+      "printed": "Conocimiento ancestral",
+      "num": 2,
+      "code": "07303",
+      "adbName": "Conocimiento ancestral",
+      "note": "The FAQ printed the number 2, but the card's actual collection position is 303 and no second printing exists in the Spanish (or English) dump, so a name+number lookup found nothing at position 2 and the builder declined to link. The \"2\" is "
+    },
+    {
+      "printed": "El mundo pintado",
+      "num": 24,
+      "code": "03012",
+      "adbName": "El mundo pintado",
+      "note": "The builder almost certainly keyed on the printed collection number 24, but ArkhamDB stores this card at position 12 under the original deluxe box \"ptc\". The packs dump shows ptc is marked `replaced: True` and superseded by \"ptcp\" (El camin"
+    },
+    {
+      "printed": "El plan 2a",
+      "num": 242,
+      "code": "03242",
+      "adbName": "El imperio de los no muertos",
+      "note": "The builder had no card name to search: \"El plan 2a\" is generic terminology (agenda stage 2a), and no card in the Spanish dump is named \"El plan\". Identification is only possible via the set icon plus collection number 242, which the builde"
+    },
+    {
+      "printed": "Fosa sinuosa",
+      "num": 40,
+      "code": "54060",
+      "adbName": "Fosa sinuosa",
+      "note": "The name resolves cleanly and the card is fully translated, but the builder keys on name plus printed collection number; the FAQ prints 40 while ArkhamDB assigns this card position 60 in Regreso a El círculo roto, so the number-checked look"
+    },
+    {
+      "printed": "Martillo ciclópeo",
+      "num": 187,
+      "code": "08093",
+      "adbName": "Martillo ciclópeo",
+      "note": "The FAQ bullet in data/faq_es.json is stored as plain \"text\" runs (\"Martillo ciclópeo (\" + seticon + \" 187):\") rather than an \"adbcard\" run, unlike its neighbours (e.g. \"Préstamo sin escrúpulos ( 113)\" → 08113, whose printed 113 does equal "
+    },
+    {
+      "printed": "Pabellón de terapias experimentales",
+      "num": 72,
+      "code": "06072",
+      "adbName": "Pabellón de las terapias experimentales",
+      "note": "The FAQ omits the article present in ArkhamDB's Spanish name (\"Pabellón de terapias experimentales\" vs \"Pabellón de las terapias experimentales\"), so the builder's exact-name lookup found no match."
+    },
+    {
+      "printed": "Paciente perturbado",
+      "num": 184,
+      "code": "03184",
+      "adbName": "Paciente loco",
+      "note": "The errata chapter prints the post-errata name \"Paciente perturbado\", but ArkhamDB's Spanish data for 03184 still stores the pre-errata name \"Paciente loco\" (the English entry is itself only half-updated), so a name-based lookup finds no ma"
+    },
+    {
+      "printed": "Padre Mateo paralelo",
+      "num": 81,
+      "code": "90081",
+      "adbName": "Father Mateo",
+      "note": "The Spanish dump has no translation for this card's name — it is stored as the English \"Father Mateo\" / \"The Priest\" (only the pack name \"Aura de fe\" is localized), so a lookup of the printed Spanish string \"Padre Mateo paralelo\" finds no m"
+    },
+    {
+      "printed": "Pete \"Cubo de basura\" paralelo",
+      "num": 46,
+      "code": "90046",
+      "adbName": "\"Ashcan\" Pete",
+      "note": "Two compounding reasons. (1) ArkhamDB's Spanish database has no translation for the \"On the Road Again\" pack: card 90046 is stored under the English name '\"Ashcan\" Pete' / 'The Drifter', so a lookup of the Spanish printed form 'Pete \"Cubo d"
+    },
+    {
+      "printed": "Pierde tu alma",
+      "num": 15,
+      "code": "53015",
+      "adbName": "Vende tu alma",
+      "note": "The builder matches by name, and the FAQ prints \"Pierde tu alma\" while ArkhamDB's Spanish name is \"Vende tu alma\" (the first verb differs — likely the FAQ writer echoing the card's \"Pierde 10 recursos\" revelation text). The collection numbe"
+    },
+    {
+      "printed": "Por la madriguera del conejo",
+      "num": 59,
+      "code": "08059",
+      "adbName": "Por la madriguera de conejo",
+      "note": "The FAQ prints 'Por la madriguera DEL conejo' while ArkhamDB's Spanish name is 'Por la madriguera DE conejo' (no 'l'). An exact or normalized name lookup fails on that one-character article difference, so the builder found no match even tho"
+    },
+    {
+      "printed": "Robert Castaigne mejorado",
+      "num": 62,
+      "code": "11062",
+      "adbName": "Robert Castaigne",
+      "note": "\"mejorado\" is an editorial descriptor the FAQ added to distinguish the XP 4 printing from the level-0 one; it is not part of the card's name or subname, so no exact name/subname lookup for \"Robert Castaigne mejorado\" resolves in either the "
+    },
+    {
+      "printed": "Sexto sentido mejorado",
+      "num": 322,
+      "code": "05322",
+      "adbName": "Sexto sentido",
+      "note": "The builder does an exact-name lookup, and the FAQ appends the qualifier \"mejorado\" to distinguish the 4-XP version from the level-0 card. ArkhamDB stores both printings under the identical name \"Sexto sentido\", separating them only by xp/c"
+    },
+    {
+      "printed": "Sujeto 5U-21/\"Suzi\"",
+      "num": 1,
+      "code": "89001",
+      "adbName": "Sujeto 5U-21",
+      "note": "The FAQ prints the investigator with her in-fiction nickname appended — Sujeto 5U-21/\"Suzi\" — whereas ArkhamDB's name field is just \"Sujeto 5U-21\" and its subname is \"La anomalía\" (never \"Suzi\"). The exact-name lookup therefore failed on th"
+    },
+    {
+      "printed": "Vidente del signo",
+      "num": 95,
+      "code": "03095",
+      "adbName": "Maníaco (ArkhamDB es name); real_name \"Seer of the Sign\"",
+      "note": "ArkhamDB's Spanish row for 03095 still carries the pre-errata localized name \"Maníaco\" (its Spanish text likewise still reads \"Después de que el Maníaco se enfrente a ti\"), while the FAQ prints the post-errata name \"Vidente del signo\". The "
+    },
+    {
+      "printed": "Volto dorado",
+      "num": 26,
+      "code": "82026",
+      "adbName": "Gilded Volto",
+      "note": "ArkhamDB's Spanish database never translated the card name — the \"name\" field still holds the English \"Gilded Volto\" (only \"text\" is localized, and it too calls the card \"Gilded Volto\"). The FAQ printed the translated form \"Volto dorado\", w"
+    }
+  ],
+  "en": [
+    {
+      "printed": "Act 2b—Nucleus of the Universe",
+      "num": 330,
+      "code": "05330",
+      "adbName": "In Azathoth's Domain",
+      "note": "ArkhamDB stores the back-face name with a typo, \"Nucleaus of the Universe\" (extra 'a'), so the builder's name lookup against the correctly-spelled printed title \"Nucleus of the Universe\" matched nothing. The data is present and correctly nu"
+    },
+    {
+      "printed": "Agenda 2a",
+      "num": 242,
+      "code": "03242",
+      "adbName": "Empire of the Undead",
+      "note": "The reference is printed as the generic stage label \"Agenda 2a\" instead of the card's title, so no name/subname/back_name lookup can resolve it; only the collection number 242 identifies the card, and the builder does not match on number al"
+    },
+    {
+      "printed": "Body of a Yithian card",
+      "num": 244,
+      "code": "04244",
+      "adbName": "Body of a Yithian",
+      "note": "The FAQ prints the reference with a trailing common noun, \"Body of a Yithian card\", so the builder's lookup string included the word \"card\" and no longer matched the exact ArkhamDB name \"Body of a Yithian\". The card itself is present and co"
+    },
+    {
+      "printed": "Corpse Dweller's",
+      "num": 259,
+      "code": "03259",
+      "adbName": "Corpse Dweller",
+      "note": "The FAQ text prints the name in the possessive form (\"Corpse Dweller's spawn ability\"), so the builder's exact-name lookup failed on the trailing \"'s\" — ArkhamDB stores the name as \"Corpse Dweller\" with no apostrophe. Stripping the possessi"
+    },
+    {
+      "printed": "Cthulhu enemy's Enraged side",
+      "num": 202,
+      "code": "11702b",
+      "adbName": "Cthulhu (Hoary Wings / Fierce Visage / Wicked Claw)",
+      "note": "The FAQ prints a descriptive phrase, not a card name — no ArkhamDB card is named \"Enraged\" (the only card with that as a name/subname is The Contessa, 72055b, and \"Enraged Gug\", 71047, neither relevant). Both faces of these cards are named "
+    },
+    {
+      "printed": "Cyclopean Hammer",
+      "num": 187,
+      "code": "08093",
+      "adbName": "Cyclopean Hammer",
+      "note": "The card exists under the exact printed name in the correct pack, but the FAQ's printed collector number (187, the physical Edge of the Earth Investigator Expansion numbering) disagrees with ArkhamDB's stored position (93). A builder that r"
+    },
+    {
+      "printed": "Dagon (Deep in Slumber), Hydra (Deep in Slumber)",
+      "num": 330,
+      "code": "07330a",
+      "adbName": "Dagon",
+      "note": "Three compounding reasons: (1) the reference is a single string naming TWO cards with two numbers (\"330a, 331a\"), so a one-card-per-reference parser cannot split it; (2) the printed numbers carry a non-numeric face suffix (\"a\"), which fails"
+    },
+    {
+      "printed": "Subject 5U-21/\"Suzi\"",
+      "num": 1,
+      "code": "89001",
+      "adbName": "Subject 5U-21",
+      "note": "The FAQ prints the investigator with a parenthetical nickname appended — Subject 5U-21/\"Suzi\" (a pun on how \"5U-21\" reads aloud) — but ArkhamDB's name is plain \"Subject 5U-21\". The builder's exact-string lookup on the full printed token fai"
+    },
+    {
+      "printed": "The Last King scenario reference card",
+      "num": 61,
+      "code": "03061",
+      "adbName": "The Last King",
+      "note": "The printed string is not a bare card name: it appends the descriptor \"scenario reference card\" to the title, so an exact-name lookup for \"The Last King scenario reference card\" finds nothing. Two secondary hazards for a naive matcher: \"The"
+    }
+  ]
+}

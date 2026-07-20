@@ -101,7 +101,11 @@ def _atoms(runs):
     out = []
     for r in runs:
         if r.get('kind', 'text') == 'text' and isinstance(r.get('t'), str):
-            style = {k: r.get(k, False) for k in ('bold', 'italic', 'ref', 'red')}
+            # EVERY property, not just the four style flags. A text run also carries the
+            # version stamp the edition diff put on it (`v`), and rebuilding runs while
+            # keeping only bold/italic/ref/red silently threw those away — which wiped the
+            # "new in v1.1" highlighting out of exactly the chapters this code touches most.
+            style = {k: v for k, v in r.items() if k not in ('kind', 't')}
             for ch in r['t']:
                 out.append(('c', ch, style))
         else:
@@ -115,7 +119,7 @@ def _rebuild(atoms):
         if kind == 'c':
             last = out[-1] if out else None
             if (last is not None and last.get('kind') == 'text'
-                    and all(last.get(k, False) == style[k] for k in style)):
+                    and {k: v for k, v in last.items() if k not in ('kind', 't')} == style):
                 last['t'] += val
             else:
                 out.append(dict(kind='text', t=val, **style))

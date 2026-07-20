@@ -101,7 +101,7 @@
     "flagrelevant": "Relevant section",
     "flagrelevantd": "The first thing you will want to look at.",
     "flowlabel": "Timing diagram, step by step",
-    "footby": "The Living Arkham <b>v1.1</b> · a project by <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
+    "footby": "The Living Arkham <b>v1.0.0</b> · a project by <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
     "footinfo": "Credits",
     "footsrc": "<a href=\"https://www.fantasyflightgames.com/en/products/arkham-horror-the-card-game/\" target=\"_blank\" rel=\"noopener\">Arkham Horror: The Card Game</a>™ and all related content © <a href=\"https://www.fantasyflightgames.com/en/index/\" target=\"_blank\" rel=\"noopener\">Fantasy Flight Games (FFG)</a>. This site is not produced, endorsed by or affiliated with FFG.",
     "glossnone": "No entry matches this filter.",
@@ -300,7 +300,9 @@
     "tour6t": "A fan project",
     "tour6d": "This site is a non-profit fan project, unaffiliated with Fantasy Flight Games or Asmodee. Enjoy your game!",
     "noticeword": "Note",
-    "taboomut": "Change: "
+    "taboomut": "Change: ",
+    "relnotes": "Release notes",
+    "relcurrent": "Current version"
   },
   "blurbs": {
     "additional-rules": "Fundamentals and rules that extend the core rulebook.",
@@ -331,5 +333,22 @@
     "faq-optional": "Ultimatums, boons and refractions from the earlier version.",
     "faq-environments": "Current, legacy and limited environments for deck-building.",
     "faq-intro": "What this document is, what is new in it, and which products it covers."
-  }
+  },
+  "releases": [
+    {
+      "v": "1.0.0",
+      "date": "2026-07-20",
+      "title": "First public release",
+      "items": [
+        "Two complete rulebooks, searchable together: **The Arkham Grimoire** (chapter 2, the reference in force since 2026) and the **chapter 1 FAQ** (the earlier notes, errata and questions), kept apart on purpose because they can contradict each other.",
+        "**Spanish and English**, each built from that language’s own official PDFs. English runs ahead: it is where updates are published first.",
+        "**Version history**: every entry knows which edition it first appeared in and what was rewritten later, with added text highlighted and a what’s-new list per version.",
+        "**ArkhamDB links**: every card the books name links to its exact page, in your language, worked out from the name, the collection number and the product’s icon.",
+        "**Tools**: search across both documents, an auto-linked glossary, interactive phase diagrams, card anatomy, a printable quick reference, product and encounter-set icons.",
+        "**Ultimatums, Boons and Refractions**: a card-by-card viewer with filters by chapter, type, campaign and scenario, a random draw and image download.",
+        "**The taboo list** live from ArkhamDB, grouped the way the book groups it and linked card by card.",
+        "**Seven visual themes**, light and dark, and an interface built for the keyboard and the screen reader."
+      ]
+    }
+  ]
 }

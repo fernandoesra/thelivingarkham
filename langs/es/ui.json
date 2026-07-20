@@ -102,7 +102,7 @@
     "flagrelevant": "Sección relevante",
     "flagrelevantd": "Lo primero que querrás mirar.",
     "flowlabel": "Diagrama de orden de resolución, paso a paso",
-    "footby": "The Living Arkham <b>v1.1</b> · un proyecto de <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
+    "footby": "The Living Arkham <b>v1.0.0</b> · un proyecto de <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
     "footinfo": "Créditos",
     "footsrc": "<a href=\"https://www.fantasyflightgames.com/en/products/arkham-horror-the-card-game/\" target=\"_blank\" rel=\"noopener\">Arkham Horror: The Card Game</a>™ y todo el contenido relacionado © <a href=\"https://www.fantasyflightgames.com/en/index/\" target=\"_blank\" rel=\"noopener\">Fantasy Flight Games (FFG)</a>. Este sitio web no está producido ni avalado por FFG, ni afiliado a ella.",
     "glossnone": "Ninguna entrada coincide con este filtro.",
@@ -301,7 +301,9 @@
     "tour6t": "Un proyecto de aficionados",
     "tour6d": "Esta web es un proyecto sin ánimo de lucro, sin relación con Fantasy Flight Games ni con Asmodee. ¡Que disfrutes de la partida!",
     "noticeword": "Aviso",
-    "taboomut": "Cambio (en inglés): "
+    "taboomut": "Cambio (en inglés): ",
+    "relnotes": "Notas de versión",
+    "relcurrent": "Versión actual"
   },
   "blurbs": {
     "additional-rules": "Fundamentos y reglas que amplían el reglamento básico.",
@@ -332,5 +334,22 @@
     "faq-optional": "Ultimátums, ayudas y refracciones de la versión anterior.",
     "faq-environments": "Entornos actual, legado y limitado para crear tus mazos.",
     "faq-intro": "Qué es este documento, qué trae de nuevo y a qué productos se aplica."
-  }
+  },
+  "releases": [
+    {
+      "v": "1.0.0",
+      "date": "2026-07-20",
+      "title": "Primera versión pública",
+      "items": [
+        "Dos reglamentos completos y buscables a la vez: **El Grimorio de Arkham** (capítulo 2, la referencia vigente desde 2026) y el **FAQ del capítulo 1** (notas, erratas y preguntas anteriores), separados a propósito porque pueden contradecirse.",
+        "**Español e inglés**, con el mismo contenido construido desde los PDF oficiales de cada idioma. El inglés va por delante: es donde se publican antes las actualizaciones.",
+        "**Historial de versiones**: cada entrada sabe en qué edición apareció y qué se reescribió después, con el texto añadido resaltado y una sección de novedades por versión.",
+        "**Enlaces a ArkhamDB**: cada carta citada lleva a su ficha exacta, en tu idioma, deducida del nombre, el número de colección y el icono del producto.",
+        "**Herramientas**: buscador sobre ambos documentos, glosario enlazado automáticamente, diagramas de fases interactivos, elementos de las cartas, referencia rápida imprimible, iconos de producto y de conjunto de encuentros.",
+        "**Ultimátums, ayudas y refracciones**: visor carta a carta con filtros por capítulo, tipo, campaña y escenario, robo aleatorio y descarga en imagen.",
+        "**La lista de tabúes** en vivo desde ArkhamDB, agrupada como en el libro y enlazada carta por carta.",
+        "**Siete temas visuales**, claros y oscuros, y una interfaz pensada para teclado y lector de pantalla."
+      ]
+    }
+  ]
 }

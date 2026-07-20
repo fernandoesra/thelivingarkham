@@ -1726,3 +1726,23 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-taboo-mut{flex:1 1 100%; margin:6px 0 0; font-size:14px; line-height:1.55; color:var(--ink2)}
 .tla-taboo-mutlbl{font-family:var(--ff-ui); font-size:11.5px; font-weight:700; letter-spacing:.5px;
   text-transform:uppercase; color:var(--muted); margin-right:6px}
+
+/* Release notes — what changed and when, reached from the "i" beside the credits. */
+.tla-foot-info{display:inline-flex; align-items:center; justify-content:center; cursor:pointer;
+  width:28px; height:28px; padding:0; border-radius:50%; border:1px solid var(--edge2);
+  background:none; color:var(--ink2)}
+.tla-foot-info:hover{color:var(--gold2); border-color:var(--gold)}
+.tla-foot-info svg{width:15px; height:15px}
+.tla-rel-box{max-width:min(640px,92vw); text-align:left}
+.tla-rel-body{max-height:min(62vh,560px); overflow-y:auto; margin-top:4px}
+.tla-rel-body:focus-visible{outline:2px solid var(--gold); outline-offset:3px}
+.tla-rel-item+.tla-rel-item{margin-top:22px; padding-top:18px; border-top:1px solid var(--edge2)}
+.tla-rel-v{font-family:var(--ff-head); font-size:20px; color:var(--gold2); margin:0 0 2px;
+  font-variant-numeric:tabular-nums}
+.tla-rel-name{font-family:var(--ff-body); font-size:16px; font-style:italic; color:var(--ink)}
+.tla-rel-meta{margin:0 0 10px; font-family:var(--ff-ui); font-size:12.5px; color:var(--muted)}
+.tla-rel-now{display:inline-block; margin-left:6px; padding:1px 7px; border-radius:999px;
+  border:1px solid var(--gold); color:var(--gold2); font-weight:700; font-size:11px}
+.tla-rel-list{margin:0; padding-left:20px; display:flex; flex-direction:column; gap:8px}
+.tla-rel-list li{font-size:14.5px; line-height:1.6; color:var(--ink2)}
+.tla-rel-list strong{color:var(--ink)}

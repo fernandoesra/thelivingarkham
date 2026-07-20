@@ -120,6 +120,13 @@ class Index(object):
             sub = c.get('subname')
             if sub:
                 self.by_name_pos.setdefault((key(rec['name'] + ' ' + sub), pos), []).append(rec)
+            # An act or agenda is one card with two faces, and the faces have DIFFERENT names:
+            # 02277 is "The Path to the Hill" on the front and "A Sacrifice Made" on the back.
+            # The books cite whichever face they mean ("Act 1b—A Sacrifice Made"), so the back
+            # name has to find the card too — it is the same page on ArkhamDB either way.
+            back = c.get('back_name')
+            if back:
+                self.by_name_pos.setdefault((key(back), pos), []).append(rec)
             self.by_cycle_pos.setdefault((rec['cycle'], pos), []).append(rec)
             self.by_code[rec['code']] = rec
 

@@ -19,10 +19,57 @@ card that is really there.
 It runs *after* cardlinks, over what cardlinks left alone, so the established behaviour is
 untouched and this only ever adds. Entry point: link(sections, code).
 """
+import json
+import os
 import re
 import sys
 
 import adb
+
+# ---- hand-answered references ------------------------------------------------------------
+# Some references no amount of matching will settle: the book and ArkhamDB disagree on the
+# card's name ("Pierde tu alma" / "Vende tu alma"), or on its collection number, or the card
+# type is one the API does not serve. Those are answered by hand in tools/card_links.json and
+# read here — AFTER every automatic attempt has failed, so a hand answer can never override
+# something the data itself proves. Each entry must match at least once or the build says so,
+# the same self-invalidating guard tools/text_fixes.json uses.
+_LINKS = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'card_links.json')
+_OV = None
+_OV_SEEN = set()
+
+
+def overrides(code):
+    """{(name key, printed number): ArkhamDB code} for one language. '' means "no card: leave it"."""
+    global _OV
+    if _OV is None:
+        _OV = {}
+        if os.path.exists(_LINKS):
+            with open(_LINKS, encoding='utf-8') as f:
+                raw = json.load(f)
+            for lang, rows in raw.items():
+                if lang.startswith('_') or not isinstance(rows, list):
+                    continue
+                for r in rows:
+                    if r.get('num') is None or not r.get('printed'):
+                        continue
+                    _OV.setdefault(lang, {})[(adb.key(r['printed']), int(r['num']))] = r.get('code') or ''
+    return _OV.get(code, {})
+
+
+def report_unused(quiet=False):
+    """Hand answers that matched nothing — a reference reworded, or a rule left over."""
+    stale = []
+    for lang, rows in (_OV or {}).items():
+        for key in rows:
+            if (lang,) + key not in _OV_SEEN:
+                stale.append((lang, key))
+    if stale and not quiet:
+        print(f'  [warn] {len(stale)} hand-written card link(s) in tools/card_links.json matched '
+              f'nothing — the reference may have been reworded, so the answer is now wrong or '
+              f'unnecessary:', file=sys.stderr)
+        for lang, (name, num) in stale[:10]:
+            print(f'         {lang}: {name!r} ( {num} )', file=sys.stderr)
+    return stale
 
 # A bracketed collection number: "( 20)", "(20)", "( 77a)". Multi-number references
 # ("( 25, 26)") name two printings at once and are left to the search link.
@@ -56,7 +103,11 @@ def _atoms(runs):
     out = []
     for r in runs:
         if r.get('kind', 'text') == 'text' and isinstance(r.get('t'), str):
-            style = {k: r.get(k, False) for k in ('bold', 'italic', 'ref', 'red')}
+            # EVERY property, not just the four style flags. A text run also carries the
+            # version stamp the edition diff put on it (`v`), and rebuilding runs while
+            # keeping only bold/italic/ref/red silently threw those away — which wiped the
+            # "new in v1.1" highlighting out of exactly the chapters this code touches most.
+            style = {k: v for k, v in r.items() if k not in ('kind', 't')}
             for ch in r['t']:
                 out.append(('c', ch, style))
         else:
@@ -71,7 +122,7 @@ def _rebuild(atoms):
         if kind == 'c':
             last = out[-1] if out else None
             if (last is not None and last.get('kind') == 'text'
-                    and all(last.get(k, False) == style[k] for k in style)):
+                    and {k: v for k, v in last.items() if k not in ('kind', 't')} == style):
                 last['t'] += val
             else:
                 out.append(dict(kind='text', t=val, **style))
@@ -96,12 +147,15 @@ def _guarded(atoms, i):
     return False
 
 
-def _link_runs(runs, idx, stats):
+def _link_runs(runs, idx, stats, ov=None):
     atoms = _atoms(runs)
     text = ''.join(a[1] if a[0] == 'c' else '\x00' for a in atoms)
     spans = []                             # (start, end, name) of each name to wrap, left to right
     for m in _BRACKET.finditer(text):
-        pos = int(m.group(1))
+        # Every number the bracket carries, first one first. Usually there is one; when a
+        # reference names two cards at once ("Dagon (…), Hydra (…) ( 330a, 331a)") the name
+        # nearest the bracket belongs to the LAST number, so both have to be tried.
+        positions = [int(n) for n in re.findall(r'\d+', m.group(0))]
         if _guarded(atoms, m.start()):
             continue
         # The name ends just before the bracket; walk back over whole words, longest first.
@@ -113,7 +167,7 @@ def _link_runs(runs, idx, stats):
         # two spaces), and a normalised candidate then matches nothing in the text it came from.
         words = [(w.group(0), w.start(), w.end()) for w in re.finditer(r'\S+', head)]
         base = max(0, m.start() - 90)
-        best = query = span = None
+        best = query = span = forced = None
         # The name does not always touch the bracket — the books write "Body of a Yithian *card*
         # ( 244)", "Corpse Dweller*'s* ( 259)" — so a few trailing words may stand between the
         # two. Tried nearest-first, so the closest reading wins and the link still wraps only the
@@ -134,10 +188,21 @@ def _link_runs(runs, idx, stats):
                 # books write "Dagon's ( 330b)" as often as "Dagon ( 330a)". Trying each settles
                 # it: the whole printed phrase is underlined, the bare name is what ArkhamDB is
                 # asked about.
-                for alt in (cand, _PAREN_TAIL.sub('', cand), _POSSESSIVE.sub('', cand)):
-                    if alt and idx.at(alt, pos):
-                        best, query = cand, alt
-                        span = (base + part[0][1], base + part[-1][2])
+                for pos in positions:
+                    for alt in (cand, _PAREN_TAIL.sub('', cand), _POSSESSIVE.sub('', cand)):
+                        if alt and idx.at(alt, pos):
+                            best, query = cand, alt
+                            span = (base + part[0][1], base + part[-1][2])
+                            break
+                    if not best and ov is not None:
+                        # …and last, the hand-written answer for exactly this phrase and number.
+                        hit = ov.get((adb.key(cand), pos))
+                        if hit is not None:
+                            _OV_SEEN.add((idx.code, adb.key(cand), pos))
+                            if hit:
+                                best, query, forced = cand, cand, hit
+                                span = (base + part[0][1], base + part[-1][2])
+                    if best:
                         break
                 if best:
                     break
@@ -145,15 +210,20 @@ def _link_runs(runs, idx, stats):
                 break
         if not best:
             continue
-        spans.append((span[0], span[1], text[span[0]:span[1]], query))
+        spans.append((span[0], span[1], text[span[0]:span[1]], query, forced))
     if not spans:
         return runs, 0
     out, prev = [], 0
-    for start, end, name, query in spans:
+    for start, end, name, query, forced in spans:
         out.extend(atoms[prev:start])
         style = next((a[2] for a in atoms[start:end] if a[0] == 'c'), {})
-        out.append(('o', {'kind': 'adbcard', 't': name, 'q': query,
-                          'bold': bool(style.get('bold')), 'italic': bool(style.get('italic'))}, None))
+        run = {'kind': 'adbcard', 't': name, 'q': query,
+               'bold': bool(style.get('bold')), 'italic': bool(style.get('italic'))}
+        if style.get('v'):
+            run['v'] = style['v']              # the name is part of what the edition added
+        if forced:
+            run['code'] = forced
+        out.append(('o', run, None))
         prev = end
     out.extend(atoms[prev:])
     stats[0] += len(spans)
@@ -183,8 +253,9 @@ def link(sections, code, quiet=False):
     if idx is None:
         return 0
     stats = [0]
+    ov = overrides(code)
     for holder, key in _walk(sections):
-        holder[key], _n = _link_runs(holder.get(key, []), idx, stats)
+        holder[key], _n = _link_runs(holder.get(key, []), idx, stats, ov)
     if not quiet:
         print(f'  card names {code}: {stats[0]} further reference(s) found by name lookup')
     return stats[0]
