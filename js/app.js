@@ -468,9 +468,14 @@ function iconsHTML(s){
     }else{
       h+='<ul class="tla-icontable">';
       g.items.forEach(function(it){
+        /* Some rows are products the book left out of its table, filled in from the shared
+           record (tools/packmap.py), and a couple are products no edition prints at all,
+           added from our own sourced icons (packmap.EXTRAS). They render exactly like the
+           printed rows — the site is a reference of the game, not a diff against one book. */
         h+='<li class="tla-iconrow">'+prodIconHTML(it)
           +(it.code?('<span class="tla-iconcode">'+esc(it.code)+'</span>'):'')
-          +'<span class="tla-iconname">'+esc(it.name)+'</span></li>';
+          +'<span class="tla-iconname">'+esc(it.name)+'</span>'
+          +'</li>';
       });
       h+='</ul>';
     }
@@ -1789,6 +1794,10 @@ function ubSample(arr,n){
   for(var i=0;i<n;i++){var j=i+Math.floor(Math.random()*(a.length-i)); var tmp=a[i];a[i]=a[j];a[j]=tmp;}
   return a.slice(0,n);
 }
+/* The hand on screen: [{cat, picks:[item,…]}, …] in the order the groups are shown. Held
+   rather than left in the DOM because a single card can be redrawn, and the replacement has
+   to know what the rest of the hand already holds. */
+var ubDrawn=null;
 /* Draw nu random ultimatums + nb random boons: a short readable list first, then the live
    cards below it. Called from the draw modal's form. */
 function ubDrawRun(){
@@ -1798,14 +1807,35 @@ function ubDrawRun(){
   var nu=Math.max(0,Math.min(parseInt(uEl.value,10)||0,uMax));
   var nb=Math.max(0,Math.min(parseInt(bEl.value,10)||0,bMax));
   uEl.value=nu; bEl.value=nb;
-  if(nu+nb===0){ out.innerHTML='<p class="tla-ubdraw-empty" role="alert">'+esc(t('ubdrawempty'))+'</p>'; return; }
+  if(nu+nb===0){ ubDrawn=null; out.innerHTML='<p class="tla-ubdraw-empty" role="alert">'+esc(t('ubdrawempty'))+'</p>'; return; }
   /* One group per kind, so ultimatums and boons read apart: each a panelled block with a
      quick name list and, below it, the drawn cards (large, and zoomable on click). */
-  var groups=[{cat:'ultimatum',picks:ubSample(ubBucket(s,'ultimatum'),nu)},
-              {cat:'boon',picks:ubSample(ubBucket(s,'boon'),nb)}]
-             .filter(function(g){return g.picks.length;});
+  ubDrawn=[{cat:'ultimatum',picks:ubSample(ubBucket(s,'ultimatum'),nu)},
+           {cat:'boon',picks:ubSample(ubBucket(s,'boon'),nb)}]
+          .filter(function(g){return g.picks.length;});
+  ubDrawPaint('.tla-ubdraw-h');
+}
+/* Redraw one card in place: another from the same bucket, never one the hand already holds
+   (otherwise "draw another" could hand back a duplicate, or the same card again). Silent when
+   the hand already holds the whole bucket — the button is disabled in that case anyway. */
+function ubDrawSwap(gi,ci){
+  var g=ubDrawn&&ubDrawn[gi]; if(!g||!g.picks[ci])return;
+  var held={}; g.picks.forEach(function(it){held[it.slug]=1;});
+  var pool=ubBucket(curSec,g.cat).filter(function(it){return !held[it.slug];});
+  if(!pool.length)return;
+  g.picks[ci]=ubSample(pool,1)[0];
+  /* Repaint the lot, not just the one card: the name list above the cards is part of the
+     same hand and would otherwise go stale. Focus goes back to the button just pressed, so
+     redrawing twice running does not send the reader back to the heading. */
+  ubDrawPaint('[data-ubswap="'+gi+':'+ci+'"]');
+}
+/* Paint ubDrawn into the modal, then focus whatever focusSel names. */
+function ubDrawPaint(focusSel){
+  var out=document.getElementById('tla-ubdraw-out'); if(!out||!ubDrawn)return;
   var h='';
-  groups.forEach(function(g,gi){
+  ubDrawn.forEach(function(g,gi){
+    /* Nothing left to swap in once the hand holds the whole bucket. */
+    var spare=ubBucket(curSec,g.cat).length>g.picks.length;
     h+='<section class="tla-ubdraw-group">';
     h+='<h3 class="tla-ubdraw-h"'+(gi===0?' tabindex="-1"':'')+'>'+esc(ubLabel(g.cat))
       +' <span class="tla-ubdraw-n">'+g.picks.length+'</span></h3>';
@@ -1815,14 +1845,19 @@ function ubDrawRun(){
         +(it.pending?' <span class="tla-ub-en" title="'+esc(t('ubpending'))+'">EN</span>':'')+'</li>';
     });
     h+='</ol><div class="tla-ubdraw-cards">';
-    g.picks.forEach(function(it){ h+='<div class="tla-ubdraw-card">'+ubDetailHTML(it)+'</div>'; });
+    g.picks.forEach(function(it,ci){
+      h+='<div class="tla-ubdraw-card">'+ubDetailHTML(it)
+        +'<button type="button" class="tla-ubdraw-swap" data-ubswap="'+gi+':'+ci+'"'
+        +(spare?'':' disabled title="'+esc(t('ubdrawswapnone'))+'"')+'>'
+        +esc(t('ubdrawswap'))+'</button></div>';
+    });
     h+='</div></section>';
   });
   out.innerHTML=h;
   var fit=function(){ [].forEach.call(out.querySelectorAll('.tla-ubc'),function(c){ubFitCard(c);}); };
   fit();
   if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit).catch(function(){});
-  var head=out.querySelector('.tla-ubdraw-h'); if(head){try{head.focus();}catch(e){}}
+  var f=focusSel&&out.querySelector(focusSel); if(f){try{f.focus();}catch(e){}}
 }
 /* Zoom a drawn card: render it (art + live text) to a PNG and open it big in the shared
    image lightbox, so the rule reads at full size. */
@@ -3542,6 +3577,10 @@ function wireEvents(){
     if(e.target===elUbDraw){closeDraw(); return;}
     // the result cards carry their own download button, inside this modal
     var dl=e.target.closest('.tla-ubc-dl'); if(dl){ubDownload(dl.closest('.tla-ubc')); return;}
+    // "draw another instead", under each card. Before the zoom check below, and outside
+    // .tla-ubc, so pressing it never also enlarges the card it is about to replace.
+    var sw=e.target.closest('[data-ubswap]');
+    if(sw){var p=sw.getAttribute('data-ubswap').split(':'); ubDrawSwap(+p[0],+p[1]); return;}
     // clicking a drawn card (anywhere but its download button) zooms it
     var card=e.target.closest('.tla-ubdraw-card .tla-ubc'); if(card)ubZoomCard(card);
   });

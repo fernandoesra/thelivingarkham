@@ -14,6 +14,7 @@
           "packName": "La Città Sommersa, Espansione Investigatori",
           "position": 55,
           "cat": "chained",
+          "art": "fc-1-03766b1a",
           "xp": 1
         },
         {
@@ -41,6 +42,7 @@
           "packName": "La Città Sommersa, Espansione Investigatori",
           "position": 117,
           "cat": "chained",
+          "art": "fc-1-03766b1a",
           "xp": -2
         },
         {
@@ -60,6 +62,7 @@
           "packName": "La Città Sommersa, Espansione Investigatori",
           "position": 31,
           "cat": "chained",
+          "art": "fc-1-03766b1a",
           "xp": -2
         },
         {
@@ -255,6 +258,7 @@
           "packName": "La Città Sommersa, Espansione Investigatori",
           "position": 120,
           "cat": "mutated",
+          "art": "fc-1-03766b1a",
           "text": "The first line of this card gains: \"If On Their Heels has no leads, discard it.\""
         },
         {
@@ -417,6 +421,7 @@
           "packName": "La Città Sommersa, Espansione Investigatori",
           "position": 75,
           "cat": "mutated",
+          "art": "fc-1-03766b1a",
           "text": "This card gains \"Fast. Play only during your turn.\"\nThis card's [reaction] ability now reads \"...Return Spiritual Echo to your hand at the end of your turn.\" and gains \"(Limit once per round.)\""
         },
         {
@@ -731,6 +736,7 @@
           "packName": "La Città Sommersa, Espansione Investigatori",
           "position": 65,
           "cat": "mutated",
+          "art": "fc-1-03766b1a",
           "text": "This card’s [reaction] ability reads \"[reaction] When doom is placed on a card you control: Place 1 resource (from the token pool) on Blood of Thoth, as an offering.\"\nThis card’s [fast] ability reads \"[fast] During the investigation phase, except during an action, spend 2 offerings and exhaust Blood of Thoth: Choose an investigator at your location to immediately take an action as if it were their turn.\""
         },
         {
@@ -749,6 +755,7 @@
           "packName": "La Città Sommersa, Espansione Investigatori",
           "position": 71,
           "cat": "mutated",
+          "art": "fc-1-03766b1a",
           "text": "This card's <b>Forced</b> effect now reads \"The first time attached card takes 1 or more damage/horror each round...\""
         },
         {
@@ -834,6 +841,7 @@
           "packName": "La Città Sommersa, Espansione Investigatori",
           "position": 118,
           "cat": "mutated",
+          "art": "fc-1-03766b1a",
           "text": "This card’s <b>Forced</b> effect now reads \"When your turn endsL Place attaced asset on the bottom of your deck unless you spend 1 resource.\""
         },
         {

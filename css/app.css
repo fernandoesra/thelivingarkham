@@ -1475,6 +1475,14 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 /* The card is one zoom target here: its glossary links stay visible but non-interactive,
    so a click zooms the card instead of also navigating away and shifting the page. */
 .tla-ubdraw-card .tla-ubc a{pointer-events:none}
+/* "Draw another instead", under its own card and the full width of it: the button has to
+   read as belonging to the card above and to no other, which a full-width bar does and a
+   small floating control does not. cursor is restated because the card sets zoom-in. */
+.tla-ubdraw-swap{display:block; width:100%; margin-top:10px; min-height:38px; padding:0 12px;
+  cursor:pointer; font-family:var(--ff-ui); font-size:13px; font-weight:700; letter-spacing:.3px;
+  color:var(--ink2); background:var(--panel2); border:1px solid var(--edge2); border-radius:9px}
+.tla-ubdraw-swap:hover:not(:disabled){background:var(--gold); color:var(--on-gold); border-color:transparent}
+.tla-ubdraw-swap:disabled{opacity:.45; cursor:default}
 
 /* ---------- lightbox ---------- */
 .tla-lb{position:fixed; inset:0; background:rgba(6,7,10,.93); z-index:300; display:none; align-items:center; justify-content:center; padding:24px; cursor:zoom-out}

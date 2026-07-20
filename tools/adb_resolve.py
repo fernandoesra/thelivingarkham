@@ -35,6 +35,13 @@ import iconsets
 import langpack
 
 _NUMS = re.compile(r'^\s*\(\s*(\d+[a-z]?(?:\s*,\s*\d+[a-z]?)*)\s*\)')
+# The same bracket with the product NAMED inside it as well as marked — "(Grundspiel <icon>
+# 73)" — which is how the German edition cites. Only tried when the reference actually
+# carries an icon, so a bracket that is merely parenthetical ("(level 3)", "(2016 or 2021)")
+# cannot be read as a citation: those carry no mark. Without this the resolver saw 15 German
+# references where the linker had found 343, so almost no German set icon could learn which
+# product it stands for — and the icon's name is what a screen reader reads out.
+_NUMS_NAMED = re.compile(r'^\s*\(\s*[^()\d]{1,28}?\s*(\d+[a-z]?(?:\s*,\s*\d+[a-z]?)*)\s*\)')
 _MIN_VOTES = 2                 # an icon must be taught by this many unambiguous references…
 _MIN_SHARE = 0.8               # …and they must agree this strongly, before it resolves alone
 
@@ -53,7 +60,10 @@ def _refs(runs):
         # one splits the text again, so it can take a dozen runs to cross a ten-character
         # bracket. Counting runs cut those references off half way and lost them entirely.
         buf, icons, j = '', [], i + 1
-        while j < len(runs) and ')' not in buf and len(buf) <= 30:
+        # 48, not 30: a bracket that names its product ("(Die Innsmouth-Verschwörung <icon>
+        # 202)") is longer than one that only marks it. The scan still stops at the closing
+        # bracket, so a wider bound only lets a longer real bracket through.
+        while j < len(runs) and ')' not in buf and len(buf) <= 48:
             nxt = runs[j]
             if nxt.get('kind') == 'seticon':
                 icons.append(nxt)
@@ -63,6 +73,8 @@ def _refs(runs):
                 break
             j += 1
         m = _NUMS.match(buf)
+        if not m and icons:
+            m = _NUMS_NAMED.match(buf)
         if not m:
             continue
         nums = re.findall(r'\d+', m.group(1))

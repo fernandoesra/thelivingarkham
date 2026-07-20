@@ -196,6 +196,11 @@ def main(argv):
         # Anything the icon tables could not name a product for, written down so it can be
         # answered by hand (tools/other/icon-products-unmatched.md).
         import packmap
+        # Complete each book's icon table with the products it left out — after artshare, so
+        # the drawing copied across is the canonical one.
+        packmap.complete()
+        # …and add the products no edition prints at all, from our own sourced icons.
+        packmap.add_extras()
         n = packmap.report(packmap.MISSED)
         print(f'  {n} icon row(s) with no product identity -> tools/other/icon-products-unmatched.md')
         import faq_seticons as _fs
