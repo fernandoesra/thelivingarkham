@@ -37,6 +37,21 @@ BAND_GAP = 15.0      # x-centres nearer than this are the same printed column
 HALF = 0.5           # a caption must sit at least half on the mark that owns it
 
 
+def _is_qr(c, qr):
+    """Is this cluster the QR code's own art?
+
+    Not "does it sit inside the decoded square": the German and Italian editions print
+    a white quiet-zone panel behind the code, so the drawn art is 5-9pt LARGER than the
+    square the decoder reports, and a containment test left it standing as a fourth
+    column of the table. What identifies it either way is that the two occupy the same
+    place — so compare the overlap against the smaller of the two."""
+    ix = max(0.0, min(c[2], qr[2]) - max(c[0], qr[0]))
+    iy = max(0.0, min(c[3], qr[3]) - max(c[1], qr[1]))
+    inter = ix * iy
+    smaller = min((c[2] - c[0]) * (c[3] - c[1]), (qr[2] - qr[0]) * (qr[3] - qr[1]))
+    return smaller > 0 and inter / smaller >= 0.8
+
+
 def _marks(page, box):
     """Every printed mark in the region, minus the QR -> ([(x0,y0,x1,y1)], qr)."""
     qr = ir.qr_on(page, box)
@@ -48,8 +63,7 @@ def _marks(page, box):
             rects.append((r.x0, r.y0, r.x1, r.y1))
     out = [c for c in ir._clusters(rects) if max(c[2] - c[0], c[3] - c[1]) >= MIN_MARK]
     if qr:
-        out = [c for c in out if not (c[0] >= qr[0] - 2 and c[2] <= qr[2] + 2
-                                      and c[1] >= qr[1] - 2 and c[3] <= qr[3] + 2)]
+        out = [c for c in out if not _is_qr(c, qr)]
     return out, qr
 
 

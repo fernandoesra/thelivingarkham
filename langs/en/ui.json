@@ -261,6 +261,7 @@
     "flagextrad": "Resources that expand the game, beyond the Grimoire.",
     "footgh": "View the code and contribute on GitHub",
     "landingnotice": "<b>Note:</b> the Grimoire is updated in English first and translated into the other languages over time, so some content may take a while to reach yours. To see the very latest, check the English version. And if you have a Grimoire, FAQ or errata document you think is not on the site yet, email us at <a href=\"mailto:rinconmiskatonic@gmail.com\">rinconmiskatonic@gmail.com</a> and we will add it. Thank you!",
+    "mtnotice": "",
     "ubtypelabel": "Type",
     "ubtypeall": "All",
     "ubprev": "Previous card",
@@ -341,7 +342,7 @@
       "title": "First public release",
       "items": [
         "Two complete rulebooks, searchable together: **The Arkham Grimoire** (chapter 2, the reference in force since 2026) and the **chapter 1 FAQ** (the earlier notes, errata and questions), kept apart on purpose because they can contradict each other.",
-        "**Spanish and English**, each built from that language’s own official PDFs. English runs ahead: it is where updates are published first.",
+        "**Four languages** — Spanish, English, German and Italian — each built from that language’s own official PDFs. English runs ahead: it is where updates are published first.",
         "**Version history**: every entry knows which edition it first appeared in and what was rewritten later, with added text highlighted and a what’s-new list per version.",
         "**ArkhamDB links**: every card the books name links to its exact page, in your language, worked out from the name, the collection number and the product’s icon.",
         "**Tools**: search across both documents, an auto-linked glossary, interactive phase diagrams, card anatomy, a printable quick reference, product and encounter-set icons.",

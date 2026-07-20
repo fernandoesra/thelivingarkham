@@ -1,38 +1,160 @@
 {
   "_comment": "Curated text corrections applied to the BUILT data (see tools/text_fixes.py). Every entry is a defect confirmed against the source during the content audit. Two kinds: 'extraction' — the PDF says the right thing but the text layer breaks it (a word split across a line break, a lost hyphen); and 'source' — the official PDF itself carries the typo, and we deliberately diverge from it so readers are not taught an error. Each fix must match at least once or the build warns, so a stale rule is never left rotting here. Keep 'find' long enough to be unambiguous.",
-
   "es": [
-    { "find": "car ta de Investigador", "replace": "carta de Investigador", "kind": "extraction", "note": "line-break split of 'carta' (aclaracion 1.2)" },
-    { "find": "carta de Ju gador", "replace": "carta de Jugador", "kind": "extraction", "note": "line-break split of 'Jugador' (aclaracion 1.14, x2)" },
-    { "find": "carta de En cuentro", "replace": "carta de Encuentro", "kind": "extraction", "note": "line-break split of 'Encuentro' (aclaracion 1.14)" },
-    { "find": "Permanente pa ra vincularla", "replace": "Permanente para vincularla", "kind": "extraction", "note": "line-break split of 'para' (aclaracion 1.14)" },
-    { "find": "el mazo de u jugador", "replace": "el mazo de un jugador", "kind": "source", "note": "typo in the Grimoire PDF (glosario, Cartas de Apoyo)" },
-    { "find": "incluyendo tantos las cartas", "replace": "incluyendo tanto las cartas", "kind": "source", "note": "'tanto... como' is invariable (juego-orden 4.3)" },
-    { "find": "el anverso de esta carga obtiene", "replace": "el anverso de esta carta obtiene", "kind": "source", "note": "'carga' for 'carta' (tabues, Lola Hayes)" },
-    { "find": "“no puedes moverte” hiciera", "replace": "“no puedes moverte”) hiciera", "kind": "source", "note": "unclosed parenthesis (aclaracion 1.21)" },
-    { "find": " 153. ", "replace": " 153, ", "kind": "source", "note": "a full stop where the list of collection numbers wants a comma — 'Mirada hipnotica ( 153. 14, 23)' in the taboo list; it is what stopped that reference being linked to its card" }
+    {
+      "find": "car ta de Investigador",
+      "replace": "carta de Investigador",
+      "kind": "extraction",
+      "note": "line-break split of 'carta' (aclaracion 1.2)"
+    },
+    {
+      "find": "carta de Ju gador",
+      "replace": "carta de Jugador",
+      "kind": "extraction",
+      "note": "line-break split of 'Jugador' (aclaracion 1.14, x2)"
+    },
+    {
+      "find": "carta de En cuentro",
+      "replace": "carta de Encuentro",
+      "kind": "extraction",
+      "note": "line-break split of 'Encuentro' (aclaracion 1.14)"
+    },
+    {
+      "find": "Permanente pa ra vincularla",
+      "replace": "Permanente para vincularla",
+      "kind": "extraction",
+      "note": "line-break split of 'para' (aclaracion 1.14)"
+    },
+    {
+      "find": "el mazo de u jugador",
+      "replace": "el mazo de un jugador",
+      "kind": "source",
+      "note": "typo in the Grimoire PDF (glosario, Cartas de Apoyo)"
+    },
+    {
+      "find": "incluyendo tantos las cartas",
+      "replace": "incluyendo tanto las cartas",
+      "kind": "source",
+      "note": "'tanto... como' is invariable (juego-orden 4.3)"
+    },
+    {
+      "find": "el anverso de esta carga obtiene",
+      "replace": "el anverso de esta carta obtiene",
+      "kind": "source",
+      "note": "'carga' for 'carta' (tabues, Lola Hayes)"
+    },
+    {
+      "find": "“no puedes moverte” hiciera",
+      "replace": "“no puedes moverte”) hiciera",
+      "kind": "source",
+      "note": "unclosed parenthesis (aclaracion 1.21)"
+    },
+    {
+      "find": " 153. ",
+      "replace": " 153, ",
+      "kind": "source",
+      "note": "a full stop where the list of collection numbers wants a comma — 'Mirada hipnotica ( 153. 14, 23)' in the taboo list; it is what stopped that reference being linked to its card"
+    }
   ],
-
   "en": [
-    { "find": "drawing a a starting hand", "replace": "drawing a starting hand", "kind": "source", "note": "doubled article (glossary, Mulligan)" },
-    { "find": "specifed", "replace": "specified", "kind": "source", "note": "typo in the Grimoire PDF (glossary, Costs; x2)" },
-    { "find": "restritions", "replace": "restrictions", "kind": "source", "note": "typo in the Grimoire PDF (glossary, Play Action)" },
-    { "find": "discrepencies", "replace": "discrepancies", "kind": "source", "note": "typo in the Grimoire PDF (optional rules, Environments)" },
-    { "find": "Ppage 32", "replace": "Page 32", "kind": "source", "note": "doubled leading letter (card-anatomy intro)" },
-    { "find": "unegaged", "replace": "unengaged", "kind": "source", "note": "typo in the FAQ PDF (ruling 1.32)" },
-    { "find": "After you iscover", "replace": "After you discover", "kind": "extraction", "note": "leading 'd' lost at a line break (taboos, Mutated)" },
-    { "find": "an outof-play destination", "replace": "an out-of-play destination", "kind": "extraction", "note": "hyphen lost at a line break (glossary)" },
-    { "find": "in- and out-ofplay areas", "replace": "in- and out-of-play areas", "kind": "extraction", "note": "hyphen lost at a line break (glossary)" },
-    { "find": "outof-play area", "replace": "out-of-play area", "kind": "extraction", "note": "hyphen lost at a line break (glossary)" },
-    { "find": "out-ofplay area", "replace": "out-of-play area", "kind": "extraction", "note": "hyphen lost at a line break (ruling 1.33)" },
-    { "find": "returns to its outof-play state", "replace": "returns to its out-of-play state", "kind": "extraction", "note": "hyphen lost at a line break (FAQ ruling)" },
-    { "find": "scenariospecific", "replace": "scenario-specific", "kind": "extraction", "note": "hyphen lost at a line break (optional rules, Refractions)" },
-    { "find": "the setaside Prismatic Shard", "replace": "the set-aside Prismatic Shard", "kind": "extraction", "note": "hyphen lost at a line break (campaign guide errata)" }
+    {
+      "find": "drawing a a starting hand",
+      "replace": "drawing a starting hand",
+      "kind": "source",
+      "note": "doubled article (glossary, Mulligan)"
+    },
+    {
+      "find": "specifed",
+      "replace": "specified",
+      "kind": "source",
+      "note": "typo in the Grimoire PDF (glossary, Costs; x2)"
+    },
+    {
+      "find": "restritions",
+      "replace": "restrictions",
+      "kind": "source",
+      "note": "typo in the Grimoire PDF (glossary, Play Action)"
+    },
+    {
+      "find": "discrepencies",
+      "replace": "discrepancies",
+      "kind": "source",
+      "note": "typo in the Grimoire PDF (optional rules, Environments)"
+    },
+    {
+      "find": "Ppage 32",
+      "replace": "Page 32",
+      "kind": "source",
+      "note": "doubled leading letter (card-anatomy intro)"
+    },
+    {
+      "find": "unegaged",
+      "replace": "unengaged",
+      "kind": "source",
+      "note": "typo in the FAQ PDF (ruling 1.32)"
+    },
+    {
+      "find": "After you iscover",
+      "replace": "After you discover",
+      "kind": "extraction",
+      "note": "leading 'd' lost at a line break (taboos, Mutated)"
+    },
+    {
+      "find": "an outof-play destination",
+      "replace": "an out-of-play destination",
+      "kind": "extraction",
+      "note": "hyphen lost at a line break (glossary)"
+    },
+    {
+      "find": "in- and out-ofplay areas",
+      "replace": "in- and out-of-play areas",
+      "kind": "extraction",
+      "note": "hyphen lost at a line break (glossary)"
+    },
+    {
+      "find": "outof-play area",
+      "replace": "out-of-play area",
+      "kind": "extraction",
+      "note": "hyphen lost at a line break (glossary)"
+    },
+    {
+      "find": "out-ofplay area",
+      "replace": "out-of-play area",
+      "kind": "extraction",
+      "note": "hyphen lost at a line break (ruling 1.33)"
+    },
+    {
+      "find": "returns to its outof-play state",
+      "replace": "returns to its out-of-play state",
+      "kind": "extraction",
+      "note": "hyphen lost at a line break (FAQ ruling)"
+    },
+    {
+      "find": "scenariospecific",
+      "replace": "scenario-specific",
+      "kind": "extraction",
+      "note": "hyphen lost at a line break (optional rules, Refractions)"
+    },
+    {
+      "find": "the setaside Prismatic Shard",
+      "replace": "the set-aside Prismatic Shard",
+      "kind": "extraction",
+      "note": "hyphen lost at a line break (campaign guide errata)"
+    }
   ],
-
+  "de": [
+    {
+      "find": "Die Kampagne „Der versunkene Stadt“",
+      "replace": "Die Kampagne „Die versunkene Stadt“",
+      "kind": "source",
+      "note": "the German FAQ misgenders the campaign's article here ('Der' for 'Die versunkene Stadt'); everywhere else it prints 'Die'. Left alone it splits the refractions' campaign filter into two entries for one campaign."
+    }
+  ],
   "_dropDuplicateLead_comment": "A bold sub-heading the parser folded into the paragraph that follows it, so the word renders twice ('Errata Errata will be added...'). Listed per language; the leading bold run is dropped ONLY when the text right after it repeats the very same word, so a genuine bold lead-in is never touched. This cannot be a find/replace above: the duplication straddles two runs.",
   "dropDuplicateLead": {
-    "en": ["Errata"],
+    "en": [
+      "Errata"
+    ],
     "es": []
   }
 }

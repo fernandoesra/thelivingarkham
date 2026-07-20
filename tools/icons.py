@@ -23,6 +23,38 @@ ICON_MAP = {
     0xF26E: 'bless', 0xF26F: 'curse',
 }
 
+# A second cut of the same face. The German and Italian books embed TWO icon fonts —
+# ArkhamHorrorLCGU (the codepoints above) and ArkhamHorrorLCG, which draws the same
+# icon set at a block of private-use codepoints this far along. In the Italian FAQ the
+# second font carries most of the icons (188 of 241), so without this they would parse
+# as "unknown".
+#
+# The offset is measured, not assumed. Eleven of the 21 codepoints those books use also
+# appear in the first font *inside the same document*, and each pair's glyph outlines
+# are identical point for point (the German and Italian PDFs embed a newer cut than the
+# Spanish and English ones, so outlines only compare within a document). The remaining
+# ten are named by the books' own prose, which prints each symbol beside its word —
+# "Willenskraft (<willpower>), Intellekt (<intellect>), Kampf (<combat>)" on page 38 of
+# the German book — and lists the four chaos tokens in the same order as every other
+# edition. Twenty-one codepoints, no contradictions.
+ALT_OFFSET = 0xE2F20
+
+# Two glyphs the German FAQ addresses at plain ASCII codepoints instead of the private-use
+# area. They are only ever reached through an icon-font span, so they cannot collide with a
+# typed "!" or "%": the rest of the alphabet is not in this font.
+#
+# Identified from the books themselves. The German question reads "Haben <21>- und <25>-Marker
+# Modifikatoren oder Werte, falls sie außerhalb einer Fertigkeitsprobe enthüllt werden?" and
+# the English edition asks the very same one: "Do <bless> and <curse> tokens have a modifier or
+# value if they are revealed outside of a skill test?" — same question, same order, and the
+# pair appears in that order in all eleven places the German document prints it.
+ASCII_ICONS = {0x21: 'bless', 0x25: 'curse'}
+
+
+def icon_name(cp):
+    """-> the icon a codepoint means, from either font cut. None if it is neither."""
+    return ICON_MAP.get(cp) or ICON_MAP.get(cp - ALT_OFFSET) or ASCII_ICONS.get(cp)
+
 
 def is_icon_font(font):
     return 'ArkhamHorror' in font

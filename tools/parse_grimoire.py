@@ -18,7 +18,7 @@ language's pack (langs/<lang>/lang.json).
 """
 import fitz, json, re, sys, os, unicodedata
 import langpack
-from icons import ICON_MAP, is_icon_font
+from icons import ICON_MAP, icon_name, is_icon_font
 
 TEAL = 0x306360           # cross-reference colour
 # illustration credits from embedded example cards (not rules prose)
@@ -89,7 +89,7 @@ def _learn_reds(spans_iter):
         if not s['text'].strip() or not is_red(s):
             continue
         if is_icon_font(s['font']):
-            if any(ICON_MAP.get(ord(ch)) == WINDOW_ICON for ch in s['text'] if ch.strip()):
+            if any(icon_name(ord(ch)) == WINDOW_ICON for ch in s['text'] if ch.strip()):
                 window[s['color']] = window.get(s['color'], 0) + 1
         elif is_head_font(s['font']) and s['size'] >= 15.5:
             callout[s['color']] = callout.get(s['color'], 0) + 1
@@ -174,8 +174,15 @@ def span_kind(s):
         return ('H', 3)
     return ('B', 0)
 
+# A discretionary hyphen: invisible unless the line actually breaks there. The German
+# edition sets 718 of them ("Kampagnen<shy>spiel"), the other editions none. Anywhere
+# but at the end of a line it is punctuation the reader never sees, so it is dropped;
+# the one at a line end IS printed, and finalize_body joins the word back over it.
+SOFT_HYPHEN = '­'
+
+
 def norm(t):
-    return re.sub(r'\s+', ' ', t).strip()
+    return re.sub(r'\s+', ' ', t.replace(SOFT_HYPHEN, '')).strip()
 
 def slugify(t):
     t = t.strip().lower()
@@ -335,8 +342,9 @@ def build_runs(spans, reds=_KEEP):
         if is_icon_font(f):
             for ch in txt:
                 cp = ord(ch)
-                if cp in ICON_MAP:
-                    push('icon', name=ICON_MAP[cp])
+                name = icon_name(cp)
+                if name:
+                    push('icon', name=name)
                 elif ch.strip():
                     push('icon', name='unknown', cp='U+%04X' % cp)
             continue
@@ -362,7 +370,19 @@ def build_runs(spans, reds=_KEEP):
             if r['t'].strip() == '':
                 r['bold'] = r['italic'] = r['ref'] = r['red'] = False
         clean.append(r)
-    return clean
+    return _drop_soft_hyphens(clean)
+
+
+def _drop_soft_hyphens(runs):
+    last = max((i for i, r in enumerate(runs) if r['kind'] == 'text'), default=None)
+    for i, r in enumerate(runs):
+        if r['kind'] != 'text':
+            continue
+        breaks = (i == last and r['t'].rstrip().endswith(SOFT_HYPHEN))
+        r['t'] = r['t'].replace(SOFT_HYPHEN, '')
+        if breaks:
+            r['t'] += SOFT_HYPHEN
+    return runs
 
 
 def merge_runs(runs):
@@ -468,7 +488,9 @@ def finalize_body(raw):
                 tight = False
                 if prev and prev[-1]['kind'] == 'text':
                     t = prev[-1]['t'].rstrip()
-                    if re.search(r'[A-Za-zÁÉÍÓÚáéíóúñüÑÜ]-$', t):
+                    # any letter, in any language, before a printed hyphen or a soft
+                    # one the typesetter actually broke on
+                    if re.search(r'[^\W\d_][-' + SOFT_HYPHEN + r']$', t):
                         prev[-1]['t'] = t[:-1]           # de-hyphenate line break
                         tight = True
                 if not tight:                            # keep a separating space on a styled run

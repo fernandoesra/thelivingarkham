@@ -436,7 +436,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 
 /* ---------- landing ---------- */
 .tla-landing{max-width:1040px}
-/* hero banner — artwork at assets/general_banner_01.png (2000×700, 20:7).
+/* hero banner — artwork at assets/general_banner_01.webp (2000×700, 20:7).
    Layered scrims (centre vignette + bottom gradient) keep the white title legible over the busy art.
    If the file is missing, the fallback gradient shows automatically (no broken image). */
 /* max-width:100% is load-bearing: with an aspect-ratio and a min-height that
@@ -449,7 +449,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   background-image:
     radial-gradient(78% 96% at 50% 52%, rgba(6,8,12,.64) 0%, rgba(6,8,12,.16) 60%, rgba(6,8,12,0) 82%),
     linear-gradient(180deg, rgba(6,8,12,.24) 0%, rgba(6,8,12,.10) 42%, rgba(6,8,12,.70) 100%),
-    url(../assets/general_banner_01.png),
+    url(../assets/general_banner_01.webp),
     radial-gradient(120% 150% at 50% -20%, var(--bggrad), var(--bg));
   background-size:cover, cover, cover, cover; background-position:center; background-repeat:no-repeat}
 .tla-hero-inner{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
@@ -492,6 +492,10 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-notice{display:flex; gap:12px; align-items:flex-start; margin:18px 0 2px; padding:14px 18px;
   border:1px solid var(--edge2); border-left:3px solid var(--teal); border-radius:12px; background:var(--bg2)}
 .tla-notice svg{width:20px; height:20px; flex:0 0 auto; color:var(--teal2); margin-top:2px}
+/* The machine-translation notice. Warmer than the teal one beside it, because it is about
+   how much to trust this page's words rather than which edition it is built from. */
+.tla-notice-mt{border-left-color:var(--gold)}
+.tla-notice-mt svg{color:var(--gold2)}
 .tla-notice p{margin:0; font-family:var(--ff-body); font-size:15px; line-height:1.6; color:var(--ink2)}
 .tla-notice b{color:var(--gold2)}
 #tla-root .tla-notice a{color:var(--gold2); text-decoration:underline; text-underline-offset:2px}

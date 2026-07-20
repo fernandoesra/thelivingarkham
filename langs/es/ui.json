@@ -262,6 +262,7 @@
     "flagextrad": "Recursos que amplían el juego, más allá del Grimorio.",
     "footgh": "Ver el código y colaborar en GitHub",
     "landingnotice": "<b>Importante:</b> el Grimorio se actualiza antes en inglés y, con el tiempo, se traduce a los demás idiomas, así que parte del contenido puede tardar en llegar al tuyo. Si quieres consultar lo más reciente, revisa la versión en inglés. Y si tienes algún documento de Grimorio, FAQ o erratas que creas que aún no está en la web, escríbenos a <a href=\"mailto:rinconmiskatonic@gmail.com\">rinconmiskatonic@gmail.com</a> y lo añadiremos. ¡Muchas gracias!",
+    "mtnotice": "",
     "ubtypelabel": "Tipo",
     "ubtypeall": "Todo",
     "ubprev": "Carta anterior",
@@ -342,7 +343,7 @@
       "title": "Primera versión pública",
       "items": [
         "Dos reglamentos completos y buscables a la vez: **El Grimorio de Arkham** (capítulo 2, la referencia vigente desde 2026) y el **FAQ del capítulo 1** (notas, erratas y preguntas anteriores), separados a propósito porque pueden contradecirse.",
-        "**Español e inglés**, con el mismo contenido construido desde los PDF oficiales de cada idioma. El inglés va por delante: es donde se publican antes las actualizaciones.",
+        "**Cuatro idiomas** —español, inglés, alemán e italiano—, cada uno construido desde los PDF oficiales de su propio idioma. El inglés va por delante: es donde se publican antes las actualizaciones.",
         "**Historial de versiones**: cada entrada sabe en qué edición apareció y qué se reescribió después, con el texto añadido resaltado y una sección de novedades por versión.",
         "**Enlaces a ArkhamDB**: cada carta citada lleva a su ficha exacta, en tu idioma, deducida del nombre, el número de colección y el icono del producto.",
         "**Herramientas**: buscador sobre ambos documentos, glosario enlazado automáticamente, diagramas de fases interactivos, elementos de las cartas, referencia rápida imprimible, iconos de producto y de conjunto de encuentros.",

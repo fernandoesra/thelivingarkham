@@ -22,7 +22,7 @@ Usage:  python tools/extract_icons.py
 import fitz, numpy as np, os, sys
 from PIL import Image
 import langpack
-from icons import ICON_MAP
+from icons import ICON_MAP, icon_name
 
 ICONS_DIR = os.path.join(langpack.ROOT, 'assets', 'icons')
 CSS_PATH = os.path.join(langpack.ROOT, 'css', 'icons.css')
@@ -35,22 +35,34 @@ MIN_HEIGHT_EM = 0.62
 
 
 # ---- the font ---------------------------------------------------------------
-def extract_font(doc, outdir):
-    """Pull the embedded Arkham icon font out of the PDF."""
+def _family(basefont):
+    """'IQATOH+ArkhamHorrorLCG' -> 'ArkhamHorrorLCG'. The subset prefix is per-page
+    noise; the text trace reports the name without it, so both sides must agree."""
+    return (basefont or '').split('+')[-1]
+
+
+def extract_fonts(doc, outdir):
+    """Pull every embedded Arkham icon font out of the PDF -> {family: path}.
+
+    A book may embed more than one cut of the face (the German and Italian editions
+    embed two). Glyph ids are per font, so they have to be kept apart: tracing one
+    font's id against another's outlines would silently draw the wrong icon."""
+    out = {}
     for pno in range(doc.page_count):
         for f in doc.get_page_fonts(pno):
-            if 'ArkhamHorror' not in f[3]:
+            fam = _family(f[3])
+            if 'ArkhamHorror' not in fam or fam in out:
                 continue
             _name, ext, _ftype, buf = doc.extract_font(f[0])
-            path = os.path.join(outdir, '_font.' + ext)
+            path = os.path.join(outdir, '_font_%s.%s' % (fam, ext))
             with open(path, 'wb') as fh:
                 fh.write(buf)
-            return path
-    return None
+            out[fam] = path
+    return out
 
 
 def glyph_ids(doc):
-    """codepoint -> glyph id, read from the PDF itself.
+    """{family: {codepoint: glyph id}}, read from the PDF itself.
 
     The embedded font is a subset with no cmap, so the codepoint cannot be looked
     up in the font: the PDF's own text trace is what knows which glyph each
@@ -59,32 +71,53 @@ def glyph_ids(doc):
     out = {}
     for pno in range(doc.page_count):
         for span in doc[pno].get_texttrace():
-            if 'ArkhamHorror' not in span.get('font', ''):
+            fam = _family(span.get('font', ''))
+            if 'ArkhamHorror' not in fam:
                 continue
             for ch in span['chars']:
-                if ch[0] in ICON_MAP:
-                    out.setdefault(ch[0], ch[1])
+                if icon_name(ch[0]):
+                    out.setdefault(fam, {}).setdefault(ch[0], ch[1])
     return out
 
 
-def trace_glyphs(font_path, gids):
-    """-> {name: (svg_text, width_em, height_em, baseline_em)}"""
+def glyph_sources(fonts, gids):
+    """-> {icon name: (font path, glyph id)}, one source per icon.
+
+    Where both cuts of the face carry an icon they draw the same shape, so the first
+    one found wins and the choice does not matter."""
+    src = {}
+    for fam, cps in gids.items():
+        path = fonts.get(fam)
+        if not path:
+            continue
+        for cp, gid in cps.items():
+            src.setdefault(icon_name(cp), (path, gid))
+    return src
+
+
+def trace_glyphs(sources):
+    """{name: (font path, glyph id)} -> {name: (svg_text, width_em, height_em, baseline_em)}"""
     from fontTools.ttLib import TTFont
     from fontTools.pens.svgPathPen import SVGPathPen
     from fontTools.pens.transformPen import TransformPen
     from fontTools.pens.roundingPen import RoundingPen
     from fontTools.pens.boundsPen import BoundsPen
 
-    font = TTFont(font_path)
-    gs = font.getGlyphSet()
-    order = font.getGlyphOrder()
-    upm = font['head'].unitsPerEm
+    loaded = {}
     out = {}
-    for cp, name in sorted(ICON_MAP.items(), key=lambda kv: kv[1]):
-        gid = gids.get(cp)
-        if gid is None or gid >= len(order):
-            print(f'  [warn] {name}: U+{cp:04X} never appears in this PDF, so its glyph '
+    for name in sorted(set(ICON_MAP.values())):
+        got = sources.get(name)
+        if got is None:
+            print(f'  [warn] {name} never appears in this PDF, so its glyph '
                   f'could not be identified — keeping any existing icon')
+            continue
+        font_path, gid = got
+        if font_path not in loaded:
+            f = TTFont(font_path)
+            loaded[font_path] = (f, f.getGlyphSet(), f.getGlyphOrder(), f['head'].unitsPerEm)
+        font, gs, order, upm = loaded[font_path]
+        if gid >= len(order):
+            print(f'  [warn] {name}: its glyph is not in the embedded subset')
             continue
         gname = order[gid]
         bp = BoundsPen(gs)
@@ -128,11 +161,12 @@ def fill_from_faq(glyphs, outdir):
             if not fname.lower().endswith('.pdf'):
                 continue
             doc = fitz.open(os.path.join(faq_dir, fname))
-            font_path = extract_font(doc, outdir)
-            if not font_path:
+            fonts = extract_fonts(doc, outdir)
+            if not fonts:
                 continue
-            traced = trace_glyphs(font_path, glyph_ids(doc))
-            os.remove(font_path)
+            traced = trace_glyphs(glyph_sources(fonts, glyph_ids(doc)))
+            for p in fonts.values():
+                os.remove(p)
             added = []
             for name in list(missing):
                 if name in traced:
@@ -229,17 +263,18 @@ def build(pack, outdir=ICONS_DIR):
     os.makedirs(outdir, exist_ok=True)
     doc = fitz.open(pack.require_pdf())
 
-    font_path = extract_font(doc, outdir)
+    fonts = extract_fonts(doc, outdir)
     glyphs = {}
-    if not font_path:
+    if not fonts:
         print('  [warn] no Arkham icon font is embedded in this PDF; the font icons '
               'cannot be re-traced. Keeping the ones already in assets/icons/.')
     else:
-        glyphs = trace_glyphs(font_path, glyph_ids(doc))
+        glyphs = trace_glyphs(glyph_sources(fonts, glyph_ids(doc)))
         for name, (svg, _w, _h, _b) in glyphs.items():
             with open(os.path.join(outdir, name + '.svg'), 'w', encoding='utf-8', newline='\n') as f:
                 f.write(svg)
-        os.remove(font_path)
+        for p in fonts.values():
+            os.remove(p)
         print(f'  {len(glyphs)} icons traced from the font -> assets/icons/*.svg')
         # Icons the Grimoire never prints (bless/curse) are traced from a FAQ font.
         fill_from_faq(glyphs, outdir)

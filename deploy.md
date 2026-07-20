@@ -64,7 +64,7 @@ Most servers get these right; the two worth checking on an older config are the 
 |---|---|---|
 | `.json` | `application/json` | nothing loads at all |
 | `.svg` | `image/svg+xml` | product and set icons vanish (they are CSS masks) |
-| `.webp` | `image/webp` | the Ultimatums & Boons card art does not render |
+| `.webp` | `image/webp` | the landing hero banner and the Ultimatums & Boons card art do not render |
 | `.woff2` | `font/woff2` | those cards fall back to a system font and the fitted text overflows |
 
 ```bash

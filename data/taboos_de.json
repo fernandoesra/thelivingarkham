@@ -1,0 +1,926 @@
+{
+  "lang": "de",
+  "tabooId": 10,
+  "date": "2026-02-19",
+  "source": "https://de.arkhamdb.com/rules#Taboo",
+  "groups": [
+    {
+      "cat": "chained",
+      "cards": [
+        {
+          "code": "09117",
+          "name": "Alter Schlüsselbund",
+          "pack": "tskp",
+          "packName": "Die scharlachroten Schlüssel (Ermittler-Erweiterung)",
+          "position": 117,
+          "cat": "chained",
+          "art": "fc-1-1b5bc68d",
+          "xp": 1
+        },
+        {
+          "code": "11117",
+          "name": "Archibald MacVeigh",
+          "pack": "tdcp",
+          "packName": "Die Versunkene Stadt (Ermittler-Erweiterung)",
+          "position": 117,
+          "cat": "chained",
+          "art": "fc-1-03766b1a",
+          "xp": -2
+        },
+        {
+          "code": "04305",
+          "name": "Flammenwerfer",
+          "pack": "sha",
+          "packName": "Zerstörte Zeitalter",
+          "position": 305,
+          "cat": "chained",
+          "xp": 1
+        },
+        {
+          "code": "10060",
+          "name": "Gefräßiger Mykonid",
+          "pack": "fhvp",
+          "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
+          "position": 60,
+          "cat": "chained",
+          "art": "fc-5-07551757",
+          "xp": 1
+        },
+        {
+          "code": "08099",
+          "name": "Gené Beauregard",
+          "pack": "eoep",
+          "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
+          "position": 99,
+          "cat": "chained",
+          "art": "fc-18-f732ab51",
+          "xp": 2
+        },
+        {
+          "code": "05159",
+          "name": "Hoch pokern",
+          "pack": "wos",
+          "packName": "Der Sünde Lohn",
+          "position": 159,
+          "cat": "chained",
+          "xp": 3
+        },
+        {
+          "code": "09108",
+          "name": "Licht spenden",
+          "pack": "tskp",
+          "packName": "Die scharlachroten Schlüssel (Ermittler-Erweiterung)",
+          "position": 108,
+          "cat": "chained",
+          "art": "fc-1-1b5bc68d",
+          "xp": 2
+        },
+        {
+          "code": "09077",
+          "name": "Markt der Mafia",
+          "pack": "tskp",
+          "packName": "Die scharlachroten Schlüssel (Ermittler-Erweiterung)",
+          "position": 77,
+          "cat": "chained",
+          "art": "fc-1-1b5bc68d",
+          "xp": 2
+        },
+        {
+          "code": "02300",
+          "name": "Monsterschlächter",
+          "pack": "litas",
+          "packName": "Verloren in Zeit und Raum",
+          "position": 300,
+          "cat": "chained",
+          "xp": -2
+        },
+        {
+          "code": "01073",
+          "name": "Plündern",
+          "pack": "core",
+          "packName": "Grundspiel",
+          "position": 73,
+          "cat": "chained",
+          "art": "fc-1-88b4c17d",
+          "xp": 2
+        },
+        {
+          "code": "01573",
+          "name": "Plündern",
+          "pack": "rcore",
+          "packName": "Grundspiel (Neuauflage)",
+          "position": 73,
+          "cat": "chained",
+          "xp": 2
+        },
+        {
+          "code": "06332",
+          "name": "Plündern",
+          "pack": "woc",
+          "packName": "Weber des Kosmos",
+          "position": 332,
+          "cat": "chained",
+          "xp": 2
+        },
+        {
+          "code": "11055",
+          "name": "Rausschmiss",
+          "pack": "tdcp",
+          "packName": "Die Versunkene Stadt (Ermittler-Erweiterung)",
+          "position": 55,
+          "cat": "chained",
+          "art": "fc-1-03766b1a",
+          "xp": 1
+        },
+        {
+          "code": "07308",
+          "name": "Ritual des Gleichgewichts",
+          "pack": "itm",
+          "packName": "In den Mahlstrom hinein",
+          "position": 308,
+          "cat": "chained",
+          "xp": -2
+        },
+        {
+          "code": "60327",
+          "name": "Scharfschütze",
+          "pack": "win",
+          "packName": "Winifred Habbamock",
+          "position": 27,
+          "cat": "chained",
+          "art": "fc-5-8a67f738",
+          "xp": -1
+        },
+        {
+          "code": "10037",
+          "name": "Schlaghagel",
+          "pack": "fhvp",
+          "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
+          "position": 37,
+          "cat": "chained",
+          "art": "fc-5-07551757",
+          "xp": -2
+        },
+        {
+          "code": "11031",
+          "name": "Schnellschuss",
+          "pack": "tdcp",
+          "packName": "Die Versunkene Stadt (Ermittler-Erweiterung)",
+          "position": 31,
+          "cat": "chained",
+          "art": "fc-1-03766b1a",
+          "xp": -2
+        },
+        {
+          "code": "07197",
+          "name": "Signum Crucis",
+          "pack": "hhg",
+          "packName": "Der reinste Schrecken",
+          "position": 197,
+          "cat": "chained",
+          "xp": -2
+        },
+        {
+          "code": "02108",
+          "name": "Spurensucher",
+          "pack": "tmm",
+          "packName": "Das Miskatonic-Museum",
+          "position": 108,
+          "cat": "chained",
+          "xp": 1
+        },
+        {
+          "code": "10085",
+          "name": "Stab von Carnamagos",
+          "pack": "fhvp",
+          "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
+          "position": 85,
+          "cat": "chained",
+          "art": "fc-5-07551757",
+          "xp": 2
+        },
+        {
+          "code": "10098",
+          "name": "Stab von Carnamagos",
+          "pack": "fhvp",
+          "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
+          "position": 98,
+          "cat": "chained",
+          "art": "fc-5-07551757",
+          "xp": 2
+        },
+        {
+          "code": "10031",
+          "name": "Unter Druck setzen",
+          "pack": "fhvp",
+          "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
+          "position": 31,
+          "cat": "chained",
+          "art": "fc-5-07551757",
+          "xp": 1
+        },
+        {
+          "code": "05231",
+          "name": "Wissen ist Macht",
+          "pack": "uad",
+          "packName": "Einheit und Ernüchterung",
+          "position": 231,
+          "cat": "chained",
+          "xp": 2
+        }
+      ]
+    },
+    {
+      "cat": "mutated",
+      "cards": [
+        {
+          "code": "06195",
+          "name": "35er Winchester",
+          "pack": "dsm",
+          "packName": "Die dunkle Seite des Mondes",
+          "position": 195,
+          "cat": "mutated",
+          "text": "This card's [action] ability now reads: \"[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack. If a chaos token with a non-negative modifier is revealed during this attack, this attack deals +2 damage.\""
+        },
+        {
+          "code": "04309",
+          "name": "Alles oder Nichts",
+          "pack": "sha",
+          "packName": "Zerstörte Zeitalter",
+          "position": 309,
+          "cat": "mutated",
+          "text": "At the end of its ability, this card gains: \"Remove All In from the game.\""
+        },
+        {
+          "code": "06022",
+          "name": "Anhänger der Königin",
+          "pack": "tde",
+          "packName": "Die Traumfresser",
+          "position": 22,
+          "cat": "mutated",
+          "art": "fc-1-c6c64ff2",
+          "text": "This card's constant ability now reads: \"If this card has no charges, remove it from the game.\""
+        },
+        {
+          "code": "02266",
+          "name": "Ass im Ärmel",
+          "pack": "wda",
+          "packName": "Wo das Verderben wartet",
+          "position": 266,
+          "cat": "mutated",
+          "text": "This card gains: \"Max once per round.\""
+        },
+        {
+          "code": "11120",
+          "name": "Auf den Fersen",
+          "pack": "tdcp",
+          "packName": "Die Versunkene Stadt (Ermittler-Erweiterung)",
+          "position": 120,
+          "cat": "mutated",
+          "art": "fc-1-03766b1a",
+          "text": "The first line of this card gains: \"If On Their Heels has no leads, discard it.\""
+        },
+        {
+          "code": "05020",
+          "name": "Befragung",
+          "pack": "tcu",
+          "packName": "Der gebrochene Kreis",
+          "position": 20,
+          "cat": "mutated",
+          "art": "fc-12-be1b26ea",
+          "text": "This card's ability now reads \"<b>Parley.</b> Choose a non-[[Elite]] enemy at your location…\""
+        },
+        {
+          "code": "11065",
+          "name": "Blut von Thoth",
+          "pack": "tdcp",
+          "packName": "Die Versunkene Stadt (Ermittler-Erweiterung)",
+          "position": 65,
+          "cat": "mutated",
+          "art": "fc-1-03766b1a",
+          "text": "This card’s [reaction] ability reads \"[reaction] When doom is placed on a card you control: Place 1 resource (from the token pool) on Blood of Thoth, as an offering.\"\nThis card’s [fast] ability reads \"[fast] During the investigation phase, except during an action, spend 2 offerings and exhaust Blood of Thoth: Choose an investigator at your location to immediately take an action as if it were their turn.\""
+        },
+        {
+          "code": "11118",
+          "name": "Büchereiausweis",
+          "pack": "tdcp",
+          "packName": "Die Versunkene Stadt (Ermittler-Erweiterung)",
+          "position": 118,
+          "cat": "mutated",
+          "art": "fc-1-03766b1a",
+          "text": "This card’s <b>Forced</b> effect now reads \"When your turn endsL Place attaced asset on the bottom of your deck unless you spend 1 resource.\""
+        },
+        {
+          "code": "60332",
+          "name": "Chuck Fergus",
+          "pack": "win",
+          "packName": "Winifred Habbamock",
+          "position": 32,
+          "cat": "mutated",
+          "art": "fc-5-8a67f738",
+          "text": "This card's first bullet point now reads: \"That event gains: \"Fast. Play only during your turn.\"\""
+        },
+        {
+          "code": "09072",
+          "name": "Chuck Fergus",
+          "pack": "tskp",
+          "packName": "Die scharlachroten Schlüssel (Ermittler-Erweiterung)",
+          "position": 72,
+          "cat": "mutated",
+          "art": "fc-1-1b5bc68d",
+          "text": "This card's first bullet point now reads: \"That event gains: \"Fast. Play only during your turn.\"\""
+        },
+        {
+          "code": "03112",
+          "name": "David Renfield",
+          "pack": "eotp",
+          "packName": "Widerhall aus der Vergangenheit",
+          "position": 112,
+          "cat": "mutated",
+          "text": "This card's [fast] ability now reads: \"...Gain 1 resource for each doom on David Renfield (to a maximum of 3 resources).\""
+        },
+        {
+          "code": "01033",
+          "name": "Dr. Milan Christopher",
+          "pack": "core",
+          "packName": "Grundspiel",
+          "position": 33,
+          "cat": "mutated",
+          "art": "fc-1-88b4c17d",
+          "text": "This card's [reaction] ability now reads: \"After you successfully investigate, exhaust Dr. Milan Christopher...\""
+        },
+        {
+          "code": "06199",
+          "name": "Drei Asse",
+          "pack": "dsm",
+          "packName": "Die dunkle Seite des Mondes",
+          "position": 199,
+          "cat": "mutated",
+          "text": "This card's ability gains: \"Remove each committed copy of Three Aces from the game.\""
+        },
+        {
+          "code": "60417",
+          "name": "Dunkle Prophezeihung",
+          "pack": "jac",
+          "packName": "Jacqueline Fine",
+          "position": 17,
+          "cat": "mutated",
+          "text": "This card now reads \"a non-[auto_fail] symbol\" instead of \"a [skull], [cultist], [tablet], or [elder_thing] chaos token.\""
+        },
+        {
+          "code": "04032",
+          "name": "Dunkle Prophezeihung",
+          "pack": "tfa",
+          "packName": "Das Vergessene Zeitalter",
+          "position": 32,
+          "cat": "mutated",
+          "art": "fc-3-9508e872",
+          "text": "This card now reads \"a non-[elder_sign] symbol\" instead of \"a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol.\""
+        },
+        {
+          "code": "07269",
+          "name": "Ein vorsichtiger Frieden",
+          "pack": "lod",
+          "packName": "In Dagons Reich",
+          "position": 269,
+          "cat": "mutated",
+          "text": "This card's ability gains: \"Remove A Watchful Peace from the game.\""
+        },
+        {
+          "code": "09041",
+          "name": "Empirische Hypothese",
+          "pack": "tskp",
+          "packName": "Die scharlachroten Schlüssel (Ermittler-Erweiterung)",
+          "position": 41,
+          "cat": "mutated",
+          "art": "fc-1-1b5bc68d",
+          "text": "This card's [fast] ability gains \"(Limit twice per round.)\""
+        },
+        {
+          "code": "07268",
+          "name": "Flöte der Äußeren Götter",
+          "pack": "lod",
+          "packName": "In Dagons Reich",
+          "position": 268,
+          "cat": "mutated",
+          "text": "This card loses the exceptional keyword and gains \"Limit 1 per deck.\""
+        },
+        {
+          "code": "09045",
+          "name": "Forschungsnotizen",
+          "pack": "tskp",
+          "packName": "Die scharlachroten Schlüssel (Ermittler-Erweiterung)",
+          "position": 45,
+          "cat": "mutated",
+          "art": "fc-1-1b5bc68d",
+          "text": "This card's second ability gains: \"(max 3 evidence spent per round).\""
+        },
+        {
+          "code": "10059",
+          "name": "Gefräßiger Mykonid",
+          "pack": "fhvp",
+          "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
+          "position": 59,
+          "cat": "mutated",
+          "art": "fc-5-07551757",
+          "text": "This card’s [reaction] ability reads: \"[reaction] When an investigator draws a non-weakness treachery card, if their location's shroud is less than Ravenous Myconid's growth...\""
+        },
+        {
+          "code": "04110",
+          "name": "Gegenzauber",
+          "pack": "tof",
+          "packName": "Fäden des Schicksals",
+          "position": 110,
+          "cat": "mutated",
+          "text": "This card now reads \"a non-[auto_fail] symbol\" instead of \"a [skull], [cultist], [tablet], or [elder_thing] chaos token.\""
+        },
+        {
+          "code": "11071",
+          "name": "Geisterhafter Schild",
+          "pack": "tdcp",
+          "packName": "Die Versunkene Stadt (Ermittler-Erweiterung)",
+          "position": 71,
+          "cat": "mutated",
+          "art": "fc-1-03766b1a",
+          "text": "This card's <b>Forced</b> effect now reads \"The first time attached card takes 1 or more damage/horror each round...\""
+        },
+        {
+          "code": "02229",
+          "name": "Geistesgegenwärtig",
+          "pack": "uau",
+          "packName": "Gestaltlos und unsichtbar",
+          "position": 229,
+          "cat": "mutated",
+          "text": "At the end of its ability, this card gains: \"(max once per round).\""
+        },
+        {
+          "code": "10030",
+          "name": "Hand-Auge-Koordination",
+          "pack": "fhvp",
+          "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
+          "position": 30,
+          "cat": "mutated",
+          "art": "fc-5-07551757",
+          "text": "This card’s ability reads: \"Resolve an [action] ability on a level 0–3 [[Tool]] or [[Weapon]] asset you control, ignoring all costs.\""
+        },
+        {
+          "code": "60414",
+          "name": "Hypnotisierender Blick",
+          "pack": "jac",
+          "packName": "Jacqueline Fine",
+          "position": 14,
+          "cat": "mutated",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "60423",
+          "name": "Hypnotisierender Blick",
+          "pack": "jac",
+          "packName": "Jacqueline Fine",
+          "position": 23,
+          "cat": "mutated",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "02153",
+          "name": "Hypnotisierender Blick",
+          "pack": "tece",
+          "packName": "Der Essex-County-Express",
+          "position": 153,
+          "cat": "mutated",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "03019",
+          "name": "Identitätskrise",
+          "pack": "ptc",
+          "packName": "Der Pfad nach Carcosa",
+          "position": 19,
+          "cat": "mutated",
+          "art": "fc-1-0e79d900",
+          "text": "This card's revelation ability now reads: \"Discard 1 card in your hand or play area of your current role. Then...\""
+        },
+        {
+          "code": "10026",
+          "name": "In den Weg stellen",
+          "pack": "fhvp",
+          "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
+          "position": 26,
+          "cat": "mutated",
+          "art": "fc-5-07551757",
+          "text": "This card’s ability reads: \"...If you succeed, play the chosen asset, reducing its cost by the amount you succeeded by.\""
+        },
+        {
+          "code": "08032",
+          "name": "Jeremiah Kirby",
+          "pack": "eoep",
+          "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
+          "position": 32,
+          "cat": "mutated",
+          "art": "fc-18-f732ab51",
+          "text": "This card's ability gains: \"(Max twice per game.)\""
+        },
+        {
+          "code": "02269",
+          "name": "Juwel von Aureolus",
+          "pack": "wda",
+          "packName": "Wo das Verderben wartet",
+          "position": 269,
+          "cat": "mutated",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "08098",
+          "name": "Karte der Zeitalter",
+          "pack": "eoep",
+          "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
+          "position": 98,
+          "cat": "mutated",
+          "art": "fc-18-f732ab51",
+          "text": "This card should read \"basic actions\" instead of \"actions.\""
+        },
+        {
+          "code": "08100",
+          "name": "Karte der Zeitalter",
+          "pack": "eoep",
+          "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
+          "position": 100,
+          "cat": "mutated",
+          "art": "fc-18-f732ab51",
+          "text": "This card should read \"basic actions\" instead of \"actions.\""
+        },
+        {
+          "code": "03006",
+          "name": "Lola Hayes",
+          "pack": "ptc",
+          "packName": "Der Pfad nach Carcosa",
+          "position": 6,
+          "cat": "mutated",
+          "art": "fc-1-0e79d900",
+          "text": "This card's forced ability is moved to its reverse side, and it should now read: \"<b>Additional Setup</b>: After you draw your opening hand, choose a role ([survivor], [guardian], [seeker], [rogue], [mystic], or Neutral).\"\nThis card's front side additionally gains: \"[action]: Switch roles. Does not provoke attacks of opportunity.\""
+        },
+        {
+          "code": "09081",
+          "name": "Machtwort",
+          "pack": "tskp",
+          "packName": "Die scharlachroten Schlüssel (Ermittler-Erweiterung)",
+          "position": 81,
+          "cat": "mutated",
+          "art": "fc-1-1b5bc68d",
+          "text": "This card’s text box now reads: \"[action] If attached enemy is at your location: <b>Parley.</b> Test [willpower](2). If you succeed, give it a command (limit once per round per command) – \"Go.\" This enemy moves once in a direction of your choice.\"\nThis card’s customizable sheet loses the \"Mercy\" ability and gains\"☐Cower. Add the command: \"- ‘Cower.’ This enemy exhausts.\""
+        },
+        {
+          "code": "06002",
+          "name": "Mandy Thompson",
+          "pack": "tde",
+          "packName": "Die Traumfresser",
+          "position": 2,
+          "cat": "mutated",
+          "art": "fc-1-c6c64ff2",
+          "text": "This investigator now reads: \"Deck Size: 50\" and \"Deckbuilding Requirements (do not count towards deck size): 3 copies of Occult Evidence...\""
+        },
+        {
+          "code": "05153",
+          "name": "Mr. „Rook”",
+          "pack": "wos",
+          "packName": "Der Sünde Lohn",
+          "position": 153,
+          "cat": "mutated",
+          "text": "This card's [fast] ability is now a [action] ability."
+        },
+        {
+          "code": "08045",
+          "name": "Prophesiae Profana",
+          "pack": "eoep",
+          "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
+          "position": 45,
+          "cat": "mutated",
+          "art": "fc-18-f732ab51",
+          "text": "This card's constant ability now reads: \"...you get +1 [intellect], +1 [agility], and ignore the first attack of opportunity you take each turn.\""
+        },
+        {
+          "code": "02002",
+          "name": "Rex Murphy",
+          "pack": "dwl",
+          "packName": "Das Vermächtnis von Dunwich",
+          "position": 2,
+          "cat": "mutated",
+          "art": "fc-6-9264a7b8",
+          "text": "This card's [reaction] ability gains: \"(Limit once per round.)\""
+        },
+        {
+          "code": "60405",
+          "name": "Ritualkerzen",
+          "pack": "jac",
+          "packName": "Jacqueline Fine",
+          "position": 5,
+          "cat": "mutated",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "02029",
+          "name": "Ritualkerzen",
+          "pack": "dwl",
+          "packName": "Das Vermächtnis von Dunwich",
+          "position": 29,
+          "cat": "mutated",
+          "art": "fc-6-9264a7b8",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "03315",
+          "name": "Schlüssel von Ys",
+          "pack": "dca",
+          "packName": "Finsteres Carcosa",
+          "position": 315,
+          "cat": "mutated",
+          "text": "This card gains the Exceptional keyword.",
+          "exceptional": true
+        },
+        {
+          "code": "05156",
+          "name": "Schnelle Reflexe",
+          "pack": "wos",
+          "packName": "Der Sünde Lohn",
+          "position": 156,
+          "cat": "mutated",
+          "text": "This card gains \"(Limit twice per round.)\""
+        },
+        {
+          "code": "05116",
+          "name": "Schriftrolle der Geheimnisse",
+          "pack": "tsn",
+          "packName": "Der geheime Name",
+          "position": 116,
+          "cat": "mutated",
+          "text": "This card's [action] ability is now a [fast] ability."
+        },
+        {
+          "code": "05188",
+          "name": "Schriftrolle der Geheimnisse",
+          "pack": "fgg",
+          "packName": "Für das große Ganze",
+          "position": 188,
+          "cat": "mutated",
+          "text": "This card's [action] ability is now a [fast] ability."
+        },
+        {
+          "code": "05189",
+          "name": "Schriftrolle der Geheimnisse",
+          "pack": "fgg",
+          "packName": "Für das große Ganze",
+          "position": 189,
+          "cat": "mutated",
+          "text": "This card's [action] ability is now a [fast] ability."
+        },
+        {
+          "code": "08055",
+          "name": "Schwarzmarkt",
+          "pack": "eoep",
+          "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
+          "position": 55,
+          "cat": "mutated",
+          "art": "fc-18-f732ab51",
+          "text": "This card gains: \"Max once per round.\""
+        },
+        {
+          "code": "01050",
+          "name": "Schwer zu fassen",
+          "pack": "core",
+          "packName": "Grundspiel",
+          "position": 50,
+          "cat": "mutated",
+          "art": "fc-1-88b4c17d",
+          "text": "This card now reads: \"Disengage from each enemy engaged with you and move to a connecting location with no enemies.\""
+        },
+        {
+          "code": "02263",
+          "name": "Seltsame Lösung",
+          "pack": "wda",
+          "packName": "Wo das Verderben wartet",
+          "position": 263,
+          "cat": "mutated",
+          "text": "This card's fight ability now reads \"+1 damage\" instead of \"+2 damage.\""
+        },
+        {
+          "code": "11075",
+          "name": "Spirituelles Echo",
+          "pack": "tdcp",
+          "packName": "Die Versunkene Stadt (Ermittler-Erweiterung)",
+          "position": 75,
+          "cat": "mutated",
+          "art": "fc-1-03766b1a",
+          "text": "This card gains \"Fast. Play only during your turn.\"\nThis card's [reaction] ability now reads \"...Return Spiritual Echo to your hand at the end of your turn.\" and gains \"(Limit once per round.)\""
+        },
+        {
+          "code": "02226",
+          "name": "Springfield M1903",
+          "pack": "uau",
+          "packName": "Gestaltlos und unsichtbar",
+          "position": 226,
+          "cat": "mutated",
+          "text": "This card's [action] ability gains: \"This attack may target a non-[[Elite]] enemy up to one location away from its standard range, ignoring the aloof and retaliate keywords.\""
+        },
+        {
+          "code": "60416",
+          "name": "Stimme des Re",
+          "pack": "jac",
+          "packName": "Jacqueline Fine",
+          "position": 16,
+          "cat": "mutated",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "03029",
+          "name": "Taschenspielertrick",
+          "pack": "ptc",
+          "packName": "Der Pfad nach Carcosa",
+          "position": 29,
+          "cat": "mutated",
+          "art": "fc-1-0e79d900",
+          "text": "This card's ability now reads: \"Put a level 0-3 [[Item]] asset into play from your hand.\""
+        },
+        {
+          "code": "60318",
+          "name": "Tollkühn",
+          "pack": "win",
+          "packName": "Winifred Habbamock",
+          "position": 18,
+          "cat": "mutated",
+          "art": "fc-5-8a67f738",
+          "text": "Instead of \"Shuffle each weakness that was discarded…\", this card's ability now reads: \"After this skill test resolves, draw each weakness discarded by this effect.\""
+        },
+        {
+          "code": "07003",
+          "name": "Trish Scarborough",
+          "pack": "tic",
+          "packName": "Die Innsmouth-Verschwörung",
+          "position": 3,
+          "cat": "mutated",
+          "art": "fc-2-ecbc80c7",
+          "text": "This card's [reaction] ability now reads: \"After you discover 1 or more clues at a location with an enemy: Either discover 1 additional clue at that location, or automatically evade that enemy if it is non-[[Elite]]. (Limit once per round.)\""
+        },
+        {
+          "code": "04105",
+          "name": "Überredung",
+          "pack": "tof",
+          "packName": "Fäden des Schicksals",
+          "position": 105,
+          "cat": "mutated",
+          "text": "This card's ability now reads \"<b>Parley.</b> Choose a non-weakness enemy at your location…\""
+        },
+        {
+          "code": "08113",
+          "name": "Unvernünftiger Kredit",
+          "pack": "eoep",
+          "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
+          "position": 113,
+          "cat": "mutated",
+          "art": "fc-18-f732ab51",
+          "text": "The first line of this card gains: \"Campaign Mode only.\""
+        },
+        {
+          "code": "07122",
+          "name": "Uralter Bund",
+          "pack": "itd",
+          "packName": "Zu tief drin",
+          "position": 122,
+          "cat": "mutated",
+          "text": "This card's [reaction] ability now reads: \"When you resolve a [bless] token during a skill test...\""
+        },
+        {
+          "code": "05113",
+          "name": "Verbannen",
+          "pack": "tsn",
+          "packName": "Der geheime Name",
+          "position": 113,
+          "cat": "mutated",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "08019",
+          "name": "Voll ausgerüstet",
+          "pack": "eoep",
+          "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
+          "position": 19,
+          "cat": "mutated",
+          "art": "fc-18-f732ab51",
+          "text": "This card's <b>Forced</b> effect now reads: \"<b>Forced</b> – When your first turn of the game begins: One at a time, play up to 5 [[Item]] assets...\""
+        },
+        {
+          "code": "07301",
+          "name": "Weihen",
+          "pack": "itm",
+          "packName": "In den Mahlstrom hinein",
+          "position": 301,
+          "cat": "mutated",
+          "text": "This card's ability gains: \"Remove Hallow from the game.\""
+        },
+        {
+          "code": "05157",
+          "name": "Welken",
+          "pack": "wos",
+          "packName": "Der Sünde Lohn",
+          "position": 157,
+          "cat": "mutated",
+          "text": "This card now reads \"a symbol token\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "05321",
+          "name": "Welken",
+          "pack": "bbt",
+          "packName": "Vor dem schwarzen Thron",
+          "position": 321,
+          "cat": "mutated",
+          "text": "This card's [action] ability now reads \"...If a symbol token is revealed during this attack, the attacked enemy gets -1 fight, -1 health, and -1 evade until the end of the phase (to a minimum of 1)."
+        },
+        {
+          "code": "05324",
+          "name": "Wendung zum Guten",
+          "pack": "bbt",
+          "packName": "Vor dem schwarzen Thron",
+          "position": 324,
+          "cat": "mutated",
+          "text": "This card's ability gains: \"Remove Eucatastrophe from the game.\""
+        },
+        {
+          "code": "04233",
+          "name": "Zahltag",
+          "pack": "tcoa",
+          "packName": "Die Archivstadt",
+          "position": 233,
+          "cat": "mutated",
+          "text": "This card’s ability now reads: “Gain 1 resource for each action you spent this turn…”"
+        },
+        {
+          "code": "05230",
+          "name": "Zielfernrohr",
+          "pack": "uad",
+          "packName": "Einheit und Ernüchterung",
+          "position": 230,
+          "cat": "mutated",
+          "text": "This card loses the text: \"Attached asset cannot be used to attack enemies engaged with you.\""
+        },
+        {
+          "code": "02111",
+          "name": "Zu tief graben",
+          "pack": "tmm",
+          "packName": "Das Miskatonic-Museum",
+          "position": 111,
+          "cat": "mutated",
+          "text": "This card gains: \"Group limit 2 copies of Delve Too Deep in the victory display.\""
+        },
+        {
+          "code": "08093",
+          "name": "Zyklopischer Hammer",
+          "pack": "eoep",
+          "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
+          "position": 93,
+          "cat": "mutated",
+          "art": "fc-18-f732ab51",
+          "text": "This card's parenthetical now reads: \"...(If you succeed by 3 or more, you may exhaust Cyclopean Hammer to instead deal +2 damage and move the enemy up to two locations away from you.)\""
+        }
+      ]
+    },
+    {
+      "cat": "forbidden",
+      "cards": [
+        {
+          "code": "60233",
+          "name": "Das Necronomicon",
+          "pack": "har",
+          "packName": "Harvey Walters",
+          "position": 33,
+          "cat": "forbidden",
+          "art": "fc-3-b7886afb",
+          "text": "Forbidden."
+        },
+        {
+          "code": "02026",
+          "name": "Doppelt oder Nichts",
+          "pack": "dwl",
+          "packName": "Das Vermächtnis von Dunwich",
+          "position": 26,
+          "cat": "forbidden",
+          "art": "fc-6-9264a7b8",
+          "text": "Forbidden."
+        },
+        {
+          "code": "08076",
+          "name": "Nach dem Lesen verbrennen",
+          "pack": "eoep",
+          "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
+          "position": 76,
+          "cat": "forbidden",
+          "art": "fc-18-f732ab51",
+          "text": "Forbidden."
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "chained": 23,
+    "mutated": 68,
+    "forbidden": 3
+  }
+}

@@ -2608,6 +2608,16 @@ function renderLanding(s){
     +'<a href="'+esc(HERO_ART.url)+'" target="_blank" rel="noopener">'+esc(HERO_ART.by)+'</a></p>';
   h+='</div>';
   if(li){h+=verBanner(li);}
+  /* A pack whose interface was machine-translated says so, before anything else on the
+     page claims authorship. Driven by the string being there, not by a list of language
+     codes: a pack translated by a person simply leaves it empty and no notice appears. */
+  var mt=t('mtnotice');
+  if(mt&&mt!=='mtnotice'){
+    h+='<aside class="tla-notice tla-notice-mt" role="note">'
+      +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
+      +'<path d="M12 3 2 20h20L12 3z"/><path d="M12 9v5M12 17h.01"/></svg>'
+      +'<p data-i18n-html="mtnotice">'+mt+'</p></aside>';
+  }
   h+=rmPanel();
   /* English leads; the other languages follow. Say so up front, and how to help fill a
      gap. The email is a real mailto link, so it travels with the translated notice. */

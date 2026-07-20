@@ -370,11 +370,21 @@ def extract(pdf_path, stops=frozenset()):
 
 
 def write_svgs(svgs, outdir=FAQSETS_DIR):
+    """Write each mark once. The filename IS the shape's fingerprint, so a file that is
+    already there is already this mark — and rewriting it would only swap one edition's
+    rounding for another's. The German and Italian books draw the same art a hundredth
+    of a point off the Spanish one, which rewrote 150 identical files on every build and
+    made the result depend on which language happened to be built last."""
     os.makedirs(outdir, exist_ok=True)
+    written = 0
     for fp, svg in svgs.items():
-        with open(os.path.join(outdir, fp + '.svg'), 'w', encoding='utf-8', newline='\n') as f:
+        path = os.path.join(outdir, fp + '.svg')
+        if os.path.exists(path):
+            continue
+        with open(path, 'w', encoding='utf-8', newline='\n') as f:
             f.write(svg + '\n')
-    return len(svgs)
+        written += 1
+    return written
 
 
 # ---- the icon-reference chapter (the campaign/product/starter/promo tables) --
@@ -412,14 +422,28 @@ def _icon_left(page, name_x, y0, y1, col_left):
 
 
 def extract_iconref(pdf_path):
-    """The icon-reference tables on the FAQ's last page: campaigns, standalone products,
+    """The icon-reference tables that close the FAQ: campaigns, standalone products,
     starter decks and promos, each a name with the product's vector icon beside it.
 
     Returns (groups, svgs): groups = [{'title','level','blurb','items':[{'name','art'}]}]
     in the Grimoire's icon-chapter shape; svgs = {art_id: svg} to write into assets/products/.
-    The reader gets a searchable table instead of a flattened, uncopyable picture."""
+    The reader gets a searchable table instead of a flattened, uncopyable picture.
+
+    The tables are at the back, but not every edition puts them on the very last page: the
+    Italian FAQ closes with a chaos-token key and prints its tables on the page before, which
+    read as the last page gave that language an empty chapter and stripped the product marks
+    off its taboo list. So the closing pages are tried from the back and the first that yields
+    a table wins — the page says whether it holds one, rather than the pack naming a number."""
     doc = fitz.open(pdf_path)
-    page = doc[doc.page_count - 1]
+    for pno in range(doc.page_count - 1, max(doc.page_count - 4, 0) - 1, -1):
+        groups, svgs = _iconref_page(doc[pno])
+        if groups:
+            return groups, svgs
+    return [], {}
+
+
+def _iconref_page(page):
+    """Read the icon tables off one page -> (groups, svgs); ([], {}) if it holds none."""
     # icon-font glyphs on the page (the core set's mark is one) — kept to spot a product whose
     # icon is a glyph rather than vector art, since it sits on its own line beside the name.
     glyph_boxes = [s['bbox'] for b in page.get_text('dict')['blocks'] if 'lines' in b
@@ -514,11 +538,22 @@ def extract_iconref(pdf_path):
 
 
 def write_products(svgs, outdir=PRODUCTS_DIR):
+    """Trace each product's mark once, for the same reason as write_svgs: a product's
+    mark is the same drawing whichever edition it was traced from. Every edition rounds
+    it a hundredth of a point differently (41 of 50 marks re-traced from the German and
+    Italian books differ by no more than 0.02), so rewriting would churn the art on every
+    build and leave whichever language ran last as the winner. To re-trace one on purpose,
+    delete it and build again."""
     os.makedirs(outdir, exist_ok=True)
+    written = 0
     for art, svg in svgs.items():
-        with open(os.path.join(outdir, art + '.svg'), 'w', encoding='utf-8', newline='\n') as f:
+        path = os.path.join(outdir, art + '.svg')
+        if os.path.exists(path):
+            continue
+        with open(path, 'w', encoding='utf-8', newline='\n') as f:
             f.write(svg + '\n')
-    return len(svgs)
+        written += 1
+    return written
 
 
 def report_orphans(quiet=False):

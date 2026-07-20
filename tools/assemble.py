@@ -470,8 +470,12 @@ def assemble(pack, nodes, images):
     def match_section(title, level=1):
         m = ROMAN.match(title)
         n = norm(title)
-        # index -> stop
-        if level == 1 and n.startswith(pack.parse['indexStart']):
+        # The book's alphabetical index closes it: everything after that heading is the
+        # index, so the walk stops there. An edition that prints no index says so with an
+        # empty "indexStart" and is simply read to the end — the Italian book is one, and
+        # without the guard its empty prefix would match the FIRST heading and stop dead.
+        index_at = norm(pack.parse['indexStart'])
+        if level == 1 and index_at and n.startswith(index_at):
             return 'INDEX'
         # roman numeral exact match to an unstarted section
         if level == 1 and m:
@@ -667,7 +671,12 @@ def linkify(sections, title_index, pack):
     trig = re.compile(pack.patterns['trigger'], re.I)
     pageword = pack.patterns['pageWord']
     pageref = re.compile(pack.patterns['pageRef'], re.I)
-    quote = re.compile(r'([“"])(.+?)([”"])')
+    # A cross-reference names its target in quotes, and each edition uses its own marks:
+    # English and Italian "…", Spanish «…», German „…“ — whose OPENING mark (U+201E) is a
+    # different character from every other edition's, which is why German found none at all.
+    # Being permissive costs nothing: a match only becomes a link if the quoted words are
+    # actually a heading in this book's own index.
+    quote = re.compile(r'([“"„«‹])(.+?)([”"“»›])')
     linkcount = [0]
     def process_run(run, ctx_has_trig):
         """Split a text run into inline runs at cross-ref titles (links) and

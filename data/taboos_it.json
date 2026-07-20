@@ -1,0 +1,920 @@
+{
+  "lang": "it",
+  "tabooId": 10,
+  "date": "2026-02-19",
+  "source": "https://it.arkhamdb.com/rules#Taboo",
+  "groups": [
+    {
+      "cat": "chained",
+      "cards": [
+        {
+          "code": "11055",
+          "name": "\"Fuori dai Piedi!\"",
+          "pack": "tdcp",
+          "packName": "La Città Sommersa, Espansione Investigatori",
+          "position": 55,
+          "cat": "chained",
+          "xp": 1
+        },
+        {
+          "code": "05159",
+          "name": "Agli Sgoccioli",
+          "pack": "wos",
+          "packName": "Il Prezzo del Peccato",
+          "position": 159,
+          "cat": "chained",
+          "xp": 3
+        },
+        {
+          "code": "02108",
+          "name": "Apripista",
+          "pack": "tmm",
+          "packName": "Il Museo della Miskatonic",
+          "position": 108,
+          "cat": "chained",
+          "xp": 1
+        },
+        {
+          "code": "11117",
+          "name": "Archibald MacVeigh",
+          "pack": "tdcp",
+          "packName": "La Città Sommersa, Espansione Investigatori",
+          "position": 117,
+          "cat": "chained",
+          "xp": -2
+        },
+        {
+          "code": "60327",
+          "name": "Cecchino",
+          "pack": "win",
+          "packName": "Winifred Habbamock",
+          "position": 27,
+          "cat": "chained",
+          "art": "fc-5-b7328a5e",
+          "xp": -1
+        },
+        {
+          "code": "11031",
+          "name": "Colpo Rapido",
+          "pack": "tdcp",
+          "packName": "La Città Sommersa, Espansione Investigatori",
+          "position": 31,
+          "cat": "chained",
+          "xp": -2
+        },
+        {
+          "code": "09108",
+          "name": "Fare Luce",
+          "pack": "tskp",
+          "packName": "Le Chiavi Scarlatte, Espansione Investigatori",
+          "position": 108,
+          "cat": "chained",
+          "art": "fc-1-1b5bc68d",
+          "xp": 2
+        },
+        {
+          "code": "10031",
+          "name": "Forzuto",
+          "pack": "fhvp",
+          "packName": "La Festa di Hemlock Vale, Espansione Investigatori",
+          "position": 31,
+          "cat": "chained",
+          "art": "fc-5-9c4f8328",
+          "xp": 1
+        },
+        {
+          "code": "08099",
+          "name": "Gené Beauregard",
+          "pack": "eoep",
+          "packName": "Ai Confini della Terra, Espansione Investigatori",
+          "position": 99,
+          "cat": "chained",
+          "art": "fc-18-007cab1a",
+          "xp": 2
+        },
+        {
+          "code": "05231",
+          "name": "La Conoscenza è Potere",
+          "pack": "uad",
+          "packName": "Unione e Disillusione",
+          "position": 231,
+          "cat": "chained",
+          "xp": 2
+        },
+        {
+          "code": "04305",
+          "name": "Lanciafiamme",
+          "pack": "sha",
+          "packName": "Eoni Infranti",
+          "position": 305,
+          "cat": "chained",
+          "xp": 1
+        },
+        {
+          "code": "10060",
+          "name": "Miconide Famelico",
+          "pack": "fhvp",
+          "packName": "La Festa di Hemlock Vale, Espansione Investigatori",
+          "position": 60,
+          "cat": "chained",
+          "art": "fc-5-9c4f8328",
+          "xp": 1
+        },
+        {
+          "code": "01073",
+          "name": "Oggetto Riciclato",
+          "pack": "core",
+          "packName": "Scatola Base",
+          "position": 73,
+          "cat": "chained",
+          "xp": 2
+        },
+        {
+          "code": "01573",
+          "name": "Oggetto Riciclato",
+          "pack": "rcore",
+          "packName": "Scatola Base (Nuovo Formato)",
+          "position": 73,
+          "cat": "chained",
+          "xp": 2
+        },
+        {
+          "code": "06332",
+          "name": "Oggetto Riciclato",
+          "pack": "woc",
+          "packName": "La Tessitrice del Cosmo",
+          "position": 332,
+          "cat": "chained",
+          "xp": 2
+        },
+        {
+          "code": "10037",
+          "name": "Raffica di Colpi",
+          "pack": "fhvp",
+          "packName": "La Festa di Hemlock Vale, Espansione Investigatori",
+          "position": 37,
+          "cat": "chained",
+          "art": "fc-5-9c4f8328",
+          "xp": -2
+        },
+        {
+          "code": "07308",
+          "name": "Rito dell'Equilibrio",
+          "pack": "itm",
+          "packName": "Nel Maelstrom",
+          "position": 308,
+          "cat": "chained",
+          "xp": -2
+        },
+        {
+          "code": "07197",
+          "name": "Signum Crucis",
+          "pack": "hhg",
+          "packName": "Orrore ad Alta Velocità",
+          "position": 197,
+          "cat": "chained",
+          "xp": -2
+        },
+        {
+          "code": "09077",
+          "name": "Spaccio della Malavita",
+          "pack": "tskp",
+          "packName": "Le Chiavi Scarlatte, Espansione Investigatori",
+          "position": 77,
+          "cat": "chained",
+          "art": "fc-1-1b5bc68d",
+          "xp": 2
+        },
+        {
+          "code": "02300",
+          "name": "Uccisore di Mostri",
+          "pack": "litas",
+          "packName": "Oltre il Tempo e lo Spazio",
+          "position": 300,
+          "cat": "chained",
+          "xp": -2
+        },
+        {
+          "code": "09117",
+          "name": "Vecchio Portachiavi",
+          "pack": "tskp",
+          "packName": "Le Chiavi Scarlatte, Espansione Investigatori",
+          "position": 117,
+          "cat": "chained",
+          "art": "fc-1-1b5bc68d",
+          "xp": 1
+        },
+        {
+          "code": "10085",
+          "name": "Verga di Carnamagos",
+          "pack": "fhvp",
+          "packName": "La Festa di Hemlock Vale, Espansione Investigatori",
+          "position": 85,
+          "cat": "chained",
+          "art": "fc-5-9c4f8328",
+          "xp": 2
+        },
+        {
+          "code": "10098",
+          "name": "Verga di Carnamagos",
+          "pack": "fhvp",
+          "packName": "La Festa di Hemlock Vale, Espansione Investigatori",
+          "position": 98,
+          "cat": "chained",
+          "art": "fc-5-9c4f8328",
+          "xp": 2
+        }
+      ]
+    },
+    {
+      "cat": "mutated",
+      "cards": [
+        {
+          "code": "10026",
+          "name": "\"Mani in Alto!\"",
+          "pack": "fhvp",
+          "packName": "La Festa di Hemlock Vale, Espansione Investigatori",
+          "position": 26,
+          "cat": "mutated",
+          "art": "fc-5-9c4f8328",
+          "text": "This card’s ability reads: \"...If you succeed, play the chosen asset, reducing its cost by the amount you succeeded by.\""
+        },
+        {
+          "code": "04309",
+          "name": "All In",
+          "pack": "sha",
+          "packName": "Eoni Infranti",
+          "position": 309,
+          "cat": "mutated",
+          "text": "At the end of its ability, this card gains: \"Remove All In from the game.\""
+        },
+        {
+          "code": "11120",
+          "name": "Alle Calcagna",
+          "pack": "tdcp",
+          "packName": "La Città Sommersa, Espansione Investigatori",
+          "position": 120,
+          "cat": "mutated",
+          "text": "The first line of this card gains: \"If On Their Heels has no leads, discard it.\""
+        },
+        {
+          "code": "09045",
+          "name": "Appunti di Ricerca",
+          "pack": "tskp",
+          "packName": "Le Chiavi Scarlatte, Espansione Investigatori",
+          "position": 45,
+          "cat": "mutated",
+          "art": "fc-1-1b5bc68d",
+          "text": "This card's second ability gains: \"(max 3 evidence spent per round).\""
+        },
+        {
+          "code": "02266",
+          "name": "Asso nella Manica",
+          "pack": "wda",
+          "packName": "Verso un Destino Oscuro",
+          "position": 266,
+          "cat": "mutated",
+          "text": "This card gains: \"Max once per round.\""
+        },
+        {
+          "code": "08019",
+          "name": "Ben Equipaggiato",
+          "pack": "eoep",
+          "packName": "Ai Confini della Terra, Espansione Investigatori",
+          "position": 19,
+          "cat": "mutated",
+          "art": "fc-18-007cab1a",
+          "text": "This card's <b>Forced</b> effect now reads: \"<b>Forced</b> – When your first turn of the game begins: One at a time, play up to 5 [[Item]] assets...\""
+        },
+        {
+          "code": "60405",
+          "name": "Candele Rituali",
+          "pack": "jac",
+          "packName": "Jacqueline Fine",
+          "position": 5,
+          "cat": "mutated",
+          "art": "fc-2-fec6c2ef",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "02029",
+          "name": "Candele Rituali",
+          "pack": "dwl",
+          "packName": "L'Eredità di Dunwich",
+          "position": 29,
+          "cat": "mutated",
+          "art": "fc-6-9264a7b8",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "03315",
+          "name": "Chiave di Ys",
+          "pack": "dca",
+          "packName": "La Cupa Carcosa",
+          "position": 315,
+          "cat": "mutated",
+          "text": "This card gains the Exceptional keyword.",
+          "exceptional": true
+        },
+        {
+          "code": "60332",
+          "name": "Chuck Fergus",
+          "pack": "win",
+          "packName": "Winifred Habbamock",
+          "position": 32,
+          "cat": "mutated",
+          "art": "fc-5-b7328a5e",
+          "text": "This card's first bullet point now reads: \"That event gains: \"Fast. Play only during your turn.\"\""
+        },
+        {
+          "code": "09072",
+          "name": "Chuck Fergus",
+          "pack": "tskp",
+          "packName": "Le Chiavi Scarlatte, Espansione Investigatori",
+          "position": 72,
+          "cat": "mutated",
+          "art": "fc-1-1b5bc68d",
+          "text": "This card's first bullet point now reads: \"That event gains: \"Fast. Play only during your turn.\"\""
+        },
+        {
+          "code": "07301",
+          "name": "Consacrare",
+          "pack": "itm",
+          "packName": "Nel Maelstrom",
+          "position": 301,
+          "cat": "mutated",
+          "text": "This card's ability gains: \"Remove Hallow from the game.\""
+        },
+        {
+          "code": "04110",
+          "name": "Controincantesimo",
+          "pack": "tof",
+          "packName": "Trame del Fato",
+          "position": 110,
+          "cat": "mutated",
+          "text": "This card now reads \"a non-[auto_fail] symbol\" instead of \"a [skull], [cultist], [tablet], or [elder_thing] chaos token.\""
+        },
+        {
+          "code": "10030",
+          "name": "Coordinazione Occhio-Mano",
+          "pack": "fhvp",
+          "packName": "La Festa di Hemlock Vale, Espansione Investigatori",
+          "position": 30,
+          "cat": "mutated",
+          "art": "fc-5-9c4f8328",
+          "text": "This card’s ability reads: \"Resolve an [action] ability on a level 0–3 [[Tool]] or [[Weapon]] asset you control, ignoring all costs.\""
+        },
+        {
+          "code": "03019",
+          "name": "Crisi d'Identità",
+          "pack": "ptc",
+          "packName": "La Strada per Carcosa",
+          "position": 19,
+          "cat": "mutated",
+          "art": "fc-1-0e79d900",
+          "text": "This card's revelation ability now reads: \"Discard 1 card in your hand or play area of your current role. Then...\""
+        },
+        {
+          "code": "03112",
+          "name": "David Renfield",
+          "pack": "eotp",
+          "packName": "Echi dal Passato",
+          "position": 112,
+          "cat": "mutated",
+          "text": "This card's [fast] ability now reads: \"...Gain 1 resource for each doom on David Renfield (to a maximum of 3 resources).\""
+        },
+        {
+          "code": "05157",
+          "name": "Deperimento",
+          "pack": "wos",
+          "packName": "Il Prezzo del Peccato",
+          "position": 157,
+          "cat": "mutated",
+          "text": "This card now reads \"a symbol token\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "05321",
+          "name": "Deperimento",
+          "pack": "bbt",
+          "packName": "Al Cospetto del Trono Nero",
+          "position": 321,
+          "cat": "mutated",
+          "text": "This card's [action] ability now reads \"...If a symbol token is revealed during this attack, the attacked enemy gets -1 fight, -1 health, and -1 evade until the end of the phase (to a minimum of 1)."
+        },
+        {
+          "code": "01033",
+          "name": "Dott. Milan Christopher",
+          "pack": "core",
+          "packName": "Scatola Base",
+          "position": 33,
+          "cat": "mutated",
+          "text": "This card's [reaction] ability now reads: \"After you successfully investigate, exhaust Dr. Milan Christopher...\""
+        },
+        {
+          "code": "11075",
+          "name": "Eco Spirituale",
+          "pack": "tdcp",
+          "packName": "La Città Sommersa, Espansione Investigatori",
+          "position": 75,
+          "cat": "mutated",
+          "text": "This card gains \"Fast. Play only during your turn.\"\nThis card's [reaction] ability now reads \"...Return Spiritual Echo to your hand at the end of your turn.\" and gains \"(Limit once per round.)\""
+        },
+        {
+          "code": "05113",
+          "name": "Esiliare",
+          "pack": "tsn",
+          "packName": "Il Nome Segreto",
+          "position": 113,
+          "cat": "mutated",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "05324",
+          "name": "Eucatastrofe",
+          "pack": "bbt",
+          "packName": "Al Cospetto del Trono Nero",
+          "position": 324,
+          "cat": "mutated",
+          "text": "This card's ability gains: \"Remove Eucatastrophe from the game.\""
+        },
+        {
+          "code": "01050",
+          "name": "Evasione",
+          "pack": "core",
+          "packName": "Scatola Base",
+          "position": 50,
+          "cat": "mutated",
+          "text": "This card now reads: \"Disengage from each enemy engaged with you and move to a connecting location with no enemies.\""
+        },
+        {
+          "code": "07268",
+          "name": "Flauto degli Dèi Esterni",
+          "pack": "lod",
+          "packName": "Il Covo di Dagon",
+          "position": 268,
+          "cat": "mutated",
+          "text": "This card loses the exceptional keyword and gains \"Limit 1 per deck.\""
+        },
+        {
+          "code": "02269",
+          "name": "Gioiello di Aureolus",
+          "pack": "wda",
+          "packName": "Verso un Destino Oscuro",
+          "position": 269,
+          "cat": "mutated",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "04233",
+          "name": "Giorno di Paga",
+          "pack": "tcoa",
+          "packName": "Città degli Archivi",
+          "position": 233,
+          "cat": "mutated",
+          "text": "This card’s ability now reads: “Gain 1 resource for each action you spent this turn…”"
+        },
+        {
+          "code": "05020",
+          "name": "Interrogatorio",
+          "pack": "tcu",
+          "packName": "Il Circolo Spezzato",
+          "position": 20,
+          "cat": "mutated",
+          "art": "fc-12-05e0449f",
+          "text": "This card's ability now reads \"<b>Parley.</b> Choose a non-[[Elite]] enemy at your location…\""
+        },
+        {
+          "code": "08032",
+          "name": "Jeremiah Kirby",
+          "pack": "eoep",
+          "packName": "Ai Confini della Terra, Espansione Investigatori",
+          "position": 32,
+          "cat": "mutated",
+          "art": "fc-18-007cab1a",
+          "text": "This card's ability gains: \"(Max twice per game.)\""
+        },
+        {
+          "code": "03006",
+          "name": "Lola Hayes",
+          "pack": "ptc",
+          "packName": "La Strada per Carcosa",
+          "position": 6,
+          "cat": "mutated",
+          "art": "fc-1-0e79d900",
+          "text": "This card's forced ability is moved to its reverse side, and it should now read: \"<b>Additional Setup</b>: After you draw your opening hand, choose a role ([survivor], [guardian], [seeker], [rogue], [mystic], or Neutral).\"\nThis card's front side additionally gains: \"[action]: Switch roles. Does not provoke attacks of opportunity.\""
+        },
+        {
+          "code": "06002",
+          "name": "Mandy Thompson",
+          "pack": "tde",
+          "packName": "I Divoratori di Sogni",
+          "position": 2,
+          "cat": "mutated",
+          "art": "fc-1-32b441de",
+          "text": "This investigator now reads: \"Deck Size: 50\" and \"Deckbuilding Requirements (do not count towards deck size): 3 copies of Occult Evidence...\""
+        },
+        {
+          "code": "08098",
+          "name": "Mappa degli Eoni",
+          "pack": "eoep",
+          "packName": "Ai Confini della Terra, Espansione Investigatori",
+          "position": 98,
+          "cat": "mutated",
+          "art": "fc-18-007cab1a",
+          "text": "This card should read \"basic actions\" instead of \"actions.\""
+        },
+        {
+          "code": "08100",
+          "name": "Mappa degli Eoni",
+          "pack": "eoep",
+          "packName": "Ai Confini della Terra, Espansione Investigatori",
+          "position": 100,
+          "cat": "mutated",
+          "art": "fc-18-007cab1a",
+          "text": "This card should read \"basic actions\" instead of \"actions.\""
+        },
+        {
+          "code": "08093",
+          "name": "Martello Ciclopico",
+          "pack": "eoep",
+          "packName": "Ai Confini della Terra, Espansione Investigatori",
+          "position": 93,
+          "cat": "mutated",
+          "art": "fc-18-007cab1a",
+          "text": "This card's parenthetical now reads: \"...(If you succeed by 3 or more, you may exhaust Cyclopean Hammer to instead deal +2 damage and move the enemy up to two locations away from you.)\""
+        },
+        {
+          "code": "08055",
+          "name": "Mercato Nero",
+          "pack": "eoep",
+          "packName": "Ai Confini della Terra, Espansione Investigatori",
+          "position": 55,
+          "cat": "mutated",
+          "art": "fc-18-007cab1a",
+          "text": "This card gains: \"Max once per round.\""
+        },
+        {
+          "code": "10059",
+          "name": "Miconide Famelico",
+          "pack": "fhvp",
+          "packName": "La Festa di Hemlock Vale, Espansione Investigatori",
+          "position": 59,
+          "cat": "mutated",
+          "art": "fc-5-9c4f8328",
+          "text": "This card’s [reaction] ability reads: \"[reaction] When an investigator draws a non-weakness treachery card, if their location's shroud is less than Ravenous Myconid's growth...\""
+        },
+        {
+          "code": "05230",
+          "name": "Mirino Telescopico",
+          "pack": "uad",
+          "packName": "Unione e Disillusione",
+          "position": 230,
+          "cat": "mutated",
+          "text": "This card loses the text: \"Attached asset cannot be used to attack enemies engaged with you.\""
+        },
+        {
+          "code": "05153",
+          "name": "Mr. \"Rook\"",
+          "pack": "wos",
+          "packName": "Il Prezzo del Peccato",
+          "position": 153,
+          "cat": "mutated",
+          "text": "This card's [fast] ability is now a [action] ability."
+        },
+        {
+          "code": "07269",
+          "name": "Pace Guardinga",
+          "pack": "lod",
+          "packName": "Il Covo di Dagon",
+          "position": 269,
+          "cat": "mutated",
+          "text": "This card's ability gains: \"Remove A Watchful Peace from the game.\""
+        },
+        {
+          "code": "09081",
+          "name": "Parola di Potere",
+          "pack": "tskp",
+          "packName": "Le Chiavi Scarlatte, Espansione Investigatori",
+          "position": 81,
+          "cat": "mutated",
+          "art": "fc-1-1b5bc68d",
+          "text": "This card’s text box now reads: \"[action] If attached enemy is at your location: <b>Parley.</b> Test [willpower](2). If you succeed, give it a command (limit once per round per command) – \"Go.\" This enemy moves once in a direction of your choice.\"\nThis card’s customizable sheet loses the \"Mercy\" ability and gains\"☐Cower. Add the command: \"- ‘Cower.’ This enemy exhausts.\""
+        },
+        {
+          "code": "06022",
+          "name": "Pendente della Regina",
+          "pack": "tde",
+          "packName": "I Divoratori di Sogni",
+          "position": 22,
+          "cat": "mutated",
+          "art": "fc-1-32b441de",
+          "text": "This card's constant ability now reads: \"If this card has no charges, remove it from the game.\""
+        },
+        {
+          "code": "05116",
+          "name": "Pergamena dei Segreti",
+          "pack": "tsn",
+          "packName": "Il Nome Segreto",
+          "position": 116,
+          "cat": "mutated",
+          "text": "This card's [action] ability is now a [fast] ability."
+        },
+        {
+          "code": "05188",
+          "name": "Pergamena dei Segreti",
+          "pack": "fgg",
+          "packName": "Per il Bene Superiore",
+          "position": 188,
+          "cat": "mutated",
+          "text": "This card's [action] ability is now a [fast] ability."
+        },
+        {
+          "code": "05189",
+          "name": "Pergamena dei Segreti",
+          "pack": "fgg",
+          "packName": "Per il Bene Superiore",
+          "position": 189,
+          "cat": "mutated",
+          "text": "This card's [action] ability is now a [fast] ability."
+        },
+        {
+          "code": "04105",
+          "name": "Persuasione",
+          "pack": "tof",
+          "packName": "Trame del Fato",
+          "position": 105,
+          "cat": "mutated",
+          "text": "This card's ability now reads \"<b>Parley.</b> Choose a non-weakness enemy at your location…\""
+        },
+        {
+          "code": "08113",
+          "name": "Prestito Amorale",
+          "pack": "eoep",
+          "packName": "Ai Confini della Terra, Espansione Investigatori",
+          "position": 113,
+          "cat": "mutated",
+          "art": "fc-18-007cab1a",
+          "text": "The first line of this card gains: \"Campaign Mode only.\""
+        },
+        {
+          "code": "60417",
+          "name": "Profezia Oscura",
+          "pack": "jac",
+          "packName": "Jacqueline Fine",
+          "position": 17,
+          "cat": "mutated",
+          "art": "fc-2-fec6c2ef",
+          "text": "This card now reads \"a non-[auto_fail] symbol\" instead of \"a [skull], [cultist], [tablet], or [elder_thing] chaos token.\""
+        },
+        {
+          "code": "04032",
+          "name": "Profezia Oscura",
+          "pack": "tfa",
+          "packName": "L'Era Dimenticata",
+          "position": 32,
+          "cat": "mutated",
+          "art": "fc-3-9508e872",
+          "text": "This card now reads \"a non-[elder_sign] symbol\" instead of \"a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol.\""
+        },
+        {
+          "code": "02229",
+          "name": "Prontezza di Spirito",
+          "pack": "uau",
+          "packName": "Le Dimensioni dell'Invisibile",
+          "position": 229,
+          "cat": "mutated",
+          "text": "At the end of its ability, this card gains: \"(max once per round).\""
+        },
+        {
+          "code": "08045",
+          "name": "Prophesiae Profana",
+          "pack": "eoep",
+          "packName": "Ai Confini della Terra, Espansione Investigatori",
+          "position": 45,
+          "cat": "mutated",
+          "art": "fc-18-007cab1a",
+          "text": "This card's constant ability now reads: \"...you get +1 [intellect], +1 [agility], and ignore the first attack of opportunity you take each turn.\""
+        },
+        {
+          "code": "03029",
+          "name": "Rapidità di Mano",
+          "pack": "ptc",
+          "packName": "La Strada per Carcosa",
+          "position": 29,
+          "cat": "mutated",
+          "art": "fc-1-0e79d900",
+          "text": "This card's ability now reads: \"Put a level 0-3 [[Item]] asset into play from your hand.\""
+        },
+        {
+          "code": "02002",
+          "name": "Rex Murphy",
+          "pack": "dwl",
+          "packName": "L'Eredità di Dunwich",
+          "position": 2,
+          "cat": "mutated",
+          "art": "fc-6-9264a7b8",
+          "text": "This card's [reaction] ability gains: \"(Limit once per round.)\""
+        },
+        {
+          "code": "05156",
+          "name": "Riflessi Rapidi",
+          "pack": "wos",
+          "packName": "Il Prezzo del Peccato",
+          "position": 156,
+          "cat": "mutated",
+          "text": "This card gains \"(Limit twice per round.)\""
+        },
+        {
+          "code": "11065",
+          "name": "Sangue di Thoth",
+          "pack": "tdcp",
+          "packName": "La Città Sommersa, Espansione Investigatori",
+          "position": 65,
+          "cat": "mutated",
+          "text": "This card’s [reaction] ability reads \"[reaction] When doom is placed on a card you control: Place 1 resource (from the token pool) on Blood of Thoth, as an offering.\"\nThis card’s [fast] ability reads \"[fast] During the investigation phase, except during an action, spend 2 offerings and exhaust Blood of Thoth: Choose an investigator at your location to immediately take an action as if it were their turn.\""
+        },
+        {
+          "code": "02111",
+          "name": "Scavare Troppo a Fondo",
+          "pack": "tmm",
+          "packName": "Il Museo della Miskatonic",
+          "position": 111,
+          "cat": "mutated",
+          "text": "This card gains: \"Group limit 2 copies of Delve Too Deep in the victory display.\""
+        },
+        {
+          "code": "11071",
+          "name": "Scudo Spettrale",
+          "pack": "tdcp",
+          "packName": "La Città Sommersa, Espansione Investigatori",
+          "position": 71,
+          "cat": "mutated",
+          "text": "This card's <b>Forced</b> effect now reads \"The first time attached card takes 1 or more damage/horror each round...\""
+        },
+        {
+          "code": "60414",
+          "name": "Sguardo Ipnotico",
+          "pack": "jac",
+          "packName": "Jacqueline Fine",
+          "position": 14,
+          "cat": "mutated",
+          "art": "fc-2-fec6c2ef",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "60423",
+          "name": "Sguardo Ipnotico",
+          "pack": "jac",
+          "packName": "Jacqueline Fine",
+          "position": 23,
+          "cat": "mutated",
+          "art": "fc-2-fec6c2ef",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "02153",
+          "name": "Sguardo Ipnotico",
+          "pack": "tece",
+          "packName": "L'Espresso di Essex County",
+          "position": 153,
+          "cat": "mutated",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "07122",
+          "name": "Sodalizio Antico",
+          "pack": "itd",
+          "packName": "Con l'Acqua alla Gola",
+          "position": 122,
+          "cat": "mutated",
+          "text": "This card's [reaction] ability now reads: \"When you resolve a [bless] token during a skill test...\""
+        },
+        {
+          "code": "02226",
+          "name": "Springfield M1903",
+          "pack": "uau",
+          "packName": "Le Dimensioni dell'Invisibile",
+          "position": 226,
+          "cat": "mutated",
+          "text": "This card's [action] ability gains: \"This attack may target a non-[[Elite]] enemy up to one location away from its standard range, ignoring the aloof and retaliate keywords.\""
+        },
+        {
+          "code": "02263",
+          "name": "Strana Soluzione",
+          "pack": "wda",
+          "packName": "Verso un Destino Oscuro",
+          "position": 263,
+          "cat": "mutated",
+          "text": "This card's fight ability now reads \"+1 damage\" instead of \"+2 damage.\""
+        },
+        {
+          "code": "60318",
+          "name": "Temerarietà",
+          "pack": "win",
+          "packName": "Winifred Habbamock",
+          "position": 18,
+          "cat": "mutated",
+          "art": "fc-5-b7328a5e",
+          "text": "Instead of \"Shuffle each weakness that was discarded…\", this card's ability now reads: \"After this skill test resolves, draw each weakness discarded by this effect.\""
+        },
+        {
+          "code": "09041",
+          "name": "Teoria Sperimentale",
+          "pack": "tskp",
+          "packName": "Le Chiavi Scarlatte, Espansione Investigatori",
+          "position": 41,
+          "cat": "mutated",
+          "art": "fc-1-1b5bc68d",
+          "text": "This card's [fast] ability gains \"(Limit twice per round.)\""
+        },
+        {
+          "code": "11118",
+          "name": "Tessera della Biblioteca",
+          "pack": "tdcp",
+          "packName": "La Città Sommersa, Espansione Investigatori",
+          "position": 118,
+          "cat": "mutated",
+          "text": "This card’s <b>Forced</b> effect now reads \"When your turn endsL Place attaced asset on the bottom of your deck unless you spend 1 resource.\""
+        },
+        {
+          "code": "06199",
+          "name": "Tris d'Assi",
+          "pack": "dsm",
+          "packName": "Il Lato Oscuro della Luna",
+          "position": 199,
+          "cat": "mutated",
+          "text": "This card's ability gains: \"Remove each committed copy of Three Aces from the game.\""
+        },
+        {
+          "code": "07003",
+          "name": "Trish Scarborough",
+          "pack": "tic",
+          "packName": "La Cospirazione di Innsmouth",
+          "position": 3,
+          "cat": "mutated",
+          "art": "fc-2-ecbc80c7",
+          "text": "This card's [reaction] ability now reads: \"After you discover 1 or more clues at a location with an enemy: Either discover 1 additional clue at that location, or automatically evade that enemy if it is non-[[Elite]]. (Limit once per round.)\""
+        },
+        {
+          "code": "60416",
+          "name": "Voce di Ra",
+          "pack": "jac",
+          "packName": "Jacqueline Fine",
+          "position": 16,
+          "cat": "mutated",
+          "art": "fc-2-fec6c2ef",
+          "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+        },
+        {
+          "code": "06195",
+          "name": "Winchester Calibro 35",
+          "pack": "dsm",
+          "packName": "Il Lato Oscuro della Luna",
+          "position": 195,
+          "cat": "mutated",
+          "text": "This card's [action] ability now reads: \"[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack. If a chaos token with a non-negative modifier is revealed during this attack, this attack deals +2 damage.\""
+        }
+      ]
+    },
+    {
+      "cat": "forbidden",
+      "cards": [
+        {
+          "code": "08076",
+          "name": "Bruciare le Tracce",
+          "pack": "eoep",
+          "packName": "Ai Confini della Terra, Espansione Investigatori",
+          "position": 76,
+          "cat": "forbidden",
+          "art": "fc-18-007cab1a",
+          "text": "Forbidden."
+        },
+        {
+          "code": "02026",
+          "name": "Lascia o Raddoppia",
+          "pack": "dwl",
+          "packName": "L'Eredità di Dunwich",
+          "position": 26,
+          "cat": "forbidden",
+          "art": "fc-6-9264a7b8",
+          "text": "Forbidden."
+        },
+        {
+          "code": "60233",
+          "name": "Necronomicon",
+          "pack": "har",
+          "packName": "Harvey Walters",
+          "position": 33,
+          "cat": "forbidden",
+          "art": "fc-2-482aaca7",
+          "text": "Forbidden."
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "chained": 23,
+    "mutated": 68,
+    "forbidden": 3
+  }
+}

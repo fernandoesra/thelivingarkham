@@ -4,7 +4,7 @@ An interactive, multilingual edition of the **Arkham Grimoire** — the rules-cl
 
 Run it locally: `npm run dev` → http://localhost:8080 · Static site, ready for GitHub Pages.
 
-Available in **español · English**. Want your language? → [Adding a language](#adding-a-language). Also have the FAQ document? → [The FAQ chapter 1 corpus](#the-faq-chapter-1-corpus).
+Available in **español · English · Deutsch · Italiano**. Want your language? → [Adding a language](#adding-a-language). Also have the FAQ document? → [The FAQ chapter 1 corpus](#the-faq-chapter-1-corpus).
 
 ---
 
@@ -66,7 +66,7 @@ It prints your chapter headings **and a ready-to-paste `"sections"` block**. Pas
 | field | what it is |
 |---|---|
 | `parse.introStart` | the first words of your "how to use this book" heading — lowercase, no accents |
-| `parse.indexStart` | the first word of your index/contents heading (the parser stops there) |
+| `parse.indexStart` | the first word of your book's **alphabetical index** — the parser reads up to it and stops. Careful: this is the index at the *back*, not the table of contents at the front (Spanish calls the first "Contenido" and the second "Índice"; German calls them "Inhalt" and "Index"). Point it at the front one and the parse ends on page 2. An edition that prints **no index** — the Italian one — says so with `""`, and is read to the end |
 | `parse.introTitle` | the title for the landing page, e.g. `"Erste Schritte"` |
 | `patterns.trigger` | the words that introduce a cross-reference, e.g. `"(siehe|vergleiche)\\b"` |
 | `patterns.pageWord` / `patterns.pageRef` | how your book writes "page 13" |

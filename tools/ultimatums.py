@@ -74,6 +74,12 @@ def _subtitle(blocks):
         return None, blocks
     runs = blocks[0].get('runs') or []
     i, sub = 0, []
+    # A plain space may stand between the bold title and the italic subtitle: the Spanish
+    # edition sets it inside the bold run, the German one outside, and testing run 0 alone
+    # left every German refraction with no subtitle at all — so no scenario, no campaign
+    # and no filter.
+    while i < len(runs) and runs[i].get('kind') == 'text' and not runs[i].get('t', '').strip():
+        i += 1
     while i < len(runs) and runs[i].get('italic'):
         sub.append(runs[i]); i += 1
     if not sub:

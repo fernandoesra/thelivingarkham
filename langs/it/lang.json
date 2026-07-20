@@ -1,0 +1,377 @@
+{
+  "code": "it",
+  "name": "Italiano",
+  "label": "IT",
+  "dir": "ltr",
+  "order": 4,
+  "book": {
+    "title": "Il Grimorio di Arkham",
+    "versions": [
+      {
+        "v": "1.0",
+        "date": "2026-04-23",
+        "pdf": "Arkham_Horror_LCG_Grimorio1.0.1.pdf"
+      }
+    ]
+  },
+  "faq": {
+    "title": "FAQ capitolo 1",
+    "versions": [
+      {
+        "v": "2.5",
+        "date": "2026-02-01",
+        "pdf": "AHC_FAQ_ITA-25.pdf"
+      }
+    ],
+    "sections": [
+      {
+        "key": "faq-intro",
+        "id": "c1-intro",
+        "num": "",
+        "title": "Su queste FAQ",
+        "kind": "rules",
+        "build": "intro"
+      },
+      {
+        "key": "faq-errata",
+        "id": "c1-errata",
+        "num": "",
+        "title": "Errata",
+        "kind": "rules",
+        "anchor": "Errata"
+      },
+      {
+        "key": "faq-definitions",
+        "id": "c1-concetti",
+        "num": "",
+        "title": "Concetti di Gioco",
+        "kind": "rules",
+        "anchor": "Concetti di Gioco",
+        "split": "term"
+      },
+      {
+        "key": "faq-rulings",
+        "id": "c1-chiarimenti",
+        "num": "",
+        "title": "Chiarimenti alle Regole",
+        "kind": "rules",
+        "anchor": "Chiarimenti alle Regole",
+        "split": "numbered"
+      },
+      {
+        "key": "faq-questions",
+        "id": "c1-domande",
+        "num": "",
+        "title": "Domande Ricorrenti",
+        "kind": "faq",
+        "anchor": "Domande Ricorrenti"
+      },
+      {
+        "key": "faq-taboos",
+        "id": "c1-tabu",
+        "num": "",
+        "title": "Elenco dei Tabù",
+        "kind": "rules",
+        "anchor": "Elenco dei Tabù"
+      },
+      {
+        "key": "faq-optional",
+        "id": "c1-ultimatum",
+        "num": "",
+        "title": "Ultimatum, Favori e Rifrazioni",
+        "kind": "rules",
+        "anchor": "Ultimatum e Favori"
+      },
+      {
+        "key": "faq-environments",
+        "id": "c1-ambienti",
+        "num": "",
+        "title": "Ambiente Attuale, Legacy e Limitato (Beta)",
+        "kind": "rules",
+        "anchor": "Ambiente Attuale, Legacy e Limitato (Beta)"
+      },
+      {
+        "key": "faq-quickref",
+        "id": "c1-consultazione",
+        "num": "",
+        "title": "Consultazione Rapida",
+        "kind": "rules",
+        "anchor": "Consultazione Rapida"
+      },
+      {
+        "key": "faq-icons",
+        "id": "c1-icone",
+        "num": "",
+        "title": "Riepilogo delle Icone",
+        "kind": "icons",
+        "build": "iconref"
+      }
+    ]
+  },
+  "parse": {
+    "introTitle": "Per Iniziare",
+    "introStart": "come usare questo documento",
+    "indexStart": ""
+  },
+  "sections": [
+    {
+      "num": "I",
+      "key": "glossary",
+      "id": "glossario",
+      "title": "Glossario dei Termini e delle Parole Chiave",
+      "kind": "glossary",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "II",
+      "key": "additional-rules",
+      "id": "regole-aggiuntive",
+      "title": "Regole Aggiuntive e Principi Fondamentali",
+      "kind": "rules",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "III",
+      "key": "timing",
+      "id": "tempistiche",
+      "title": "Tempistiche e Svolgimento del Gioco",
+      "kind": "rules",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "IV",
+      "key": "skill-tests",
+      "id": "prove-abilita",
+      "title": "Tempistiche delle Prove di Abilità",
+      "kind": "rules",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "V",
+      "key": "initiation",
+      "id": "sequenza-lancio",
+      "title": "Sequenza di Lancio",
+      "kind": "rules",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "VI",
+      "key": "setup",
+      "id": "preparazione",
+      "title": "Preparazione dello Scenario",
+      "kind": "rules",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "VII",
+      "key": "card-anatomy",
+      "id": "anatomia-carta",
+      "title": "Anatomia di una Carta",
+      "kind": "anatomy",
+      "figures": [
+        "card-location",
+        "card-agenda-act-treachery-enemy",
+        "card-investigator",
+        "card-asset-event-skill"
+      ],
+      "group": "grimoire"
+    },
+    {
+      "num": "VIII",
+      "key": "campaign",
+      "id": "campagna",
+      "title": "Giocare una Campagna",
+      "kind": "rules",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "IX",
+      "key": "deck-building",
+      "id": "mazzi",
+      "title": "Personalizzazione del Mazzo",
+      "kind": "rules",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "X",
+      "key": "errata",
+      "id": "errata",
+      "title": "Errata",
+      "kind": "rules",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "XI",
+      "key": "faq",
+      "id": "domande",
+      "title": "Domande Ricorrenti",
+      "kind": "faq",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "XII",
+      "key": "optional-rules",
+      "id": "regole-facoltative",
+      "title": "Regole Facoltative",
+      "kind": "rules",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "XIII",
+      "key": "reprints",
+      "id": "ristampe",
+      "title": "Ristampe Modificate",
+      "kind": "rules",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "XIV",
+      "key": "icon-reference",
+      "id": "icone",
+      "title": "Riepilogo delle Icone",
+      "kind": "icons",
+      "figures": [
+        "icons-products"
+      ],
+      "group": "grimoire"
+    },
+    {
+      "num": "XV",
+      "key": "encounter-icons",
+      "id": "icone-incontri",
+      "title": "Riepilogo delle Icone Set di Incontri",
+      "kind": "icons",
+      "figures": [
+        "icons-encounter-1"
+      ],
+      "group": "grimoire"
+    },
+    {
+      "num": "",
+      "key": "errata-viewer",
+      "id": "visore-errata",
+      "title": "Visore degli Errata",
+      "kind": "placeholder",
+      "group": "resources",
+      "figures": []
+    },
+    {
+      "num": "",
+      "key": "ultimatums",
+      "id": "ultimatum-rifrazioni",
+      "title": "Ultimatum, Favori e Rifrazioni",
+      "kind": "ultimatums",
+      "group": "resources",
+      "figures": []
+    },
+    {
+      "num": "",
+      "key": "taboos",
+      "id": "elenco-tabu",
+      "title": "Elenco dei Tabù",
+      "kind": "placeholder",
+      "group": "resources",
+      "figures": []
+    },
+    {
+      "num": "",
+      "key": "encounter-variation",
+      "id": "variazione-set-incontri",
+      "title": "Variazione dei Set di Incontri: Usare il Nuovo Set Base per Giocare gli Scenari Legacy",
+      "kind": "substitution",
+      "tableHeading": "Tabella di Sostituzione dei Set di Incontri Base",
+      "figures": [
+        "encounter-variation"
+      ],
+      "group": "aids",
+      "qr": "https://drive.google.com/drive/folders/1G4VSVJ_Sa3KklelbXbbK5uMHpt1i8im0"
+    },
+    {
+      "num": "",
+      "key": "quick-reference",
+      "id": "consultazione-rapida",
+      "title": "Riferimento Rapido",
+      "kind": "quickref",
+      "figures": [
+        "quick-reference"
+      ],
+      "group": "aids"
+    }
+  ],
+  "patterns": {
+    "trigger": "(vedi(?:\\s+anche)?|vedere|consultare)\\b",
+    "pageWord": "(pagina|pag\\.?|p\\.)",
+    "pageRef": "(?:a|alle?)\\s+pag(?:ina|\\.)?\\s*(\\d+(?:\\s*[-–]\\s*\\d+)?)"
+  },
+  "autolink": {
+    "alias": {},
+    "allowSingleWord": [],
+    "stop": [],
+    "cap": 12
+  },
+  "figures": [
+    {
+      "name": "card-location",
+      "page": 33,
+      "clip": null
+    },
+    {
+      "name": "card-agenda-act-treachery-enemy",
+      "page": 34,
+      "clip": null
+    },
+    {
+      "name": "card-investigator",
+      "page": 35,
+      "clip": null
+    },
+    {
+      "name": "card-asset-event-skill",
+      "page": 36,
+      "clip": null
+    },
+    {
+      "name": "icons-products",
+      "page": 45,
+      "clip": [
+        307,
+        28,
+        606,
+        510
+      ]
+    },
+    {
+      "name": "icons-encounter-1",
+      "page": 46,
+      "clip": null
+    },
+    {
+      "name": "encounter-variation",
+      "page": 47,
+      "clip": null
+    },
+    {
+      "name": "quick-reference",
+      "page": 48,
+      "clip": null
+    }
+  ],
+  "montages": [],
+  "inlineSymbols": [],
+  "iconArt": {
+    "provides": false,
+    "symbols": {}
+  }
+}

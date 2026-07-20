@@ -32,6 +32,38 @@
       "faqDate": "2026-02-01",
       "tabooData": "data/taboos_en.json",
       "flag": "langs/en/flag.svg"
+    },
+    {
+      "code": "de",
+      "name": "Deutsch",
+      "label": "DE",
+      "dir": "ltr",
+      "order": 3,
+      "ui": "langs/de/ui.json",
+      "data": "data/grimoire_de.json",
+      "v": "1.0",
+      "date": "2026-03-25",
+      "faqData": "data/faq_de.json",
+      "faqV": "2.5",
+      "faqDate": "2026-02-01",
+      "tabooData": "data/taboos_de.json",
+      "flag": "langs/de/flag.svg"
+    },
+    {
+      "code": "it",
+      "name": "Italiano",
+      "label": "IT",
+      "dir": "ltr",
+      "order": 4,
+      "ui": "langs/it/ui.json",
+      "data": "data/grimoire_it.json",
+      "v": "1.0",
+      "date": "2026-04-23",
+      "faqData": "data/faq_it.json",
+      "faqV": "2.5",
+      "faqDate": "2026-02-01",
+      "tabooData": "data/taboos_it.json",
+      "flag": "langs/it/flag.svg"
     }
   ]
 }

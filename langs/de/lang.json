@@ -1,0 +1,370 @@
+{
+  "code": "de",
+  "name": "Deutsch",
+  "label": "DE",
+  "dir": "ltr",
+  "order": 3,
+  "book": {
+    "title": "Das Arkham Grimoire",
+    "versions": [
+      {
+        "v": "1.0",
+        "date": "2026-03-25",
+        "pdf": "arkham-horror-lcg-841333136918-arkham-grimoire_v1.pdf"
+      }
+    ]
+  },
+  "faq": {
+    "title": "FAQ Kapitel 1",
+    "versions": [
+      {
+        "v": "2.5",
+        "date": "2026-02-01",
+        "pdf": "arkham-horror-lcg-841333136918-faq-v2.5-kapitel-1.pdf"
+      }
+    ],
+    "sections": [
+      {
+        "key": "faq-intro",
+        "id": "c1-intro",
+        "num": "",
+        "title": "Über diese FAQ",
+        "kind": "rules",
+        "build": "intro"
+      },
+      {
+        "key": "faq-errata",
+        "id": "c1-errata",
+        "num": "",
+        "title": "Anmerkungen und Errata",
+        "kind": "rules",
+        "anchor": "Anmerkungen und Errata"
+      },
+      {
+        "key": "faq-definitions",
+        "id": "c1-definitionen",
+        "num": "",
+        "title": "Definitionen und Spielbegriffe",
+        "kind": "rules",
+        "anchor": "Definitionen und Spielbegriffe",
+        "split": "term"
+      },
+      {
+        "key": "faq-rulings",
+        "id": "c1-klarstellungen",
+        "num": "",
+        "title": "Regelklarstellungen",
+        "kind": "rules",
+        "anchor": "Regelklarstellungen",
+        "split": "numbered"
+      },
+      {
+        "key": "faq-questions",
+        "id": "c1-fragen",
+        "num": "",
+        "title": "Häufig gestellte Fragen",
+        "kind": "faq",
+        "anchor": "Häufig gestellte Fragen (FAQ)"
+      },
+      {
+        "key": "faq-taboos",
+        "id": "c1-tabuliste",
+        "num": "",
+        "title": "Die Tabuliste",
+        "kind": "rules",
+        "anchor": "Die Tabuliste"
+      },
+      {
+        "key": "faq-optional",
+        "id": "c1-ultimaten",
+        "num": "",
+        "title": "Ultimaten, Gaben und Refraktionen",
+        "kind": "rules",
+        "anchor": "Ultimaten und Gaben"
+      },
+      {
+        "key": "faq-environments",
+        "id": "c1-umgebungen",
+        "num": "",
+        "title": "Spielumgebungen (Beta)",
+        "kind": "rules",
+        "anchor": "Spielumgebungen (Beta)"
+      },
+      {
+        "key": "faq-icons",
+        "id": "c1-symbole",
+        "num": "",
+        "title": "Symbolübersicht",
+        "kind": "icons",
+        "build": "iconref"
+      }
+    ]
+  },
+  "parse": {
+    "introTitle": "Erste Schritte",
+    "introStart": "uber die verwendung dieses dokuments",
+    "indexStart": "index"
+  },
+  "sections": [
+    {
+      "num": "I",
+      "key": "glossary",
+      "id": "glossar",
+      "title": "Glossar von Begriffen und Schlüsselwörtern",
+      "kind": "glossary",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "II",
+      "key": "additional-rules",
+      "id": "grundlagen",
+      "title": "Zusätzliche Regeln und Grundlagen",
+      "kind": "rules",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "III",
+      "key": "timing",
+      "id": "spielablauf",
+      "title": "Timing und Spielablauf",
+      "kind": "rules",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "IV",
+      "key": "skill-tests",
+      "id": "fertigkeitsproben",
+      "title": "Timing für Fertigkeitsproben (FP)",
+      "kind": "rules",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "V",
+      "key": "initiation",
+      "id": "initiierung",
+      "title": "Initiierungssequenz",
+      "kind": "rules",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "VI",
+      "key": "setup",
+      "id": "vorbereitung",
+      "title": "Szenariovorbereitung",
+      "kind": "rules",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "VII",
+      "key": "card-anatomy",
+      "id": "kartenaufbau",
+      "title": "Aufbau der Karten",
+      "kind": "anatomy",
+      "figures": [
+        "card-location",
+        "card-agenda-act-treachery-enemy",
+        "card-investigator",
+        "card-asset-event-skill"
+      ],
+      "group": "grimoire"
+    },
+    {
+      "num": "VIII",
+      "key": "campaign",
+      "id": "kampagne",
+      "title": "Kampagnenspiel",
+      "kind": "rules",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "IX",
+      "key": "deck-building",
+      "id": "deckbau",
+      "title": "Deckbau",
+      "kind": "rules",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "X",
+      "key": "errata",
+      "id": "errata",
+      "title": "Klarstellungen und Errata",
+      "kind": "rules",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "XI",
+      "key": "faq",
+      "id": "faq",
+      "title": "Häufig gestellte Fragen (FAQ)",
+      "kind": "faq",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "XII",
+      "key": "optional-rules",
+      "id": "optionale-regeln",
+      "title": "Optionale Regeln",
+      "kind": "rules",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "XIII",
+      "key": "reprints",
+      "id": "reprints",
+      "title": "Modifizierte Reprints",
+      "kind": "rules",
+      "figures": [],
+      "group": "grimoire"
+    },
+    {
+      "num": "XIV",
+      "key": "icon-reference",
+      "id": "symbolubersicht",
+      "title": "Symbolübersicht",
+      "kind": "icons",
+      "figures": [
+        "icons-products"
+      ],
+      "qr": "https://ffgapp.com/qr/legacy-faq",
+      "group": "grimoire"
+    },
+    {
+      "num": "XV",
+      "key": "encounter-icons",
+      "id": "begegnungssymbole",
+      "title": "Liste der Begegnungssetsymbole",
+      "kind": "icons",
+      "figures": [
+        "icons-encounter-1"
+      ],
+      "group": "grimoire"
+    },
+    {
+      "num": "",
+      "key": "errata-viewer",
+      "id": "errata-ansicht",
+      "title": "Errata-Ansicht",
+      "kind": "placeholder",
+      "group": "resources",
+      "figures": []
+    },
+    {
+      "num": "",
+      "key": "ultimatums",
+      "id": "ultimaten-refraktionen",
+      "title": "Ultimaten, Gaben und Refraktionen",
+      "kind": "ultimatums",
+      "group": "resources",
+      "figures": []
+    },
+    {
+      "num": "",
+      "key": "taboos",
+      "id": "tabuliste",
+      "title": "Die Tabuliste",
+      "kind": "placeholder",
+      "group": "resources",
+      "figures": []
+    },
+    {
+      "num": "",
+      "key": "encounter-variation",
+      "id": "begegnungsset-varianten",
+      "title": "Begegnungsset-Varianten: Wie funktioniert das neuen Grundspiel mit Legacy-Szenarien?",
+      "kind": "substitution",
+      "tableHeading": "Tabelle der Ersatz-Begegnungssets",
+      "figures": [
+        "encounter-variation"
+      ],
+      "group": "aids",
+      "qr": "https://ffgapp.com/qr/core-encounters"
+    },
+    {
+      "num": "",
+      "key": "quick-reference",
+      "id": "schnellubersicht",
+      "title": "Schnellübersicht",
+      "kind": "quickref",
+      "figures": [
+        "quick-reference"
+      ],
+      "group": "aids"
+    }
+  ],
+  "patterns": {
+    "trigger": "(siehe(?:\\s+auch)?)\\b",
+    "pageWord": "(seite|s\\.)",
+    "pageRef": "auf\\s+Seite\\s*(\\d+(?:\\s*[-–]\\s*\\d+)?)"
+  },
+  "autolink": {
+    "alias": {},
+    "allowSingleWord": [],
+    "stop": [],
+    "cap": 12
+  },
+  "figures": [
+    {
+      "name": "card-location",
+      "page": 36,
+      "clip": null
+    },
+    {
+      "name": "card-agenda-act-treachery-enemy",
+      "page": 37,
+      "clip": null
+    },
+    {
+      "name": "card-investigator",
+      "page": 38,
+      "clip": null
+    },
+    {
+      "name": "card-asset-event-skill",
+      "page": 39,
+      "clip": null
+    },
+    {
+      "name": "icons-products",
+      "page": 48,
+      "clip": [
+        307,
+        28,
+        606,
+        610
+      ]
+    },
+    {
+      "name": "icons-encounter-1",
+      "page": 49,
+      "clip": null
+    },
+    {
+      "name": "encounter-variation",
+      "page": 50,
+      "clip": null
+    },
+    {
+      "name": "quick-reference",
+      "page": 51,
+      "clip": null
+    }
+  ],
+  "montages": [],
+  "inlineSymbols": [],
+  "iconArt": {
+    "provides": false,
+    "symbols": {}
+  }
+}

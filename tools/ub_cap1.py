@@ -63,7 +63,18 @@ def _split_subtitle(sub):
     txt = ''.join(r.get('t', '') for r in (sub or []) if r.get('kind') in ('text', 'link')).strip()
     m = re.match(r'^(.*?)\s*\(([^)]*)\)\s*$', txt)
     scenario, campaign = (m.group(1).strip(), m.group(2).strip()) if m else ('', txt)
-    campaign = re.sub(r'(?i)^\s*(campaña|campaign)\s+|\s+(campaña|campaign)\s*$', '', campaign).strip()
+    # The word for "campaign" in each edition that labels it. The German book names the
+    # campaign without any label, so it has nothing to strip and needs no entry — but a word
+    # left in ("Campagna L'Eredità di Dunwich") is printed twice by the viewer, which puts
+    # its own label in front of it.
+    _CAMP = r'campa[ñn]a|campagna|campaign|kampagne'
+    _ART = r'(?:die|der|das|the|la|el|le|il|lo)'
+    campaign = re.sub(r'(?i)^\s*(%s)\s+|\s+(%s)\s*$' % (_CAMP, _CAMP), '', campaign)
+    # The German edition writes a campaign-wide refraction as 'Die Kampagne „Der Pfad nach
+    # Carcosa“' and a scenario one as plain 'Der Pfad nach Carcosa'. Left alone, the viewer's
+    # campaign filter lists the same campaign twice under two spellings.
+    campaign = re.sub(r'(?i)^\s*%s\s+(?:%s)\s+' % (_ART, _CAMP), '', campaign)
+    campaign = campaign.strip(' „“”"«»').strip()
     return scenario, campaign
 
 
@@ -82,14 +93,24 @@ def _ub_section(data):
     return None
 
 
+# The word each edition prints for its refractions chapter, as it ends up in the entry's
+# id. The heading is the only thing that marks the entry — it is one entry among several
+# inside the optional-rules section, with no key of its own — so a new language adds its
+# word here. It is not silent if you forget: build() below says it found no refractions.
+REFRACTION_WORDS = ('refracciones',      # es
+                    'refractions',       # en
+                    'refraktionen',      # de
+                    'rifrazioni')        # it
+
+
 def _faq_refractions_entry(faq):
-    """The FAQ's 'Refracciones' entry (chapter-1 refractions), inside its optional-rules
-    section. Matched by key/id so it works in either language."""
+    """The FAQ's refractions entry (chapter-1 refractions), inside its optional-rules
+    section."""
     for s in faq.get('sections', []):
         if s.get('key') == 'faq-optional' or s.get('id', '').startswith('c1-ultimatum'):
             for e in s.get('entries', []):
                 eid = e.get('id', '')
-                if eid.endswith('refracciones') or eid.endswith('refractions'):
+                if eid.endswith(REFRACTION_WORDS):
                     return e
     return None
 

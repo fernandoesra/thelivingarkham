@@ -84,6 +84,10 @@ _BRACKET = re.compile(r'\([\s\x00]*(\d+)[a-z]?(?:[\s,\x00]*\d+[a-z]?)*[\s\x00]*\
 # this!”`, `Mr. “Rook”`, `Strange Solution (Restorative Concoction)`, `Barricade (level 3)`.
 # The guard against nonsense spans is not punctuation; it is that ArkhamDB has to confirm a card
 # of that name at that number, which no accidental span across a sentence boundary ever will.
+# "262 - Strana Soluzione": a collection number leading its card's name, the Italian
+# edition's way of citing. Anchored so it cannot start mid-number, and it needs the space
+# after the dash so a range ("2-3") is not read as a citation.
+_LEADNUM = re.compile(r'(?<![\d.,])(\d{1,3})[a-z]?\s*[-–—]\s+(?=\S)')
 _PAREN_TAIL = re.compile(r'\s*\([^()]*\)\s*$')
 # A dash or slash inside a word ("Act 1b—A Sacrifice Made", "Subject 5U-21/“Suzi”") hides the
 # name from a split on spaces, and both are stripped from the match key anyway, so they read as
@@ -211,8 +215,52 @@ def _link_runs(runs, idx, stats, ov=None):
         if not best:
             continue
         spans.append((span[0], span[1], text[span[0]:span[1]], query, forced))
+
+    # The other way round. Most editions cite a card as "Name ( 20)"; the Italian one leads
+    # with the number — "262 - Strana Soluzione (Mistura Risanante)" — so its whole errata
+    # chapter held no reference this scanner could see (157 links in English, none in Italian).
+    # The name is then walked FORWARDS from the dash, and the same guard settles it: ArkhamDB
+    # must know a card of that name at that number, so a stray "5 - 3 damage" confirms nothing.
+    for m in _LEADNUM.finditer(text):
+        pos = int(m.group(1))
+        if any(s <= m.start() < e for s, e, *_ in spans):
+            continue
+        stop = min(len(text), m.end() + 90)
+        nxt = _LEADNUM.search(text, m.end())
+        if nxt:
+            stop = min(stop, nxt.start())
+        # Stop at the first non-text atom. Walking forwards, the set icon printed after the
+        # name is not part of it — and \x00 is not whitespace, so a plain word walk swallows
+        # the icon into the link and strips it off the page.
+        icon = text.find('\x00', m.end())
+        if icon != -1:
+            stop = min(stop, icon)
+        tail = _DASHES.sub(' ', text[m.end():stop])
+        words = [(w.group(0), w.start(), w.end()) for w in re.finditer(r'\S+', tail)]
+        best = query = span = None
+        for k in range(min(_MAX_WORDS, len(words)), 0, -1):
+            part = words[:k]
+            raw = ' '.join(w for w, _s, _e in part)
+            cand = raw.rstrip(' ,;.:·—–-')
+            if not cand:
+                continue
+            for alt in (cand, _PAREN_TAIL.sub('', cand)):
+                if alt and idx.at(alt, pos):
+                    best, query = cand, alt
+                    # Cut by the words' own offsets, never by len(cand): the page's spacing
+                    # is irregular and an icon counts as one position, so a length-based end
+                    # slides off the name and eats whatever follows it.
+                    span = (m.end() + part[0][1],
+                            m.end() + part[-1][2] - (len(raw) - len(cand)))
+                    break
+            if best:
+                break
+        if best and not any(s < span[1] and span[0] < e for s, e, *_ in spans):
+            spans.append((span[0], span[1], text[span[0]:span[1]], query, None))
+
     if not spans:
         return runs, 0
+    spans.sort(key=lambda s: s[0])
     out, prev = [], 0
     for start, end, name, query, forced in spans:
         out.extend(atoms[prev:start])

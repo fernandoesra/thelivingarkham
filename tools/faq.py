@@ -138,9 +138,42 @@ def _has_content(runs):
     return any((r.get('t', '').strip() or r.get('kind') == 'icon') for r in runs)
 
 
-def split_terms(blocks):
-    """Definitions: a wholly-bold block is a term heading; the blocks under it are its body.
-    Anything before the first term stays as the chapter lead."""
+_SENT_END = ('.', ':', '!', '?', '”', '“', '"', '»', '…')
+
+
+def _split_at_bold_leads(block):
+    """Split a paragraph wherever a term's bold heading starts part-way through it.
+
+    A lead is a bold run that opens the block or follows a finished sentence — inline bold
+    for emphasis sits mid-sentence and so is left alone. Same shape as
+    _split_at_numbered_leads, for the chapter that heads its terms instead of numbering
+    them."""
+    runs = block.get('runs', [])
+    cuts = []
+    for i, r in enumerate(runs):
+        if i == 0 or r.get('kind') != 'text' or not r.get('bold') or not r.get('t', '').strip():
+            continue
+        prev = next((runs[j] for j in range(i - 1, -1, -1)
+                     if runs[j].get('kind') == 'text' and runs[j].get('t', '').strip()), None)
+        if prev is None or prev.get('t', '').rstrip().endswith(_SENT_END):
+            cuts.append(i)
+    if not cuts:
+        return [block]
+    bounds = [0] + cuts + [len(runs)]
+    out = []
+    for k in range(len(bounds) - 1):
+        seg = runs[bounds[k]:bounds[k + 1]]
+        if not seg:
+            continue
+        nb = dict(block)
+        nb['runs'] = seg
+        nb['type'] = block.get('type', 'p') if k == 0 else 'p'
+        out.append(nb)
+    return out
+
+
+def _terms_by_block(blocks):
+    """The Spanish and English editions print each term as its own wholly-bold block."""
     lead, entries, cur = [], [], None
     for b in blocks:
         if b.get('type') != 'bullet' and _is_fully_bold(b) and len(assemble.flat_text(b['runs'])) < 90:
@@ -152,6 +185,38 @@ def split_terms(blocks):
         else:
             lead.append(b)
     return lead, entries
+
+
+def _terms_by_lead(blocks):
+    """The German and Italian editions run the term into its own definition, so no block is
+    wholly bold: the German chapter is a single 2000-character paragraph with its three terms
+    set bold inside it. Cut at those leads and read the bold part as the heading."""
+    flat = [nb for b in blocks for nb in _split_at_bold_leads(b)]
+    lead, entries, cur = [], [], None
+    for b in flat:
+        title_runs, body = _lead_bold_title(b)
+        title = assemble.flat_text(title_runs).strip(' .:')
+        if b.get('type') != 'bullet' and title and len(title) < 90:
+            cur = {'title': title, 'titleRuns': title_runs, 'blocks': []}
+            entries.append(cur)
+            if _has_content(body):
+                cur['blocks'].append({**b, 'type': 'p', 'runs': body})
+        elif cur is not None:
+            cur['blocks'].append(b)
+        else:
+            lead.append(b)
+    return lead, entries
+
+
+def split_terms(blocks):
+    """Definitions: each term becomes an entry. Two printings, tried in order — a wholly-bold
+    block per term, else a bold lead inside the prose. Anything before the first term stays
+    as the chapter lead. The fallback only runs when the first finds nothing, so an edition
+    that prints its terms as blocks is read exactly as before."""
+    lead, entries = _terms_by_block(blocks)
+    if entries:
+        return lead, entries
+    return _terms_by_lead(blocks)
 
 
 def _split_at_numbered_leads(block):
@@ -208,14 +273,25 @@ def split_numbered(blocks):
 # "Campaign Product Icons", "Promo Icons", … — all name icons, and nothing else in the FAQ does
 # at heading level (the "(1.9) Iconos de habilidad comodín" ruling is an inline bold lead inside
 # prose, never a heading node). Folded, both languages carry the word "icon"/"icono"/"icons".
-_ICONREF_HEAD = re.compile(r'\bicono?s?\b')
+_ICONREF_HEAD = re.compile(r'\bicon[oe]?s?\b')
 
 
-def _is_iconref_heading(node):
-    return bool(node.get('title') and _ICONREF_HEAD.search(assemble.norm(node['title'])))
+def _is_iconref_heading(node, titles=()):
+    """Is this heading one of the icon-reference tables'?
+
+    Asking the tables is the reliable half: extract_iconref has already read them off the
+    page, so their own headings are known exactly, in whatever language. The word test is
+    kept as a second chance for an edition whose table this build failed to read — and it
+    cannot stand alone, because it is a word test: the German edition heads its tables
+    "Kampagnen", "Eigenständige Produkte", "Ermittlerdecks" and "Promo-Produkte", with no
+    word for "icon" anywhere, so all four fell into the Environments chapter instead."""
+    t = node.get('title')
+    if not t:
+        return False
+    return assemble.norm(t) in titles or bool(_ICONREF_HEAD.search(assemble.norm(t)))
 
 
-def group_sections(nodes, cfg):
+def group_sections(nodes, cfg, iconref_titles=()):
     """Walk the flat node stream and split it into the declared FAQ sections.
 
     A node whose title matches a section's "anchor" starts that section; its own body
@@ -235,16 +311,25 @@ def group_sections(nodes, cfg):
                 return sc
         return None
 
+    # The cover is the intro chapter's, read off the page by build_intro. Its heading is
+    # the DOCUMENT's title, and a document may be titled after one of its own chapters:
+    # the German FAQ is called "Regelklarstellungen, Errata und häufig gestellte Fragen
+    # (FAQ)" and also has a chapter called exactly "Regelklarstellungen", which the prefix
+    # match would otherwise open on page 1, swallowing the whole book. Only page 1 is
+    # skipped, never page 2 — the Italian edition prints no epigraph and starts its first
+    # real chapter there.
+    cover = 1 if any(sc.get('build') == 'intro' for sc in cfg['sections']) else 0
+
     secs = []
     cur = None
     for n in nodes:
-        if n['title'] == '(frontmatter)':
+        if n['title'] == '(frontmatter)' or n.get('page') == cover:
             continue
         sc = match(n['title'])
         if sc is not None:
             cur = {'cfg': sc, 'intro': list(n['blocks']), 'members': []}
             secs.append(cur)
-        elif _is_iconref_heading(n):
+        elif _is_iconref_heading(n, iconref_titles):
             # The icon-reference tables ("Iconos de campaña" / "Campaign Product Icons", …) are
             # rebuilt structurally by faq_seticons.extract_iconref, not read as prose. They sit
             # at the very end — a whole last page (ES) or the second column of it (EN) — with no
@@ -372,27 +457,84 @@ def _para(runs_text, bold=False, italic=False):
                                    'italic': italic, 'ref': False}]}
 
 
+# A contents row on the cover: a page number and the chapter it points at ("= 9 - Concetti
+# di Gioco"). The Italian edition lists its changes this way, in two columns; the others
+# write the same thing as one sentence.
+_CONTENTS_ROW = re.compile(r'^[=ÆÅ••\-]?\s*\d{1,3}\s*[-–—]\s*\S')
+
+
+def _contents_line(rows):
+    """[(x, y, "= 9 - Concetti di Gioco")] -> "Concetti di Gioco, Chiarimenti alle Regole, …"
+
+    Down each column and then across, because the page prints two — read in plain reading
+    order the two columns interleave and the list comes out shuffled. The page numbers are
+    the PDF's, and the reader has the chapter list in the sidebar, so only the names are
+    kept."""
+    def col(x):
+        return round(x / 80.0)
+    names = []
+    for _x, _y, txt in sorted(rows, key=lambda r: (col(r[0]), r[1])):
+        names.append(re.sub(r'^[=ÆÅ••\-]?\s*\d{1,3}\s*[-–—]\s*', '', txt).strip())
+    return ', '.join(n for n in names if n)
+
+
+def _prose_before_first_heading(page):
+    """The plain paragraphs a page opens with, above its first display heading.
+
+    Some editions print what the document IS on the cover; the Italian one prints it at the
+    top of the page after, so a cover that carries no prose is completed from there rather
+    than left with only its version line."""
+    rows = _lines(page)
+    heads = [r[0] for r in rows if _DISPLAY in r[2].lower() and r[3] >= _HEAD_SIZE]
+    end = min(heads) if heads else 1e9
+    sizes = [r[3] for r in rows if r[3] < _HEAD_SIZE]
+    body = max(set(sizes), key=sizes.count) if sizes else 0
+    keep = [r for r in rows
+            if r[0] < end and _DISPLAY not in r[2].lower() and abs(r[3] - body) < 0.4
+            and not r[5] and r[6].strip()]
+    if not keep:
+        return []
+    # One column only. The page sets two, and the facing column's text sits at the same
+    # heights — taken by y alone the two interleave mid-sentence.
+    colx = keep[0][1]
+    return [r[6] for r in keep if abs(r[1] - colx) <= _COLUMN]
+
+
 def build_intro(pdf, sc):
     """The cover and the epigraph, as a normal section: lead prose, then the epigraph entry."""
     doc = fitz.open(pdf)
     intro, entries = [], []
 
     body, newcontent, version = [], '', ''
-    for _y, _x, font, _size, bold, italic, txt in _lines(doc[0]):
+    contents = []
+    for y, x, font, _size, bold, italic, txt in _lines(doc[0]):
         if _DISPLAY in font.lower():
             continue                                   # the document's own title; the section has one
         if italic and not version:
             version = txt
+        elif _CONTENTS_ROW.match(txt):
+            contents.append((x, y, txt))
+        elif contents and not bold:
+            # a row too long for its column ("… Ambiente Attuale, Legacy" / "e Limitato
+            # (Beta)"): once the list has started, a plain line is the previous row's tail
+            px, py, ptxt = contents[-1]
+            contents[-1] = (px, py, ptxt + ' ' + txt)
         elif bold:
             newcontent = (newcontent + ' ' + txt).strip()
         else:
             body.append(txt)
     if version:
         intro.append(_para(version, italic=True))
+    if not body and doc.page_count > 1:
+        body = _prose_before_first_heading(doc[1])
     if body:
         intro.append(_para(_join(body)))
+    # The label first, then what it introduces: an edition that sets the heading bold and the
+    # list plain ("Cambiamenti:" over its rows) would otherwise print its own heading last.
     if newcontent:
         intro.append(_para(newcontent, bold=True))
+    if contents:
+        intro.append(_para(_contents_line(contents)))
 
     if doc.page_count > 1:
         rows = _lines(doc[1])
@@ -657,7 +799,13 @@ def build(pack, grimoire_data):
     nodes, _doc, seticon_svgs = faq_seticons.parse_with_icons(pdf, inline_only_pages=(doc_pages,))
     nodes = merge_wrapped_headings(nodes)
 
-    raw = group_sections(nodes, cfg)
+    # The icon tables are read first, not because this chapter is built first, but because
+    # their headings are the only reliable way to keep them out of the prose chapter that
+    # shares their page (see _is_iconref_heading).
+    iconref_groups, iconref_svgs = faq_seticons.extract_iconref(pdf)
+    iconref_titles = {assemble.norm(g['title']) for g in iconref_groups if g.get('title')}
+
+    raw = group_sections(nodes, cfg, iconref_titles)
     declared = {sc['id'] for sc in cfg['sections'] if not sc.get('build')}
     found = {r['cfg']['id'] for r in raw}
     for missing in declared - found:
@@ -678,7 +826,7 @@ def build(pack, grimoire_data):
     for sc in cfg['sections']:
         if sc.get('build') != 'iconref':
             continue
-        groups, isvgs = faq_seticons.extract_iconref(pdf)
+        groups, isvgs = iconref_groups, iconref_svgs
         faq_seticons.write_products(isvgs)
         iconref = sum(len(g['items']) for g in groups)
         sections.append({'num': sc.get('num', ''), 'key': sc['key'], 'id': sc['id'],
@@ -752,9 +900,11 @@ def build_and_write(pack, quiet=False):
     if data is None:
         return None
     os.makedirs(DATA_DIR, exist_ok=True)
+    # Written exactly as ingest.py writes it. Indenting here instead produced a 40,000-line
+    # diff for a file whose content had not changed at all, which hides a real change and
+    # makes "did this language move?" impossible to answer from git.
     with open(data_path(pack.code), 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
-        f.write('\n')
+        json.dump(data, f, ensure_ascii=False)
     if not quiet:
         print(f'  faq {pack.code} -> data/faq_{pack.code}.json: {report["sections"]} sections, '
               f'{report["entries"]} entries · {report["cards"]} card references '
