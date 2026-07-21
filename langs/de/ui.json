@@ -252,6 +252,8 @@
     "ubdrawmax": "0 bis {n}",
     "ubdrawlist": "Gezogene Karten",
     "ubdrawempty": "Wählt mindestens eine Karte.",
+    "ubdrawswap": "Eine andere Karte ziehen, um diese zu ersetzen",
+    "ubdrawswapnone": "Es sind keine weiteren Karten zum Ziehen übrig.",
     "viewadb": "Auf ArkhamDB ansehen",
     "reprintset": "Set",
     "reprintnum": "Nr.",

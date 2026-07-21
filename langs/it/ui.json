@@ -251,6 +251,8 @@
     "ubdrawmax": "da 0 a {n}",
     "ubdrawlist": "Carte pescate",
     "ubdrawempty": "Scegli almeno una carta.",
+    "ubdrawswap": "Pesca un’altra carta per sostituire questa",
+    "ubdrawswapnone": "Non ci sono altre carte da pescare.",
     "viewadb": "Vedi su ArkhamDB",
     "reprintset": "Collezione",
     "reprintnum": "N.",
