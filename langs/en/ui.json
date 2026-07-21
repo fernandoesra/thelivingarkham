@@ -80,7 +80,7 @@
       "other": "diagrams"
     },
     "docdesc": "Interactive resources for Arkham Horror: The Card Game: the Arkham Grimoire and the FAQ chapter 1 as a web edition, with a rules glossary, search across both documents and cross-references.",
-    "doctitle": "The Living Arkham · Interactive Arkham Horror LCG resources",
+    "doctitle": "The Living Arkham · Grimoire, FAQ and interactive Arkham Horror LCG resources",
     "entries": {
       "one": "entry",
       "other": "entries"
@@ -182,7 +182,7 @@
     "skip": "Skip to content",
     "soon": "Coming soon",
     "soondesc": "Not ready yet. It will appear here when it is.",
-    "sub": "Interactive resources · Arkham Horror LCG",
+    "sub": "Grimoire, FAQ and interactive resources · Arkham Horror LCG",
     "substall": "and",
     "substany": "or",
     "substfilter": "Filter the table",

@@ -68,16 +68,57 @@ The full walkthrough is in README.md -> "Adding a language".""")
 
 
 def _write(path, obj):
-    with open(path, 'w', encoding='utf-8') as f:
+    # newline='': every other JSON in this repo is LF-terminated, and Python's text mode on
+    # Windows would write CRLF — which turns the next one-line edit of the file into a diff
+    # that replaces every line of it.
+    with open(path, 'w', encoding='utf-8', newline='') as f:
         json.dump(obj, f, ensure_ascii=False, indent=2)
         f.write('\n')
+
+
+def create_ui_only(code, name, label, order=None):
+    """Start a pack that translates the INTERFACE and has no rulebook.
+
+    The Grimoire and the FAQ exist in four languages; ArkhamDB serves eleven. A reader in one
+    of the other seven still gets the landing, the tutorial, the footer and the release notes in
+    their own words, and is told in their own words that the books are not available yet — which
+    is a far better answer than a site they cannot read at all. No source/ folder is made: there
+    is no PDF to put in it, and an empty one only invites the question."""
+    code = (code or '').lower()
+    dest = os.path.join(langpack.LANGS_DIR, code)
+    if os.path.exists(dest):
+        raise langpack.PackError(f'langs/{code}/ already exists.')
+    os.makedirs(dest, exist_ok=True)
+    _write(os.path.join(dest, 'lang.json'), {
+        'code': code, 'name': name, 'label': label, 'dir': 'ltr',
+        'order': order if order is not None
+        else max([langpack._declared_order(c) for c in langpack.codes()] or [0]) + 1,
+        'uiOnly': True,
+    })
+    ui = json.loads(json.dumps(langpack.load(SEED_UI).ui))   # deep copy
+    ui['code'] = code
+    ui['fallback'] = SEED_UI
+    ui['locale'] = code
+    _write(os.path.join(dest, 'ui.json'), ui)
+    print(f'Created langs/{code}/ (interface only) — translate the values in ui.json.')
+    return dest
 
 
 def main():
     sys.stdout.reconfigure(encoding='utf-8')
     if len(sys.argv) < 2:
-        print('usage: python tools/new_lang.py <code>      e.g. de', file=sys.stderr)
+        print('usage: python tools/new_lang.py <code>      e.g. de\n'
+              '       python tools/new_lang.py <code> --ui-only "<name>" <LABEL>',
+              file=sys.stderr)
         return 2
+    if '--ui-only' in sys.argv:
+        rest = [a for a in sys.argv[2:] if a != '--ui-only']
+        if len(rest) < 2:
+            print('usage: python tools/new_lang.py <code> --ui-only "<name>" <LABEL>',
+                  file=sys.stderr)
+            return 2
+        create_ui_only(sys.argv[1], rest[0], rest[1])
+        return 0
     create(sys.argv[1])
     return 0
 

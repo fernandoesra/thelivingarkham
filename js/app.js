@@ -2346,6 +2346,19 @@ function grimoireEnvTarget(){
   var e=(opt.entries||[]).filter(function(en){return en.role==='subhead'&&/entorno|environment/i.test(en.title||'');})[0];
   return e?e.id:opt.id;
 }
+/* Said on every chapter of a language whose rulebooks do not exist in it. The chapter's own
+   title stays in the language it was borrowed from, which is the honest thing: it IS that
+   language's chapter, and naming it is how the reader finds it again over there. */
+function nobookHTML(s){
+  var to=s.nobook, reg=regOf(to), name=reg?reg.name:to;
+  return '<aside class="tla-obsolete" role="note">'
+    +'<div class="tla-obsolete-tag">'+esc(t('noticeword'))+'</div>'
+    +'<div class="tla-obsolete-body"><p class="tla-obsolete-lead">'+esc(t('secnobook'))+'</p>'
+    +'<a class="tla-obsolete-go" href="#'+esc(to)+'/'+esc(s.id)+'" lang="'+esc(to)+'">'
+    +esc(t('secnobooklink'))+' <span aria-hidden="true">→</span></a>'
+    +'<span class="tla-sr"> ('+esc(name)+')</span>'
+    +'</div></aside>';
+}
 function render(sid,eid,flash){
   var s=data.sections.filter(function(x){return x.id===sid;})[0]; if(!s)s=data.sections[0];
   curSec=s;
@@ -2356,6 +2369,10 @@ function render(sid,eid,flash){
   h+='<div class="tla-crumb">'+(s.num?('· '+s.num+' ·'):'')+' The Living Arkham</div>';
   h+='<h1 class="tla-h1">'+(s.num?'<span class="tla-rn">'+s.num+'.</span>':'')+esc(s.title)+'</h1>';
   h+='<div class="tla-rule"></div>';
+  /* This language has the interface but not the books. Say so here, on the chapter the reader
+     actually opened, and hand them the same chapter in a language that has it — the ids are
+     shared with that language precisely so this link can exist (see bookShell). */
+  if(s.nobook)h+=nobookHTML(s);
   /* The retired FAQ's Beta environments are superseded by the Grimoire's optional-rules
      environments. Flag it loudly, like the book's own STOP! callout, and point at the living
      definition — so no one reads this obsolete text as current. */
@@ -2415,7 +2432,11 @@ function render(sid,eid,flash){
     });
     h+='</div>';
   }
-  if(s.kind==='glossary'){h+=azFilterBar(s);}
+  /* …but only when there is something to filter. A language with no rulebook of its own has
+     the glossary's shelf and none of its entries, and a "filter by letter" control over an
+     empty list is a button that does nothing — worse than absent, because a keyboard reaches
+     it and a screen reader announces it. */
+  if(s.kind==='glossary'&&glossBase(s).length){h+=azFilterBar(s);}
   /* A glossary filter can narrow to nothing — a letter with no entries under the active
      version. Say so, rather than leave a blank void that reads as "this section is
      empty". Only the glossary needs it; every other kind always has content. */
@@ -2714,6 +2735,16 @@ function renderLanding(s){
       +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
       +'<path d="M12 3 2 20h20L12 3z"/><path d="M12 9v5M12 17h.01"/></svg>'
       +'<p data-i18n-html="mtnotice">'+mt+'</p></aside>';
+  }
+  /* …and, right beside it, the other thing this reader most needs to know: the rulebooks
+     themselves have not been found in their language. Same place, because the two together are
+     the whole answer to "why is this page not in my language?" — and it asks for the PDFs,
+     which is the only thing that can actually fix it. */
+  if(s.nobook){
+    h+='<aside class="tla-notice tla-notice-mt" role="note">'
+      +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
+      +'<path d="M12 3 2 20h20L12 3z"/><path d="M12 9v5M12 17h.01"/></svg>'
+      +'<p data-i18n-html="nobooknotice">'+t('nobooknotice')+'</p></aside>';
   }
   h+=rmPanel();
   /* English leads; the other languages follow. Say so up front, and how to help fill a
@@ -3738,6 +3769,37 @@ function loadChain(L){
   return Promise.all(need.map(loadUI)).then(function(){return loadChain(L);});
 }
 
+/* Which language's books a book-less one should send its readers to: the one its ui.json
+   already falls back to for strings, if that language has a book; else the site's default. */
+function bookLangFor(L){
+  var chain=chainOf(L);
+  for(var i=0;i<chain.length;i++){
+    var r=regOf(chain[i]);
+    if(r&&r.data)return chain[i];
+  }
+  var d=regOf(REG&&REG.default);
+  if(d&&d.data)return d.code;
+  for(var j=0;j<LANGS.length;j++)if(LANGS[j].data)return LANGS[j].code;
+  return null;
+}
+/* The shelf of a language whose rulebooks do not exist in it.
+
+   Same chapters, in the same order, WITH THE SAME IDS as the language they are borrowed from —
+   which is what keeps the nav, the contents, the routes and every shared link working, and what
+   lets each chapter offer the very same chapter in a language that has it. The content is
+   deliberately empty: render() sees `nobook` and says so, in the reader's own words, instead of
+   showing prose they were never given. */
+function bookShell(src,from,code){
+  return {
+    lang:code, corpus:src.corpus, versions:[], whatsnew:{}, groupOrder:src.groupOrder,
+    groupTitles:src.groupTitles,
+    sections:(src.sections||[]).map(function(s){
+      return {num:s.num,key:s.key,id:s.id,title:s.title,kind:s.kind,group:s.group,
+              corpus:s.corpus,nobook:from,intro:[],entries:[],figures:[]};
+    })
+  };
+}
+
 function loadLang(L){
   // searchIndex is the last thing set, so it is what "fully loaded" means:
   // a load that died half-way must not be mistaken for a finished one.
@@ -3746,6 +3808,28 @@ function loadLang(L){
   var reg=regOf(L);
   if(!reg)return Promise.reject(new Error('unknown language: '+L));
   uiTried[L]=true;
+  /* A language listed without a data file has its interface translated and no rulebooks (the
+     pack declares "uiOnly" — see tools/langpack.py). Its strings are loaded normally; its shelf
+     is borrowed, so there is something to navigate and somewhere to send the reader. */
+  if(!reg.data){
+    loading[L]=getJSON(reg.ui).then(function(u){
+      PACKS[L]=u;
+      return loadChain(L);
+    }).then(function(){
+      var src=bookLangFor(L);
+      if(!src)throw new Error('no language on this site has a rulebook to borrow');
+      return loadLang(src).then(function(){
+        GRIM[L]=bookShell(GRIM[src],src,L);
+        buildIndex(L);
+        delete loading[L];
+        return L;
+      });
+    },function(err){
+      delete loading[L]; delete PACKS[L]; delete uiTried[L];
+      throw err;
+    });
+    return loading[L];
+  }
   loading[L]=Promise.all([
     GRIM[L]?Promise.resolve(GRIM[L]):getJSON(reg.data),
     PACKS[L]?Promise.resolve(PACKS[L]):getJSON(reg.ui),

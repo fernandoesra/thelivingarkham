@@ -368,7 +368,92 @@
       "clip": null
     }
   ],
-  "montages": [],
+  "montages": [
+    {
+      "name": "montage-move",
+      "page": 16,
+      "srcpage": 16,
+      "clip": [
+        48,
+        548,
+        290,
+        680
+      ],
+      "entry": "Muovere",
+      "alt": "Due carte luogo (Merchant District e Waterfront District) unite da una freccia, a illustrare il movimento tra luoghi collegati.",
+      "info": "<p><b>Merchant District</b> — Luogo · Arkham (Centro). <i>Durante il tuo turno, se ci sono esattamente 1 o 2 investigatori in gioco: Muoviti fino a un luogo collegato al tuo. Limite di una volta per round.</i></p><p><b>Waterfront District</b> — Luogo · Arkham. <i>Con le sue strade perennemente allagate, quello che un tempo era il distretto di Rivertown è ora un quartiere fantasma…</i></p>"
+    },
+    {
+      "name": "montage-victory",
+      "page": 25,
+      "srcpage": 25,
+      "clip": [
+        344,
+        412,
+        575,
+        572
+      ],
+      "entry": "Vittoria X",
+      "alt": "Due carte che valgono punti vittoria: il nemico Naomi O’Bannion e il luogo Biblioteca Orne.",
+      "info": "<p><b>Naomi O’Bannion</b> — Nemico · Umanoide, Consorzio, Elite. Ritorsione. Spendi 1 risorsa: Negozia. <b>Vittoria 1.</b></p><p><b>Biblioteca Orne</b> — Luogo · Miskatonic. «Pesca 3 carte. Limite di una volta per partita.» <b>Vittoria 1.</b></p>"
+    },
+    {
+      "name": "montage-slots",
+      "page": 22,
+      "srcpage": 22,
+      "clip": [
+        340,
+        220,
+        545,
+        360
+      ],
+      "entry": "Slot",
+      "alt": "Gli otto tipi di slot con la loro icona: accessorio, testa, corpo, alleato, mano (1 e 2 slot) e arcano (1 e 2 slot).",
+      "info": "<p>Tipi di slot e relativo simbolo: <b>accessorio</b>, <b>testa</b>, <b>corpo</b> e <b>alleato</b> (1 slot ciascuno); <b>mano</b> e <b>arcano</b> (1 o 2 slot).</p>"
+    },
+    {
+      "name": "montage-reward",
+      "page": 39,
+      "srcpage": 39,
+      "clip": [
+        332,
+        134,
+        556,
+        227
+      ],
+      "entry": "Carte Ricompensa",
+      "alt": "La grafica dorata nell’angolo in alto a sinistra di una carta ricompensa, ingrandita e indicata sul supporto neutrale Collezionista.",
+      "info": "<p><b>Collezionista</b> — Supporto · Neutrale. Nell’angolo in alto a sinistra, dove starebbe il costo in risorse, porta la grafica dorata che identifica le carte ricompensa di campagna.</p>"
+    },
+    {
+      "name": "montage-level",
+      "page": 40,
+      "srcpage": 40,
+      "clip": [
+        318,
+        79,
+        560,
+        185
+      ],
+      "entry": "Livelli della Carta",
+      "alt": "Il costo di una carta, ingrandito, con i 2 pallini bianchi che ne indicano il livello, mostrato sul supporto Guardia del Corpo.",
+      "info": "<p><b>Guardia del Corpo</b> — Supporto · Costo 3. I 2 pallini bianchi sotto il costo indicano che è una carta di livello 2.</p>"
+    },
+    {
+      "name": "montage-weakness-amnesia",
+      "page": 41,
+      "srcpage": 41,
+      "clip": [
+        60,
+        114,
+        292,
+        197
+      ],
+      "entry": "Debolezze Base Casuali",
+      "alt": "La debolezza base Amnesia accanto al simbolo della debolezza ingrandito, che sulla carta compare sopra la fascia Sventura.",
+      "info": "<p><b>Amnesia</b> — Sventura · Debolezza base · Follia. <i>Rivelazione – Scegli e scarta tutte le carte dalla…</i></p><p>Il libro la stampa qui come esempio del simbolo che identifica le debolezze base.</p>"
+    }
+  ],
   "inlineSymbols": [],
   "iconArt": {
     "provides": false,

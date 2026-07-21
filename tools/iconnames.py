@@ -158,7 +158,10 @@ def _paths(code):
 
 def build(codes=None, quiet=False):
     """Fill in the product name of every mark the pooled evidence identifies. -> report dict."""
-    codes = sorted(set(langpack.codes()) | set(codes or []))
+    # Every language that HAS a corpus, whatever this run was asked to build — a mark's name
+    # must not depend on which languages happened to be rebuilt. A ui-only language has no
+    # corpus and no marks, so asking ArkhamDB about it would be a pointless fetch.
+    codes = sorted({c for c in set(langpack.codes()) | set(codes or []) if any(_paths(c))})
     idxs = {c: adb.index(c) for c in codes}
     idxs = {c: i for c, i in idxs.items() if i is not None}
     if not idxs:

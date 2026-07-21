@@ -1,0 +1,8 @@
+{
+  "code": "ru",
+  "name": "Русский",
+  "label": "RU",
+  "dir": "ltr",
+  "order": 8,
+  "uiOnly": true
+}

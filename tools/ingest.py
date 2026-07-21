@@ -135,8 +135,18 @@ def main(argv):
         print(f'  [warn] could not re-render the game icons: {e}\n'
               f'         Using the ones already in assets/icons/.', file=sys.stderr)
 
+    # Everything after the build loop — the shared art, the card registry, the taboo lists —
+    # works on a language's CORPUS, so it is handed the packs that have one. A ui-only pack has
+    # no PDF, no data file and no ArkhamDB corpus of its own to consult.
+    book_packs = [p for p in packs if not p.ui_only]
     built = 0
     for pack in packs:
+        # A ui-only pack has no PDF to read: its interface is translated and its books are not
+        # available in that language at all. It still reaches the registry (langpack.build_
+        # registry lists it without a "data" file); there is simply nothing here to build.
+        if pack.ui_only:
+            print(f'\n== {pack.code} — {pack.name} (interface only, no rulebook) ==')
+            continue
         try:
             run_pack(pack, packs)
             built += 1
@@ -177,7 +187,7 @@ def main(argv):
     if built:
         step('ultimatums & boons — FAQ chapter-1 refractions')
         import ub_cap1
-        for pack in packs:
+        for pack in book_packs:
             try:
                 ub_cap1.build(pack)
             except Exception as e:
@@ -192,13 +202,13 @@ def main(argv):
         # …and one record per card. After artshare, so the symbols it writes into the shared
         # record are already the canonical ones.
         import ub_registry
-        ub_registry.build([p.code for p in packs])
+        ub_registry.build([p.code for p in book_packs])
         # A mark is one drawing in all four books, so what any edition proves about it is
         # proof for the others too. Pooled here rather than inside a pack's own build, where
         # it could only ever see one book's evidence — and reading every language's data, not
         # just the ones this run touched, so a single-language rebuild keeps the names.
         import iconnames
-        iconnames.build([p.code for p in packs])
+        iconnames.build([p.code for p in book_packs])
         # Anything the icon tables could not name a product for, written down so it can be
         # answered by hand (tools/other/icon-products-unmatched.md).
         import packmap
@@ -219,7 +229,7 @@ def main(argv):
     if built:
         step('taboo list — from ArkhamDB')
         import taboos
-        for pack in packs:
+        for pack in book_packs:
             try:
                 taboos.build_and_write(pack.code)
             except Exception as e:

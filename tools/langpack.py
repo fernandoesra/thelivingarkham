@@ -97,11 +97,15 @@ class Pack(object):
         self.label = raw['label']
         self.text_dir = raw.get('dir', 'ltr')
         self.order = raw.get('order', 99)
-        self.book = raw['book']
-        self.versions = raw['book']['versions']
-        self.parse = raw['parse']
-        self.sections = raw['sections']
-        self.patterns = raw['patterns']
+        # A pack that translates the INTERFACE but has no rulebook of its own (see ui_only).
+        # It carries no book, no parse anchors and no sections, so every field below that would
+        # read one is defaulted rather than required — nothing ever parses a PDF for it.
+        self.ui_only = bool(raw.get('uiOnly'))
+        self.book = raw.get('book') or {'versions': []}
+        self.versions = self.book.get('versions') or []
+        self.parse = raw.get('parse') or {}
+        self.sections = raw.get('sections') or []
+        self.patterns = raw.get('patterns') or {}
         self.autolink = raw.get('autolink', {})
         self.figures = raw.get('figures', [])
         self.montages = raw.get('montages', [])
@@ -317,6 +321,24 @@ def _todos(obj, path=''):
 def _validate(code, raw, ui):
     """Check the raw JSON before anything reads a field out of it, so a mistake
     is always a sentence to act on and never a traceback."""
+    # A pack may translate the interface without having a rulebook at all: ArkhamDB serves
+    # eleven languages and the Grimoire has been published in four, so a reader in one of the
+    # other seven still gets the site, the landing and the tutorial in their own words — and is
+    # told, in their own words, that the books themselves are not available yet. Such a pack
+    # declares "uiOnly": true and is held to the fields it actually has: a name, a label, and
+    # its ui.json. Everything below this point describes a PDF it does not own.
+    if raw.get('uiOnly'):
+        for key in ('code', 'name', 'label'):
+            if key not in raw:
+                _fail(code, f'missing required field "{key}".')
+        if raw['code'] != code:
+            _fail(code, f'"code" is "{raw["code"]}" but the folder is langs/{code}/. '
+                        f'They must match.')
+        if raw.get('sections'):
+            _fail(code, '"uiOnly" is true, but "sections" lists chapters. A ui-only pack has no '
+                        'book of its own: either remove "sections", or remove "uiOnly" and fill '
+                        'in the book fields.')
+        return
     for key in ('code', 'name', 'label', 'book', 'parse', 'sections', 'patterns'):
         if key not in raw:
             _fail(code, f'missing required field "{key}".')
@@ -534,6 +556,17 @@ def build_registry(packs=None):
         packs, _errs = load_valid()
     listed, skipped = [], []
     for p in packs:
+        # A ui-only pack is listed WITHOUT a "data" file — that absence is the browser's signal
+        # that this language has the interface but not the books (see app.js loadLang). It is
+        # not "skipped": skipping is for a pack whose build has not run yet, and this one has
+        # nothing to build.
+        if p.ui_only:
+            entry = {'code': p.code, 'name': p.name, 'label': p.label, 'dir': p.text_dir,
+                     'order': p.order, 'ui': f'langs/{p.code}/ui.json', 'uiOnly': True}
+            if 'flag.svg' in os.listdir(p.dir):
+                entry['flag'] = f'langs/{p.code}/flag.svg'
+            listed.append(entry)
+            continue
         if not os.path.exists(p.data_path):
             skipped.append(p.code)
             continue

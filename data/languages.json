@@ -64,6 +64,76 @@
       "faqDate": "2026-02-01",
       "tabooData": "data/taboos_it.json",
       "flag": "langs/it/flag.svg"
+    },
+    {
+      "code": "fr",
+      "name": "Français",
+      "label": "FR",
+      "dir": "ltr",
+      "order": 5,
+      "ui": "langs/fr/ui.json",
+      "uiOnly": true,
+      "flag": "langs/fr/flag.svg"
+    },
+    {
+      "code": "pt",
+      "name": "Português",
+      "label": "PT",
+      "dir": "ltr",
+      "order": 6,
+      "ui": "langs/pt/ui.json",
+      "uiOnly": true,
+      "flag": "langs/pt/flag.svg"
+    },
+    {
+      "code": "pl",
+      "name": "Polski",
+      "label": "PL",
+      "dir": "ltr",
+      "order": 7,
+      "ui": "langs/pl/ui.json",
+      "uiOnly": true,
+      "flag": "langs/pl/flag.svg"
+    },
+    {
+      "code": "ru",
+      "name": "Русский",
+      "label": "RU",
+      "dir": "ltr",
+      "order": 8,
+      "ui": "langs/ru/ui.json",
+      "uiOnly": true,
+      "flag": "langs/ru/flag.svg"
+    },
+    {
+      "code": "uk",
+      "name": "Українська",
+      "label": "UK",
+      "dir": "ltr",
+      "order": 9,
+      "ui": "langs/uk/ui.json",
+      "uiOnly": true,
+      "flag": "langs/uk/flag.svg"
+    },
+    {
+      "code": "ko",
+      "name": "한국어",
+      "label": "KO",
+      "dir": "ltr",
+      "order": 10,
+      "ui": "langs/ko/ui.json",
+      "uiOnly": true,
+      "flag": "langs/ko/flag.svg"
+    },
+    {
+      "code": "zh",
+      "name": "简体中文",
+      "label": "ZH",
+      "dir": "ltr",
+      "order": 11,
+      "ui": "langs/zh/ui.json",
+      "uiOnly": true,
+      "flag": "langs/zh/flag.svg"
     }
   ]
 }

@@ -361,7 +361,92 @@
       "clip": null
     }
   ],
-  "montages": [],
+  "montages": [
+    {
+      "name": "montage-move",
+      "page": 8,
+      "srcpage": 8,
+      "clip": [
+        320,
+        495,
+        558,
+        628
+      ],
+      "entry": "Bewegen",
+      "alt": "Zwei Ortskarten (Geschäftsviertel und Uferviertel), durch einen Pfeil verbunden, die die Bewegung zwischen verbundenen Orten zeigen.",
+      "info": "<p><b>Geschäftsviertel</b> — Ort · Arkham (Zentral). <i>In deinem Zug, falls sich genau 1 oder 2 Ermittler im Spiel befinden: Bewege dich an einen verbundenen Ort. Nur 1 Mal pro Runde.</i></p><p><b>Uferviertel</b> — Ort · Arkham. <i>Mit seinen dauerhaft überfluteten Straßen ist das ehemalige Hafenviertel zu einer Geisterstadt geworden…</i></p>"
+    },
+    {
+      "name": "montage-victory",
+      "page": 24,
+      "srcpage": 24,
+      "clip": [
+        58,
+        229,
+        292,
+        391
+      ],
+      "entry": "Sieg X",
+      "alt": "Zwei Karten, die Siegpunkte wert sind: der Gegner Naomi O’Bannion und der Ort Orne-Bibliothek.",
+      "info": "<p><b>Naomi O’Bannion</b> — Gegner · Humanoid, Syndikat, Elite. Zurückschlagen. Gib 1 Ressource aus: Verhandlung. <b>Sieg 1.</b></p><p><b>Orne-Bibliothek</b> — Ort · Miskatonic. „Ziehe 3 Karten. Nur 1 Mal pro Spiel.“ <b>Sieg 1.</b></p>"
+    },
+    {
+      "name": "montage-slots",
+      "page": 24,
+      "srcpage": 24,
+      "clip": [
+        340,
+        150,
+        550,
+        295
+      ],
+      "entry": "Slots, Equipment-Slots",
+      "alt": "Die acht Slotarten mit ihrem Symbol: Zubehör, Kopf, Körper, Verbündeter, Hand (1 und 2 Slots) und arkan (1 und 2 Slots).",
+      "info": "<p>Slotarten und ihr Symbol: <b>Zubehör</b>, <b>Kopf</b>, <b>Körper</b> und <b>Verbündeter</b> (je 1 Slot); <b>Hand</b> und <b>arkan</b> (1 oder 2 Slots).</p>"
+    },
+    {
+      "name": "montage-reward",
+      "page": 42,
+      "srcpage": 42,
+      "clip": [
+        332,
+        136,
+        556,
+        233
+      ],
+      "entry": "Belohnungskarten",
+      "alt": "Die goldene Grafik in der oberen linken Ecke einer Belohnungskarte, vergrößert und am neutralen Vorteil Sammler gezeigt.",
+      "info": "<p><b>Sammler</b> — Vorteil · Neutral. In der oberen linken Ecke, wo sonst die Ressourcenkosten stehen, trägt die Karte die goldene Grafik, an der Kampagnen-Belohnungskarten zu erkennen sind.</p>"
+    },
+    {
+      "name": "montage-level",
+      "page": 43,
+      "srcpage": 43,
+      "clip": [
+        318,
+        90,
+        560,
+        197
+      ],
+      "entry": "Kartenstufen",
+      "alt": "Die Kosten einer Karte, vergrößert, mit den 2 weißen Punkten, die ihre Stufe angeben, gezeigt am Vorteil Leibwächter.",
+      "info": "<p><b>Leibwächter</b> — Vorteil · Kosten 3. Die 2 weißen Punkte unter den Kosten zeigen an, dass dies eine Karte der Stufe 2 ist.</p>"
+    },
+    {
+      "name": "montage-weakness-amnesia",
+      "page": 44,
+      "srcpage": 44,
+      "clip": [
+        60,
+        105,
+        292,
+        192
+      ],
+      "entry": "Zufällige Grundschwächen",
+      "alt": "Die Grundschwäche Amnesie neben dem vergrößerten Schwächesymbol, das auf der Karte über dem Verrat-Balken steht.",
+      "info": "<p><b>Amnesie</b> — Verrat · Grundschwäche · Wahnsinn. <i>Enthüllung – Wähle alle bis auf 1 Karte von…</i></p><p>Das Buch druckt sie hier als Beispiel für das Symbol ab, an dem Grundschwächen zu erkennen sind.</p>"
+    }
+  ],
   "inlineSymbols": [],
   "iconArt": {
     "provides": false,
