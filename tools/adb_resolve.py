@@ -42,6 +42,14 @@ _NUMS = re.compile(r'^\s*\(\s*(\d+[a-z]?(?:\s*,\s*\d+[a-z]?)*)\s*\)')
 # references where the linker had found 343, so almost no German set icon could learn which
 # product it stands for — and the icon's name is what a screen reader reads out.
 _NUMS_NAMED = re.compile(r'^\s*\(\s*[^()\d]{1,28}?\s*(\d+[a-z]?(?:\s*,\s*\d+[a-z]?)*)\s*\)')
+# The Italian edition does not bracket its citations at all: it prints the mark and the
+# collection number BEFORE the name, joined by a dash — "<icon> 263 - Strana Soluzione
+# (Mistura Risanante)". Nothing to find ahead of the name, so those references resolved to a
+# search link and the resolver saw 284 of 432; the other three editions were at 91-98%.
+# Anchored at the end because the number sits immediately before the name it belongs to, and
+# only ever tried when a mark is there too, so ordinary prose ("… pagina 3 - vedi") cannot be
+# read as a citation.
+_LEADNUM = re.compile(r'(\d+[a-z]?)\s*[-–—]\s*$')
 _MIN_VOTES = 2                 # an icon must be taught by this many unambiguous references…
 _MIN_SHARE = 0.8               # …and they must agree this strongly, before it resolves alone
 
@@ -76,10 +84,41 @@ def _refs(runs):
         if not m and icons:
             m = _NUMS_NAMED.match(buf)
         if not m:
+            # Nothing ahead of the name — look BEHIND it for the Italian form (see _LEADNUM).
+            lead = _lead_ref(runs, i)
+            if lead:
+                out.append((r, [lead[0]], lead[1]))
             continue
         nums = re.findall(r'\d+', m.group(1))
         out.append((r, [int(n) for n in nums], icons))
     return out
+
+
+def _lead_ref(runs, i):
+    """The citation an edition prints BEFORE the name: "<icon> 263 - Name". -> (num, [icons]).
+
+    Walks back from the name until the previous card's name (any non-text, non-seticon run)
+    or a short text budget, so it can only ever see the lead-in that belongs to this
+    reference.
+
+    No mark is required, and it cannot be: the edition prints a whole list under ONE mark —
+    "<icon> 262 - Strana Soluzione (Mistura), 263 - … (Icore), 264 - … (Variante)" — so every
+    entry after the first has the previous card's NAME behind it, never the mark. Requiring
+    one recovered 19 of 148; not requiring it reaches the other 100.
+
+    What keeps that safe is not a guard here but resolve() itself: a number this returns is
+    only ever believed when idx.at(name, number) names exactly ONE card, so a number that is
+    not a collection number simply matches nothing and the reference keeps its search link."""
+    buf, k = '', i - 1
+    while k >= 0 and len(buf) <= 32:
+        prv = runs[k]
+        if prv.get('kind') == 'text':
+            buf = prv.get('t', '') + buf
+        elif prv.get('kind') != 'seticon':
+            break
+        k -= 1
+    m = _LEADNUM.search(buf.rstrip())
+    return (int(re.match(r'\d+', m.group(1)).group(0)), []) if m else None
 
 
 def _walk(sections):

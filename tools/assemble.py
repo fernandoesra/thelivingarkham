@@ -126,6 +126,53 @@ def _strip_label(runs):
         out.append(r)
     return out
 
+_SENT_END = ('.', ':', '!', '?', '”', '“', '"', '»', '…')
+# "1. ", "2)" — a list numeral, not a finished sentence, even though it ends in a full stop.
+# The quick-reference sheet numbers its phase sequence this way ("1.  Mythos phase  2.
+# Investigation phase"), setting the number roman and the phase name bold, so without this
+# every phase looked like a new term and the Spanish and English sheets would have been
+# re-paragraphed by a change meant only for the German keyword list.
+_LIST_NUMERAL = re.compile(r'^\s*\d+\s*[.)]\s*$')
+
+
+def split_at_bold_leads(block):
+    """Split a paragraph wherever a term's bold heading starts part-way through it.
+
+    A lead is a bold run that opens the block or follows a finished sentence — inline bold
+    for emphasis sits mid-sentence and so is left alone. Same shape as
+    _split_at_numbered_leads, for a list that heads its terms instead of numbering them.
+
+    Shared, because two chapters are set this way and only in some editions: the FAQ's
+    Definitions, and the quick-reference sheet's keyword list, which the German book runs
+    together as one paragraph where the others give each term its own. A block that already
+    holds one term is returned as the same object, so an edition that separates them cannot
+    be changed by this."""
+    runs = block.get('runs', [])
+    cuts = []
+    for i, r in enumerate(runs):
+        if i == 0 or r.get('kind') != 'text' or not r.get('bold') or not r.get('t', '').strip():
+            continue
+        prev = next((runs[j] for j in range(i - 1, -1, -1)
+                     if runs[j].get('kind') == 'text' and runs[j].get('t', '').strip()), None)
+        if prev is not None and _LIST_NUMERAL.match(prev.get('t', '')):
+            continue
+        if prev is None or prev.get('t', '').rstrip().endswith(_SENT_END):
+            cuts.append(i)
+    if not cuts:
+        return [block]
+    bounds = [0] + cuts + [len(runs)]
+    out = []
+    for k in range(len(bounds) - 1):
+        seg = runs[bounds[k]:bounds[k + 1]]
+        if not seg:
+            continue
+        nb = dict(block)
+        nb['runs'] = seg
+        nb['type'] = block.get('type', 'p') if k == 0 else 'p'
+        out.append(nb)
+    return out
+
+
 def split_qa(sec):
     """A chapter written as alternating italic questions and roman answers is a list
     of entries whose headings happen to be the questions. Rebuilt as real entries, so

@@ -23,6 +23,7 @@ import fitz
 
 import langpack
 import parse_grimoire as P
+import assemble
 
 # Which embedded badge is which symbol, by the section heading it sits beside. Filled in
 # per edition below from the page geometry — the xref numbers are not stable across PDFs,
@@ -32,6 +33,10 @@ SYMBOLS = [
     ('skills', ['willpower', 'intellect', 'combat', 'agility', 'wild']),
     ('tokens', ['eldersign', 'autofail', 'skull', 'cultist', 'tablet', 'elderthing']),
 ]
+
+# A badge's printed size, with room to spare: measured 20-29pt on all four editions, and the
+# next-smallest thing in the badge column is the panel behind it, an order of magnitude wider.
+BADGE_MAX_PT = 40.0
 
 
 def _brand(pm):
@@ -68,12 +73,23 @@ def _badges(page, clip):
 
     The x-band is taken from the figure's own clip, not hard-coded: an edition that prints
     two book pages on one PDF page (the English spread) puts the sheet on the right half,
-    so the badges sit ~612pt further right than in the single-page Spanish edition."""
+    so the badges sit ~612pt further right than in the single-page Spanish edition.
+
+    "Small" is measured on the page, in POINTS, not in the image's own pixels. The two are
+    not the same thing: every edition prints these badges at 20-29pt, but each exports them
+    at whatever resolution it likes, and the German book's are 93-123px against the Spanish
+    book's 50. A pixel threshold therefore found 16 badges in es/en/it and NONE in de — which
+    left prose() with no floor under the symbol grid, so the whole right-hand symbol column
+    leaked into the sheet's text and the chaos-token name "Älteres Wesen" was read as a
+    sub-heading with 17 unlabelled icons under it. The printed size is the property that
+    actually holds across editions."""
     x0, x1 = (clip[0], clip[2]) if clip else (page.rect.x0, page.rect.x1)
     w = x1 - x0
     lo, hi = x0 + w * 0.62, x0 + w * 0.80        # the badge column, as a fraction of the sheet
     imgs = [im for im in page.get_image_info(xrefs=True)
-            if lo < im['bbox'][0] < hi and im['width'] < 80 and im['height'] < 80]
+            if lo < im['bbox'][0] < hi
+            and im['bbox'][2] - im['bbox'][0] <= BADGE_MAX_PT
+            and im['bbox'][3] - im['bbox'][1] <= BADGE_MAX_PT]
     imgs.sort(key=lambda im: im['bbox'][1])
     return imgs
 
@@ -191,7 +207,14 @@ def prose(pack):
 
     def flush():
         if out and raw:
-            out[-1]['blocks'] = P.finalize_body(raw)
+            # One term per paragraph. The Spanish, English and Italian sheets already set
+            # each keyword as its own PDF block and come through this untouched; the German
+            # sheet runs the whole list together in ONE block ("Alarmiert: … Anwendungen (X):
+            # … Beute: …"), which rendered as a wall of text where the others read as a list.
+            # The cut is made on the print's own bold term headings (assemble).
+            blocks = P.finalize_body(raw)
+            out[-1]['blocks'] = [nb for b in blocks
+                                 for nb in assemble.split_at_bold_leads(b)]
 
     for ln in keep:
         lvl = P.line_is_heading(ln)

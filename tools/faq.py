@@ -138,38 +138,9 @@ def _has_content(runs):
     return any((r.get('t', '').strip() or r.get('kind') == 'icon') for r in runs)
 
 
-_SENT_END = ('.', ':', '!', '?', '”', '“', '"', '»', '…')
-
-
-def _split_at_bold_leads(block):
-    """Split a paragraph wherever a term's bold heading starts part-way through it.
-
-    A lead is a bold run that opens the block or follows a finished sentence — inline bold
-    for emphasis sits mid-sentence and so is left alone. Same shape as
-    _split_at_numbered_leads, for the chapter that heads its terms instead of numbering
-    them."""
-    runs = block.get('runs', [])
-    cuts = []
-    for i, r in enumerate(runs):
-        if i == 0 or r.get('kind') != 'text' or not r.get('bold') or not r.get('t', '').strip():
-            continue
-        prev = next((runs[j] for j in range(i - 1, -1, -1)
-                     if runs[j].get('kind') == 'text' and runs[j].get('t', '').strip()), None)
-        if prev is None or prev.get('t', '').rstrip().endswith(_SENT_END):
-            cuts.append(i)
-    if not cuts:
-        return [block]
-    bounds = [0] + cuts + [len(runs)]
-    out = []
-    for k in range(len(bounds) - 1):
-        seg = runs[bounds[k]:bounds[k + 1]]
-        if not seg:
-            continue
-        nb = dict(block)
-        nb['runs'] = seg
-        nb['type'] = block.get('type', 'p') if k == 0 else 'p'
-        out.append(nb)
-    return out
+# Lives in assemble.py: the quick-reference sheet's keyword list needs the same cut (see
+# assemble.split_at_bold_leads). Kept under its old name so this module reads as before.
+_split_at_bold_leads = assemble.split_at_bold_leads
 
 
 def _terms_by_block(blocks):
@@ -358,14 +329,30 @@ def build_section(raw, code):
     split = sc.get('split')
     if sc['kind'] == 'faq':
         # The general Q&A is this section's lead: split it into entries (italic
-        # question -> roman answer), then append each campaign's Q&A as its own entry.
+        # question -> roman answer). Each campaign's Q&A that follows is written the
+        # same way, so it is split the same way — the campaign name becomes a subhead
+        # and every question under it becomes an entry of its own, which is the device
+        # split_numbered already uses for the rulings.
+        #
+        # Left whole, a campaign's questions were ONE entry between them, so none of
+        # them had an id, a § anchor, a line in the contents or a line of its own in
+        # search — and the chapter counted 126 entries against the 146 questions the
+        # English book prints. Nothing was missing from the page; 29 questions were
+        # buried inside 9 entries. Same shape in every edition (es 29, de 33, it 29).
         assemble.split_qa(sec)
         for n in raw['members']:
+            # split_qa is a no-op on a campaign that holds no question/answer pair:
+            # it returns leaving `intro` as the blocks it was given, so that campaign
+            # stays exactly the single entry it is today.
+            inner = {'intro': list(n['blocks']), 'entries': []}
+            assemble.split_qa(inner)
             sec['entries'].append({
                 'title': n['title'],
                 'titleRuns': title_runs_of(n),
-                'blocks': n['blocks'],
+                'blocks': inner['intro'],
+                'role': 'subhead',
             })
+            sec['entries'].extend(inner['entries'])
     elif split == 'term':
         # Definitions: the terms live in the chapter lead (no sub-headings in the PDF).
         lead, entries = split_terms(sec['intro'])
