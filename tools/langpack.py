@@ -507,11 +507,6 @@ def _validate(code, raw, ui):
             f'empty heading. Add {", ".join(repr("grp" + g) for g in unnamed)} to "strings".')
 
 
-def load_all(only=None):
-    """Every pack (or just `only`), validated. Raises on the first bad one —
-    for callers that want all-or-nothing. Most callers want load_valid."""
-    return [load(c) for c in resolve(only)]
-
 
 def load_valid(only=None):
     """Load what loads: returns (packs, [(code, message)]).

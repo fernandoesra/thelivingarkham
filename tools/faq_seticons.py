@@ -330,45 +330,6 @@ def _card_name(pre, stops):
     return _fold_name(link)
 
 
-def extract(pdf_path, stops=frozenset()):
-    """Scan the FAQ PDF. Returns (svgs, keymap):
-        svgs   = {fingerprint: svg_text}
-        keymap = {(folded_card_name, number): fingerprint}
-    The name is the card named just before '(', the number the run just after it."""
-    doc = fitz.open(pdf_path)
-    svgs = {}
-    keymap = {}
-    for pno in range(doc.page_count):
-        page = doc[pno]
-        spans = _page_spans(page)
-        for i in range(len(spans) - 1):
-            s0, s1 = spans[i], spans[i + 1]
-            t0, t1 = s0['text'].rstrip(), s1['text'].lstrip()
-            if not (t0.endswith('(') and _NUM.match(t1)):
-                continue
-            if abs(s0['bbox'][1] - s1['bbox'][1]) > 4:
-                continue
-            gx0, gx1 = s0['bbox'][2], s1['bbox'][0]
-            if gx1 - gx0 < 3:
-                continue                         # "(3)" with no icon
-            box = _tight_box(page, gx0, gx1,
-                             min(s0['bbox'][1], s1['bbox'][1]),
-                             max(s0['bbox'][3], s1['bbox'][3]))
-            if box is None:
-                continue
-            svg = ir.icon_svg(page, box)
-            fp = _fingerprint(svg)
-            if not fp:
-                continue
-            svgs.setdefault(fp, svg)
-            pre = s0['text'][:s0['text'].rstrip().rfind('(')]
-            name = _card_name(pre, stops)
-            num = _NUM.match(t1).group(1)
-            if name:
-                keymap[(name, num)] = fp
-    return svgs, keymap
-
-
 def write_svgs(svgs, outdir=FAQSETS_DIR):
     """Write each mark once. The filename IS the shape's fingerprint, so a file that is
     already there is already this mark — and rewriting it would only swap one edition's

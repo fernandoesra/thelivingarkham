@@ -20,8 +20,18 @@ import fitz
 import icon_reference as ir
 import langpack
 
-SHEETS = os.path.join('C:', os.sep, 'Users', 'Fernando', 'Mi unidad', 'Rincon Miskatonic',
-                      'Contenido AH LCG', 'Iconos Arkham')
+# Where the artist's vector symbol sheets live. They are not in the repo (they are someone
+# else's artwork, and large), so this is a path on the machine that has them — overridable, the
+# way tools/import_ub_cards.py takes --src, so the script is not tied to one person's disk:
+#
+#   set TLA_SYMBOL_SHEETS=D:\wherever\Iconos Arkham     (or export, on macOS/Linux)
+#   python tools/scenario_icons.py --sheets "D:/wherever/Iconos Arkham"
+#
+# Without them nothing breaks: the committed assets/products/scen-*.svg are kept and the run
+# says which sheets it could not find.
+DEFAULT_SHEETS = os.path.join('C:', os.sep, 'Users', 'Fernando', 'Mi unidad',
+                              'Rincon Miskatonic', 'Contenido AH LCG', 'Iconos Arkham')
+SHEETS = os.environ.get('TLA_SYMBOL_SHEETS') or DEFAULT_SHEETS
 PRODUCTS = os.path.join(langpack.ROOT, 'assets', 'products')
 _PREFIX = 'Arkham Horror LCG Symbols - Main Sets - '
 
@@ -125,7 +135,21 @@ def build(quiet=False):
 
 
 def main():
+    global SHEETS
     sys.stdout.reconfigure(encoding='utf-8')
+    argv = sys.argv[1:]
+    if '--sheets' in argv:
+        i = argv.index('--sheets')
+        if i + 1 >= len(argv):
+            print('usage: python tools/scenario_icons.py [--sheets DIR]', file=sys.stderr)
+            return 2
+        SHEETS = argv[i + 1]
+    if not os.path.isdir(SHEETS):
+        print(f'  [warn] the symbol sheets are not at: {SHEETS}\n'
+              f'         Point at them with --sheets DIR or the TLA_SYMBOL_SHEETS environment\n'
+              f'         variable. Keeping the committed assets/products/scen-*.svg.',
+              file=sys.stderr)
+        return 0
     build()
     return 0
 

@@ -163,7 +163,6 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   --ff-head:'teutonic','Cinzel',Georgia,'Times New Roman',serif;
   --ff-body:Georgia,'Iowan Old Style','Palatino Linotype',serif;
   --ff-ui:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
-  --hh:64px;                 /* header height reference */
   /* Icons are drawn at their true font size. On paper that is right; on a screen
      a touch larger reads better, without disturbing their proportions. */
   --icon-scale:1.15;
@@ -207,8 +206,6 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-sigil{width:40px;height:40px;flex:0 0 auto;color:var(--gold);filter:drop-shadow(0 1px 3px rgba(0,0,0,.45))}
 .tla-titles{min-width:0; display:flex; flex-direction:column}
 .tla-title{font-family:var(--ff-head); font-size:24px; line-height:1; letter-spacing:.5px; color:var(--gold2); white-space:nowrap; display:flex; align-items:center}
-.tla-beta{font-family:var(--ff-ui); font-size:11px; font-weight:700; letter-spacing:.9px; text-transform:uppercase;
-  color:var(--gold2); border:1px solid var(--gold); padding:1px 7px; border-radius:6px; margin-left:8px}
 .tla-sub{font-family:var(--ff-ui); font-size:13px; color:var(--muted); letter-spacing:.3px; margin-top:4px}
 .tla-spacer{flex:1 1 auto}
 /* search trigger (opens the overlay) — icon + "/" shortcut hint */
@@ -478,11 +475,8 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   text-align:center; gap:10px; padding:24px}
 .tla-hero-title{font-family:var(--ff-head); font-size:clamp(34px,6.4vw,66px); line-height:1; margin:0;
   color:#fff; letter-spacing:1px; text-shadow:0 2px 22px rgba(0,0,0,.6); display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:center}
-.tla-hero-title .tla-beta{color:#fff; border-color:rgba(255,255,255,.65)}
 .tla-hero-sub{font-family:var(--ff-ui); font-size:clamp(14px,2.3vw,19px); margin:0;
   color:rgba(255,255,255,.92); text-shadow:0 1px 10px rgba(0,0,0,.6)}
-.tla-landing-lead{font-size:19px; line-height:1.7; color:var(--ink2); max-width:68ch; margin:0 0 6px}
-.tla-landing-lead b{color:var(--gold2)} .tla-landing-lead i{color:var(--ink)}
 .tla-cards-h{font-family:var(--ff-head); font-size:21px; color:var(--gold2); margin:24px 0 4px; letter-spacing:.3px}
 /* ---------- pennants ----------
    Two of these, explained once above the grid and then flown on the chapters
@@ -597,7 +591,6 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   border:1px solid var(--edge2); border-radius:14px;
   background:linear-gradient(115deg, var(--mark), transparent 62%), var(--panel)}
 .tla-rm-body{flex:1 1 auto; min-width:0}
-.tla-rm-kicker{font-family:var(--ff-ui); font-size:12px; letter-spacing:1.6px; text-transform:uppercase; color:var(--gold2); margin-bottom:6px}
 .tla-rm-title{font-family:var(--ff-head); font-size:23px; color:var(--gold2); margin:0 0 9px; letter-spacing:.3px}
 /* No measure cap here. The panel is a two-column band — prose, then the sigil — and capping
    the prose at 66ch inside a column that takes all the remaining width opened a dead gap
@@ -1419,6 +1412,11 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-taboos-sumt{font-size:15px; font-weight:700; color:var(--ink)}
 .tla-taboo-ver{margin-left:auto; font-size:12.5px; font-weight:700; color:var(--gold2)}
 .tla-taboos-body{padding:4px 16px 14px}
+/* The lead-in and the per-bucket explanation: prose, so they read as prose and not as another
+   row of the index — muted, narrower than the card list, and out of the way of the names. */
+.tla-taboos-lead{margin:2px 0 10px; max-width:68ch; color:var(--ink2); line-height:1.6}
+.tla-taboo-desc{margin:2px 0 8px; max-width:68ch; color:var(--muted); font-size:14px; line-height:1.55}
+.tla-taboo-note{margin:14px 0 0; max-width:68ch; color:var(--muted); font-size:14px; line-height:1.55}
 .tla-taboo-grp{margin:12px 0 0}
 .tla-taboo-h{font-family:var(--ff-head); font-size:18px; color:var(--teal2); margin:0 0 8px;
   display:flex; align-items:baseline; gap:9px}

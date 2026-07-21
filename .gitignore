@@ -8,6 +8,14 @@ assets/icons/_contact_sheet.png
 # The site ships the optimized WebP in assets/ub/ instead — these are kept locally
 # for reference only and must never reach the repo (GitHub rejects >100 MB files).
 assets/templates/
+# The SOURCE RULEBOOKS (~277 MB: nine Grimoire and FAQ PDFs). Same treatment and the same
+# reason as the design sources above: they are FFG's copyrighted books, the site's own footer
+# says this project is not affiliated with FFG, and republishing them here is the weakest point
+# of that. They are yours to keep locally — the pipeline reads them from these folders — and the
+# site does not need them: what it serves is the built data/*.json, which ARE committed.
+# The folders themselves stay in the repo, each with a README saying which file belongs there.
+langs/*/source/*.pdf
+langs/*/source_faq/*.pdf
 # scratch renders from tools/inspect_pdf.py --grid
 assets/img/_inspect-*.png
 # test output

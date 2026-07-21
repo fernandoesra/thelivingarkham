@@ -22,15 +22,15 @@ Everything else is for **building** the content, not for serving it:
 
 | Leave out | Size | What it is |
 |---|---|---|
-| `langs/*/source/`, `langs/*/source_faq/` | **155 MB** | the source PDFs the pipeline reads |
+| `langs/*/source/`, `langs/*/source_faq/` | **~277 MB on your disk** | the source PDFs the pipeline reads. Git-ignored, so a clone will not have them — each folder keeps a README naming the file that belongs there |
 | `tools/` | — | the Python pipeline |
 | `server.js`, `package.json` | — | the local dev server |
 | `README.md`, `deploy.md` | — | docs |
 | `assets/templates/` | ~1 GB | design sources; git-ignored, so you will not have them anyway |
-| `assets/fonts/*.otf`, `*.ttf` | 11 MB | reference copies of the print fonts. Nothing in `css/`, `js/` or `index.html` refers to them — only `assets/fonts/ub/*.woff2` is actually used |
+| `assets/fonts/*.otf`, `*.ttf` | 10 MB | the print MASTERS. Not served — but **do not delete them**, and do not let a tidy-up talk you into it. `tools/ub_fonts.py` cuts `assets/fonts/ub/*.woff2` from five of them, so they are build inputs, not spare copies; `Teutonic.ttf` is also the family `--ff-head` names in `css/app.css`. The rest are kept deliberately for work that has not happened yet. An audit has already proposed removing them once and been wrong |
 
-That takes the payload from 185 MB in the repo to about **30 MB**, or **20 MB** if you also drop
-the unused fonts.
+That takes a ~36 MB checkout down to about **26 MB** of payload — the site itself is small; what
+made the repo big was the PDFs, and they are no longer tracked.
 
 ```bash
 rsync -av --delete \
@@ -75,7 +75,7 @@ curl -sI https://example.org/assets/ub/cards/<any>.webp | grep -i content-type
 
 ## 4. Compression
 
-Worth doing: `data/` alone is **3.6 MB** of JSON, and it compresses by roughly ten to one. Enable
+Worth doing: `data/` alone is **5 MB** of JSON, and it compresses by roughly ten to one. Enable
 gzip (or brotli) for `text/html`, `text/css`, `text/javascript`, `application/json` and
 `image/svg+xml`. Do **not** compress `.webp` or `.woff2` — they are already compressed.
 

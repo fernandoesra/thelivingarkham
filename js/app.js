@@ -2177,12 +2177,6 @@ function adbText(html){
   }
   return out;
 }
-function faqTabooTarget(){
-  var secs=(data&&data.sections)||[];
-  for(var i=0;i<secs.length;i++){if(secs[i].corpus==='faq1'&&secs[i].key==='faq-taboos')return secs[i].id;}
-  return null;
-}
-function tabooCount(s){var t2=s&&s.taboos; return t2?(t2.groups||[]).reduce(function(n,g){return n+g.cards.length;},0):0;}
 /* A per-card index of the current taboo list, above the chapter's own full text: every card as a
    direct link to ArkhamDB (in the reader's language), with its product icon and collection number
    and its bucket (Chained/Mutated/Forbidden). The mutation text itself is the chapter's prose
@@ -2195,11 +2189,17 @@ function taboosHTML(s){
   h+='<summary class="tla-taboos-sum"><span class="tla-taboos-sumt">'+esc(t('tabooindex'))+'</span>'
     +'<span class="tla-taboo-ver">'+esc(t('tabooversion').replace('{d}',fmtDate(tb.date)))+'</span></summary>';
   h+='<div class="tla-taboos-body">';
+  /* What the list IS, before ninety card names. Written and translated into every language
+     long ago; it simply had never been rendered. */
+  h+='<p class="tla-taboos-lead">'+esc(t('taboolead'))+'</p>';
   (tb.groups||[]).forEach(function(g){
     /* h2: these bucket headings sit under the chapter's h1, at the same level as its entries —
        an h3 here would skip a level (the taboo index renders before those entries). */
     h+='<section class="tla-taboo-grp"><h2 class="tla-taboo-h">'+esc(t('taboocat_'+g.cat))
       +' <span class="tla-taboo-n">'+g.cards.length+'</span></h2>';
+    /* …and what the bucket MEANS. "Chained" says nothing on its own to a reader who has not
+       met the taboo list before, and the one-line answer was already written per language. */
+    h+='<p class="tla-taboo-desc">'+esc(t('taboodesc_'+g.cat))+'</p>';
     h+='<ul class="tla-taboo-list">';
     g.cards.forEach(function(c){
       h+='<li class="tla-taboo-card is-'+esc(g.cat)+'">';
@@ -2221,6 +2221,10 @@ function taboosHTML(s){
     });
     h+='</ul></section>';
   });
+  /* Deliberately NO "see the FAQ's taboo chapter" link, though two translated strings for one
+     exist in the packs' history: attachTaboos() hangs this index on the section keyed
+     'faq-taboos', which IS that chapter. The reader is already on it and its prose is directly
+     below, so the link would point at the page it is printed on. */
   h+='<p class="tla-taboo-src"><a class="tla-extlink" href="'+esc(tb.source||'https://arkhamdb.com/rules')+'" target="_blank" rel="noopener">'
     +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3h7v7"/><path d="M21 3l-9 9"/><path d="M19 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>'
     +esc(t('taboosource'))+'</a></p>';

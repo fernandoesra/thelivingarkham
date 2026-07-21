@@ -5,9 +5,19 @@ They are **not** needed to run or host the site — only to regenerate content w
 new Grimoire version is published, or when a language is added. The app itself is
 pure static HTML/CSS/JS.
 
-**No script here knows about any specific language.** Everything language-specific
+**Almost no script here knows about any specific language.** Everything language-specific
 lives in a language pack, `langs/<code>/lang.json`. To add a language, see
 [Adding a language](../README.md#adding-a-language) — you will not need this file.
+
+The exceptions are worth knowing, because they are the places a new language may need a hand
+rather than just a pack:
+
+| script | what it hardcodes | why |
+|---|---|---|
+| `langpack.py` | `DEFAULT_LANG = 'es'` | the language served when the URL names none. Deliberate: never derived from `order`, so adding a pack cannot silently make it everyone's default |
+| `ub_merge.py`, `fanmade.py`, `new_lang.py` | English as the fallback | English is where content lands first; the other languages borrow from it until their own arrives |
+| `scenario_icons.py`, `import_ub_cards.py` | a default path to artwork outside the repo | overridable — see their `--sheets` / `--src` options |
+| `packmap.py` | `EXTRAS` (products no edition prints) | the names are per language, in the table itself, not in code |
 
 ## Requirements
 Python 3.9+ with: `pip install -r tools/requirements.txt`
@@ -38,8 +48,11 @@ and `assets/{icons,img}/`.
 | `fanmade.py`         | files the community's skill-test timing table under its chapter |
 | `validate_coverage.py` | checks parsed text is present in the source PDF |
 | `ingest.py`          | runs the whole pipeline for one or every language |
-| `new_lang.py`        | scaffolds a new pack |
+| `new_lang.py`        | scaffolds a new pack — `--ui-only` for a language with no rulebook |
 | `inspect_pdf.py`     | shows a PDF's chapters, or a coordinate grid for measuring montages |
+| `import_ub_cards.py` | cuts the Ultimatums & Boons card art from the artist's exports (`--src DIR`) |
+| `ub_fonts.py`        | re-cuts `assets/fonts/ub/*.woff2` from the print masters; `--check` reports coverage |
+| `scenario_icons.py`  | lifts scenario symbols from the artist's vector sheets (`--sheets DIR`) |
 
 Each script takes a **language code** and asks `langpack.py` for the rest:
 `python tools/assemble.py es`. A malformed pack fails with a message aimed at its

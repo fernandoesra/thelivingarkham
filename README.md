@@ -17,17 +17,23 @@ Everything one language needs lives in **one folder**, `langs/<code>/`. Adding a
 ### 1. Create the pack
 
 ```bash
-python tools/new_lang.py de          # use your language's code: de, fr, it, pt…
+python tools/new_lang.py nl          # use your language's code — one that has no pack yet
 ```
 
 This creates:
 
 ```
-langs/de/
-  source/      ← your PDFs go here
+langs/nl/
+  source/      ← your PDFs go here (git-ignored: they never get committed)
   lang.json    ← describes your PDF          (fill in every TODO)
   ui.json      ← the interface, in English   (translate the values)
 ```
+
+> **No Grimoire in your language?** You can still add the language — the interface, the
+> landing page, the tutorial and the release notes, with every chapter saying plainly that
+> the books are not available in it yet and offering the language that has them. That is one
+> command and one file to translate: see
+> [Adding a language without a rulebook](#adding-a-language-without-a-rulebook) below.
 
 ### 2. Put the PDFs in, and name them
 
@@ -157,7 +163,44 @@ Read the corners off the red grid and write them down (`y` counts from the **top
 
 ### Sending it in
 
-Open a pull request with `langs/<code>/` plus the files the build regenerated (`data/`, `assets/img/`). If your PDF is too large for GitHub, say so in the PR and we'll sort it out.
+Open a pull request with `langs/<code>/` plus the files the build regenerated (`data/`, `assets/img/`). **Do not add the PDFs** — they are git-ignored on purpose (see the README inside `langs/<code>/source/`); the built `data/*.json` is what the site serves.
+
+---
+
+## Adding a language without a rulebook
+
+The Grimoire and the FAQ exist in four languages. ArkhamDB serves eleven. A reader in one of the
+other seven still gets the whole interface in their own words, and is told — in their own words —
+that the books are not available yet, with a link to the language that has them.
+
+```bash
+python tools/new_lang.py fr --ui-only "Français" FR
+```
+
+That writes a two-field `lang.json` (`"uiOnly": true`) and a copy of the English `ui.json` to
+translate. There is no `source/` folder, because there is nothing to put in it.
+
+Then translate `langs/fr/ui.json` — all of it except the parts below — and drop a `flag.svg`
+beside it if you have one. Nothing else: the shelf, the navigation and the routes are borrowed
+from the language you fall back to, so every chapter already exists and already links across.
+
+**Three rules that are not obvious**
+
+1. **Fill in `mtnotice`.** It is empty in English and the site shows the notice *only* when the
+   string is non-empty. If a machine translated your pack, say so there — the German pack is the
+   model. A reader deserves to know which words nobody checked.
+2. **Leave the game's own vocabulary in English.** Everything printed on a card or a product
+   stays as it is: the 25 `icons`, `ubultimatums` / `ubboons` / `ubrefractions` and their type
+   lines, the taboo categories, `tabooxp`. Inventing a translation for *Elder Sign* or *Boon*
+   before the official manual exists means the site and the cards on the table disagree. The
+   interface *around* them — buttons, labels, prose — is yours to translate.
+3. **Counted nouns:** if your language has more plural forms than `one`/`other`, add the CLDR
+   categories it needs (`few`, `many`) beside them. The site looks the category up by name, so
+   the extra keys just work — Polish, Russian and Ukrainian all carry `few`.
+
+When the rulebook does arrive in your language, the pack graduates: drop `"uiOnly"`, fill in the
+book fields as above, and it becomes an ordinary language pack with everything already
+translated.
 
 ---
 
