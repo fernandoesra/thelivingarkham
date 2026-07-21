@@ -78,12 +78,23 @@ def _refs(runs):
             elif nxt.get('kind') == 'text':
                 buf += nxt.get('t', '')
             elif nxt.get('kind') == 'icon':
-                # An inline game glyph printed INSIDE the bracket. The Spanish FAQ marks the
-                # Core Set with the elder sign, which the icon stage reads as an ordinary glyph
-                # rather than a set mark, so the scan stopped dead at it with buf=' (' and lost
-                # the number as well — 36 Spanish references, the largest single cause there.
-                # A glyph is not the end of a bracket; the ')' and the budget still are.
-                pass
+                # An inline game glyph printed INSIDE the bracket. WHERE it stands says what it
+                # is: a glyph in the mark's own place — straight after the "(", before any of
+                # the number — IS the product's mark, because nothing else is ever printed
+                # there. The Spanish edition marks the Core Set with the elder sign and The
+                # Drowned City with the auto-fail tentacle, and those are the very same font
+                # glyphs that book uses for the chaos tokens in its prose, so no test on the
+                # ART could tell the two uses apart — only this one, on position. The other
+                # three editions draw every mark as vector art and so never reach this.
+                #
+                # The mark is still LEARNED, not declared: it is collected under a synthetic
+                # fingerprint, and pass 1's unambiguous citations teach it which product it
+                # stands for exactly as they teach a traced one.
+                #
+                # A glyph LATER in the bracket is prose (the Italian book prints 29 of those)
+                # and is only stepped over — the ')' and the character budget still end the scan.
+                if not buf.strip().strip('(') and nxt.get('name'):
+                    icons.append({'kind': 'seticon', 'fp': 'glyph:' + nxt['name']})
             else:
                 break
             j += 1

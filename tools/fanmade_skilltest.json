@@ -1,10 +1,15 @@
 {
   "_comment": "Community-made ('fanmade') deep reference for skill-test timing, transcribed from the sources credited below. NOT official FFG content.",
+  "_original_comment": "The work every version here descends from. Shown on ALL of them, in every language, because the credit belongs to the person who did the thinking — the per-language entries below credit whoever transcribed or translated it, which is a different debt.",
   "credit": {
+    "_original": {
+      "author": "Korriane",
+      "url": "https://www.reddit.com/r/arkhamhorrorlcg/comments/1docnao/made_timing_table_with_examples_of_typical/"
+    },
     "es": {
       "author": "Àlex Xöul",
       "updated": "2024-07-16",
-      "note": "Versión original: link"
+      "note": "Spanish version, from Korriane's original"
     },
     "en": {
       "author": "",

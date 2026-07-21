@@ -55,9 +55,13 @@ def _merge(runs):
     out = []
     for r in runs:
         p = out[-1] if out else None
+        # `alien` is emphasis too — a different FACE (the Drowned City script). Left out of this
+        # test it fused into the roman beside it and the flag went with the discarded run, so
+        # the alphabet reached the page as the Latin letters underneath it.
         if (r.get('kind', 'text') == 'text' and p and p.get('kind', 'text') == 'text'
                 and bool(p.get('bold')) == bool(r.get('bold'))
                 and bool(p.get('italic')) == bool(r.get('italic'))
+                and bool(p.get('alien')) == bool(r.get('alien'))
                 and not p.get('v') and not r.get('v') and not p.get('red') and not r.get('red')):
             out[-1] = dict(p, t=p.get('t', '') + r.get('t', ''))
         else:

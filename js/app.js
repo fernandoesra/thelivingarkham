@@ -199,7 +199,17 @@ function runsHTML(runs,suppressNew,flat){
   }
   return h;
 }
-function wrap(s,r){if(r.bold)s='<strong>'+s+'</strong>'; if(r.italic)s='<em>'+s+'</em>'; return s;}
+function wrap(s,r){
+  if(r.bold)s='<strong>'+s+'</strong>';
+  if(r.italic)s='<em>'+s+'</em>';
+  /* The Drowned City's alien script (tools/icons.py is_alien_font). Drawn with the book's own
+     face rather than printed as the Latin letters underneath, which the reader is not meant to
+     see — but the letters ARE the text, so they stay the element's content: they remain
+     selectable, findable by the search box, and read out correctly, because the glyphs spell
+     exactly those letters. The title says which script it is for anyone who hovers. */
+  if(r.alien)s='<span class="tla-alien" title="'+esc(t('alienscript'))+'">'+s+'</span>';
+  return s;
+}
 /* suppressNew: inside an entry that is itself brand new, every run would be
    flagged as added — which says nothing. The entry already carries its own
    "New vX" badge, so the per-run diff marks are suppressed there (the title
@@ -1529,8 +1539,13 @@ function ubRefractionParts(it){
     var m=txt.match(/^(.*?)\s*\(([^)]*)\)\s*$/);
     if(m){ scenario=m[1].trim(); campaign=m[2].trim(); }
     var word=t('refrcampaignword');
+    /* The word is stripped so the name can stand alone under the label the UI prints. It can
+       lead the name ("campaña Hermanos de las cenizas"), trail it ("Brethren of Ash Campaign")
+       or — in German — be welded onto it as a compound with a hyphen and no space at all
+       ("„Bruderschaft der Asche“-Kampagne"). Requiring whitespace missed that last form, so the
+       German card read "Kampagne „Bruderschaft der Asche“-Kampagne", saying it twice. */
     if(word){var wx=word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
-      campaign=campaign.replace(new RegExp('^'+wx+'\\s+|\\s+'+wx+'$','i'),'').trim();}
+      campaign=campaign.replace(new RegExp('^'+wx+'\\s+|[-\\s\\u2010-\\u2015]+'+wx+'$','i'),'').trim();}
   }
   if(!campaign)return null;
   /* The scenario name shows even when its encounter-set symbol is not known (the FAQ has no
@@ -2256,20 +2271,35 @@ function fmCellHTML(order){
   });
   return h;
 }
+/* A translated sentence with a "{mail}" placeholder in it, as HTML with the address linked.
+   The placeholder is what lets a translator put the address where their language wants it. */
+function mailSplitHTML(str){
+  var p=String(str||'').split('{mail}');
+  if(p.length<2)return esc(p[0]||'');
+  return esc(p[0])+'<a href="mailto:'+FM_MAIL+'">'+esc(FM_MAIL)+'</a>'+esc(p[1]||'');
+}
 function fanmadeHTML(s){
   var fm=s.fanmade; if(!fm)return '';
   var warn=t('fmwarn').split('{mail}');
   /* Not aria-labelledby here: that would make this a landmark named by the same heading as the
      scrollable table region inside it, and two landmarks with one name are indistinguishable in
      a landmarks list. The h2 heads the part; the region below carries the name. */
-  var h='<section class="tla-fm">';
-  h+='<h2 class="tla-fm-title" id="fm-h">'+esc(fm.title||t('fmtitle'))+'</h2>';
+  /* A block this language has no transcription of is shown in the language it exists in.
+     Tagged lang=… so a screen reader reads it in that voice instead of mispronouncing it in
+     the reader's own, exactly as the ultimatum cards do for their English fallback. */
+  var L=fm.lang?' lang="'+esc(fm.lang)+'"':'';
+  var h='<section class="tla-fm"'+L+'>';
+  h+='<h2 class="tla-fm-title" id="fm-h"'+L+'>'+esc(fm.title||t('fmtitle'))+'</h2>';
   /* Same loud callout the site uses for the obsolete environments: this is the one thing a
      reader must take in before reading a line of it. */
   h+='<aside class="tla-obsolete" role="note">'
     +'<div class="tla-obsolete-tag">'+esc(t('noticeword'))+'</div>'
     +'<div class="tla-obsolete-body"><p class="tla-obsolete-lead">'+esc(warn[0])
-    +'<a href="mailto:'+FM_MAIL+'">'+esc(FM_MAIL)+'</a>'+esc(warn[1]||'')+'</p></div></aside>';
+    +'<a href="mailto:'+FM_MAIL+'">'+esc(FM_MAIL)+'</a>'+esc(warn[1]||'')+'</p>'
+    /* …and, when the table is not in the reader's language, why — and how to change that. In
+       the reader's OWN language: a notice nobody can read is not a notice. */
+    +(fm.lang?'<p class="tla-obsolete-lead">'+mailSplitHTML(t('fmnottranslated'))+'</p>':'')
+    +'</div></aside>';
   (fm.lead||[]).forEach(function(l){
     h+='<p class="tla-p">'+(l.h?'<strong>'+esc(l.h)+':</strong> ':'')+fmText(l.t)+'</p>';
   });
@@ -2292,9 +2322,18 @@ function fanmadeHTML(s){
     h+='<td class="tla-fm-order">'+fmCellHTML(st.order)+'</td></tr>';
   });
   h+='</tbody></table></div>';
-  var cr=fm.credit||{};
+  var cr=fm.credit||{}, or=fm.original||{};
   if(cr.author)h+='<p class="tla-fm-credit">'+esc(t('fmcredit').replace('{author}',cr.author))
     +(cr.updated?' '+esc(t('fmupdated').replace('{date}',fmtDate(cr.updated))):'')+'</p>';
+  /* The work every version of this table descends from, credited on all of them. Separate from
+     the line above, which credits whoever transcribed or translated it — a different debt. */
+  if(or.author){
+    var op=t('fmoriginal').split('{author}');
+    h+='<p class="tla-fm-credit">'+esc(op[0]||'')
+      +(or.url?'<a href="'+esc(or.url)+'" rel="noopener noreferrer" target="_blank">'
+        +esc(or.author)+'</a>':esc(or.author))
+      +esc(op[1]||'')+'</p>';
+  }
   return h+'</section>';
 }
 
@@ -2819,21 +2858,62 @@ function known(L){return !!regOf(L);}
    The flag is decoration (alt=""): the label names the language, because a flag
    names a country and languages are not countries. A pack without a flag.svg
    simply shows its label. */
+function langFlagHTML(L){
+  return L.flag?'<img class="tla-flag" src="'+esc(L.flag)+'" alt="" width="20" height="14" aria-hidden="true">':'';
+}
+/* A row of buttons, one per language, fitted in the header only as long as there are a
+   handful. Past that it either wraps over the title or pushes the search off the bar, so the
+   current language stays visible and the rest move into a menu behind it — the same disclosure
+   the theme picker uses, so there is one keyboard contract in the header and not two.
+   The wrapper keeps its .tla-lang class and its group role: the tour points at it by selector,
+   and a reader still meets one named group rather than a loose button. */
 function buildLangBar(){
   var box=document.querySelector('.tla-lang'); if(!box)return;
   if(LANGS.length<2){box.hidden=true; return;}          // one language: no switcher
   box.hidden=false;
-  box.innerHTML=LANGS.map(function(L){
-    var flag=L.flag?'<img class="tla-flag" src="'+esc(L.flag)+'" alt="" width="20" height="14" aria-hidden="true">':'';
-    return '<button type="button" data-l="'+esc(L.code)+'" lang="'+esc(L.code)+'"'+
-           ' aria-pressed="'+(L.code===lang)+'">'+flag+
-           '<span class="tla-lang-lb">'+esc(L.label||L.code.toUpperCase())+'</span>'+
-           '<span class="tla-sr">'+esc(L.name)+'</span></button>';
-  }).join('');
+  var cur=regOf(lang)||LANGS[0];
+  var rest=LANGS.filter(function(L){return L.code!==cur.code;});
+  box.innerHTML=
+    '<button type="button" class="tla-lang-cur" id="tla-langcur" aria-expanded="false"'
+    +' aria-controls="tla-langmenu" lang="'+esc(cur.code)+'" title="'+esc(t('langgroup'))+'">'
+    +langFlagHTML(cur)
+    +'<span class="tla-lang-lb">'+esc(cur.label||cur.code.toUpperCase())+'</span>'
+    /* The visible label is a two-letter code; the accessible name has to be the language's own
+       name, and has to say what the button DOES — otherwise it reads out as "ES, collapsed". */
+    +'<span class="tla-sr">'+esc(cur.name)+' — '+esc(t('langgroup'))+'</span>'
+    +'<svg class="tla-lang-caret" viewBox="0 0 10 6" aria-hidden="true" focusable="false">'
+    +'<path d="M1 1l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>'
+    +'</button>'
+    +'<div class="tla-langmenu" id="tla-langmenu" hidden>'
+    +rest.map(function(L){
+      return '<button type="button" data-l="'+esc(L.code)+'" lang="'+esc(L.code)+'">'
+        +langFlagHTML(L)
+        +'<span class="tla-lang-lb">'+esc(L.label||L.code.toUpperCase())+'</span>'
+        +'<span class="tla-lang-nm">'+esc(L.name)+'</span></button>';
+    }).join('')
+    +'</div>';
   // a flag that fails to load would otherwise sit there as an empty framed box
   [].forEach.call(box.querySelectorAll('.tla-flag'),function(img){
     img.addEventListener('error',function(){img.remove();});
   });
+}
+function langMenuEl(){return document.getElementById('tla-langmenu');}
+function langMenuOpen(){var m=langMenuEl(); return !!m&&!m.hidden;}
+function openLangMenu(){
+  var m=langMenuEl(), b=document.getElementById('tla-langcur');
+  if(!m||!b)return;
+  m.hidden=false; b.setAttribute('aria-expanded','true');
+  var first=m.querySelector('button'); if(first)first.focus();
+}
+function closeLangMenu(refocus){
+  var m=langMenuEl(), b=document.getElementById('tla-langcur');
+  if(!m||!b)return;
+  /* Focus FIRST, then hide. Hiding the box while the focus is still inside it drops the focus
+     onto the body, and the page then puts it wherever it likes — Escape landed the reader in
+     the main region instead of back on the button they opened. Moving it out first means
+     nothing is ever focused inside a box that is about to disappear. */
+  if(refocus)b.focus();
+  m.hidden=true; b.setAttribute('aria-expanded','false');
 }
 
 /* Fill every element that declares a string key in the markup:
@@ -3094,6 +3174,10 @@ function dialogs(){
        six-item colour menu would strand the keyboard on it. */
     {box:elThemeMenu,isOpen:themeMenuOpen,modal:false,
      close:function(){closeThemeMenu(); elTheme.focus();}},
+    /* The language menu is the same kind of disclosure as the theme one, and joins the same
+       stack for the same reason: one Escape closes one layer, and Tab may leave it. */
+    {box:langMenuEl(),isOpen:langMenuOpen,modal:false,
+     close:function(){closeLangMenu(true);}},
     {box:elSModal,   isOpen:searchOpen,  close:closeSearch},
     {box:elFigModal, isOpen:figInfoOpen, close:closeFigInfo},
     {box:elDonate,   isOpen:donateOpen,  close:closeDonate},
@@ -3325,7 +3409,11 @@ function tourPlace(){
    past a modal dialog to fix it would be the one place the tour actively got in the way. */
 function tourLangsHTML(){
   if(LANGS.length<2)return '';
-  var h='<div class="tla-tour-langs" role="group" aria-label="'+esc(t('langgroup'))+'">';
+  /* tabindex: once the list is long enough to scroll (CSS caps its height), a keyboard user
+     must be able to scroll it. The buttons inside are tab stops anyway, so this only matters
+     for the box itself — but a scroller that cannot be focused cannot be scrolled without a
+     mouse, and this is the one stop a reader may be stuck on. */
+  var h='<div class="tla-tour-langs" role="group" tabindex="0" aria-label="'+esc(t('langgroup'))+'">';
   LANGS.forEach(function(L){
     var flag=L.flag?'<img class="tla-flag" src="'+esc(L.flag)+'" alt="" width="20" height="14" aria-hidden="true">':'';
     h+='<button type="button" class="tla-tour-lang" data-tourlang="'+esc(L.code)+'" lang="'+esc(L.code)
@@ -3490,7 +3578,11 @@ function wireEvents(){
   elSModal.addEventListener('click',function(e){if(e.target===elSModal)closeSearch();});
   elFigClose.addEventListener('click',closeFigInfo);
   elFigModal.addEventListener('click',function(e){if(e.target===elFigModal)closeFigInfo();});
-  document.querySelector('.tla-lang').addEventListener('click',function(e){var b=e.target.closest('button'); if(b)setLang(b.getAttribute('data-l'));});
+  document.querySelector('.tla-lang').addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b)return;
+    if(b.id==='tla-langcur'){langMenuOpen()?closeLangMenu(true):openLangMenu(); return;}
+    var to=b.getAttribute('data-l'); if(to){closeLangMenu(false); setLang(to);}
+  });
   elTheme.addEventListener('click',function(){themeMenuOpen()?closeThemeMenu():openThemeMenu();});
   /* Radios fire change on arrow-key moves too, so this IS the live preview. */
   elThemeMenu.addEventListener('change',function(e){
@@ -3503,6 +3595,15 @@ function wireEvents(){
   /* clicking away closes it — a menu, not a modal: it traps nothing */
   document.addEventListener('mousedown',function(e){
     if(themeMenuOpen() && !elThemeMenu.contains(e.target) && !elTheme.contains(e.target))closeThemeMenu();
+    var lb=document.querySelector('.tla-lang');
+    if(langMenuOpen() && lb && !lb.contains(e.target))closeLangMenu(false);
+  });
+  /* …and tabbing out of it does too, the same as the theme menu: a disclosure left hanging
+     behind the reader is a trap for the next Tab press. */
+  document.querySelector('.tla-lang').addEventListener('focusout',function(e){
+    if(!langMenuOpen())return;
+    var to=e.relatedTarget, lb=document.querySelector('.tla-lang');
+    if(to && !lb.contains(to))closeLangMenu(false);
   });
   /* and tabbing away closes it too, so it never lingers behind the reader */
   elThemeMenu.addEventListener('focusout',function(e){

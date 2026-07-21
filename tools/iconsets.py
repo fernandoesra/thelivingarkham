@@ -34,19 +34,43 @@ def _bitmap(svg_text):
     return bytes(1 if b < 128 else 0 for b in pix.samples)
 
 
+def bitmaps(directory):
+    """{name: bitmap} for every traced mark in a directory.
+
+    The key is the filename stem — a fingerprint under assets/faqsets/, an art id under
+    assets/products/."""
+    out = {}
+    for path in sorted(glob.glob(os.path.join(directory, '*.svg'))):
+        try:
+            with open(path, encoding='utf-8') as f:
+                out[os.path.basename(path)[:-4]] = _bitmap(f.read())
+        except Exception:
+            continue                   # an unreadable trace simply stays on its own
+    return out
+
+
+def same_picture(bits, pool, tol=_TOL):
+    """The entry of `pool` that is the same picture as `bits`, or None.
+
+    groups() asks this of one directory against itself; this asks it of two, which is the only
+    reason the marks printed in the prose and the marks printed in the books' own icon LEGEND
+    had never been compared — they live in different directories. Same bitmap, same tolerance:
+    a mark either is a drawing we already hold or it is not, and which folder the drawing came
+    from does not change the answer."""
+    best = None
+    for name, b in pool.items():
+        d = sum(x != y for x, y in zip(bits, b))
+        if d <= tol and (best is None or d < best[0]):
+            best = (d, name)
+    return best[1] if best else None
+
+
 def groups(directory=FAQSETS_DIR):
     """{fingerprint: group_id} over every traced set icon on disk.
 
     The group id is the alphabetically first fingerprint in the group, so it is stable across
     builds as long as the art is (a new mark can only ever start a new group or join one)."""
-    bits = {}
-    for path in sorted(glob.glob(os.path.join(directory, '*.svg'))):
-        fp = os.path.basename(path)[:-4]
-        try:
-            with open(path, encoding='utf-8') as f:
-                bits[fp] = _bitmap(f.read())
-        except Exception:
-            continue                   # an unreadable trace simply stays on its own
+    bits = bitmaps(directory)
     buckets = []                       # [(representative_bitmap, [fp, …]), …]
     for fp in sorted(bits):
         b = bits[fp]

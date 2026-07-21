@@ -40,6 +40,115 @@ import iconsets
 import langpack
 
 
+PRODUCTS_DIR = os.path.join(langpack.ROOT, 'assets', 'products')
+
+# The chapters that are a PRODUCT legend: the FAQ's closing icon tables and the Grimoire's
+# icon-reference chapter. Keyed by the language-neutral section key, because every book titles
+# and ids them differently. An ENCOUNTER-set table is deliberately not here: an encounter set is
+# not a product, and naming a mark after one would be a category error however alike they look.
+LEGEND_KEYS = ('faq-icons', 'icon-reference')
+
+
+def _legend_rows(docs):
+    """{art id: {language: row}} over every product legend in every book."""
+    rows = {}
+    for code, _path, data in docs:
+        for s in data.get('sections') or []:
+            if s.get('key') not in LEGEND_KEYS:
+                continue
+            for g in s.get('groups') or []:
+                for it in g.get('items') or []:
+                    if it.get('art'):
+                        rows.setdefault(it['art'], {})[code] = it
+    return rows
+
+
+def _legend_name(row, idx):
+    """What a legend row calls its product, in this book's own language."""
+    pack = row.get('pack')
+    return (idx.pack_name(pack) if pack else '') or (row.get('name') or '').strip()
+
+
+def from_legend(docs, idxs, grp, quiet=False):
+    """Name each mark from the row the books' own icon legend prints beside that very drawing.
+
+    The votes pooled in build() are inference — the mark is opaque, so what it means is deduced
+    from the cards cited around it. The legend is not inference: it is the book stating, in
+    print, that THIS drawing is THAT product. It had simply never been consulted, because the
+    prose traces and the legend's traces live in different directories and nothing compared
+    them (see iconsets.same_picture).
+
+    ATOMIC PER GROUP, and AUTHORITATIVE. Filling only the blanks looks safe and is not: group
+    e1-e9ec28f9 is blank in German and Italian but already named in English and Spanish, so
+    blanks-only would leave one drawing calling itself two different products in a single
+    build — the exact thing this module exists to prevent. So a group takes the legend's answer
+    in every book at once, over whatever the votes had concluded.
+
+    The legend outranks the votes because the votes are demonstrably wrong where the two
+    disagree, and wrong in a way that shows: before this, sixteen product names were attached
+    to MORE THAN ONE distinct drawing — "Return to the Night of the Zealot" sat on four
+    different marks, "Nathaniel Cho" on four — which cannot be, and is the signature of an
+    under-attested tally settling on whichever product it saw first. The legend tells the four
+    Returns apart because the book prints each one beside its own name.
+
+    Every override is reported, so a disagreement between the two sources is visible rather
+    than silently resolved."""
+    pool = iconsets.bitmaps(PRODUCTS_DIR)
+    traces = iconsets.bitmaps(iconsets.FAQSETS_DIR)
+    rows = _legend_rows(docs)
+
+    # Which drawing each shape group is, and what every book already calls it.
+    art_of, named_as = {}, {}
+    for code, _path, data in docs:
+        for runs in adb_resolve.walk(data['sections']):
+            for r in runs:
+                if r.get('kind') != 'seticon':
+                    continue
+                gid = grp.get(r.get('fp'), r.get('fp'))
+                if gid not in art_of:
+                    bits = traces.get(r.get('fp'))
+                    art = iconsets.same_picture(bits, pool) if bits else None
+                    art_of[gid] = art if art in rows else None
+                if r.get('pn'):
+                    named_as.setdefault(gid, {}).setdefault(code, r['pn'])
+
+    filled, fixed, touched, overrides = {}, {}, set(), []
+    for gid, art in sorted(art_of.items()):
+        if not art:
+            continue
+        want = {c: _legend_name(rows[art][c], idxs[c]) for c in rows[art] if c in idxs}
+        want = {c: v for c, v in want.items() if v}
+        if not want:
+            continue
+        clash = sorted({c for c, pn in (named_as.get(gid) or {}).items()
+                        if c in want and pn != want[c]})
+        if clash:
+            overrides.append((gid, art, clash, named_as[gid][clash[0]], want[clash[0]]))
+        for code, path, data in docs:
+            if code not in want:
+                continue
+            for runs in adb_resolve.walk(data['sections']):
+                for r in runs:
+                    if r.get('kind') != 'seticon' \
+                            or grp.get(r.get('fp'), r.get('fp')) != gid \
+                            or r.get('pn') == want[code]:
+                        continue
+                    bucket = fixed if r.get('pn') else filled
+                    bucket[code] = bucket.get(code, 0) + 1
+                    r['pn'] = want[code]
+                    touched.add(path)
+    if not quiet:
+        new = ', '.join(f'{c}+{filled[c]}' for c in sorted(filled)) or 'none'
+        corr = ', '.join(f'{c}+{fixed[c]}' for c in sorted(fixed)) or 'none'
+        print(f"  product marks named from the books' own icon legend: named {new}; "
+              f'corrected {corr}')
+        for gid, art, clash, was, now in overrides:
+            print(f'  [note] mark {gid} is drawn in the legend as {art} ("{now}"); '
+                  f'{"/".join(clash)} had inferred "{was}" from the cards cited around it '
+                  f'— the printed legend wins.', file=sys.stderr)
+    return filled, touched, overrides
+
+
 def _paths(code):
     for what in ('grimoire', 'faq'):
         p = os.path.join(langpack.DATA_DIR, f'{what}_{code}.json')
@@ -72,6 +181,9 @@ def build(codes=None, quiet=False):
     # resolver itself, and repeating it here would say nothing new.
     learned = adb_resolve.learn(pooled, quiet=True)
 
+    # The books' own legend first: it STATES what a drawing is, where the votes only infer it.
+    legend_filled, legend_touched, _clashes = from_legend(docs, idxs, grp, quiet)
+
     filled = {}
     for code, path, data in docs:
         idx, n = idxs[code], 0
@@ -86,7 +198,7 @@ def build(codes=None, quiet=False):
                 if pn:
                     r['pn'] = pn
                     n += 1
-        if n:
+        if n or path in legend_touched:
             with open(path, 'w', encoding='utf-8') as f:
                 json.dump(data, f, ensure_ascii=False)
             filled[code] = filled.get(code, 0) + n

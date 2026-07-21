@@ -18,7 +18,7 @@ language's pack (langs/<lang>/lang.json).
 """
 import fitz, json, re, sys, os, unicodedata
 import langpack
-from icons import ICON_MAP, icon_name, is_icon_font
+from icons import ICON_MAP, icon_name, is_alien_font, is_icon_font
 
 TEAL = 0x306360           # cross-reference colour
 # illustration credits from embedded example cards (not rules prose)
@@ -354,12 +354,19 @@ def build_runs(spans, reds=_KEEP):
         italic = 'Italic' in f or '-It' in f
         ref = (s.get('color', 0) == TEAL)
         red = is_new_red(s, reds)
+        # The alien script is ordinary text in an extraordinary face (see icons.is_alien_font):
+        # marked, never merged with the roman around it, so the site can draw it as the book
+        # does instead of printing the letters the reader is not meant to see.
+        alien = is_alien_font(f)
         # merge with previous compatible text run
         if runs and runs[-1]['kind'] == 'text' and runs[-1]['bold'] == bold \
-                and runs[-1]['italic'] == italic and runs[-1]['ref'] == ref and runs[-1]['red'] == red:
+                and runs[-1]['italic'] == italic and runs[-1]['ref'] == ref \
+                and runs[-1]['red'] == red and bool(runs[-1].get('alien')) == alien:
             runs[-1]['t'] += txt
         else:
             push('text', t=txt, bold=bold, italic=italic, ref=ref, red=red)
+            if alien:
+                runs[-1]['alien'] = True
     # normalise whitespace inside text runs, drop empties; whitespace-only isn't a cross-ref
     clean = []
     for r in runs:
@@ -390,9 +397,13 @@ def merge_runs(runs):
     out = []
     for r in runs:
         # spacing between runs is already baked in by the line-join logic; concat directly
+        # `alien` counts as a style here: it is a different FACE, and merging an alien run into
+        # the roman beside it silently dropped the flag (the merge keeps the earlier dict), so
+        # the script reached the page as ordinary letters however carefully it was marked.
         if r['kind'] == 'text' and out and out[-1]['kind'] == 'text' \
                 and out[-1]['bold'] == r['bold'] and out[-1]['italic'] == r['italic'] \
-                and out[-1]['ref'] == r['ref'] and out[-1].get('red') == r.get('red'):
+                and out[-1]['ref'] == r['ref'] and out[-1].get('red') == r.get('red') \
+                and bool(out[-1].get('alien')) == bool(r.get('alien')):
             out[-1]['t'] = out[-1]['t'] + r['t']
         else:
             out.append(dict(r))

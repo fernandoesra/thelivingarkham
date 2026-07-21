@@ -14,6 +14,11 @@
 @font-face{font-family:'ubbody';src:url(../assets/fonts/ub/ub-body-i.woff2) format('woff2');font-weight:400;font-style:italic;font-display:swap}
 @font-face{font-family:'ubbody';src:url(../assets/fonts/ub/ub-body-b.woff2) format('woff2');font-weight:700;font-style:normal;font-display:swap}
 @font-face{font-family:'ubbody';src:url(../assets/fonts/ub/ub-body-bi.woff2) format('woff2');font-weight:700;font-style:italic;font-display:swap}
+/* The Drowned City's alien alphabet. The characters underneath are ordinary letters — the face
+   is what makes them alien — so the text stays real text: selectable, searchable, and read out
+   correctly by a screen reader. `swap` matters more than usual here: until it loads the reader
+   sees the Latin letters, which is the honest fallback rather than a row of tofu. */
+@font-face{font-family:'alienglyphs';src:url(../assets/fonts/alien-glyphs.woff2) format('woff2');font-display:swap}
 
 /* ---------- page reset ---------- */
 *,*::before,*::after{box-sizing:border-box}
@@ -268,13 +273,30 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 /* One button per language, built at runtime from data/languages.json.
    The [hidden] rule must be spelled out: `display:flex` would otherwise beat the
    browser's own [hidden] rule and a single-language site would show an empty box. */
-.tla-lang{display:flex; border:1px solid var(--edge2); border-radius:10px; overflow:hidden; font-family:var(--ff-ui)}
+/* position: the menu hangs off this box, so it must be the containing block. Not `overflow:
+   hidden` any more — that clipped the menu it now holds. */
+.tla-lang{position:relative; display:flex; border:1px solid var(--edge2); border-radius:10px;
+  font-family:var(--ff-ui)}
 .tla-lang[hidden]{display:none}
 .tla-lang button{display:flex; align-items:center; gap:7px; min-height:44px;
   background:transparent; color:var(--ink2); border:0; padding:0 12px; font-size:14px;
   font-weight:700; cursor:pointer; letter-spacing:.4px}
 .tla-lang button:hover{background:var(--panel)}
 .tla-lang button[aria-pressed=true]{background:var(--gold); color:var(--on-gold)}
+.tla-lang-cur{border-radius:9px}
+.tla-lang-cur[aria-expanded=true]{background:var(--panel)}
+.tla-lang-caret{width:10px; height:6px; opacity:.7; flex:none}
+.tla-lang-cur[aria-expanded=true] .tla-lang-caret{transform:rotate(180deg)}
+/* The menu of the other languages. Same shelf as the theme picker so the header behaves one
+   way, and scrollable: eleven languages is taller than a short viewport. */
+.tla-langmenu{position:absolute; top:calc(100% + 8px); right:0; z-index:60; min-width:210px;
+  max-height:min(60vh,420px); overflow-y:auto; display:flex; flex-direction:column;
+  background:var(--panel2); border:1px solid var(--edge2); border-radius:12px; padding:6px;
+  box-shadow:0 14px 34px rgba(0,0,0,.34)}
+.tla-langmenu[hidden]{display:none}
+.tla-langmenu button{width:100%; justify-content:flex-start; border-radius:8px; padding:0 10px}
+.tla-lang-nm{font-weight:500; letter-spacing:0; color:var(--ink2); white-space:nowrap}
+.tla-langmenu button:hover .tla-lang-nm{color:var(--ink)}
 /* The flag is a small chip: held back to the palette's muted register until its
    language is the live one, so it reads as part of the brass, not a sticker. */
 .tla-flag{display:block; width:20px; height:14px; border-radius:2px; object-fit:cover;
@@ -1116,6 +1138,10 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 
 /* page reference chip ("orig. p. 13") */
 .tla-pageref{font-family:var(--ff-ui); font-size:.82em; color:var(--muted); white-space:nowrap; opacity:.9}
+/* The alien script (see the @font-face note). Slightly larger because the glyphs are drawn
+   smaller than Latin letters at the same size, and kept on one line: it spells a single word,
+   and a word broken across lines in an alphabet nobody reads is unreadable twice over. */
+.tla-alien{font-family:'alienglyphs', var(--ff-body); font-size:1.15em; letter-spacing:.04em; white-space:nowrap}
 
 /* ---------- version history ---------- */
 /* inline "new since last version" text */
@@ -1719,7 +1745,11 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 /* The language switch, offered inside the tour's own card: a reader who cannot read the
    language they landed in is exactly who that stop is for. */
 .tla-tour-extra:empty{display:none}
-.tla-tour-langs{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px}
+/* Every language, right here in the card — the reader this stop is for may not be able to read
+   the card itself. It wraps, and past a handful of languages it scrolls rather than growing the
+   dialog past the viewport; the scroller is focusable and named so a keyboard can reach it. */
+.tla-tour-langs{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;
+  max-height:min(38vh,190px); overflow-y:auto}
 .tla-tour-lang{display:inline-flex; align-items:center; gap:7px; cursor:pointer;
   font-family:var(--ff-ui); font-size:13.5px; font-weight:600; min-height:38px;
   padding:7px 12px; border-radius:10px; border:1px solid var(--edge2);

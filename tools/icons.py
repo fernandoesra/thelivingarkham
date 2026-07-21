@@ -60,6 +60,17 @@ def is_icon_font(font):
     return 'ArkhamHorror' in font
 
 
+def is_alien_font(font):
+    """The Drowned City's alien script.
+
+    Unlike the icon font, its characters are LETTERS: the book types an ordinary word and the
+    face draws it in the alien alphabet, so the text layer holds "poder" while the page shows
+    six glyphs. That makes it the opposite of an icon — the meaning is in the letters, and only
+    the shape is alien — so it is kept as text and merely marked, and the site draws it with the
+    same face. Reading it out as "p o d e r" is exactly right: the glyphs spell that."""
+    return 'AlienGlyphs' in font
+
+
 def icon_names(packs=()):
     """Every icon a pack may label: the font glyphs plus any vector symbols a
     pack renders (e.g. the basic-weakness symbol, which is drawn, not typed)."""

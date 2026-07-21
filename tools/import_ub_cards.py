@@ -48,6 +48,12 @@ FRAME = {
     ('ultimatum', True): 'Ultimatum-Refraction.png',
     ('boon', True): 'Boon-Refraction.png',
 }
+# The same refraction frame WITHOUT the scenario diamond. The artist drew both, for the reason
+# below — see frame_for().
+FRAME_NOSET = {
+    'ultimatum': 'Ultimatum-Refraction-NoSet.png',
+    'boon': 'Boon-Refraction-NoSet.png',
+}
 # Centre crop that turns the bleed card into the no-bleed one (60/1432, 91/2000):
 # the artist's own no-bleed export is this exact crop (verified pixel-identical).
 BLEED_X, BLEED_Y = 60 / 1432, 91 / 2000
@@ -71,6 +77,24 @@ def parse(fname):
     else:
         cat = None
     return base, cat, refraction
+
+
+def frame_for(cat, refraction, slug, refr):
+    """Which frame goes over this card.
+
+    A refraction that fixes ONE scenario prints that scenario's encounter-set symbol in a
+    diamond above the type line. A refraction that applies to a WHOLE campaign has no scenario
+    to name, and the artist drew a second frame with no diamond for exactly that case. Choosing
+    on category alone left an empty diamond on the seven campaign-wide cards — a hole where the
+    card is not supposed to have one at all.
+
+    Which is which is not declared a second time: the same `set` in tools/ub_refractions.json
+    that decides whether a scenario symbol is drawn on the subtitle decides this."""
+    if not refraction:
+        return FRAME.get((cat, False))
+    if (refr.get(slug) or {}).get('set'):
+        return FRAME.get((cat, True))
+    return FRAME_NOSET.get(cat)
 
 
 _frame_cache = {}
@@ -157,6 +181,7 @@ def main():
         return 1
 
     illus = json.load(open(ILLUS, encoding='utf-8')) if os.path.exists(ILLUS) else {}
+    refr = json.load(open(REFR, encoding='utf-8')) if os.path.exists(REFR) else {}
 
     fronts = sorted(f for f in os.listdir(cards_dir) if f.endswith('-A.png'))
     registry = {}
@@ -169,11 +194,11 @@ def main():
             continue
         if refraction and not args.refractions:
             continue
-        frame_name = FRAME.get((cat, refraction))
+        slug = slugify(name)
+        frame_name = frame_for(cat, refraction, slug, refr)
         if not frame_name or not os.path.exists(os.path.join(FRAMES, frame_name)):
             print(f'  skip (no frame for {cat}{"/refraction" if refraction else ""}): {fname}')
             continue
-        slug = slugify(name)
         if slug in seen:
             raise SystemExit(f'slug collision {slug!r}: {seen[slug]} vs {fname}')
         seen[slug] = fname
@@ -189,7 +214,10 @@ def main():
         if illus.get(slug):
             registry[slug]['illus'] = illus[slug]
         n += 1
-        print(f'  {slug}  {cw}x{ch}  ({cat}{", refraction" if refraction else ""})')
+        kind = cat + (', refraction' if refraction else '')
+        if refraction and frame_name in FRAME_NOSET.values():
+            kind += ', campaign-wide (no scenario diamond)'
+        print(f'  {slug}  {cw}x{ch}  ({kind})')
 
     # Finished cards whose art the artist composited themselves (the "Nuevos" folder).
     nuevos = os.path.join(os.path.dirname(args.src), 'Nuevos')

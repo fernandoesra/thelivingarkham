@@ -33,10 +33,22 @@ def load():
         return json.load(f)
 
 
+FALLBACK = 'en'
+
+
 def attach(sections, code, quiet=False):
-    """Put this language's block on the skill-test chapter. Returns the number of rows."""
+    """Put this language's block on the skill-test chapter. Returns the number of rows.
+
+    A language with no transcription of its own borrows the English one rather than showing
+    nothing: the table is mostly card names and step numbers, and having it in the wrong
+    language beats not having it at all. The borrowing is declared (`lang`), never hidden —
+    the site tags the block so a screen reader switches voice, says plainly that it has not
+    been translated, and asks for a translation."""
     data = load()
     block = data.get(code)
+    origin = code
+    if not block or not block.get('steps'):
+        block, origin = data.get(FALLBACK), FALLBACK
     if not block or not block.get('steps'):
         return 0
     sec = next((s for s in sections if s.get('key') == SECTION_KEY), None)
@@ -49,10 +61,16 @@ def attach(sections, code, quiet=False):
         'title': block.get('title', ''),
         'lead': block.get('lead', []),
         'steps': block['steps'],
-        'credit': (data.get('credit') or {}).get(code, {}),
+        'credit': (data.get('credit') or {}).get(origin, {}),
+        # The work all of these descend from, credited on every language's copy.
+        'original': (data.get('credit') or {}).get('_original', {}),
     }
+    if origin != code:
+        sec['fanmade']['lang'] = origin
     if not quiet:
-        print(f'  fanmade timing {code}: {len(block["steps"])} row(s) attached to {sec["id"]}')
+        borrowed = '' if origin == code else f' (in {origin}, not translated yet)'
+        print(f'  fanmade timing {code}: {len(block["steps"])} row(s) attached to {sec["id"]}'
+              f'{borrowed}')
     return len(block['steps'])
 
 
