@@ -77,6 +77,13 @@ def _refs(runs):
                 icons.append(nxt)
             elif nxt.get('kind') == 'text':
                 buf += nxt.get('t', '')
+            elif nxt.get('kind') == 'icon':
+                # An inline game glyph printed INSIDE the bracket. The Spanish FAQ marks the
+                # Core Set with the elder sign, which the icon stage reads as an ordinary glyph
+                # rather than a set mark, so the scan stopped dead at it with buf=' (' and lost
+                # the number as well — 36 Spanish references, the largest single cause there.
+                # A glyph is not the end of a bracket; the ')' and the budget still are.
+                pass
             else:
                 break
             j += 1
@@ -87,7 +94,18 @@ def _refs(runs):
             # Nothing ahead of the name — look BEHIND it for the Italian form (see _LEADNUM).
             lead = _lead_ref(runs, i)
             if lead:
-                out.append((r, [lead[0]], lead[1]))
+                # The number comes from behind the name; the MARK still comes from in front of
+                # it, because that is where this form prints it: "263 - Nome <icon>". Dropping
+                # the icons the forward scan already collected left every lead-in reference
+                # with no product at all — so it cast no vote for its own mark in pass 1, and
+                # pass 2 had nothing to settle it with when a name has two printings.
+                out.append((r, [lead[0]], lead[1] or icons))
+            elif icons:
+                # No number in front and none behind, but the mark still names a campaign, and
+                # a name is often unique inside one. Kept so pass 2 can try it, rather than
+                # dropped here where nothing can look at it again. Checked AFTER the lead-in
+                # form, which does have a number — just on the other side of the name.
+                out.append((r, [], icons))
             continue
         nums = re.findall(r'\d+', m.group(1))
         out.append((r, [int(n) for n in nums], icons))
@@ -121,7 +139,7 @@ def _lead_ref(runs, i):
     return (int(re.match(r'\d+', m.group(1)).group(0)), []) if m else None
 
 
-def _walk(sections):
+def walk(sections):
     for s in sections:
         for b in s.get('intro', []) or []:
             yield b.get('runs', [])
@@ -137,7 +155,7 @@ def _walk(sections):
                     yield b.get('runs', [])
 
 
-def _learn(votes, quiet=False):
+def learn(votes, quiet=False):
     """icon group -> (campaign, votes, share) for the icons the references agreed on.
 
     A group whose references disagree is reported rather than trusted: either the shape grouping
@@ -152,6 +170,57 @@ def _learn(votes, quiet=False):
                   f'({", ".join(f"{c}x{k}" for c, k in sorted(tally.items(), key=lambda kv: -kv[1]))})'
                   f' — it resolves nothing on its own.', file=sys.stderr)
     return out
+
+
+def confident(got):
+    """Whether a learned mark is attested well enough to name a product on its own.
+
+    One test, in one place: several references must agree, and they must agree strongly."""
+    return bool(got) and got[1] >= _MIN_VOTES and got[2] >= _MIN_SHARE
+
+
+def _sole_card(idx, run, nums):
+    """(the number this reference really cites, the cards it names under that number).
+
+    "( 29, 5)" is usually ONE card the publisher printed twice, and the page names the first
+    printing first — so that is the one the link opens, rather than dropping the reference for
+    being ambiguous. Sometimes, though, the bracket belongs to two different cards ("Dagón (…),
+    Hidra (…) ( 330a, 331a)") and the name nearest it goes with the LAST number, so every number
+    is tried until one names this card.
+
+    Shared with vote(), which reads the same evidence off an already-built corpus: what counts
+    as proof about a mark has to be the one thing, or the marks would be learned under one rule
+    and used under another."""
+    name = run.get('q') or run.get('t') or ''
+    num = next((n for n in nums if idx.at(name, n)), nums[0])
+    return num, idx.at(name, num)
+
+
+def vote(sections, idx, grp=None):
+    """What a built corpus attests each mark to be: {icon group: {cycle: votes}}.
+
+    Pass 1's evidence, tallied without acting on it — a reference whose name and number name
+    exactly ONE card teaches which campaign the mark beside it stands for.
+
+    This exists so the marks can be learned from every edition at once (tools/iconnames.py).
+    The mark is the same drawing in all four books, so evidence about it is not language-
+    specific even though the books are; only which language the answer is then spelled in.
+
+    Unlike pass 1 this does not skip a reference that already carries a code — on built data
+    every resolved reference does — because the rule it applies is independent of how that code
+    got there."""
+    grp = iconsets.groups() if grp is None else grp
+    votes = {}
+    for runs in walk(sections):
+        for run, nums, icons in _refs(runs):
+            if not nums or not icons:
+                continue
+            gid = grp.get(icons[0].get('fp'), icons[0].get('fp'))
+            _num, cands = _sole_card(idx, run, nums)
+            if gid and len(cands) == 1 and cands[0]['cycle'] is not None:
+                votes.setdefault(gid, {}).setdefault(cands[0]['cycle'], 0)
+                votes[gid][cands[0]['cycle']] += 1
+    return votes
 
 
 def _close(a, b):
@@ -175,7 +244,7 @@ def resolve(sections, code, quiet=False):
     if idx is None:
         return None
     refs = []
-    for runs in _walk(sections):
+    for runs in walk(sections):
         refs.extend(_refs(runs))
     # The same product mark is traced under several fingerprints; group them by shape so all of
     # a product's references teach the same icon (see tools/iconsets.py).
@@ -188,16 +257,14 @@ def resolve(sections, code, quiet=False):
     # Pass 1 — name + number. An unambiguous hit also votes for what its icon means.
     votes, packvotes, pending = {}, {}, []
     for run, nums, icons in refs:
-        name = run.get('q') or run.get('t') or ''
-        if run.get('code') or not nums:
+        if run.get('code'):
             continue                               # already answered by hand (tools/card_links.json)
-        # "( 29, 5)" is usually ONE card the publisher printed twice, and the page names the
-        # first printing first — so that is the one the link opens, rather than dropping the
-        # reference for being ambiguous. Sometimes, though, the bracket belongs to two different
-        # cards ("Dagón (…), Hidra (…) ( 330a, 331a)") and the name nearest it goes with the LAST
-        # number, so every number is tried until one names this card.
-        num = next((n for n in nums if idx.at(name, n)), nums[0])
-        cands = idx.at(name, num)
+        if not nums:
+            # Cited by name and mark alone. Nothing to look up here, but the mark names a
+            # campaign, so pass 2 still has something to go on.
+            pending.append((run, None, icons, []))
+            continue
+        num, cands = _sole_card(idx, run, nums)
         if len(cands) == 1:
             run['code'] = cands[0]['code']
             gid, cyc = gid_of(icons), cands[0]['cycle']
@@ -208,10 +275,10 @@ def resolve(sections, code, quiet=False):
                 packvotes[gid][cands[0]['pack']] += 1
         else:
             pending.append((run, num, icons, cands))
-    learned = _learn(votes, quiet)
+    learned = learn(votes, quiet)
 
     # Pass 2 — the icon settles the rest.
-    by_icon, by_pack, unresolved = 0, 0, 0
+    by_icon, by_pack, by_set, unresolved = 0, 0, 0, 0
     for run, num, icons, cands in pending:
         got = learned.get(gid_of(icons))
         if not got:
@@ -237,7 +304,7 @@ def resolve(sections, code, quiet=False):
                 run['code'] = hits[0]['code']
                 by_icon += 1
                 continue
-        elif n >= _MIN_VOTES and share >= _MIN_SHARE:
+        elif confident(got):
             # No name match in this language — ArkhamDB may spell it differently, or the parser
             # swallowed a word into the name ("Cada Progenie de Yog-Sothoth"). The campaign and
             # the position, which is exactly what the page prints, name the card instead. Only
@@ -251,16 +318,37 @@ def resolve(sections, code, quiet=False):
                 run['code'] = hits[0]['code']
                 by_pack += 1
                 continue
+        # Last resort — the NAME, inside the product the mark stands for. A page whose printed
+        # number ArkhamDB disagrees with, or that prints none at all, still names its card, and
+        # if that product holds exactly one card of the name there is nothing left to guess.
+        if confident(got):
+            ref = adb.key(run.get('q') or run.get('t') or '')
+            # Exact, never _close. Prefix matching is safe where a POSITION has already pinned
+            # the card down; here nothing has, and run text is sometimes a piece of a longer
+            # printed phrase ("Manica" out of "Asso nella Manica") that would happily steal a
+            # card it merely ends with.
+            if len(ref) >= 5:
+                # Only products this mark's OWN confirmed references came from — a cycle is
+                # coarser than a product (ArkhamDB files eight unrelated novellas and promos
+                # under one), so a name unique in that bucket can still belong to a product
+                # the mark does not mark.
+                hits = [h for h in idx.by_cycle_all(cyc)
+                        if adb.key(h['name']) == ref and pv.get(h['pack'])]
+                # The two faces of one double-sided card are one answer, not two.
+                if len({re.sub(r'[ab]$', '', h['code']) for h in hits}) == 1:
+                    run['code'] = sorted(hits, key=_prefer)[0]['code']
+                    by_set += 1
+                    continue
         unresolved += 1
 
     # The icons now have names: a set icon can say which product it is instead of "product icon".
     named = 0
-    for runs in _walk(sections):
+    for runs in walk(sections):
         for r in runs:
             if r.get('kind') != 'seticon':
                 continue
             got = learned.get(grp.get(r.get('fp'), r.get('fp')))
-            if got and got[1] >= _MIN_VOTES and got[2] >= _MIN_SHARE:
+            if confident(got):
                 pn = idx.campaign_name(got[0])
                 if pn:
                     r['pn'] = pn
@@ -275,13 +363,15 @@ def resolve(sections, code, quiet=False):
 
     total = len(refs)
     direct = sum(1 for r, _n, _i in refs if r.get('code'))
-    report = {'refs': total, 'direct': direct, 'byname': direct - by_icon - by_pack,
-              'byicon': by_icon, 'bypack': by_pack, 'unresolved': total - direct,
-              'icons': len(learned), 'named': named}
+    report = {'refs': total, 'direct': direct,
+              'byname': direct - by_icon - by_pack - by_set,
+              'byicon': by_icon, 'bypack': by_pack, 'byset': by_set,
+              'unresolved': total - direct, 'icons': len(learned), 'named': named}
     if not quiet:
         print(f'  arkhamdb {code}: {direct}/{total} card references linked to the exact card '
               f'({report["byname"]} by name+number, {by_icon} by product icon, {by_pack} by '
-              f'position), {len(learned)} product icon(s) identified, {named} icon(s) named')
+              f'position, {by_set} by name within the product), {len(learned)} product icon(s) '
+              f'identified, {named} icon(s) named')
     return report
 
 

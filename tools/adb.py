@@ -138,8 +138,22 @@ class Index(object):
             cyc = p.get('cycle_position')
             if cyc is not None and (p.get('position') or 99) <= 1:
                 self.cycle_name.setdefault(cyc, p.get('name', ''))
+        # A campaign whose first product does not call itself first still has a name when it is
+        # the ONLY product in its cycle: the 2026 Core Set sits at position 3 of a cycle holding
+        # nothing else, so 33 marks across the four books were identified perfectly and still
+        # read out as a bare "product icon". A one-product cycle cannot be mislabelled by its own
+        # product; a cycle with several — the nine-strong promo and novella bucket — correctly
+        # stays unnamed rather than lending one member's title to all of them.
+        percycle = {}
+        for p in packs:
+            if p.get('cycle_position') is not None:
+                percycle.setdefault(p['cycle_position'], []).append(p)
+        for cyc, ps in percycle.items():
+            if cyc not in self.cycle_name and len(ps) == 1:
+                self.cycle_name[cyc] = ps[0].get('name', '')
         self.by_name_pos = {}                      # (namekey, position) -> [card, …]
         self.by_cycle_pos = {}                     # (cycle, position) -> [card, …]
+        self.by_cycle = {}                         # cycle -> [card, …]
         self.by_code = {}                          # card code -> card
         for c in cards:
             pos, pack = c.get('position'), c.get('pack_code')
@@ -162,6 +176,7 @@ class Index(object):
             if back:
                 self.by_name_pos.setdefault((key(back), pos), []).append(rec)
             self.by_cycle_pos.setdefault((rec['cycle'], pos), []).append(rec)
+            self.by_cycle.setdefault(rec['cycle'], []).append(rec)
             self.by_code[rec['code']] = rec
 
     def at(self, name, pos):
@@ -171,6 +186,11 @@ class Index(object):
     def in_cycle(self, cycle, pos):
         """Every card at `pos` in that campaign — one, unless its products number separately."""
         return self.by_cycle_pos.get((cycle, pos), [])
+
+    def by_cycle_all(self, cycle):
+        """Every card in a campaign, wherever it sits — for a reference whose printed number
+        names nothing, where only the name is left to go on."""
+        return self.by_cycle.get(cycle, [])
 
     def pack_name(self, pack):
         return self.packs.get(pack, '')

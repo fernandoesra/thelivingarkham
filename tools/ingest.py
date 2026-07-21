@@ -193,6 +193,12 @@ def main(argv):
         # record are already the canonical ones.
         import ub_registry
         ub_registry.build([p.code for p in packs])
+        # A mark is one drawing in all four books, so what any edition proves about it is
+        # proof for the others too. Pooled here rather than inside a pack's own build, where
+        # it could only ever see one book's evidence — and reading every language's data, not
+        # just the ones this run touched, so a single-language rebuild keeps the names.
+        import iconnames
+        iconnames.build([p.code for p in packs])
         # Anything the icon tables could not name a product for, written down so it can be
         # answered by hand (tools/other/icon-products-unmatched.md).
         import packmap

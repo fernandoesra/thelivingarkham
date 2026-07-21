@@ -190,6 +190,41 @@ def split_terms(blocks):
     return _terms_by_lead(blocks)
 
 
+# The numeral and its closing bracket, with the opening one left behind (see _heal_orphan_paren).
+_ORPHAN_NUM = re.compile(r'^\s*\d+(?:\.\d+)?\)')
+
+
+def _heal_orphan_paren(block):
+    """Pull a stray roman '(' into the bold numeral that follows it.
+
+    A lead is recognised by its FACE — bold — and by reading "(N.NN)". The German edition
+    breaks that pair on five clarifications: its typesetter left the opening bracket in the
+    roman face while the numeral is bold, so the parser hands us two runs, '(' unbold and
+    '1.28) Hinweise auf Spielerkarten' bold. Neither passes the lead test — the unbold run
+    has the bracket, the bold run has the numeral — so 1.28, 1.29, 1.30, 1.31 and 1.33 were
+    swallowed as body prose by the clarification above them (German built 64 where the other
+    three editions build 69). Mending the runs is right where widening the pattern would be
+    wrong: the numeral genuinely IS the lead, the bracket is a stray, and every later reader
+    of these runs — the title, the anchor, the search line — wants them whole."""
+    runs = block.get('runs') or []
+    out, i, healed = [], 0, False
+    while i < len(runs):
+        r, nxt = runs[i], (runs[i + 1] if i + 1 < len(runs) else None)
+        if (r.get('kind') == 'text' and (r.get('t') or '').endswith('(')
+                and nxt is not None and nxt.get('kind') == 'text' and nxt.get('bold')
+                and _ORPHAN_NUM.match(nxt.get('t') or '')):
+            head = r['t'][:-1]
+            if head:                      # the run held more than the bracket: keep the rest
+                out.append({**r, 't': head})
+            out.append({**nxt, 't': '(' + nxt['t']})
+            i += 2
+            healed = True
+            continue
+        out.append(r)
+        i += 1
+    return {**block, 'runs': out} if healed else block
+
+
 def _split_at_numbered_leads(block):
     """Split a block wherever a bold '(N.NN)' heading begins part-way through it. When a
     clarification's heading flows straight out of the previous one — across a column or page
@@ -222,7 +257,7 @@ def split_numbered(blocks):
     the heading; the rest of that paragraph and the blocks under it are the body."""
     expanded = []
     for b in blocks:
-        expanded.extend(_split_at_numbered_leads(b))
+        expanded.extend(_split_at_numbered_leads(_heal_orphan_paren(b)))
     blocks = expanded
     lead, entries, cur = [], [], None
     for b in blocks:
@@ -339,13 +374,22 @@ def build_section(raw, code):
         # search — and the chapter counted 126 entries against the 146 questions the
         # English book prints. Nothing was missing from the page; 29 questions were
         # buried inside 9 entries. Same shape in every edition (es 29, de 33, it 29).
-        assemble.split_qa(sec)
+        #
+        # The label an edition prints in front of a question is learned ONCE, over the whole
+        # chapter, and handed to every part of it. Learned per part it would be lost exactly
+        # where it is needed: a campaign's Q&A can hold a single question — too little to learn
+        # a habit from — and a question the parser cut in half carries its "?" in the other
+        # half, so without the label the German "Der Pfad nach Carcosa" would stop heading its
+        # question and head the tail of it instead.
+        label = assemble.learn_qa_label(
+            list(sec['intro']) + [b for n in raw['members'] for b in n['blocks']])
+        assemble.split_qa(sec, label)
         for n in raw['members']:
             # split_qa is a no-op on a campaign that holds no question/answer pair:
             # it returns leaving `intro` as the blocks it was given, so that campaign
             # stays exactly the single entry it is today.
             inner = {'intro': list(n['blocks']), 'entries': []}
-            assemble.split_qa(inner)
+            assemble.split_qa(inner, label)
             sec['entries'].append({
                 'title': n['title'],
                 'titleRuns': title_runs_of(n),

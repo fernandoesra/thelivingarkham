@@ -111,9 +111,90 @@ def _split_merged_qa(b):
         # the answer's own run may carry the space that separated it from the question
         # ("… ?" + " A: No."); drop it so _strip_label sees the label at the front.
         tail = {'type': b['type'], 'runs': [{**r, 't': t.lstrip()}] + runs[i + 1:]}
+        # Normally the answer is roman and that alone tells the halves apart. The German book
+        # sets both halves italic on two of its pairs, and there the question mark does it
+        # instead: a question carries one and the answer to it does not.
+        if _italic_ratio(head) >= 0.5 and (
+                _italic_ratio(tail) < 0.5
+                or ('?' in flat_text(head['runs']) and '?' not in flat_text(tail['runs']))):
+            return [head, tail]
+    return [b]
+
+
+# "¿" and "¡" open a Spanish sentence, and the parser leaves them at the END of the roman run
+# before the question — so they must come off before asking whether that run finished a
+# sentence, and go back onto the question, which is where the book prints them.
+_OPEN_MARKS = '¿¡'
+
+
+def _split_answer_then_question(b):
+    """[roman answer][italic question] set as one paragraph -> the two of them.
+
+    The mirror of _split_merged_qa, and the only shape available to the Spanish edition: it
+    prints no Q/A labels at all, so there is no seam to look for and the change of type IS the
+    seam. Cut at the first italic run that follows a FINISHED roman sentence, and keep the cut
+    only if the halves really are a roman answer and an italic question that asks something.
+
+    Mid-sentence italic — a card name, a quoted keyword — cannot reach the test, because the
+    run before it has not ended a sentence."""
+    runs = b.get('runs') or []
+    for i, r in enumerate(runs):
+        if (i == 0 or r.get('kind') != 'text' or not r.get('italic')
+                or not r.get('t', '').strip()):
+            continue
+        j = next((j for j in range(i - 1, -1, -1) if runs[j].get('kind') == 'text'
+                  and runs[j].get('t', '').strip()), None)
+        if j is None or runs[j].get('italic'):
+            continue
+        prev = runs[j]
+        stripped, mark = prev.get('t', '').rstrip(), ''
+        while stripped and stripped[-1] in _OPEN_MARKS:
+            mark = stripped[-1] + mark
+            stripped = stripped[:-1].rstrip()
+        if not stripped.endswith(_SENT_END):
+            continue
+        head_runs, tail_runs = list(runs[:i]), list(runs[i:])
+        if mark:
+            head_runs[j] = {**prev, 't': stripped}
+            tail_runs[0] = {**r, 't': mark + r.get('t', '')}
+        head = {'type': b['type'], 'runs': head_runs}
+        tail = {'type': b['type'], 'runs': tail_runs}
+        if _italic_ratio(head) < 0.5 <= _italic_ratio(tail) and '?' in flat_text(tail_runs):
+            return [head, tail]
+    return [b]
+
+
+def _split_unlabelled_qa(b):
+    """[italic question ?][roman answer] in one paragraph, with no label at the seam.
+
+    An edition that normally labels its answers can forget to — the Italian book does, once.
+    Then the only evidence left is the type changing right after a question mark, which is
+    weaker than a printed label, so this is tried ONLY where _split_merged_qa found nothing
+    and can never recut a block the label rule already cut."""
+    runs = b.get('runs') or []
+    for i, r in enumerate(runs):
+        if (i == 0 or r.get('kind') != 'text' or r.get('italic')
+                or not r.get('t', '').strip()):
+            continue
+        prev = next((runs[j] for j in range(i - 1, -1, -1) if runs[j].get('kind') == 'text'
+                     and runs[j].get('t', '').strip()), None)
+        if prev is None or not prev.get('italic') or not prev.get('t', '').rstrip().endswith('?'):
+            continue
+        head = {'type': b['type'], 'runs': runs[:i]}
+        tail = {'type': b['type'], 'runs': [{**r, 't': r.get('t', '').lstrip()}] + runs[i + 1:]}
         if _italic_ratio(head) >= 0.5 > _italic_ratio(tail):
             return [head, tail]
     return [b]
+
+
+def _unmerge_qa(b):
+    """Put back apart a question and an answer the edition set as one paragraph, whichever
+    way round it printed them. The labelled seam is tried first because a printed label is
+    the strongest evidence there is; the type change is the fallback."""
+    parts = _split_merged_qa(b)
+    if len(parts) == 1:
+        parts = _split_unlabelled_qa(b)
+    return [p for part in parts for p in _split_answer_then_question(part)]
 
 def _strip_label(runs):
     """Drop the "Q: " label from the first text run, keeping every other run and every
@@ -173,7 +254,58 @@ def split_at_bold_leads(block):
     return out
 
 
-def split_qa(sec):
+def learn_qa_label(blocks):
+    """The letter an edition prints in front of its questions — 'Q', 'F', 'D' — or None.
+
+    Learned from the blocks that are CERTAINLY questions (italic, and carrying a question
+    mark), never written down: which mark an edition uses is a typesetting habit, and one
+    edition — Spanish — prints none at all, so every rule that consults this has to work
+    without it too.
+
+    What it is for: telling a question from an ANSWER the edition happens to set in italic.
+    The German and Italian books do that on an example or a short reply, and read by slant
+    alone such a block opens an entry of its own and then swallows the next real question into
+    its heading, which is how printed questions went missing from the site."""
+    seen = {}
+    for b in blocks:
+        if b.get('type') != 'p' or _italic_ratio(b) < 0.5:
+            continue
+        t = flat_text(b.get('runs') or []).lstrip()
+        m = QA_LABEL.match(t) if '?' in t else None
+        if m:
+            c = m.group(0)[0].upper()
+            seen[c] = seen.get(c, 0) + 1
+    if not seen:
+        return None
+    top, n = max(seen.items(), key=lambda kv: kv[1])
+    # A habit, not an accident: it must lead most of the labelled questions, and enough of them
+    # that a single capitalised word cannot become the chapter's rule.
+    return top if n >= 3 and n >= 0.6 * sum(seen.values()) else None
+
+
+def _asks(b, label):
+    """Whether an italic block is a QUESTION and not an italic answer.
+
+    A question mark settles it. Without one — a question the parser cut in half at an inline
+    card reference, so the "?" is in the other half — the edition's own label does."""
+    t = flat_text(b.get('runs') or []).lstrip()
+    if '?' in t:
+        return True
+    m = QA_LABEL.match(t)
+    return bool(label and m and m.group(0)[0].upper() == label)
+
+
+def _unfinished(b):
+    """A block the parser cut mid-sentence, so what follows it is its tail.
+
+    The parser breaks a paragraph at an inline card reference, which is how a question arrives
+    as two italic blocks ("…like Amnesia (" + " 96)?"). Only such a break makes the next italic
+    block a continuation: a question that already ended in "?" is finished, and what follows it
+    is something else — an italic answer, or the next question."""
+    return not flat_text(b.get('runs') or []).rstrip().endswith(_SENT_END)
+
+
+def split_qa(sec, label=None):
     """A chapter written as alternating italic questions and roman answers is a list
     of entries whose headings happen to be the questions. Rebuilt as real entries, so
     each Q&A gets what every other entry gets: an id, a § anchor, its own line in the
@@ -188,21 +320,45 @@ def split_qa(sec):
     # First put back apart any pair the edition set as one paragraph (see
     # _split_merged_qa). A no-op wherever no paragraph holds both halves, so the loop
     # below sees exactly what it saw before in every edition that does not do this.
-    blocks = [nb for b in sec['intro'] for nb in _split_merged_qa(b)]
+    blocks = [nb for b in sec['intro'] for nb in _unmerge_qa(b)]
     for b in blocks:
         if b['type'] == 'p' and _italic_ratio(b) >= 0.5:
-            if groups and not groups[-1]['a']:
+            if groups and not groups[-1]['a'] and _unfinished(groups[-1]['q']):
                 # A question that wrapped into a second italic block — the tail after an inline
                 # card reference that broke the paragraph ("…like Amnesia (\\n 96)?") — is a
-                # continuation, not a new question. Merge it in; a real new question only ever
-                # follows an answer.
+                # continuation, not a new question. Merge it in.
+                #
+                # "No answer yet" cannot mean "continued" on its own. The German and Italian
+                # books set an example or a short reply in italic; one of those landing here
+                # left the group answerless, so the NEXT real question was merged into it too,
+                # and then the one after that. Only a question the parser actually cut in half
+                # is continued, which is what _unfinished asks.
                 groups[-1]['q'] = {'type': 'p', 'runs': groups[-1]['q']['runs'] + b['runs']}
-            else:
+            elif _asks(b, label):
                 groups.append({'q': b, 'a': []})
+            elif groups:
+                # Italic, but it asks nothing and continues nothing: it is an answer, or the
+                # tail of one, that this edition chose to set in italic. It belongs under the
+                # question above it, not at the head of an entry of its own.
+                groups[-1]['a'].append(b)
+            else:
+                lead.append(b)
         elif groups:
             groups[-1]['a'].append(b)
         else:
             lead.append(b)
+    # A question with nothing under it is not an entry — faq.drop_empty_entries() deletes those,
+    # and that takes printed text off the site altogether. It can only mean the block was not a
+    # question after all, so it goes back where the book prints it: into the answer above.
+    kept = []
+    for g in groups:
+        if g['a']:
+            kept.append(g)
+        elif kept:
+            kept[-1]['a'].append(g['q'])
+        else:
+            lead.append(g['q'])
+    groups = kept
     if not groups:
         return                      # a FAQ chapter with no questions yet
     sec['intro'] = lead
