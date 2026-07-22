@@ -398,8 +398,8 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-toc{border-left:1px solid var(--edge); padding:22px 18px 40px}
 .tla-main{padding:0 clamp(20px,3.6vw,56px) 90px}
 .tla-doc{max-width:1040px; margin:0 auto; padding-top:30px}
-.tla-nav::-webkit-scrollbar,.tla-toc::-webkit-scrollbar,.tla-main::-webkit-scrollbar,.tla-results::-webkit-scrollbar{width:10px}
-.tla-nav::-webkit-scrollbar-thumb,.tla-toc::-webkit-scrollbar-thumb,.tla-main::-webkit-scrollbar-thumb,.tla-results::-webkit-scrollbar-thumb{background:var(--edge2); border-radius:6px}
+.tla-nav::-webkit-scrollbar,.tla-toc::-webkit-scrollbar,.tla-main::-webkit-scrollbar,.tla-results::-webkit-scrollbar,.tla-rel-body::-webkit-scrollbar{width:10px}
+.tla-nav::-webkit-scrollbar-thumb,.tla-toc::-webkit-scrollbar-thumb,.tla-main::-webkit-scrollbar-thumb,.tla-results::-webkit-scrollbar-thumb,.tla-rel-body::-webkit-scrollbar-thumb{background:var(--edge2); border-radius:6px}
 
 /* nav */
 /* The shelf headings in the side menu. A rule above each one rather than a box around
@@ -1790,7 +1790,13 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 /* Release notes — what changed and when, reached from the "i" in the footer's icon row.
    The button itself is styled by .tla-foot-ico, with the other three. */
 .tla-rel-box{max-width:min(640px,92vw); text-align:left}
-.tla-rel-body{max-height:min(62vh,560px); overflow-y:auto; margin-top:4px}
+/* The scroll bar belongs to this box, not to the prose. Left alone it sits flush against the
+   right edge of the text column and clips the last character of every full line. The negative
+   margin lets the scroller reach into the dialog's own padding, so the bar rides near the edge
+   of the box where it reads as chrome; the padding then holds the text clear of it. Its colours
+   come from the shared ::-webkit-scrollbar rule near the top of this file. */
+.tla-rel-body{max-height:min(62vh,560px); overflow-y:auto; margin-top:4px;
+  margin-right:-14px; padding-right:24px}
 .tla-rel-body:focus-visible{outline:2px solid var(--gold); outline-offset:3px}
 .tla-rel-item+.tla-rel-item{margin-top:22px; padding-top:18px; border-top:1px solid var(--edge2)}
 .tla-rel-v{font-family:var(--ff-head); font-size:20px; color:var(--gold2); margin:0 0 2px;
