@@ -1359,16 +1359,25 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-foot-logo{display:inline-flex; line-height:0; flex:0 0 auto}
 .tla-foot-logo img{width:24px; height:24px; display:block; border-radius:50%}
 .tla-foot-contact{display:inline-flex; align-items:center; gap:8px 12px; flex-wrap:wrap}
-/* The action cluster: a bare mailto (just the address, opens the reader's mail
-   client) and a GitHub link (icon + label) to the — soon public — source. */
-#tla-root .tla-foot-mail,#tla-root .tla-foot-gh{display:inline-flex; align-items:center; gap:6px; text-decoration:none}
-#tla-root .tla-foot-mail:hover,#tla-root .tla-foot-gh:hover{text-decoration:underline}
-.tla-foot-gh svg{width:15px; height:15px; flex:0 0 auto}
-.tla-foot-paypal{display:inline-flex; align-items:center; gap:7px; cursor:pointer; min-height:32px;
-  font-family:var(--ff-ui); font-size:13px; font-weight:600; padding:4px 12px; border-radius:8px;
-  border:1px solid var(--edge2); background:var(--panel); color:var(--gold2)}
-.tla-foot-paypal:hover{background:var(--panel2); border-color:var(--gold); color:var(--ink)}
-.tla-foot-paypal svg{width:14px; height:15px; flex:0 0 auto}
+/* The action cluster: a bare mailto (just the address, opens the reader's mail client),
+   then four icon-only controls — source, chat, donate, release notes. */
+#tla-root .tla-foot-mail{display:inline-flex; align-items:center; gap:6px; text-decoration:none}
+#tla-root .tla-foot-mail:hover{text-decoration:underline}
+/* The four travel together. Without this they are four separate flex items, and on a phone the
+   line breaks wherever it happens to run out — leaving GitHub stranded beside the e-mail and the
+   other three on the row below. As one item the whole cluster wraps, or none of it does. */
+.tla-foot-icos{display:inline-flex; align-items:center; gap:8px; flex:0 0 auto}
+/* One shape for all four, so the row reads as a set rather than as a link, a pill and a
+   circle that happen to be adjacent. 28px clears the 24px minimum target size on its own,
+   and .tla-foot-icos' gap keeps them from being mistaken for one another.
+   All four are buttons today — each opens a dialog rather than leaving the page — but the
+   selector stays #tla-root-qualified so that an <a> added here later still takes this colour
+   instead of the blanket `#tla-root a` link colour. */
+#tla-root .tla-foot-ico{display:inline-flex; align-items:center; justify-content:center;
+  cursor:pointer; width:28px; height:28px; padding:0; border-radius:50%;
+  border:1px solid var(--edge2); background:none; color:var(--ink2); text-decoration:none}
+#tla-root .tla-foot-ico:hover{color:var(--gold2); border-color:var(--gold); text-decoration:none}
+.tla-foot-ico svg{width:15px; height:15px; flex:0 0 auto}
 
 /* ---------- Modified Reprints table ---------- */
 .tla-rp-wrap{overflow-x:auto; margin:20px 0 0}
@@ -1456,11 +1465,20 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-modal-p{font-family:var(--ff-body); font-size:15px; line-height:1.6; color:var(--ink2); margin:0 0 20px}
 /* #tla-root-qualified so its colour outranks the blanket `#tla-root a` link colour —
    otherwise the label renders in the teal link colour on the gold button (1.3:1). */
-#tla-root .tla-donate-cta{display:inline-flex; align-items:center; gap:9px; text-decoration:none;
+/* The one call to action a modal is allowed: PayPal's, GitHub's, and whatever comes next. */
+#tla-root .tla-modal-cta{display:inline-flex; align-items:center; gap:9px; text-decoration:none;
   font-family:var(--ff-ui); font-size:15px; font-weight:700; padding:11px 20px; border-radius:10px;
   background:var(--gold); color:var(--on-gold)}
-#tla-root .tla-donate-cta:hover{background:var(--gold2); color:var(--on-gold); text-decoration:none}
-.tla-donate-cta svg{width:17px; height:18px; flex:0 0 auto}
+#tla-root .tla-modal-cta:hover{background:var(--gold2); color:var(--on-gold); text-decoration:none}
+.tla-modal-cta svg{width:17px; height:18px; flex:0 0 auto}
+/* The Discord modal's placeholder, standing where that modal's CTA will go once there is an
+   invite to link to. Dashed and unfilled so it reads as "not yet" rather than as a button
+   someone forgot to wire up — and it is a p element, so there is nothing to click or tab onto.
+   Colour is --ink2, the same as body copy, so the contrast is one the site already proves. */
+.tla-discord-pending{display:inline-flex; align-items:center; gap:9px; margin:0;
+  font-family:var(--ff-ui); font-size:14px; font-weight:600; padding:10px 18px;
+  border-radius:10px; border:1px dashed var(--edge2); color:var(--ink2)}
+.tla-discord-pending svg{width:17px; height:18px; flex:0 0 auto; opacity:.75}
 
 /* ---------- draw-at-random modal ---------- */
 /* Near-fullscreen so drawn cards are large and readable. Later in the file than
@@ -1769,12 +1787,8 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-taboo-mutlbl{font-family:var(--ff-ui); font-size:11.5px; font-weight:700; letter-spacing:.5px;
   text-transform:uppercase; color:var(--muted); margin-right:6px}
 
-/* Release notes — what changed and when, reached from the "i" beside the credits. */
-.tla-foot-info{display:inline-flex; align-items:center; justify-content:center; cursor:pointer;
-  width:28px; height:28px; padding:0; border-radius:50%; border:1px solid var(--edge2);
-  background:none; color:var(--ink2)}
-.tla-foot-info:hover{color:var(--gold2); border-color:var(--gold)}
-.tla-foot-info svg{width:15px; height:15px}
+/* Release notes — what changed and when, reached from the "i" in the footer's icon row.
+   The button itself is styled by .tla-foot-ico, with the other three. */
 .tla-rel-box{max-width:min(640px,92vw); text-align:left}
 .tla-rel-body{max-height:min(62vh,560px); overflow-y:auto; margin-top:4px}
 .tla-rel-body:focus-visible{outline:2px solid var(--gold); outline-offset:3px}

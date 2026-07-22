@@ -139,6 +139,8 @@ var elNav=document.getElementById('tla-nav'), elMain=document.getElementById('tl
     elFigClose=document.getElementById('tla-figmodal-close'),
     elLb=document.getElementById('tla-lb'),
     elDonate=document.getElementById('tla-donate'),
+    elDiscord=document.getElementById('tla-discord'),
+    elGh=document.getElementById('tla-gh'),
     elUbDraw=document.getElementById('tla-ubdraw');
 var lastFigBtn=null;
 /* set by boot() from the registry — never hardcoded to any language */
@@ -2731,8 +2733,9 @@ function renderLanding(s){
      page claims authorship. Driven by the string being there, not by a list of language
      codes: a pack translated by a person simply leaves it empty and no notice appears.
      TODO: the notice names Discord as a way to report a mistake but cannot link it yet —
-     there is no invite URL in the project. Add the href to "mtnotice" in every ui.json
-     once there is one. The e-mail and GitHub links in it are real and work today. */
+     there is no invite URL in the project. When one exists it has to land in TWO places, or
+     half the site will know about it: the href of "mtnotice" in every ui.json, and the
+     Discord dialog in index.html (see its comment). The e-mail and GitHub links work today. */
   var mt=t('mtnotice');
   if(mt&&mt!=='mtnotice'){
     h+='<aside class="tla-notice tla-notice-mt" role="note">'
@@ -3216,6 +3219,8 @@ function dialogs(){
     {box:elSModal,   isOpen:searchOpen,  close:closeSearch},
     {box:elFigModal, isOpen:figInfoOpen, close:closeFigInfo},
     {box:elDonate,   isOpen:donateOpen,  close:closeDonate},
+    {box:elGh,       isOpen:ghOpen,      close:closeGh},
+    {box:elDiscord,  isOpen:discordOpen, close:closeDiscord},
     {box:elUbDraw,   isOpen:drawOpen,    close:closeDraw},
     /* Last, so it wins when opened over another dialog (a drawn card zoomed over the
        draw modal): openDialog() takes the last open entry, and trapTab/Escape follow it. */
@@ -3322,6 +3327,43 @@ function closeDonate(){
   elDonate.classList.remove('on'); elDonate.hidden=true;
   try{if(lastDonate)lastDonate.focus();}catch(e){}
   lastDonate=null;
+}
+
+/* ---------- discord modal ----------
+   The same disclosure as the donate one. It is a dialog rather than a plain outbound link
+   for one reason: there is no invite URL yet, and this is where the reader is told so — in
+   their own language, which a dead link could not do. Once the invite exists this can stay
+   exactly as it is; only the markup inside the box changes. */
+var lastDiscord=null;
+function discordOpen(){return elDiscord.classList.contains('on');}
+function openDiscord(){
+  lastDiscord=document.activeElement;
+  elDiscord.hidden=false; elDiscord.classList.add('on');
+  try{document.getElementById('tla-discord-close').focus();}catch(e){}
+}
+function closeDiscord(){
+  if(!discordOpen())return;
+  elDiscord.classList.remove('on'); elDiscord.hidden=true;
+  try{if(lastDiscord)lastDiscord.focus();}catch(e){}
+  lastDiscord=null;
+}
+
+/* ---------- contribute modal ----------
+   The GitHub mark opens this instead of the repository, because "all the code is on GitHub" is
+   the least useful half of the answer: what a would-be contributor needs is which kinds of help
+   are wanted and where to start the conversation. The repository link is inside, at the end. */
+var lastGh=null;
+function ghOpen(){return elGh.classList.contains('on');}
+function openGh(){
+  lastGh=document.activeElement;
+  elGh.hidden=false; elGh.classList.add('on');
+  try{document.getElementById('tla-gh-close').focus();}catch(e){}
+}
+function closeGh(){
+  if(!ghOpen())return;
+  elGh.classList.remove('on'); elGh.hidden=true;
+  try{if(lastGh)lastGh.focus();}catch(e){}
+  lastGh=null;
 }
 
 /* ---------- draw-at-random modal ---------- */
@@ -3707,6 +3749,14 @@ function wireEvents(){
   document.getElementById('tla-donate-close').addEventListener('click',closeDonate);
   // backdrop only — a click inside the box must not close it
   elDonate.addEventListener('click',function(e){if(e.target===elDonate)closeDonate();});
+  document.getElementById('tla-discord-open').addEventListener('click',openDiscord);
+  document.getElementById('tla-discord-close').addEventListener('click',closeDiscord);
+  // backdrop only — a click inside the box must not close it
+  elDiscord.addEventListener('click',function(e){if(e.target===elDiscord)closeDiscord();});
+  document.getElementById('tla-gh-open').addEventListener('click',openGh);
+  document.getElementById('tla-gh-close').addEventListener('click',closeGh);
+  // backdrop only — a click inside the box must not close it
+  elGh.addEventListener('click',function(e){if(e.target===elGh)closeGh();});
 
   document.getElementById('tla-ubdraw-close').addEventListener('click',closeDraw);
   elUbDraw.addEventListener('click',function(e){

@@ -221,10 +221,17 @@
     "ubnoart": "Ilustración próximamente",
     "footlogo": "Rincón Miskatonic",
     "donateopen": "Apoya nuestro trabajo",
-    "donatelabel": "Donar",
     "donatetitle": "Apoya nuestro trabajo",
     "donatebody": "Somos una comunidad española que crea contenido de forma gratuita y sin ánimo de lucro. Si quieres, puedes apoyar nuestra labor con una donación. Todo lo que hacemos, hoy y siempre, seguirá siendo gratis: las donaciones se destinan íntegramente a cubrir gastos de gestión y a pagar a artistas para mejorar nuestro trabajo. ¡Muchas gracias!",
     "donatecta": "Contribuir con PayPal",
+    "discordopen": "Habla del proyecto en Discord",
+    "discordtitle": "Habla con nosotros en Discord",
+    "discordbody": "Para hablar sobre este proyecto en Discord, dirígete al Discord de Mythos Busters mediante el siguiente enlace:",
+    "discordpending": "Enlace pendiente de creación",
+    "ghopen": "Colabora con el proyecto",
+    "ghtitle": "Colabora con el proyecto",
+    "ghbody": "Este es un proyecto comunitario y todo el código está disponible en GitHub. Puedes colaborar de muchas formas: mejorando o añadiendo traducciones, cambiando funcionalidades, o lo que se te ocurra. Para ello, contacta con el autor en Discord o abre una pull request en GitHub describiendo tus cambios. ¡Muchas gracias!",
+    "ghcta": "Ver el código en GitHub",
     "ubdownload": "Descargar carta",
     "ubdownall": "Descargar todo",
     "ubdownalltip": "Descargar todas las cartas en un .zip (idioma actual)",
@@ -258,7 +265,6 @@
     "cardstopwords": "Puede Pueden Puedo Podría Podrían Qué Cuál Cuáles Cuándo Cómo Dónde Debe Deben Debería Se Si Cuando Una Un Unos Unas Otro Otra Sólo Solo Al",
     "flagextra": "Contenido adicional",
     "flagextrad": "Recursos que amplían el juego, más allá del Grimorio.",
-    "footgh": "Ver el código y colaborar en GitHub",
     "landingnotice": "<b>Importante:</b> el Grimorio se actualiza antes en inglés y, con el tiempo, se traduce a los demás idiomas, así que parte del contenido puede tardar en llegar al tuyo. Si quieres consultar lo más reciente, revisa la versión en inglés. Y si tienes algún documento de Grimorio, FAQ o erratas que creas que aún no está en la web, escríbenos a <a href=\"mailto:rinconmiskatonic@gmail.com\">rinconmiskatonic@gmail.com</a> y lo añadiremos. ¡Muchas gracias!",
     "mtnotice": "",
     "nobooknotice": "Rincón Miskatonic no ha logrado encontrar los PDF de Grimorio ni FAQ actualizados en tu idioma. Si los tienes, por favor, hazlos llegar a <a href=\"mailto:rinconmiskatonic@gmail.com\">rinconmiskatonic@gmail.com</a> y los añadiremos. Mientras tanto, puedes consultar la web en otros idiomas. ¡Muchas gracias!",
@@ -345,13 +351,15 @@
       "title": "Primera versión pública",
       "items": [
         "Dos reglamentos completos y buscables a la vez: **El Grimorio de Arkham** (capítulo 2, la referencia vigente desde 2026) y el **FAQ del capítulo 1** (notas, erratas y preguntas anteriores), separados a propósito porque pueden contradecirse.",
-        "**Cuatro idiomas** —español, inglés, alemán e italiano—, cada uno construido desde los PDF oficiales de su propio idioma. El inglés va por delante: es donde se publican antes las actualizaciones.",
+        "**Once idiomas**: cuatro con los libros completos —español, inglés, alemán e italiano—, cada uno construido desde los PDF oficiales de su propio idioma; y otros siete —francés, portugués, polaco, ruso, ucraniano, coreano y chino— con toda la interfaz traducida mientras esperan sus reglamentos. Cuando un libro todavía no existe en tu idioma, la web te lo dice y te ofrece leerlo en otro. El inglés va por delante: es donde se publican antes las actualizaciones.",
         "**Historial de versiones**: cada entrada sabe en qué edición apareció y qué se reescribió después, con el texto añadido resaltado y una sección de novedades por versión.",
         "**Enlaces a ArkhamDB**: cada carta citada lleva a su ficha exacta, en tu idioma, deducida del nombre, el número de colección y el icono del producto.",
         "**Herramientas**: buscador sobre ambos documentos, glosario enlazado automáticamente, diagramas de fases interactivos, elementos de las cartas, referencia rápida imprimible, iconos de producto y de conjunto de encuentros.",
         "**Ultimátums, ayudas y refracciones**: visor carta a carta con filtros por capítulo, tipo, campaña y escenario, robo aleatorio y descarga en imagen.",
         "**La lista de tabúes** en vivo desde ArkhamDB, agrupada como en el libro y enlazada carta por carta.",
-        "**Siete temas visuales**, claros y oscuros, y una interfaz pensada para teclado y lector de pantalla."
+        "**Material de la comunidad**, siempre acreditado y separado de los libros oficiales, como el diagrama de tiempos de las pruebas de habilidad de Korriane.",
+        "**Siete temas visuales**, claros y oscuros, y una interfaz pensada para teclado y lector de pantalla.",
+        "**Gratis, sin ánimo de lucro y abierto**: todo el código está en GitHub, y el pie de página explica cómo echar una mano —una traducción, un arreglo, una idea—."
       ]
     }
   ]

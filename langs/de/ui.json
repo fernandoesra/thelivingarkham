@@ -221,10 +221,17 @@
     "ubnoart": "Illustration folgt",
     "footlogo": "Rincón Miskatonic",
     "donateopen": "Unterstützt unsere Arbeit",
-    "donatelabel": "Spenden",
     "donatetitle": "Unterstützt unsere Arbeit",
     "donatebody": "Wir sind eine spanische Community, die ihre Inhalte kostenlos und ohne Gewinnabsicht erstellt. Wenn ihr mögt, könnt ihr unsere Arbeit mit einer Spende unterstützen. Alles, was wir machen, bleibt heute und in Zukunft kostenlos: Spenden fließen vollständig in die laufenden Kosten und in die Bezahlung von Künstlern, die unsere Arbeit verbessern. Vielen Dank!",
     "donatecta": "Über PayPal beitragen",
+    "discordopen": "Sprecht auf Discord über das Projekt",
+    "discordtitle": "Sprecht mit uns auf Discord",
+    "discordbody": "Wenn ihr auf Discord über dieses Projekt sprechen möchtet, findet ihr den Discord von Mythos Busters unter dem folgenden Link:",
+    "discordpending": "Link folgt",
+    "ghopen": "Macht beim Projekt mit",
+    "ghtitle": "Macht beim Projekt mit",
+    "ghbody": "Dies ist ein Community-Projekt und der gesamte Code liegt auf GitHub. Ihr könnt auf viele Arten mithelfen: Übersetzungen verbessern oder ergänzen, Funktionen ändern oder was euch sonst einfällt. Schreibt dem Autor dafür auf Discord oder öffnet auf GitHub einen Pull Request, in dem ihr eure Änderungen beschreibt. Vielen Dank!",
+    "ghcta": "Den Code auf GitHub ansehen",
     "ubdownload": "Karte herunterladen",
     "ubdownall": "Alle herunterladen",
     "ubdownalltip": "Alle Karten als .zip herunterladen (aktuelle Sprache)",
@@ -258,7 +265,6 @@
     "cardstopwords": "Kann Kannst Können Könnte Könnten Darf Darfst Dürfen Muss Musst Müssen Soll Sollte Sollten Würde Würden Wird Werden Was Welche Welcher Welches Wann Wo Wie Warum Wieso Falls Wenn Während Sobald Nachdem Bevor Jeder Jede Jedes Nur Beide Ein Eine Einen Einem Einer Eines Karte Karten Beispiel Siehe Und Oder Ist Sind",
     "flagextra": "Zusätzliche Inhalte",
     "flagextrad": "Materialien, die das Spiel über das Grimoire hinaus erweitern.",
-    "footgh": "Den Code ansehen und auf GitHub mitwirken",
     "landingnotice": "<b>Hinweis:</b> Das Grimoire wird zuerst auf Englisch aktualisiert und nach und nach in die anderen Sprachen übersetzt, daher kann es dauern, bis Inhalte in eurer Sprache ankommen. Für den allerneuesten Stand schaut in die englische Fassung. Und wenn ihr ein Grimoire-, FAQ- oder Errata-Dokument kennt, das hier noch fehlt, schreibt uns an <a href=\"mailto:rinconmiskatonic@gmail.com\">rinconmiskatonic@gmail.com</a> und wir ergänzen es. Vielen Dank!",
     "mtnotice": "<b>Hinweis zur Übersetzung:</b> Diese deutsche Fassung entstand mit maschineller Übersetzung — das Team hinter The Living Arkham spricht nur Englisch und Spanisch. Wenn dir etwas auffällt, in der Oberfläche ebenso wie im Text aus den PDFs, schreib uns an <a href=\"mailto:rinconmiskatonic@gmail.com\">rinconmiskatonic@gmail.com</a>, sag uns auf Discord Bescheid oder korrigiere es direkt <a href=\"https://github.com/fernandoesra/thelivingarkham\" target=\"_blank\" rel=\"noopener\">auf GitHub</a>. Vielen Dank für dein Verständnis.",
     "nobooknotice": "Rincón Miskatonic konnte keine aktuellen Grimoire- oder FAQ-PDFs in deiner Sprache finden. Falls du sie hast, schick sie uns bitte an <a href=\"mailto:rinconmiskatonic@gmail.com\">rinconmiskatonic@gmail.com</a> und wir ergänzen sie. Bis dahin kannst du die Seite in einer anderen Sprache lesen. Vielen Dank!",
@@ -345,13 +351,15 @@
       "title": "Erste öffentliche Version",
       "items": [
         "Zwei vollständige Regelwerke, gemeinsam durchsuchbar: **Das Arkham Grimoire** (Kapitel 2, die seit 2026 gültige Referenz) und der **FAQ zu Kapitel 1** (die früheren Klarstellungen, Errata und Fragen), bewusst getrennt gehalten, weil sie sich widersprechen können.",
-        "**Vier Sprachen** — Spanisch, Englisch, Deutsch und Italienisch —, jeweils aus den offiziellen PDFs der eigenen Sprache aufgebaut. Englisch läuft voraus: Dort erscheinen die Aktualisierungen zuerst.",
+        "**Elf Sprachen**: vier mit vollständigen Büchern — Spanisch, Englisch, Deutsch und Italienisch —, jeweils aus den offiziellen PDFs der eigenen Sprache aufgebaut; und sieben weitere — Französisch, Portugiesisch, Polnisch, Russisch, Ukrainisch, Koreanisch und Chinesisch — mit vollständig übersetzter Oberfläche, während sie auf ihre Regelwerke warten. Wenn es ein Buch in eurer Sprache noch nicht gibt, sagt die Seite Bescheid und bietet euch an, es in einer anderen zu lesen. Englisch läuft voraus: Dort erscheinen die Aktualisierungen zuerst.",
         "**Versionsverlauf**: Jeder Eintrag weiß, in welcher Ausgabe er zuerst erschien und was später umgeschrieben wurde, mit hervorgehobenem Zusatztext und einer Neuigkeitenliste je Version.",
         "**ArkhamDB-Links**: Jede in den Büchern genannte Karte führt zu ihrer genauen Seite in eurer Sprache, ermittelt aus Name, Sammlungsnummer und Produktsymbol.",
         "**Werkzeuge**: Suche über beide Dokumente, automatisch verlinktes Glossar, interaktive Phasendiagramme, Aufbau der Karten, druckbare Schnellübersicht, Produkt- und Begegnungssetsymbole.",
         "**Ultimaten, Gaben und Refraktionen**: ein Betrachter Karte für Karte mit Filtern nach Kapitel, Typ, Kampagne und Szenario, Zufallsziehung und Bild-Download.",
         "**Die Tabuliste** live von ArkhamDB, gruppiert wie im Buch und Karte für Karte verlinkt.",
-        "**Sieben Designs**, hell und dunkel, und eine Oberfläche, die für Tastatur und Screenreader gebaut ist."
+        "**Material aus der Community**, immer mit Namensnennung und getrennt von den offiziellen Büchern gehalten — etwa das Timing-Diagramm für Fertigkeitsproben von Korriane.",
+        "**Sieben Designs**, hell und dunkel, und eine Oberfläche, die für Tastatur und Screenreader gebaut ist.",
+        "**Kostenlos, ohne Gewinnabsicht und offen**: Der gesamte Code liegt auf GitHub, und am Seitenende steht, wie ihr mithelfen könnt — mit einer Übersetzung, einer Korrektur, einer Idee."
       ]
     }
   ]

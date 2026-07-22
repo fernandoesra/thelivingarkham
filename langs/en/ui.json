@@ -220,10 +220,17 @@
     "ubnoart": "Illustration coming soon",
     "footlogo": "Rincón Miskatonic",
     "donateopen": "Support our work",
-    "donatelabel": "Donate",
     "donatetitle": "Support our work",
     "donatebody": "We are a Spanish community that makes content for free, on a non-profit basis. If you like, you can support our work with a donation. Everything we do, today and always, will stay free: donations go entirely toward covering running costs and paying artists to improve our work. Thank you so much!",
     "donatecta": "Contribute via PayPal",
+    "discordopen": "Talk about the project on Discord",
+    "discordtitle": "Talk to us on Discord",
+    "discordbody": "To talk about this project on Discord, please head to the Mythos Busters Discord using the following link:",
+    "discordpending": "Link pending creation",
+    "ghopen": "Contribute to the project",
+    "ghtitle": "Contribute to the project",
+    "ghbody": "This is a community project and all of its code is on GitHub. You can help in plenty of ways: improving or adding translations, changing how something works, whatever occurs to you. To do that, get in touch with the author on Discord, or open a pull request on GitHub describing your changes. Thank you!",
+    "ghcta": "View the code on GitHub",
     "ubdownload": "Download card",
     "ubdownall": "Download all",
     "ubdownalltip": "Download all cards as a .zip (current language)",
@@ -257,7 +264,6 @@
     "cardstopwords": "Can Cannot What Whatever Which Whichever Does Do When Where Whenever How However Should Could Would May Might Must Will If While Since Each Every Any Another Only Both While",
     "flagextra": "Additional content",
     "flagextrad": "Resources that expand the game, beyond the Grimoire.",
-    "footgh": "View the code and contribute on GitHub",
     "landingnotice": "<b>Note:</b> the Grimoire is updated in English first and translated into the other languages over time, so some content may take a while to reach yours. To see the very latest, check the English version. And if you have a Grimoire, FAQ or errata document you think is not on the site yet, email us at <a href=\"mailto:rinconmiskatonic@gmail.com\">rinconmiskatonic@gmail.com</a> and we will add it. Thank you!",
     "mtnotice": "",
     "nobooknotice": "Rincón Miskatonic has not been able to find up-to-date Grimoire or FAQ PDFs in your language. If you have them, please send them to <a href=\"mailto:rinconmiskatonic@gmail.com\">rinconmiskatonic@gmail.com</a> and we will add them. In the meantime, you can read the site in another language. Thank you!",
@@ -344,13 +350,15 @@
       "title": "First public release",
       "items": [
         "Two complete rulebooks, searchable together: **The Arkham Grimoire** (chapter 2, the reference in force since 2026) and the **chapter 1 FAQ** (the earlier notes, errata and questions), kept apart on purpose because they can contradict each other.",
-        "**Four languages** — Spanish, English, German and Italian — each built from that language’s own official PDFs. English runs ahead: it is where updates are published first.",
+        "**Eleven languages**: four with the books complete — Spanish, English, German and Italian — each built from that language's own official PDFs; and seven more — French, Portuguese, Polish, Russian, Ukrainian, Korean and Chinese — with the whole interface translated while they wait for their rulebooks. When a book does not exist in your language yet, the site says so and offers to show it to you in another. English runs ahead: it is where updates are published first.",
         "**Version history**: every entry knows which edition it first appeared in and what was rewritten later, with added text highlighted and a what’s-new list per version.",
         "**ArkhamDB links**: every card the books name links to its exact page, in your language, worked out from the name, the collection number and the product’s icon.",
         "**Tools**: search across both documents, an auto-linked glossary, interactive phase diagrams, card anatomy, a printable quick reference, product and encounter-set icons.",
         "**Ultimatums, Boons and Refractions**: a card-by-card viewer with filters by chapter, type, campaign and scenario, a random draw and image download.",
         "**The taboo list** live from ArkhamDB, grouped the way the book groups it and linked card by card.",
-        "**Seven visual themes**, light and dark, and an interface built for the keyboard and the screen reader."
+        "**Community material**, always credited and kept apart from the official books — such as Korriane's skill-test timing diagram.",
+        "**Seven visual themes**, light and dark, and an interface built for the keyboard and the screen reader.",
+        "**Free, non-profit and open**: all the code is on GitHub, and the footer explains how to lend a hand — a translation, a fix, an idea."
       ]
     }
   ]
