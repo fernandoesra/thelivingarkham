@@ -442,6 +442,14 @@
    bar, the change note) reads the site's own theme tokens, so the section turns with the theme. */
 .ico-set{--ia:1}
 
+/* A short lead above the list: what the taboo list is, a link to the FAQ write-up, and which list.
+   Full width, as asked -- it spans the whole section above the sidebar+cards row. */
+.tla-tb-intro{margin:0 0 1.4rem}
+.tla-tb-intro-lead{margin:0 0 .5rem; color:var(--ink2); font:1.05rem/1.6 var(--ff-body)}
+.tla-tb-intro-lead .xref{color:var(--gold); text-decoration:none; font-weight:600}
+.tla-tb-intro-lead .xref:hover,.tla-tb-intro-lead .xref:focus-visible{text-decoration:underline}
+.tla-tb-intro-note{margin:0; color:var(--muted); font:.9rem/1.5 var(--ff-ui)}
+
 /* ---- the section: a STICKY filter sidebar on the left, the card list on the right ---- */
 .tla-tb-layout{display:grid; grid-template-columns:11rem minmax(0,1fr); gap:1.1rem; align-items:start}
 .tla-tb-side{position:sticky; top:1rem; align-self:start; display:flex; flex-direction:column; gap:.7rem;
@@ -454,9 +462,6 @@
 .tla-tb-count{color:var(--muted); font:.8rem/1 var(--ff-ui); font-variant-numeric:tabular-nums; padding:.15rem 0}
 .tla-tb-side-dl{display:flex; flex-direction:column; gap:.55rem; margin-top:.2rem; padding-top:.7rem;
   border-top:1px solid var(--edge)}
-.tla-tb-bleed{display:inline-flex; align-items:center; gap:.4rem; cursor:pointer; user-select:none;
-  color:var(--muted); font:600 .78rem/1 var(--ff-ui)}
-.tla-tb-bleed input{accent-color:var(--gold); cursor:pointer}
 .tla-tb-btn{display:inline-flex; align-items:center; justify-content:center; gap:.4rem; cursor:pointer;
   padding:.55rem .8rem; border-radius:8px; border:1px solid var(--edge2);
   background:var(--bg); color:var(--ink); font:600 .82rem/1 var(--ff-ui)}

@@ -1780,6 +1780,17 @@ function addBleed(src){
   c.drawImage(src, mx,my);                              // the sharp trim in the middle
   return cv;
 }
+/* Rotate a canvas by a multiple of 90 degrees (clockwise). Investigators are printed landscape but
+   drawn as a landscape plate, so the download is turned upright: the front a quarter-turn, the back
+   three quarter-turns, which leaves the two 180 apart for a flip-on-the-long-edge duplex print. */
+function rotateCanvas(src, deg){
+  deg=((deg%360)+360)%360; if(!deg)return src;
+  var swap=(deg%180)!==0, w=swap?src.height:src.width, h=swap?src.width:src.height;
+  var cv=document.createElement('canvas'); cv.width=w; cv.height=h;
+  var c=cv.getContext('2d');
+  c.translate(w/2,h/2); c.rotate(deg*Math.PI/180); c.drawImage(src,-src.width/2,-src.height/2);
+  return cv;
+}
 /* A flat image (a card BACK) as a PNG blob, optionally with a print bleed. Null if it will not load. */
 function imageToPngBlob(url, bleed){
   return loadImg(url).then(function(im){
@@ -1861,11 +1872,16 @@ function renderPool(items, worker, conc, onEach){
     if(!items.length){resolve();return;}
     function pump(){
       while(active<conc && i<items.length){
-        var idx=i++; active++;
-        Promise.resolve().then(function(){return worker(items[idx],idx);})
-          .catch(function(){})
-          .then(function(){ active--; if(onEach)try{onEach();}catch(e){}
-            if(i>=items.length && active===0)resolve(); else pump(); });
+        active++;
+        /* IIFE to capture idx by VALUE — a plain `var idx` is function-scoped, so every task in the
+           first synchronous batch would close over the same (final) idx and all render the same item,
+           leaving the earlier slots null. */
+        (function(idx){
+          Promise.resolve().then(function(){return worker(items[idx],idx);})
+            .catch(function(){})
+            .then(function(){ active--; if(onEach)try{onEach();}catch(e){}
+              if(i>=items.length && active===0)resolve(); else pump(); });
+        })(i++);
       }
     }
     pump();
@@ -2525,11 +2541,13 @@ function tabItemHTML(c,beta){
   var ico=function(cls,data,label,path){return '<button type="button" class="'+cls+'" '+data
     +' aria-label="'+esc(label)+'" title="'+esc(label)+'"><svg viewBox="0 0 24 24" fill="none" '
     +'stroke="currentColor" stroke-width="2" aria-hidden="true">'+path+'</svg></button>';};
-  /* Two corner buttons on each face: download (always shown) and a magnifier to zoom (on hover). */
-  var tools='<div class="tla-tb-btns">'
-    +ico('tla-tb-dl','data-tabdl',t('ubdownload'),'<path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/>')
-    +ico('tla-tb-zoom','data-tabzoom',t('tbzoom'),'<circle cx="10.5" cy="10.5" r="7"/><path d="M21 21l-5-5"/><path d="M10.5 7.5v6M7.5 10.5h6"/>')
-    +'</div>';
+  /* Corner buttons. The DOWNLOAD lives only on the taboo face — the printed face is for
+     comparison, not for saving (it grabs the taboo card and its back). The magnifier zooms and
+     is on both. */
+  var zoomBtn=ico('tla-tb-zoom','data-tabzoom',t('tbzoom'),'<circle cx="10.5" cy="10.5" r="7"/><path d="M21 21l-5-5"/><path d="M10.5 7.5v6M7.5 10.5h6"/>');
+  var dlBtn=ico('tla-tb-dl','data-tabdl',t('ubdownload'),'<path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/>');
+  var toolsPrinted='<div class="tla-tb-btns">'+zoomBtn+'</div>';
+  var toolsTaboo='<div class="tla-tb-btns">'+dlBtn+zoomBtn+'</div>';
   /* One prominent header per card: the name links to ArkhamDB (its own per-language subdomain), then
      the collection number and the card type -- "A la calle · 11055 · Evento". */
   var head='<div class="tla-tb-head">'
@@ -2543,13 +2561,18 @@ function tabItemHTML(c,beta){
     +' data-type="'+esc(c.type)+'"'
     +' data-factions="'+esc([c.faction,c.faction2,c.faction3].filter(Boolean).join(' '))+'"'
     +' data-cat="'+esc(tabCat(c))+'"'
+    +(c.backChange?' data-backmod':'')          /* Lola, Mandy: the deck-building back is tabooed too */
+    +(c.frontSame?' data-frontsame':'')          /* Mandy: only her back changed, front is unchanged */
     +' data-name="'+esc(tabFold(c.name+' '+(c.subname||'')))+'">';
   h+=head;
   /* Three columns: the printed card on the left, the taboo card in the centre, the change and its
      notes on the right. Each face is clickable to zoom. */
   h+='<div class="tla-tb-row">';
-  h+='<figure class="tla-tb-face" data-face="printed" tabindex="0">'+faceCap(t('tbimpresa'))+tools+TabooCard.html(c,false)+'</figure>';
-  if(c.pdf)h+='<figure class="tla-tb-face" data-face="taboo" tabindex="0">'+faceCap(t('tbtaboo'))+tools+TabooCard.html(c,true)+'</figure>';
+  /* The face is click-to-zoom for the mouse (cursor:zoom-in); keyboard users reach the same zoom
+     through the always-visible magnifier button, so the face itself is not a tab stop — that keeps
+     one clean, named control per action instead of an unnamed focusable wrapping two buttons. */
+  h+='<figure class="tla-tb-face" data-face="printed">'+faceCap(t('tbimpresa'))+toolsPrinted+TabooCard.html(c,false)+'</figure>';
+  if(c.pdf)h+='<figure class="tla-tb-face" data-face="taboo">'+faceCap(t('tbtaboo'))+toolsTaboo+TabooCard.html(c,true)+'</figure>';
   else h+='<div class="tla-tb-face-empty" aria-hidden="true"></div>';
   h+='<div class="tla-tb-note">'+tabChangeHTML(c,beta)+'</div>';
   h+='</div>';
@@ -2565,6 +2588,13 @@ function tabooCardsHTML(s){
   /* Cards the reader's language has none of: shown in English, said so in English. */
   if(beta)h+='<aside class="tla-obsolete" role="note"><div class="tla-obsolete-tag">Beta</div>'
     +'<div class="tla-obsolete-body"><p class="tla-obsolete-lead">'+esc(t('tbbeta'))+'</p></div></aside>';
+  /* A short lead before the cards: what the taboo list is, a link to the FAQ's full write-up
+     (found by the shared 'faq-taboos' key so it resolves to the reader's own language), and a note
+     saying which list this is (FAQ 2.5, published 2026-02-19) and that more may come. */
+  var faqSec=(data.sections||[]).filter(function(x){return x.key==='faq-taboos';})[0];
+  var readmore=faqSec?(' <a class="xref" href="#'+esc(lang)+'/'+esc(faqSec.id)+'" data-t="'+esc(faqSec.id)+'">'+esc(t('tbreadmore'))+'</a>'):'';
+  h+='<div class="tla-tb-intro"><p class="tla-tb-intro-lead">'+esc(t('tbintro'))+readmore+'</p>'
+    +'<p class="tla-tb-intro-note">'+esc(t('tbfaqnote'))+'</p></div>';
   /* Which types and classes are actually present, for the filters (counts alongside). */
   var byType={}, byClass={}, byCat={};
   cards.forEach(function(c){
@@ -2652,14 +2682,21 @@ function bindTabooCards(){
 function tabooZoom(face){
   if(!face)return; var card=face.querySelector('.tbc'); if(!card)return;
   var lbl=(face.querySelector('.tla-tb-cap')||{}).textContent||'';
+  var prev=document.activeElement;
   var ov=document.createElement('div'); ov.className='tla-tb-zoomov'; ov.setAttribute('role','dialog');
   ov.setAttribute('aria-modal','true'); ov.setAttribute('aria-label',lbl);
   ov.innerHTML='<div class="tla-tb-zoombox"><button type="button" class="tla-tb-zoomclose" aria-label="'
     +esc(t('close'))+'">&times;</button>'+card.outerHTML+'</div>';
   (root||document.body).appendChild(ov);
   if(window.TabooCard)TabooCard.fitAll(ov);
-  var close=function(){ try{ov.remove();}catch(e){} document.removeEventListener('keydown',onkey); };
-  var onkey=function(e){ if(e.key==='Escape')close(); };
+  var close=function(){ try{ov.remove();}catch(e){} document.removeEventListener('keydown',onkey); try{prev&&prev.focus();}catch(e){} };
+  /* Escape leaves; Tab is trapped inside the dialog so focus cannot slip behind the scrim (only the
+     close button is focusable here, so Tab/Shift-Tab both keep it there). */
+  var onkey=function(e){
+    if(e.key==='Escape'){close(); return;}
+    if(e.key==='Tab'){var f=[].slice.call(ov.querySelectorAll('button')); if(!f.length)return;
+      e.preventDefault(); (e.shiftKey?f[f.length-1]:f[0]).focus();}
+  };
   ov.addEventListener('click',function(e){ if(e.target===ov||e.target.closest('.tla-tb-zoomclose'))close(); });
   document.addEventListener('keydown',onkey);
   var cb=ov.querySelector('.tla-tb-zoomclose'); if(cb)cb.focus();
@@ -2685,16 +2722,34 @@ function tabooCardToBlob(card,mime,quality){
     var dimg=card.querySelector('.tbc-pic');
     if(!dimg||!dimg.naturalWidth){resolve(null);return;}
     var code=card.getAttribute('data-code'), isBack=card.classList.contains('tbc-back');
-    /* Draw the download from the PRINT-res plate (1476px, ~590dpi) rather than the small display one,
-       falling back to the display plate if the hi-res file is missing. */
-    tabooFontsReady().then(function(){ loadImg('assets/taboo/plates-hi/'+code+(isBack?'-back':'')+'.webp').then(function(hi){
-      var img=(hi&&hi.naturalWidth)?hi:dimg;
-      var CW=img.naturalWidth, CH=img.naturalHeight;
+    var type=card.getAttribute('data-type')||'';
+    /* Investigators are landscape; turn the finished download upright (front +90, back +270). */
+    var rot=type==='investigator'?90:type==='investigator-back'?270:0;
+    var suffix=isBack?'-back':'';
+    /* Draw the download from the PRINT-res trim plate (1476px, ~590dpi), falling back to the display
+       plate if the hi-res file is missing. When bleed is asked for, use the FULL-bleed plate
+       (1644x2244 / 2244x1644) whose 72px margin is REAL card art — not an edge stretch. */
+    tabooFontsReady().then(function(){ loadImg('assets/taboo/plates-hi/'+code+suffix+'.webp').then(function(hi){
+      var red=(hi&&hi.naturalWidth)?hi:dimg;
+      (tabBleed?loadImg('assets/taboo/plates-bleed/'+code+suffix+'.webp'):Promise.resolve(null)).then(function(full){
+      var CW=red.naturalWidth, CH=red.naturalHeight;   // the reduced/trim size = the on-screen card box
       var cr=card.getBoundingClientRect(), sc=CW/cr.width;
-      var cv=document.createElement('canvas'); cv.width=CW; cv.height=CH;
-      var ctx=cv.getContext('2d');
-      ctx.drawImage(img,0,0,CW,CH);
-      var X=function(px){return (px-cr.left)*sc;}, Y=function(py){return (py-cr.top)*sc;};
+      var useBleed=!!(tabBleed&&full&&full.naturalWidth);
+      var cv=document.createElement('canvas'), ctx, X, Y;
+      if(useBleed){
+        /* Scale the full plate so its trim (72px bleed on a 1500x2100 / 2100x1500 trim) lands
+           exactly on the reduced box: every %-calibrated glyph then falls in the trim, and the
+           margin around it is the plate's own bleed art. */
+        var portrait=CH>=CW, trimW=portrait?1500:2100, trimH=portrait?2100:1500;
+        var mx=Math.round(72*CW/trimW), my=Math.round(72*CH/trimH);
+        cv.width=CW+2*mx; cv.height=CH+2*my; ctx=cv.getContext('2d');
+        ctx.drawImage(full,0,0,cv.width,cv.height);
+        X=function(px){return mx+(px-cr.left)*sc;}; Y=function(py){return my+(py-cr.top)*sc;};
+      }else{
+        cv.width=CW; cv.height=CH; ctx=cv.getContext('2d');
+        ctx.drawImage(red,0,0,CW,CH);
+        X=function(px){return (px-cr.left)*sc;}; Y=function(py){return (py-cr.top)*sc;};
+      }
       var iconJobs=[];
       /* One inline symbol: its own SVG mask, tinted with the element's colour, at its box. */
       function drawIcon(el){
@@ -2755,67 +2810,110 @@ function tabooCardToBlob(card,mime,quality){
           else drawIcon(n);
         } else drawText(n);
       }
-      Promise.all(iconJobs).then(function(){ var out=tabBleed?addBleed(cv):cv; out.toBlob(function(b){resolve(b);},mime||'image/png',quality); });
-    }); });
+      Promise.all(iconJobs).then(function(){
+        /* Bleed asked for but no full-bleed plate (e.g. an investigator back not yet generated):
+           keep the old edge-clamp so the size still matches. Otherwise the plate already carries
+           real bleed art. Finally, turn a landscape investigator upright. */
+        var out=(tabBleed&&!useBleed)?addBleed(cv):cv;
+        out=rotateCanvas(out,rot);
+        out.toBlob(function(b){resolve(b);},mime||'image/png',quality);
+      });
+      }); }); });
   });
 }
 function tabooSanitize(n){return String(n||'card').replace(/[\/\\:*?"<>|]+/g,'').replace(/\s+/g,' ').trim();}
-function tabooFileName(card){
-  var code=card.getAttribute('data-code')||'';
-  var item=card.closest('.tla-tb-item');
-  var name=item?(item.getAttribute('data-name')||''):'';
-  /* Which side this is, by STRUCTURE not caption text: a caption-word regex broke on "Tabú"/"Tabù"
-     (a word boundary never forms after an accented letter), collapsing both faces to one filename
-     and losing a face in the zip. The printed figure is always first, the taboo figure second, and
-     an investigator back is a .tbc-back outside the faces. */
-  var suffix;
-  if(card.classList.contains('tbc-back')) suffix=' - '+t('tbback');
-  else{
-    var face=card.closest('.tla-tb-face');
-    var isTaboo=!!(face&&face.previousElementSibling&&face.previousElementSibling.classList.contains('tla-tb-face'));
-    suffix=' - '+t(isTaboo?'tbtaboo':'tbimpresa');
+var TABOO_BACK_URL='assets/taboo/back.webp';   // the standard player-card back, trimmed (no bleed)
+/* What a single item actually contributes to a download, in order. The PRINTED face is never
+   exported (it is only shown for comparison). A normal card gives its TABOO face followed by the
+   shared player back. An investigator is landscape and deck-building on the back: the two whose
+   BACK is also tabooed (Lola, Mandy) export front + reconstructed back; the others export only the
+   front. Mandy's front is unchanged, so her pair takes the printed front with the tabooed back. */
+function tabooItemExports(item){
+  var type=item.getAttribute('data-type');
+  var printed=item.querySelector('.tla-tb-face[data-face="printed"] .tbc');
+  var taboo=item.querySelector('.tla-tb-face[data-face="taboo"] .tbc');
+  var backEl=item.querySelector('.tla-tb-back .tbc');
+  var out=[];
+  if(type==='investigator'){
+    var front=item.hasAttribute('data-frontsame')?printed:(taboo||printed);
+    if(front)out.push({card:front, side:'front'});
+    if(item.hasAttribute('data-backmod')&&backEl)out.push({card:backEl, side:'back'});
+  }else{
+    var face=taboo||printed;
+    if(face)out.push({card:face, side:'card'});
+    out.push({shared:true, side:'back'});
   }
-  return tabooSanitize((name||code)+' '+code+suffix)+'.png';
+  return out;
 }
-var TABOO_BACK_URL='assets/taboo/back.webp';   // the standard player-card back, one for all of them
-function tabooDownload(card,btn){
-  if(!card)return;
-  if(btn)btn.setAttribute('aria-busy','true');
-  tabooCardToBlob(card).then(function(b){ if(b)ubSaveBlob(b,tabooFileName(card)); if(btn)btn.removeAttribute('aria-busy'); });
-  /* …and the card back, so the face can be printed double-sided. */
-  if(!card.classList.contains('tbc-back')) imageToPngBlob(TABOO_BACK_URL, tabBleed).then(function(b){
-    if(b){ var item=card.closest('.tla-tb-item'); var name=item?(item.getAttribute('data-name')||''):'';
-      ubSaveBlob(b, tabooSanitize((name||card.getAttribute('data-code'))+' — '+t('tbback'))+'.png'); }
+/* The file name for one export entry: "<name> <code> - Tabú_01" for the card, "…Tabú_02" for its
+   back, and the investigator sides spelled out ("Tabú Delantera_01" / "Tabú Trasera_02"). */
+function tabooExportName(item, entry){
+  var code=item.getAttribute('data-code')||'', name=item.getAttribute('data-name')||code;
+  var base=t('tbtaboo');
+  if(item.getAttribute('data-type')==='investigator') base+=' '+t(entry.side==='back'?'tbback':'tbfront');
+  return tabooSanitize(name+' '+code+' - '+base+(entry.side==='back'?'_02':'_01'));
+}
+/* The shared player-card back as a blob. Without bleed, the trimmed back 1:1. WITH bleed, the
+   FULL-bleed back scaled so its trim lands exactly where the front's does (front bleed output is the
+   1476x2096 trim + a 71/72 px margin), so a front and this back print the SAME size for duplex — the
+   margin is the back's own art, never an edge stretch. */
+function tabooBackBlob(mime, quality){
+  var url=tabBleed?'assets/taboo/back-bleed.webp':TABOO_BACK_URL;
+  return loadImg(url).then(function(im){
+    if(!im||!im.naturalWidth){
+      if(tabBleed)return imageToPngBlob(TABOO_BACK_URL, true);   // last-resort: stretch the trimmed back
+      return null;
+    }
+    var cv=document.createElement('canvas'), ctx;
+    if(tabBleed){
+      var CW=1476, CH=2096, mx=Math.round(72*CW/1500), my=Math.round(72*CH/2100);
+      cv.width=CW+2*mx; cv.height=CH+2*my; ctx=cv.getContext('2d');
+      ctx.drawImage(im,0,0,cv.width,cv.height);
+    }else{
+      cv.width=im.naturalWidth; cv.height=im.naturalHeight; ctx=cv.getContext('2d');
+      ctx.drawImage(im,0,0);
+    }
+    return new Promise(function(res){ cv.toBlob(function(b){res(b);}, mime||'image/png', quality); });
   });
 }
-/* Every visible card of the section, both faces, as one .zip. Rendered off the cards already on
-   screen (they are drawn and fitted), so no off-screen re-render is needed. */
+/* Download one item: its taboo card (and, where it has one, its back). A single download saves that
+   card and its back only, as PNG. */
+function tabooDownload(cardEl,btn){
+  var item=cardEl&&cardEl.closest('.tla-tb-item'); if(!item)return;
+  if(btn)btn.setAttribute('aria-busy','true');
+  var entries=tabooItemExports(item), seq=tabooFontsReady();
+  entries.forEach(function(e){
+    seq=seq.then(function(){
+      return (e.shared?tabooBackBlob('image/png'):tabooCardToBlob(e.card,'image/png'))
+        .then(function(b){ if(b)ubSaveBlob(b, tabooExportName(item,e)+'.png'); });
+    });
+  });
+  seq.then(function(){ if(btn)btn.removeAttribute('aria-busy'); },function(){ if(btn)btn.removeAttribute('aria-busy'); });
+}
+/* Every visible item as one .zip, each card immediately followed by its back (many copies of the
+   shared back, as the reader asked). Rendered off the on-screen cards, several at a time. JPEG q.95
+   keeps the whole-set archive a fifth of a lossless PNG's size while staying print-clean. */
 function tabooDownloadAll(btn){
   var items=[].slice.call(elMain.querySelectorAll('.tla-tb-item')).filter(function(it){return !it.hidden;});
-  var cards=[]; items.forEach(function(it){[].forEach.call(it.querySelectorAll('.tbc'),function(c){cards.push(c);});});
-  if(!cards.length)return;
+  var entries=[]; items.forEach(function(it){ tabooItemExports(it).forEach(function(e){ entries.push({item:it, e:e}); }); });
+  if(!entries.length)return;
   var label=btn&&btn.querySelector('.tla-tb-dlall-label'), orig=label?label.textContent:'';
   if(btn){btn.disabled=true; btn.setAttribute('aria-busy','true'); if(label)label.textContent=t('ubdownallwait');}
-  var slots=new Array(cards.length), total=cards.length+1, done=0;
+  var slots=new Array(entries.length), total=entries.length, done=0;
   var tick=function(){ done++; if(label)label.textContent=done+' / '+total; };
   var finish=function(){ if(btn){btn.disabled=false; btn.removeAttribute('aria-busy'); if(label)label.textContent=orig;} };
-  /* The cards are already drawn and fitted on screen, so tabooCardToBlob just reads each one's
-     geometry (safe to run concurrently) and paints its plate; the pool overlaps the plate fetches.
-     The whole-set archive is encoded as high-quality JPEG (q.95), not PNG: the plates are already
-     lossy WebP, 94×2 lossless PNGs make a ~550 MB zip that chokes phone memory, and q.95 keeps the
-     art print-clean at a fifth of the size. A single-card download stays PNG (see tabooDownload). */
+  /* The shared player back is identical for every normal card, so render it once and reuse the bytes
+     under each card's own back-name instead of re-encoding it 90 times. */
+  var backBytesP=null;
+  var backBytes=function(){ if(!backBytesP)backBytesP=tabooBackBlob('image/jpeg',0.95).then(function(b){return b?b.arrayBuffer().then(function(ab){return new Uint8Array(ab);}):null;}); return backBytesP; };
   tabooFontsReady().then(function(){
-    return renderPool(cards, function(c,idx){
-      return tabooCardToBlob(c,'image/jpeg',0.95).then(function(b){
-        if(b)return b.arrayBuffer().then(function(ab){slots[idx]={name:tabooFileName(c).replace(/\.png$/i,'.jpg'),data:new Uint8Array(ab)};});
+    return renderPool(entries, function(ent,idx){
+      var e=ent.e, nm=tabooExportName(ent.item,e)+'.jpg';
+      if(e.shared) return backBytes().then(function(u8){ if(u8)slots[idx]={name:nm, data:u8}; });
+      return tabooCardToBlob(e.card,'image/jpeg',0.95).then(function(b){
+        if(b)return b.arrayBuffer().then(function(ab){ slots[idx]={name:nm, data:new Uint8Array(ab)}; });
       });
     }, 6, tick);
-  }).then(function(){
-    /* One copy of the shared player-card back at the archive root, so every card can be printed
-       double-sided without the back repeating for each of the 94. */
-    return imageToPngBlob(TABOO_BACK_URL, tabBleed).then(function(b){
-      if(b) return b.arrayBuffer().then(function(ab){ slots.push({name:tabooSanitize(t('tbback'))+'.png', data:new Uint8Array(ab)}); });
-    });
   }).then(function(){
     finish(); var files=slots.filter(Boolean);
     if(files.length)ubSaveBlob(ubZip(files),tabooSanitize('the-living-arkham-taboo-'+lang)+'.zip');
@@ -3545,7 +3643,7 @@ function bleedModal(trim,current,onConfirm){
     +'<button type="button" class="tla-bleedclose" aria-label="'+esc(t('close'))+'">&times;</button>'
     +'<h2 class="tla-bleed-t" id="tla-bleed-t">'+esc(t('ubdownall'))+'</h2>'
     +'<p class="tla-bleed-d" id="tla-bleed-d">'+esc(t('tbbleedintro'))+'</p>'
-    +'<div class="tla-bleed-opts" role="radiogroup" aria-labelledby="tla-bleed-t">'+opt(false,!current)+opt(true,!!current)+'</div>'
+    +'<div class="tla-bleed-opts" role="radiogroup">'+opt(false,!current)+opt(true,!!current)+'</div>'
     +'<div class="tla-bleed-btns"><button type="button" class="tla-bleed-go">'
     +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg> '
     +esc(t('tbbleedgo'))+'</button></div></div>';
