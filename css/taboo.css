@@ -1,0 +1,579 @@
+﻿/* Prototype of the taboo card renderer.
+
+   Same shape as the Ultimatums/Boons/Refractions viewer: a textless picture is the bottom layer
+   and every piece of text is a real DOM element positioned in percentages, sized in cqw, so one
+   set of numbers works at every display size. The numbers are measured from FFG's own PDF
+   (tb/geometry.py), not eyeballed.
+
+   The two faces are the ones the site already loads: 'ubtitle' IS Teutonic and 'ubbody' IS
+   Arno Pro. Nothing new is downloaded for this viewer. */
+
+/* 'ubtitle' (Teutonic) and 'ubbody' (Arno Pro) are already declared in css/app.css for the
+   Ultimatums viewer, so this file reuses those families and does not redeclare them. */
+/* The only new face this viewer needs: Bolton, for the health and sanity figures, cut down to
+   the ten digits -- 2 KB against the 27 KB of the whole face, which would carry an alphabet
+   nothing ever draws. */
+@font-face{font-family:'bolton';src:url(../assets/taboo/fonts/bolton-digits.woff2) format('woff2');font-display:swap}
+
+/* ---------- the card ---------- */
+/* The rounded corner is presentation only -- the exported picture is square. The radius is given
+   as a width%/height% pair so both axes resolve to the SAME absolute length on a card that is not
+   square; a single percentage would draw an ellipse. It cannot be in cqw: this element is itself
+   the container, and an element cannot query itself, so cqw here would fall back to the viewport
+   and the corner would grow with the window. */
+.tbc{position:relative; width:100%; max-width:460px; margin:0 auto;
+  container-type:inline-size; overflow:hidden; border-radius:2.8%/2%}
+.tbc-pic{display:block; width:100%; height:auto}
+.tbc-l{position:absolute; margin:0; color:#231f20}
+
+/* A bulleted choice hangs its ornament in the left margin, as FFG sets it. The indent is 0.98em,
+   measured: on Sharpshooter the ornament sits at 5.08% of the card and the text at 9.21%, and
+   the continuation lines return to the same 9.2%. At 1.35em the text stood 1.6% too far in and
+   the symbol that opens a continuation line no longer lined up with the word above it. */
+/* A few cards set their choice-bullets not at the text margin but INDENTED, because the bullets are
+   sub-items of the line above them (Power Word's "Go."/"Cower." are commands under "give it a
+   command –"). FFG's own indent, measured off the PDF, rides in --bulletindent (in cqw, a fraction
+   of the card, so it is font-independent); it is 0 for every card that hangs its bullets at the
+   margin, which is almost all of them. */
+.tbc-p.tbc-bullet{margin-left:var(--bulletindent,0); padding-left:.98em; text-indent:-.98em}
+.tbc-bullet .ico-bullet{--ih:.42em; vertical-align:.06em}
+
+/* The name. An asset carries it across the top; an event carries it on a band halfway down the
+   card, and a treachery a shade lower still. Measured, with zero spread inside each type. */
+/* Not centred on the CARD: centred on the banner, which the cost crown pushes to the right, so
+   FFG's name sits at 48.73% and not at 50. The extra top over the measured 2.59% is the slack
+   between the line box and the font box -- Teutonic's ascent overflows a line-height of 1. */
+/* A fixed box the height of the banner, with the name centred in it and clipped, rather than an
+   auto-height line: that way "does it fit" is a real question (a long name wrapping to two lines)
+   instead of a measurement of how far the glyphs poke out of their own line. */
+/* Anchored by the CENTRE FFG uses, not by a top edge: asset 5.131%, skill 5.159%, event 59.800%,
+   treachery 60.669%, each with a spread under 0.04 over every card of that type. Copying the
+   asset's top edge to the others left the name high in an event's band and higher on a skill. */
+.tbc-name{left:7.26%; right:9.8%; top:1.88%; height:6.5%; overflow:hidden;
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  font-family:'ubtitle',Georgia,serif; font-weight:400; line-height:1;
+  font-size:calc(var(--namefit,1)*6.214cqw)}
+/* An event centres its name on the CARD (49.863%, sd 0.014 over all 34), unlike an asset, whose
+   banner the cost crown pushes off to 48.73%. Using the asset value put Black Market's name over
+   its own border. */
+.tbc[data-type="event"] .tbc-name{top:56.55%; left:7.26%; right:7.53%}
+.tbc[data-type="treachery"] .tbc-name{top:57.42%}
+/* An asset's name sits between the cost crown (left) and the class symbol (right). A very long one
+   -- "Flauta de los Dioses Exteriores" with its unique star and the mutated tombstone -- reached
+   both and touched them. So the asset name box is narrowed to the clear space between the two, still
+   centred where FFG puts it (48.73%, NOT the card's 50% -- that put Black Market over its border):
+   short names are unchanged; only the longest shrink, which is what FFG's own longest asset does. */
+.tbc[data-type="asset"] .tbc-name{left:21.5%; right:24%}
+
+/* A treachery's two bands: TREACHERY above the name and, on a weakness, WEAKNESS below it. Both
+   centred on the card at 50.00%, both ArnoPro-BoldDisplay at 3.387cqw -- larger than the type
+   label an asset carries, and in a different place entirely. The cost crown is not drawn at all:
+   a treachery has no cost, and the trapezoid we were putting there belonged to another frame. */
+.tbc-band{left:0; right:0; text-align:center; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'ubbody',Georgia,serif; font-weight:700; text-transform:uppercase;
+  font-size:calc(var(--bandfit,1)*3.387cqw); line-height:1; letter-spacing:.06cqw}
+/* FFG's boxes start at 54.10% and 63.92%; the extra tenth is the slack between the line box and
+   the font box, the same correction the name needs. */
+.tbc-band-type{top:54.35%}
+.tbc-band-sub{top:64.17%}
+.tbc[data-type="treachery"] .tbc-cost,.tbc[data-type="enemy"] .tbc-cost{display:none}
+/* A skill card does not centre its name at all: all eight in the PDF start at exactly 19.49%,
+   with zero spread, just clear of the SKILL crown. It is left-aligned. */
+.tbc[data-type="skill"] .tbc-name{left:19.49%; right:7%; top:1.91%; justify-content:flex-start;
+  text-align:left}
+
+/* ArnoPro-Smbd: semibold and upright. It is the traits line that is italic, not this.
+   Centred on 9.848%, FFG's own middle for it (spread 0.018 over the 19 subtitled cards). */
+/* The subtitle shrinks like the name does. It did not, and "Das Necronomicon (Ubersetzung von
+   Petrus de Dacia)" in German ran out of its box and lost its first letter to the clip. */
+.tbc-sub{left:10.5%; right:10.5%; top:7.75%; height:4.2%; text-align:center; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'ubbody',Georgia,serif; font-weight:600;
+  font-size:calc(var(--subfit,1)*3.672cqw); line-height:1}
+
+/* The unique mark IS text in the PDF -- an ArkhamHorrorLCGU glyph at U+F261 -- so it can be read
+   exactly rather than estimated off a zoomed picture, which is what made it three times too big
+   and then too small. It is set at the SAME size as the name (6.210cqw, sd 0.000 over 19 cards);
+   the ink is about half that, and the space before the name is the glyph's own advance, not a
+   margin -- FFG's gap between the mark's box and the first letter measures zero.
+   An investigator's BACK names itself in its own box, and was left out of this rule, so its mark
+   fell back to the body size and came out huge with a gap in front of it. */
+.tbc-name .ico,
+.tbc-bname .ico{--ih:.503em; margin-right:.16em; vertical-align:.06em}
+
+/* The taboo mark. FFG's cards do not carry it; ArkhamDB puts a purple chaos-token symbol right of
+   a tabooed card's name, and ours goes one better -- the symbol and its colour say WHICH bucket:
+   the cultist in green for chained/unchained, the tablet in purple for mutated, the auto-fail in
+   red for forbidden. It rides at the END of the name as if it were part of it: a flex sibling of
+   the name span, so the [name + mark] group is what gets centred -- the name and its unique mark
+   slide a little left to make room, exactly as they would for a longer name. On a skill, whose
+   name is left-aligned, it simply follows the last letter. It overrides the unique-mark sizing. */
+.tbc-name .tbc-tabmark,
+.tbc-bname .tbc-tabmark{flex:0 0 auto; --ih:.72em; margin:0 0 0 .24em; vertical-align:0}
+/* .ico.tabmark-* not .tabmark-*: the .ico rule further down sets background-color:currentColor at
+   the same specificity and, being later in the file, would win and paint the mark text-black. */
+.ico.tabmark-chained{background-color:#2f8f3a}
+.ico.tabmark-mutated{background-color:#7a2fb0}
+.ico.tabmark-forbidden{background-color:#c62828}
+.ico-autofail{--ia:1.009}
+
+/* The cost numeral sits in the level circle the picture already carries. FFG centres the figure
+   at 9.44% across and 5.70% down -- above the circle's own middle -- and draws it in white with a
+   dark outline. The stroke goes BEHIND the fill (paint-order), or it would eat into the glyph and
+   leave the figure thinner than the printed one. */
+/* The figure has to travel with its circle. FFG sets it at 9.44% across and 5.70% down; ours adds
+   whatever CIRCLE_NUDGE moves the circle by, which is 0.65% -- so the centre is 10.09%, and with
+   this box 20.74% wide that puts its left edge just outside the card.
+   It was left at 10.37% and 5.87% when the nudge came down from 0.93% to 0.65%, so the figure
+   stayed behind its own circle by a quarter of a percent and sat a sixth of one too low. Both
+   showed: Fernando read it as "slightly left and slightly up". */
+.tbc-cost{left:-.28%; width:20.74%; top:.14%; height:11.12%; color:#fff;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'ubtitle',Georgia,serif; font-size:8.878cqw; line-height:1;
+  paint-order:stroke fill; -webkit-text-stroke:.055em #17161a}
+
+/* FFG sets this line in ArnoPro-BoldDisplay, an optical cut we do not carry: against our text cut
+   the printed word is ~15% taller and ~5% narrower. Same size and place; the letterforms differ
+   slightly, which on a five-letter label is a fair trade for not shipping another face. */
+/* Centred on OUR plaque (10.45%, the same on asset, event and skill frames), not on FFG's word
+   (9.58%). The kit's plaque sits about 1% of the card to the right of FFG's, so copying their
+   text coordinate left the word visibly off-centre in the trapezoid the reader actually sees.
+   Same lesson as the skill diamond: align to the art we draw, not to the art we measured. */
+/* It shrinks to fit its plaque. "ASSET" fits at FFG's size and "VORTEIL" and "APOYO" do not --
+   the trapezoid is a fixed piece of art, so the word has to give. */
+/* The box sits INSIDE the plaque, not spanning its top edge. The trapezoid narrows downward and
+   the word sits low in it, so a box as wide as the plaque's top let a long word reach the slanted
+   sides (FERTIGKEIT, SUPPORTO, HABILIDAD touched the edges). Measured off the plate (plaquebox.py):
+   the cream runs 5.2%..15.8% on an asset, 5.3%..15.3% on an event, 4.6%..16.4% on a skill; the box
+   is set a little inside that so every word keeps a margin, the way EREIGNIS already does.
+   Centred on the plaque (10.5%) and given a height so the word sits in the MIDDLE of the trapezoid
+   rather than at its top -- Fernando: "centrar un poco verticalmente". */
+.tbc-type{left:5.35%; width:10.5%; top:11.75%; height:3.1%; text-align:center; overflow:hidden;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'ubbody',Georgia,serif; font-weight:700;
+  font-size:calc(var(--typefit,1)*2.828cqw); line-height:1;
+  letter-spacing:.05cqw; text-transform:uppercase}
+/* An event's plaque is the narrowest of the frames. */
+.tbc[data-type="event"] .tbc-type{left:5.75%; width:9.2%}
+/* A skill's word steps the same 0.27% left its crown does (Fernando's "2px left"), so the two stay
+   on one axis, and its plaque is the widest of the three. */
+.tbc[data-type="skill"] .tbc-type{left:5.1%; width:10.5%}
+.tbc[data-type="skill"] .tbc-cost{left:-.55%}
+
+/* The body: traits first (centred, bold italic), then the rules, then the flavour.
+   Every edge of this box is set by the card type and nothing else -- measured across all 88
+   upright cards in the PDF, with no spread inside a type. A skill card's left edge is far in
+   because its skill icons sit over that column.
+
+   The base is 4.234cqw -- FFG's SMALLER of the two settings they use (7.5pt against 8.5pt). See
+   the note on fitCard in card.js: which of the two a given card gets is an editorial decision
+   that cannot be derived from the data, and any rule that guesses it leaves some card flipping
+   between the two with the width of the window. Starting from the smaller one and only ever
+   shrinking means nothing is larger than the printed card, at any screen size. */
+/* Leading and paragraph gap are measured, not chosen: over 300 line steps in the PDF cluster at
+   1.008 em inside a paragraph, and 138 paragraph breaks at 1.276 em -- a gap of 0.269 em. */
+.tbc-body{overflow:hidden; font-family:'ubbody',Georgia,serif; line-height:1.008; text-align:left;
+  font-size:calc(var(--fit,1)*4.234cqw)}
+/* The bottom is where FFG's own lowest line reaches (87.57%), not where the cream field ends
+   (86.14%): a line's box carries descender space under the glyphs, and clipping at the cream
+   shaved the tails off the flavour line. */
+/* The field's floor is an ARC that rises towards the middle: measured across a composited card it
+   ends at 86.1% dead centre but runs on to 93% near the left edge. A full-width line is bound by
+   the centre, so 86.0% is the floor -- not the 87.6% FFG's lowest line reaches (which is near an
+   edge) and not the 86.5% used before, which put the last line's middle under the arc. That is
+   what Blood of Thoth was showing. */
+.tbc[data-type="asset"] .tbc-body,.tbc[data-type="enemy"] .tbc-body{
+  top:60.24%; left:5.06%; right:5.06%; bottom:14.60%}
+.tbc[data-type="event"] .tbc-body{top:63.37%; left:6.83%; right:7.40%; bottom:7.50%}
+/* The skill box stops where FFG's own deepest line stops. Measured on all seven: the lowest line
+   FFG sets on a skill card reaches 92.63% (Signum Crucis), and the box was letting text down to
+   93.28%. No card uses that extra depth today, so nothing moves -- but a box that can go lower
+   than the printed card ever does is a difference waiting to show. */
+.tbc[data-type="skill"] .tbc-body{top:66.15%; left:12.48%; right:7%; bottom:7.0%}
+.tbc[data-type="treachery"] .tbc-body{top:67.34%; left:7.58%; right:8.24%; bottom:6.72%}
+
+/* The traits do NOT follow the body's size: FFG holds them at 7.5pt (4.234cqw) on 80 of the 88
+   cards while the body sits anywhere between 7.39pt and 8.5pt. So they are fixed here, and the
+   auto-fit shrinks only the rules around them -- which is what FFG does too.
+   No gap under them either; the next line follows at the normal leading. */
+/* ---------- the shape of the text field ----------
+   An asset's field is a rectangle, but an event's and a skill's are ogives that close in over the
+   last third, and a rectangular box let the final lines cross the curved border. Two full-height
+   floats carry the boundary as a polygon, and the text flows inside it.
+
+   The boundary comes from tracing the cream field on the KIT's own frame files -- not from a
+   composited card, where the illustration reads as field, and not from where FFG's lines happen
+   to stop, which underestimates it wherever a card has few lines. Only the closing third is
+   modelled: above it the field is full width, so a shape there would do nothing.
+
+   Each float is half the box wide, so the two sit side by side and the polygon coordinates are
+   simply twice the inset they represent. They must NOT be given a negative margin to get out of
+   the way: that pushes their box outside the container, scrollWidth doubles, and the auto-fit
+   then believes nothing fits and shrinks every card to the floor. */
+.tbc-shape{width:50%; height:100%; pointer-events:none}
+.tbc-shape-l{float:left}
+.tbc-shape-r{float:right}
+.tbc[data-type="asset"] .tbc-shape,.tbc[data-type="enemy"] .tbc-shape{display:none}
+
+/* Traced by walking OUT from the middle of the field on five class frames per type, not by
+   looking for the widest pale run on each row -- that kept catching a flourish somewhere else on
+   the line. Between the five frames the boundary agrees to within 0.05-0.5%, so this is the
+   shape, not noise. A skill's field does not merely narrow: it SHIFTS, its left edge moving from
+   9.8% to 12.6% and its right from 91% to 95.2% -- the S-curve on those frames.
+
+   The last traced point is carried down to the foot before the polygon closes. Closing straight
+   at the corner let the shape open up again below the last sample -- precisely where the field is
+   narrowest, and where Black Market's final line ended up under the border. */
+.tbc[data-type="event"] .tbc-shape-l{
+  shape-outside:polygon(0% 0%,6.8% 5.0%,5.2% 9.9%,3.5% 14.8%,2.2% 19.6%,1.0% 24.5%,0.1% 29.4%,0.0% 34.2%,0.0% 39.1%,0.3% 43.9%,1.0% 48.8%,2.1% 53.7%,3.1% 58.5%,4.7% 63.4%,6.2% 68.2%,7.4% 73.1%,9.4% 78.0%,8.9% 82.8%,10.0% 87.7%,20.8% 97.4%,20.8% 100%,0% 100%)}
+/* The lower half is pulled in ~1.5% from the trace. Measured (eventframe.py), the shape came
+   within 0.61% of the frame at one row -- three pixels, close enough to read as a touch on a dense
+   card like Rite of Equilibrium. This keeps every event's text at least ~2% clear of the ogive,
+   scalably, without shrinking the text noticeably (checked: no event overflows, English unchanged). */
+.tbc[data-type="event"] .tbc-shape-r{
+  shape-outside:polygon(100% 0%,91.7% 5.0%,93.9% 9.9%,95.9% 14.8%,97.1% 19.6%,97.4% 24.5%,97.6% 29.4%,100.0% 34.2%,98.4% 39.1%,99.6% 43.9%,97.7% 48.8%,96.0% 53.7%,93.6% 58.5%,93.4% 63.4%,91.9% 68.2%,90.3% 73.1%,89.3% 78.0%,88.8% 82.8%,88.2% 87.7%,76.5% 97.4%,76.5% 100%,100% 100%)}
+/* The left is NOT flat, which taking the minimum over all eight cards had hidden. Read line by
+   line against depth, it bulges inward in the middle: 12.48% near the top (sd 0.00), 13.60%
+   through the middle (sd 0.00), and back to 12.85% low down. Small -- about 1.1% of the card --
+   but visible against the printed card. */
+/* The ramps have to be SHARPER than a line is tall. A float excludes a line box wherever the
+   shape touches its vertical span, so a gentle ramp gives every line the widest inset it meets
+   and the curve disappears -- ours came out dead straight at 13.60% while FFG's first and last
+   lines sit at 12.47%. These corners are placed where the lines actually fall. */
+.tbc[data-type="skill"] .tbc-shape-l{
+  shape-outside:polygon(0% 0%,0% 24%,2.8% 28%,2.8% 70%,1.2% 78%,0% 88%,0% 100%)}
+.tbc[data-type="skill"] .tbc-shape-r{
+  shape-outside:polygon(100% 0%,89.3% 5.0%,91.0% 9.6%,92.5% 14.2%,93.9% 18.8%,94.8% 23.4%,97.1% 32.6%,98.6% 37.2%,99.0% 46.4%,99.4% 51.1%,99.9% 55.7%,99.7% 60.3%,100.0% 64.9%,100.0% 69.5%,98.5% 74.1%,98.6% 78.7%,97.0% 87.9%,97.0% 100%,100% 100%)}
+.tbc[data-type="treachery"] .tbc-shape-l{
+  shape-outside:polygon(0% 0%,0% 88%,12% 95%,40% 100%,0% 100%)}
+.tbc[data-type="treachery"] .tbc-shape-r{
+  shape-outside:polygon(100% 0%,100% 88%,88% 95%,60% 100%,100% 100%)}
+
+.tbc-traits{margin:0 0 .10em; text-align:center; font-weight:700; font-style:italic;
+  font-size:4.234cqw}
+/* The diamond the Spanish traits line uses instead of a full stop. Drawn as a rotated square, not
+   the ◆ glyph, so it is always upright (never italic like the traits around it), small, and the
+   exact colour of the words (currentColor). The ◆ character stays in the markup for copy/paste and
+   is pushed out of sight. */
+.tbc-tsep{display:inline-block; width:.30em; height:.30em; margin:0 .25em; vertical-align:.09em;
+  background:currentColor; transform:rotate(45deg); overflow:hidden; text-indent:-99em}
+.tbc-p{margin:0 0 .269em}
+.tbc-p:last-child{margin-bottom:0}
+/* The flavour quotation is CENTRED, not run to the left margin like the rules: every card that
+   carries one centres it within a tenth of a percent of 49.7%. */
+.tbc-flav{margin:.269em 0 0; font-style:italic; text-align:center}
+/* the "card design by ..." credit and anything else FFG sets entirely in bold: centred */
+.tbc-mid{text-align:center}
+
+/* The footer is three separate pieces, not one line: credit at the left, copyright centred on
+   the card, collection number at the right. All in the card's cream. */
+/* Health and sanity, in the shields the picture already carries. Bolton Regular -- established by
+   pulling the subset FFG embedded in the PDF and comparing digit outlines against every Bolton
+   cut in the repo: 8 of 8 identical, and BoltonTitling ruled out on both advances and ink.
+   The figures are proportional ('1' is much narrower than '3'), so they are anchored by their
+   CENTRE and never by an edge. The rim goes behind the fill, as on the cost numeral. */
+.tbc-stat{top:89.70%; height:6.32%; width:20%;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'bolton',Georgia,serif; font-size:7.9035cqw; line-height:1; color:#fff;
+  paint-order:stroke fill; -webkit-text-stroke:.107em currentColor}
+.tbc-health{left:33.768%; -webkit-text-stroke-color:#c71c22}
+.tbc-sanity{left:48.490%; -webkit-text-stroke-color:#174679}
+/* The dash in an empty shield is drawn like the figures beside it: white, with the shield's own
+   colour as a rim. Giving it the shield colour outright made it invisible -- red on red.
+   It is much smaller than a figure too: the glyph is a stroke, not a numeral. */
+.tbc-stat .ico{--ih:.17em; background-color:#fff}
+.tbc-health .ico{filter:drop-shadow(0 0 .05em #c71c22) drop-shadow(.02em 0 .01em #c71c22)
+  drop-shadow(-.02em 0 .01em #c71c22) drop-shadow(0 .02em .01em #c71c22)
+  drop-shadow(0 -.02em .01em #c71c22)}
+.tbc-sanity .ico{filter:drop-shadow(0 0 .05em #174679) drop-shadow(.02em 0 .01em #174679)
+  drop-shadow(-.02em 0 .01em #174679) drop-shadow(0 .02em .01em #174679)
+  drop-shadow(0 -.02em .01em #174679)}
+
+.tbc-foot{top:96.96%; color:#fff; font-family:'ubbody',Georgia,serif; font-weight:600;
+  font-size:2.51cqw; line-height:1; white-space:nowrap}
+.tbc-illus{left:4.57%}
+.tbc-copy{left:0; right:0; text-align:center; font-weight:700}
+.tbc-num{right:5.96%; font-weight:700}
+/* The product symbol, traced from each card's own footer. Sized by height like every other
+   symbol; the width follows its shape, which varies a lot between products. */
+.tbc-set{display:inline-block; height:.95em; width:calc(.95em*var(--ia,1)); margin-right:.42em;
+  vertical-align:-.15em; background-color:currentColor;
+  -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
+  -webkit-mask-position:center; mask-position:center;
+  -webkit-mask-size:contain; mask-size:contain}
+
+/* Icons are the site's own SVGs, drawn through a mask so they take the surrounding colour --
+   the same mechanism the FAQ chapters use. */
+/* Symbols are sized by their HEIGHT, and the width follows from the shape. That is what FFG
+   holds constant: across forty symbols printed in rules text the ink is 0.872 em tall with a
+   spread of 0.066, while the width runs from 0.70 em to 2.54 em depending on the glyph. Fitting
+   them all into a square box made every one a different size -- the lightning bolt of a free
+   trigger, two and a half times as wide as it is tall, came out at 0.394 em, less than half.
+   The per-icon ratios below are generated from the SVGs themselves by tb/gen_aspects.py. */
+.ico{display:inline-block; --ih:.872em; height:var(--ih); width:calc(var(--ih)*var(--ia,1));
+  vertical-align:-.11em;
+  background-color:currentColor; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
+  -webkit-mask-position:center; mask-position:center; -webkit-mask-size:contain; mask-size:contain}
+.ico-action{--ia:1.333}
+.ico-bullet{--ia:1.620}
+.ico-agility{--ia:0.855}
+.ico-combat{--ia:0.755}
+.ico-cultist{--ia:0.907}
+.ico-curse{--ia:0.827}
+.ico-eldersign{--ia:0.981}
+.ico-elderthing{--ia:0.935}
+.ico-free{--ia:2.538}
+.ico-guardian{--ia:0.930}
+.ico-mystic{--ia:1.498}
+.ico-novalue{--ia:3.051}
+.ico-perinvestigator{--ia:1.028}
+.ico-reaction{--ia:1.473}
+.ico-seeker{--ia:0.700}
+.ico-skull{--ia:0.699}
+.ico-survivor{--ia:1.307}
+.ico-tablet{--ia:0.814}
+.ico-unique{--ia:1.036}
+.ico-wild{--ia:0.717}
+.ico-willpower{--ia:0.728}
+
+/* ---------- investigators ----------
+   These four are landscape: the PDF stores them that way and rotates the placement 90 degrees
+   clockwise to fit a portrait page. Every number below was measured in the card's OWN frame, X
+   against the long side and Y against the short one.
+
+   Their rules block is a RECTANGLE, not an ogive like an event's -- all 39 lines start at 58.526%
+   with zero spread, and the deepest line is also the longest, so there is no shape to follow. */
+.tbc[data-type="investigator"]{max-width:660px}
+.tbc[data-type="investigator"] .tbc-cost,
+.tbc[data-type="investigator"] .tbc-type,
+.tbc[data-type="investigator"] .tbc-shape{display:none}
+
+/* Each piece anchored on the middle FFG uses, not on its top edge: name 5.82%, subtitle 12.64%,
+   traits 23.22%. Pinning them by the top left the subtitle half a percent high and the traits
+   more than half -- small numbers, but on a landscape card they read as the whole block sitting
+   too far up. */
+/* Lowered onto OUR banner. Our composited name banner sits about 0.47% of the card below FFG's
+   (kit vs FFG, the same offset the plaque has), and the text was pinned to FFG's PDF position, so
+   it read high against our own banner. The name comes down that measured 0.47%; the subtitle a
+   little more, which is what Fernando sees. */
+.tbc[data-type="investigator"] .tbc-name{
+  left:8%; right:48.21%; top:2.77%; height:7.22%; font-size:4.372cqw;
+  justify-content:center; text-align:center}
+/* top 11.40%: lowered from FFG's pin onto our banner, then raised 1px back (Fernando's fine tune). */
+.tbc[data-type="investigator"] .tbc-sub{
+  left:8%; right:46.45%; top:11.40%; height:3.85%; font-size:2.683cqw}
+/* The Neutral investigator frame (Lola Hayes) sets its subtitle banner a touch lower than the
+   class frames, so its subtitle needs the extra 1px the others do not. */
+.tbc[data-type="investigator"][data-faction="neutral"] .tbc-sub{top:11.55%}
+.tbc[data-type="investigator"] .tbc-traits{margin-top:.62%}
+
+/* The four skill figures: right edges at 58.736 / 70.052 / 81.648 / 93.235, sd 0.000. Nudged down
+   ~0.36% to sit level with the icon baked beside it, which reads a touch lower than the figure did
+   (Fernando's eye; the pixel measurement of the icon centre was swamped by the oval frame). */
+.tbc-skill{top:5.55%; height:7.05%; width:9%; text-align:right;
+  display:flex; align-items:center; justify-content:flex-end;
+  font-family:'bolton',Georgia,serif; font-size:4.372cqw; line-height:1; color:#231f20}
+.tbc-skill0{right:41.26%}
+.tbc-skill1{right:29.95%}
+.tbc-skill2{right:18.35%}
+.tbc-skill3{right:6.77%}
+
+/* bottom raised to 20.3% (the box ends at 79.7%) so the flavour -- which the auto-fit's slack lets
+   poke ~1% below the box -- still clears the health/sanity shields at 82.59%. On Lola, the longest
+   investigator front, the flavour was ending at 82.04%, half a percent above the shields and
+   reading as touching them. Shorter fronts (Rex, Trish) do not reach the bottom, so nothing moves. */
+.tbc[data-type="investigator"] .tbc-body{
+  top:20.55%; left:58.53%; right:4.14%; bottom:20.3%; font-size:calc(var(--fit,1)*2.981cqw)}
+.tbc[data-type="investigator"] .tbc-traits{font-size:2.981cqw}
+.tbc[data-type="investigator"] .tbc-stat{
+  top:82.59%; height:8.97%; width:12%; font-size:5.565cqw}
+.tbc[data-type="investigator"] .tbc-health{left:66.54%}
+.tbc[data-type="investigator"] .tbc-sanity{left:76.90%}
+
+.tbc[data-type="investigator"] .tbc-foot{top:95.95%; font-size:1.771cqw}
+/* An investigator's footer strip runs only under the right-hand panel, and its three pieces are
+   NOT spread across the card: the credit starts at 55.25%, the copyright occupies 77.25-86.39%
+   and the number ends at 94.85%. Centring the copyright over the whole strip ran it into the
+   illustrator's name -- "Illus. Cristi BalanescuÂ© 2016 FFG" with nothing between them. */
+.tbc[data-type="investigator"] .tbc-illus{left:55.25%}
+.tbc[data-type="investigator"] .tbc-copy{left:77.25%; right:13.61%}
+.tbc[data-type="investigator"] .tbc-num{right:5.15%}
+
+/* ---------- an investigator's back ----------
+   Deck-building, not an ability. The name sits on a bar at the top right and the text wraps
+   around the photograph pinned to the top left.
+
+   Everything that differs between the four cards is measured off FFG's own pages by
+   backextract.py and written inline by card.js, because it really does differ: the picture is a
+   polaroid pinned at an angle, so the left margin is a RAMP that walks about a point further left
+   on every line, with a different start, slope and foot on each card -- and the corner is cut, so
+   the last line or two swing further left than a straight edge would. FFG also sets each card at
+   its own size (Trish's deck-building at 8.5pt where Lola's is 7.35) and Trish's flavour smaller
+   than her rules text.
+
+   What stays here is what all four share: the boxes for the name and subtitle, the leading and
+   the paragraph gap. Name and subtitle are centred on 70.48% and 71.36% of the card -- constant
+   to a hundredth across all four, and the subtitle really does sit that hair right of the name --
+   and their boxes are FFG's own font boxes, so centring the line box in them lands it where FFG
+   sets its baseline. */
+.tbc[data-type="investigator-back"]{max-width:660px}
+/* Lowered onto its bar the same way the front is: the name comes down ~0.5%, the subtitle a
+   little more, so they sit on the banner the way FFG sets them rather than high against it. */
+.tbc-bname{position:absolute; left:48%; right:7.04%; top:2.22%; height:7.22%; overflow:hidden;
+  display:flex; align-items:center; justify-content:center; text-align:center;
+  font-family:'ubtitle',Georgia,serif; font-weight:400; line-height:1;
+  font-size:calc(var(--namefit,1)*4.372cqw)}
+.tbc-bsub{position:absolute; left:50%; right:7.28%; top:10.80%; height:4.79%; text-align:center;
+  display:flex; align-items:center; justify-content:center;
+  font-family:'ubbody',Georgia,serif; font-weight:600; line-height:1;
+  font-size:calc(var(--subfit,1)*2.684cqw); overflow:hidden}
+/* Leading and the gap between paragraphs are both measured per card and written inline; these are
+   only what a card would get if its measurement were missing. */
+.tbc-bbody{right:5.4%; bottom:8%; line-height:1.01}
+.tbc-bbody .tbc-p{margin:0 0 calc(var(--bgap,.69)*1cqw)}
+.tbc-bbody .tbc-flav{text-align:left}
+/* the photograph, as an exclusion. Its outline and the float's width are written inline. */
+.tbc-shape-photo{float:left; height:100%; pointer-events:none}
+
+/* ---------- the taboo section viewer (the real site) ----------
+   The card art is theme-independent -- dark ink on a cream plate -- so every .tbc-* rule above
+   carries fixed colours and is NOT tokenised. Everything AROUND the cards (the panels, the tool
+   bar, the change note) reads the site's own theme tokens, so the section turns with the theme. */
+.ico-set{--ia:1}
+
+/* ---- the section: a STICKY filter sidebar on the left, the card list on the right ---- */
+.tla-tb-layout{display:grid; grid-template-columns:11rem minmax(0,1fr); gap:1.1rem; align-items:start}
+.tla-tb-side{position:sticky; top:1rem; align-self:start; display:flex; flex-direction:column; gap:.7rem;
+  padding:.9rem; border-radius:12px; background:var(--panel); border:1px solid var(--edge);
+  max-height:calc(100vh - 2rem); overflow:auto}
+.tla-tb-side .tla-tb-field{display:flex; flex-direction:column; gap:.3rem}
+.tla-tb-side label{color:var(--muted); font:600 .7rem/1 var(--ff-ui); text-transform:uppercase; letter-spacing:.04em}
+.tla-tb-side select,.tla-tb-side input{padding:.45rem .55rem; border-radius:8px;
+  border:1px solid var(--edge2); background:var(--bg); color:var(--ink); font:inherit; width:100%}
+.tla-tb-count{color:var(--muted); font:.8rem/1 var(--ff-ui); font-variant-numeric:tabular-nums; padding:.15rem 0}
+.tla-tb-side-dl{display:flex; flex-direction:column; gap:.55rem; margin-top:.2rem; padding-top:.7rem;
+  border-top:1px solid var(--edge)}
+.tla-tb-bleed{display:inline-flex; align-items:center; gap:.4rem; cursor:pointer; user-select:none;
+  color:var(--muted); font:600 .78rem/1 var(--ff-ui)}
+.tla-tb-bleed input{accent-color:var(--gold); cursor:pointer}
+.tla-tb-btn{display:inline-flex; align-items:center; justify-content:center; gap:.4rem; cursor:pointer;
+  padding:.55rem .8rem; border-radius:8px; border:1px solid var(--edge2);
+  background:var(--bg); color:var(--ink); font:600 .82rem/1 var(--ff-ui)}
+.tla-tb-btn:hover{border-color:var(--gold); color:var(--gold)}
+.tla-tb-btn svg{width:1em; height:1em}
+.tla-tb-btn[disabled]{opacity:.55; cursor:default}
+.tla-tb-empty{padding:2.5rem .5rem; color:var(--muted); text-align:center}
+
+/* The list: a column of card entries; each has a prominent header, then a row of its two card faces
+   with the change note beside them. */
+.tla-tb-main{min-width:0; container-type:inline-size}
+.tla-tb-grid{display:flex; flex-direction:column; gap:1.8rem}
+.tla-tb-item{padding:1rem 1.1rem 1.2rem; border-radius:14px;
+  background:var(--panel); border:1px solid var(--edge)}
+
+/* The card's name gets pride of place -- a link to ArkhamDB -- with its number and type beside it. */
+.tla-tb-head{display:flex; align-items:baseline; flex-wrap:wrap; gap:.15rem .6rem; margin:0 0 .9rem}
+.tla-tb-name{font:700 1.44rem/1.2 var(--ff-head); color:var(--gold); text-decoration:none}
+.tla-tb-name:hover,.tla-tb-name:focus-visible{color:var(--gold2); text-decoration:underline}
+.tla-tb-head .tla-tb-sub{color:var(--ink2); font-style:italic; font-size:1.14rem}
+.tla-tb-head .tla-tb-code{color:var(--muted); font:1.02rem/1 var(--ff-ui); font-variant-numeric:tabular-nums}
+.tla-tb-head .tla-tb-type{color:var(--muted); font:600 .86rem/1 var(--ff-ui);
+  text-transform:uppercase; letter-spacing:.05em}
+
+/* Three columns: printed card | taboo card | change note. Cards ~400px (the wider section
+   reclaims the right rail, so two of them fit side by side at a normal laptop width). */
+.tla-tb-row{display:grid; grid-template-columns:minmax(0,400px) minmax(0,400px) minmax(220px,1fr);
+  gap:1.1rem; align-items:start}
+.tla-tb-face{margin:0; position:relative; width:100%; cursor:zoom-in}
+.tla-tb-face:focus-visible{outline:2px solid var(--gold); outline-offset:3px; border-radius:6px}
+.tla-tb-face-empty{display:none}
+.tla-tb-cap{display:flex; align-items:center; gap:.4rem; margin:0 0 .45rem}
+.tla-tb-badge{font:700 .72rem/1 var(--ff-ui); letter-spacing:.06em; text-transform:uppercase;
+  padding:.24rem .52rem; border-radius:99px; white-space:nowrap;
+  background:var(--new-bg); color:var(--new); border:1px solid var(--new-edge)}
+
+/* Corner buttons: download and a magnifier to zoom — both always shown, side by side. */
+.tla-tb-btns{position:absolute; top:.4rem; right:.4rem; z-index:2; display:flex; gap:.3rem}
+.tla-tb-dl,.tla-tb-zoom{display:inline-flex; align-items:center; justify-content:center;
+  width:2.1rem; height:2.1rem; cursor:pointer; border-radius:8px; border:1px solid var(--edge2);
+  background:var(--panel); color:var(--ink)}
+.tla-tb-dl:hover,.tla-tb-zoom:hover{border-color:var(--gold); color:var(--gold)}
+.tla-tb-dl svg,.tla-tb-zoom svg{width:1.15rem; height:1.15rem}
+
+/* The change the list makes -- FFG's own words with the card's symbols -- as the third column, then
+   the disclaimer for the rebuilt faces, set apart and quieter. */
+.tla-tb-note{padding:.95rem 1.1rem; border-radius:10px;
+  background:var(--panel2); border:1px solid var(--edge); color:var(--ink2);
+  font:1.08rem/1.5 var(--ff-body)}
+.tla-tb-note .tla-tb-cat{font-weight:700; color:var(--ink)}
+.tla-tb-note .ico{--ih:1.05em; vertical-align:-.16em; margin:0 .05em; background-color:currentColor}
+.tla-tb-why{display:block; margin-top:.7rem; padding-top:.7rem;
+  border-top:1px solid var(--edge); color:var(--muted); font-size:.98rem; line-height:1.5}
+
+.tla-tb-back{margin:1.1rem 0 0; max-width:560px}
+
+/* The zoom lightbox: the clicked face, blown up, over a scrim. */
+.tla-tb-zoomov{position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center;
+  padding:2.4rem 1.2rem; background:var(--scrim,rgba(8,6,14,.72))}
+.tla-tb-zoombox{position:relative; width:min(92vw,560px)}
+.tla-tb-zoombox .tbc{max-width:none; width:100%; margin:0}
+.tla-tb-zoomclose{position:absolute; top:-2.7rem; right:0; width:2.2rem; height:2.2rem; cursor:pointer;
+  border:1px solid var(--edge2); border-radius:8px; background:var(--panel); color:var(--ink);
+  font:400 1.4rem/1 var(--ff-ui)}
+.tla-tb-zoomclose:hover{border-color:var(--gold); color:var(--gold)}
+
+/* Narrower: the sidebar goes on top (a wrapping row), the note under the two cards, then one card. */
+@media (max-width:1040px){
+  .tla-tb-layout{grid-template-columns:1fr}
+  .tla-tb-side{position:static; flex-direction:row; flex-wrap:wrap; align-items:flex-end; max-height:none}
+  .tla-tb-side .tla-tb-field{flex:1 1 10rem}
+  .tla-tb-side-dl{flex-direction:row; align-items:center; margin:0 0 0 auto; padding:0; border-top:0}
+}
+/* Card row responds to the MAIN column's real width (container query), not the viewport -- the
+   viewport can be wide while the reading column is narrow. 3-up (printed|taboo|note) when there is
+   room, else the note drops under the two cards, else one card per row. */
+@container (max-width:1090px){
+  .tla-tb-row{grid-template-columns:minmax(0,400px) minmax(0,400px)}
+  .tla-tb-note{grid-column:1/-1}
+}
+@container (max-width:852px){
+  .tla-tb-row{grid-template-columns:minmax(0,1fr)}
+  .tla-tb-note{grid-column:1}
+}
+
+/* ---- the download bleed chooser (opened by "download all", shared by the taboo and UB viewers) ----
+   Styled through the site tokens, so it turns with the theme like the rest of the section. */
+.tla-bleedov{position:fixed; inset:0; z-index:320; display:flex; align-items:center; justify-content:center;
+  padding:20px; background:var(--scrim,rgba(8,6,14,.72)); backdrop-filter:blur(3px)}
+.tla-bleedbox{position:relative; width:min(440px,100%); background:var(--panel); border:1px solid var(--edge2);
+  border-radius:14px; box-shadow:var(--shadow); padding:1.4rem 1.4rem 1.5rem}
+.tla-bleedclose{position:absolute; top:.6rem; right:.6rem; width:2rem; height:2rem; cursor:pointer;
+  border:1px solid var(--edge2); border-radius:8px; background:var(--bg); color:var(--ink2);
+  font:400 1.4rem/1 var(--ff-ui)}
+.tla-bleedclose:hover{border-color:var(--gold); color:var(--gold)}
+.tla-bleed-t{font-family:var(--ff-head); font-size:1.3rem; color:var(--ink); margin:0 2rem .5rem 0}
+.tla-bleed-d{font-family:var(--ff-ui); font-size:.92rem; color:var(--ink2); line-height:1.55; margin:0 0 1.1rem}
+.tla-bleed-opts{display:flex; flex-direction:column; gap:.6rem; margin:0 0 1.2rem}
+.tla-bleed-opt{display:block; position:relative; cursor:pointer; padding:.7rem .85rem; border-radius:10px;
+  border:1.5px solid var(--edge2); background:var(--bg); transition:border-color .12s, background .12s}
+.tla-bleed-opt:hover{border-color:var(--gold)}
+.tla-bleed-opt.is-on{border-color:var(--gold); background:var(--panel2)}
+/* The radio is visually hidden but stays in the a11y tree and keyboard-operable (arrow keys move
+   between the options); the label's :focus-within shows the ring. Zero width/height would drop it
+   from the focus order in some browsers, so the clip technique is used instead. */
+.tla-bleed-opt input{position:absolute; width:1px; height:1px; margin:-1px; padding:0; border:0;
+  clip:rect(0 0 0 0); clip-path:inset(50%); overflow:hidden; white-space:nowrap}
+.tla-bleed-opt:focus-within{outline:2px solid var(--gold); outline-offset:2px}
+.tla-bleed-opt-head{display:flex; align-items:baseline; justify-content:space-between; gap:.6rem; flex-wrap:wrap}
+.tla-bleed-opt-name{font:700 1rem/1.2 var(--ff-ui); color:var(--ink)}
+.tla-bleed-opt-dim{font:600 .95rem/1.2 var(--ff-ui); color:var(--gold);
+  font-variant-numeric:tabular-nums; white-space:nowrap}
+.tla-bleed-opt-sub{display:block; margin-top:.28rem; font:.82rem/1.45 var(--ff-ui); color:var(--muted)}
+.tla-bleed-btns{display:flex; justify-content:flex-end}
+.tla-bleed-go{display:inline-flex; align-items:center; gap:.45rem; font:600 .95rem/1 var(--ff-ui);
+  padding:.6rem 1.1rem; border-radius:9px; cursor:pointer; border:1px solid transparent;
+  background:var(--gold); color:var(--on-gold)}
+.tla-bleed-go:hover{filter:brightness(1.06)}
+.tla-bleed-go svg{width:1.05em; height:1.05em}
+@media (prefers-reduced-motion:reduce){ .tla-bleed-opt{transition:none} }

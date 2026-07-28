@@ -1,0 +1,5960 @@
+[
+ {
+  "code": "01033",
+  "name": "Dr. Milan Christopher",
+  "subname": "Professor für Entomologie",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 0,
+  "traits": "Verbündeter. Miskatonic.",
+  "text": "Du bekommst +1 [intellect].\n[reaction] Nachdem du erfolgreich ermittelt hast: Erhalte 1 Ressource.",
+  "flavour": "„Auch wenn ich aus tiefstem Herzen darum bete, dass dieser Albtraum nur eine einzelne Abscheulichkeit ist, muss ich doch zugeben, dass ich hocherfreut über die Möglichkeit bin, das Exemplar einer völlig neuen Gattung zu untersuchen!“",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 1,
+  "sanity": 2,
+  "victory": null,
+  "illustrator": "Anthony Devine",
+  "packName": "Grundspiel",
+  "position": 33,
+  "taboo": {
+   "text": "This card's [reaction] ability now reads: \"After you successfully investigate, exhaust Dr. Milan Christopher...\""
+  },
+  "copyright": "© 2016 FFG",
+  "set": "9ffc9f8609",
+  "setAspect": 0.98,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Dr. Milan Christopher (Grundspiel [set:e1-64ef94fd] 33): Die [reaction]-Fähigkeit dieser Karte lautet jetzt:„Nachdem du erfolgreich ermittelt hast, erschöpfe Dr. Milan Christopher: Erhalte 1 Ressource.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Verbündeter. Miskatonic.",
+   "paras": [
+    {
+     "t": "Du bekommst +1 [intellect].",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Nachdem du erfolgreich ermittelt hast, erschöpfe Dr. Milan Christopher: Erhalte 1 Ressource.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "01050",
+  "name": "Schwer zu fassen",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Taktik.",
+  "text": "Schnell. Spiele diese Karte nur in deinem Zug.\nLöse dich von jedem Gegner, der mit dir in einen Kampf verwickelt ist, und bewege dich auf einen enthüllten Ort ohne Gegner.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Adam Schumpert",
+  "packName": "Grundspiel",
+  "position": 50,
+  "taboo": {
+   "text": "This card now reads: \"Disengage from each enemy engaged with you and move to a connecting location with no enemies.\""
+  },
+  "copyright": "© 2016 FFG",
+  "set": "9ffc9f8609",
+  "setAspect": 0.98,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Schwer zu fassen (Grundspiel [set:e1-64ef94fd] 50): Der letzte Absatz dieser Karte lautet jetzt: „Löse dich von jedem Gegner, der mit dir in einen Kampf verwickelt ist, und bewege dich zu einem verbundenen Ort ohne Gegner.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Taktik.",
+   "paras": [
+    {
+     "t": "Schnell. Spiele diese Karte nur in deinem Zug.",
+     "k": "p"
+    },
+    {
+     "t": "Löse dich von jedem Gegner, der mit dir in einen Kampf verwickelt ist, und bewege dich auf einen verbundenen Ort ohne Gegner.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "01073",
+  "name": "Plündern",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Talent.",
+  "text": "[reaction] Nachdem du erfolgreich um 2 oder mehr ermittelt hast, erschöpfe Plündern: Wähle eine [[Gegenstand]]-Karte in deinem Ablagestapel und füge sie deiner Hand hinzu.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Derk Venneman",
+  "packName": "Grundspiel",
+  "position": 73,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2016 FFG",
+  "set": "9ffc9f8609",
+  "setAspect": 0.98,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Plündern (Grundspiel [set:e1-64ef94fd] 73): +2 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Talent.",
+   "paras": [
+    {
+     "t": "[reaction] Nachdem du erfolgreich um 2 oder mehr ermittelt hast, erschöpfe Plündern: Wähle eine [[Gegenstand]]-Karte in deinem Ablagestapel und füge sie deiner Hand hinzu.",
+     "k": "p"
+    }
+   ],
+   "note": "Verkettet (+2 Erfahrung)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "01573",
+  "name": "Plündern",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Talent.",
+  "text": "[reaction] Nachdem du erfolgreich um 2 oder mehr ermittelt hast, erschöpfe Plündern: Wähle eine [[Gegenstand]]-Karte in deinem Ablagestapel und füge sie deiner Hand hinzu.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Derk Venneman",
+  "packName": "Grundspiel (Neuauflage)",
+  "position": 73,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2016 FFG",
+  "set": "9ffc9f8609",
+  "setAspect": 0.98,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Plündern (Grundspiel [set:e1-64ef94fd] 73): +2 Erfahrung",
+  "changeShared": true,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Talent.",
+   "paras": [
+    {
+     "t": "[reaction] Nachdem du erfolgreich um 2 oder mehr ermittelt hast, erschöpfe Plündern: Wähle eine [[Gegenstand]]-Karte in deinem Ablagestapel und füge sie deiner Hand hinzu.",
+     "k": "p"
+    }
+   ],
+   "note": "Verkettet (+2 Erfahrung)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "02002",
+  "name": "Rex Murphy",
+  "subname": "Der Reporter",
+  "unique": true,
+  "type": "investigator",
+  "typeName": "Ermittler",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": null,
+  "traits": "Reporter.",
+  "text": "[reaction] Nachdem dir eine Fertigkeitsprobe um 2 oder mehr gelungen ist, solange du ermittelst: Entdecke 1 Hinweis an deinem Ort.\n[elder_sign]-Effekt: +2. Du darfst stattdessen entscheiden, dass diese Probe automatisch misslingt, um 3 Karten zu ziehen.",
+  "flavour": "„Dieses Mal wird mich nichts davon abhalten, die Wahrheit aufzudecken.“",
+  "skills": [
+   "willpower",
+   "willpower",
+   "willpower",
+   "intellect",
+   "intellect",
+   "intellect",
+   "intellect",
+   "combat",
+   "combat",
+   "agility",
+   "agility",
+   "agility"
+  ],
+  "stats": [
+   3,
+   4,
+   2,
+   3
+  ],
+  "slots": [],
+  "health": 6,
+  "sanity": 9,
+  "victory": null,
+  "illustrator": "Cristi Balanescu",
+  "packName": "Das Vermächtnis von Dunwich",
+  "position": 2,
+  "taboo": {
+   "text": "This card's [reaction] ability gains: \"(Limit once per round.)\""
+  },
+  "copyright": "© 2016 FFG",
+  "set": "53a8330a05",
+  "setAspect": 1.026,
+  "back": {
+   "name": "[unique]Rex Murphy",
+   "subtitle": "Der Reporter",
+   "paras": [
+    "<b>Deckgröße</b>: 30.",
+    "<b>Deckbau-Optionen</b>: Sucherkarten ([seeker]) Stufe 0-5, Neutrale Karten Stufe 0-5, bis zu fünf Karten der Stufe 0 beliebiger anderer Klassen.",
+    "<b>Deckbau-Voraussetzungen</b> (zählen nicht gegen die Deckgröße): Suche nach der Wahrheit, Rex´ Fluch, 1 zufällige Grundschwäche.",
+    "<b>Deckbau-Einschränkungen</b>: Keine [[Glücksfall]]-Karten."
+   ],
+   "flavour": "Wenn etwas Schreckliches passiert, ist Rex Murphy in der Regel sofort zur Stelle und nimmt dabei sämtliche Konsequenzen in Kauf. Nach einem Tag mit Rex gibt es selbst der größte Skeptiker zu, dass dieser Mann verflucht ist. Immer wenn er einer großen Geschichte auf der Spur ist, geht etwas schief. Diese Sache in Innsmouth mit den Fotografien, die aufs Meer hinaus geweht wurden. Die Spuren in Dunwich, die der Regen fortgewaschen hatte, kurz bevor der Sheriff eingetroffen war. Sein fürchterliches Pech hat ihn mehr als ein Mal in Berührung mit scheußlichen Kreaturen und okkulten Verschwörungen gebracht. Um zu überleben, hat Rex eine Wissbegier entwickelt, mit der er hofft der nächsten Katastrophe einen Schritt voraus sein zu können.",
+   "warn": [],
+   "top": 20.03,
+   "left": 7.37,
+   "size": 2.921,
+   "flavSize": 2.921,
+   "lead": 1.021,
+   "gap": 0.383,
+   "photo": [
+    [
+     20.03,
+     41.16
+    ],
+    [
+     25.89,
+     40.76
+    ],
+    [
+     30.16,
+     40.36
+    ],
+    [
+     34.4,
+     39.57
+    ],
+    [
+     40.22,
+     39.17
+    ],
+    [
+     44.49,
+     38.77
+    ],
+    [
+     48.72,
+     38.38
+    ],
+    [
+     54.5,
+     37.58
+    ],
+    [
+     57.46,
+     37.57942440141057
+    ],
+    [
+     61.0,
+     37.58
+    ]
+   ]
+  },
+  "backChange": false,
+  "w": 1048,
+  "h": 738,
+  "change": "Rex Murphy (Dunwich [set:e5-6cc1b92c] 2): Die [reaction]-Fähigkeit dieser Karte erhält folgenden zusätzlichen Text: „(Nur ein Mal pro Runde.)“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Reporter.",
+   "paras": [
+    {
+     "t": "[reaction] Nachdem dir eine Fertigkeitsprobe um 2 oder mehr gelungen ist, solange du ermittelst: Entdecke 1 Hinweis an deinem Ort. (Nur ein Mal pro Runde.)",
+     "k": "p"
+    },
+    {
+     "t": "[elder_sign]-Effekt: +2. Du darfst stattdessen entscheiden, dass diese Probe automatisch misslingt, um 3 Karten zu ziehen.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "02026",
+  "name": "Doppelt oder Nichts",
+  "subname": "",
+  "unique": false,
+  "type": "skill",
+  "typeName": "Fertigkeit",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 0,
+  "traits": "Glücksfall.",
+  "text": "Max. 1 pro Fertigkeitsprobe beitragen.\nVerdopple die Schwierigkeit dieser Fertigkeitsprobe. Falls diese Fertigkeitsprobe gelingt, handle die Effekte der erfolgreichen Probe zwei Mal ab.",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Mark Molnar",
+  "packName": "Das Vermächtnis von Dunwich",
+  "position": 26,
+  "taboo": {
+   "text": "Forbidden.",
+   "deck_limit": 0
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Doppelt oder Nichts (Dunwich [set:e5-6cc1b92c] 26)",
+  "changeShared": false,
+  "cat": "forbidden",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Glücksfall.",
+   "paras": [
+    {
+     "t": "Max. 1 pro Fertigkeitsprobe beitragen.",
+     "k": "p"
+    },
+    {
+     "t": "Verdopple die Schwierigkeit dieser Fertigkeitsprobe. Falls diese Fertigkeitsprobe gelingt, handle die Effekte der erfolgreichen Probe zwei Mal ab.",
+     "k": "p"
+    }
+   ],
+   "note": "Verboten."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "02029",
+  "name": "Ritualkerzen",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Gegenstand.",
+  "text": "[reaction] Nachdem ein [skull]-, [cultist]-, [tablet]-, oder [elder_thing]-Symbol während einer Probe enthüllt worden ist, die du ablegst: Du bekommst für diese Probe +1 auf den Fertigkeitswert.",
+  "flavour": "Die Wachskerzen glühen unheimlich und die Flammen zucken, als ob sie lebendig wären.",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Kristina Gehrmann",
+  "packName": "Das Vermächtnis von Dunwich",
+  "position": 29,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Ritualkerzen (Dunwich [set:e5-6cc1b92c] 29 / Jacqueline Fine [set:e2-09307c83] 5): Diese Karte beginnt jetzt mit dem Text: „[reaction] Nachdem ein Symbol während …“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Gegenstand.",
+   "paras": [
+    {
+     "t": "[reaction] Nachdem ein Symbol während einer Probe enthüllt worden ist, die du ablegst: Du bekommst für diese Probe +1 auf den Fertigkeitswert.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "02108",
+  "name": "Spurensucher",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 1,
+  "traits": "Talent.",
+  "text": "[free] Falls du in deinem Zug nicht mit einem Gegner in einen Kampf verwickelt bist, erschöpfe Spurensucher: Bewege dich auf einen verbundenen Ort.",
+  "flavour": "Forscher, die hinter dem Grauen her sind, halten sich gerne in ungewöhnlichen fernen Gegenden auf.\nH.P. Lovecraft, „Das Bild im Haus“",
+  "skills": [
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Adam Lane",
+  "packName": "Das Miskatonic-Museum",
+  "position": 108,
+  "taboo": {
+   "xp": 1
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Spurensucher (Dunwich [set:e5-6cc1b92c] 108): +1 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Talent.",
+   "paras": [
+    {
+     "t": "[free] Falls du in deinem Zug nicht mit einem Gegner in einen Kampf verwickelt bist, erschöpfe Spurensucher: Bewege dich auf einen verbundenen Ort.",
+     "k": "p"
+    }
+   ],
+   "note": "Verkettet (+1 Erfahrung)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "02111",
+  "name": "Zu tief graben",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Erkenntnis.",
+  "text": "In Spielerreihenfolge zieht jeder Ermittler 1 Karte oben vom Begegnungsdeck. Füge dann Zu tief graben dem Siegpunktestapel hinzu.",
+  "flavour": "Einige Dinge kann man, wenn man sie erst gesehen hat, nicht mehr ungesehen machen.",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": 1,
+  "illustrator": "Anders Finér",
+  "packName": "Das Miskatonic-Museum",
+  "position": 111,
+  "taboo": {
+   "text": "This card gains: \"Group limit 2 copies of Delve Too Deep in the victory display.\""
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Zu tief graben (Dunwich [set:e5-6cc1b92c] 111): Diese Karte erhält folgenden zusätzlichen Text: „Nur 2 Kopien von Zu tief graben im Siegpunktestapel für die gesamte Gruppe.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Erkenntnis.",
+   "paras": [
+    {
+     "t": "In Spielerreihenfolge zieht jeder Ermittler 1 Karte oben vom Begegnungsdeck. Füge dann Zu tief graben dem Siegpunktestapel hinzu. Nur 2 Kopien von Zu tief graben im Siegpunktestapel für die gesamte Gruppe.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Sieg 1.</b>",
+     "k": "center"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "02153",
+  "name": "Hypnotisierender Blick",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 0,
+  "traits": "Zauber.",
+  "text": "Schnell. Spiele diese Karte, sobald ein Gegner einen Ermittler an deinem Ort angreift.\nHebe den Angriff auf. Enthülle dann einen zufälligen Marker aus dem Chaosbeutel. Fall er ein [skull]-, [cultist]-, [tablet]-, [elder_thing]-, oder [auto_fail]-Symbol hat, füge dem angreifenden Gegner seinen eigenen Schaden zu.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Falk",
+  "packName": "Der Essex-County-Express",
+  "position": 153,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2016 FFG",
+  "set": "cf3f94c738",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Hypnotisierender Blick (Dunwich [set:e5-6cc1b92c] 153 / Jacqueline Fine [set:e2-09307c83] 14, 23): Der letzte Satz dieser Karte beginnt nun mit dem Text: „Falls er ein Symbol hat, füge …“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Zauber.",
+   "paras": [
+    {
+     "t": "Schnell. Spiele diese Karte, sobald ein Gegner einen Ermittler an deinem Ort angreift.",
+     "k": "p"
+    },
+    {
+     "t": "Hebe den Angriff auf. Enthülle dann einen zufälligen Marker aus dem Chaosbeutel. Fall er ein Symbol hat, füge dem angreifenden Gegner seinen eigenen Schaden zu.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "02226",
+  "name": "Springfield M1903",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 4,
+  "traits": "Gegenstand. Waffe. Feuerwaffe.",
+  "text": "Anwendungen (3 Munition).\n[action] Gib 1 Munition aus: <b>Kampf.</b> Du bekommst für diesen Angriff +3 [combat] und fügst +2 Schaden zu. Kann nicht verwendet werden, um Gegner anzugreifen, die mit dir in einen Kampf verwickelt sind.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand x2"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Jason Caffoe",
+  "packName": "Gestaltlos und unsichtbar",
+  "position": 226,
+  "taboo": {
+   "text": "This card's [action] ability gains: \"This attack may target a non-[[Elite]] enemy up to one location away from its standard range, ignoring the aloof and retaliate keywords.\""
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Springfield M1903 (Dunwich [set:e5-6cc1b92c] 226): Die [action]-Fähigkeit dieser Karte erhält folgenden zusätzlichen Text: „Dieser Angriff darf Nicht-<i><b>Elite</b></i>-Gegner bis zu 1 Ort weiter entfernt zum Ziel haben als die normale Reichweite erlaubt und ignoriert die Merkmale Zurückhaltend und Zurückschlagen.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Gegenstand. Waffe. Feuerwaffe.",
+   "paras": [
+    {
+     "t": "Anwendungen (3 Munition).",
+     "k": "p"
+    },
+    {
+     "t": "[action] Gib 1 Munition aus: <b>Kampf.</b> Du bekommst für diesen Angriff +3 [combat] und fügst +2 Schaden zu. Kann nicht verwendet werden, um Gegner anzugreifen, die mit dir in einen Kampf verwickelt sind. Dieser Angriff darf Nicht-<i><b>Elite</b></i>-Gegner bis zu 1 Ort weiter entfernt zum Ziel haben als die normale Reichweite erlaubt und ignoriert die Schlüsselwörter Zurückhaltend und Zurückschlagen.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "02229",
+  "name": "Geistesgegenwärtig",
+  "subname": "",
+  "unique": false,
+  "type": "skill",
+  "typeName": "Fertigkeit",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 0,
+  "traits": "Angeboren.",
+  "text": "Falls diese Fertigkeitsprobe um 2 oder mehr gelingt, darfst du, nachdem sie abgehandelt worden ist, sofort eine Aktion nehmen, als ob es dein Zug wäre (diese Aktion zählt nicht gegen die Anzahl der Aktionen, die du jede Runde nehmen kannst).",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "David Auden Nash",
+  "packName": "Gestaltlos und unsichtbar",
+  "position": 229,
+  "taboo": {
+   "text": "At the end of its ability, this card gains: \"(max once per round).\""
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Geistesgegenwärtig (Dunwich [set:e5-6cc1b92c] 229): Diese Karte erhält folgenden zusätzlichen Text: „(Max. 1 Mal pro Runde.)“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Angeboren.",
+   "paras": [
+    {
+     "t": "Falls diese Fertigkeitsprobe um 2 oder mehr gelingt, darfst du, nachdem sie abgehandelt worden ist, sofort eine Aktion nehmen, als ob es dein Zug wäre (diese Aktion zählt nicht gegen die Anzahl der Aktionen, die du jede Runde nehmen kannst). (Max. 1 Mal pro Runde.)",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "02263",
+  "name": "Seltsame Lösung",
+  "subname": "Ätzendes Sekret",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 4,
+  "traits": "Gegenstand. Wissenschaft.",
+  "text": "Du kannst diese Vorteilskarte nur deinem Deck hinzufügen, indem du Seltsame Lösung <i>(Nicht identifiziert)</i> verbesserst, und nur, falls in deinem Kampagnenlogbuch steht, dass du „die Lösung identifiziert hast“.\nAnwendungen (3 Vorräte).\n[action] Gib 1 Vorrat aus: <b>Kampf.</b> Greife mit einem Grund-[combat]-Fertigkeitswert von 6 an. Dieser Angriff fügt 2 Schaden zu.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "combat"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Tiziano Baracchi",
+  "packName": "Wo das Verderben wartet",
+  "position": 263,
+  "taboo": {
+   "text": "This card's fight ability now reads \"+1 damage\" instead of \"+2 damage.\""
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Seltsame Lösung (Ätzendes Sekret) (Dunwich [set:e5-6cc1b92c] 263): Der letzte Satz der <b>Kampf</b>-Fähigkeit dieser Karte lautet jetzt: „Dieser Angriff fügt +1 Schaden zu.“ – <i>(statt „+2 Schaden“)</i>",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuiltWhy": "el texto que se sustituye no aparece en la carta en este idioma",
+  "rebuilt": "full",
+  "assisted": true,
+  "corrected": true,
+  "pdf": {
+   "traits": "Gegenstand. Wissenschaft.",
+   "paras": [
+    {
+     "t": "Du kannst diese Vorteilskarte nur deinem Deck hinzufügen, indem du Seltsame Lösung <i>(Nicht identifiziert)</i> verbesserst, und nur, falls in deinem Kampagnenlogbuch steht, dass du „die Lösung identifiziert hast“.",
+     "k": "p"
+    },
+    {
+     "t": "Anwendungen (3 Vorräte).",
+     "k": "p"
+    },
+    {
+     "t": "[action] Gib 1 Vorrat aus: <b>Kampf.</b> Greife mit einem Grund-[combat]-Fertigkeitswert von 6 an. Dieser Angriff fügt 1 Schaden zu.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "02266",
+  "name": "Ass im Ärmel",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 0,
+  "xp": 3,
+  "traits": "Trick.",
+  "text": "Außergewöhnlich. Schnell. Spiele diese Karte nur in deinem Zug.\nDu darfst in diesem Zug 3 zusätzliche Aktionen nehmen.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "John Pacer",
+  "packName": "Wo das Verderben wartet",
+  "position": 266,
+  "taboo": {
+   "text": "This card gains: \"Max once per round.\""
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Ass im Ärmel (Dunwich [set:e5-6cc1b92c] 266): Diese Karte erhält folgenden zusätzlichen Text: „(Max. 1 pro Runde.)“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Trick.",
+   "paras": [
+    {
+     "t": "Außergewöhnlich. Schnell. Spiele diese Karte nur in deinem Zug.",
+     "k": "p"
+    },
+    {
+     "t": "Du darfst in diesem Zug 3 zusätzliche Aktionen nehmen. (Max. 1 pro Runde.)",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "02269",
+  "name": "Juwel von Aureolus",
+  "subname": "Geschenk des Homunkuli",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 3,
+  "traits": "Gegenstand. Relikt.",
+  "text": "[reaction] Nachdem ein [skull]-, [cultist]-, [tablet]-, [elder_thing]-, oder [auto_fail]-Symbol während einer Fertigkeitsprobe an deinem Ort enthüllt worden ist, erschöpfe Juwel von Aureolus: Ziehe 1 Karte oder erhalte 2 Ressourcen.",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [
+   "Accessory"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Dani Hartel",
+  "packName": "Wo das Verderben wartet",
+  "position": 269,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Juwel von Aureolus (Dunwich [set:e5-6cc1b92c] 269): Diese Karte beginnt jetzt mit dem Text: „[reaction] Nachdem ein Symbol während …“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Gegenstand. Relikt.",
+   "paras": [
+    {
+     "t": "[reaction] Nachdem ein Symbol während einer Fertigkeitsprobe an deinem Ort enthüllt worden ist, erschöpfe Juwel von Aureolus: Ziehe 1 Karte oder erhalte 2 Ressourcen.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "02300",
+  "name": "Monsterschlächter",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 5,
+  "traits": "Geist.",
+  "text": "<b>Kampf.</b> Falls dieser Angriff gegen einen Nicht-[[Elite]]-Gegner erfolgreich ist, besiege diesen Gegner.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Henning Ludvigsen",
+  "packName": "Verloren in Zeit und Raum",
+  "position": 300,
+  "taboo": {
+   "xp": -2
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Monsterschlächter (Dunwich [set:e5-6cc1b92c] 300): –2 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Geist.",
+   "paras": [
+    {
+     "t": "<b>Kampf.</b> Falls dieser Angriff gegen einen Nicht-[[Elite]]-Gegner erfolgreich ist, besiege diesen Gegner.",
+     "k": "p"
+    }
+   ],
+   "note": "Unverkettet (–2 Erfahrung)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "03006",
+  "name": "Lola Hayes",
+  "subname": "Die Schauspielerin",
+  "unique": true,
+  "type": "investigator",
+  "typeName": "Ermittler",
+  "subtypeName": "",
+  "faction": "neutral",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": null,
+  "traits": "Performer.",
+  "text": "<b>Erzwungen</b> - Nachdem du deine Starthand gezogen hast: Wähle eine Rolle ([survivor], [guardian], [seeker], [rogue], [mystic], oder Neutral).\nDu kannst nur neutrale Karten und Karten deiner Rolle spielen oder beitragen und Fähigkeiten auf neutralen Karten und Karten deiner Rolle auslösen.\n[free]: Wechsle deine Rolle. (Nur ein Mal pro Runde.)\n[elder_sign]-Effekt: +2. Du darfst deine Rolle wechseln.",
+  "flavour": "Vielleicht wird dies ihr großes Comeback.",
+  "skills": [
+   "willpower",
+   "willpower",
+   "willpower",
+   "intellect",
+   "intellect",
+   "intellect",
+   "combat",
+   "combat",
+   "combat",
+   "agility",
+   "agility",
+   "agility"
+  ],
+  "stats": [
+   3,
+   3,
+   3,
+   3
+  ],
+  "slots": [],
+  "health": 6,
+  "sanity": 6,
+  "victory": null,
+  "illustrator": "Magali Villeneuve",
+  "packName": "Der Pfad nach Carcosa",
+  "position": 6,
+  "taboo": {
+   "text": "This card's forced ability is moved to its reverse side, and it should now read: \"<b>Additional Setup</b>: After you draw your opening hand, choose a role ([survivor], [guardian], [seeker], [rogue], [mystic], or Neutral).\"\nThis card's front side additionally gains: \"[action]: Switch roles. Does not provoke attacks of opportunity.\""
+  },
+  "copyright": "© 2017 FFG",
+  "set": "da61d6c0c2",
+  "setAspect": 0.688,
+  "back": {
+   "name": "[unique]Lola Hayes",
+   "subtitle": "Die Schauspielerin",
+   "paras": [
+    "<b>Deckgröße</b>: 35.",
+    "<b>Deckbau-Optionen</b>: Überlebender-, Wächter-, Sucher-, Schurken-, und Mystikerkarten ([survivor], [guardian], [seeker], [rogue], und [mystic]) Stufe 0-3, Neutrale Karten Stufe 0-5.",
+    "<b>Deckbau-Voraussetzungen</b> (zählen nicht gegen die Deckgröße): 2 Kopien von Improvisation, 2 Kopien von Identitätskrise, 1 zufällige Grundschwäche.",
+    "<b>Zusätzliche Voraussetzungen</b>: Dein Deck muss mindestens jeweils 7 Karten von 3 verschiedenen Klassen enthalten ([survivor], [guardian], [seeker], [rogue], oder [mystic])."
+   ],
+   "flavour": "Lola hat in ausverkauften Häusern auf der ganzen Welt gespielt, aber noch kein Stück hat sie so aufgewühlt oder war so merkwürdig wie Der König in Gelb. Schon bei den Proben brachte es nur Unheil und Schrecken. Als ihre Schauspielkollegin Miriam tot in der Seine treibend aufgefunden wurde, beschloss sie genug davon zu haben und schrieb einen Brief an den Regisseur, in dem sie ankündigte, dass die nächste Vorstellung ihre letzte sein würde. Nun ist sie für diese letzte Aufführung zurück in ihre Heimat Arkham gekommen, in der Hoffnung, hier endlich dieses fürchterliche Stück hinter sich zu lassen.",
+   "warn": [],
+   "top": 20.03,
+   "left": 7.37,
+   "size": 2.921,
+   "flavSize": 2.936,
+   "lead": 1.021,
+   "gap": 0.236,
+   "photo": [
+    [
+     20.03,
+     41.16
+    ],
+    [
+     25.28,
+     40.76
+    ],
+    [
+     29.55,
+     40.36
+    ],
+    [
+     33.79,
+     39.97
+    ],
+    [
+     39.0,
+     39.17
+    ],
+    [
+     43.27,
+     38.78
+    ],
+    [
+     47.51,
+     38.38
+    ],
+    [
+     52.72,
+     37.98
+    ],
+    [
+     54.85,
+     37.980080206370765
+    ]
+   ]
+  },
+  "backChange": true,
+  "w": 1048,
+  "h": 738,
+  "change": "Lola Hayes (Carcosa [set:e1-0e79d900] 6): Die <b>Erzwungen</b>-Fähigkeit dieser Karte steht jetzt auf der Rückseite und lautet: „<b>Zusätzliche Vorbereitung:</b> Nachdem du deine Starthand gezogen hast: Wähle eine Rolle ([survivor], [guardian], [seeker], [rogue], [mystic] oder Neutral).“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Performer.",
+   "paras": [
+    {
+     "t": "Du kannst nur neutrale Karten und Karten deiner Rolle spielen oder beitragen und Fähigkeiten auf neutralen Karten und Karten deiner Rolle auslösen.",
+     "k": "p"
+    },
+    {
+     "t": "[free]: Wechsle deine Rolle. (Nur ein Mal pro Runde.)",
+     "k": "p"
+    },
+    {
+     "t": "[action]: Wechsle deine Rolle. Provoziert keine Gelegenheitsangriffe.",
+     "k": "p"
+    },
+    {
+     "t": "[elder_sign]-Effekt: +2. Du darfst deine Rolle wechseln.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "backTaboo": {
+   "name": "[unique]Lola Hayes",
+   "subtitle": "Die Schauspielerin",
+   "paras": [
+    "<b>Deckgröße</b>: 35.",
+    "<b>Deckbau-Optionen</b>: Überlebender-, Wächter-, Sucher-, Schurken-, und Mystikerkarten ([survivor], [guardian], [seeker], [rogue], und [mystic]) Stufe 0-3, Neutrale Karten Stufe 0-5.",
+    "<b>Deckbau-Voraussetzungen</b> (zählen nicht gegen die Deckgröße): 2 Kopien von Improvisation, 2 Kopien von Identitätskrise, 1 zufällige Grundschwäche.",
+    "<b>Zusätzliche Voraussetzungen</b>: Dein Deck muss mindestens jeweils 7 Karten von 3 verschiedenen Klassen enthalten ([survivor], [guardian], [seeker], [rogue], oder [mystic]).",
+    "<b>Zusätzliche Vorbereitung:</b> Nachdem du deine Starthand gezogen hast: Wähle eine Rolle ([survivor], [guardian], [seeker], [rogue], [mystic] oder Neutral)."
+   ],
+   "flavour": "Lola hat in ausverkauften Häusern auf der ganzen Welt gespielt, aber noch kein Stück hat sie so aufgewühlt oder war so merkwürdig wie Der König in Gelb. Schon bei den Proben brachte es nur Unheil und Schrecken. Als ihre Schauspielkollegin Miriam tot in der Seine treibend aufgefunden wurde, beschloss sie genug davon zu haben und schrieb einen Brief an den Regisseur, in dem sie ankündigte, dass die nächste Vorstellung ihre letzte sein würde. Nun ist sie für diese letzte Aufführung zurück in ihre Heimat Arkham gekommen, in der Hoffnung, hier endlich dieses fürchterliche Stück hinter sich zu lassen.",
+   "warn": [],
+   "top": 20.03,
+   "left": 7.37,
+   "size": 2.921,
+   "flavSize": 2.936,
+   "lead": 1.021,
+   "gap": 0.236,
+   "photo": [
+    [
+     20.03,
+     41.16
+    ],
+    [
+     25.28,
+     40.76
+    ],
+    [
+     29.55,
+     40.36
+    ],
+    [
+     33.79,
+     39.97
+    ],
+    [
+     39.0,
+     39.17
+    ],
+    [
+     43.27,
+     38.78
+    ],
+    [
+     47.51,
+     38.38
+    ],
+    [
+     52.72,
+     37.98
+    ],
+    [
+     54.85,
+     37.980080206370765
+    ]
+   ]
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "03019",
+  "name": "Identitätskrise",
+  "subname": "",
+  "unique": false,
+  "type": "treachery",
+  "typeName": "Verrat",
+  "subtypeName": "Schwäche",
+  "faction": "neutral",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": null,
+  "traits": "Wahnsinn.",
+  "text": "<b>Enthüllung</b> - Lege alle Karten deiner aktuellen Rolle ab, die du kontrollierst. Lege dann die oberste Karte deines Decks ab. Wechsle deine Rolle zu der Klasse der abgelegten Karte (falls die abgelegte Karte eine Schwäche ist, wechsle deine Rolle auf Neutral).",
+  "flavour": "„Ich habe so viele Rollen gespielt. Da muss man mit dem Wahnsinn rechnen.“",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matt Bradbury",
+  "packName": "Der Pfad nach Carcosa",
+  "position": 19,
+  "taboo": {
+   "text": "This card's revelation ability now reads: \"Discard 1 card in your hand or play area of your current role. Then...\""
+  },
+  "copyright": "© 2017 FFG",
+  "set": "c541dda3c6",
+  "setAspect": 0.688,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Identitätskrise (Carcosa [set:e1-0e79d900] 19): Die <b>Enthüllung</b>-Fähigkeit dieser Karte lautet jetzt: „Lege 1 Karte deiner aktuellen Rolle von deiner Hand oder aus deiner Spielzone ab. Lege dann …“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Wahnsinn.",
+   "paras": [
+    {
+     "t": "<b>Enthüllung</b> - Lege 1 Karte deiner aktuellen Rolle von deiner Hand oder aus deiner Spielzone ab. Lege dann die oberste Karte deines Decks ab. Wechsle deine Rolle zu der Klasse der abgelegten Karte (falls die abgelegte Karte eine Schwäche ist, wechsle deine Rolle auf Neutral).",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "03029",
+  "name": "Taschenspielertrick",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Trick.",
+  "text": "Schnell. Spiele diese Karte nur während deines Zuges.\nBringe eine [[Gegenstand]]-Vorteilskarte von deiner Hand ins Spiel. Falls am Ende deines Zuges die Vorteilskarte noch im Spiel ist, schicke sie auf deine Hand zurück.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Ilich Henriquez",
+  "packName": "Der Pfad nach Carcosa",
+  "position": 29,
+  "taboo": {
+   "text": "This card's ability now reads: \"Put a level 0-3 [[Item]] asset into play from your hand.\""
+  },
+  "copyright": "© 2017 FFG",
+  "set": "c541dda3c6",
+  "setAspect": 0.688,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Taschenspielertrick (Carcosa [set:e1-0e79d900] 29): Die Fähigkeit dieser Karte lautet jetzt: „Bringe eine <i><b>Gegenstand</b></i>-­ Vorteilskarte der Stufe 0–3 von deiner Hand ins Spiel.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Trick.",
+   "paras": [
+    {
+     "t": "Schnell. Spiele diese Karte nur während deines Zuges.",
+     "k": "p"
+    },
+    {
+     "t": "Bringe eine <i><b>Gegenstand</b></i>-Vorteilskarte der Stufe 0–3 von deiner Hand ins Spiel. Falls am Ende deines Zuges die Vorteilskarte noch im Spiel ist, schicke sie auf deine Hand zurück.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "03112",
+  "name": "David Renfield",
+  "subname": "Angesehender Eschatologe",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Verbündeter. Mäzen.",
+  "text": "Solange sich mindestens 1 Verderben auf David Renfield befindet, bekommst du +1 [willpower].\n[free] Erschöpfe David Renfield: Du darfst 1 Verderben auf David Renfield platzieren. Du erhältst 1 Ressource für jedes Verderben auf David Renfield.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 2,
+  "sanity": 1,
+  "victory": null,
+  "illustrator": "Alexandre Dainche",
+  "packName": "Widerhall aus der Vergangenheit",
+  "position": 112,
+  "taboo": {
+   "text": "This card's [fast] ability now reads: \"...Gain 1 resource for each doom on David Renfield (to a maximum of 3 resources).\""
+  },
+  "copyright": "© 2017 FFG",
+  "set": "c541dda3c6",
+  "setAspect": 0.688,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "David Renfield (Carcosa [set:e1-0e79d900] 112): Die [free]-Fähigkeit dieser Karte lautet jetzt: „… Du erhältst 1 Ressource für jedes Verderben auf David Renfield (bis zu einem Maximum von 3 Ressourcen).“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Verbündeter. Mäzen.",
+   "paras": [
+    {
+     "t": "Solange sich mindestens 1 Verderben auf David Renfield befindet, bekommst du +1 [willpower].",
+     "k": "p"
+    },
+    {
+     "t": "[free] Erschöpfe David Renfield: Du darfst 1 Verderben auf David Renfield platzieren. Du erhältst 1 Ressource für jedes Verderben auf David Renfield (bis zu einem Maximum von 3 Ressourcen).",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "03315",
+  "name": "Schlüssel von Ys",
+  "subname": "Lass den Sturm toben",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "neutral",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 5,
+  "traits": "Gegenstand. Relikt.",
+  "text": "Du bekommst +1 auf jede deiner Fertigkeiten für jeden Horror auf Schlüssel von Ys.\n<b>Erzwungen</b> - Sobald eine beliebige Menge Horror auf dir platziert werden würde: Platziere 1 Horror davon auf Schlüssel von Ys.\n<b>Erzwungen</b> - Sobald Schlüssel von Ys das Spiel verlässt: Lege die obersten 10 Karten deines Decks ab.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [
+   "Accessory"
+  ],
+  "health": null,
+  "sanity": 4,
+  "victory": null,
+  "illustrator": "Stephen Somers",
+  "packName": "Finsteres Carcosa",
+  "position": 315,
+  "taboo": {
+   "text": "This card gains the Exceptional keyword.",
+   "exceptional": true
+  },
+  "copyright": "© 2017 FFG",
+  "set": "c541dda3c6",
+  "setAspect": 0.688,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Schlüssel von Ys (Carcosa [set:e1-0e79d900] 315): Diese Karte erhält das Merkmal Außergewöhnlich.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Gegenstand. Relikt.",
+   "paras": [
+    {
+     "t": "Außergewöhnlich.",
+     "k": "p"
+    },
+    {
+     "t": "Du bekommst +1 auf jede deiner Fertigkeiten für jeden Horror auf Schlüssel von Ys.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Erzwungen</b> - Sobald eine beliebige Menge Horror auf dir platziert werden würde: Platziere 1 Horror davon auf Schlüssel von Ys.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Erzwungen</b> - Sobald Schlüssel von Ys das Spiel verlässt: Lege die obersten 10 Karten deines Decks ab.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "04032",
+  "name": "Dunkle Prophezeihung",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Weissagung.",
+  "text": "Schnell. Spiele diese Karte, sobald du einen Chaosmarker enthüllen würdest.\nEnthülle stattdessen 5 statt 1 Chaosmarker. Wähle einen jener Marker mit einem [skull]-, [cultist]-, [tablet]-, [elder_thing]-, oder [auto_fail]-Symbol, um ihn abzuhandeln, und ignoriere die restlichen. (Falls kein solcher Marker enthüllt wird, wähle einen beliebigen Marker jener Marker, um ihn abzuhandeln und ignoriere die restlichen.)",
+  "flavour": "Die Geheimnisse waren in den Sternen geschrieben.",
+  "skills": [
+   "willpower",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Alice Duke",
+  "packName": "Das Vergessene Zeitalter",
+  "position": 32,
+  "taboo": {
+   "text": "This card now reads \"a non-[elder_sign] symbol\" instead of \"a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol.\""
+  },
+  "copyright": "© 2017 FFG",
+  "set": "aa99f780cd",
+  "setAspect": 1.148,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Dunkle Prophezeiung (Zeitalter [set:e3-2540bab3] 32 / Jacqueline Fine [set:e2-09307c83] 17) Der zweite Absatz dieser Karte lautet jetzt: „Enthülle stattdessen 5 statt 1 Chaosmarker. Wähle einen jener Marker mit einem Nicht-[eldersign]-Symbol …“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Weissagung.",
+   "paras": [
+    {
+     "t": "Schnell. Spiele diese Karte, sobald du einen Chaosmarker enthüllen würdest.",
+     "k": "p"
+    },
+    {
+     "t": "Enthülle stattdessen 5 statt 1 Chaosmarker. Wähle einen jener Marker mit einem Nicht-[eldersign]-Symbol, um ihn abzuhandeln, und ignoriere die restlichen. (Falls kein solcher Marker enthüllt wird, wähle einen beliebigen Marker jener Marker, um ihn abzuhandeln und ignoriere die restlichen.)",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "04105",
+  "name": "Überredung",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Erkenntnis. Trick.",
+  "text": "<b>Verhandlung.</b> Wähle einen Nicht-Schwäche-[[Humanoid]]-Gegner an deinem Ort und lege eine [intellect]-Probe (3) ab. Diese Probe bekommt +X Schwierigkeit, wobei X der Horrorwert jenes Gegners ist. Falls die Probe gelingt, mische den gewählten Gegner in das Begegnungsdeck. Falls der gewählte Gegner [[Elite]] ist, entkommst du ihm stattdessen automatisch.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Rafał Hrynkiewicz",
+  "packName": "Fäden des Schicksals",
+  "position": 105,
+  "taboo": {
+   "text": "This card's ability now reads \"<b>Parley.</b> Choose a non-weakness enemy at your location…\""
+  },
+  "copyright": "© 2018 FFG",
+  "set": "26a8cf9379",
+  "setAspect": 1.148,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Überredung (Zeitalter [set:e3-2540bab3] 105): Die Fähigkeit dieser Karte lautet jetzt: „<b>Verhandlung</b>. Wähle einen Nicht-Schwäche-Gegner an deinem Ort und …“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Erkenntnis. Trick.",
+   "paras": [
+    {
+     "t": "<b>Verhandlung.</b> Wähle einen Nicht-Schwäche-Gegner an deinem Ort und lege eine [intellect]-Probe (3) ab. Diese Probe bekommt +X Schwierigkeit, wobei X der Horrorwert jenes Gegners ist. Falls die Probe gelingt, mische den gewählten Gegner in das Begegnungsdeck. Falls der gewählte Gegner [[Elite]] ist, entkommst du ihm stattdessen automatisch.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "04110",
+  "name": "Gegenzauber",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 2,
+  "traits": "Zauber. Gesegnet.",
+  "text": "Schnell. Spiele diese Karte, sobald ein [skull]-, [cultist]-, [tablet]-, oder [elder_thing]-Chaosmarker während einer Fertigkeitsprobe an deinem Ort enthüllt wird.\nHebe jenen Chaosmarker auf. <i>(Enthülle keinen neuen Chaosmarker, um ihn zu ersetzen.)</i>",
+  "flavour": "„Nicht mit mir!“",
+  "skills": [
+   "willpower",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matthew Cowdery",
+  "packName": "Fäden des Schicksals",
+  "position": 110,
+  "taboo": {
+   "text": "This card now reads \"a non-[auto_fail] symbol\" instead of \"a [skull], [cultist], [tablet], or [elder_thing] chaos token.\""
+  },
+  "copyright": "© 2018 FFG",
+  "set": "aa99f780cd",
+  "setAspect": 1.148,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Gegenzauber (Zeitalter [set:e3-2540bab3] 110): Der erste Absatz dieser Karte lautet jetzt: „Schnell. Spiele diese Karte, sobald ein Nicht-[autofail]-Symbol …“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuiltWhy": "no encuentro el ancla final (cita abreviada al final)",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Zauber. Gesegnet.",
+   "paras": [
+    {
+     "t": "Schnell. Spiele diese Karte, sobald ein Nicht-[autofail]-Symbol während einer Fertigkeitsprobe an deinem Ort enthüllt wird.",
+     "k": "p"
+    },
+    {
+     "t": "Hebe jenen Chaosmarker auf. <i>(Enthülle keinen neuen Chaosmarker, um ihn zu ersetzen.)</i>",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "04233",
+  "name": "Zahltag",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 0,
+  "xp": 1,
+  "traits": "Illegal. Schicksalhaft.",
+  "text": "Du erhältst 1 Ressource für jede Aktion, die du in diesem Zug durchgeführt hast <i>(einschließlich dieser)</i>. Falls es dein Zug ist, beende deinen Zug.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Dual Brush Studios",
+  "packName": "Die Archivstadt",
+  "position": 233,
+  "taboo": {
+   "text": "This card’s ability now reads: “Gain 1 resource for each action you spent this turn…”"
+  },
+  "copyright": "© 2018 FFG",
+  "set": "aa99f780cd",
+  "setAspect": 1.148,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Zahltag (Zeitalter [set:e3-2540bab3] 233): Die Fähigkeit dieser Karte lautet jetzt: „Du erhältst 1 Ressource für jede Aktion, die du in diesem Zug ausgegeben hast …\"",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuiltWhy": "el FAQ en este idioma no cita el texto que hace falta",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Illegal. Schicksalhaft.",
+   "paras": [
+    {
+     "t": "Du erhältst 1 Ressource für jede Aktion, die du in diesem Zug ausgegeben hast <i>(einschließlich dieser)</i>. Falls es dein Zug ist, beende deinen Zug.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "04305",
+  "name": "Flammenwerfer",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 5,
+  "traits": "Gegenstand. Waffe. Feuerwaffe.",
+  "text": "Anwendungen (4 Munition).\n[action] Gib 1 Munition aus: <b>Kampf.</b> Der für diesen Angriff gewählte Gegner muss der mit dir in einen Kampf verwickelte Gegner mit dem höchsten Kampfwert sein. Du bekommst für diesen Angriff +4 [combat]. Falls dieser Angriff gelingt, darfst du statt seines normalen Schadens bis zu 4 Schaden unter Gegnern zuweisen, die mit dir in einem Kampf verwickelt sind <i>(möglicher zusätzlicher Schaden wird dieser Summe hinzugefügt)</i>.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "combat",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [
+   "Body",
+   "Hand x2"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Jose Vega",
+  "packName": "Zerstörte Zeitalter",
+  "position": 305,
+  "taboo": {
+   "xp": 1
+  },
+  "copyright": "© 2018 FFG",
+  "set": "26a8cf9379",
+  "setAspect": 1.148,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Flammenwerfer (Zeitalter [set:e3-2540bab3] 305): +1 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Gegenstand. Waffe. Feuerwaffe.",
+   "paras": [
+    {
+     "t": "Anwendungen (4 Munition).",
+     "k": "p"
+    },
+    {
+     "t": "[action] Gib 1 Munition aus: <b>Kampf.</b> Der für diesen Angriff gewählte Gegner muss der mit dir in einen Kampf verwickelte Gegner mit dem höchsten Kampfwert sein. Du bekommst für diesen Angriff +4 [combat]. Falls dieser Angriff gelingt, darfst du statt seines normalen Schadens bis zu 4 Schaden unter Gegnern zuweisen, die mit dir in einem Kampf verwickelt sind <i>(möglicher zusätzlicher Schaden wird dieser Summe hinzugefügt)</i>.",
+     "k": "p"
+    }
+   ],
+   "note": "Verkettet (+1 Erfahrung)."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "04309",
+  "name": "Alles oder Nichts",
+  "subname": "",
+  "unique": false,
+  "type": "skill",
+  "typeName": "Fertigkeit",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 5,
+  "traits": "Glücksfall.",
+  "text": "Max. 1 pro Fertigkeitsprobe beitragen.\nFalls diese Probe gelingt, ziehe 1 Karte für jeden Punkt, um den die Probe gelungen ist, bis zu einem Maximum von 5. Mische jede durch diesen Effekt gezogene Schwäche zurück in dein Deck, ohne sie abzuhandeln.",
+  "flavour": "",
+  "skills": [
+   "wild",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Borja Pindado",
+  "packName": "Zerstörte Zeitalter",
+  "position": 309,
+  "taboo": {
+   "text": "At the end of its ability, this card gains: \"Remove All In from the game.\""
+  },
+  "copyright": "© 2018 FFG",
+  "set": "26a8cf9379",
+  "setAspect": 1.148,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Alles oder Nichts (Zeitalter [set:e3-2540bab3] 309): Diese Karte erhält folgenden zusätzlichen Text: „Entferne Alles oder Nichts aus dem Spiel.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Glücksfall.",
+   "paras": [
+    {
+     "t": "Max. 1 pro Fertigkeitsprobe beitragen.",
+     "k": "p"
+    },
+    {
+     "t": "Falls diese Probe gelingt, ziehe 1 Karte für jeden Punkt, um den die Probe gelungen ist, bis zu einem Maximum von 5. Mische jede durch diesen Effekt gezogene Schwäche zurück in dein Deck, ohne sie abzuhandeln. Entferne Alles oder Nichts aus dem Spiel.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "05020",
+  "name": "Befragung",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Taktik. Erkenntnis.",
+  "text": "<b>Verhandlung.</b> Wähle einen [[Humanoid]]-Gegner an deinem Ort und lege eine [combat]-Probe (3) ab. Diese Probe bekommt +X Schwierigkeit. X ist dabei der Schadenswert des gewählten Gegners. Falls die Probe gelingt, entdeckst du 1 Hinweis an deinem Ort und 1 Hinweis an einem beliebigen anderen Ort.",
+  "flavour": "Er verschwieg etwas… aber warum?",
+  "skills": [
+   "intellect",
+   "combat"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "John Pacer",
+  "packName": "Der gebrochene Kreis",
+  "position": 20,
+  "taboo": {
+   "text": "This card's ability now reads \"<b>Parley.</b> Choose a non-[[Elite]] enemy at your location…\""
+  },
+  "copyright": "© 2018 FFG",
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Befragung (Kreis [set:e12-05e0449f] 20): Die Fähigkeit dieser Karte lautet jetzt: „<b>Verhandlung</b>. Wähle einen Nicht-<i><b>Elite</b></i>-Gegner an deinem Ort und …“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Taktik. Erkenntnis.",
+   "paras": [
+    {
+     "t": "<b>Verhandlung.</b> Wähle einen Nicht-<i><b>Elite</b></i>-Gegner an deinem Ort und lege eine [combat]-Probe (3) ab. Diese Probe bekommt +X Schwierigkeit. X ist dabei der Schadenswert dieses Gegners. Falls die Probe gelingt, entdeckst du 1 Hinweis an deinem Ort und 1 Hinweis an einem beliebigen anderen Ort.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "05113",
+  "name": "Verbannen",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 1,
+  "traits": "Zauber.",
+  "text": "<b>Entkommen.</b> Verwende diese Karte nur bei Nicht-[[Elite]]-Gegnern. Dieser Entkommen-Versuch verwendet [willpower] statt [agility]. Falls die Probe gelingt, bewege den Gegner, dem du gerade entkommen bist, an einen beliebigen Ort im Spiel. Falls die Probe gelingt und ein [skull]-, [cultist]-, [tablet]- oder [elder_thing]-Symbol während des Entkommen-Versuchs enthüllt worden ist, wird jener Gegner in der nächsten Unterhaltsphase nicht spielbereit gemacht.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Stephen Somers",
+  "packName": "Der geheime Name",
+  "position": 113,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2018 FFG",
+  "set": "fbb4e406ac",
+  "setAspect": 1.862,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Verbannen (Kreis [set:e12-05e0449f] 113): Diese Karte erhält folgenden zusätzlichen Text: „… Falls die Probe gelingt und ein Symbol während …“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Zauber.",
+   "paras": [
+    {
+     "t": "<b>Entkommen.</b> Verwende diese Karte nur bei Nicht-[[Elite]]-Gegnern. Dieser Entkommen-Versuch verwendet [willpower] statt [agility]. Falls die Probe gelingt, bewege den Gegner, dem du gerade entkommen bist, an einen beliebigen Ort im Spiel. Falls die Probe gelingt und ein Symbol während des Entkommen-Versuchs enthüllt worden ist, wird jener Gegner in der nächsten Unterhaltsphase nicht spielbereit gemacht.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "05116",
+  "name": "Schriftrolle der Geheimnisse",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": "mystic",
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Gegenstand. Buch.",
+  "text": "Anwendungen (3 Geheimnisse).\n[action] Erschöpfe die Schriftrolle der Geheimnisse und gib 1 Geheimnis aus: Sieh dir die unterste Karte eines beliebigen Ermittlerdecks oder des Begegnungsdecks an. Lege dann entweder jene Karte ab, füge sie der Hand ihres Besitzers hinzu, platziere sie unter ihrem Deck oder platziere sie auf ihrem Deck.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matthew Cowdery",
+  "packName": "Der geheime Name",
+  "position": 116,
+  "taboo": {
+   "text": "This card's [action] ability is now a [fast] ability."
+  },
+  "copyright": "© 2018 FFG",
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Schriftrolle der Geheimnisse (alle 3 Versionen) (Kreis [set:e12-05e0449f] 116,188,189): Die [action]<i>-</i>Fähigkeit dieser Karten ist jetzt eine [free]<i>-</i>Fähigkeit.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Gegenstand. Buch.",
+   "paras": [
+    {
+     "t": "Anwendungen (3 Geheimnisse).",
+     "k": "p"
+    },
+    {
+     "t": "[fast] Erschöpfe die Schriftrolle der Geheimnisse und gib 1 Geheimnis aus: Sieh dir die unterste Karte eines beliebigen Ermittlerdecks oder des Begegnungsdecks an. Lege dann entweder jene Karte ab, füge sie der Hand ihres Besitzers hinzu, platziere sie unter ihrem Deck oder platziere sie auf ihrem Deck.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "05153",
+  "name": "Mr. „Rook”",
+  "subname": "Geheimnishändler",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 0,
+  "traits": "Verbündeter.",
+  "text": "Anwendungen (3 Geheimnisse).\n[free] Erschöpfe Mr. „Rook” und gib 1 Geheimnis aus: Durchsuche die obersten 3, 6 oder 9 Karten deines Decks nach einer beliebigen Karte und ziehe sie. Falls unter den angesehenen Karten mindestens 1 Schwäche ist, ziehe außerdem 1 von ihnen. Mische dein Deck.",
+  "flavour": "„Möchten Sie das wirklich wissen? Dann gibt es kein Zurück mehr.”",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 2,
+  "sanity": 2,
+  "victory": null,
+  "illustrator": "Romana Kendelic",
+  "packName": "Der Sünde Lohn",
+  "position": 153,
+  "taboo": {
+   "text": "This card's [fast] ability is now a [action] ability."
+  },
+  "copyright": "© 2018 FFG",
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Mr. „Rook“ (Kreis [set:e12-05e0449f] 153): Die [free]<i>-</i>Fähigkeit dieser Karte ist jetzt eine Fähigkeit.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Verbündeter.",
+   "paras": [
+    {
+     "t": "Anwendungen (3 Geheimnisse).",
+     "k": "p"
+    },
+    {
+     "t": "[action] Erschöpfe Mr. „Rook” und gib 1 Geheimnis aus: Durchsuche die obersten 3, 6 oder 9 Karten deines Decks nach einer beliebigen Karte und ziehe sie. Falls unter den angesehenen Karten mindestens 1 Schwäche ist, ziehe außerdem 1 von ihnen. Mische dein Deck.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "05156",
+  "name": "Schnelle Reflexe",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Schachzug.",
+  "text": "Schnell. Spiele diese Karte im Zug eines beliebigen Ermittlers, außer während einer Aktion.\nNimm sofort eine Aktion, als ob es dein Zug wäre. Diese Aktion zählt nicht gegen die Anzahl der Aktionen, die du jede Runde nehmen kannst.",
+  "flavour": "",
+  "skills": [
+   "agility",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Miguel Coimbra",
+  "packName": "Der Sünde Lohn",
+  "position": 156,
+  "taboo": {
+   "text": "This card gains \"(Limit twice per round.)\""
+  },
+  "copyright": "© 2019 FFG",
+  "set": "e77ed389f1",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Schnelle Reflexe (Kreis [set:e12-05e0449f] 156): Diese Karte erhält den folgenden Text: „(Nur 2 Mal pro Runde.)“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Schachzug.",
+   "paras": [
+    {
+     "t": "Schnell. Spiele diese Karte im Zug eines beliebigen Ermittlers, außer während einer Aktion.",
+     "k": "p"
+    },
+    {
+     "t": "Nimm sofort eine Aktion, als ob es dein Zug wäre. Diese Aktion zählt nicht gegen die Anzahl der Aktionen, die du jede Runde nehmen kannst. (Nur 2 Mal pro Runde.)",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "05157",
+  "name": "Welken",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Zauber.",
+  "text": "[action]: <b>Kampf.</b> Dieser Angriff verwendet [willpower] statt [combat]. Falls ein [skull]-, [cultist]-, [tablet]- oder [elder_thing]-Symbol enthüllt wird, bekommt der angegriffene Gegner für den Rest des Zuges -1 Kampf und -1 Entkommen (bis zu einem Minimum von 1).",
+  "flavour": "",
+  "skills": [
+   "combat"
+  ],
+  "stats": null,
+  "slots": [
+   "Arcane"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Damien Worm",
+  "packName": "Der Sünde Lohn",
+  "position": 157,
+  "taboo": {
+   "text": "This card now reads \"a symbol token\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2018 FFG",
+  "set": "e77ed389f1",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Welken (Kreis [set:e12-05e0449f] 157): Die Fähigkeit dieser Karte lautet jetzt: „[action]: <b>Kampf.</b> Dieser Angriff verwendet [willpower] statt [combat]. Falls ein Symbolmarker enthüllt wird, …“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Zauber.",
+   "paras": [
+    {
+     "t": "[action]: <b>Kampf.</b> Dieser Angriff verwendet [willpower] statt [combat]. Falls ein Symbol enthüllt wird, bekommt der angegriffene Gegner für den Rest des Zuges -1 Kampf und -1 Entkommen (bis zu einem Minimum von 1).",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "05159",
+  "name": "Hoch pokern",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 0,
+  "xp": 0,
+  "traits": "Talent.",
+  "text": "[reaction] Sobald du eine Fertigkeitsprobe initiierst, erschöpfe Hoch pokern: Erhöhe die Schwierigkeit dieser Probe um 2. Du erhältst 2 Ressourcen oder ziehst 1 Karte.",
+  "flavour": "",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Borja Pindado",
+  "packName": "Der Sünde Lohn",
+  "position": 159,
+  "taboo": {
+   "xp": 3
+  },
+  "copyright": "© 2018 FFG",
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Hoch pokern (Kreis [set:e12-05e0449f] 159): +3 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Talent.",
+   "paras": [
+    {
+     "t": "[reaction] Sobald du eine Fertigkeitsprobe initiierst, erschöpfe Hoch pokern: Erhöhe die Schwierigkeit dieser Probe um 2. Du erhältst 2 Ressourcen oder ziehst 1 Karte.",
+     "k": "p"
+    }
+   ],
+   "note": "Verkettet (+3 Erfahrung)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "05188",
+  "name": "Schriftrolle der Geheimnisse",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 3,
+  "traits": "Gegenstand. Buch.",
+  "text": "Anwendungen (3 Geheimnisse).\n[action] Erschöpfe die Schriftrolle der Geheimnisse und gib 1 Geheimnis aus: Sieh dir die untersten 3 Karten eines beliebigen Ermittlerdecks oder des Begegnungsdecks an. Du darfst 1 jener Karten ablegen. Du darfst 1 jener Karten der Hand ihres Besitzers hinzufügen. Platziere die übrigen Karten in beliebiger Reihenfolge entweder auf oder unter ihrem Deck.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matthew Cowdery",
+  "packName": "Für das große Ganze",
+  "position": 188,
+  "taboo": {
+   "text": "This card's [action] ability is now a [fast] ability."
+  },
+  "copyright": "© 2018 FFG",
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Schriftrolle der Geheimnisse (alle 3 Versionen) (Kreis [set:e12-05e0449f] 116,188,189): Die [action]<i>-</i>Fähigkeit dieser Karten ist jetzt eine [free]<i>-</i>Fähigkeit.",
+  "changeShared": true,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Gegenstand. Buch.",
+   "paras": [
+    {
+     "t": "Anwendungen (3 Geheimnisse).",
+     "k": "p"
+    },
+    {
+     "t": "[fast] Erschöpfe die Schriftrolle der Geheimnisse und gib 1 Geheimnis aus: Sieh dir die untersten 3 Karten eines beliebigen Ermittlerdecks oder des Begegnungsdecks an. Du darfst 1 jener Karten ablegen. Du darfst 1 jener Karten der Hand ihres Besitzers hinzufügen. Platziere die übrigen Karten in beliebiger Reihenfolge entweder auf oder unter ihrem Deck.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "05189",
+  "name": "Schriftrolle der Geheimnisse",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 3,
+  "traits": "Gegenstand. Buch.",
+  "text": "Anwendungen (4 Geheimnisse).\n[action] Erschöpfe die Schriftrolle der Geheimnisse und gib 1 Geheimnis aus: Sieh dir die oberste oder unterste Karte eines beliebigen Ermittlerdecks oder des Begegnungsdecks an. Lege dann entweder jene Karte ab, füge sie der Hand ihres Besitzers hinzu, platziere sie unter ihrem Deck oder platziere sie auf ihrem Deck.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matthew Cowdery",
+  "packName": "Für das große Ganze",
+  "position": 189,
+  "taboo": {
+   "text": "This card's [action] ability is now a [fast] ability."
+  },
+  "copyright": "© 2018 FFG",
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Schriftrolle der Geheimnisse (alle 3 Versionen) (Kreis [set:e12-05e0449f] 116,188,189): Die [action]<i>-</i>Fähigkeit dieser Karten ist jetzt eine [free]<i>-</i>Fähigkeit.",
+  "changeShared": true,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Gegenstand. Buch.",
+   "paras": [
+    {
+     "t": "Anwendungen (4 Geheimnisse).",
+     "k": "p"
+    },
+    {
+     "t": "[fast] Erschöpfe die Schriftrolle der Geheimnisse und gib 1 Geheimnis aus: Sieh dir die oberste oder unterste Karte eines beliebigen Ermittlerdecks oder des Begegnungsdecks an. Lege dann entweder jene Karte ab, füge sie der Hand ihres Besitzers hinzu, platziere sie unter ihrem Deck oder platziere sie auf ihrem Deck.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "05230",
+  "name": "Zielfernrohr",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 3,
+  "traits": "Gegenstand. Verbesserung.",
+  "text": "Schnell. Hänge diese Karte an eine [[Feuerwaffe]]-Vorteilskarte an, die du kontrollierst und die zwei Handslots benötigt. Die Vorteilskarte mit dieser Verstärkung kann nicht verwendet werden, um Gegner anzugreifen, die mit dir in einen Kampf verwickelt sind.\n[reaction] Sobald du eine <b>Kampf</b>-Aktion mit der Vorteilskarte mit dieser Verstärkung durchführst, falls du mit keinem Gegner in einen Kampf verwickelt bist, erschöpfe das Zielfernrohr: Dieser Angriff kann einen Nicht-[[Elite]]-Gegner an einem verbundenen Ort zum Ziel haben. Ignoriere für diesen Angriff die Schlüsselwörter Zurückhaltend und Zurückschlagen.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Tiziano Baracchi",
+  "packName": "Einheit und Ernüchterung",
+  "position": 230,
+  "taboo": {
+   "text": "This card loses the text: \"Attached asset cannot be used to attack enemies engaged with you.\""
+  },
+  "copyright": "© 2018 FFG",
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Zielfernrohr (Kreis [set:e12-05e0449f] 230): Diese Karte verliert den Text: „Die Vorteilskarte mit dieser Verstärkung kann nicht verwendet werden, um Gegner anzugreifen, die mit dir in einen Kampf verwickelt sind.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Gegenstand. Verbesserung.",
+   "paras": [
+    {
+     "t": "Schnell. Hänge diese Karte an eine [[Feuerwaffe]]-Vorteilskarte an, die du kontrollierst und die zwei Handslots benötigt.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Sobald du eine <b>Kampf</b>-Aktion mit der Vorteilskarte mit dieser Verstärkung durchführst, falls du mit keinem Gegner in einen Kampf verwickelt bist, erschöpfe das Zielfernrohr: Dieser Angriff kann einen Nicht-[[Elite]]-Gegner an einem verbundenen Ort zum Ziel haben. Ignoriere für diesen Angriff die Schlüsselwörter Zurückhaltend und Zurückschlagen.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "05231",
+  "name": "Wissen ist Macht",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 0,
+  "xp": 0,
+  "traits": "Erkenntnis.",
+  "text": "Schnell. Spiele diese Karte nur in deinem Zug.\nWähle eine [[Buch]]- oder [[Zauber]]-Vorteilskarte, die du kontrollierst, oder enthülle eine [[Buch]]- oder [[Zauber]]-Vorteilskarte von deiner Hand. Handle eine [action]- oder [free]-Fähigkeit jener Vorteilskarte ab und ignoriere dafür alle Kosten <i>(einschließlich ihrer [action]-Kosten, sofern vorhanden)</i>. Falls jene Vorteilskarte auf deiner Hand war, darfst du sie dann ablegen, um 1 Karte zu ziehen.",
+  "flavour": "… und Macht verdirbt.",
+  "skills": [
+   "willpower",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Michal Milkowski",
+  "packName": "Einheit und Ernüchterung",
+  "position": 231,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2018 FFG",
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Wissen ist Macht (Kreis [set:e12-05e0449f] 231): +2 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Erkenntnis.",
+   "paras": [
+    {
+     "t": "Schnell. Spiele diese Karte nur in deinem Zug.",
+     "k": "p"
+    },
+    {
+     "t": "Wähle eine [[Buch]]- oder [[Zauber]]-Vorteilskarte, die du kontrollierst, oder enthülle eine [[Buch]]- oder [[Zauber]]-Vorteilskarte von deiner Hand. Handle eine [action]- oder [free]-Fähigkeit jener Vorteilskarte ab und ignoriere dafür alle Kosten <i>(einschließlich ihrer [action]-Kosten, sofern vorhanden)</i>. Falls jene Vorteilskarte auf deiner Hand war, darfst du sie dann ablegen, um 1 Karte zu ziehen.",
+     "k": "p"
+    }
+   ],
+   "note": "Verkettet (+2 Erfahrung)."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "05321",
+  "name": "Welken",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 4,
+  "traits": "Zauber.",
+  "text": "[action]: <b>Kampf.</b> Dieser Angriff verwendet [willpower] statt [combat]. Du bekommst für diesen Angriff +2 [willpower]. Falls ein [skull]-, [cultist]-, [tablet]- oder [elder_thing]-Symbol während dieses Angriffs enthüllt wird, bekommt der angegriffene Gegner für den Rest des Zuges -1 Kampf, -1 Ausdauer und -1 Entkommen (bis zu einem Minimum von 1).",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "combat"
+  ],
+  "stats": null,
+  "slots": [
+   "Arcane"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Damien Worm",
+  "packName": "Vor dem schwarzen Thron",
+  "position": 321,
+  "taboo": {
+   "text": "This card's [action] ability now reads \"...If a symbol token is revealed during this attack, the attacked enemy gets -1 fight, -1 health, and -1 evade until the end of the phase (to a minimum of 1)."
+  },
+  "copyright": "© 2018 FFG",
+  "set": "e77ed389f1",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Welken (Kreis [set:e12-05e0449f] 321): Die Fähigkeit dieser Karte lautet jetzt: „[action]: <b>Kampf.</b> Dieser Angriff verwendet [willpower] statt [combat]. Du bekommst für diesen Angriff +2 [willpower]. Falls ein Symbolmarker enthüllt wird, …“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Zauber.",
+   "paras": [
+    {
+     "t": "[action]: <b>Kampf.</b> Dieser Angriff verwendet [willpower] statt [combat]. Du bekommst für diesen Angriff +2 [willpower]. Falls ein Symbol während dieses Angriffs enthüllt wird, bekommt der angegriffene Gegner bis zum Ende der Phase -1 Kampf, -1 Ausdauer und -1 Entkommen (bis zu einem Minimum von 1).",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "05324",
+  "name": "Wendung zum Guten",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 3,
+  "traits": "Glücksfall. Gesegnet.",
+  "text": "Schnell. Spiele diese Karte, sobald du einen Chaosmarker enthüllst, der deinen Fertigkeitswert während einer Fertigkeitsprobe auf 0 senken würde (einschließlich des [auto_fail]-Markers).\nHebe jenen Marker auf und behandle ihn stattdessen als einen [elder_sign]-Marker.",
+  "flavour": "",
+  "skills": [
+   "wild",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Julian Kok",
+  "packName": "Vor dem schwarzen Thron",
+  "position": 324,
+  "taboo": {
+   "text": "This card's ability gains: \"Remove Eucatastrophe from the game.\""
+  },
+  "copyright": "© 2018 FFG",
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Wendung zum Guten (Kreis [set:e12-05e0449f] 324): Diese Karte erhält folgenden zusätzlichen Text: „Entferne Wendung zum Guten aus dem Spiel.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Glücksfall. Gesegnet.",
+   "paras": [
+    {
+     "t": "Schnell. Spiele diese Karte, sobald du einen Chaosmarker enthüllst, der deinen Fertigkeitswert während einer Fertigkeitsprobe auf 0 senken würde (einschließlich des [auto_fail]-Markers).",
+     "k": "p"
+    },
+    {
+     "t": "Hebe jenen Marker auf und behandle ihn stattdessen als einen [elder_sign]-Marker. Entferne Wendung zum Guten aus dem Spiel.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "06002",
+  "name": "Mandy Thompson",
+  "subname": "Die Forscherin",
+  "unique": true,
+  "type": "investigator",
+  "typeName": "Ermittler",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": null,
+  "traits": "Assistent. Gelehrter.",
+  "text": "[reaction] Sobald ein Ermittler an deinem Ort sein Deck oder das Begegnungsdeck durchsuchen würde: Er darf entweder 3 zusätzliche Karten durchsuchen oder 1 zusätzliches Ziel der Suche abhandeln. (Nur ein Mal pro Runde.)\n[elder_sign] Effekt: +0. Durchsuche die obersten 3 Karten deines Decks nach einer Karte und ziehe sie entweder oder trage sie falls möglich zu dieser Fertigkeitsprobe bei. Mische dein Deck.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "willpower",
+   "willpower",
+   "intellect",
+   "intellect",
+   "intellect",
+   "intellect",
+   "intellect",
+   "combat",
+   "agility",
+   "agility",
+   "agility"
+  ],
+  "stats": [
+   3,
+   5,
+   1,
+   3
+  ],
+  "slots": [],
+  "health": 6,
+  "sanity": 8,
+  "victory": null,
+  "illustrator": "Tony Foti",
+  "packName": "Die Traumfresser",
+  "position": 2,
+  "taboo": {
+   "text": "This investigator now reads: \"Deck Size: 50\" and \"Deckbuilding Requirements (do not count towards deck size): 3 copies of Occult Evidence...\""
+  },
+  "copyright": "© 2019 FFG",
+  "set": "483914db0c",
+  "setAspect": 1.069,
+  "back": {
+   "name": "[unique]Mandy Thompson",
+   "subtitle": "Die Forscherin",
+   "paras": [
+    "<b>Deckgröße</b>: Wähle beim Deckbau eine Deckgröße von 30, 40 oder 50.",
+    "<b>Wahl der Sekundärklasse</b>: Wähle beim Deckbau Mystiker ([mystic]), Schurke ([rogue]) oder Überlebender ([survivor]).",
+    "<b>Deckbau-Optionen</b>: Sucherkarten ([seeker]) Stufe 0-5, Neutrale Karten Stufe 0-5, bis zu 10 Stufe 0-1 Ereignis- und/oder Fertigkeitskarten deiner gewählten Sekundärklasse.",
+    "<b>Deckbau-Voraussetzungen</b> (zählen nicht gegen die Deckgröße): 1 Kopie von Okkulter Beweis (stattdessen 2 Kopien, falls deine Deckgröße 40 beträgt; stattdessen 3 Kopien, falls deine Deckgröße 50 beträgt), Schockierende Entdeckung und 1 zufällige Grundschwäche."
+   ],
+   "flavour": "Seit sie ein kleines Mädchen ist, greift Mandy bei Schlafschwierigkeiten zu einem Buch. Viele Nächte hat sie sich schon auf diese Weise um die Ohren geschlagen. Ihr gutes Gedächtnis und analytisches Denken haben ihr eine hochangesehene Stelle als Forscherin an der Miskatonic Universität eingebracht. Dort verbringt sie ganze Tage mit dem Wälzen uralter Schriften und verbotener Texte. Dabei ist ihr ein Muster aufgefallen, das den unmittelbar bevorstehenden Weltuntergang verkündet. Ist sie einer Paranoia verfallen? Oder droht tatsächlich eine Katastrophe von wahrhaft unbeschreiblichen Ausmaßen?",
+   "warn": [],
+   "top": 20.03,
+   "left": 7.38,
+   "size": 2.981,
+   "flavSize": 2.981,
+   "lead": 1.0,
+   "gap": 0.231,
+   "photo": [
+    [
+     20.03,
+     37.18
+    ],
+    [
+     25.28,
+     37.18
+    ],
+    [
+     29.55,
+     36.79
+    ],
+    [
+     34.77,
+     36.39
+    ],
+    [
+     39.04,
+     36.39
+    ],
+    [
+     43.27,
+     36.0
+    ],
+    [
+     48.48,
+     35.6
+    ],
+    [
+     52.76,
+     35.6
+    ],
+    [
+     56.99,
+     34.8
+    ],
+    [
+     62.22,
+     32.02
+    ],
+    [
+     64.34,
+     32.02130692871854
+    ]
+   ]
+  },
+  "backChange": true,
+  "w": 1048,
+  "h": 738,
+  "change": "Mandy Thompson (Traumfresser [set:e1-32b441de] 2): Die Deckgröße auf der Rückseite lautet jetzt: „50“ Die Deckbau-Voraussetzungen auf der Rückseite lauten jetzt: „(zählen nicht gegen die Deckgröße): 3 Kopien von Okkulter Beweis, Schockierende Entdeckung und 1 zufällige Grundschwäche“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "frontSame": true,
+  "pdf": {
+   "traits": "Assistent. Gelehrter.",
+   "paras": [
+    {
+     "t": "[reaction] Sobald ein Ermittler an deinem Ort sein Deck oder das Begegnungsdeck durchsuchen würde: Er darf entweder 3 zusätzliche Karten durchsuchen oder 1 zusätzliches Ziel der Suche abhandeln. (Nur ein Mal pro Runde.)",
+     "k": "p"
+    },
+    {
+     "t": "[elder_sign] Effekt: +0. Durchsuche die obersten 3 Karten deines Decks nach einer Karte und ziehe sie entweder oder trage sie falls möglich zu dieser Fertigkeitsprobe bei. Mische dein Deck.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "backTaboo": {
+   "name": "[unique]Mandy Thompson",
+   "subtitle": "Die Forscherin",
+   "paras": [
+    "<b>Deckgröße</b>: 50.",
+    "<b>Wahl der Sekundärklasse</b>: Wähle beim Deckbau Mystiker ([mystic]), Schurke ([rogue]) oder Überlebender ([survivor]).",
+    "<b>Deckbau-Optionen</b>: Sucherkarten ([seeker]) Stufe 0-5, Neutrale Karten Stufe 0-5, bis zu 10 Stufe 0-1 Ereignis- und/oder Fertigkeitskarten deiner gewählten Sekundärklasse.",
+    "<b>Deckbau-Voraussetzungen</b> (zählen nicht gegen die Deckgröße): 3 Kopien von Okkulter Beweis, Schockierende Entdeckung und 1 zufällige Grundschwäche."
+   ],
+   "flavour": "Seit sie ein kleines Mädchen ist, greift Mandy bei Schlafschwierigkeiten zu einem Buch. Viele Nächte hat sie sich schon auf diese Weise um die Ohren geschlagen. Ihr gutes Gedächtnis und analytisches Denken haben ihr eine hochangesehene Stelle als Forscherin an der Miskatonic Universität eingebracht. Dort verbringt sie ganze Tage mit dem Wälzen uralter Schriften und verbotener Texte. Dabei ist ihr ein Muster aufgefallen, das den unmittelbar bevorstehenden Weltuntergang verkündet. Ist sie einer Paranoia verfallen? Oder droht tatsächlich eine Katastrophe von wahrhaft unbeschreiblichen Ausmaßen?",
+   "warn": [],
+   "top": 20.03,
+   "left": 7.38,
+   "size": 2.981,
+   "flavSize": 2.981,
+   "lead": 1.0,
+   "gap": 0.231,
+   "photo": [
+    [
+     20.03,
+     37.18
+    ],
+    [
+     25.28,
+     37.18
+    ],
+    [
+     29.55,
+     36.79
+    ],
+    [
+     34.77,
+     36.39
+    ],
+    [
+     39.04,
+     36.39
+    ],
+    [
+     43.27,
+     36.0
+    ],
+    [
+     48.48,
+     35.6
+    ],
+    [
+     52.76,
+     35.6
+    ],
+    [
+     56.99,
+     34.8
+    ],
+    [
+     62.22,
+     32.02
+    ],
+    [
+     64.34,
+     32.02130692871854
+    ]
+   ]
+  },
+  "backAssisted": true,
+  "noteOwnLine": true
+ },
+ {
+  "code": "06022",
+  "name": "Anhänger der Königin",
+  "subname": "Von nichts und wieder nichts",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": null,
+  "traits": "Gegenstand. Relikt. Okkult.",
+  "text": "Gebunden (Onyxstück). Anwendungen (3 Ladungen). Falls diese Karte keine Ladungen hat, lege sie als nicht im Spiel befindlich beiseite und mische 3 beiseitegelegte Kopien von Onyxstück in dein Deck.\n[fast] Erschöpfe den Anhänger der Königin und gib 1 Ladung aus: Wähle einen enthüllten Ort und wähle eins - du bewegst dich an jenen Ort, du entdeckst 1 Hinweis an jenem Ort oder du entkommst automatisch einem Gegner an jenem Ort.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [
+   "Accessory"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Diana Martínez",
+  "packName": "Die Traumfresser",
+  "position": 22,
+  "taboo": {
+   "text": "This card's constant ability now reads: \"If this card has no charges, remove it from the game.\""
+  },
+  "copyright": "© 2019 FFG",
+  "set": "a719d32223",
+  "setAspect": 1.069,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Anhänger der Königin (Traumfresser [set:e1-32b441de] 22): Die anhaltende Fähigkeit dieser Karte lautet jetzt: „Falls diese Karte keine Ladungen hat, entferne sie aus dem Spiel.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Gegenstand. Relikt. Okkult.",
+   "paras": [
+    {
+     "t": "Gebunden (Onyxstück). Anwendungen (3 Ladungen). Falls diese Karte keine Ladungen hat, entferne sie aus dem Spiel.",
+     "k": "p"
+    },
+    {
+     "t": "[fast] Erschöpfe den Anhänger der Königin und gib 1 Ladung aus: Wähle einen enthüllten Ort und wähle eins - du bewegst dich an jenen Ort, du entdeckst 1 Hinweis an jenem Ort oder du entkommst automatisch einem Gegner an jenem Ort.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "06195",
+  "name": "35er Winchester",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 0,
+  "traits": "Gegenstand. Waffe. Feuerwaffe.",
+  "text": "Anwendungen (5 Munition).\n[action]: <b>Kampf.</b> Du bekommst für diesen Angriff +2 [combat]. Falls während dieses Angriffs ein +1-, 0-, oder [elder_sign]-Chaosmarker enthüllt wird, fügt dieser Angriff +2 Schaden zu.",
+  "flavour": "",
+  "skills": [
+   "agility"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand x2"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Stephen Somers",
+  "packName": "Die dunkle Seite des Mondes",
+  "position": 195,
+  "taboo": {
+   "text": "This card's [action] ability now reads: \"[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack. If a chaos token with a non-negative modifier is revealed during this attack, this attack deals +2 damage.\""
+  },
+  "copyright": "© 2019 FFG",
+  "set": "a719d32223",
+  "setAspect": 1.069,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "35er Winchester (Traumfresser [set:e1-32b441de] 195): Die [action]<i>-</i>Fähigkeit dieser Karte lautet nun: „[action] Gib 1 Munition aus: <b>Kampf.</b> Du bekommst für diesen Angriff +2 [combat]. Falls während dieses Angriffs ein Chaosmarker mit einem nicht-negativen Modifikator enthüllt wird, fügt dieser Angriff +2 Schaden zu.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Gegenstand. Waffe. Feuerwaffe.",
+   "paras": [
+    {
+     "t": "Anwendungen (5 Munition).",
+     "k": "p"
+    },
+    {
+     "t": "[action]: <b>Kampf.</b> Du bekommst für diesen Angriff +2 [combat]. Falls während dieses Angriffs ein Chaosmarker mit einem nicht-negativen Modifikator enthüllt wird, fügt dieser Angriff +2 Schaden zu.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "06199",
+  "name": "Drei Asse",
+  "subname": "",
+  "unique": false,
+  "type": "skill",
+  "typeName": "Fertigkeit",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 1,
+  "traits": "Glücksfall. Trainiert.",
+  "text": "Unzählig.\nFalls du 3 Kopien von Drei Asse zu einer Fertigkeitsprobe beiträgst, gelingt jene Probe automatisch <i>(es werden keine Chaosmarker aus dem Chaosbeutel enthüllt)</i>. Ziehe dann 3 Karten und erhalte 3 Ressourcen (Max. 1 Mal pro Probe)",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Diana Martínez",
+  "packName": "Die dunkle Seite des Mondes",
+  "position": 199,
+  "taboo": {
+   "text": "This card's ability gains: \"Remove each committed copy of Three Aces from the game.\""
+  },
+  "copyright": "© 2019 FFG",
+  "set": "a719d32223",
+  "setAspect": 1.069,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Drei Asse (Traumfresser [set:e1-32b441de] 199): Diese Karte erhält folgenden zusätzlichen Text: „Entferne jede beigetragene Kopie von Drei Asse aus dem Spiel.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Glücksfall. Trainiert.",
+   "paras": [
+    {
+     "t": "Unzählig.",
+     "k": "p"
+    },
+    {
+     "t": "Falls du 3 Kopien von Drei Asse zu einer Fertigkeitsprobe beiträgst, gelingt jene Probe automatisch <i>(es werden keine Chaosmarker aus dem Chaosbeutel enthüllt)</i>. Ziehe dann 3 Karten und erhalte 3 Ressourcen (Max. 1 Mal pro Probe). Entferne jede beigetragene Kopie von Drei Asse aus dem Spiel.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "06332",
+  "name": "Plündern",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 2,
+  "traits": "Talent.",
+  "text": "[reaction] Nachdem du erfolgreich um 2 oder mehr ermittelt hast, erschöpfe Plündern: Wähle eine [[Gegenstand]]-Karte in deinem Ablagestapel und füge sie entweder deine Hand hinzu oder spiele sie <i>(und zahle die Kosten dafür)</i>.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Derk Venneman",
+  "packName": "Weber des Kosmos",
+  "position": 332,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2016 FFG",
+  "set": "a719d32223",
+  "setAspect": 1.069,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Plündern (Traumfresser [set:e1-32b441de] 332): +2 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Talent.",
+   "paras": [
+    {
+     "t": "[reaction] Nachdem du erfolgreich um 2 oder mehr ermittelt hast, erschöpfe Plündern: Wähle eine [[Gegenstand]]-Karte in deinem Ablagestapel und füge sie entweder deine Hand hinzu oder spiele sie <i>(und zahle die Kosten dafür)</i>.",
+     "k": "p"
+    }
+   ],
+   "note": "Verkettet (+2 Erfahrung)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "07003",
+  "name": "Trish Scarborough",
+  "subname": "Die Spionin",
+  "unique": true,
+  "type": "investigator",
+  "typeName": "Ermittler",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": null,
+  "traits": "Behörde. Detective.",
+  "text": "[reaction] Nachdem du 1 oder mehr Hinweise an einem Ort mit einem Gegner entdeckt hast: Entdecke entweder 1 zusätzlichen Hinweis an jenem Ort oder entkomme jenem Gegner automatisch. (Nur ein Mal pro Runde.)\n[elder_sign]-Effekt: +2. Falls dies eine Ermittlung ist, darfst du einen beliebigen enthüllten Ort wählen; du ermittelst jetzt, als ob du stattdessen an jenem Ort wärst.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "willpower",
+   "intellect",
+   "intellect",
+   "intellect",
+   "intellect",
+   "combat",
+   "combat",
+   "agility",
+   "agility",
+   "agility",
+   "agility"
+  ],
+  "stats": [
+   2,
+   4,
+   2,
+   4
+  ],
+  "slots": [],
+  "health": 8,
+  "sanity": 6,
+  "victory": null,
+  "illustrator": "Magali Villeneuve",
+  "packName": "Die Innsmouth-Verschwörung",
+  "position": 3,
+  "taboo": {
+   "text": "This card's [reaction] ability now reads: \"After you discover 1 or more clues at a location with an enemy: Either discover 1 additional clue at that location, or automatically evade that enemy if it is non-[[Elite]]. (Limit once per round.)\""
+  },
+  "copyright": "© 2020 FFG",
+  "set": "410a4bae52",
+  "setAspect": 0.708,
+  "back": {
+   "name": "[unique]Trish Scarborough",
+   "subtitle": "Die Spionin",
+   "paras": [
+    "<b>Deckgröße</b>: 30.",
+    "<b>Deckbauoptionen</b>: Schurkenkarten ([rogue]) Stufe 0-5, Neutrale Karten Stufe 0-5, Sucherkarten ([seeker]) Stufe 0-2.",
+    "<b>Deckbau-Voraussetzungen</b> (zählen nicht gegen die Deckgröße): In den Schatten, Schattenagenten, 1 zufällige Grundschwäche."
+   ],
+   "flavour": "Mit ihren hervorragenden körperlichen und geistigen Fähigkeiten, ihrem unerschütterlichen Fokus, Spitzenleistungen zu erbringen, und ihrer unerschrockenen Einstellung, nur auf Sieg zu spielen, hatte Trish schon früh jeden übertroffen. Wegen ihrer Bestnoten in Sport und Wissenschaft wurde von ihr Großes erwartet. Aber Trish nahm stattdessen eine einfache Stelle bei einem Unternehmen an, das sich auf die Verschlüsselung von Nachrichten spezialisiert hatte. Zuerst war man überrascht über ihre Entscheidung, doch schon bald verlor man das Interesse an der herausragenden Trish Scarborough. Das war ihr nur recht. So konnten man die Wahrheit nicht so leicht erkennen: Ihr Job war nur eine Tarnung. Tatsächlich arbeitete sie als Spionin bei der Black Chamber, einer geheimen Dechiffrierabteilung der Ermittlungsbehörde.",
+   "warn": [],
+   "top": 19.92,
+   "left": 6.97,
+   "size": 3.379,
+   "flavSize": 2.981,
+   "lead": 1.0,
+   "gap": 0.254,
+   "photo": [
+    [
+     19.92,
+     37.18
+    ],
+    [
+     25.93,
+     37.18
+    ],
+    [
+     30.78,
+     36.79
+    ],
+    [
+     35.57,
+     36.39
+    ],
+    [
+     41.55,
+     35.99
+    ],
+    [
+     46.39,
+     35.99
+    ],
+    [
+     51.19,
+     35.59
+    ],
+    [
+     57.12,
+     34.0
+    ],
+    [
+     61.35,
+     29.23
+    ],
+    [
+     63.47,
+     29.234857619104837
+    ]
+   ]
+  },
+  "backChange": false,
+  "w": 1048,
+  "h": 738,
+  "change": "Trish Scarborough (Innsmouth [set:e2-16c981ac] 3): Die [reaction]-Fähigkeit dieser Karte lautet jetzt: „Nachdem du 1 oder mehr Hinweise an einem Ort mit einem Gegner entdeckt hast: Entdecke entweder 1 zusätzlichen Hinweis an jenem Ort oder entkomme jenem Gegner, falls er Nicht-<i><b>Elite</b></i> ist. (Nur ein Mal pro Runde.)“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "assisted": true,
+  "corrected": true,
+  "pdf": {
+   "traits": "Behörde. Detective.",
+   "paras": [
+    {
+     "t": "[reaction] Nachdem du 1 oder mehr Hinweise an einem Ort mit einem Gegner entdeckt hast: Entdecke entweder 1 zusätzlichen Hinweis an jenem Ort oder entkomme jenem Gegner automatisch, falls er Nicht-<i><b>Elite</b></i> ist. (Nur ein Mal pro Runde.)",
+     "k": "p"
+    },
+    {
+     "t": "[elder_sign]-Effekt: +2. Falls dies eine Ermittlung ist, darfst du einen beliebigen enthüllten Ort wählen; du ermittelst jetzt, als ob du stattdessen an jenem Ort wärst.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "07122",
+  "name": "Uralter Bund",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 2,
+  "traits": "Bund. Gesegnet.",
+  "text": "Permanent. Nur 1 [[Bund]] pro Deck.\n[reaction] Sobald ein Ermittler an deinem Ort einen [bless]-Marker abhandelt, erschöpfe Uralter Bund: Enthülle keinen weiteren Marker als Teil des Effekts dieses [bless]-Markers.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Tiziano Baracchi",
+  "packName": "Zu tief drin",
+  "position": 122,
+  "taboo": {
+   "text": "This card's [reaction] ability now reads: \"When you resolve a [bless] token during a skill test...\""
+  },
+  "copyright": "© 2020 FFG",
+  "set": "40c34d8075",
+  "setAspect": 0.708,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Uralter Bund (Innsmouth [set:e2-16c981ac] 122): Die [reaction]-Fähigkeit dieser Karte lautet jetzt: „Sobald du einen [bless]-Marker während einer Fertigkeitsprobe abhandelst …“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuiltWhy": "no encuentro el ancla final (cita abreviada al final)",
+  "rebuilt": "full",
+  "assisted": true,
+  "corrected": true,
+  "pdf": {
+   "traits": "Bund. Gesegnet.",
+   "paras": [
+    {
+     "t": "Permanent. Nur 1 [[Bund]] pro Deck.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Sobald du einen [bless]-Marker abhandelst, erschöpfe Uralter Bund: Enthülle keinen weiteren Marker als Teil des Effekts dieses [bless]-Markers.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "07197",
+  "name": "Signum Crucis",
+  "subname": "",
+  "unique": false,
+  "type": "skill",
+  "typeName": "Fertigkeit",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 2,
+  "traits": "Trainiert. Gesegnet.",
+  "text": "Trage diese Karte nur zu einer Fertigkeitsprobe bei, die du ablegst, und nur, falls die Schwierigkeit jener Probe höher als dein Grundfertigkeitswert ist.\nNachdem du Signum Crucis zu einer Fertigkeitsprobe beigetragen hast, füge dem Chaosbeutel X [bless]-Marker hinzu. X ist die Differenz zwischen der Schwierigkeit dieser Probe und deinem Grundfertigkeitswert.",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "David Hovey",
+  "packName": "Der reinste Schrecken",
+  "position": 197,
+  "taboo": {
+   "xp": -2
+  },
+  "copyright": "© 2020 FFG",
+  "set": "40c34d8075",
+  "setAspect": 0.708,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Signum Crucis (Innsmouth [set:e2-16c981ac] 197): –2 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Trainiert. Gesegnet.",
+   "paras": [
+    {
+     "t": "Trage diese Karte nur zu einer Fertigkeitsprobe bei, die du ablegst, und nur, falls die Schwierigkeit jener Probe höher als dein Grundfertigkeitswert ist.",
+     "k": "p"
+    },
+    {
+     "t": "Nachdem du Signum Crucis zu einer Fertigkeitsprobe beigetragen hast, füge dem Chaosbeutel X [bless]-Marker hinzu. X ist die Differenz zwischen der Schwierigkeit dieser Probe und deinem Grundfertigkeitswert.",
+     "k": "p"
+    }
+   ],
+   "note": "Unverkettet (–2 Erfahrung)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "07268",
+  "name": "Flöte der Äußeren Götter",
+  "subname": "",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": -2,
+  "xp": 4,
+  "traits": "Gegenstand. Instrument. Relikt. Verflucht.",
+  "text": "Außergewöhnlich. Versiegeln (bis zu X [curse]).\n[action] Erschöpfe die Flöte der Äußeren Götter und setze 1 darauf versiegelten [curse]-Marker frei: Wähle einen Nicht-[[Elite]]-Gegner an deinem Ort. Bewege den gewählten Gegner entweder an einen verbundenen Ort oder füge seinen Schaden einem beliebigen Gegner an seinem Ort zu. Diese Aktion provoziert keine Gelegenheitsangriffe.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Carlos Palma Cruchaga",
+  "packName": "In Dagons Reich",
+  "position": 268,
+  "taboo": {
+   "text": "This card loses the exceptional keyword and gains \"Limit 1 per deck.\"",
+   "deck_limit": 1,
+   "exceptional": false
+  },
+  "copyright": "© 2020 FFG",
+  "set": "40c34d8075",
+  "setAspect": 0.708,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Flöte der Äußeren Götter (Innsmouth [set:e2-16c981ac] 268): Diese Karte verliert das Schlüsselwort Außergewöhnlich und erhält folgenden zusätzlichen Text: „Nur 1 pro Deck.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Gegenstand. Instrument. Relikt. Verflucht.",
+   "paras": [
+    {
+     "t": "Versiegeln (bis zu X [curse]). Nur 1 pro Deck.",
+     "k": "p"
+    },
+    {
+     "t": "[action] Erschöpfe die Flöte der Äußeren Götter und setze 1 darauf versiegelten [curse]-Marker frei: Wähle einen Nicht-[[Elite]]-Gegner an deinem Ort. Bewege den gewählten Gegner entweder an einen verbundenen Ort oder füge seinen Schaden einem beliebigen Gegner an seinem Ort zu. Diese Aktion provoziert keine Gelegenheitsangriffe.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "07269",
+  "name": "Ein vorsichtiger Frieden",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 3,
+  "traits": "Geist. Gesegnet.",
+  "text": "Als zusätzliche Kosten, um Ein vorsichtiger Frieden zu spielen, durchsuche den Chaosbeutel und/oder Karten im Spiel nach insgesamt 5 [bless]-Markern und lege sie in den Markervorrat zurück.\nSchnell. Spiele diese Karte, sobald der Schritt „Begegnungskarten ziehen” in der Mythosphase beginnen würde. Überspringe diesen Schritt der Mythosphase.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Romana Kendelic",
+  "packName": "In Dagons Reich",
+  "position": 269,
+  "taboo": {
+   "text": "This card's ability gains: \"Remove A Watchful Peace from the game.\""
+  },
+  "copyright": "© 2020 FFG",
+  "set": "40c34d8075",
+  "setAspect": 0.708,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Ein vorsichtiger Frieden (Innsmouth [set:e2-16c981ac] 269): Diese Karte erhält folgenden zusätzlichen Text: „Entferne Ein vorsichtiger Frieden aus dem Spiel.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Geist. Gesegnet.",
+   "paras": [
+    {
+     "t": "Als zusätzliche Kosten, um Ein vorsichtiger Frieden zu spielen, durchsuche den Chaosbeutel und/oder Karten im Spiel nach insgesamt 5 [bless]-Markern und lege sie in den Markervorrat zurück.",
+     "k": "p"
+    },
+    {
+     "t": "Schnell. Spiele diese Karte, sobald der Schritt „Begegnungskarten ziehen” in der Mythosphase beginnen würde. Überspringe diesen Schritt der Mythosphase. Entferne Ein vorsichtiger Frieden aus dem Spiel.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "07301",
+  "name": "Weihen",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 3,
+  "traits": "Zauber. Gesegnet.",
+  "text": "Als zusätzliche Kosten, um Weihen zu spielen, lege insgesamt 10 [bless]-Marker aus dem Chaosbeutel und/oder auf Karten versiegelt im Spiel in den Markervorrat zurück.\nEntferne 1 Verderben von einer beliebigen Karte im Spiel.",
+  "flavour": "Selbst in der tiefsten Dunkelheit kann ein Licht erwachsen.",
+  "skills": [
+   "willpower",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Romana Kendelic",
+  "packName": "In den Mahlstrom hinein",
+  "position": 301,
+  "taboo": {
+   "text": "This card's ability gains: \"Remove Hallow from the game.\""
+  },
+  "copyright": "© 2020 FFG",
+  "set": "40c34d8075",
+  "setAspect": 0.708,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Weihen (Innsmouth [set:e2-16c981ac] 301): Diese Karte erhält folgenden zusätzlichen Text: „Entferne Weihen aus dem Spiel.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Zauber. Gesegnet.",
+   "paras": [
+    {
+     "t": "Als zusätzliche Kosten, um Weihen zu spielen, lege insgesamt 10 [bless]-Marker aus dem Chaosbeutel und/oder auf Karten versiegelt im Spiel in den Markervorrat zurück.",
+     "k": "p"
+    },
+    {
+     "t": "Entferne 1 Verderben von einer beliebigen Karte im Spiel. Entferne Weihen aus dem Spiel.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "07308",
+  "name": "Ritual des Gleichgewichts",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 0,
+  "xp": 5,
+  "traits": "Zauber. Gesegnet. Verflucht.",
+  "text": "Entweder (wähle eins):\n- Füge dem Chaosbeutel X [curse]-Marker hinzu, um dem Chaosbeutel X [bless]-Marker hinzuzufügen.\n- Entferne X [curse]- und X [bless]-Marker aus dem Chaosbeutel, um insgesamt X Horror von Karten an deinem Ort zu heilen.",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Adam S. Doyle",
+  "packName": "In den Mahlstrom hinein",
+  "position": 308,
+  "taboo": {
+   "xp": -2
+  },
+  "copyright": "© 2020 FFG",
+  "set": "40c34d8075",
+  "setAspect": 0.708,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Ritual des Gleichgewichts (Innsmouth [set:e2-16c981ac] 308): –2 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Zauber. Gesegnet. Verflucht.",
+   "paras": [
+    {
+     "t": "Entweder (wähle eins):",
+     "k": "p"
+    },
+    {
+     "t": "[bullet] Füge dem Chaosbeutel X [curse]-Marker hinzu, um dem Chaosbeutel X [bless]-Marker hinzuzufügen.",
+     "k": "bullet"
+    },
+    {
+     "t": "[bullet] Entferne X [curse]- und X [bless]-Marker aus dem Chaosbeutel, um insgesamt X Horror von Karten an deinem Ort zu heilen.",
+     "k": "bullet"
+    }
+   ],
+   "note": "Unverkettet (–2 Erfahrung)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "08019",
+  "name": "Voll ausgerüstet",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 0,
+  "traits": "Talent.",
+  "text": "Dauerhaft. Nur 1 pro Deck. Kann nur beim Deckbau erworben werden.\n<b>Erzwungen</b> - Sobald dein erster Zug des Spiels beginnt: Spiele beliebig viele [[Gegenstand]]-Vorteilskarten von deiner Hand, wobei ihre Kosten je um 1 gesenkt werden. Während dieses Zuges hast du 3 Aktionen weniger, die du nehmen kannst.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Lindsey Messecar",
+  "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
+  "position": 19,
+  "taboo": {
+   "text": "This card's <b>Forced</b> effect now reads: \"<b>Forced</b> – When your first turn of the game begins: One at a time, play up to 5 [[Item]] assets...\""
+  },
+  "copyright": "© 2021 FFG",
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Voll ausgerüstet (Am Rande der Welt [set:e18-007cab1a] 19): Der <b>Erzwungen</b>-Effekt dieser Karte lautet jetzt: „Sobald dein erster Zug des Spiels beginnt: Spiele bis zu 5 <i><b>Gegenstand</b></i>-Vorteilskarten von deiner Hand …“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Talent.",
+   "paras": [
+    {
+     "t": "Dauerhaft. Nur 1 pro Deck. Kann nur beim Deckbau erworben werden.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Erzwungen</b> - Sobald dein erster Zug des Spiels beginnt: Spiele bis zu 5 [[Gegenstand]]-Vorteilskarten von deiner Hand, wobei ihre Kosten je um 1 gesenkt werden. Während dieses Zuges hast du 3 Aktionen weniger, die du nehmen kannst.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "08032",
+  "name": "Jeremiah Kirby",
+  "subname": "Arktis-Archäologe",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 0,
+  "traits": "Verbündeter. Miskatonic. Wanderer.",
+  "text": "Du bekommst +1 [intellect].\n[reaction] Nachdem Jeremiah Kirby ins Spiel gekommen ist, wähle „gerade” oder „ungerade”: Enthülle die obersten 5 Karten deines Decks. Ziehe jede Karte, deren Kosten zu der gewählten Option passt. Mische die verbliebenen Karten in dein Deck.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 2,
+  "sanity": 1,
+  "victory": null,
+  "illustrator": "Romana Kendelic",
+  "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
+  "position": 32,
+  "taboo": {
+   "text": "This card's ability gains: \"(Max twice per game.)\""
+  },
+  "copyright": "© 2021 FFG",
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Jeremiah Kirby (Am Rande der Welt [set:e18-007cab1a] 32): Die Fähigkeit dieser Karte erhält den Zusatz: „(Max. 2 Mal pro Spiel.)“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Verbündeter. Miskatonic. Wanderer.",
+   "paras": [
+    {
+     "t": "Du bekommst +1 [intellect].",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Nachdem Jeremiah Kirby ins Spiel gekommen ist, wähle „gerade” oder „ungerade”: Enthülle die obersten 5 Karten deines Decks. Ziehe jede Karte, deren Kosten zu der gewählten Option passt. Mische die verbliebenen Karten in dein Deck. (Max. 2 Mal pro Spiel.)",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "08045",
+  "name": "Prophesiae Profana",
+  "subname": "Atlas des Unwissbaren",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 5,
+  "traits": "Gegenstand. Relikt. Buch.",
+  "text": "Solange du dich nicht am Fokuspunkt befindest, bekommst du +1 [intellect], +1 [agility] und du darfst Gelegenheitsangriffe ignorieren.\n[reaction] Nachdem Prophesiae Profana ins Spiel gekommen ist: Wähle einen entühllten Ort, der zum „Fokuspunkt” wird, bis Prophesiae Profana das Spiel verlässt.\n[action]: Bewege einen beliebigen Ermittler zum Fokuspunkt.",
+  "flavour": "",
+  "skills": [
+   "wild",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Drazenka Kimpel",
+  "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
+  "position": 45,
+  "taboo": {
+   "text": "This card's constant ability now reads: \"...you get +1 [intellect], +1 [agility], and ignore the first attack of opportunity you take each turn.\""
+  },
+  "copyright": "© 2021 FFG",
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Prophesiae Profana (Am Rande der Welt [set:e18-007cab1a] 45): Die anhaltende Fähigkeit dieser Karte lautet jetzt: „Solange du dich nicht am Fokuspunkt befindest, bekommst du +1 [intellect], +1 [agility] und ignorierst den ersten Gelegenheitsangriff, der in jedem Zug gegen dich durchgeführt wird.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Gegenstand. Relikt. Buch.",
+   "paras": [
+    {
+     "t": "Solange du dich nicht am Fokuspunkt befindest, bekommst du +1 [intellect], +1 [agility] und ignorierst den ersten Gelegenheitsangriff, der in jedem Zug gegen dich durchgeführt wird.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Nachdem Prophesiae Profana ins Spiel gekommen ist: Wähle einen entühllten Ort, der zum „Fokuspunkt” wird, bis Prophesiae Profana das Spiel verlässt.",
+     "k": "p"
+    },
+    {
+     "t": "[action]: Bewege einen beliebigen Ermittler zum Fokuspunkt.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "08055",
+  "name": "Schwarzmarkt",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 2,
+  "traits": "Gefallen.",
+  "text": "Schnell. Spiele diese Karte zu Beginn der Ermittlungsphase.\nEnthülle nacheinander Karten oben von beliebigen Ermittlerdecks, bis genau 5 Karten enthüllt worden sind. Lege jene Karten als nicht im Spiel befindlich beseite. Solange jene Karten beiseitegelegt sind, darf sie jeder beliebiger Ermittler spielen, als ob sie sich auf seiner Hand befänden. Zu Beginn der nächsten Ermittlungsphase werden jene Karten, die noch immer beiseitegelegt sind, ins jeweilige Deck ihrer Besitzer gemischt.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matt Stawicki",
+  "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
+  "position": 55,
+  "taboo": {
+   "text": "This card gains: \"Max once per round.\""
+  },
+  "copyright": "© 2021 FFG",
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Schwarzmarkt (Am Rande der Welt [set:e18-007cab1a] 55): Diese Karte erhält folgenden zusätzlichen Text: „Max. 1 Mal pro Runde.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Gefallen.",
+   "paras": [
+    {
+     "t": "Schnell. Spiele diese Karte zu Beginn der Ermittlungsphase. Max. 1 Mal pro Runde.",
+     "k": "p"
+    },
+    {
+     "t": "Enthülle nacheinander Karten oben von beliebigen Ermittlerdecks, bis genau 5 Karten enthüllt worden sind. Lege jene Karten als nicht im Spiel befindlich beseite. Solange jene Karten beiseitegelegt sind, darf sie jeder beliebiger Ermittler spielen, als ob sie sich auf seiner Hand befänden. Zu Beginn der nächsten Ermittlungsphase werden jene Karten, die noch immer beiseitegelegt sind, ins jeweilige Deck ihrer Besitzer gemischt.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "08076",
+  "name": "Nach dem Lesen verbrennen",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 1,
+  "traits": "Erkenntnis.",
+  "text": "Schicke eine Karte der Stufe 0-5 von deiner Hand ins Exil. Entdecke 2 Hinweise an deinem Ort. Falls die ins Exil geschickte Karte Stufe 2 oder höher war, entferne 1 Verderben von der aktuellen Agenda. Schicke Nach dem Lesen verbrennen ins Exil.\n<b>Kartenentwurf vom Council-in-Exile auf der Gen Con 2020</b>",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Romana Kendelic",
+  "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
+  "position": 76,
+  "taboo": {
+   "text": "Forbidden.",
+   "deck_limit": 0
+  },
+  "copyright": "© 2021 FFG",
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Nach dem Lesen verbrennen (Am Rande der Welt [set:e18-007cab1a] 76)",
+  "changeShared": false,
+  "cat": "forbidden",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Erkenntnis.",
+   "paras": [
+    {
+     "t": "Schicke eine Karte der Stufe 0-5 von deiner Hand ins Exil. Entdecke 2 Hinweise an deinem Ort. Falls die ins Exil geschickte Karte Stufe 2 oder höher war, entferne 1 Verderben von der aktuellen Agenda. Schicke Nach dem Lesen verbrennen ins Exil.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Kartenentwurf vom Council-in-Exile auf der Gen Con 2020</b>",
+     "k": "center"
+    }
+   ],
+   "note": "Verboten."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "08093",
+  "name": "Zyklopischer Hammer",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": "mystic",
+  "faction3": null,
+  "cost": 5,
+  "xp": 5,
+  "traits": "Gegenstand. Relikt. Waffe. Nahkampf.",
+  "text": "[action]: <b>Kampf.</b> Füge für diesen Angriff deinen [willpower]-Wert zu deinem Fertigkeitswert hinzu. Du fügst für diesen Angriff +1 Schaden zu. Falls die Probe gelingt und der Gegner Nicht-[[Elite]] ist, darfst du ihn 1 Ort von dir weg bewegen. (Falls die Probe um 3 oder mehr gelingt, füge dem Gegner stattdessen +2 Schaden zu und du darfst ihn bis zu 2 Orte von dir weg bewegen.)",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "willpower",
+   "combat",
+   "combat"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand x2"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Robert Laskey",
+  "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
+  "position": 93,
+  "taboo": {
+   "text": "This card's parenthetical now reads: \"...(If you succeed by 3 or more, you may exhaust Cyclopean Hammer to instead deal +2 damage and move the enemy up to two locations away from you.)\""
+  },
+  "copyright": "© 2021 FFG",
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Zyklopischer Hammer (Am Rande der Welt [set:e18-007cab1a] 93): Der Text in Klammern lautet jetzt: „(Falls die Probe um 3 oder mehr gelingt, erschöpfe Zyklopischer Hammer, um dem Gegner stattdessen +2 Schaden zuzufügen und den Gegner bis zu 2 Orte von dir wegzubewegen.)“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Gegenstand. Relikt. Waffe. Nahkampf.",
+   "paras": [
+    {
+     "t": "[action]: <b>Kampf.</b> Füge für diesen Angriff deinen [willpower]-Wert zu deinem Fertigkeitswert hinzu. Du fügst für diesen Angriff +1 Schaden zu. Falls die Probe gelingt und der Gegner Nicht-[[Elite]] ist, darfst du ihn 1 Ort von dir weg bewegen. (Falls die Probe um 3 oder mehr gelingt, darfst du Zyklopischer Hammer erschöpfen, um dem Gegner stattdessen +2 Schaden zuzufügen und ihn bis zu 2 Orte von dir wegzubewegen.)",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "08098",
+  "name": "Karte der Zeitalter",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": "rogue",
+  "faction3": null,
+  "cost": 2,
+  "xp": 1,
+  "traits": "Gegenstand. Relikt.",
+  "text": "Anwendungen (3 Geheimnisse).\n[fast] Erschöpfe während deines Zuges Karte der Zeitalter und gib 1 Geheimnis aus: Wähle und nimm 1 der folgenden Aktionen (Bewegen, Entkommen oder Ermitteln).",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [
+   "Accessory"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Ignacio Bazán Lazcano",
+  "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
+  "position": 98,
+  "taboo": {
+   "text": "This card should read \"basic actions\" instead of \"actions.\""
+  },
+  "copyright": "© 2021 FFG",
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Karte der Zeitalter <i>(beide Versionen</i>) (Am Rande der Welt [set:e18-007cab1a] 98 & 100) Der Text der Karten endet jetzt folgendermaßen: „… folgenden Basis-Aktionen (Bewegen, Entkommen oder Ermitteln).“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Gegenstand. Relikt.",
+   "paras": [
+    {
+     "t": "Anwendungen (3 Geheimnisse).",
+     "k": "p"
+    },
+    {
+     "t": "[free] Erschöpfe während deines Zuges Karte der Zeitalter und gib 1 Geheimnis aus: Wähle und nimm 1 der folgenden Basis-Aktionen (Bewegen, Entkommen oder Ermitteln).",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "08099",
+  "name": "Gené Beauregard",
+  "subname": "Unerschrockene Entdeckerin",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": "rogue",
+  "faction3": null,
+  "cost": 5,
+  "xp": 3,
+  "traits": "Verbündeter. Wanderer.",
+  "text": "Du bekommst +1 [intellect] und +1 [agility].\n[reaction] Nachdem du dich während deines Zuges an einen Ort bewegt hast, erschöpfe Gené Beauregard: Bewege einen Hinweis oder einen Nicht-[[Elite]]-Gegner von einem verbundenen Ort an deinen Ort oder umgekehrt.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 2,
+  "sanity": 2,
+  "victory": null,
+  "illustrator": "Vlad Ricean",
+  "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
+  "position": 99,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2021 FFG",
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Gené Beauregard (Am Rande der Welt [set:e18-007cab1a] 99): +2 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Verbündeter. Wanderer.",
+   "paras": [
+    {
+     "t": "Du bekommst +1 [intellect] und +1 [agility].",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Nachdem du dich während deines Zuges an einen Ort bewegt hast, erschöpfe Gené Beauregard: Bewege einen Hinweis oder einen Nicht-[[Elite]]-Gegner von einem verbundenen Ort an deinen Ort oder umgekehrt.",
+     "k": "p"
+    }
+   ],
+   "note": "Verkettet (+2 Erfahrung)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "08100",
+  "name": "Karte der Zeitalter",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": "rogue",
+  "faction3": null,
+  "cost": 2,
+  "xp": 4,
+  "traits": "Gegenstand. Relikt.",
+  "text": "Anwendungen (3 Geheimnisse).\n[fast] Erschöpfe während deines Zuges Karte der Zeitalter und gib 1 Geheimnis aus: Wähle 2 der folgenden Aktionen und nimm sie in beliebiger Reihenfolge (Bewegen, Entkommen oder Ermitteln).",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "agility",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [
+   "Accessory"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Ignacio Bazán Lazcano",
+  "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
+  "position": 100,
+  "taboo": {
+   "text": "This card should read \"basic actions\" instead of \"actions.\""
+  },
+  "copyright": "© 2021 FFG",
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Karte der Zeitalter <i>(beide Versionen</i>) (Am Rande der Welt [set:e18-007cab1a] 98 & 100) Der Text der Karten endet jetzt folgendermaßen: „… folgenden Basis-Aktionen (Bewegen, Entkommen oder Ermitteln).“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Gegenstand. Relikt.",
+   "paras": [
+    {
+     "t": "Anwendungen (3 Geheimnisse).",
+     "k": "p"
+    },
+    {
+     "t": "[fast] Erschöpfe während deines Zuges Karte der Zeitalter und gib 1 Geheimnis aus: Wähle 2 der folgenden Basis-Aktionen und nimm sie in beliebiger Reihenfolge (Bewegen, Entkommen oder Ermitteln).",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "08113",
+  "name": "Unvernünftiger Kredit",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": "survivor",
+  "faction3": null,
+  "cost": 0,
+  "xp": 3,
+  "traits": "Pakt.",
+  "text": "Nur 1 pro Ermittler. Kann das Spiel nicht verlassen.\n[reaction] Nachdem du Unvernünftiger Kredit gespielt hast: Du erhältst 10 Ressourcen.\n<b>Erzwungen</b> - Sobald das Spiel endet oder du ausscheidest, falls du weniger als 10 Ressourcen in deinem Ressourcenvorrat hast: Schicke Unvernünftiger Kredit ins Exil.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Drazenka Kimpel",
+  "packName": "Am Rande der Welt (Ermittler-Erweiterung)",
+  "position": 113,
+  "taboo": {
+   "text": "The first line of this card gains: \"Campaign Mode only.\""
+  },
+  "copyright": "© 2021 FFG",
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Unvernünftiger Kredit (Am Rande der Welt [set:e18-007cab1a] 113): In der ersten Zeile dieser Karte sollte zusätzlich stehen: „Nur für den Kampagnenmodus.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Pakt.",
+   "paras": [
+    {
+     "t": "Nur 1 pro Ermittler. Kann das Spiel nicht verlassen. Nur für den Kampagnenmodus.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Nachdem du Unvernünftiger Kredit gespielt hast: Du erhältst 10 Ressourcen.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Erzwungen</b> - Sobald das Spiel endet oder du ausscheidest, falls du weniger als 10 Ressourcen in deinem Ressourcenvorrat hast: Schicke Unvernünftiger Kredit ins Exil.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "09041",
+  "name": "Empirische Hypothese",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Talent. Wissenschaft.",
+  "text": "Individualisierbar. Nur 1 pro Ermittler.\n<b>Erzwungen</b> - Zu Beginn der Runde: Wähle für diese Runde 1 der folgenden Kriterien (dir misslingt eine Probe um 2 oder mehr, oder dir gelingt eine Probe um 3 oder mehr). Sobald das gewählte Kriterium zutrifft, darfst du Empirische Hypothese erschöpfen, um 1 Beweis darauf zu platzieren.\n[fast] Gib 1 Beweis aus: Ziehe 1 Karte.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Isuardi Therianto",
+  "packName": "Die scharlachroten Schlüssel (Ermittler-Erweiterung)",
+  "position": 41,
+  "taboo": {
+   "text": "This card's [fast] ability gains \"(Limit twice per round.)\""
+  },
+  "copyright": "© 2022 FFG",
+  "set": "8f682a7b0b",
+  "setAspect": 1.04,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Empirische Hypothese (Schlüssel [set:e1-1b5bc68d] 41): Die [free]-Fähigkeit dieser Karte erhält: „(Nur zwei Mal pro Runde.)“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "assisted": true,
+  "corrected": true,
+  "pdf": {
+   "traits": "Talent. Wissenschaft.",
+   "paras": [
+    {
+     "t": "Individualisierbar. Nur 1 pro Ermittler.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Erzwungen</b> - Zu Beginn der Runde: Wähle für diese Runde 1 der folgenden Kriterien (dir misslingt eine Probe um 2 oder mehr, oder dir gelingt eine Probe um 3 oder mehr). Sobald das gewählte Kriterium zutrifft, darfst du Empirische Hypothese erschöpfen, um 1 Beweis darauf zu platzieren.",
+     "k": "p"
+    },
+    {
+     "t": "[fast] Gib 1 Beweis aus: Ziehe 1 Karte. (Nur zwei Mal pro Runde.)",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "09045",
+  "name": "Forschungsnotizen",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Gegenstand. Buch. Wissenschaft.",
+  "text": "[reaction] Nachdem eine Spielerkartenfähigkeit 1 oder mehr deiner Hinweise auf deinem Ort platziert hat: Platziere so viele Ressourcen als Beweise auf Forschungsnotizen.\n[action]: Lege eine [intellect]-Probe (0) ab. Für jeden Punkt, um den dir die Probe gelingt, darfst du 1 Beweis ausgeben, um 1 Hinweis an deinem Ort zu entdecken.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Pixoloid Studios",
+  "packName": "Die scharlachroten Schlüssel (Ermittler-Erweiterung)",
+  "position": 45,
+  "taboo": {
+   "text": "This card's second ability gains: \"(max 3 evidence spent per round).\""
+  },
+  "copyright": "© 2022 FFG",
+  "set": "8f682a7b0b",
+  "setAspect": 1.04,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Forschungsnotizen (Schlüssel [set:e1-1b5bc68d] 45): Die zweite Fähigkeit dieser Karte erhält den Zusatz: „(Max. 3 ausgegebene Beweise pro Runde.) “",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "assisted": true,
+  "corrected": true,
+  "pdf": {
+   "traits": "Gegenstand. Buch. Wissenschaft.",
+   "paras": [
+    {
+     "t": "[reaction] Nachdem eine Spielerkartenfähigkeit 1 oder mehr deiner Hinweise auf deinem Ort platziert hat: Platziere so viele Ressourcen als Beweise auf Forschungsnotizen.",
+     "k": "p"
+    },
+    {
+     "t": "[action]: Lege eine [intellect]-Probe (0) ab. Für jeden Punkt, um den dir die Probe gelingt, darfst du 1 Beweis ausgeben, um 1 Hinweis an deinem Ort zu entdecken (Max. 3 ausgegebene Beweise pro Runde).",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "09072",
+  "name": "Chuck Fergus",
+  "subname": "O'Bannions Fahrer",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 2,
+  "traits": "Verbündeter. Krimineller.",
+  "text": "[reaction] Sobald du eine [[Taktik]]- oder [[Trick]]-Ereigniskarte spielst, erschöpfe Chuck Fergus: Wähle eins …\n- Jene Ereigniskarte erhält das Schlüsselwort Schnell.\n- Jene Ereigniskarte kostet zum Spielen 2 Ressourcen weniger.\n- Du bekommst +2 auf deinen Fertigkeitswert, solange du eine Fertigkeitsprobe während der Abhandlung jener Ereigniskarte durchführst.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 2,
+  "sanity": 2,
+  "victory": null,
+  "illustrator": "Derek D. Edgell",
+  "packName": "Die scharlachroten Schlüssel (Ermittler-Erweiterung)",
+  "position": 72,
+  "taboo": {
+   "text": "This card's first bullet point now reads: \"That event gains: \"Fast. Play only during your turn.\"\""
+  },
+  "copyright": "© 2022 FFG",
+  "set": "637fed965e",
+  "setAspect": 1.041,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Chuck Fergus (Winifred Habbamock [set:e5-5dd1694d] 32, Schlüssel [set:e1-1b5bc68d] 72)): Der erste Punkt dieser karte sollte lauten. „Jene Ereigniskarte erhält: ‚Schnell. Spiele diese Karte nur in deinem Zug.‘",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuiltWhy": "el FAQ en este idioma no cita el texto que hace falta",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Verbündeter. Krimineller.",
+   "paras": [
+    {
+     "t": "[reaction] Sobald du eine [[Taktik]]- oder [[Trick]]-Ereigniskarte spielst, erschöpfe Chuck Fergus: Wähle eins …",
+     "k": "p"
+    },
+    {
+     "t": "[bullet] Jene Ereigniskarte erhält: „Schnell. Spiele diese Karte nur in deinem Zug.“",
+     "k": "bullet"
+    },
+    {
+     "t": "[bullet] Jene Ereigniskarte kostet zum Spielen 2 Ressourcen weniger.",
+     "k": "bullet"
+    },
+    {
+     "t": "[bullet] Du bekommst +2 auf deinen Fertigkeitswert, solange du eine Fertigkeitsprobe während der Abhandlung jener Ereigniskarte durchführst.",
+     "k": "bullet"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "09077",
+  "name": "Markt der Mafia",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 2,
+  "traits": "Verbindung. Illegal.",
+  "text": "Dauerhaft. Außergewöhnlich. Du bekommst +10 Deckgröße.\n[reaction] Bevor du deine Starthand ziehst, wähle 10 [[Illegal]]-Karten in deinem Deck: Mische sie zusammen und platziere sie als dein Marktdeck neben Markt der Mafia.\n[reaction] Zu Beginn deines Zuges: Enthülle die obersten 2 Karten deines Marktdecks. Du darfst 1 Ressource ausgeben, um 1 davon zu ziehen. Platziere den Rest in beliebiger Reihenfolge unter deinem Marktdeck.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Anders Finer",
+  "packName": "Die scharlachroten Schlüssel (Ermittler-Erweiterung)",
+  "position": 77,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2022 FFG",
+  "set": "637fed965e",
+  "setAspect": 1.041,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Markt der Mafia (Schlüssel [set:e1-1b5bc68d] 77): +2 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Verbindung. Illegal.",
+   "paras": [
+    {
+     "t": "Dauerhaft. Außergewöhnlich. Du bekommst +10 Deckgröße.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Bevor du deine Starthand ziehst, wähle 10 [[Illegal]]-Karten in deinem Deck: Mische sie zusammen und platziere sie als dein Marktdeck neben Markt der Mafia.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Zu Beginn deines Zuges: Enthülle die obersten 2 Karten deines Marktdecks. Du darfst 1 Ressource ausgeben, um 1 davon zu ziehen. Platziere den Rest in beliebiger Reihenfolge unter deinem Marktdeck.",
+     "k": "p"
+    }
+   ],
+   "note": "Verkettet (+2 Erfahrung)."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "09081",
+  "name": "Machtwort",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 0,
+  "traits": "Zauber.",
+  "text": "Individualisierbar. Schnell. Spiele diese Karte nur in deinem Zug.\nHänge diese Karte an einen Nicht-[[Elite]]-Gegner an deinem Ort an.\n[action] Falls der Gegner mit dieser Verstärkung an deinem Ort ist: <b>Verhandlung.</b> Erteile ihm einen Befehl (nur 1 Mal pro Runde pro Befehl) … -\n- <i>„Beweg dich!”</i> Dieser Gegner bewegt sich 1 Mal in die Richtung deiner Wahl.\n- <i>„Zu Boden!”</i> Dieser Gegner wird erschöpft.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Anders Finer",
+  "packName": "Die scharlachroten Schlüssel (Ermittler-Erweiterung)",
+  "position": 81,
+  "taboo": {
+   "text": "This card’s text box now reads: \"[action] If attached enemy is at your location: <b>Parley.</b> Test [willpower](2). If you succeed, give it a command (limit once per round per command) – \"Go.\" This enemy moves once in a direction of your choice.\"\nThis card’s customizable sheet loses the \"Mercy\" ability and gains\"☐Cower. Add the command: \"- ‘Cower.’ This enemy exhausts.\""
+  },
+  "copyright": "© 2022 FFG",
+  "set": "8f682a7b0b",
+  "setAspect": 1.04,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Machtwort (Schlüssel  81): Der Text dieser Karte lautet jetzt: „[action] Falls der Gegner mit dieser Verstärkung an deinem Ort ist: <b>Verhandlung.</b> Lege eine [willpower]-Probe ([set:e1-1b5bc68d]2) ab. Falls die Probe gelingt, erteile ihm einen Befehl (nur 1 Mal pro Runde pro Befehl) … – <i>„Beweg dich!” </i>Dieser Gegner bewegt sich 1 Mal in die Richtung deiner Wahl. Die Verbesserungskarte dieser Karte verliert die Fähigkeit <b>Gnade</b> und erhält: „ ☐ <b>Ducken. </b>Füge diesen Befehl hinzu: ‚<i>Zu Boden!</i>‘ Dieser Gegner wird erschöpft.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "assisted": true,
+  "corrected": true,
+  "pdf": {
+   "traits": "Zauber.",
+   "paras": [
+    {
+     "t": "Individualisierbar. Schnell. Spiele diese Karte nur in deinem Zug.",
+     "k": "p"
+    },
+    {
+     "t": "Hänge diese Karte an einen Nicht-[[Elite]]-Gegner an deinem Ort an.",
+     "k": "p"
+    },
+    {
+     "t": "[action] Falls der Gegner mit dieser Verstärkung an deinem Ort ist: <b>Verhandlung.</b> Lege eine [willpower]-Probe (2) ab. Falls die Probe gelingt, erteile ihm einen Befehl (nur 1 Mal pro Runde pro Befehl) –",
+     "k": "p"
+    },
+    {
+     "t": "[bullet] <i>„Beweg dich!”</i> Dieser Gegner bewegt sich 1 Mal in die Richtung deiner Wahl.",
+     "k": "bullet"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "09108",
+  "name": "Licht spenden",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Erkenntnis. Trick.",
+  "text": "Schnell. Spiele diese Karte, bevor ein Chaosmarker während einer Ermittlung, die du durchführst, enthüllt wird, und nur, falls die aktuelle Schwierigkeit dieser Probe 0 ist.\nDiese Probe gelingt automatisch. Entdecke 1 zusätzlichen Hinweis an diesem Ort und 1 zusätzlichen Hinweis an einem beliebigen Ort.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Anders Finer",
+  "packName": "Die scharlachroten Schlüssel (Ermittler-Erweiterung)",
+  "position": 108,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2022 FFG",
+  "set": "8f682a7b0b",
+  "setAspect": 1.04,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Licht spenden (Schlüssel [set:e1-1b5bc68d] 108): +2 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Erkenntnis. Trick.",
+   "paras": [
+    {
+     "t": "Schnell. Spiele diese Karte, bevor ein Chaosmarker während einer Ermittlung, die du durchführst, enthüllt wird, und nur, falls die aktuelle Schwierigkeit dieser Probe 0 ist.",
+     "k": "p"
+    },
+    {
+     "t": "Diese Probe gelingt automatisch. Entdecke 1 zusätzlichen Hinweis an diesem Ort und 1 zusätzlichen Hinweis an einem beliebigen Ort.",
+     "k": "p"
+    }
+   ],
+   "note": "Verkettet (+2 Erfahrung)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "09117",
+  "name": "Alter Schlüsselbund",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 3,
+  "traits": "Gegenstand. Werkzeug.",
+  "text": "Anwendungen (3 Schlüssel). Falls sich keine Schlüssel auf Alter Schlüsselbund befinden, lege diese Karte ab.\n[action]: <b>Ermitteln.</b> Dein Ort bekommt für diese Ermittlung -2 Schleier. Falls die Probe gelingt, entferne 1 Schlüssel von Alter Schlüsselbund, und falls sie eine Schwierigkeit von 0 hat, entdeckst du 1 zusätzlichen Hinweis.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Robert Laskey",
+  "packName": "Die scharlachroten Schlüssel (Ermittler-Erweiterung)",
+  "position": 117,
+  "taboo": {
+   "xp": 1
+  },
+  "copyright": "© 2016 FFG",
+  "set": "8f682a7b0b",
+  "setAspect": 1.04,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Alter Schlüsselbund (Schlüssel [set:e1-1b5bc68d] 117): +1 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Gegenstand. Werkzeug.",
+   "paras": [
+    {
+     "t": "Anwendungen (3 Schlüssel). Falls sich keine Schlüssel auf Alter Schlüsselbund befinden, lege diese Karte ab.",
+     "k": "p"
+    },
+    {
+     "t": "[action]: <b>Ermitteln.</b> Dein Ort bekommt für diese Ermittlung -2 Schleier. Falls die Probe gelingt, entferne 1 Schlüssel von Alter Schlüsselbund, und falls sie eine Schwierigkeit von 0 hat, entdeckst du 1 zusätzlichen Hinweis.",
+     "k": "p"
+    }
+   ],
+   "note": "Verkettet (+1 Erfahrung)."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "10026",
+  "name": "In den Weg stellen",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Taktik. Trick.",
+  "text": "<b>Verhandlung.</b> Wähle einen Gegner an deinem Ort und eine [[Gegenstand]]-Vorteilskarte auf deiner Hand. Führe eine Kampfaktion gegen den gewählten Gegner durch. Falls die Probe gelingt, spiele die gewählte Vorteilskarte, anstatt Schaden zuzufügen. Senke dabei ihre Kosten für jeden Punkt, um den die Probe gelungen ist, um 1.",
+  "flavour": "\"H-hände dahin, wo ich sie sehen kann!\"",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Rob Laskey",
+  "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
+  "position": 26,
+  "taboo": {
+   "text": "This card’s ability reads: \"...If you succeed, play the chosen asset, reducing its cost by the amount you succeeded by.\""
+  },
+  "copyright": "© 2024 FFG",
+  "set": "b360a5554e",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "In den Weg stellen (Hemlock [set:e1-2dc13c71] 26): Die Fähigkeit dieser Karte sollte lauten: „… Falls die Probe gelingt, spiele die gewählte Vorteilskarte. Senke dabei ihre Kosten für jeden Punkt, um den die Probe gelungen ist, um 1.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Taktik. Trick.",
+   "paras": [
+    {
+     "t": "<b>Verhandlung.</b> Wähle einen Gegner an deinem Ort und eine [[Gegenstand]]-Vorteilskarte auf deiner Hand. Führe eine Kampfaktion gegen den gewählten Gegner durch. Falls die Probe gelingt, spiele die gewählte Vorteilskarte. Senke dabei ihre Kosten für jeden Punkt, um den die Probe gelungen ist, um 1.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "10030",
+  "name": "Hand-Auge-Koordination",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 1,
+  "traits": "Erkenntnis.",
+  "text": "Schnell. Spiele diese Karte nur in deinem Zug.\nHandle eine [action]-Fähigkeit auf einer [[Werkzeug]]- oder [[Waffe]]-Vorteilskarte ab, die du kontrollierst, ohne ihre [action]-Kosten zu zahlen.",
+  "flavour": "Verlier das Ziel nicht aus den Augen.",
+  "skills": [
+   "intellect",
+   "combat"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Romana Kendelic",
+  "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
+  "position": 30,
+  "taboo": {
+   "text": "This card’s ability reads: \"Resolve an [action] ability on a level 0–3 [[Tool]] or [[Weapon]] asset you control, ignoring all costs.\""
+  },
+  "copyright": "© 2024 FFG",
+  "set": "b360a5554e",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Auge-Hand-Koordination (Hemlock [set:e1-2dc13c71] 30): Die Fähigkeit dieser Karte sollte lauten: „Handle eine [action]-Fähigkeit auf einer <i><b>Werkzeug</b></i>- oder <i><b>Waffe</b></i>-Vorteilskarte der Stufe 0–3 ab, die du kontrollierst, wobei alle Kosten ignoriert werden.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Erkenntnis.",
+   "paras": [
+    {
+     "t": "Schnell. Spiele diese Karte nur in deinem Zug.",
+     "k": "p"
+    },
+    {
+     "t": "Handle eine [action]-Fähigkeit auf einer <i><b>Werkzeug</b></i>- oder <i><b>Waffe</b></i>-Vorteilskarte der Stufe 0–3 ab, die du kontrollierst, wobei alle Kosten ignoriert werden.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "10031",
+  "name": "Unter Druck setzen",
+  "subname": "",
+  "unique": false,
+  "type": "skill",
+  "typeName": "Fertigkeit",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 1,
+  "traits": "Angeboren.",
+  "text": "Solange Unter Druck setzen zu einem Angriff beigetragen wird, in dem eine [[Nahkampf]]- oder [[Fernkampf]]-Vorteilskarte verwendet wird, fügt dieser Angriff +1 Schaden zu. Nachdem für diese Fertigkeitsprobe Chaosmarker enthüllt worden sind, darfst du 1 Schaden nehmen, um 1 jener Chaosmarker aufzuheben, ihn in den Chaosbeutel zurückzuschicken und einen neuen zu enthüllen. <i>(Du darfst dies beliebig oft tun.)</i>",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "João Bosco",
+  "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
+  "position": 31,
+  "taboo": {
+   "xp": 1
+  },
+  "copyright": "© 2024 FFG",
+  "set": "2f304b84b3",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Unter Druck setzten (Hemlock[set:e1-2dc13c71]  31): +1 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Angeboren.",
+   "paras": [
+    {
+     "t": "Solange Unter Druck setzen zu einem Angriff beigetragen wird, in dem eine [[Nahkampf]]- oder [[Fernkampf]]-Vorteilskarte verwendet wird, fügt dieser Angriff +1 Schaden zu. Nachdem für diese Fertigkeitsprobe Chaosmarker enthüllt worden sind, darfst du 1 Schaden nehmen, um 1 jener Chaosmarker aufzuheben, ihn in den Chaosbeutel zurückzuschicken und einen neuen zu enthüllen. <i>(Du darfst dies beliebig oft tun.)</i>",
+     "k": "p"
+    }
+   ],
+   "note": "Verkettet (+1 Erfahrung)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "10037",
+  "name": "Schlaghagel",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 5,
+  "traits": "Taktik. Doppelt. Schicksalhaft.",
+  "text": "Spiele diese Kare nur, falls du eine [[Nahkampf]]-Vorteilskarte kontrollierst. Als zusätzliche Kosten, um Schlaghagel zu spielen, gib 1 Aktion aus.\n<b>Kampf.</b> Wähle eine [[Nahkampf]]-Vorteilskarte, die du kontrollierst, und nimm sofort eine Kampfaktion mit ihr <i>(ohne ihre [action]-Kosten zu zahlen)</i>. Du darfst diesen Effekt bis zu drei Mal wiederholen. Nachdem der letzte Angriff abgehandelt worden ist und falls es dein Zug ist, beende deinen Zug.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Lin Hsiang",
+  "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
+  "position": 37,
+  "taboo": {
+   "xp": -2
+  },
+  "copyright": "© 2024 FFG",
+  "set": "2f304b84b3",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Schlaghagel (Hemlock[set:e1-2dc13c71] 37): –2 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Taktik. Doppelt. Schicksalhaft.",
+   "paras": [
+    {
+     "t": "Spiele diese Kare nur, falls du eine [[Nahkampf]]-Vorteilskarte kontrollierst. Als zusätzliche Kosten, um Schlaghagel zu spielen, gib 1 Aktion aus.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Kampf.</b> Wähle eine [[Nahkampf]]-Vorteilskarte, die du kontrollierst, und nimm sofort eine Kampfaktion mit ihr <i>(ohne ihre [action]-Kosten zu zahlen)</i>. Du darfst diesen Effekt bis zu drei Mal wiederholen. Nachdem der letzte Angriff abgehandelt worden ist und falls es dein Zug ist, beende deinen Zug.",
+     "k": "p"
+    }
+   ],
+   "note": "Unverkettet (–2 Erfahrung)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "10059",
+  "name": "Gefräßiger Mykonid",
+  "subname": "Bewusstseinsfähige Art",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 4,
+  "traits": "Kreatur. Wissenschaft.",
+  "text": "Erforscht. Nur 1 pro Deck.\n[fast]: Durchsuche deine gebundenen Karten nach Unheimliches Wachstum und füge es deiner Hand hinzu. (Nur ein Mal pro Runde.)\n[reaction] Sobald ein Ermittler eine Nicht-Schwäche-Verratskarte zieht und falls der Schleierwert seines Ortes gleich oder niedriger der Anzahl an Wachstum auf Gefräßiger Mykonid ist: Hebe die Effekte jener Verratskarte auf. Entferne sämtliches Wachstum von Gefräßiger Mykonid.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": 1,
+  "sanity": 1,
+  "victory": null,
+  "illustrator": "JB Casacop",
+  "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
+  "position": 59,
+  "taboo": {
+   "text": "This card’s [reaction] ability reads: \"[reaction] When an investigator draws a non-weakness treachery card, if their location's shroud is less than Ravenous Myconid's growth...\""
+  },
+  "copyright": "© 2024 FFG",
+  "set": "2f304b84b3",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Gefräßiger Mykonid (Bewusstseinsfähige Art) (Hemlock [set:e1-2dc13c71]  59): Die [reaction]-Fähigkeit dieser Karte lautet jetzt: „Sobald ein Ermittler eine Nicht-Schwäche-Verratskarte zieht und falls der Schleierwert seines Ortes niedriger als die Anzahl an Wachstum auf Gefräßiger Mykonid ist …“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Kreatur. Wissenschaft.",
+   "paras": [
+    {
+     "t": "Erforscht. Nur 1 pro Deck.",
+     "k": "p"
+    },
+    {
+     "t": "[fast]: Durchsuche deine gebundenen Karten nach Unheimliches Wachstum und füge es deiner Hand hinzu. (Nur ein Mal pro Runde.)",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Sobald ein Ermittler eine Nicht-Schwäche-Verratskarte zieht und falls der Schleierwert seines Ortes niedriger als die Anzahl an Wachstum auf Gefräßiger Mykonid ist: Hebe die Effekte jener Verratskarte auf. Entferne sämtliches Wachstum von Gefräßiger Mykonid.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "10060",
+  "name": "Gefräßiger Mykonid",
+  "subname": "Fleischfressende Art",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 4,
+  "traits": "Monster. Wissenschaft.",
+  "text": "Erforscht. Nur 1 pro Deck.\n[fast]: Durchsuche deine gebundenen Karten nach Unheimliches Wachstum und füge es deiner Hand hinzu. (Nur ein Mal pro Runde.)\n[fast] Wähle einen Nicht-[[Elite]]-Gegner an deinem Ort, dessen verbleibende Ausdauer gleich oder niedriger der Anzahl an Wachstum auf Gefräßiger Mykonid ist: Besiege jenen Gegner. Entferne sämtliches Wachstum von Gefräßiger Mykonid.",
+  "flavour": "",
+  "skills": [
+   "combat"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": 1,
+  "sanity": 1,
+  "victory": null,
+  "illustrator": "JB Casacop",
+  "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
+  "position": 60,
+  "taboo": {
+   "xp": 1
+  },
+  "copyright": "© 2023 FFG",
+  "set": "2f304b84b3",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Gefräßiger Mykonid <i>(Fleischfressende Art)</i> (Hemlock [set:e1-2dc13c71] 60): +1 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Monster. Wissenschaft.",
+   "paras": [
+    {
+     "t": "Erforscht. Nur 1 pro Deck.",
+     "k": "p"
+    },
+    {
+     "t": "[fast]: Durchsuche deine gebundenen Karten nach Unheimliches Wachstum und füge es deiner Hand hinzu. (Nur ein Mal pro Runde.)",
+     "k": "p"
+    },
+    {
+     "t": "[fast] Wähle einen Nicht-[[Elite]]-Gegner an deinem Ort, dessen verbleibende Ausdauer gleich oder niedriger der Anzahl an Wachstum auf Gefräßiger Mykonid ist: Besiege jenen Gegner. Entferne sämtliches Wachstum von Gefräßiger Mykonid.",
+     "k": "p"
+    }
+   ],
+   "note": "Verkettet (+1 Erfahrung)."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "10085",
+  "name": "Stab von Carnamagos",
+  "subname": "Zepter des Wahnsinnigen Sehers",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Gegenstand. Relikt. Okkult. Verflucht.",
+  "text": "Nur 1 pro Deck.\n[fast] Wähle einen Nicht-[[Elite]]-Gegner an einem beliebigen Ort und erschöpfe Stab von Carnamagos: Enthülle 5 zufällige Chaosmarker aus dem Chaosbeutel. Falls ein [curse]-Marker enthüllt wird, durchsuche deine gebundenen Karten nach einer zufälligen [[Fäulnis]]-Ereigniskarte und hänge sie an jenen Gegner an.",
+  "flavour": "",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Borja Pindado",
+  "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
+  "position": 85,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2024 FFG",
+  "set": "2f304b84b3",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Stab von Carnamagos (Hemlock[set:e1-2dc13c71]  85): +2 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Gegenstand. Relikt. Okkult. Verflucht.",
+   "paras": [
+    {
+     "t": "Nur 1 pro Deck.",
+     "k": "p"
+    },
+    {
+     "t": "[fast] Wähle einen Nicht-[[Elite]]-Gegner an einem beliebigen Ort und erschöpfe Stab von Carnamagos: Enthülle 5 zufällige Chaosmarker aus dem Chaosbeutel. Falls ein [curse]-Marker enthüllt wird, durchsuche deine gebundenen Karten nach einer zufälligen [[Fäulnis]]-Ereigniskarte und hänge sie an jenen Gegner an.",
+     "k": "p"
+    }
+   ],
+   "note": "Verkettet (+2 Erfahrung)."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "10098",
+  "name": "Stab von Carnamagos",
+  "subname": "Zepter des Wahnsinnigen Sehers",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 2,
+  "traits": "Gegenstand. Relikt. Okkult. Verflucht.",
+  "text": "[fast] Wähle einen Nicht-[[Elite]]-Gegner an einem beliebigen Ort und erschöpfe Stab von Carnamagos: Enthülle 5 zufällige Chaosmarker aus dem Chaosbeutel. Für jeden enthüllten [curse]-Marker darfst du deine gebundenen Karten nach einer zufälligen [[Fäulnis]]-Ereigniskarte durchsuchen und sie an jenen Gegner anhängen.",
+  "flavour": "",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Borja Pindado",
+  "packName": "Das Fest von Hemlock Vale (Ermittler-Erweiterung)",
+  "position": 98,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2024 FFG",
+  "set": "2f304b84b3",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Stab von Carnamagos (Hemlock[set:e1-2dc13c71]  98): +2 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Gegenstand. Relikt. Okkult. Verflucht.",
+   "paras": [
+    {
+     "t": "[fast] Wähle einen Nicht-[[Elite]]-Gegner an einem beliebigen Ort und erschöpfe Stab von Carnamagos: Enthülle 5 zufällige Chaosmarker aus dem Chaosbeutel. Für jeden enthüllten [curse]-Marker darfst du deine gebundenen Karten nach einer zufälligen [[Fäulnis]]-Ereigniskarte durchsuchen und sie an jenen Gegner anhängen.",
+     "k": "p"
+    }
+   ],
+   "note": "Verkettet (+2 Erfahrung)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "11031",
+  "name": "Schnellschuss",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 3,
+  "traits": "Geist.",
+  "text": "Unzählig. Schnell. Spiele diese Karte nur in deinem Zug.\nFüge einem Gegner an deinem Ort 1 Schaden zu.\n[reaction] Nachdem du Schnellschuss in deinem Zug gezogen hast: Spiele diese Karte und senke dabei ihre Ressourcenkosten um 2.",
+  "flavour": "Sie nannten Schwester Sofia \"die Hand Gottes\", und das aus gutem Grund",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Gabby Portal",
+  "packName": "Die Versunkene Stadt (Ermittler-Erweiterung)",
+  "position": 31,
+  "taboo": {
+   "xp": -2
+  },
+  "copyright": "© 2025 FFG",
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Schnellschuss (Versunkene Stadt [set:e1-03766b1a]  31): –2 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Geist.",
+   "paras": [
+    {
+     "t": "Unzählig. Schnell. Spiele diese Karte nur in deinem Zug.",
+     "k": "p"
+    },
+    {
+     "t": "Füge einem Gegner an deinem Ort 1 Schaden zu.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Nachdem du Schnellschuss in deinem Zug gezogen hast: Spiele diese Karte und senke dabei ihre Ressourcenkosten um 2.",
+     "k": "p"
+    }
+   ],
+   "note": "Unverkettet (–2 Erfahrung)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "11055",
+  "name": "Rausschmiss",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Taktik. Trick.",
+  "text": "<b>Entkommen.</b> Füge für diesen Entkommen-Versuch deinen [combat]-Wert deinem Fertigkeitswert hinzu. Falls die Probe um 2 oder mehr gelingt, füge jenem Gegner 1 Schaden zu. Falls jener Gegner Nicht-[[Elite]] ist, darfst du dich an einen verbundenen Ort bewegen.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "combat"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Diego Gisbert",
+  "packName": "Die Versunkene Stadt (Ermittler-Erweiterung)",
+  "position": 55,
+  "taboo": {
+   "xp": 1
+  },
+  "copyright": "© 2025 FFG",
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Rausschmiss (Versunkene Stadt [set:e1-03766b1a]  55): +1 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Taktik. Trick.",
+   "paras": [
+    {
+     "t": "<b>Entkommen.</b> Füge für diesen Entkommen-Versuch deinen [combat]-Wert deinem Fertigkeitswert hinzu. Falls die Probe um 2 oder mehr gelingt, füge jenem Gegner 1 Schaden zu. Falls jener Gegner Nicht-[[Elite]] ist, darfst du dich an einen verbundenen Ort bewegen.",
+     "k": "p"
+    }
+   ],
+   "note": "Verkettet (+1 Erfahrung)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "11065",
+  "name": "Blut von Thoth",
+  "subname": "Fleischgewordenes Gesetz",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Gegenstand. Relikt.",
+  "text": "[reaction] Sobald 1 oder mehr Verderben auf einer Karte, die du kontrollierst, platziert wird, erschöpfe Blut von Thoth: Platziere 1 Ressource <i>(aus deinem Markervorrat)</i> als Opfergabe auf diese Karte.\n[fast] Falls sich 3 oder Mehr Opfergaben auf Blut von Thoth befinden, entferne alle Opfergaben von dieser Karte und erschöpfe sie: Wähle einen Ermittler an deinem Ort, der sofort eine Aktion nimmt, als ob es sein Zug wäre.",
+  "flavour": "",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [
+   "Accessory"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Pixoloid Studios",
+  "packName": "Die Versunkene Stadt (Ermittler-Erweiterung)",
+  "position": 65,
+  "taboo": {
+   "text": "This card’s [reaction] ability reads \"[reaction] When doom is placed on a card you control: Place 1 resource (from the token pool) on Blood of Thoth, as an offering.\"\nThis card’s [fast] ability reads \"[fast] During the investigation phase, except during an action, spend 2 offerings and exhaust Blood of Thoth: Choose an investigator at your location to immediately take an action as if it were their turn.\""
+  },
+  "copyright": "© 2025 FFG",
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Blut von Thoth (Versunkene Stadt [set:e1-03766b1a] 65): Die [reaction]-Fähigkeit dieser Karte sollte lauten: „[reaction] Sobald Verderben auf einer Karte, die du kontrollierst, platziert wird: Platziere 1 Ressource <i>(aus dem Markervorrat)</i> als Opfergabe auf dieser Karte.“ Die [free]-Fähigkeit dieser Karte sollte lauten: „[free] Gib während der Ermittlungsphase (außer während einer Aktion) 2 Opfergaben aus und erschöpfe Blut von Thoth: Wähle einen Ermittler an deinem Ort, der sofort eine Aktion nimmt, als ob es sein Zug wäre.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "assisted": true,
+  "corrected": true,
+  "pdf": {
+   "traits": "Gegenstand. Relikt.",
+   "paras": [
+    {
+     "t": "[reaction] Sobald Verderben auf einer Karte, die du kontrollierst, platziert wird: Platziere 1 Ressource <i>(aus deinem Markervorrat)</i> als Opfergabe auf diese Karte.",
+     "k": "p"
+    },
+    {
+     "t": "[fast] Gib während der Ermittlungsphase (außer während einer Aktion) 2 Opfergaben aus und erschöpfe Blut von Thoth: Wähle einen Ermittler an deinem Ort, der sofort eine Aktion nimmt, als ob es sein Zug wäre.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "11071",
+  "name": "Geisterhafter Schild",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Zauber. Geist.",
+  "text": "Schnell. Spiele diese Karte nur in deinem Zug. Hänge diese Karte an eine Spielerkarte mit Ausdauer und/oder geistiger Gesundheit an deinem Ort an.\n<b>Erzwungen</b> - Sobald die Karte mit dieser Verstärkung 1 oder mehr Schaden/Horror nimmt: Hebe 1 Schaden/Horror davon auf. Der Besitzer von Geisterhafter Schild muss 1 Ladung von einer Vorteilskarte entfernen, die er kontrolliert. Falls er dies nicht kann, lege Geisterhaftes Schild ab.",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "David Hovey",
+  "packName": "Die Versunkene Stadt (Ermittler-Erweiterung)",
+  "position": 71,
+  "taboo": {
+   "text": "This card's <b>Forced</b> effect now reads \"The first time attached card takes 1 or more damage/horror each round...\""
+  },
+  "copyright": "© 2025 FFG",
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Geisterhafter Schild (Versunkene Stadt [set:e1-03766b1a]  71): Der <b>Erzwungen</b>-Effekt dieser Karte lautet jetzt: „Sobald die Karte mit dieser Verstärkung zum erstem Mal in jeder Runde 1 oder mehr Schaden/Horror nimmt …“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "assisted": true,
+  "corrected": true,
+  "pdf": {
+   "traits": "Zauber. Geist.",
+   "paras": [
+    {
+     "t": "Schnell. Spiele diese Karte nur in deinem Zug. Hänge diese Karte an eine Spielerkarte mit Ausdauer und/oder geistiger Gesundheit an deinem Ort an.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Erzwungen</b> - Sobald die Karte mit dieser Verstärkung zum ersten Mal in jeder Runde 1 oder mehr Schaden/Horror nimmt: Hebe 1 Schaden/Horror davon auf. Der Besitzer von Geisterhafter Schild muss 1 Ladung von einer Vorteilskarte entfernen, die er kontrolliert. Falls er dies nicht kann, lege Geisterhaftes Schild ab.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "11075",
+  "name": "Spirituelles Echo",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 2,
+  "traits": "Ritual.",
+  "text": "Hänge diese Karte an deinen Ort an. Nur 1 pro Ort.\n[reaction] Nachdem du eine [action]- oder [fast]-Fähigkeit auf einer [[Zauber]]- oder [[Ritual]]-Vorteilskarte aktiviert hast: Führe jene Fähigkeit erneut an dem Ort mit dieser Verstärkung durch, als ob du dort wärst, wobei die [action]-Kosten jener Vorteilskarten ignorierst, falls vorhanden. <i>(Du darfst diese Fähigkeit an einem beliebigen Ort auslösen.)</i> Schicke Spirituelles Echo auf deine Hand zurück.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "combat"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Andreas Zafiratos",
+  "packName": "Die Versunkene Stadt (Ermittler-Erweiterung)",
+  "position": 75,
+  "taboo": {
+   "text": "This card gains \"Fast. Play only during your turn.\"\nThis card's [reaction] ability now reads \"...Return Spiritual Echo to your hand at the end of your turn.\" and gains \"(Limit once per round.)\""
+  },
+  "copyright": "© 2025 FFG",
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Spirituelles Echo (Versunkene Stadt [set:e1-03766b1a]  75): Diese Karte erhält: „Schnell. Spiele diese Karte nur in deinem Zug.“  Die [reaction]-Fähigkeit dieser Karte lautet jetzt: „… Schicke Spirituelles Echo am Ende deines Zuges auf deine Hand zurück. (Nur 1 Mal pro Runde.)“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Ritual.",
+   "paras": [
+    {
+     "t": "Schnell. Spiele diese Karte nur in deinem Zug.",
+     "k": "p"
+    },
+    {
+     "t": "Hänge diese Karte an deinen Ort an. Nur 1 pro Ort.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Nachdem du eine [action]- oder [fast]-Fähigkeit auf einer [[Zauber]]- oder [[Ritual]]-Vorteilskarte aktiviert hast: Führe jene Fähigkeit erneut an dem Ort mit dieser Verstärkung durch, als ob du dort wärst, wobei die [action]-Kosten jener Vorteilskarten ignorierst, falls vorhanden. <i>(Du darfst diese Fähigkeit an einem beliebigen Ort auslösen.)</i> Schicke Spirituelles Echo am Ende deines Zuges auf deine Hand zurück. (Nur 1 Mal pro Runde.)",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "11117",
+  "name": "Archibald MacVeigh",
+  "subname": "Überlasteter Dozent",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "neutral",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 5,
+  "traits": "Verbündeter.",
+  "text": "Nur für ein [[Assistent]]-, [[Reporter]]- oder [[Gelehrter]]-Deck. Anwendungen (4 Geheimnisse).\nDu bekommst +1 [intellect].\nGeheimnisse auf Vorteilskarten, die du kontrollierst, dürfen als Ressourcen ausgegeben werden, um für [[Erkenntnis]]-Ereignisse zu bezahlen.",
+  "flavour": "\"'Publish or Perish,' they said. Perhaps we'll do both.\"",
+  "skills": [
+   "intellect",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 2,
+  "sanity": 3,
+  "victory": null,
+  "illustrator": "Alexandre Dainche",
+  "packName": "Die Versunkene Stadt (Ermittler-Erweiterung)",
+  "position": 117,
+  "taboo": {
+   "xp": -2
+  },
+  "copyright": "© 2025 FFG",
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Archibald MacVeigh (Versunkene Stadt [set:e1-03766b1a] 117): –2 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Verbündeter.",
+   "paras": [
+    {
+     "t": "Nur für ein [[Assistent]]-, [[Reporter]]- oder [[Gelehrter]]-Deck. Anwendungen (4 Geheimnisse).",
+     "k": "p"
+    },
+    {
+     "t": "Du bekommst +1 [intellect].",
+     "k": "p"
+    },
+    {
+     "t": "Geheimnisse auf Vorteilskarten, die du kontrollierst, dürfen als Ressourcen ausgegeben werden, um für [[Erkenntnis]]-Ereignisse zu bezahlen.",
+     "k": "p"
+    }
+   ],
+   "note": "Unverkettet (–2 Erfahrung)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "11118",
+  "name": "Büchereiausweis",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "neutral",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 5,
+  "traits": "Gegenstand. Miskatonic.",
+  "text": "Nur für ein [[Miskatonic]]- oder [[Gelehrter]]-Deck. Dauerhaft. Nur 1 pro Deck.\n[fast] Falls keine Vorteilskarte an Büchereiausweis angehängt ist, erschöpfe in deinem Zug diese Karte: Hänge eine [[Buch]]-Vorteilskarte von deiner Hand an diese Karte an. Sie benötigt keine Handslots.\n<b>Erzwungen</b> - Sobald dein Zug endet: Du musst entweder 1 Ressource zahlen oder eine hier angehängte Vorteilskarte unter dein Deck legen.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Pixoloid Studios",
+  "packName": "Die Versunkene Stadt (Ermittler-Erweiterung)",
+  "position": 118,
+  "taboo": {
+   "text": "This card’s <b>Forced</b> effect now reads \"When your turn endsL Place attaced asset on the bottom of your deck unless you spend 1 resource.\""
+  },
+  "copyright": "© 2025 FFG",
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Büchereiausweis (Versunkene Stadt [set:e1-03766b1a]  118): Der <b>Erzwungen</b>-Effekt dieser Karte lautet jetzt: „Sobald dein Zug endet: Lege eine hier angehängte Vorteilskarte unter dein Deck, außer du zahlst 1 Ressource. “",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Gegenstand. Miskatonic.",
+   "paras": [
+    {
+     "t": "Nur für ein [[Miskatonic]]- oder [[Gelehrter]]-Deck. Dauerhaft. Nur 1 pro Deck.",
+     "k": "p"
+    },
+    {
+     "t": "[fast] Falls keine Vorteilskarte an Büchereiausweis angehängt ist, erschöpfe in deinem Zug diese Karte: Hänge eine [[Buch]]-Vorteilskarte von deiner Hand an diese Karte an. Sie benötigt keine Handslots.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Erzwungen</b> - Sobald dein Zug endet: Lege eine hier angehängte Vorteilskarte unter dein Deck, außer du zahlst 1 Ressource.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "11120",
+  "name": "Auf den Fersen",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "neutral",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 5,
+  "traits": "Talent.",
+  "text": "Nur für ein [[Detective]]-, [[Jäger]]-, [[Polizei]]- oder [[Reporter]]-Deck.\nNur 1 pro Ermittler. Anwendungen (5 Spuren).\n[reaction] Nachdem du einen Ort mit 1 oder mehr Gegnern betreten hast, gib 1 Spur aus und erschöpfe Auf den Fersen: Entdecke entweder 1 Hinweis an deinem Ort oder füge einem Gegner an deinem Ort 1 Schaden zu.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "combat",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Aaron Miller",
+  "packName": "Die Versunkene Stadt (Ermittler-Erweiterung)",
+  "position": 120,
+  "taboo": {
+   "text": "The first line of this card gains: \"If On Their Heels has no leads, discard it.\""
+  },
+  "copyright": "© 2025 FFG",
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Auf den Fersen (Versunkene Stadt [set:e1-03766b1a]  120): Die erste Zeile dieser Karte lautet: „Falls auf dieser Karte keine Spuren liegen, lege sie ab.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Talent.",
+   "paras": [
+    {
+     "t": "Nur für ein [[Detective]]-, [[Jäger]]-, [[Polizei]]- oder [[Reporter]]-Deck.",
+     "k": "p"
+    },
+    {
+     "t": "Nur 1 pro Ermittler. Anwendungen (5 Spuren). Falls auf dieser Karte keine Spuren liegen, lege sie ab.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Nachdem du einen Ort mit 1 oder mehr Gegnern betreten hast, gib 1 Spur aus und erschöpfe Auf den Fersen: Entdecke entweder 1 Hinweis an deinem Ort oder füge einem Gegner an deinem Ort 1 Schaden zu.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "60233",
+  "name": "Das Necronomicon",
+  "subname": "Übersetzung von Petrus de Dacia",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 5,
+  "traits": "Gegenstand. Buch.",
+  "text": "Anwendungen (6 Geheimnisse). Nur 1 pro Deck.\n[free] Gib 1 Geheimnis aus: Du bekommst +2 auf deinen Fertigkeitswert für diese Probe.\n[free] Gib 2 Geheimnisse aus: Ziehe 2 Karten.\n[free] Gib 3 Geheimnisse aus: Du entdeckst 1 Hinweis an einem beliebigen Ort.\n[free] Gib 4 Geheimnisse aus: Füge einem mit dir in einen Kampf verwickelten Gegner 3 Schaden zu.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "intellect",
+   "intellect",
+   "intellect",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Dimitri Bielak",
+  "packName": "Harvey Walters",
+  "position": 33,
+  "taboo": {
+   "text": "Forbidden.",
+   "deck_limit": 0
+  },
+  "copyright": "© 2020 FFG",
+  "set": "e7a64922c8",
+  "setAspect": 1.199,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Das Necronomicon (Übersetzung von Petrus de Dacia) (Harvey Walters [set:e2-0404fd53] 33)",
+  "changeShared": false,
+  "cat": "forbidden",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Gegenstand. Buch.",
+   "paras": [
+    {
+     "t": "Anwendungen (6 Geheimnisse). Nur 1 pro Deck.",
+     "k": "p"
+    },
+    {
+     "t": "[free] Gib 1 Geheimnis aus: Du bekommst +2 auf deinen Fertigkeitswert für diese Probe.",
+     "k": "p"
+    },
+    {
+     "t": "[free] Gib 2 Geheimnisse aus: Ziehe 2 Karten.",
+     "k": "p"
+    },
+    {
+     "t": "[free] Gib 3 Geheimnisse aus: Du entdeckst 1 Hinweis an einem beliebigen Ort.",
+     "k": "p"
+    },
+    {
+     "t": "[free] Gib 4 Geheimnisse aus: Füge einem mit dir in einen Kampf verwickelten Gegner 3 Schaden zu.",
+     "k": "p"
+    }
+   ],
+   "note": "Verboten."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "60318",
+  "name": "Tollkühn",
+  "subname": "",
+  "unique": false,
+  "type": "skill",
+  "typeName": "Fertigkeit",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 0,
+  "traits": "Glücksfall. Trainiert.",
+  "text": "Nachdem du Tollkühn zu einer Fertigkeitsprobe beigetragen hast, lege Karten oben von deinem Deck ab, bis du eine [rogue]-Fertigkeits abgelegt hast, die du zu dieser Probe beitragen kannst. Trage sie zu der Probe bei. Mische jede Schwächekarte, die durch diesen Effekt abgelegt worden ist, in dein Deck zurück.",
+  "flavour": "„Du bist ja verrückt, Wini!”\n„Ich weiß! Ist das nicht großartig?”",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Borja Pindado",
+  "packName": "Winifred Habbamock",
+  "position": 18,
+  "taboo": {
+   "text": "Instead of \"Shuffle each weakness that was discarded…\", this card's ability now reads: \"After this skill test resolves, draw each weakness discarded by this effect.\""
+  },
+  "copyright": "© 2019 FFG",
+  "set": "286bd4f87a",
+  "setAspect": 0.877,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Tollkühn (Winifred Habbamock [set:e5-5dd1694d] 18): Ersetze den Text „Mische jede Schwächekarte, die durch diesen Effekt abgelegt worden ist, in dein Deck zurück“ durch folgenden Text: „Nachdem diese Probe abgehandelt worden ist, ziehe jede Schwächekarte , die durch diesen Effekt abgelegt worden ist.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Glücksfall. Trainiert.",
+   "paras": [
+    {
+     "t": "Nachdem du Tollkühn zu einer Fertigkeitsprobe beigetragen hast, lege Karten oben von deinem Deck ab, bis du eine [rogue]-Fertigkeits abgelegt hast, die du zu dieser Probe beitragen kannst. Trage sie zu der Probe bei. Nachdem diese Probe abgehandelt worden ist, ziehe jede Schwächekarte, die durch diesen Effekt abgelegt worden ist.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "60327",
+  "name": "Scharfschütze",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 3,
+  "traits": "Talent.",
+  "text": "[reaction] Sobald du eine <b>Kampf</b>-Fähigkeit auf einer [[Feuerwaffe]]-Vorteilskarte verwendest, erschöpfe Scharfschütze: Wähle eins oder beides… - \n- Dieser Angriff verwendet [agility] statt [combat]. Alle [combat]-Modifikatoren modifizieren für diesen Angriff stattdessen deine [agility].\n- Verwende für diesen Angriff den Entkommen-Wert des angegriffenen Gegners statt seines Kampfwertes.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matt Bradbury",
+  "packName": "Winifred Habbamock",
+  "position": 27,
+  "taboo": {
+   "xp": -1
+  },
+  "copyright": "© 2019 FFG",
+  "set": "286bd4f87a",
+  "setAspect": 0.877,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Scharfschütze (Winifred Habbamock [set:e2-0404fd53] <i> 27</i>): –1 Erfahrung",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "de",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Talent.",
+   "paras": [
+    {
+     "t": "[reaction] Sobald du eine <b>Kampf</b>-Fähigkeit auf einer [[Feuerwaffe]]-Vorteilskarte verwendest, erschöpfe Scharfschütze: Wähle eins oder beides… -",
+     "k": "p"
+    },
+    {
+     "t": "[bullet] Dieser Angriff verwendet [agility] statt [combat]. Alle [combat]-Modifikatoren modifizieren für diesen Angriff stattdessen deine [agility].",
+     "k": "bullet"
+    },
+    {
+     "t": "[bullet] Verwende für diesen Angriff den Entkommen-Wert des angegriffenen Gegners statt seines Kampfwertes.",
+     "k": "bullet"
+    }
+   ],
+   "note": "Unverkettet (–1 Erfahrung)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "60332",
+  "name": "Chuck Fergus",
+  "subname": "O'Bannions Fahrer",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 5,
+  "traits": "Verbündeter. Krimineller.",
+  "text": "[reaction] Wenn du eine [[Taktik]]- oder [[Trick]]-Ereigniskarte spielst, erschöpfe Chuck Fergus: Wähle zwei …\n- Jene Ereigniskarte erhält das Schlüsselwort Schnell.\n- Jene Ereigniskarte kostet zum Spielen 2 Ressourcen weniger.\n- Du bekommst +2 auf deinen Fertigkeitswert, solange du eine Fertigkeitsprobe während der Abhandlung jener Ereigniskarte durchführst.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 2,
+  "sanity": 2,
+  "victory": null,
+  "illustrator": "Derek D. Edgell",
+  "packName": "Winifred Habbamock",
+  "position": 32,
+  "taboo": {
+   "text": "This card's first bullet point now reads: \"That event gains: \"Fast. Play only during your turn.\"\""
+  },
+  "copyright": "© 2019 FFG",
+  "set": "892d99f044",
+  "setAspect": 0.877,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Chuck Fergus (Winifred Habbamock [set:e5-5dd1694d] 32, Schlüssel [set:e1-1b5bc68d] 72)): Der erste Punkt dieser karte sollte lauten. „Jene Ereigniskarte erhält: ‚Schnell. Spiele diese Karte nur in deinem Zug.‘",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuiltWhy": "el FAQ en este idioma no cita el texto que hace falta",
+  "rebuilt": "full",
+  "assisted": true,
+  "corrected": true,
+  "pdf": {
+   "traits": "Verbündeter. Krimineller.",
+   "paras": [
+    {
+     "t": "[reaction] Wenn du eine [[Taktik]]- oder [[Trick]]-Ereigniskarte spielst, erschöpfe Chuck Fergus: Wähle zwei …",
+     "k": "p"
+    },
+    {
+     "t": "[bullet] Jene Ereigniskarte erhält das Schlüsselwort: „Schnell. Spiele diese Karte nur in deinem Zug.“",
+     "k": "bullet"
+    },
+    {
+     "t": "[bullet] Jene Ereigniskarte kostet zum Spielen 2 Ressourcen weniger.",
+     "k": "bullet"
+    },
+    {
+     "t": "[bullet] Du bekommst +2 auf deinen Fertigkeitswert, solange du eine Fertigkeitsprobe während der Abhandlung jener Ereigniskarte durchführst.",
+     "k": "bullet"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "60405",
+  "name": "Ritualkerzen",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Vorteil",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Gegenstand.",
+  "text": "[reaction] Nachdem ein [skull]-, [cultist]-, [tablet]-, oder [elder_thing]-Symbol während einer Probe enthüllt worden ist, die du ablegst: Du bekommst für diese Probe +1 auf den Fertigkeitswert.",
+  "flavour": "Die Wachskerzen glühen unheimlich und die Flammen zucken, als ob sie lebendig wären.",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Kristina Gehrmann",
+  "packName": "Jacqueline Fine",
+  "position": 5,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Ritualkerzen (Dunwich [set:e5-6cc1b92c] 29 / Jacqueline Fine [set:e2-09307c83] 5): Diese Karte beginnt jetzt mit dem Text: „[reaction] Nachdem ein Symbol während …“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Gegenstand.",
+   "paras": [
+    {
+     "t": "[reaction] Nachdem ein Symbol während einer Probe enthüllt worden ist, die du ablegst: Du bekommst für diese Probe +1 auf den Fertigkeitswert.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "60414",
+  "name": "Hypnotisierender Blick",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 0,
+  "traits": "Zauber.",
+  "text": "Schnell. Spiele diese Karte, sobald ein Gegner einen Ermittler an deinem Ort angreift.\nHebe den Angriff auf. Enthülle dann einen zufälligen Marker aus dem Chaosbeutel. Fall er ein [skull]-, [cultist]-, [tablet]-, [elder_thing]-, oder [auto_fail]-Symbol hat, füge dem angreifenden Gegner seinen eigenen Schaden zu.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Falk",
+  "packName": "Jacqueline Fine",
+  "position": 14,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2016 FFG",
+  "set": "1014fb72e3",
+  "setAspect": 1.322,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Hypnotisierender Blick (Dunwich [set:e5-6cc1b92c] 153 / Jacqueline Fine [set:e2-09307c83] 14, 23): Der letzte Satz dieser Karte beginnt nun mit dem Text: „Falls er ein Symbol hat, füge …“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Zauber.",
+   "paras": [
+    {
+     "t": "Schnell. Spiele diese Karte, sobald ein Gegner einen Ermittler an deinem Ort angreift.",
+     "k": "p"
+    },
+    {
+     "t": "Hebe den Angriff auf. Enthülle dann einen zufälligen Marker aus dem Chaosbeutel. Fall er ein Symbol hat, füge dem angreifenden Gegner seinen eigenen Schaden zu.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "60416",
+  "name": "Stimme des Re",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 0,
+  "xp": 0,
+  "traits": "Zauber.",
+  "text": "Du erhältst eine Ressource. Enthülle 3 zufällige Marker aus dem Chaosbeutel. Für jedes enthüllte [skull]-, [cultist]-, [tablet]-, [elder_thing]- oder [auto_fail]-Symbol erhältst du 2 zusätzliche Ressourcen.",
+  "flavour": "",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matt Bradbury",
+  "packName": "Jacqueline Fine",
+  "position": 16,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2020 FFG",
+  "set": "1014fb72e3",
+  "setAspect": 1.322,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Stimme des Re (Jacqueline Fine [set:e2-09307c83] 16): Der letzte Satz dieser Karte lautet jetzt: „Für jedes enthüllte Symbol erhältst du 2 zusätzliche Ressourcen.“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Zauber.",
+   "paras": [
+    {
+     "t": "Du erhältst eine Ressource. Enthülle 3 zufällige Marker aus dem Chaosbeutel. Für jedes enthüllte Symbol erhältst du 2 zusätzliche Ressourcen.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "60417",
+  "name": "Dunkle Prophezeihung",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Weissagung.",
+  "text": "Schnell. Spiele diese Karte, sobald du einen Chaosmarker enthüllen würdest.\nEnthülle stattdessen 5 statt 1 Chaosmarker. Wähle einen jener Marker mit einem [skull]-, [cultist]-, [tablet]-, [elder_thing]-, oder [auto_fail]-Symbol, um ihn abzuhandeln, und ignoriere die restlichen. (Falls kein solcher Marker enthüllt wird, wähle einen beliebigen Marker jener Marker, um ihn abzuhandeln und ignoriere die restlichen.)",
+  "flavour": "Die Geheimnisse waren in den Sternen geschrieben.",
+  "skills": [
+   "willpower",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Alice Duke",
+  "packName": "Jacqueline Fine",
+  "position": 17,
+  "taboo": {
+   "text": "This card now reads \"a non-[auto_fail] symbol\" instead of \"a [skull], [cultist], [tablet], or [elder_thing] chaos token.\""
+  },
+  "copyright": "© 2017 FFG",
+  "set": "aa99f780cd",
+  "setAspect": 1.148,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Dunkle Prophezeiung (Zeitalter [set:e3-2540bab3] 32 / Jacqueline Fine [set:e2-09307c83] 17) Der zweite Absatz dieser Karte lautet jetzt: „Enthülle stattdessen 5 statt 1 Chaosmarker. Wähle einen jener Marker mit einem Nicht-[eldersign]-Symbol …“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Weissagung.",
+   "paras": [
+    {
+     "t": "Schnell. Spiele diese Karte, sobald du einen Chaosmarker enthüllen würdest.",
+     "k": "p"
+    },
+    {
+     "t": "Enthülle stattdessen 5 statt 1 Chaosmarker. Wähle einen jener Marker mit einem Nicht-[eldersign]-Symbol, um ihn abzuhandeln, und ignoriere die restlichen. (Falls kein solcher Marker enthüllt wird, wähle einen beliebigen Marker jener Marker, um ihn abzuhandeln und ignoriere die restlichen.)",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "60423",
+  "name": "Hypnotisierender Blick",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Ereignis",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 2,
+  "traits": "Zauber.",
+  "text": "Schnell. Spiele diese Karte, sobald ein Gegener einen Ermittler an deinem Ort angreift.\nHebe den Angriff auf. Enthülle dann einen zufälligen Marker aus dem Chaosbeutel. Falls er ein [skull]-, [cultist]-, [tablet]-, [elder_thing]- oder [auto_fail]-Symbol hat, füge dem angreifenden Gegner Schaden in Höhe seines eigenen Schadens oder Horrors zu.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Falk",
+  "packName": "Jacqueline Fine",
+  "position": 23,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2016 FFG",
+  "set": "1014fb72e3",
+  "setAspect": 1.322,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "Hypnotisierender Blick (Dunwich [set:e5-6cc1b92c] 153 / Jacqueline Fine [set:e2-09307c83] 14, 23): Der letzte Satz dieser Karte beginnt nun mit dem Text: „Falls er ein Symbol hat, füge …“",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "de",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Zauber.",
+   "paras": [
+    {
+     "t": "Schnell. Spiele diese Karte, sobald ein Gegener einen Ermittler an deinem Ort angreift.",
+     "k": "p"
+    },
+    {
+     "t": "Hebe den Angriff auf. Enthülle dann einen zufälligen Marker aus dem Chaosbeutel. Falls er ein Symbol hat, füge dem angreifenden Gegner Schaden in Höhe seines eigenen Schadens oder Horrors zu.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutiert."
+  },
+  "noteOwnLine": true
+ }
+]

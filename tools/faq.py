@@ -813,6 +813,52 @@ def strip_red(sections):
                 clean(b.get('runs', []))
 
 
+# A paragraph that opens on a closing bracket — "60): +1 Erfahrung" — is not a sentence. It is
+# the tail of the line above it, cut loose when the page broke.
+_ORPHAN_TAIL = re.compile(r'^\s*\d*\s*\)')
+
+
+def rejoin_split_bullets(sections):
+    """Put back a bullet the page break cut in two.
+
+    The German taboo list ends the Gefräßiger Mykonid's bullet on its product icon and leaves
+    "60): +1 Erfahrung" behind as a paragraph of its own, so the site shows a card with no rule
+    and a loose fragment under it. Nothing can start a sentence with a closing bracket, so a
+    paragraph that does belongs to the bullet above it.
+
+    Same family as _heal_orphan_paren, which mends the German edition's clarification numbers.
+    """
+    n = 0
+
+    def mend(blocks):
+        nonlocal n
+        out = []
+        for b in blocks:
+            prev = out[-1] if out else None
+            tail = b.get('runs', [])
+            if (prev is not None and prev.get('type') == 'bullet' and b.get('type') != 'bullet'
+                    and _ORPHAN_TAIL.match(assemble.flat_text(tail))):
+                head = list(prev.get('runs', []))
+                # The break usually falls right after the product icon, so the head ends on a
+                # seticon and the tail opens on "60)" with no space -- the icon and the number
+                # would render glued (the sibling bullet reads "icon 59)"). A joining space goes
+                # in only when the head ends on that icon and the tail does not open on space.
+                ttxt = assemble.flat_text(tail)
+                if head and head[-1].get('kind') == 'seticon' and ttxt and not ttxt[0].isspace():
+                    head.append({'kind': 'text', 't': ' '})
+                prev['runs'] = head + [dict(r) for r in tail]
+                n += 1
+                continue
+            out.append(b)
+        return out
+
+    for s in sections:
+        s['intro'] = mend(s.get('intro', []))
+        for e in s.get('entries', []):
+            e['blocks'] = mend(e.get('blocks', []))
+    return n
+
+
 # ---- build -----------------------------------------------------------------
 def build(pack, grimoire_data):
     """Build the FAQ corpus for one language. `grimoire_data` is that language's already
@@ -883,6 +929,7 @@ def build(pack, grimoire_data):
 
     drop_empty_entries(sections)
     strip_red(sections)
+    rejoin_split_bullets(sections)
     # Ids before links: the auto-linker reads each entry's id to avoid self-linking.
     assign_ids(sections)
 

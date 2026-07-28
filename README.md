@@ -287,6 +287,35 @@ The skill-test chapter carries a second, **fanmade** view: the community's break
 
 The Resources shelf carries a live **taboo list**, built from ArkhamDB's public API (`tools/taboos.py` → `data/taboos_<code>.json`). Every card on the current taboo list is grouped the way the book groups them — *Chained/Unchained* (an experience cost), *Mutated* (a rules-text change) and *Forbidden* (barred) — each with its collection number, its product icon (matched to the FAQ's own icon tables), and a **direct link** to the card on ArkhamDB in the reader's language. The mutation text ArkhamDB stores is English only, so it is tagged `lang="en"` and the list cross-links to the FAQ's own taboo chapter for the full write-up. It refreshes as part of `ingest.py` (network, best-effort: an offline build keeps the committed data). Run it on its own with `python tools/taboos.py`.
 
+## The taboo card renderer
+
+Below the list, the same shelf **draws** every taboo-list card twice — as it is **printed** and as the **taboo** changes it — side by side, with the FFG change line beneath, so a reader compares the exact rules text without owning the card. Each face can be zoomed, and downloaded as a print-ready image (single card as PNG; **Download all** as a high-quality-JPEG `.zip` — the whole render runs in the reader's own browser, so a busy site never renders on the server, it only serves static plates). It is a fan reconstruction, flagged as one wherever the wording was rebuilt.
+
+Two things are worth knowing before you touch it:
+
+* **The card art is language-independent.** The plates in `assets/taboo/` (`plates/` for the screen, `plates-hi/` for print, plus `back.webp`) are **textless** — every word you see is drawn over them by the browser from the data file. So a new language reuses the shared plates and ships **only its data**.
+* **Everything the renderer draws lives in one file per language,** `data/taboo_cards_<code>.json` — one record per card, keyed by its ArkhamDB `code`. The site fetches it directly, so a text fix shows on reload with no rebuild.
+
+### Correcting a card
+
+Open `data/taboo_cards_<code>.json`, find the record by `code` (or `name`), fix it **in place** — keep the file's LF line endings, don't let an editor reformat the whole thing — and reload the page. The fields you are likely to touch:
+
+| field | what it is |
+|---|---|
+| `name`, `subname`, `traits`, `text`, `flavour` | the **printed** face, as ArkhamDB prints it in this language. Card icons are written as `[reaction]`, `[intellect]`, `[eldersign]`… |
+| `pdf.paras` | the **taboo** face — the reconstructed printed text with the change applied (rewritten rules for a *mutated* card; the printed text plus the "(+1 experience)" line for a *chained/unchained* one) |
+| `change` | the one-line change note drawn under the pair (HTML, same icon codes) |
+| `cat` | `chained` · `unchained` · `mutated` · `forbidden` — sets the grouping and the badge |
+| `rebuilt`, `assisted` | provenance: they drive the "reconstructed / AI-assisted" disclaimer. Leave them unless you are changing how faithful the record is |
+
+`taboo.text` is ArkhamDB's English change text, kept for reference — it is **not** what the card shows, so don't translate it. Send a correction as a PR with just the changed `data/taboo_cards_<code>.json`.
+
+### Adding a language
+
+1. **Produce the data file** `data/taboo_cards_<code>.json`. The fastest honest start is to copy `data/taboo_cards_en.json` and, record by record, replace the printed fields (`name`, `subname`, `traits`, `text`, `flavour`, `pdf.paras`) with ArkhamDB's text in your language and `change` with your FAQ's line; `cat` and the `code`s stay as they are. (The full reconstruction pipeline — ArkhamDB fetch, PDF geometry, the mutated-face rebuild — lives under `tools/other/taboo_proto/`, which is git-ignored because it is a large research build; the committed JSON is the shippable result.)
+2. **Translate the interface strings.** Copy the `tb*` keys (`tbimpresa`, `tbtaboo`, `tbcat_*`, `tbdisclaimer`, `tbnoteline`, `tbzoom`, `tbfilters`, …) from `langs/en/ui.json` into `langs/<code>/ui.json` and translate the values. Anything left in English simply stays English.
+3. **Rebuild.** `python tools/ingest.py <code>` (or just `python tools/langpack.py`, which rewrites the registry) — the renderer **auto-detects** `data/taboo_cards_<code>.json` and turns the viewer on for that language. You never edit `data/languages.json` by hand; a language that has no file simply falls back to the English cards behind a beta banner.
+
 ## The welcome tour
 
 A first visit runs a six-stop tour (`tourStart` in `js/app.js`): what the site is, the language switch (and that English runs ahead), the theme picker, the search, the two rulebooks in the sidebar — *they are different rulesets and can disagree* — and who made it. No library: it is one scrim, one rectangle and one card, drawn **over** the page so nothing on it is restyled or re-stacked, and it is a real modal dialog (focus moves in, Tab is trapped, Escape leaves, each stop is a heading). It runs once, remembered in `localStorage` under `tla-tour`; the footer offers to replay it. A target that is not on screen — the sidebar on a narrow window — simply gets no rectangle and the stop reads as a centred card. Every string is in `ui.json` (`tour1t`…`tour6d`).

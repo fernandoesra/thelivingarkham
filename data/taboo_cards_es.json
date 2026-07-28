@@ -1,0 +1,5949 @@
+[
+ {
+  "code": "01033",
+  "name": "Dr. Milan Christopher",
+  "subname": "Profesor de Entomología",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 0,
+  "traits": "Aliado. Miskatonic.",
+  "text": "Recibes +1 [intellect].\n[reaction] Después de que investigues con éxito: Obtén 1 recurso.",
+  "flavour": "\"Aunque rezo por que esta pesadilla no sea más que una abominación única, ¡debo admitir que me entusiasma la posibilidad de que sea tan sólo un espécimen de un nuevo género!\"",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 1,
+  "sanity": 2,
+  "victory": null,
+  "illustrator": "Anthony Devine",
+  "packName": "Caja básica",
+  "position": 33,
+  "taboo": {
+   "text": "This card's [reaction] ability now reads: \"After you successfully investigate, exhaust Dr. Milan Christopher...\""
+  },
+  "copyright": "© 2016 FFG",
+  "set": "9ffc9f8609",
+  "setAspect": 0.98,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Dr. Milan Christopher</b><b> (</b>[eldersign]<b> 33):</b> La capacidad [reaction] de esta carta ahora dice: “Después de que investigues con éxito, agota al Dr. Milan Christopher...”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Aliado. Miskatonic.",
+   "paras": [
+    {
+     "t": "Recibes +1 [intellect].",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Después de que investigues con éxito, agota al Dr. Milan Christopher: Obtén 1 recurso.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "01050",
+  "name": "Escurridizo",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Táctica.",
+  "text": "Rápido. Juega esta carta sólo durante tu turno.\nDeja de estar enfrentado a cada Enemigo enfrentado a ti y muévete a un Lugar revelado que no tenga Enemigos.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Adam Schumpert",
+  "packName": "Caja básica",
+  "position": 50,
+  "taboo": {
+   "text": "This card now reads: \"Disengage from each enemy engaged with you and move to a connecting location with no enemies.\""
+  },
+  "copyright": "© 2016 FFG",
+  "set": "9ffc9f8609",
+  "setAspect": 0.98,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Escurridizo</b><b> (</b>[eldersign]<b> 50):</b> Esta carta ahora dice: “Deja de estar enfren tado a cada Enemigo enfrentado a ti y muévete a un Lugar conectado que no tenga Enemigos.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Táctica.",
+   "paras": [
+    {
+     "t": "Rápido. Juega esta carta sólo durante tu turno.",
+     "k": "p"
+    },
+    {
+     "t": "Deja de estar enfrentado a cada Enemigo enfrentado a ti y muévete a un Lugar conectado que no tenga Enemigos.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "01073",
+  "name": "Reutilizar",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Talento.",
+  "text": "[reaction] Después de que investigues con éxito por 2 o más, agota Reutilizar: Elige 1 carta [[Objeto]] de tu pila de descartes y añádela a tu mano.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Derk Venneman",
+  "packName": "Caja básica",
+  "position": 73,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2016 FFG",
+  "set": "9ffc9f8609",
+  "setAspect": 0.98,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Reutilizar</b><b> (</b>[eldersign]<b> 73):</b> +2 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Talento.",
+   "paras": [
+    {
+     "t": "[reaction] Después de que investigues con éxito por 2 o más, agota Reutilizar: Elige 1 carta [[Objeto]] de tu pila de descartes y añádela a tu mano.",
+     "k": "p"
+    }
+   ],
+   "note": "Encadenada (+2 de experiencia)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "01573",
+  "name": "Reutilizar",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Talento.",
+  "text": "[reaction] Después de que investigues con éxito por 2 o más, agota Reutilizar: Elige 1 carta [[Objeto]] de tu pila de descartes y añádela a tu mano.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Derk Venneman",
+  "packName": "Caja básica. Edición revisada",
+  "position": 73,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2016 FFG",
+  "set": "9ffc9f8609",
+  "setAspect": 0.98,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Reutilizar</b><b> (</b>[eldersign]<b> 73):</b> +2 de experiencia",
+  "changeShared": true,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Talento.",
+   "paras": [
+    {
+     "t": "[reaction] Después de que investigues con éxito por 2 o más, agota Reutilizar: Elige 1 carta [[Objeto]] de tu pila de descartes y añádela a tu mano.",
+     "k": "p"
+    }
+   ],
+   "note": "Encadenada (+2 de experiencia)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "02002",
+  "name": "Rex Murphy",
+  "subname": "El reportero",
+  "unique": true,
+  "type": "investigator",
+  "typeName": "Investigador",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": null,
+  "traits": "Reportero.",
+  "text": "[reaction] Después de que tengas éxito en una prueba de habilidad por 2 o más al investigar: Descubre 1 pista en tu Lugar.\nEfecto [elder_sign]: +2. En lugar de eso, puedes elegir fracasar automáticamente en esta prueba de habilidad para robar 3 cartas.",
+  "flavour": "\"Esta vez, nada evitará que llegue a la verdad.\"",
+  "skills": [
+   "willpower",
+   "willpower",
+   "willpower",
+   "intellect",
+   "intellect",
+   "intellect",
+   "intellect",
+   "combat",
+   "combat",
+   "agility",
+   "agility",
+   "agility"
+  ],
+  "stats": [
+   3,
+   4,
+   2,
+   3
+  ],
+  "slots": [],
+  "health": 6,
+  "sanity": 9,
+  "victory": null,
+  "illustrator": "Cristi Balanescu",
+  "packName": "El legado de Dunwich",
+  "position": 2,
+  "taboo": {
+   "text": "This card's [reaction] ability gains: \"(Limit once per round.)\""
+  },
+  "copyright": "© 2016 FFG",
+  "set": "53a8330a05",
+  "setAspect": 1.026,
+  "back": {
+   "name": "[unique]Rex Murphy",
+   "subtitle": "El reportero",
+   "paras": [
+    "<b>Tamaño del mazo</b>: 30.",
+    "<b>Opciones de creación de mazos</b>: Cartas Buscador ([seeker]) de nivel 0-5, cartas neutrales de nivel 0-5, hasta cinco cartas de nivel 0 de cualquier otra clase.",
+    "<b>Requisitos de creación de mazos</b> (no cuentan para el tamaño de mazo): Buscar la verdad, La maldición de Rex, 1 Debilidad básica aleatoria.",
+    "<b>Restricciones de creación de mazos</b>: Sin cartas [[Fortuna]]."
+   ],
+   "flavour": "Cuando ocurre un desastre, Rex Murphy suele encontrarse cerca, sufriendo las consecuencias. Tras pasar un día con Rex, hasta el escéptico más empedernido admitirá que ese hombre está maldito. Cada vez que tiene una pista para conseguir una buena historia, algo va mal. Las fotografías de ese asunto de Inssmouth que se fueron volando hacia el mar. Los rastros que borró la lluvia en Dunwich justo antes de que llevara el sheriff hasta ellos. Su mala suerte lo ha expuesto en más de una ocasión a horripilantes bestias y conspiraciones ocultistas. Para sobrevivir, Rex ha desarrollado una mente inquisitva que le permite ir un paso por delante del próximo desastre.",
+   "warn": [],
+   "top": 20.03,
+   "left": 7.37,
+   "size": 2.921,
+   "flavSize": 2.921,
+   "lead": 1.021,
+   "gap": 0.383,
+   "photo": [
+    [
+     20.03,
+     41.16
+    ],
+    [
+     25.89,
+     40.76
+    ],
+    [
+     30.16,
+     40.36
+    ],
+    [
+     34.4,
+     39.57
+    ],
+    [
+     40.22,
+     39.17
+    ],
+    [
+     44.49,
+     38.77
+    ],
+    [
+     48.72,
+     38.38
+    ],
+    [
+     54.5,
+     37.58
+    ],
+    [
+     57.46,
+     37.57942440141057
+    ],
+    [
+     61.0,
+     37.58
+    ]
+   ]
+  },
+  "backChange": false,
+  "w": 1048,
+  "h": 738,
+  "change": "<b>Rex Murphy</b><b> (</b>[set:e5-6cc1b92c] <b> 2):</b> La capacidad [reaction] de esta carta ahora obtiene: “Límite de una vez por ronda.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Reportero.",
+   "paras": [
+    {
+     "t": "[reaction] Después de que tengas éxito en una prueba de habilidad por 2 o más al investigar: Descubre 1 pista en tu Lugar. (Límite de una vez por ronda.)",
+     "k": "p"
+    },
+    {
+     "t": "Efecto [elder_sign]: +2. En lugar de eso, puedes elegir fracasar automáticamente en esta prueba de habilidad para robar 3 cartas.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "02026",
+  "name": "Doble o nada",
+  "subname": "",
+  "unique": false,
+  "type": "skill",
+  "typeName": "Habilidad",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 0,
+  "traits": "Fortuna.",
+  "text": "Máximo de 1 asignada por prueba de habilidad.\nDobla la dificultad de esta prueba de habilidad. Si esta prueba de habilidad tiene éxito, resuelve dos veces los efectos de la prueba con éxito.",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Mark Molnar",
+  "packName": "El legado de Dunwich",
+  "position": 26,
+  "taboo": {
+   "text": "Forbidden.",
+   "deck_limit": 0
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Doble o nada</b> ([set:e5-6cc1b92c] 26).",
+  "changeShared": false,
+  "cat": "forbidden",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Fortuna.",
+   "paras": [
+    {
+     "t": "Máximo de 1 asignada por prueba de habilidad.",
+     "k": "p"
+    },
+    {
+     "t": "Dobla la dificultad de esta prueba de habilidad. Si esta prueba de habilidad tiene éxito, resuelve dos veces los efectos de la prueba con éxito.",
+     "k": "p"
+    }
+   ],
+   "note": "Prohibida."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "02029",
+  "name": "Velas rituales",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Objeto.",
+  "text": "[reaction] Después de que sea revelado un símbolo [skull], [cultist], [tablet] o [elder_thing] durante una prueba que estés realizando: Recibes +1 al valor de la habilidad para esta prueba.",
+  "flavour": "Los cirios emiten un resplandor fantasmal, y las llamas se mueven como si tuvieran vida.",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Kristina Gehrmann",
+  "packName": "El legado de Dunwich",
+  "position": 29,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Velas rituales</b><b> (</b>[set:e2-09307c83][set:e5-6cc1b92c] <b> 29, </b>[set:e2-09307c83]<b> 5), </b><b>Mirada hipnótica</b><b> (</b>[set:e7-98c92876]<b> 153, </b>[set:e2-09307c83]<b> 14, 23) </b><b>Joya de Aureolus</b><b> (</b>[set:e5-6cc1b92c]<b> 269), </b><b>Voz de Ra</b><b> ( 16), </b><b>Desterrar</b><b> (</b>[set:e12-05e0449f]<b> 113):</b> Estas cartas ahora dicen “un símbolo” en lugar de la lista de símbolos indicados.",
+  "changeShared": true,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Objeto.",
+   "paras": [
+    {
+     "t": "[reaction] Después de que sea revelado un símbolo durante una prueba que estés realizando: Recibes +1 al valor de la habilidad para esta prueba.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "02108",
+  "name": "Batidor",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 1,
+  "traits": "Talento.",
+  "text": "[free] Durante tu turno, si no estás enfrentado a ningún Enemigo, agota el Batidor: Muévete a un Lugar conectado.",
+  "flavour": "Los amantes del terror frecuentan los lugares misteriosos y remotos. <cite>H. P. Lovecraft, \"La lámina de la casa\"</cite>",
+  "skills": [
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Adam Lane",
+  "packName": "El museo Miskatonic",
+  "position": 108,
+  "taboo": {
+   "xp": 1
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Batidor</b><b> (</b>[set:e5-6cc1b92c] <b> 108):</b> +1 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Talento.",
+   "paras": [
+    {
+     "t": "[free] Durante tu turno, si no estás enfrentado a ningún Enemigo, agota el Batidor: Muévete a un Lugar conectado.",
+     "k": "p"
+    }
+   ],
+   "note": "Encadenada (+1 de experiencia)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "02111",
+  "name": "Ahondar demasiado",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Inspiración.",
+  "text": "En el orden de juego, cada investigador roba 1 carta de la parte superior del mazo de Encuentros. A continuación, añade Ahondar demasiado a la zona de victoria.",
+  "flavour": "Algunas cosas no se pueden olvidar tras haberlas visto.",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": 1,
+  "illustrator": "Anders Finér",
+  "packName": "El museo Miskatonic",
+  "position": 111,
+  "taboo": {
+   "text": "This card gains: \"Group limit 2 copies of Delve Too Deep in the victory display.\""
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Ahondar demasiado</b><b> (</b>[set:e5-6cc1b92c] <b> 111):</b> Esta carta obtiene: “Límite de grupo de 2 copias de Ahondar demasiado en la zona de victoria.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Inspiración.",
+   "paras": [
+    {
+     "t": "En el orden de juego, cada investigador roba 1 carta de la parte superior del mazo de Encuentros. A continuación, añade Ahondar demasiado a la zona de victoria. Límite de grupo de 2 copias de Ahondar demasiado en la zona de victoria.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Victoria 1.</b>",
+     "k": "center"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "02153",
+  "name": "Mirada hipnótica",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 0,
+  "traits": "Hechizo.",
+  "text": "Rápido. Juega esta carta cuando un Enemigo ataque a un investigador que esté en tu Lugar.\nCancela el ataque. A continuación, revela una ficha aleatoria de la bolsa de caos. Si tiene un símbolo [skull], [cultist], [tablet], [elder_thing] o [auto_fail], inflige el daño del Enemigo atacante a sí mismo.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Falk",
+  "packName": "El Essex County Express",
+  "position": 153,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2016 FFG",
+  "set": "cf3f94c738",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Velas rituales</b><b> (</b>[set:e2-09307c83][set:e5-6cc1b92c] <b> 29, </b>[set:e2-09307c83]<b> 5), </b><b>Mirada hipnótica</b><b> (</b>[set:e7-98c92876]<b> 153, </b>[set:e2-09307c83]<b> 14, 23) </b><b>Joya de Aureolus</b><b> (</b>[set:e5-6cc1b92c]<b> 269), </b><b>Voz de Ra</b><b> ( 16), </b><b>Desterrar</b><b> (</b>[set:e12-05e0449f]<b> 113):</b> Estas cartas ahora dicen “un símbolo” en lugar de la lista de símbolos indicados.",
+  "changeShared": true,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Hechizo.",
+   "paras": [
+    {
+     "t": "Rápido. Juega esta carta cuando un Enemigo ataque a un investigador que esté en tu Lugar.",
+     "k": "p"
+    },
+    {
+     "t": "Cancela el ataque. A continuación, revela una ficha aleatoria de la bolsa de caos. Si tiene un símbolo, inflige el daño del Enemigo atacante a sí mismo.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "02226",
+  "name": "Springfield M1903",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 4,
+  "traits": "Objeto. Arma. Arma de fuego.",
+  "text": "Usos (3 municiones).\n[action] Gasta 1 munición: <b>Combatir</b>. Recibes +3 [combat] e infliges +2 de daño para este ataque. No se puede usar para atacar a Enemigos enfrentados a ti.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand x2"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Jason Caffoe",
+  "packName": "Invisibles y sin dimensión",
+  "position": 226,
+  "taboo": {
+   "text": "This card's [action] ability gains: \"This attack may target a non-[[Elite]] enemy up to one location away from its standard range, ignoring the aloof and retaliate keywords.\""
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Springfield M1903</b><b> (</b>[set:e5-6cc1b92c] <b> 226):</b> La capacidad [action] de esta carta obtiene: “Este ataque puede tomar como objetivo a un Enemigo que no sea Élite<i> y que esté a hasta 1 Lugar de distancia de su alcance estándar, ignorando las </i><i>palabras clave</i><i> </i><i>Indiferente</i><i> y </i><i>Represalia</i>.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Objeto. Arma. Arma de fuego.",
+   "paras": [
+    {
+     "t": "Usos (3 municiones).",
+     "k": "p"
+    },
+    {
+     "t": "[action] Gasta 1 munición: <b>Combatir</b>. Recibes +3 [combat] e infliges +2 de daño para este ataque. No se puede usar para atacar a Enemigos enfrentados a ti. Este ataque puede tomar como objetivo a un Enemigo que no sea <b><i>Élite</i></b> y que esté a hasta 1 Lugar de distancia de su alcance estándar, ignorando las palabras clave Indiferente y Represalia.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "02229",
+  "name": "Reacción rápida",
+  "subname": "",
+  "unique": false,
+  "type": "skill",
+  "typeName": "Habilidad",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 0,
+  "traits": "Innato.",
+  "text": "Si esta prueba de habilidad tiene éxito por 2 o más, después de que se resuelva, puedes realizar una acción inmediatamente como si fuera tu turno. Esta acción no cuenta para el número de acciones que puedes realizar en cada turno.",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "David Auden Nash",
+  "packName": "Invisibles y sin dimensión",
+  "position": 229,
+  "taboo": {
+   "text": "At the end of its ability, this card gains: \"(max once per round).\""
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Reacción rápida</b><b> (</b>[set:e5-6cc1b92c] <b> 229):</b> Esta carta obtiene: “Máximo de una vez por ronda.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "assisted": true,
+  "corrected": true,
+  "pdf": {
+   "traits": "Innato.",
+   "paras": [
+    {
+     "t": "Si esta prueba de habilidad tiene éxito por 2 o más, después de que se resuelva, puedes realizar una acción inmediatamente como si fuera tu turno. Esta acción no cuenta para el número de acciones que puedes realizar en cada turno. (Máximo de una vez por ronda.)",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "02263",
+  "name": "Solución extraña",
+  "subname": "Icor ácido",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 4,
+  "traits": "Objeto. Ciencia.",
+  "text": "Sólo puedes incluir este Apoyo en tu mazo si lo mejoras a partir de la Solución extraña <i>(Sin identificar)</i>, y sólo si en el registro de campaña aparece que \"habéis identificado la solución\".\nUsos (3 suministros).\n[action] Gasta 1 suministro. <b>Combatir.</b> Atacas con una habilidad [combat] básica de 6. Este ataque inflige +2 puntos de daño.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "combat"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Tiziano Baracchi",
+  "packName": "Donde aguarda la perdición",
+  "position": 263,
+  "taboo": {
+   "text": "This card's fight ability now reads \"+1 damage\" instead of \"+2 damage.\""
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Solución extraña (Icor ácido)</b><b> (</b>[set:e5-6cc1b92c] <b> 263):</b> La capacidad Combatir de esta carta ahora dice: “+1 punto de daño” en vez de “+2 puntos de daño”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuiltWhy": "el texto que se sustituye no aparece en la carta en este idioma",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Objeto. Ciencia.",
+   "paras": [
+    {
+     "t": "Sólo puedes incluir este Apoyo en tu mazo si lo mejoras a partir de la Solución extraña <i>(Sin identificar)</i>, y sólo si en el registro de campaña aparece que \"habéis identificado la solución\".",
+     "k": "p"
+    },
+    {
+     "t": "Usos (3 suministros).",
+     "k": "p"
+    },
+    {
+     "t": "[action] Gasta 1 suministro. <b>Combatir.</b> Atacas con una habilidad [combat] básica de 6. Este ataque inflige +1 punto de daño.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "02266",
+  "name": "As en la manga",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 0,
+  "xp": 3,
+  "traits": "Truco.",
+  "text": "Excepcional. Rápido. Juega esta carta sólo durante tu turno.\nPuedes realizar 3 acciones adicionales en este turno.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "John Pacer",
+  "packName": "Donde aguarda la perdición",
+  "position": 266,
+  "taboo": {
+   "text": "This card gains: \"Max once per round.\""
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>As en la manga</b><b> (</b>[set:e5-6cc1b92c] <b> 266):</b> Esta carta obtiene: “Máximo de una vez por ronda”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Truco.",
+   "paras": [
+    {
+     "t": "Excepcional. Rápido. Juega esta carta sólo durante tu turno.",
+     "k": "p"
+    },
+    {
+     "t": "Puedes realizar 3 acciones adicionales en este turno. (Máximo una vez por ronda.)",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "02269",
+  "name": "Joya de Aureolus",
+  "subname": "Regalo de los homúnculos",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 3,
+  "traits": "Objeto. Reliquia.",
+  "text": "[reaction] Después de que sea revelado un símbolo [skull], [cultist], [tablet], [elder_thing] o [auto_fail] durante una prueba de habilidad en tu Lugar, agota la Joya de Aureolus: Roba 1 carta u obtén 2 recursos.",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [
+   "Accessory"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Dani Hartel",
+  "packName": "Donde aguarda la perdición",
+  "position": 269,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Velas rituales</b><b> (</b>[set:e2-09307c83][set:e5-6cc1b92c] <b> 29, </b>[set:e2-09307c83]<b> 5), </b><b>Mirada hipnótica</b><b> (</b>[set:e7-98c92876]<b> 153, </b>[set:e2-09307c83]<b> 14, 23) </b><b>Joya de Aureolus</b><b> (</b>[set:e5-6cc1b92c]<b> 269), </b><b>Voz de Ra</b><b> ( 16), </b><b>Desterrar</b><b> (</b>[set:e12-05e0449f]<b> 113):</b> Estas cartas ahora dicen “un símbolo” en lugar de la lista de símbolos indicados.",
+  "changeShared": true,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Objeto. Reliquia.",
+   "paras": [
+    {
+     "t": "[reaction] Después de que sea revelado un símbolo durante una prueba de habilidad en tu Lugar, agota la Joya de Aureolus: Roba 1 carta u obtén 2 recursos.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "02300",
+  "name": "Asesino de monstruos",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 5,
+  "traits": "Espíritu.",
+  "text": "<b>Combatir.</b> Si este ataque tiene éxito contra un Enemigo que no sea [[Élite]], derrota a ese Enemigo.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Henning Ludvigsen",
+  "packName": "Perdidos en el tiempo y el espacio",
+  "position": 300,
+  "taboo": {
+   "xp": -2
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Asesino de monstruos</b><b> (</b>[set:e5-6cc1b92c] <b> 300):</b> –2 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Espíritu.",
+   "paras": [
+    {
+     "t": "<b>Combatir.</b> Si este ataque tiene éxito contra un Enemigo que no sea [[Élite]], derrota a ese Enemigo.",
+     "k": "p"
+    }
+   ],
+   "note": "Desencadenada (–2 de experiencia)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "03006",
+  "name": "Lola Hayes",
+  "subname": "La actriz",
+  "unique": true,
+  "type": "investigator",
+  "typeName": "Investigador",
+  "subtypeName": "",
+  "faction": "neutral",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": null,
+  "traits": "Artista.",
+  "text": "<b>Obligado</b> - Después de que robes tu mano inicial: Elige un  papel ([survivor], [guardian], [seeker], [rogue], [mystic] o neutral).\nSólo puedes jugar, asignar o activar capacidades de cartas neutrales o de cartas de tu papel.\n[free]: Cambia tu papel. Límite de una vez por ronda.\nEfecto [elder_sign]: +2. Puedes cambiar de papel.",
+  "flavour": "Puede que este sea su regreso triunfal.",
+  "skills": [
+   "willpower",
+   "willpower",
+   "willpower",
+   "intellect",
+   "intellect",
+   "intellect",
+   "combat",
+   "combat",
+   "combat",
+   "agility",
+   "agility",
+   "agility"
+  ],
+  "stats": [
+   3,
+   3,
+   3,
+   3
+  ],
+  "slots": [],
+  "health": 6,
+  "sanity": 6,
+  "victory": null,
+  "illustrator": "Magali Villeneuve",
+  "packName": "El camino a Carcosa",
+  "position": 6,
+  "taboo": {
+   "text": "This card's forced ability is moved to its reverse side, and it should now read: \"<b>Additional Setup</b>: After you draw your opening hand, choose a role ([survivor], [guardian], [seeker], [rogue], [mystic], or Neutral).\"\nThis card's front side additionally gains: \"[action]: Switch roles. Does not provoke attacks of opportunity.\""
+  },
+  "copyright": "© 2017 FFG",
+  "set": "da61d6c0c2",
+  "setAspect": 0.688,
+  "back": {
+   "name": "[unique]Lola Hayes",
+   "subtitle": "La actriz",
+   "paras": [
+    "<b>Tamaño de mazo</b>: 35.",
+    "<b>Opciones de creación de mazos</b>: Cartas Superviviente, Guardián, Buscador, Rebelde y Místico ([survivor], [guardian], [seeker], [rogue] y [mystic]) de nivel 0-3, cartas neutrales de nivel 0-5.",
+    "<b>Requisitos de creación de mazos</b> (no cuentan para el tamaño del mazo): 2 copias de Improvisación, 2 copias de Crisis de identidad, 1 Debilidad básica aleatoria.",
+    "<b>Requisitos adicionales</b>: Tu mazo debe incluir al menos 3 clases distintas y 7 cartas de cada una de esas clases ([survivor], [guardian], [seeker], [rogue] y [mystic])."
+   ],
+   "flavour": "Lola ha actuado en recintos llenos hasta la bandera de todo el mundo, pero ninguna obra ha sido tan perturbadora y extraña como <em>El Rey de Amarillo</em>. Todo lo que la rodea traía calamidades y terror, incluso durante los ensayos. Cuando encontraron a Míriam, su coprotagonista, flotando muerta en el Sena, Lola decidió que ya había tenido suficiente y le escribió una carta al director explicándole que la próxima actuación sería la última en la que ella tomaría parte. Ahora vuelve a casa, a Arkham, para un último espectáculo, con la esperanza de poder librarse por fin de esta temible obra.",
+   "warn": [],
+   "top": 20.03,
+   "left": 7.37,
+   "size": 2.921,
+   "flavSize": 2.936,
+   "lead": 1.021,
+   "gap": 0.236,
+   "photo": [
+    [
+     20.03,
+     41.16
+    ],
+    [
+     25.28,
+     40.76
+    ],
+    [
+     29.55,
+     40.36
+    ],
+    [
+     33.79,
+     39.97
+    ],
+    [
+     39.0,
+     39.17
+    ],
+    [
+     43.27,
+     38.78
+    ],
+    [
+     47.51,
+     38.38
+    ],
+    [
+     52.72,
+     37.98
+    ],
+    [
+     54.85,
+     37.980080206370765
+    ]
+   ]
+  },
+  "backChange": true,
+  "w": 1048,
+  "h": 738,
+  "change": "<b>Lola Hayes</b><b> (</b>[set:e1-fad9e2ec]<b>  6)</b><b>:</b> La capacidad Obligado de esta carta se mueve a su reverso y debería decir: “<b>Preparación adicional: </b>Después de que robes tu mano inicial: Elige un papel (“[survivor], [guardian], [seeker], [rogue], [mystic] o neutral)”. Además, el anverso de esta carta obtiene: “[action]: Cambia de papel. No provoca ataques de oportunidad.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Artista.",
+   "paras": [
+    {
+     "t": "Sólo puedes jugar, asignar o activar capacidades de cartas neutrales o de cartas de tu papel.",
+     "k": "p"
+    },
+    {
+     "t": "[free]: Cambia tu papel. Límite de una vez por ronda.",
+     "k": "p"
+    },
+    {
+     "t": "[action]: Cambia de papel. No provoca ataques de oportunidad.",
+     "k": "p"
+    },
+    {
+     "t": "Efecto [elder_sign]: +2. Puedes cambiar de papel.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "backTaboo": {
+   "name": "[unique]Lola Hayes",
+   "subtitle": "La actriz",
+   "paras": [
+    "<b>Tamaño de mazo</b>: 35.",
+    "<b>Opciones de creación de mazos</b>: Cartas Superviviente, Guardián, Buscador, Rebelde y Místico ([survivor], [guardian], [seeker], [rogue] y [mystic]) de nivel 0-3, cartas neutrales de nivel 0-5.",
+    "<b>Requisitos de creación de mazos</b> (no cuentan para el tamaño del mazo): 2 copias de Improvisación, 2 copias de Crisis de identidad, 1 Debilidad básica aleatoria.",
+    "<b>Requisitos adicionales</b>: Tu mazo debe incluir al menos 3 clases distintas y 7 cartas de cada una de esas clases ([survivor], [guardian], [seeker], [rogue] y [mystic]).",
+    "<b>Preparación adicional: </b>Después de que robes tu mano inicial: Elige un papel ([survivor], [guardian], [seeker], [rogue], [mystic] o neutral)."
+   ],
+   "flavour": "Lola ha actuado en recintos llenos hasta la bandera de todo el mundo, pero ninguna obra ha sido tan perturbadora y extraña como <em>El Rey de Amarillo</em>. Todo lo que la rodea traía calamidades y terror, incluso durante los ensayos. Cuando encontraron a Míriam, su coprotagonista, flotando muerta en el Sena, Lola decidió que ya había tenido suficiente y le escribió una carta al director explicándole que la próxima actuación sería la última en la que ella tomaría parte. Ahora vuelve a casa, a Arkham, para un último espectáculo, con la esperanza de poder librarse por fin de esta temible obra.",
+   "warn": [],
+   "top": 20.03,
+   "left": 7.37,
+   "size": 2.921,
+   "flavSize": 2.936,
+   "lead": 1.021,
+   "gap": 0.236,
+   "photo": [
+    [
+     20.03,
+     41.16
+    ],
+    [
+     25.28,
+     40.76
+    ],
+    [
+     29.55,
+     40.36
+    ],
+    [
+     33.79,
+     39.97
+    ],
+    [
+     39.0,
+     39.17
+    ],
+    [
+     43.27,
+     38.78
+    ],
+    [
+     47.51,
+     38.38
+    ],
+    [
+     52.72,
+     37.98
+    ],
+    [
+     54.85,
+     37.980080206370765
+    ]
+   ]
+  },
+  "corrected": true,
+  "noteOwnLine": false
+ },
+ {
+  "code": "03019",
+  "name": "Crisis de identidad",
+  "subname": "",
+  "unique": false,
+  "type": "treachery",
+  "typeName": "Traición",
+  "subtypeName": "Debilidad",
+  "faction": "neutral",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": null,
+  "traits": "Locura.",
+  "text": "<b>Revelación</b> - Descarta todas las cartas de tu papel actual que controles. A continuación, descarta la primera carta de tu mazo. Cambia tu papel a la clase de la carta descartada; si la carta descartada es una Debilidad, cambia tu papel a neutral.",
+  "flavour": "\"He interpretado tantos papeles que una cierta locura es de esperar.\"",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matt Bradbury",
+  "packName": "El camino a Carcosa",
+  "position": 19,
+  "taboo": {
+   "text": "This card's revelation ability now reads: \"Discard 1 card in your hand or play area of your current role. Then...\""
+  },
+  "copyright": "© 2017 FFG",
+  "set": "c541dda3c6",
+  "setAspect": 0.688,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Crisis de identidad</b><b> (</b>[set:e1-fad9e2ec]<b>  19):</b> La capacidad <b>Revelación</b> de esta carta ahora dice: “Descarta 1 carta de tu papel actual de tu mano o zona de juego. A continuación...”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Locura.",
+   "paras": [
+    {
+     "t": "<b>Revelación</b> - Descarta 1 carta de tu papel actual de tu mano o zona de juego. A continuación, descarta la primera carta de tu mazo. Cambia tu papel a la clase de la carta descartada; si la carta descartada es una Debilidad, cambia tu papel a neutral.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "03029",
+  "name": "Truco de manos",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Truco.",
+  "text": "Rápido. Juega esta carta sólo durante tu turno.\nPon en juego un Apoyo [[Objeto]] desde tu mano. Al final de tu turno, si ese Apoyo sigue en juego, devuélvelo a tu mano.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Ilich Henriquez",
+  "packName": "El camino a Carcosa",
+  "position": 29,
+  "taboo": {
+   "text": "This card's ability now reads: \"Put a level 0-3 [[Item]] asset into play from your hand.\""
+  },
+  "copyright": "© 2017 FFG",
+  "set": "c541dda3c6",
+  "setAspect": 0.688,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Truco de manos</b><b> (</b>[set:e1-fad9e2ec]<b>  29):</b> La capacidad de esta carta ahora dice: “Pon en juego un Apoyo <i><b>Objeto</b></i> de nivel 0–3 desde tu mano.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Truco.",
+   "paras": [
+    {
+     "t": "Rápido. Juega esta carta sólo durante tu turno.",
+     "k": "p"
+    },
+    {
+     "t": "Pon en juego un Apoyo <i><b>Objeto</b></i> de nivel 0–3 desde tu mano. Al final de tu turno, si ese Apoyo sigue en juego, devuélvelo a tu mano.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "03112",
+  "name": "David Renfield",
+  "subname": "Reputado escatólogo",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Aliado. Mecenas.",
+  "text": "Mientras David Renfield tenga al menos 1 ficha de Perdición sobre él, recibes +1 [willpower].\n[free] Agota a David Renfield: Puedes colocar 1 ficha de Perdición sobre David Renfield. Obtén 1 recurso por cada ficha de Perdición que haya sobre David Renfield.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 2,
+  "sanity": 1,
+  "victory": null,
+  "illustrator": "Alexandre Dainche",
+  "packName": "Ecos del pasado",
+  "position": 112,
+  "taboo": {
+   "text": "This card's [fast] ability now reads: \"...Gain 1 resource for each doom on David Renfield (to a maximum of 3 resources).\""
+  },
+  "copyright": "© 2017 FFG",
+  "set": "c541dda3c6",
+  "setAspect": 0.688,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>David Renfield</b><b> (</b>[set:e1-fad9e2ec]<b>  112)</b><b>:</b> La capacidad [free] de esta carta ahora dice: “... Obtén 1 recurso por cada ficha de Perdición que haya sobre David Renfield (hasta un máximo de 3 recursos).”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Aliado. Mecenas.",
+   "paras": [
+    {
+     "t": "Mientras David Renfield tenga al menos 1 ficha de Perdición sobre él, recibes +1 [willpower].",
+     "k": "p"
+    },
+    {
+     "t": "[free] Agota a David Renfield: Puedes colocar 1 ficha de Perdición sobre David Renfield. Obtén 1 recurso por cada ficha de Perdición que haya sobre David Renfield (hasta un máximo de 3 recursos).",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "03315",
+  "name": "Llave de Ys",
+  "subname": "Que ruja la tormenta",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "neutral",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 5,
+  "traits": "Objeto. Reliquia.",
+  "text": "Recibes +1 a cada una de tus habilidades por cada punto de horror que haya sobre la Llave de Ys.\n<b>Obligado</b> - Cuando fuese a ser colocada cualquier cantidad de horror sobre ti: Coloca 1 punto de ese horror sobre la Llave de Ys.\n<b>Obligado</b> - Cuando la Llave de Ys abandone el juego: Descarta las 10 primeras cartas de tu mazo.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [
+   "Accessory"
+  ],
+  "health": null,
+  "sanity": 4,
+  "victory": null,
+  "illustrator": "Stephen Somers",
+  "packName": "Penumbrosa Carcosa",
+  "position": 315,
+  "taboo": {
+   "text": "This card gains the Exceptional keyword.",
+   "exceptional": true
+  },
+  "copyright": "© 2017 FFG",
+  "set": "c541dda3c6",
+  "setAspect": 0.688,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Llave de Ys</b><b> (</b>[set:e5-6cc1b92c] <b> 315):</b> Esta carta obtiene la palabra clave Excepcional.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Objeto. Reliquia.",
+   "paras": [
+    {
+     "t": "Excepcional.",
+     "k": "p"
+    },
+    {
+     "t": "Recibes +1 a cada una de tus habilidades por cada punto de horror que haya sobre la Llave de Ys.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Obligado</b> - Cuando fuese a ser colocada cualquier cantidad de horror sobre ti: Coloca 1 punto de ese horror sobre la Llave de Ys.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Obligado</b> - Cuando la Llave de Ys abandone el juego: Descarta las 10 primeras cartas de tu mazo.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "04032",
+  "name": "Profecía oscura",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Presagio.",
+  "text": "Rápido. Juega esta carta cuando fueses a revelar una ficha de Caos.\nRevela 5 fichas de Caos en lugar de 1. Elige una de esas fichas que tenga un símbolo [skull], [cultist], [tablet], [elder_thing] o [auto_fail] para resolverla e ignora el resto. Si no es revelada ninguna de esas fichas, elige cualquier otra ficha de entre las reveladas para resolverla e ignora el resto.",
+  "flavour": "Los secretos están escritos en las estrellas.",
+  "skills": [
+   "willpower",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Alice Duke",
+  "packName": "La era olvidada",
+  "position": 32,
+  "taboo": {
+   "text": "This card now reads \"a non-[elder_sign] symbol\" instead of \"a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol.\""
+  },
+  "copyright": "© 2017 FFG",
+  "set": "aa99f780cd",
+  "setAspect": 1.148,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Profecía oscura</b><b> (</b>[set:e3-2540bab3] <b> 32, </b>[set:e2-09307c83]<b> 17):</b> Estas cartas ahora dicen: “un símbolo que no sea [eldersign]” en lugar de “un símbolo [skull], [cultist], [tablet], [elderthing] o [autofail]”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Presagio.",
+   "paras": [
+    {
+     "t": "Rápido. Juega esta carta cuando fueses a revelar una ficha de Caos.",
+     "k": "p"
+    },
+    {
+     "t": "Revela 5 fichas de Caos en lugar de 1. Elige una de esas fichas que tenga un símbolo que no sea [eldersign] para resolverla e ignora el resto. Si no es revelada ninguna de esas fichas, elige cualquier otra ficha de entre las reveladas para resolverla e ignora el resto.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "04105",
+  "name": "Persuasión",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Inspiración. Truco.",
+  "text": "<b>Negociar.</b> Elige un Enemigo [[Humanoide]] que no sea Debilidad y que esté en tu Lugar y realiza una prueba de [intellect] (3). Esta prueba recibe +X a su dificultad, donde X es el valor de horror de ese Enemigo. Si tienes éxito, devuelve el Enemigo elegido al mazo de Encuentros y baraja éste. Si el Enemigo elegido es [[Élite]], en lugar de eso evítalo automáticamente.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Rafał Hrynkiewicz",
+  "packName": "Los hilos del destino",
+  "position": 105,
+  "taboo": {
+   "text": "This card's ability now reads \"<b>Parley.</b> Choose a non-weakness enemy at your location…\""
+  },
+  "copyright": "© 2018 FFG",
+  "set": "26a8cf9379",
+  "setAspect": 1.148,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Persuasión</b><b> (</b>[set:e3-2540bab3] <b> 105):</b> La capacidad de esta carta ahora dice: “<b>Negociar</b><b>. </b>Elige un Enemigo que no sea Debilidad y que esté en tu Lugar...”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Inspiración. Truco.",
+   "paras": [
+    {
+     "t": "<b>Negociar.</b> Elige un Enemigo que no sea Debilidad y que esté en tu Lugar y realiza una prueba de [intellect] (3). Esta prueba recibe +X a su dificultad, donde X es el valor de horror de ese Enemigo. Si tienes éxito, devuelve el Enemigo elegido al mazo de Encuentros y baraja éste. Si el Enemigo elegido es [[Élite]], en lugar de eso evítalo automáticamente.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "04110",
+  "name": "Contrahechizo",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 2,
+  "traits": "Hechizo. Bendecido.",
+  "text": "Rápido. Juega esta carta cuando se revele una ficha de Caos [skull], [cultist], [tablet] o [elder_thing] durante una prueba de habilidad en tu Lugar.\nCancela esa ficha de Caos <em>(No reveles una nueva ficha de Caos para sustituirla)</em>.",
+  "flavour": "“No mientras yo esté aquí.”",
+  "skills": [
+   "willpower",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matthew Cowdery",
+  "packName": "Los hilos del destino",
+  "position": 110,
+  "taboo": {
+   "text": "This card now reads \"a non-[auto_fail] symbol\" instead of \"a [skull], [cultist], [tablet], or [elder_thing] chaos token.\""
+  },
+  "copyright": "© 2018 FFG",
+  "set": "aa99f780cd",
+  "setAspect": 1.148,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Contrahechizo</b><b> (</b>[set:e3-2540bab3] <b> 110):</b> Esta carta ahora dice “un símbolo que no sea [autofail]” en lugar de “una ficha de Caos [skull], [cultist], [tablet] o [elderthing]”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Hechizo. Bendecido.",
+   "paras": [
+    {
+     "t": "Rápido. Juega esta carta cuando se revele un símbolo que no sea [autofail] durante una prueba de habilidad en tu Lugar.",
+     "k": "p"
+    },
+    {
+     "t": "Cancela esa ficha de Caos <em>(No reveles una nueva ficha de Caos para sustituirla)</em>.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "04233",
+  "name": "Día de cobro",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 0,
+  "xp": 1,
+  "traits": "Ilegal. Predestinado.",
+  "text": "Obtén 1 recurso por cada acción que hayas realizado en este turno <em>(incluida ésta)</em>. Si es tu turno, termina tu turno.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Dual Brush Studios",
+  "packName": "La Ciudad de los Archivos",
+  "position": 233,
+  "taboo": {
+   "text": "This card’s ability now reads: “Gain 1 resource for each action you spent this turn…”"
+  },
+  "copyright": "© 2018 FFG",
+  "set": "aa99f780cd",
+  "setAspect": 1.148,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Día de cobro</b><b> (</b>[set:e3-2540bab3] <b> 233):</b> La capacidad de esta carta ahora dice: “Obtén 1 recurso por cada acción que hayas gastado en este turno...”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Ilegal. Predestinado.",
+   "paras": [
+    {
+     "t": "Obtén 1 recurso por cada acción que hayas gastado en este turno <em>(incluida ésta)</em>. Si es tu turno, termina tu turno.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "04305",
+  "name": "Lanzallamas",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 5,
+  "traits": "Objeto. Arma. Arma de fuego.",
+  "text": "Usos (4 municiones).\n[action] Gasta 1 munición: <b>Combatir.</b> El Enemigo elegido para este ataque debe ser el Enemigo enfrentado a ti con el valor de combate más alto. Recibes +4 [combat] para este ataque. Si este ataque tiene éxito, en lugar de su daño estándar puedes asignar hasta 4 puntos de daño entre Enemigos enfrentados a ti <em>(cualquier daño adicional se suma a este total)</em>.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "combat",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [
+   "Body",
+   "Hand x2"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Jose Vega",
+  "packName": "Eones destrozados",
+  "position": 305,
+  "taboo": {
+   "xp": 1
+  },
+  "copyright": "© 2018 FFG",
+  "set": "26a8cf9379",
+  "setAspect": 1.148,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Lanzallamas</b><b> (</b>[set:e3-2540bab3] <b> 305):</b> +1 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Objeto. Arma. Arma de fuego.",
+   "paras": [
+    {
+     "t": "Usos (4 municiones).",
+     "k": "p"
+    },
+    {
+     "t": "[action] Gasta 1 munición: <b>Combatir.</b> El Enemigo elegido para este ataque debe ser el Enemigo enfrentado a ti con el valor de combate más alto. Recibes +4 [combat] para este ataque. Si este ataque tiene éxito, en lugar de su daño estándar puedes asignar hasta 4 puntos de daño entre Enemigos enfrentados a ti <em>(cualquier daño adicional se suma a este total)</em>.",
+     "k": "p"
+    }
+   ],
+   "note": "Encadenada (+1 de experiencia)."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "04309",
+  "name": "No va más",
+  "subname": "",
+  "unique": false,
+  "type": "skill",
+  "typeName": "Habilidad",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 5,
+  "traits": "Fortuna.",
+  "text": "Máximo de 1 asignada por prueba de habilidad.\nSi esta prueba tiene éxito, roba 1 carta por cada punto que tengas por encima del valor mínimo de éxito, hasta un máximo de 5. Devuelve a tu mazo cada Debilidad robada por este efecto sin resolverla y baraja tu mazo.",
+  "flavour": "",
+  "skills": [
+   "wild",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Borja Pindado",
+  "packName": "Eones destrozados",
+  "position": 309,
+  "taboo": {
+   "text": "At the end of its ability, this card gains: \"Remove All In from the game.\""
+  },
+  "copyright": "© 2018 FFG",
+  "set": "26a8cf9379",
+  "setAspect": 1.148,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>No va más</b><b> (</b>[set:e3-2540bab3] <b> 309):</b> Al final de su capacidad, esta carta obtiene: “Retira No va más de la partida.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Fortuna.",
+   "paras": [
+    {
+     "t": "Máximo de 1 asignada por prueba de habilidad.",
+     "k": "p"
+    },
+    {
+     "t": "Si esta prueba tiene éxito, roba 1 carta por cada punto que tengas por encima del valor mínimo de éxito, hasta un máximo de 5. Devuelve a tu mazo cada Debilidad robada por este efecto sin resolverla y baraja tu mazo. Retira No va más de la partida.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "05020",
+  "name": "Interrogar",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Táctica. Inspiración.",
+  "text": "<b>Negociar</b>. Elige un Enemigo [[Humanoide]] que esté en tu Lugar y realiza una prueba de [combat] (3). Esta prueba recibe un +X a su dificultad, donde X es el valor de daño del Enemigo elegido. Si tienes éxito, descubre 1 pista en tu Lugar y 1 pista en cualquier otro Lugar.",
+  "flavour": "Estaba ocultando algo… pero ¿por qué?",
+  "skills": [
+   "intellect",
+   "combat"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "John Pacer",
+  "packName": "El círculo roto",
+  "position": 20,
+  "taboo": {
+   "text": "This card's ability now reads \"<b>Parley.</b> Choose a non-[[Elite]] enemy at your location…\""
+  },
+  "copyright": "© 2018 FFG",
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Interrogar</b><b> (</b>[set:e12-05e0449f] <b> 20):</b> La capacidad de esta carta ahora dice: “<b>Negociar. </b>Elige un Enemigo que no sea <i><b>Élite</b></i> y que esté en tu Lugar...”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Táctica. Inspiración.",
+   "paras": [
+    {
+     "t": "<b>Negociar</b>. Elige un Enemigo que no sea <i><b>Élite</b></i> y que esté en tu Lugar y realiza una prueba de [combat] (3). Esta prueba recibe un +X a su dificultad, donde X es el valor de daño de ese Enemigo. Si tienes éxito, descubre 1 pista en tu Lugar y 1 pista en cualquier otro Lugar.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "05113",
+  "name": "Desterrar",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 1,
+  "traits": "Hechizo.",
+  "text": "<b>Evitar</b>. Usa esta capacidad sólo contra un Enemigo que no sea [[Élite]]. Este intento de evitar usa [willpower] en lugar de [agility]. Si tienes éxito, mueve el Enemigo que acabas de evitar a cualquier Lugar en juego. Si tienes éxito y fue revelado un símbolo [skull], [cultist], [tablet] o [elder_thing] durante este intento de evitar, ese Enemigo no se prepara durante la siguiente fase de Mantenimiento.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Stephen Somers",
+  "packName": "El nombre secreto",
+  "position": 113,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2018 FFG",
+  "set": "fbb4e406ac",
+  "setAspect": 1.862,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Velas rituales</b><b> (</b>[set:e2-09307c83][set:e5-6cc1b92c] <b> 29, </b>[set:e2-09307c83]<b> 5), </b><b>Mirada hipnótica</b><b> (</b>[set:e7-98c92876]<b> 153, </b>[set:e2-09307c83]<b> 14, 23) </b><b>Joya de Aureolus</b><b> (</b>[set:e5-6cc1b92c]<b> 269), </b><b>Voz de Ra</b><b> ( 16), </b><b>Desterrar</b><b> (</b>[set:e12-05e0449f]<b> 113):</b> Estas cartas ahora dicen “un símbolo” en lugar de la lista de símbolos indicados.",
+  "changeShared": true,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Hechizo.",
+   "paras": [
+    {
+     "t": "<b>Evitar</b>. Usa esta capacidad sólo contra un Enemigo que no sea [[Élite]]. Este intento de evitar usa [willpower] en lugar de [agility]. Si tienes éxito, mueve el Enemigo que acabas de evitar a cualquier Lugar en juego. Si tienes éxito y fue revelado un símbolo durante este intento de evitar, ese Enemigo no se prepara durante la siguiente fase de Mantenimiento.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "05116",
+  "name": "Pergamino de secretos",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": "mystic",
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Objeto. Tomo.",
+  "text": "Usos (3 secretos).\n[action] Agota el Pergamino de secretos y gasta 1 secreto: Mira la última carta del mazo de cualquier investigador o del mazo de Encuentros. A continuación, elige si descartas esa carta, la añades a la mano de su propietario, la colocas en la parte inferior de su mazo o bien la colocas en la parte superior de su mazo.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matthew Cowdery",
+  "packName": "El nombre secreto",
+  "position": 116,
+  "taboo": {
+   "text": "This card's [action] ability is now a [fast] ability."
+  },
+  "copyright": "© 2018 FFG",
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Pergamino de secretos (las 3 versiones)</b><b> (</b>[set:e12-05e0449f] <b> 116, 188, 189):</b> Las capacidades [action] de estas cartas ahora son capacidades [free].",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Objeto. Tomo.",
+   "paras": [
+    {
+     "t": "Usos (3 secretos).",
+     "k": "p"
+    },
+    {
+     "t": "[free] Agota el Pergamino de secretos y gasta 1 secreto: Mira la última carta del mazo de cualquier investigador o del mazo de Encuentros. A continuación, elige si descartas esa carta, la añades a la mano de su propietario, la colocas en la parte inferior de su mazo o bien la colocas en la parte superior de su mazo.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "05153",
+  "name": "Sr. \"Torre\"",
+  "subname": "Tratante de secretos",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 0,
+  "traits": "Aliado.",
+  "text": "Usos (3 secretos).\n[free] Agota al Sr. \"Torre\" y gasta 1 secreto: Busca entre las 3, 6 o 9 primeras cartas de tu mazo cualquier carta y róbala. Si hay al menos 1 Debilidad entre las cartas que has mirado, roba también 1 de ellas. Baraja tu mazo.",
+  "flavour": "\"¿Seguro que lo quieres saber? No hay vuelta atrás.\"",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 2,
+  "sanity": 2,
+  "victory": null,
+  "illustrator": "Romana Kendelic",
+  "packName": "La paga del pecado",
+  "position": 153,
+  "taboo": {
+   "text": "This card's [fast] ability is now a [action] ability."
+  },
+  "copyright": "© 2018 FFG",
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Sr. “Torre”</b><b> (</b>[set:e12-05e0449f] <b> 153):</b> La capacidad [free] de esta carta ahora es una capacidad [action].",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Aliado.",
+   "paras": [
+    {
+     "t": "Usos (3 secretos).",
+     "k": "p"
+    },
+    {
+     "t": "[action] Agota al Sr. \"Torre\" y gasta 1 secreto: Busca entre las 3, 6 o 9 primeras cartas de tu mazo cualquier carta y róbala. Si hay al menos 1 Debilidad entre las cartas que has mirado, roba también 1 de ellas. Baraja tu mazo.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "05156",
+  "name": "Reflejos rápidos",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Gambito.",
+  "text": "Rápido. Juega esta carta durante el turno de cualquier investigador, excepto durante una acción.\nRealiza una acción inmediatamente como si fuera tu turno. Esta acción no cuenta para el número de acciones que puedes realizar cada turno.",
+  "flavour": "",
+  "skills": [
+   "agility",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Miguel Coimbra",
+  "packName": "La paga del pecado",
+  "position": 156,
+  "taboo": {
+   "text": "This card gains \"(Limit twice per round.)\""
+  },
+  "copyright": "© 2019 FFG",
+  "set": "e77ed389f1",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Reflejos rápidos</b><b> (</b>[set:e12-05e0449f] <b> 156):</b> Esta carta obtiene “Límite de dos veces por ronda”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Gambito.",
+   "paras": [
+    {
+     "t": "Rápido. Juega esta carta durante el turno de cualquier investigador, excepto durante una acción.",
+     "k": "p"
+    },
+    {
+     "t": "Realiza una acción inmediatamente como si fuera tu turno. Esta acción no cuenta para el número de acciones que puedes realizar cada turno. (Límite de dos veces por ronda.)",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "05157",
+  "name": "Ajar",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Hechizo.",
+  "text": "[action]: <b>Combatir.</b> Este ataque usa [willpower] en lugar de [combat]. Si se revela un símbolo [skull], [cultist], [tablet] o [elder_thing] durante este ataque, el Enemigo atacado recibe -1 a combate y -1 a evitar durante el resto del turno (hasta un mínimo de 1).",
+  "flavour": "",
+  "skills": [
+   "combat"
+  ],
+  "stats": null,
+  "slots": [
+   "Arcane"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Damien Worm",
+  "packName": "La paga del pecado",
+  "position": 157,
+  "taboo": {
+   "text": "This card now reads \"a symbol token\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2018 FFG",
+  "set": "e77ed389f1",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Ajar</b><b> (</b>[set:e12-05e0449f] <b> 157):</b> Esta carta ahora dice “una ficha de símbolo” en lugar de la lista de símbolos indicados.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Hechizo.",
+   "paras": [
+    {
+     "t": "[action]: <b>Combatir.</b> Este ataque usa [willpower] en lugar de [combat]. Si se revela un símbolo durante este ataque, el Enemigo atacado recibe -1 a combate y -1 a evitar durante el resto del turno (hasta un mínimo de 1).",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "05159",
+  "name": "Apurando",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 0,
+  "xp": 0,
+  "traits": "Talento.",
+  "text": "[reaction] Cuando inicies una prueba de habilidad, agota Apurando: Aumenta en 2 la dificultad de esta prueba. Obtén 2 recursos o roba 1 carta.",
+  "flavour": "",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Borja Pindado",
+  "packName": "La paga del pecado",
+  "position": 159,
+  "taboo": {
+   "xp": 3
+  },
+  "copyright": "© 2018 FFG",
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Apurando</b><b> (</b>[set:e12-05e0449f] <b> 159):</b> +3 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Talento.",
+   "paras": [
+    {
+     "t": "[reaction] Cuando inicies una prueba de habilidad, agota Apurando: Aumenta en 2 la dificultad de esta prueba. Obtén 2 recursos o roba 1 carta.",
+     "k": "p"
+    }
+   ],
+   "note": "Encadenada (+3 de experiencia)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "05188",
+  "name": "Pergamino de secretos",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 3,
+  "traits": "Objeto. Tomo.",
+  "text": "Usos (3 secretos).\n[action] Agota el Pergamino de secretos y gasta 1 secreto: Mira las 3 últimas cartas del mazo de cualquier investigador o del mazo de Encuentros. Puedes descartar 1 de esas cartas. Puedes añadir 1 de esas cartas a la mano de su propietario. Coloca el resto de esas cartas en la parte superior o inferior de su mazo, en cualquier orden.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matthew Cowdery",
+  "packName": "Por el bien común",
+  "position": 188,
+  "taboo": {
+   "text": "This card's [action] ability is now a [fast] ability."
+  },
+  "copyright": "© 2018 FFG",
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Pergamino de secretos (las 3 versiones)</b><b> (</b>[set:e12-05e0449f] <b> 116, 188, 189):</b> Las capacidades [action] de estas cartas ahora son capacidades [free].",
+  "changeShared": true,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Objeto. Tomo.",
+   "paras": [
+    {
+     "t": "Usos (3 secretos).",
+     "k": "p"
+    },
+    {
+     "t": "[free] Agota el Pergamino de secretos y gasta 1 secreto: Mira las 3 últimas cartas del mazo de cualquier investigador o del mazo de Encuentros. Puedes descartar 1 de esas cartas. Puedes añadir 1 de esas cartas a la mano de su propietario. Coloca el resto de esas cartas en la parte superior o inferior de su mazo, en cualquier orden.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "05189",
+  "name": "Pergamino de secretos",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 3,
+  "traits": "Objeto. Tomo.",
+  "text": "Usos (4 secretos).\n[action] Agota el Pergamino de secretos y gasta 1 secreto: Mira la primera o última carta del mazo de cualquier investigador o del mazo de Encuentros. A continuación, elige si descartas esa carta, la añades a la mano de su propietario, la colocas en la parte inferior de su mazo o bien la colocas en la parte superior de su mazo.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matthew Cowdery",
+  "packName": "Por el bien común",
+  "position": 189,
+  "taboo": {
+   "text": "This card's [action] ability is now a [fast] ability."
+  },
+  "copyright": "© 2018 FFG",
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Pergamino de secretos (las 3 versiones)</b><b> (</b>[set:e12-05e0449f] <b> 116, 188, 189):</b> Las capacidades [action] de estas cartas ahora son capacidades [free].",
+  "changeShared": true,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Objeto. Tomo.",
+   "paras": [
+    {
+     "t": "Usos (4 secretos).",
+     "k": "p"
+    },
+    {
+     "t": "[free] Agota el Pergamino de secretos y gasta 1 secreto: Mira la primera o última carta del mazo de cualquier investigador o del mazo de Encuentros. A continuación, elige si descartas esa carta, la añades a la mano de su propietario, la colocas en la parte inferior de su mazo o bien la colocas en la parte superior de su mazo.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "05230",
+  "name": "Mira telescópica",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 3,
+  "traits": "Objeto. Mejora.",
+  "text": "Rápido. Vincula esta carta a un Apoyo [[Arma de fuego]] que controles y que ocupe dos espacios de mano. El Apoyo vinculado no se puede usar para atacar Enemigos enfrentados a ti.\n[reaction] Cuando realices una acción <b>Combatir</b> usando el Apoyo vinculado, si no estás enfrentado a ningún Enemigo, agota la Mira telescópica: Este ataque puede tomar como objetivo a un Enemigo que no sea [[Élite]] y esté en un Lugar conectado. Ignora las palabras clave Indiferente y Represalia para este ataque.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Tiziano Baracchi",
+  "packName": "Unión y desilusión",
+  "position": 230,
+  "taboo": {
+   "text": "This card loses the text: \"Attached asset cannot be used to attack enemies engaged with you.\""
+  },
+  "copyright": "© 2018 FFG",
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Mira telescópica</b><b> (</b>[set:e12-05e0449f] <b> 230):</b> Esta carta pierde el texto: “El Apoyo vinculado no se puede usar para atacar a Enemigos enfrentados a ti.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuiltWhy": "el texto que se quita no aparece en la carta en este idioma",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Objeto. Mejora.",
+   "paras": [
+    {
+     "t": "Rápido. Vincula esta carta a un Apoyo [[Arma de fuego]] que controles y que ocupe dos espacios de mano.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Cuando realices una acción <b>Combatir</b> usando el Apoyo vinculado, si no estás enfrentado a ningún Enemigo, agota la Mira telescópica: Este ataque puede tomar como objetivo a un Enemigo que no sea [[Élite]] y esté en un Lugar conectado. Ignora las palabras clave Indiferente y Represalia para este ataque.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "05231",
+  "name": "El conocimiento es poder",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 0,
+  "xp": 0,
+  "traits": "Inspiración.",
+  "text": "Rápido. Juega esta carta sólo durante tu turno.\nElige un Apoyo [[Tomo]] o [[Hechizo]] que controles, o revela un Apoyo [[Tomo]] o [[Hechizo]] de tu mano. Resuelve una capacidad [action] o [free] de ese Apoyo, ignorando todos los costes <em>(incluido su coste [action] si lo tiene).</em> A continuación, si ese Apoyo estaba en tu mano, puedes descartarlo para robar 1 carta.",
+  "flavour": "…y el poder corrompe.",
+  "skills": [
+   "willpower",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Michal Milkowski",
+  "packName": "Unión y desilusión",
+  "position": 231,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2018 FFG",
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>El conocimiento es poder</b><b> (</b>[set:e12-05e0449f] <b> 231):</b> +2 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Inspiración.",
+   "paras": [
+    {
+     "t": "Rápido. Juega esta carta sólo durante tu turno.",
+     "k": "p"
+    },
+    {
+     "t": "Elige un Apoyo [[Tomo]] o [[Hechizo]] que controles, o revela un Apoyo [[Tomo]] o [[Hechizo]] de tu mano. Resuelve una capacidad [action] o [free] de ese Apoyo, ignorando todos los costes <em>(incluido su coste [action] si lo tiene).</em> A continuación, si ese Apoyo estaba en tu mano, puedes descartarlo para robar 1 carta.",
+     "k": "p"
+    }
+   ],
+   "note": "Encadenada (+2 de experiencia)."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "05321",
+  "name": "Ajar",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 4,
+  "traits": "Hechizo.",
+  "text": "[action]: <b>Combatir.</b> Este ataque usa [willpower] en lugar de [combat]. Recibes +2 [willpower] para este ataque. Si se revela un símbolo [skull], [cultist], [tablet] o [elder_thing] durante este ataque, el Enemigo atacado recibe -1 a combate, -1 de salud y -1 a evitar durante el resto del turno (hasta un mínimo de 1).",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "combat"
+  ],
+  "stats": null,
+  "slots": [
+   "Arcane"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Damien Worm",
+  "packName": "Ante el trono negro",
+  "position": 321,
+  "taboo": {
+   "text": "This card's [action] ability now reads \"...If a symbol token is revealed during this attack, the attacked enemy gets -1 fight, -1 health, and -1 evade until the end of the phase (to a minimum of 1)."
+  },
+  "copyright": "© 2018 FFG",
+  "set": "e77ed389f1",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Ajar</b><b> (</b>[set:e12-05e0449f] <b> 321):</b> La capacidad [action] de esta carta ahora dice: “... Si es revelada una ficha de símbolo durante este ataque, el Enemigo atacado recibe –1 a combate, –1 de salud y –1 a evitar hasta el final de la fase (hasta un mínimo de 1)”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Hechizo.",
+   "paras": [
+    {
+     "t": "[action]: <b>Combatir.</b> Este ataque usa [willpower] en lugar de [combat]. Recibes +2 [willpower] para este ataque. Si se revela un símbolo durante este ataque, el Enemigo atacado recibe -1 a combate, -1 de salud y -1 a evitar hasta el final de la fase (hasta un mínimo de 1).",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "05324",
+  "name": "Eucatástrofe",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 3,
+  "traits": "Fortuna. Bendecido.",
+  "text": "Rápido. Juega esta carta cuando reveles una ficha de Caos que fuese a reducir tu valor de habilidad a 0 durante una prueba de habilidad (incluida la ficha [auto_fail]).\nEn lugar de eso, cancela esa ficha y trátala como una ficha [elder_sign].",
+  "flavour": "",
+  "skills": [
+   "wild",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Julian Kok",
+  "packName": "Ante el trono negro",
+  "position": 324,
+  "taboo": {
+   "text": "This card's ability gains: \"Remove Eucatastrophe from the game.\""
+  },
+  "copyright": "© 2018 FFG",
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Eucatástrofe</b><b> (</b>[set:e12-05e0449f] <b> 324):</b> La capacidad de esta carta obtiene: “Retira Eucatástrofe de la partida”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Fortuna. Bendecido.",
+   "paras": [
+    {
+     "t": "Rápido. Juega esta carta cuando reveles una ficha de Caos que fuese a reducir tu valor de habilidad a 0 durante una prueba de habilidad (incluida la ficha [auto_fail]).",
+     "k": "p"
+    },
+    {
+     "t": "En lugar de eso, cancela esa ficha y trátala como una ficha [elder_sign]. Retira Eucatástrofe de la partida.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "06002",
+  "name": "Mandy Thompson",
+  "subname": "La investigadora",
+  "unique": true,
+  "type": "investigator",
+  "typeName": "Investigador",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": null,
+  "traits": "Ayudante. Erudito.",
+  "text": "[reaction] Cuando un investigador que esté en tu Lugar fuese a buscar en su mazo o en el mazo de Encuentros: Ese investigador puede buscar entre 3 cartas adicionales o bien resolver 1 objetivo adicional de la búsqueda. Límite de una vez por ronda.\nEfecto [elder_sign]: +0. Busca una carta entre las 3 primeras cartas de tu mazo y róbala o bien asígnala a esta prueba si es posible. Baraja tu mazo.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "willpower",
+   "willpower",
+   "intellect",
+   "intellect",
+   "intellect",
+   "intellect",
+   "intellect",
+   "combat",
+   "agility",
+   "agility",
+   "agility"
+  ],
+  "stats": [
+   3,
+   5,
+   1,
+   3
+  ],
+  "slots": [],
+  "health": 6,
+  "sanity": 8,
+  "victory": null,
+  "illustrator": "Tony Foti",
+  "packName": "Los devoradores de sueños",
+  "position": 2,
+  "taboo": {
+   "text": "This investigator now reads: \"Deck Size: 50\" and \"Deckbuilding Requirements (do not count towards deck size): 3 copies of Occult Evidence...\""
+  },
+  "copyright": "© 2019 FFG",
+  "set": "483914db0c",
+  "setAspect": 1.069,
+  "back": {
+   "name": "[unique]Mandy Thompson",
+   "subtitle": "La investigadora",
+   "paras": [
+    "<b>Tamaño de mazo:</b> Elige entre 30, 40 o 50 al crear el mazo.",
+    "<b>Elección de clase secundaria:</b> Elige entre Místico ([mystic]), Rebelde ([rogue]) o Superviviente ([survivor]) al crear el mazo.",
+    "<b>Opciones de creación de mazos:</b> Cartas Buscador ([seeker]) de nivel 0-5, cartas neutrales de nivel 0-5, hasta 10 Eventos y/o Habilidades de nivel 0-1 de la clase secundaria elegida.",
+    "<b>Requisitos de creación de mazos</b> (no cuentan para el tamaño del mazo): 1 copia de Prueba de ocultismo (o bien 2 copias si tu tamaño de mazo es 40, o 3 copias si tu tamaño de mazo es 50), Descubrimiento impactante, 1 Debilidad básica aleatoria."
+   ],
+   "flavour": "Desde niña, Mandy se ponía a leer siempre que no podía dormir. Lo cual ocurría muchas noches. Su impresionante memoria y su capacidad para relacionar datos le consiguieron un reputado puesto como investigadora en la Universidad Miskatonic. Se ha pasado horas escudriñando las profanas páginas de antiguos textos prohibidos. Al hacerlo, ha descubierto un patrón que indica que se avecina un cataclismo. ¿Está empezando a sufrir de paranoia? ¿O realmente está próximo un desastre de proporciones épicas?",
+   "warn": [],
+   "top": 20.03,
+   "left": 7.38,
+   "size": 2.981,
+   "flavSize": 2.981,
+   "lead": 1.0,
+   "gap": 0.231,
+   "photo": [
+    [
+     20.03,
+     37.18
+    ],
+    [
+     25.28,
+     37.18
+    ],
+    [
+     29.55,
+     36.79
+    ],
+    [
+     34.77,
+     36.39
+    ],
+    [
+     39.04,
+     36.39
+    ],
+    [
+     43.27,
+     36.0
+    ],
+    [
+     48.48,
+     35.6
+    ],
+    [
+     52.76,
+     35.6
+    ],
+    [
+     56.99,
+     34.8
+    ],
+    [
+     62.22,
+     32.02
+    ],
+    [
+     64.34,
+     32.02130692871854
+    ]
+   ]
+  },
+  "backChange": true,
+  "w": 1048,
+  "h": 738,
+  "change": "<b>Mandy Thompson</b><b> (</b>[set:e1-32b441de] <b> 2):</b> Esta investigadora ahora dice: “Tamaño de mazo: 50” y “Requisitos de creación de mazos (no cuentan para el tamaño de mazo): 3 copias de Prueba de ocultismo...”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "frontSame": true,
+  "pdf": {
+   "traits": "Ayudante. Erudito.",
+   "paras": [
+    {
+     "t": "[reaction] Cuando un investigador que esté en tu Lugar fuese a buscar en su mazo o en el mazo de Encuentros: Ese investigador puede buscar entre 3 cartas adicionales o bien resolver 1 objetivo adicional de la búsqueda. Límite de una vez por ronda.",
+     "k": "p"
+    },
+    {
+     "t": "Efecto [elder_sign]: +0. Busca una carta entre las 3 primeras cartas de tu mazo y róbala o bien asígnala a esta prueba si es posible. Baraja tu mazo.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "backTaboo": {
+   "name": "[unique]Mandy Thompson",
+   "subtitle": "La investigadora",
+   "paras": [
+    "<b>Tamaño de mazo:</b> 50.",
+    "<b>Elección de clase secundaria:</b> Elige entre Místico ([mystic]), Rebelde ([rogue]) o Superviviente ([survivor]) al crear el mazo.",
+    "<b>Opciones de creación de mazos:</b> Cartas Buscador ([seeker]) de nivel 0-5, cartas neutrales de nivel 0-5, hasta 10 Eventos y/o Habilidades de nivel 0-1 de la clase secundaria elegida.",
+    "<b>Requisitos de creación de mazos</b> (no cuentan para el tamaño del mazo): 3 copias de Prueba de ocultismo, Descubrimiento impactante, 1 Debilidad básica aleatoria."
+   ],
+   "flavour": "Desde niña, Mandy se ponía a leer siempre que no podía dormir. Lo cual ocurría muchas noches. Su impresionante memoria y su capacidad para relacionar datos le consiguieron un reputado puesto como investigadora en la Universidad Miskatonic. Se ha pasado horas escudriñando las profanas páginas de antiguos textos prohibidos. Al hacerlo, ha descubierto un patrón que indica que se avecina un cataclismo. ¿Está empezando a sufrir de paranoia? ¿O realmente está próximo un desastre de proporciones épicas?",
+   "warn": [],
+   "top": 20.03,
+   "left": 7.38,
+   "size": 2.981,
+   "flavSize": 2.981,
+   "lead": 1.0,
+   "gap": 0.231,
+   "photo": [
+    [
+     20.03,
+     37.18
+    ],
+    [
+     25.28,
+     37.18
+    ],
+    [
+     29.55,
+     36.79
+    ],
+    [
+     34.77,
+     36.39
+    ],
+    [
+     39.04,
+     36.39
+    ],
+    [
+     43.27,
+     36.0
+    ],
+    [
+     48.48,
+     35.6
+    ],
+    [
+     52.76,
+     35.6
+    ],
+    [
+     56.99,
+     34.8
+    ],
+    [
+     62.22,
+     32.02
+    ],
+    [
+     64.34,
+     32.02130692871854
+    ]
+   ]
+  },
+  "backAssisted": true,
+  "noteOwnLine": true
+ },
+ {
+  "code": "06022",
+  "name": "Colgante de la reina",
+  "subname": "De nada en absoluto",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": null,
+  "traits": "Objeto. Reliquia.",
+  "text": "Enlazada (Segmento de ónice). Usos (3 cargas). Si esta carta no tiene cargas, ponla aparte, fuera del juego, añade a tu mazo 3 copias puestas aparte del Segmento de ónice y baraja el mazo.\n[free] Agota el Colgante de la reina y gasta 1 carga: Elige un Lugar revelado y un efecto: moverte a ese Lugar, descubrir 1 pista en ese Lugar o evitar automáticamente a un Enemigo que esté en ese Lugar.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [
+   "Accessory"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Diana Martínez",
+  "packName": "Los devoradores de sueños",
+  "position": 22,
+  "taboo": {
+   "text": "This card's constant ability now reads: \"If this card has no charges, remove it from the game.\""
+  },
+  "copyright": "© 2019 FFG",
+  "set": "a719d32223",
+  "setAspect": 1.069,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Colgante de la reina</b><b> (</b>[set:e1-32b441de] <b> 22):</b> La capacidad continua de esta carta ahora dice: “Si esta carta no tiene cargas, retírala de la partida”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Objeto. Reliquia.",
+   "paras": [
+    {
+     "t": "Enlazada (Segmento de ónice). Usos (3 cargas). Si esta carta no tiene cargas, retírala de la partida.",
+     "k": "p"
+    },
+    {
+     "t": "[free] Agota el Colgante de la reina y gasta 1 carga: Elige un Lugar revelado y un efecto: moverte a ese Lugar, descubrir 1 pista en ese Lugar o evitar automáticamente a un Enemigo que esté en ese Lugar.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "06195",
+  "name": "Winchester del .35",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 0,
+  "traits": "Objeto. Arma. Arma de fuego.",
+  "text": "Usos (5 municiones).\n[action]: <b>Combatir.</b> Recibes +2 [combat] para este ataque. Si es revelada una ficha de Caos +1, 0 o [elder_sign] durante este ataque, este ataque inflige +2 de daño.",
+  "flavour": "",
+  "skills": [
+   "agility"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand x2"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Stephen Somers",
+  "packName": "El lado oscuro de la luna",
+  "position": 195,
+  "taboo": {
+   "text": "This card's [action] ability now reads: \"[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack. If a chaos token with a non-negative modifier is revealed during this attack, this attack deals +2 damage.\""
+  },
+  "copyright": "© 2019 FFG",
+  "set": "a719d32223",
+  "setAspect": 1.069,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Winchester del .35</b><b> (</b>[set:e1-32b441de] <b> 195):</b> La capacidad [action] de esta carta ahora dice: “[action] Gasta 1 munición: <b>Combatir.</b> Recibes +2 [combat] para este ataque. Si es revelada una ficha de Caos que tenga un modificador que no sea negativo durante este ataque, este ataque inflige +2 de daño.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Objeto. Arma. Arma de fuego.",
+   "paras": [
+    {
+     "t": "Usos (5 municiones).",
+     "k": "p"
+    },
+    {
+     "t": "[action]: <b>Combatir.</b> Recibes +2 [combat] para este ataque. Si es revelada una ficha de Caos que tenga un modificador que no sea negativo durante este ataque, este ataque inflige +2 de daño.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "06199",
+  "name": "Tres ases",
+  "subname": "",
+  "unique": false,
+  "type": "skill",
+  "typeName": "Habilidad",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 1,
+  "traits": "Fortuna. Experimentado.",
+  "text": "Miríada.\nSi asignas 3 copias de Tres ases a una prueba de habilidad, esa prueba tiene éxito automáticamente <i>(no reveles fichas de Caos de la bolsa de caos).</i> A continuación, roba 3 cartas y obtén 3 recursos (máximo de una vez por prueba).",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Diana Martínez",
+  "packName": "El lado oscuro de la luna",
+  "position": 199,
+  "taboo": {
+   "text": "This card's ability gains: \"Remove each committed copy of Three Aces from the game.\""
+  },
+  "copyright": "© 2019 FFG",
+  "set": "a719d32223",
+  "setAspect": 1.069,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Tres ases</b><b> (</b>[set:e1-32b441de] <b> 199):</b> La capacidad de esta carta obtiene: “Retira de la partida todas las copias asignadas de Tres ases.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Fortuna. Experimentado.",
+   "paras": [
+    {
+     "t": "Miríada.",
+     "k": "p"
+    },
+    {
+     "t": "Si asignas 3 copias de Tres ases a una prueba de habilidad, esa prueba tiene éxito automáticamente <i>(no reveles fichas de Caos de la bolsa de caos).</i> A continuación, roba 3 cartas y obtén 3 recursos (máximo de una vez por prueba). Retira de la partida todas las copias asignadas de Tres ases.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "06332",
+  "name": "Reutilizar",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 2,
+  "traits": "Talento.",
+  "text": "[reaction] Después de que investigues con éxito por 2 o más, agota Reutilizar: Elige 1 carta [[Objeto]] de tu pila de descartes y añádela a tu mano o juégala <i>(pagando su coste)</i>.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Derk Venneman",
+  "packName": "Tejedora del cosmos",
+  "position": 332,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2016 FFG",
+  "set": "a719d32223",
+  "setAspect": 1.069,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Reutilizar</b><b> (</b>[set:e1-32b441de] <b> 332):</b> +2 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Talento.",
+   "paras": [
+    {
+     "t": "[reaction] Después de que investigues con éxito por 2 o más, agota Reutilizar: Elige 1 carta [[Objeto]] de tu pila de descartes y añádela a tu mano o juégala <i>(pagando su coste)</i>.",
+     "k": "p"
+    }
+   ],
+   "note": "Encadenada (+2 de experiencia)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "07003",
+  "name": "Trish Scarborough",
+  "subname": "La espía",
+  "unique": true,
+  "type": "investigator",
+  "typeName": "Investigador",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": null,
+  "traits": "Agencia. Detective.",
+  "text": "[reaction] Después de que descubras 1 o más pistas en un Lugar con un Enemigo: Descubre 1 pista adicional en ese Lugar o bien evita automáticamente a ese Enemigo. Límite de una vez por ronda.\nEfecto [elder_sign]: +2. Si es durante una investigación, puedes elegir cualquier Lugar revelado; ahora estás investigando como estuvieras en ese Lugar en lugar del original.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "willpower",
+   "intellect",
+   "intellect",
+   "intellect",
+   "intellect",
+   "combat",
+   "combat",
+   "agility",
+   "agility",
+   "agility",
+   "agility"
+  ],
+  "stats": [
+   2,
+   4,
+   2,
+   4
+  ],
+  "slots": [],
+  "health": 8,
+  "sanity": 6,
+  "victory": null,
+  "illustrator": "Magali Villeneuve",
+  "packName": "La conspiración de Innsmouth",
+  "position": 3,
+  "taboo": {
+   "text": "This card's [reaction] ability now reads: \"After you discover 1 or more clues at a location with an enemy: Either discover 1 additional clue at that location, or automatically evade that enemy if it is non-[[Elite]]. (Limit once per round.)\""
+  },
+  "copyright": "© 2020 FFG",
+  "set": "410a4bae52",
+  "setAspect": 0.708,
+  "back": {
+   "name": "[unique]Trish Scarborough",
+   "subtitle": "La espía",
+   "paras": [
+    "<b>Tamaño de mazo:</b> 30.",
+    "<b>Opciones de creación de mazos:</b> Cartas Rebelde ([rogue]) de nivel 0-5, cartas neutrales de nivel 0-5, cartas Buscador ([seeker]) de nivel 0-2.",
+    "<b>Requisitos de creación de mazos</b> (no cuentan para el tamaño de mazo): En las sombras, Agentes encubiertos, 1 Debilidad básica aleatoria."
+   ],
+   "flavour": "Trish siempre destacó tanto física como mentalmente, pues su férrea voluntad por alcanzar la excelencia y su intrépida disposición constituyen una combinación imbatible. Gracias a su impresionante historial académico y deportivo, todo el mundo esperaba que aspirase a un puesto de éxito. Sin embargo, Trish aceptó un puesto en una empresa de código de comercio. Cuando el asombro inicial ante un trabajo tan humilde acabó por pasar, la excepcional Trish Scarborough quedó en el olvido. Esto era lo más conveniente para Trish, pues hacía que fuera más difícil que alguien descubriera la verdad: su trabajo era una tapadera para su verdadero puesto como espía para la Cámara Negra, la agencia encargada del descifrado de códigos.",
+   "warn": [],
+   "top": 19.92,
+   "left": 6.97,
+   "size": 3.379,
+   "flavSize": 2.981,
+   "lead": 1.0,
+   "gap": 0.254,
+   "photo": [
+    [
+     19.92,
+     37.18
+    ],
+    [
+     25.93,
+     37.18
+    ],
+    [
+     30.78,
+     36.79
+    ],
+    [
+     35.57,
+     36.39
+    ],
+    [
+     41.55,
+     35.99
+    ],
+    [
+     46.39,
+     35.99
+    ],
+    [
+     51.19,
+     35.59
+    ],
+    [
+     57.12,
+     34.0
+    ],
+    [
+     61.35,
+     29.23
+    ],
+    [
+     63.47,
+     29.234857619104837
+    ]
+   ]
+  },
+  "backChange": false,
+  "w": 1048,
+  "h": 738,
+  "change": "<b>Trish Scarborough</b><b> (</b>[set:e2-16c981ac] <b> 3):</b> La capacidad [reaction] de esta carta ahora dice: “Después de que descubras 1 o más pistas en un Lugar con un Enemigo: Descubre 1 pista adicional en ese Lugar o bien evita automáticamente a ese Enemigo si no es <i><b>Élite</b></i>. Límite de una vez por ronda.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Agencia. Detective.",
+   "paras": [
+    {
+     "t": "[reaction] Después de que descubras 1 o más pistas en un Lugar con un Enemigo: Descubre 1 pista adicional en ese Lugar o bien evita automáticamente a ese Enemigo si no es <i><b>Élite</b></i>. Límite de una vez por ronda.",
+     "k": "p"
+    },
+    {
+     "t": "Efecto [elder_sign]: +2. Si es durante una investigación, puedes elegir cualquier Lugar revelado; ahora estás investigando como estuvieras en ese Lugar en lugar del original.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "07122",
+  "name": "Acuerdo antiguo",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 2,
+  "traits": "Acuerdo. Bendecido.",
+  "text": "Permanente. Límite de 1 [[Acuerdo]] por mazo.\n[reaction] Cuando un investigador que esté en tu Lugar resuelva una ficha [bless] durante una prueba de habilidad, agota el Acuerdo antiguo: No reveles otra ficha como parte del efecto de esta ficha [bless]",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Tiziano Baracchi",
+  "packName": "Hasta el cuello",
+  "position": 122,
+  "taboo": {
+   "text": "This card's [reaction] ability now reads: \"When you resolve a [bless] token during a skill test...\""
+  },
+  "copyright": "© 2020 FFG",
+  "set": "40c34d8075",
+  "setAspect": 0.708,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Acuerdo antiguo</b><b> (</b>[set:e2-16c981ac] <b> 122):</b> La capacidad [reaction] de esta carta ahora dice: “Cuando resuelvas una ficha [bless] durante una prueba de habilidad...”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Acuerdo. Bendecido.",
+   "paras": [
+    {
+     "t": "Permanente. Límite de 1 [[Acuerdo]] por mazo.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Cuando resuelvas una ficha [bless] durante una prueba de habilidad, agota el Acuerdo antiguo: No reveles otra ficha como parte del efecto de esta ficha [bless]",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "07197",
+  "name": "Señal de la cruz",
+  "subname": "",
+  "unique": false,
+  "type": "skill",
+  "typeName": "Habilidad",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 2,
+  "traits": "Experimentado. Bendecido.",
+  "text": "Asigna esta carta solo a una prueba de habilidad que estés realizando, y solo si la dificultad de dicha prueba es mayor que el valor básico de tu habilidad.\nDespués de que asignes la Señal de la cruz a una prueba de habilidad, añade X fichas [bless] a la bolsa de caos. X es la diferencia entre la dificultad de la prueba y el valor básico de tu habilidad.",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "David Hovey",
+  "packName": "Horror a toda máquina",
+  "position": 197,
+  "taboo": {
+   "xp": -2
+  },
+  "copyright": "© 2020 FFG",
+  "set": "40c34d8075",
+  "setAspect": 0.708,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Señal de la cruz</b><b> ( </b> <b> 197):</b> –2 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Experimentado. Bendecido.",
+   "paras": [
+    {
+     "t": "Asigna esta carta solo a una prueba de habilidad que estés realizando, y solo si la dificultad de dicha prueba es mayor que el valor básico de tu habilidad.",
+     "k": "p"
+    },
+    {
+     "t": "Después de que asignes la Señal de la cruz a una prueba de habilidad, añade X fichas [bless] a la bolsa de caos. X es la diferencia entre la dificultad de la prueba y el valor básico de tu habilidad.",
+     "k": "p"
+    }
+   ],
+   "note": "Desencadenada (–2 de experiencia)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "07268",
+  "name": "Flauta de los Dioses Exteriores",
+  "subname": "",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": -2,
+  "xp": 4,
+  "traits": "Objeto. Instrumento. Reliquia. Maldito.",
+  "text": "Excepcional. Sello (hasta X [curse]).\n[action] Agota la Flauta de los Dioses Exteriores y libera 1 ficha [curse] sellada sobre ella: Elige un Enemigo que no sea [[Élite]] y que esté en tu Lugar. Mueve el Enemigo elegido a un Lugar conectado, o bien inflige su daño a cualquier Enemigo que esté en su Lugar. Esta acción no provoca ataques de oportunidad.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Carlos Palma Cruchaga",
+  "packName": "La guarida de Dagón",
+  "position": 268,
+  "taboo": {
+   "text": "This card loses the exceptional keyword and gains \"Limit 1 per deck.\"",
+   "deck_limit": 1,
+   "exceptional": false
+  },
+  "copyright": "© 2020 FFG",
+  "set": "40c34d8075",
+  "setAspect": 0.708,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Flauta de los Dioses Exteriores</b><b> (</b>[set:e2-16c981ac] <b> 268):</b> Esta carta pierde la palabra clave Excepcional y obtiene: “Límite de 1 por mazo.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Objeto. Instrumento. Reliquia. Maldito.",
+   "paras": [
+    {
+     "t": "Sello (hasta X [curse]). Límite de 1 por mazo.",
+     "k": "p"
+    },
+    {
+     "t": "[action] Agota la Flauta de los Dioses Exteriores y libera 1 ficha [curse] sellada sobre ella: Elige un Enemigo que no sea [[Élite]] y que esté en tu Lugar. Mueve el Enemigo elegido a un Lugar conectado, o bien inflige su daño a cualquier Enemigo que esté en su Lugar. Esta acción no provoca ataques de oportunidad.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "07269",
+  "name": "Paz vigilante",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 3,
+  "traits": "Espíritu. Bendecido.",
+  "text": "Como coste adicional para jugar Paz vigilante, busca en la bolsa de caos y/o en cartas en juego un total de 5 fichas [bless] y devuélvelas a la reserva de fichas.\nRápido. Juega esta carta cuando fuese a comenzar el paso de «robar cartas de Encuentro» de la fase de Mitos.\nSáltate este paso de la fase de Mitos.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Romana Kendelic",
+  "packName": "La guarida de Dagón",
+  "position": 269,
+  "taboo": {
+   "text": "This card's ability gains: \"Remove A Watchful Peace from the game.\""
+  },
+  "copyright": "© 2020 FFG",
+  "set": "40c34d8075",
+  "setAspect": 0.708,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Paz vigilante</b><b> (</b>[set:e2-16c981ac] <b> 269):</b> La capacidad de esta carta obtiene: “Retira Paz vigilante de la partida.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Espíritu. Bendecido.",
+   "paras": [
+    {
+     "t": "Como coste adicional para jugar Paz vigilante, busca en la bolsa de caos y/o en cartas en juego un total de 5 fichas [bless] y devuélvelas a la reserva de fichas.",
+     "k": "p"
+    },
+    {
+     "t": "Rápido. Juega esta carta cuando fuese a comenzar el paso de «robar cartas de Encuentro» de la fase de Mitos. Sáltate este paso de la fase de Mitos. Retira Paz vigilante de la partida.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "07301",
+  "name": "Consagrar",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 3,
+  "traits": "Hechizo. Bendecido.",
+  "text": "Como coste adicional para jugar Consagrar, devuelve a la reserva de fichas un total de 10 fichas [bless] de la bolsa de caos o selladas sobre cartas en juego.\nRetira 1 ficha de Perdición de cualquier carta en juego.",
+  "flavour": "La luz puede brotar incluso en la oscuridad más profunda.",
+  "skills": [
+   "willpower",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Romana Kendelic",
+  "packName": "Hacia el remolino",
+  "position": 301,
+  "taboo": {
+   "text": "This card's ability gains: \"Remove Hallow from the game.\""
+  },
+  "copyright": "© 2020 FFG",
+  "set": "40c34d8075",
+  "setAspect": 0.708,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Consagrar</b><b> (</b>[set:e2-16c981ac] <b> 301):</b> La capacidad de esta carta obtiene: “Retira Consagrar de la partida.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Hechizo. Bendecido.",
+   "paras": [
+    {
+     "t": "Como coste adicional para jugar Consagrar, devuelve a la reserva de fichas un total de 10 fichas [bless] de la bolsa de caos o selladas sobre cartas en juego.",
+     "k": "p"
+    },
+    {
+     "t": "Retira 1 ficha de Perdición de cualquier carta en juego. Retira Consagrar de la partida.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "07308",
+  "name": "Rito de equilibrio",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 0,
+  "xp": 5,
+  "traits": "Hechizo. Bendecido. Maldito.",
+  "text": "Elige una sola opción:\n- Añade X fichas [curse] a la bolsa de caos para añadir X fichas [bless] a la bolsa de caos.\n- Retira X fichas [curse] y X fichas [bless] de la bolsa de caos para curar un total de X puntos de horror entre cartas que estén en tu Lugar.",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Adam S. Doyle",
+  "packName": "Hacia el remolino",
+  "position": 308,
+  "taboo": {
+   "xp": -2
+  },
+  "copyright": "© 2020 FFG",
+  "set": "40c34d8075",
+  "setAspect": 0.708,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Rito de equilibrio</b><b> ( </b> <b> 308):</b> –2 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Hechizo. Bendecido. Maldito.",
+   "paras": [
+    {
+     "t": "Elige una sola opción:",
+     "k": "p"
+    },
+    {
+     "t": "[bullet] Añade X fichas [curse] a la bolsa de caos para añadir X fichas [bless] a la bolsa de caos.",
+     "k": "bullet"
+    },
+    {
+     "t": "[bullet] Retira X fichas [curse] y X fichas [bless] de la bolsa de caos para curar un total de X puntos de horror entre cartas que estén en tu Lugar.",
+     "k": "bullet"
+    }
+   ],
+   "note": "Desencadenada (–2 de experiencia)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "08019",
+  "name": "Pertrechado",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 0,
+  "traits": "Talento.",
+  "text": "Permanente. Límite de 1 por mazo. Compra esta carta al crear el mazo.\n<b>Obligado</b> - Cuando comience tu primer turno de la partida: Juega cualquier cantidad de Apoyos [[Objeto]] de tu mano, reduciendo en 1 el coste de cada uno. Durante este turno, tienes 3 acciones menos para realizar.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Lindsey Messecar",
+  "packName": "Los confines de la Tierra Expansión de investigadores",
+  "position": 19,
+  "taboo": {
+   "text": "This card's <b>Forced</b> effect now reads: \"<b>Forced</b> – When your first turn of the game begins: One at a time, play up to 5 [[Item]] assets...\""
+  },
+  "copyright": "© 2021 FFG",
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Pertrechado</b><b> (</b>[set:e18-007cab1a] <b> 19):</b> El efecto <b>Obligado</b> de esta carta ahora dice: “<b>Obligado – </b>Cuando comience tu primer turno de la partida: De uno en uno, juega hasta 5 Apoyos <i><b>Objeto</b></i>...”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Talento.",
+   "paras": [
+    {
+     "t": "Permanente. Límite de 1 por mazo. Compra esta carta al crear el mazo.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Obligado</b> - Cuando comience tu primer turno de la partida: Juega hasta 5 Apoyos [[Objeto]] de tu mano, reduciendo en 1 el coste de cada uno. Durante este turno, tienes 3 acciones menos para realizar.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "08032",
+  "name": "Jeremiah Kirby",
+  "subname": "Arqueólogo ártico",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 0,
+  "traits": "Aliado. Miskatonic. Viajero.",
+  "text": "Recibes +1 [intellect].\n[reaction] Después de que Jeremiah Kirby entre en juego, elige \"par\" o \"impar\": Revela las 5 primeras cartas de tu mazo. Roba cada carta cuyo coste coincida con la opción elegida. Devuelve las cartas restantes a tu mazo y barájalo.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 2,
+  "sanity": 1,
+  "victory": null,
+  "illustrator": "Romana Kendelic",
+  "packName": "Los confines de la Tierra Expansión de investigadores",
+  "position": 32,
+  "taboo": {
+   "text": "This card's ability gains: \"(Max twice per game.)\""
+  },
+  "copyright": "© 2021 FFG",
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Jeremiah Kirby</b><b> (</b>[set:e18-007cab1a] <b> 32):</b> La capacidad de esta carta obtiene: “Máximo dos veces por partida.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Aliado. Miskatonic. Viajero.",
+   "paras": [
+    {
+     "t": "Recibes +1 [intellect].",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Después de que Jeremiah Kirby entre en juego, elige \"par\" o \"impar\": Revela las 5 primeras cartas de tu mazo. Roba cada carta cuyo coste coincida con la opción elegida. Devuelve las cartas restantes a tu mazo y barájalo. (Máximo dos veces por partida.)",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "08045",
+  "name": "Prophesiae Profana",
+  "subname": "Atlas de lo incognoscible",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 5,
+  "traits": "Objeto. Reliquia. Tomo.",
+  "text": "Mientras no estés en el centro neurálgico, recibes +1 [intellect] y +1 [agility] y puedes ignorar ataques de oportunidad.\n[reaction] Después de que la Prophesiae Profana entre en juego: Elige un Lugar revelado. Ese Lugar es \"el centro neurálgico\" hasta que la Prophesiae Profana abandone el juego.\n[action]: Mueve cualquier investigador al centro neurálgico.",
+  "flavour": "",
+  "skills": [
+   "wild",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Drazenka Kimpel",
+  "packName": "Los confines de la Tierra Expansión de investigadores",
+  "position": 45,
+  "taboo": {
+   "text": "This card's constant ability now reads: \"...you get +1 [intellect], +1 [agility], and ignore the first attack of opportunity you take each turn.\""
+  },
+  "copyright": "© 2021 FFG",
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Prophesiae Profana</b><b> (</b>[set:e18-007cab1a] <b> 45):</b> La capacidad continua de esta carta ahora dice: “... recibes +1 [intellect], +1 [agility] e ignoras el primer ataque de oportunidad que recibas en este turno.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Objeto. Reliquia. Tomo.",
+   "paras": [
+    {
+     "t": "Mientras no estés en el centro neurálgico, recibes +1 [intellect] y +1 [agility] e ignoras el primer ataque de oportunidad que recibas en cada turno.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Después de que la Prophesiae Profana entre en juego: Elige un Lugar revelado. Ese Lugar es \"el centro neurálgico\" hasta que la Prophesiae Profana abandone el juego.",
+     "k": "p"
+    },
+    {
+     "t": "[action]: Mueve cualquier investigador al centro neurálgico.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "08055",
+  "name": "Mercado negro",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 2,
+  "traits": "Favor.",
+  "text": "Rápido. Juega esta carta al comienzo de la fase de Investigación.\nDe una en una, revela cartas de la parte superior del mazo o los mazos de cualesquiera investigadores hasta que se hayan revelado exactamente 5 cartas. Pon aparte esas cartas, fuera del juego. Mientras estén puestas aparte, cualquier investigador puede jugar cualquiera de esas cartas como si estuvieran en su mano. Al comienzo de la siguiente fase de Investigación, devuelve al mazo de su propietario cada una de esas cartas que siga puesta aparte y después baraja esos mazos.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matt Stawicki",
+  "packName": "Los confines de la Tierra Expansión de investigadores",
+  "position": 55,
+  "taboo": {
+   "text": "This card gains: \"Max once per round.\""
+  },
+  "copyright": "© 2021 FFG",
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Mercado negro</b><b> (</b>[set:e18-007cab1a] <b> 55):</b> Esta carta obtiene: “Máximo de una vez por ronda.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Favor.",
+   "paras": [
+    {
+     "t": "Rápido. Juega esta carta al comienzo de la fase de Investigación. Máximo de una vez por ronda.",
+     "k": "p"
+    },
+    {
+     "t": "De una en una, revela cartas de la parte superior del mazo o los mazos de cualesquiera investigadores hasta que se hayan revelado exactamente 5 cartas. Pon aparte esas cartas, fuera del juego. Mientras estén puestas aparte, cualquier investigador puede jugar cualquiera de esas cartas como si estuvieran en su mano. Al comienzo de la siguiente fase de Investigación, devuelve al mazo de su propietario cada una de esas cartas que siga puesta aparte y después baraja esos mazos.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "08076",
+  "name": "Quemar después de leer",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 1,
+  "traits": "Inspiración.",
+  "text": "Exilia una carta de nivel 0-5 de tu mano.\nDescubre 2 pistas en tu Lugar. Si la carta exiliada era de nivel 2 o mayor, retira 1 ficha de Perdición del plan en curso. Exilia Quemar después de leer.\n<b>Carta diseñada por El consejo en el exilio en la Gen Con 2020</b>",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Romana Kendelic",
+  "packName": "Los confines de la Tierra Expansión de investigadores",
+  "position": 76,
+  "taboo": {
+   "text": "Forbidden.",
+   "deck_limit": 0
+  },
+  "copyright": "© 2021 FFG",
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Quemar después de leer</b><b> (</b>[set:e18-007cab1a] <b> 76)</b>",
+  "changeShared": false,
+  "cat": "forbidden",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Inspiración.",
+   "paras": [
+    {
+     "t": "Exilia una carta de nivel 0-5 de tu mano.",
+     "k": "p"
+    },
+    {
+     "t": "Descubre 2 pistas en tu Lugar. Si la carta exiliada era de nivel 2 o mayor, retira 1 ficha de Perdición del plan en curso. Exilia Quemar después de leer.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Carta diseñada por El consejo en el exilio en la Gen Con 2020</b>",
+     "k": "center"
+    }
+   ],
+   "note": "Prohibida."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "08093",
+  "name": "Martillo ciclópeo",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": "mystic",
+  "faction3": null,
+  "cost": 5,
+  "xp": 5,
+  "traits": "Objeto. Reliquia. Arma. Cuerpo a cuerpo.",
+  "text": "[action]: <b>Combatir.</b> Añade tu [willpower] a tu valor de habilidad para este ataque. Infliges +1 de daño para este ataque. Si tienes éxito y el Enemigo no es [[Élite]], puedes moverlo un Lugar alejándose de ti, o bien infliges +2 de daño y puedes mover el Enemigo hasta dos Lugares alejándose de ti si tienes éxito por 3 o más.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "willpower",
+   "combat",
+   "combat"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand x2"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Robert Laskey",
+  "packName": "Los confines de la Tierra Expansión de investigadores",
+  "position": 93,
+  "taboo": {
+   "text": "This card's parenthetical now reads: \"...(If you succeed by 3 or more, you may exhaust Cyclopean Hammer to instead deal +2 damage and move the enemy up to two locations away from you.)\""
+  },
+  "copyright": "© 2021 FFG",
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Martillo ciclópeo</b><b> (</b>[set:e18-007cab1a] <b> 187):</b> Esta carta ahora dice: “...o bien, si tienes éxito por 3 o más, puedes agotar el Martillo ciclópeo para infligir +2 de daño y mover el Enemigo hasta dos Lugares alejándose de ti.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Objeto. Reliquia. Arma. Cuerpo a cuerpo.",
+   "paras": [
+    {
+     "t": "[action]: <b>Combatir.</b> Añade tu [willpower] a tu valor de habilidad para este ataque. Infliges +1 de daño para este ataque. Si tienes éxito y el Enemigo no es [[Élite]], puedes moverlo un Lugar alejándose de ti, o bien, si tienes éxito por 3 o más, puedes agotar el Martillo ciclópeo para infligir +2 de daño y mover el Enemigo hasta dos Lugares alejándose de ti.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "08098",
+  "name": "Carta de los evos",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": "rogue",
+  "faction3": null,
+  "cost": 2,
+  "xp": 1,
+  "traits": "Objeto. Reliquia.",
+  "text": "Usos (3 secretos).\n[fast] Durante tu turno, agota la Carta de los evos y gasta 1 secreto: Elige y realiza una de las siguientes acciones (movimiento, evitar o investigar).",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [
+   "Accessory"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Ignacio Bazán Lazcano",
+  "packName": "Los confines de la Tierra Expansión de investigadores",
+  "position": 98,
+  "taboo": {
+   "text": "This card should read \"basic actions\" instead of \"actions.\""
+  },
+  "copyright": "© 2021 FFG",
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Carta de los evos (ambas versiones)</b><b> (</b>[set:e18-007cab1a] <b> 98, 100):</b> Estas cartas deberían decir “siguientes acciones básicas” en lugar de “siguientes acciones”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Objeto. Reliquia.",
+   "paras": [
+    {
+     "t": "Usos (3 secretos).",
+     "k": "p"
+    },
+    {
+     "t": "[free] Durante tu turno, agota la Carta de los evos y gasta 1 secreto: Elige y realiza una de las siguientes acciones básicas (movimiento, evitar o investigar).",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "08099",
+  "name": "Gené Beauregard",
+  "subname": "Exploradora intrépida",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": "rogue",
+  "faction3": null,
+  "cost": 5,
+  "xp": 3,
+  "traits": "Aliado. Viajero.",
+  "text": "Recibes +1 [intellect] y +1 [agility].\n[reaction] Durante tu turno, después de que te muevas a un Lugar, agota a Gené Beauregard: Mueve una pista o un Enemigo que no sea [[Élite]] de un Lugar conectado a tu Lugar o viceversa.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 2,
+  "sanity": 2,
+  "victory": null,
+  "illustrator": "Vlad Ricean",
+  "packName": "Los confines de la Tierra Expansión de investigadores",
+  "position": 99,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2021 FFG",
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Gené Beauregard</b><b> (</b>[set:e18-007cab1a] <b> 99):</b> +2 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Aliado. Viajero.",
+   "paras": [
+    {
+     "t": "Recibes +1 [intellect] y +1 [agility].",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Durante tu turno, después de que te muevas a un Lugar, agota a Gené Beauregard: Mueve una pista o un Enemigo que no sea [[Élite]] de un Lugar conectado a tu Lugar o viceversa.",
+     "k": "p"
+    }
+   ],
+   "note": "Encadenada (+2 de experiencia)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "08100",
+  "name": "Carta de los evos",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": "rogue",
+  "faction3": null,
+  "cost": 2,
+  "xp": 4,
+  "traits": "Objeto. Reliquia.",
+  "text": "Usos (3 secretos).\n[fast] Durante tu turno, agota la Carta de los evos y gasta 1 secreto: Elige y realiza dos de las siguientes acciones, en cualquier orden (movimiento, evitar o investigar).",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "agility",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [
+   "Accessory"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Ignacio Bazán Lazcano",
+  "packName": "Los confines de la Tierra Expansión de investigadores",
+  "position": 100,
+  "taboo": {
+   "text": "This card should read \"basic actions\" instead of \"actions.\""
+  },
+  "copyright": "© 2021 FFG",
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Carta de los evos (ambas versiones)</b><b> (</b>[set:e18-007cab1a] <b> 98, 100):</b> Estas cartas deberían decir “siguientes acciones básicas” en lugar de “siguientes acciones”.",
+  "changeShared": true,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Objeto. Reliquia.",
+   "paras": [
+    {
+     "t": "Usos (3 secretos).",
+     "k": "p"
+    },
+    {
+     "t": "[free] Durante tu turno, agota la Carta de los evos y gasta 1 secreto: Elige y realiza dos de las siguientes acciones básicas, en cualquier orden (movimiento, evitar o investigar).",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "08113",
+  "name": "Préstamo sin escrúpulos",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": "survivor",
+  "faction3": null,
+  "cost": 0,
+  "xp": 3,
+  "traits": "Pacto.",
+  "text": "Límite de 1 por investigador. No puede abandonar el juego.\n[reaction] Después de que juegues el Préstamo sin escrúpulos: Obtén 10 recursos.\n<b>Obligado</b> — Cuando acabe la partida o seas eliminado, si tienes menos de 10 recursos en tu reserva de recursos: Exilia el Préstamo sin escrúpulos.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Drazenka Kimpel",
+  "packName": "Los confines de la Tierra Expansión de investigadores",
+  "position": 113,
+  "taboo": {
+   "text": "The first line of this card gains: \"Campaign Mode only.\""
+  },
+  "copyright": "© 2021 FFG",
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Préstamo sin escrúpulos</b><b> (</b>[set:e18-007cab1a] <b> 113):</b> La primera línea de esta carta obtiene: “Sólo modo de campaña.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Pacto.",
+   "paras": [
+    {
+     "t": "Límite de 1 por investigador. No puede abandonar el juego. Sólo modo de campaña.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Después de que juegues el Préstamo sin escrúpulos: Obtén 10 recursos.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Obligado</b> — Cuando acabe la partida o seas eliminado, si tienes menos de 10 recursos en tu reserva de recursos: Exilia el Préstamo sin escrúpulos.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "09041",
+  "name": "Hipótesis empírica",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Talento. Ciencia.",
+  "text": "Personalizable. Límite 1 por investigador.\n<b>Obligado</b> - Al comienzo de la ronda: Elige uno de los siguientes criterios para esta ronda (fracasas en una prueba por 2 o más, o tienes éxito en una prueba por 3 o más). Cuando se cumpla el criterio escogido, puedes agotar la Hipótesis empírica para añadirle una prueba.\n[free] Gasta 1 prueba: Roba 1 carta.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Isuardi Therianto",
+  "packName": "Las llaves escarlata Expansión de investigadores",
+  "position": 41,
+  "taboo": {
+   "text": "This card's [fast] ability gains \"(Limit twice per round.)\""
+  },
+  "copyright": "© 2022 FFG",
+  "set": "8f682a7b0b",
+  "setAspect": 1.04,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Hipótesis empírica</b><b> (</b>[set:e1-1b5bc68d] <b> 41):</b> La capacidad [free] de esta carta obtiene: “Límite de dos veces por ronda.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "assisted": true,
+  "corrected": true,
+  "pdf": {
+   "traits": "Talento. Ciencia.",
+   "paras": [
+    {
+     "t": "Personalizable. Límite 1 por investigador.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Obligado</b> - Al comienzo de la ronda: Elige uno de los siguientes criterios para esta ronda (fracasas en una prueba por 2 o más, o tienes éxito en una prueba por 3 o más). Cuando se cumpla el criterio escogido, puedes agotar la Hipótesis empírica para añadirle una prueba.",
+     "k": "p"
+    },
+    {
+     "t": "[free] Gasta 1 prueba: Roba 1 carta. (Límite de dos veces por ronda.)",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "09045",
+  "name": "Notas de investigación",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Objeto. Tomo. Ciencia.",
+  "text": "[reaction] Después de que una capacidad de una carta de Jugador coloque 1 o más de tus pistas sobre tu Lugar: Coloca esa misma cantidad de recursos sobre las Notas de investigación como pruebas.\n[action]: Realiza una prueba de [intellect] (0). Por cada punto que tengas por encima del valor mínimo de éxito, puedes gastar 1 prueba para descubrir 1 pista en tu Lugar.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Pixoloid Studios",
+  "packName": "Las llaves escarlata Expansión de investigadores",
+  "position": 45,
+  "taboo": {
+   "text": "This card's second ability gains: \"(max 3 evidence spent per round).\""
+  },
+  "copyright": "© 2022 FFG",
+  "set": "8f682a7b0b",
+  "setAspect": 1.04,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Notas de investigación</b><b> (</b>[set:e1-1b5bc68d] <b> 45):</b> La segunda capacidad de esta carta obtiene: “(máximo 3 pruebas gastadas por ronda)”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Objeto. Tomo. Ciencia.",
+   "paras": [
+    {
+     "t": "[reaction] Después de que una capacidad de una carta de Jugador coloque 1 o más de tus pistas sobre tu Lugar: Coloca esa misma cantidad de recursos sobre las Notas de investigación como pruebas.",
+     "k": "p"
+    },
+    {
+     "t": "[action]: Realiza una prueba de [intellect] (0). Por cada punto que tengas por encima del valor mínimo de éxito, puedes gastar 1 prueba para descubrir 1 pista en tu Lugar (máximo 3 pruebas gastadas por ronda).",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "09072",
+  "name": "Chuck Fergus",
+  "subname": "Conductor de O'Bannion",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 2,
+  "traits": "Aliado. Criminal.",
+  "text": "[reaction] Cuando juegues un Evento [[Táctica]] o [[Truco]], agota a Chuck Fergus: Elige una opción -\n- Ese Evento obtiene Rápido.\n- Ese Evento cuesta 2 recursos menos para jugarlo.\n- Recibes +2 a tu valor de habilidad al realizar una prueba de habilidad durante la resolución de ese Evento.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 2,
+  "sanity": 2,
+  "victory": null,
+  "illustrator": "Derek D. Edgell",
+  "packName": "Las llaves escarlata Expansión de investigadores",
+  "position": 72,
+  "taboo": {
+   "text": "This card's first bullet point now reads: \"That event gains: \"Fast. Play only during your turn.\"\""
+  },
+  "copyright": "© 2022 FFG",
+  "set": "637fed965e",
+  "setAspect": 1.041,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Chuck Fergus</b><b> (</b>[set:e5-5dd1694d] <b> 32, </b>[set:e1-1b5bc68d]<b> 72):</b> El primer punto de esta carta ahora dice: «Ese Evento obtiene: “Rápido. Juega esta carta sólo durante tu turno.”».",
+  "changeShared": true,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Aliado. Criminal.",
+   "paras": [
+    {
+     "t": "[reaction] Cuando juegues un Evento [[Táctica]] o [[Truco]], agota a Chuck Fergus: Elige una opción -",
+     "k": "p"
+    },
+    {
+     "t": "[bullet] Ese Evento obtiene: “Rápido. Juega esta carta sólo durante tu turno.”",
+     "k": "bullet"
+    },
+    {
+     "t": "[bullet] Ese Evento cuesta 2 recursos menos para jugarlo.",
+     "k": "bullet"
+    },
+    {
+     "t": "[bullet] Recibes +2 a tu valor de habilidad al realizar una prueba de habilidad durante la resolución de ese Evento.",
+     "k": "bullet"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "09077",
+  "name": "Mercado de los bajos fondos",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 2,
+  "traits": "Contacto. Ilegal.",
+  "text": "Permanente. Excepcional. Recibes +10 al tamaño de mazo.\n[reaction] Antes de robar tu mano inicial, elige 10 cartas [[Ilegal]] de tu mazo: Barájalas y colócalas junto al Mercado de los bajos fondos, formando tu mazo de Mercado.\n[reaction] Al comienzo de tu turno: Revela las 2 primeras cartas de tu mazo de Mercado. Puedes gastar 1 recurso para robar 1 de ellas. Coloca el resto en la parte inferior, en cualquier orden.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Anders Finer",
+  "packName": "Las llaves escarlata Expansión de investigadores",
+  "position": 77,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2022 FFG",
+  "set": "637fed965e",
+  "setAspect": 1.041,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Mercado de los bajos fondos</b><b> (</b>[set:e1-1b5bc68d] <b> 77): </b>+2 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Contacto. Ilegal.",
+   "paras": [
+    {
+     "t": "Permanente. Excepcional. Recibes +10 al tamaño de mazo.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Antes de robar tu mano inicial, elige 10 cartas [[Ilegal]] de tu mazo: Barájalas y colócalas junto al Mercado de los bajos fondos, formando tu mazo de Mercado.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Al comienzo de tu turno: Revela las 2 primeras cartas de tu mazo de Mercado. Puedes gastar 1 recurso para robar 1 de ellas. Coloca el resto en la parte inferior, en cualquier orden.",
+     "k": "p"
+    }
+   ],
+   "note": "Encadenada (+2 de experiencia)."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "09081",
+  "name": "Palabra de poder",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 0,
+  "traits": "Hechizo.",
+  "text": "Personalizable. Rápido. Juega esta carta sólo durante tu turno.\nVincula esta carta a un Enemigo que no sea [[Élite]] que esté en tu Lugar.\n[action] Si el Enemigo vinculado está en tu Lugar: <b>Negociar.</b> Dale una orden (límite de una vez por ronda y por orden) -\n- <i>\"Vete\"</i>. Este Enemigo se mueve una vez en una dirección de tu elección.\n- <i>\"Acobárdate\"</i>. Este Enemigo se agota.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Anders Finer",
+  "packName": "Las llaves escarlata Expansión de investigadores",
+  "position": 81,
+  "taboo": {
+   "text": "This card’s text box now reads: \"[action] If attached enemy is at your location: <b>Parley.</b> Test [willpower](2). If you succeed, give it a command (limit once per round per command) – \"Go.\" This enemy moves once in a direction of your choice.\"\nThis card’s customizable sheet loses the \"Mercy\" ability and gains\"☐Cower. Add the command: \"- ‘Cower.’ This enemy exhausts.\""
+  },
+  "copyright": "© 2022 FFG",
+  "set": "8f682a7b0b",
+  "setAspect": 1.04,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Palabra de poder</b><b> (</b>[set:e1-1b5bc68d] <b> 81):</b> La capacidad [action] de esta carta ahora dice: “[action] Si el Enemigo vinculado está en tu Lugar: <b>Negociar</b>. Realiza una prueba de [willpower] (2). Si tienes éxito, dale una orden (límite de una vez por ronda y por orden) – <i>“Vete”.</i> Este Enemigo se mueve una vez en una dirección de tu elección.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Hechizo.",
+   "paras": [
+    {
+     "t": "Personalizable. Rápido. Juega esta carta sólo durante tu turno.",
+     "k": "p"
+    },
+    {
+     "t": "Vincula esta carta a un Enemigo que no sea [[Élite]] que esté en tu Lugar.",
+     "k": "p"
+    },
+    {
+     "t": "[action] Si el Enemigo vinculado está en tu Lugar: <b>Negociar.</b> Realiza una prueba de [willpower] (2). Si tienes éxito, dale una orden (límite de una vez por ronda y por orden) –",
+     "k": "p"
+    },
+    {
+     "t": "[bullet] <i>\"Vete\"</i>. Este Enemigo se mueve una vez en una dirección de tu elección.",
+     "k": "bullet"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "09108",
+  "name": "Alumbrar",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Inspiración. Truco.",
+  "text": "Rápido. Juega esta carta antes de revelar una ficha de Caos durante una investigación que estés realizando, y sólo si la dificultad de esta prueba es 0 actualmente.\n Esta prueba tiene éxito automáticamente. Descubres 1 pista adicional en este Lugar y 1 pista adicional en cualquier Lugar.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Anders Finer",
+  "packName": "Las llaves escarlata Expansión de investigadores",
+  "position": 108,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2022 FFG",
+  "set": "8f682a7b0b",
+  "setAspect": 1.04,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Alumbrar</b><b> (</b>[set:e1-1b5bc68d] <b> 108): </b>+2 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Inspiración. Truco.",
+   "paras": [
+    {
+     "t": "Rápido. Juega esta carta antes de revelar una ficha de Caos durante una investigación que estés realizando, y sólo si la dificultad de esta prueba es 0 actualmente.",
+     "k": "p"
+    },
+    {
+     "t": "Esta prueba tiene éxito automáticamente. Descubres 1 pista adicional en este Lugar y 1 pista adicional en cualquier Lugar.",
+     "k": "p"
+    }
+   ],
+   "note": "Encadenada (+2 de experiencia)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "09117",
+  "name": "Llavero viejo",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 3,
+  "traits": "Objeto. Herramienta.",
+  "text": "Usos (3 llaves). Si no hay llaves en el Llavero viejo, descártalo.\n[action]: <b>Investigar.</b> Tu Lugar recibe -2 a velo para esta investigación. Si tienes éxito, retira 1 llave del Llavero viejo y, si la dificultad de esta prueba es 0, descubres 1 pista adicional.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Robert Laskey",
+  "packName": "Las llaves escarlata Expansión de investigadores",
+  "position": 117,
+  "taboo": {
+   "xp": 1
+  },
+  "copyright": "© 2016 FFG",
+  "set": "8f682a7b0b",
+  "setAspect": 1.04,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Llavero viejo</b><b> (</b>[set:e1-1b5bc68d] <b> 117): </b>+1 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Objeto. Herramienta.",
+   "paras": [
+    {
+     "t": "Usos (3 llaves). Si no hay llaves en el Llavero viejo, descártalo.",
+     "k": "p"
+    },
+    {
+     "t": "[action]: <b>Investigar.</b> Tu Lugar recibe -2 a velo para esta investigación. Si tienes éxito, retira 1 llave del Llavero viejo y, si la dificultad de esta prueba es 0, descubres 1 pista adicional.",
+     "k": "p"
+    }
+   ],
+   "note": "Encadenada (+1 de experiencia)."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "10026",
+  "name": "A punta de pistola",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Táctica. Truco.",
+  "text": "<b>Negociar.</b> Elige un Enemigo que esté en tu Lugar y un Apoyo [[Objeto]] de tu mano. Realiza una acción de combatir contra el Enemigo elegido. Si tienes éxito, en lugar de infligir daño, juega el Apoyo elegido, reduciendo su coste por cada punto que tuvieras por encima del valor mínimo de éxito.",
+  "flavour": "\"¡L-las manos donde pueda verlas!\"",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Rob Laskey",
+  "packName": "La fiesta del Valle de la Cicuta Expansión de investigadores",
+  "position": 26,
+  "taboo": {
+   "text": "This card’s ability reads: \"...If you succeed, play the chosen asset, reducing its cost by the amount you succeeded by.\""
+  },
+  "copyright": "© 2024 FFG",
+  "set": "b360a5554e",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>A punta de pistola</b><b> (</b>[set:e1-2dc13c71] <b> 26):</b> La capacidad de esta carta dice: “... Si tienes éxito, juega el Apoyo elegido, reduciendo su coste en la cantidad de puntos que tuvieras por encima del valor mínimo de éxito.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Táctica. Truco.",
+   "paras": [
+    {
+     "t": "<b>Negociar.</b> Elige un Enemigo que esté en tu Lugar y un Apoyo [[Objeto]] de tu mano. Realiza una acción de combatir contra el Enemigo elegido. Si tienes éxito, juega el Apoyo elegido, reduciendo su coste en la cantidad de puntos que tuvieras por encima del valor mínimo de éxito.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "10030",
+  "name": "Coordinación ojo-mano",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 1,
+  "traits": "Inspiración.",
+  "text": "Rápido. Juega esta carta sólo durante tu turno.\nResuelve una capacidad [action] de un Apoyo [[Herramienta]] o [[Arma]] que controles sin pagar su coste [action].",
+  "flavour": "Mantén la vista en el objetivo.",
+  "skills": [
+   "intellect",
+   "combat"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Romana Kendelic",
+  "packName": "La fiesta del Valle de la Cicuta Expansión de investigadores",
+  "position": 30,
+  "taboo": {
+   "text": "This card’s ability reads: \"Resolve an [action] ability on a level 0–3 [[Tool]] or [[Weapon]] asset you control, ignoring all costs.\""
+  },
+  "copyright": "© 2024 FFG",
+  "set": "b360a5554e",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Coordinación ojo-mano</b><b> (</b>[set:e1-2dc13c71] <b> 30):</b> La capacidad de esta carta dice: “Resuelve una capacidad [action] de un Apoyo <i><b>Herramienta</b></i> o <i><b>Arma</b></i> de nivel 0–3 que controles, ignorando todos los costes.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Inspiración.",
+   "paras": [
+    {
+     "t": "Rápido. Juega esta carta sólo durante tu turno.",
+     "k": "p"
+    },
+    {
+     "t": "Resuelve una capacidad [action] de un Apoyo <i><b>Herramienta</b></i> o <i><b>Arma</b></i> de nivel 0–3 que controles, ignorando todos los costes.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "10031",
+  "name": "Mano dura",
+  "subname": "",
+  "unique": false,
+  "type": "skill",
+  "typeName": "Habilidad",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 1,
+  "traits": "Innato.",
+  "text": "Mientras Mano dura esté asignada a un ataque que use un Apoyo [[Cuerpo a cuerpo]] o [[A distancia]], este ataque inflige +1 daño. Después de revelar fichas de Caos para esta prueba de habilidad, puedes recibir 1 punto de daño para cancelar una de esas fichas de Caos, devolverla a la bolsa de caos y revelar una nueva <i>(puedes hacer esto cualquier número de veces.)</i>",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "João Bosco",
+  "packName": "La fiesta del Valle de la Cicuta Expansión de investigadores",
+  "position": 31,
+  "taboo": {
+   "xp": 1
+  },
+  "copyright": "© 2024 FFG",
+  "set": "2f304b84b3",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Mano dura</b><b> (</b>[set:e1-2dc13c71] <b> 31):</b> +1 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Innato.",
+   "paras": [
+    {
+     "t": "Mientras Mano dura esté asignada a un ataque que use un Apoyo [[Cuerpo a cuerpo]] o [[A distancia]], este ataque inflige +1 daño. Después de revelar fichas de Caos para esta prueba de habilidad, puedes recibir 1 punto de daño para cancelar una de esas fichas de Caos, devolverla a la bolsa de caos y revelar una nueva <i>(puedes hacer esto cualquier número de veces.)</i>",
+     "k": "p"
+    }
+   ],
+   "note": "Encadenada (+1 de experiencia)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "10037",
+  "name": "Lluvia de golpes",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 5,
+  "traits": "Táctica. Doble. Predestinado.",
+  "text": "Juega esta carta sólo si controlas un Apoyo [[Cuerpo a Cuerpo]]. Como coste adicional para jugar Lluvia de golpes, gasta una acción.\n<b>Combatir.</b> Elige un Apoyo [[Cuerpo a Cuerpo]] que controles y realiza una acción de combatir inmediatamente con ese Apoyo <i>(sin pagar su coste [action])</i>. Puedes repetir este efecto hasta 3 veces. Después de que se resuelva el último ataque, si es tu turno, termina tu turno.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Lin Hsiang",
+  "packName": "La fiesta del Valle de la Cicuta Expansión de investigadores",
+  "position": 37,
+  "taboo": {
+   "xp": -2
+  },
+  "copyright": "© 2024 FFG",
+  "set": "2f304b84b3",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Lluvia de golpes</b><b> (</b>[set:e1-2dc13c71] <b> 37): </b>–2 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Táctica. Doble. Predestinado.",
+   "paras": [
+    {
+     "t": "Juega esta carta sólo si controlas un Apoyo [[Cuerpo a Cuerpo]]. Como coste adicional para jugar Lluvia de golpes, gasta una acción.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Combatir.</b> Elige un Apoyo [[Cuerpo a Cuerpo]] que controles y realiza una acción de combatir inmediatamente con ese Apoyo <i>(sin pagar su coste [action])</i>. Puedes repetir este efecto hasta 3 veces. Después de que se resuelva el último ataque, si es tu turno, termina tu turno.",
+     "k": "p"
+    }
+   ],
+   "note": "Desencadenada (–2 de experiencia)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "10059",
+  "name": "Micónido voraz",
+  "subname": "Cepa sensible",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 4,
+  "traits": "Criatura. Ciencia.",
+  "text": "Investigado. Límite de 1 por mazo.\n[fast]: Busca entre tus cartas enlazadas el Crecimiento prodigioso y añádelo a tu mano. Límite de una vez por ronda.\n[reaction] Cuando un investigador robe una carta de Traición que no sea Debilidad, si el valor de velo de su Lugar es igual o menor que el crecimiento del Micónido voraz: Cancela los efectos de esa Traición y descártala. Retira todo el crecimiento del Micónido voraz.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": 1,
+  "sanity": 1,
+  "victory": null,
+  "illustrator": "JB Casacop",
+  "packName": "La fiesta del Valle de la Cicuta Expansión de investigadores",
+  "position": 59,
+  "taboo": {
+   "text": "This card’s [reaction] ability reads: \"[reaction] When an investigator draws a non-weakness treachery card, if their location's shroud is less than Ravenous Myconid's growth...\""
+  },
+  "copyright": "© 2024 FFG",
+  "set": "2f304b84b3",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Micónido voraz (Cepa sensible)</b><b> (</b>[set:e1-2dc13c71] <b> 59):</b> La capacidad [reaction] de esta carta dice: “[reaction] Cuando un investigador robe una carta de Traición que no sea Debilidad, si el valor de velo de su Lugar es menor que el crecimiento del Micónido voraz...”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Criatura. Ciencia.",
+   "paras": [
+    {
+     "t": "Investigado. Límite de 1 por mazo.",
+     "k": "p"
+    },
+    {
+     "t": "[free]: Busca entre tus cartas enlazadas el Crecimiento prodigioso y añádelo a tu mano. Límite de una vez por ronda.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Cuando un investigador robe una carta de Traición que no sea Debilidad, si el valor de velo de su Lugar es menor que el crecimiento del Micónido voraz: Cancela los efectos de esa Traición y descártala. Retira todo el crecimiento del Micónido voraz.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "10060",
+  "name": "Micónido voraz",
+  "subname": "Cepa carnívora",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 4,
+  "traits": "Monstruo. Ciencia.",
+  "text": "Investigado. Límite de 1 por mazo.\n[fast]: Busca entre tus cartas enlazadas el Crecimiento prodigioso y añádelo a tu mano. Límite de una vez por ronda.\n[fast] Elige un Enemigo que no sea [[Élite]] en tu Lugar y con una cantidad de salud restante igual o menor que la cantidad de crecimiento del Micónido voraz: Derrota a ese Enemigo. Retira todo el crecimiento de Micónido voraz.",
+  "flavour": "",
+  "skills": [
+   "combat"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": 1,
+  "sanity": 1,
+  "victory": null,
+  "illustrator": "JB Casacop",
+  "packName": "La fiesta del Valle de la Cicuta Expansión de investigadores",
+  "position": 60,
+  "taboo": {
+   "xp": 1
+  },
+  "copyright": "© 2023 FFG",
+  "set": "2f304b84b3",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Micónido voraz (Cepa carnívora)</b><b> (</b>[set:e1-2dc13c71] <b> 60): </b>+1 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Monstruo. Ciencia.",
+   "paras": [
+    {
+     "t": "Investigado. Límite de 1 por mazo.",
+     "k": "p"
+    },
+    {
+     "t": "[fast]: Busca entre tus cartas enlazadas el Crecimiento prodigioso y añádelo a tu mano. Límite de una vez por ronda.",
+     "k": "p"
+    },
+    {
+     "t": "[fast] Elige un Enemigo que no sea [[Élite]] en tu Lugar y con una cantidad de salud restante igual o menor que la cantidad de crecimiento del Micónido voraz: Derrota a ese Enemigo. Retira todo el crecimiento de Micónido voraz.",
+     "k": "p"
+    }
+   ],
+   "note": "Encadenada (+1 de experiencia)."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "10085",
+  "name": "Vara de Carnamagos",
+  "subname": "Cetro del vidente loco",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Objeto. Reliquia. Ocultismo. Maldito.",
+  "text": "Límite de 1 por mazo.\n[fast] Elige un Enemigo que no sea [[Élite]] en cualquier Lugar y agota la Vara de Carnamagos: Revela 5 fichas de caos aleatorias de la bolsa de caos. Si es revelada una ficha [curse], busca entre tus cartas enlazadas un Evento [[Putrefacción]] aleatorio y vincúlaselo a ese Enemigo.",
+  "flavour": "",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Borja Pindado",
+  "packName": "La fiesta del Valle de la Cicuta Expansión de investigadores",
+  "position": 85,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2024 FFG",
+  "set": "2f304b84b3",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Vara de Carnamagos</b><b> (</b>[set:e1-2dc13c71] <b> 85):</b> +2 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Objeto. Reliquia. Ocultismo. Maldito.",
+   "paras": [
+    {
+     "t": "Límite de 1 por mazo.",
+     "k": "p"
+    },
+    {
+     "t": "[fast] Elige un Enemigo que no sea [[Élite]] en cualquier Lugar y agota la Vara de Carnamagos: Revela 5 fichas de caos aleatorias de la bolsa de caos. Si es revelada una ficha [curse], busca entre tus cartas enlazadas un Evento [[Putrefacción]] aleatorio y vincúlaselo a ese Enemigo.",
+     "k": "p"
+    }
+   ],
+   "note": "Encadenada (+2 de experiencia)."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "10098",
+  "name": "Vara de Carnamagos",
+  "subname": "Cetro del vidente loco",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 2,
+  "traits": "Objeto. Reliquia. Ocultismo. Maldito.",
+  "text": "[fast] Elige un Enemigo que no sea [[Élite]] en cualquier Lugar y agota la Vara de Carnamagos: revela 5 fichas de caos aleatorias de la bolsa de caos. Por cada ficha [curse] revelada, puedes buscar entre tus cartas enlazadas un Evento [[Putrefacción]] y vinculárselo a ese Enemigo.",
+  "flavour": "",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Borja Pindado",
+  "packName": "La fiesta del Valle de la Cicuta Expansión de investigadores",
+  "position": 98,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2024 FFG",
+  "set": "2f304b84b3",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Vara de Carnamagos</b><b> (</b>[set:e1-2dc13c71] <b> 98):</b> +2 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Objeto. Reliquia. Ocultismo. Maldito.",
+   "paras": [
+    {
+     "t": "[fast] Elige un Enemigo que no sea [[Élite]] en cualquier Lugar y agota la Vara de Carnamagos: revela 5 fichas de caos aleatorias de la bolsa de caos. Por cada ficha [curse] revelada, puedes buscar entre tus cartas enlazadas un Evento [[Putrefacción]] y vinculárselo a ese Enemigo.",
+     "k": "p"
+    }
+   ],
+   "note": "Encadenada (+2 de experiencia)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "11031",
+  "name": "Disparo rápido",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 3,
+  "traits": "Espíritu.",
+  "text": "Miríada. Rápido. Juega esta carta sólo durante tu turno.\nInflige 1 punto de daño a un Enemigo que esté en tu Lugar.\n[reaction] Después de que robes el Disparo rápido durante tu turno: Juégalo, reduciendo su coste de recursos en 2.",
+  "flavour": "Hay un buen motivo por el que la hermana Sofía es conocida como \"la mano de Dios.\"",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Gabby Portal",
+  "packName": "La ciudad sumergida Expansión de investigadores",
+  "position": 31,
+  "taboo": {
+   "xp": -2
+  },
+  "copyright": "© 2025 FFG",
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Disparo rápido</b><b> (</b>[set:e1-03766b1a] <b> 31):</b> –2 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Espíritu.",
+   "paras": [
+    {
+     "t": "Miríada. Rápido. Juega esta carta sólo durante tu turno.",
+     "k": "p"
+    },
+    {
+     "t": "Inflige 1 punto de daño a un Enemigo que esté en tu Lugar.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Después de que robes el Disparo rápido durante tu turno: Juégalo, reduciendo su coste de recursos en 2.",
+     "k": "p"
+    }
+   ],
+   "note": "Desencadenada (–2 de experiencia)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "11055",
+  "name": "A la calle",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Táctica. Truco.",
+  "text": "<b>Evitar.</b> Añade tu valor de [combat] a tu valor de habilidad para este intento de evitar. Si tienes éxito por 2 o más, inflige 1 punto de daño a ese Enemigo. Si ese Enemigo no es [[Élite]], puedes moverlo a un Lugar conectado.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "combat"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Diego Gisbert",
+  "packName": "La ciudad sumergida Expansión de investigadores",
+  "position": 55,
+  "taboo": {
+   "xp": 1
+  },
+  "copyright": "© 2025 FFG",
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>A la calle</b><b> (</b>[set:e1-03766b1a] <b> 55):</b> +1 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Táctica. Truco.",
+   "paras": [
+    {
+     "t": "<b>Evitar.</b> Añade tu valor de [combat] a tu valor de habilidad para este intento de evitar. Si tienes éxito por 2 o más, inflige 1 punto de daño a ese Enemigo. Si ese Enemigo no es [[Élite]], puedes moverlo a un Lugar conectado.",
+     "k": "p"
+    }
+   ],
+   "note": "Encadenada (+1 de experiencia)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "11065",
+  "name": "Sangre de Thoth",
+  "subname": "Ley encarnada",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Objeto. Reliquia.",
+  "text": "[reaction] Cuando se coloque 1 ficha de Perdición o más en una carta que controles, agota la Sangre de Thoth: Coloca 1 recurso en esta carta <i>(de la reserva de fichas)</i>, como ofrenda.\n[free] Si la Sangre de Thoth tiene 3 o más ofrendas, retira todas las ofrendas de la Sangre de Thoth y agótala: Elige un investigador que esté en tu Lugar para que realice una acción inmediatamente como si fuera su turno.",
+  "flavour": "",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [
+   "Accessory"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Pixoloid Studios",
+  "packName": "La ciudad sumergida Expansión de investigadores",
+  "position": 65,
+  "taboo": {
+   "text": "This card’s [reaction] ability reads \"[reaction] When doom is placed on a card you control: Place 1 resource (from the token pool) on Blood of Thoth, as an offering.\"\nThis card’s [fast] ability reads \"[fast] During the investigation phase, except during an action, spend 2 offerings and exhaust Blood of Thoth: Choose an investigator at your location to immediately take an action as if it were their turn.\""
+  },
+  "copyright": "© 2025 FFG",
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Sangre de Thoth</b><b> (</b>[set:e1-03766b1a] <b> 65):</b> La capacidad [reaction] de esta carta dice: “[reaction] Cuando se coloque perdición en una carta que controles: Coloca 1 recurso <i>(de la reserva de fichas)</i> en la Sangre de Thoth, como ofrenda.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "assisted": true,
+  "corrected": true,
+  "pdf": {
+   "traits": "Objeto. Reliquia.",
+   "paras": [
+    {
+     "t": "[reaction] Cuando se coloque Perdición en una carta que controles: Coloca 1 recurso <i>(de la reserva de fichas)</i> en esta carta, como ofrenda.",
+     "k": "p"
+    },
+    {
+     "t": "[free] Durante la Fase de Investigación, excepto durante una acción, gasta 2 ofrendas y agota la Sangre de Thoth: Elige un investigador que esté en tu Lugar para que realice una acción inmediatamente como si fuera su turno.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "11071",
+  "name": "Escudo espectral",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Hechizo. Espíritu.",
+  "text": "Rápido. Juega esta carta sólo durante tu turno. Vincula esta carta a una carta de Jugador que tenga salud y/o cordura y que esté en tu Lugar.\n<b>Obligado -</b> Cuando la carta vinculada recibe 1 o más puntos de daño/horror: Cancela 1 punto de ese daño/horror. El propietario del Escudo espectral debe retirar 1 carga de un Apoyo que controle. Si no puede, descarta el Escudo espectral.",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "David Hovey",
+  "packName": "La ciudad sumergida Expansión de investigadores",
+  "position": 71,
+  "taboo": {
+   "text": "This card's <b>Forced</b> effect now reads \"The first time attached card takes 1 or more damage/horror each round...\""
+  },
+  "copyright": "© 2025 FFG",
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Escudo espectral</b><b> (</b>[set:e1-03766b1a] <b> 71):</b> El efecto <b>Obligado</b> de esta carta ahora dice: “La primera vez que la carta vinculada recibe 1 o más puntos de daño/horror en cada ronda...”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Hechizo. Espíritu.",
+   "paras": [
+    {
+     "t": "Rápido. Juega esta carta sólo durante tu turno. Vincula esta carta a una carta de Jugador que tenga salud y/o cordura y que esté en tu Lugar.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Obligado -</b> La primera vez que la carta vinculada recibe 1 o más puntos de daño/horror en cada ronda: Cancela 1 punto de ese daño/horror. El propietario del Escudo espectral debe retirar 1 carga de un Apoyo que controle. Si no puede, descarta el Escudo espectral.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "11075",
+  "name": "Eco espiritual",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 2,
+  "traits": "Ritual.",
+  "text": "Vincula esta carta a tu Lugar. Límite de 1 por Lugar.\n[reaction] Después de que actives una capacidad [action] o [free] de un Apoyo [[Hechizo]] o [[Ritual]]: Realiza esa capacidad de nuevo en el Lugar vinculado como si estuvieras allí, ignorando el coste [action] de ese Apoyo si lo hay <i>(puedes activar esta capacidad desde cualquier Lugar)</i>. Devuelve el Eco espiritual a tu mano.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "combat"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Andreas Zafiratos",
+  "packName": "La ciudad sumergida Expansión de investigadores",
+  "position": 75,
+  "taboo": {
+   "text": "This card gains \"Fast. Play only during your turn.\"\nThis card's [reaction] ability now reads \"...Return Spiritual Echo to your hand at the end of your turn.\" and gains \"(Limit once per round.)\""
+  },
+  "copyright": "© 2025 FFG",
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Eco espiritual</b><b> (</b>[set:e1-03766b1a] <b> 75):</b> Esta carta obtiene: “Rápido. Juega esta carta sólo durante tu turno.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "assisted": true,
+  "pdf": {
+   "traits": "Ritual.",
+   "paras": [
+    {
+     "t": "Rápido. Juega esta carta sólo durante tu turno.",
+     "k": "p"
+    },
+    {
+     "t": "Vincula esta carta a tu Lugar. Límite de 1 por Lugar.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Después de que actives una capacidad [action] o [free] de un Apoyo [[Hechizo]] o [[Ritual]]: Realiza esa capacidad de nuevo en el Lugar vinculado como si estuvieras allí, ignorando el coste [action] de ese Apoyo si lo hay <i>(puedes activar esta capacidad desde cualquier Lugar)</i>. Devuelve el Eco espiritual a tu mano al final de tu turno. (Límite de una vez por ronda.)",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "11117",
+  "name": "Archibald MacVeigh",
+  "subname": "Conferenciante atribulado",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "neutral",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 5,
+  "traits": "Aliado.",
+  "text": "Sólo para un mazo [[Ayudante]], [[Reportero]], [[Erudito]]. Usos (4 secretos).\nRecibes +1 [intellect].\nLos secretos de los Apoyos que controles se pueden gastar como recursos para pagar Eventos [[Inspiración]] que juegues.",
+  "flavour": "\"Publica o fallece, me dijeron. Tal vez haga ambas cosas.\"",
+  "skills": [
+   "intellect",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 2,
+  "sanity": 3,
+  "victory": null,
+  "illustrator": "Alexandre Dainche",
+  "packName": "La ciudad sumergida Expansión de investigadores",
+  "position": 117,
+  "taboo": {
+   "xp": -2
+  },
+  "copyright": "© 2025 FFG",
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Archibald MacVeigh</b><b> (</b>[set:e1-03766b1a] <b> 117): </b>–2 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Aliado.",
+   "paras": [
+    {
+     "t": "Sólo para un mazo [[Ayudante]], [[Reportero]], [[Erudito]]. Usos (4 secretos).",
+     "k": "p"
+    },
+    {
+     "t": "Recibes +1 [intellect].",
+     "k": "p"
+    },
+    {
+     "t": "Los secretos de los Apoyos que controles se pueden gastar como recursos para pagar Eventos [[Inspiración]] que juegues.",
+     "k": "p"
+    }
+   ],
+   "note": "Desencadenada (–2 de experiencia)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "11118",
+  "name": "Pase de biblioteca",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "neutral",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 5,
+  "traits": "Objeto. Miskatonic.",
+  "text": "Sólo para un mazo [[Miskatonic]], [[Erudito]]. Permanente. Límite de 1 por mazo.\n[free] Durante tu turno, si no hay ningún Apoyo vinculado al Pase de biblioteca, agota el Pase de biblioteca: Víncula un Apoyo [[Tomo]] de tu mano al Pase de biblioteca. El Apoyo vinculado no ocupa espacios.\n<b>Obligado -</b> Cuando acabe tu turno: Debes pagar 1 recurso o bien colocar el Apoyo vinculado en la parte inferior de tu mazo.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Pixoloid Studios",
+  "packName": "La ciudad sumergida Expansión de investigadores",
+  "position": 118,
+  "taboo": {
+   "text": "This card’s <b>Forced</b> effect now reads \"When your turn endsL Place attaced asset on the bottom of your deck unless you spend 1 resource.\""
+  },
+  "copyright": "© 2025 FFG",
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Pase de biblioteca</b><b> (</b>[set:e1-03766b1a] <b> 118):</b> El efecto <b>Obligado</b> de esta carta ahora dice: “Cuando acabe tu turno: Coloca el Apoyo vinculado en la parte inferior de tu mazo a menos que gastes 1 recurso.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Objeto. Miskatonic.",
+   "paras": [
+    {
+     "t": "Sólo para un mazo [[Miskatonic]], [[Erudito]]. Permanente. Límite de 1 por mazo.",
+     "k": "p"
+    },
+    {
+     "t": "[free] Durante tu turno, si no hay ningún Apoyo vinculado al Pase de biblioteca, agota el Pase de biblioteca: Víncula un Apoyo [[Tomo]] de tu mano al Pase de biblioteca. El Apoyo vinculado no ocupa espacios.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Obligado -</b> Cuando acabe tu turno: Coloca el Apoyo vinculado en la parte inferior de tu mazo a menos que gastes 1 recurso.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "11120",
+  "name": "Pisándoles los talones",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "neutral",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 5,
+  "traits": "Talento.",
+  "text": "Sólo para un mazo [[Detective]], [[Cazador]], [[Policía]], [[Reportero]].\nLímite de 1 por investigador. Usos (5 indicios).\n[reaction] Después de que entres en un Lugar con 1 o más Enemigos, gasta 1 indicio y agota Pisándoles los talones: Descubre 1 pista en tu Lugar o bien inflige 1 punto de daño a un Enemigo que esté en tu Lugar.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "combat",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Aaron Miller",
+  "packName": "La ciudad sumergida Expansión de investigadores",
+  "position": 120,
+  "taboo": {
+   "text": "The first line of this card gains: \"If On Their Heels has no leads, discard it.\""
+  },
+  "copyright": "© 2025 FFG",
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Pisándoles los talones</b><b> (</b>[set:e1-03766b1a] <b> 120):</b> La primera línea de esta carta obtiene: “Si Pisándoles los talones no tiene indicios, descártala.”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Talento.",
+   "paras": [
+    {
+     "t": "Sólo para un mazo [[Detective]], [[Cazador]], [[Policía]], [[Reportero]].",
+     "k": "p"
+    },
+    {
+     "t": "Límite de 1 por investigador. Usos (5 indicios). Si Pisándoles los talones no tiene indicios, descártala.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Después de que entres en un Lugar con 1 o más Enemigos, gasta 1 indicio y agota Pisándoles los talones: Descubre 1 pista en tu Lugar o bien inflige 1 punto de daño a un Enemigo que esté en tu Lugar.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "60233",
+  "name": "El Necronomicón",
+  "subname": "Traducción de Petrus de Dacia",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 5,
+  "traits": "Objeto. Tomo.",
+  "text": "Usos (6 secretos). Límite de 1 por mazo.\n[free] Gasta 1 secreto: Recibes +2 al valor de habilidad para esta prueba de habilidad.\n[free] Gasta 2 secretos: Roba 2 cartas.\n[free] Gasta 3 secretos: Descubre 1 pista en cualquier Lugar.\n[free] Gasta 4 secretos: Inflige 3 puntos de daño a un Enemigo enfrentado a ti.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "intellect",
+   "intellect",
+   "intellect",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Dimitri Bielak",
+  "packName": "Harvey Walters",
+  "position": 33,
+  "taboo": {
+   "text": "Forbidden.",
+   "deck_limit": 0
+  },
+  "copyright": "© 2020 FFG",
+  "set": "e7a64922c8",
+  "setAspect": 1.199,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>El Necronomicón (Traducción de Petrus de Dacia)</b> ([set:e2-0404fd53] 33).",
+  "changeShared": false,
+  "cat": "forbidden",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Objeto. Tomo.",
+   "paras": [
+    {
+     "t": "Usos (6 secretos). Límite de 1 por mazo.",
+     "k": "p"
+    },
+    {
+     "t": "[free] Gasta 1 secreto: Recibes +2 al valor de habilidad para esta prueba de habilidad.",
+     "k": "p"
+    },
+    {
+     "t": "[free] Gasta 2 secretos: Roba 2 cartas.",
+     "k": "p"
+    },
+    {
+     "t": "[free] Gasta 3 secretos: Descubre 1 pista en cualquier Lugar.",
+     "k": "p"
+    },
+    {
+     "t": "[free] Gasta 4 secretos: Inflige 3 puntos de daño a un Enemigo enfrentado a ti.",
+     "k": "p"
+    }
+   ],
+   "note": "Prohibida."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "60318",
+  "name": "Temerario",
+  "subname": "",
+  "unique": false,
+  "type": "skill",
+  "typeName": "Habilidad",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 0,
+  "traits": "Fortuna. Experimentado.",
+  "text": "Después de que asignes Temerario a una prueba de habilidad, descarta cartas de la parte superior de tu mazo hasta que descartes una Habilidad [rogue] que puedas asignar a este prueba. Asígnala. Devuelve todas las Debilidades descartadas por este efecto a tu mazo y baraja éste.",
+  "flavour": "—¡Wini, estás como una cabra!\n—¡Lo sé! ¿No es maravilloso?",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Borja Pindado",
+  "packName": "Winifred Habbamock",
+  "position": 18,
+  "taboo": {
+   "text": "Instead of \"Shuffle each weakness that was discarded…\", this card's ability now reads: \"After this skill test resolves, draw each weakness discarded by this effect.\""
+  },
+  "copyright": "© 2019 FFG",
+  "set": "286bd4f87a",
+  "setAspect": 0.877,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Temerario</b><b> (</b>[set:e5-5dd1694d] <b> 18):</b> En lugar de “Devuelve todas las Debilidades descartadas...”, la capacidad de esta carta ahora dice: “Después de que se resuelva esta prueba de habilidad, roba todas las Debilidades descartadas por este efecto”.",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Fortuna. Experimentado.",
+   "paras": [
+    {
+     "t": "Después de que asignes Temerario a una prueba de habilidad, descarta cartas de la parte superior de tu mazo hasta que descartes una Habilidad [rogue] que puedas asignar a este prueba. Asígnala. Después de que se resuelva esta prueba de habilidad, roba todas las Debilidades descartadas por este efecto.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "60327",
+  "name": "Tirador de primera",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 3,
+  "traits": "Talento.",
+  "text": "[reaction] Cuando uses una capacidad <b>Combatir</b> de un Apoyo [[Arma de fuego]], agota Tirador de primera: Elige una o ambas opciones:\n— Este ataque usa [agility] en lugar de [combat]. Todos los modificadores a tu [combat] para este ataque modifican tu [agility] en su lugar.\n- Usa el valor de evitar del Enemigo atacado para este ataque en lugar de su valor de combatir.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matt Bradbury",
+  "packName": "Winifred Habbamock",
+  "position": 27,
+  "taboo": {
+   "xp": -1
+  },
+  "copyright": "© 2019 FFG",
+  "set": "286bd4f87a",
+  "setAspect": 0.877,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Tirador de primera</b><b> (</b>[set:e5-5dd1694d] <b> 27): </b>–1 de experiencia",
+  "changeShared": false,
+  "cat": "chained",
+  "lang": "es",
+  "rebuilt": "line",
+  "pdf": {
+   "traits": "Talento.",
+   "paras": [
+    {
+     "t": "[reaction] Cuando uses una capacidad <b>Combatir</b> de un Apoyo [[Arma de fuego]], agota Tirador de primera: Elige una o ambas opciones:",
+     "k": "p"
+    },
+    {
+     "t": "— Este ataque usa [agility] en lugar de [combat]. Todos los modificadores a tu [combat] para este ataque modifican tu [agility] en su lugar.",
+     "k": "p"
+    },
+    {
+     "t": "[bullet] Usa el valor de evitar del Enemigo atacado para este ataque en lugar de su valor de combatir.",
+     "k": "bullet"
+    }
+   ],
+   "note": "Desencadenada (–1 de experiencia)."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "60332",
+  "name": "Chuck Fergus",
+  "subname": "Conductor de O'Bannion",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 5,
+  "traits": "Aliado. Criminal.",
+  "text": "[reaction] Cuando juegues un Evento [[Táctica]] o [[Truco]], agota a Chuck Fergus y elige dos opciones:\n- Ese Evento obtiene Rápido.\n- Ese Evento cuesta 2 recursos menos para jugarlo.\n- Recibes +2 a tu valor de habilidad al realizar una prueba de habilidad durante la resolución de ese Evento.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 2,
+  "sanity": 2,
+  "victory": null,
+  "illustrator": "Derek D. Edgell",
+  "packName": "Winifred Habbamock",
+  "position": 32,
+  "taboo": {
+   "text": "This card's first bullet point now reads: \"That event gains: \"Fast. Play only during your turn.\"\""
+  },
+  "copyright": "© 2019 FFG",
+  "set": "892d99f044",
+  "setAspect": 0.877,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Chuck Fergus</b><b> (</b>[set:e5-5dd1694d] <b> 32, </b>[set:e1-1b5bc68d]<b> 72):</b> El primer punto de esta carta ahora dice: «Ese Evento obtiene: “Rápido. Juega esta carta sólo durante tu turno.”».",
+  "changeShared": false,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "corrected": true,
+  "pdf": {
+   "traits": "Aliado. Criminal.",
+   "paras": [
+    {
+     "t": "[reaction] Cuando juegues un Evento [[Táctica]] o [[Truco]], agota a Chuck Fergus y elige dos opciones:",
+     "k": "p"
+    },
+    {
+     "t": "[bullet] Ese Evento obtiene: “Rápido. Juega esta carta sólo durante tu turno.”",
+     "k": "bullet"
+    },
+    {
+     "t": "[bullet] Ese Evento cuesta 2 recursos menos para jugarlo.",
+     "k": "bullet"
+    },
+    {
+     "t": "[bullet] Recibes +2 a tu valor de habilidad al realizar una prueba de habilidad durante la resolución de ese Evento.",
+     "k": "bullet"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": false
+ },
+ {
+  "code": "60405",
+  "name": "Velas rituales",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Apoyo",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Objeto.",
+  "text": "[reaction] Después de que sea revelado un símbolo [skull], [cultist], [tablet] o [elder_thing] durante una prueba que estés realizando: Recibes +1 al valor de la habilidad para esta prueba.",
+  "flavour": "Los cirios emiten un resplandor fantasmal, y las llamas se mueven como si tuvieran vida.",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Kristina Gehrmann",
+  "packName": "Jacqueline Fine",
+  "position": 5,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2016 FFG",
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Velas rituales</b><b> (</b>[set:e2-09307c83][set:e5-6cc1b92c] <b> 29, </b>[set:e2-09307c83]<b> 5), </b><b>Mirada hipnótica</b><b> (</b>[set:e7-98c92876]<b> 153, </b>[set:e2-09307c83]<b> 14, 23) </b><b>Joya de Aureolus</b><b> (</b>[set:e5-6cc1b92c]<b> 269), </b><b>Voz de Ra</b><b> ( 16), </b><b>Desterrar</b><b> (</b>[set:e12-05e0449f]<b> 113):</b> Estas cartas ahora dicen “un símbolo” en lugar de la lista de símbolos indicados.",
+  "changeShared": true,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Objeto.",
+   "paras": [
+    {
+     "t": "[reaction] Después de que sea revelado un símbolo durante una prueba que estés realizando: Recibes +1 al valor de la habilidad para esta prueba.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "60414",
+  "name": "Mirada hipnótica",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 0,
+  "traits": "Hechizo.",
+  "text": "Rápido. Juega esta carta cuando un Enemigo ataque a un investigador que esté en tu Lugar.\nCancela el ataque. A continuación, revela una ficha aleatoria de la bolsa de caos. Si tiene un símbolo [skull], [cultist], [tablet], [elder_thing] o [auto_fail], inflige el daño del Enemigo atacante a sí mismo.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Falk",
+  "packName": "Jacqueline Fine",
+  "position": 14,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2016 FFG",
+  "set": "1014fb72e3",
+  "setAspect": 1.322,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Velas rituales</b><b> (</b>[set:e2-09307c83][set:e5-6cc1b92c] <b> 29, </b>[set:e2-09307c83]<b> 5), </b><b>Mirada hipnótica</b><b> (</b>[set:e7-98c92876]<b> 153, </b>[set:e2-09307c83]<b> 14, 23) </b><b>Joya de Aureolus</b><b> (</b>[set:e5-6cc1b92c]<b> 269), </b><b>Voz de Ra</b><b> ( 16), </b><b>Desterrar</b><b> (</b>[set:e12-05e0449f]<b> 113):</b> Estas cartas ahora dicen “un símbolo” en lugar de la lista de símbolos indicados.",
+  "changeShared": true,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Hechizo.",
+   "paras": [
+    {
+     "t": "Rápido. Juega esta carta cuando un Enemigo ataque a un investigador que esté en tu Lugar.",
+     "k": "p"
+    },
+    {
+     "t": "Cancela el ataque. A continuación, revela una ficha aleatoria de la bolsa de caos. Si tiene un símbolo, inflige el daño del Enemigo atacante a sí mismo.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "60416",
+  "name": "Voz de Ra",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 0,
+  "xp": 0,
+  "traits": "Hechizo.",
+  "text": "Obtén 1 recurso. Revela 3 fichas aleatorias de la bolsa de caos. Por cada símbolo [skull], [cultist], [tablet], [elder_thing] o [auto_fail] revelado, obtén 2 recursos adicionales.",
+  "flavour": "",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matt Bradbury",
+  "packName": "Jacqueline Fine",
+  "position": 16,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2020 FFG",
+  "set": "1014fb72e3",
+  "setAspect": 1.322,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Velas rituales</b><b> (</b>[set:e2-09307c83][set:e5-6cc1b92c] <b> 29, </b>[set:e2-09307c83]<b> 5), </b><b>Mirada hipnótica</b><b> (</b>[set:e7-98c92876]<b> 153, </b>[set:e2-09307c83]<b> 14, 23) </b><b>Joya de Aureolus</b><b> (</b>[set:e5-6cc1b92c]<b> 269), </b><b>Voz de Ra</b><b> ( 16), </b><b>Desterrar</b><b> (</b>[set:e12-05e0449f]<b> 113):</b> Estas cartas ahora dicen “un símbolo” en lugar de la lista de símbolos indicados.",
+  "changeShared": true,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Hechizo.",
+   "paras": [
+    {
+     "t": "Obtén 1 recurso. Revela 3 fichas aleatorias de la bolsa de caos. Por cada símbolo revelado, obtén 2 recursos adicionales.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "60417",
+  "name": "Profecía oscura",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Presagio.",
+  "text": "Rápido. Juega esta carta cuando fueses a revelar una ficha de Caos.\nRevela 5 fichas de Caos en lugar de 1. Elige una de esas fichas que tenga un símbolo [skull], [cultist], [tablet], [elder_thing] o [auto_fail] para resolverla e ignora el resto. Si no es revelada ninguna de esas fichas, elige cualquier otra ficha de entre las reveladas para resolverla e ignora el resto.",
+  "flavour": "Los secretos están escritos en las estrellas.",
+  "skills": [
+   "willpower",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Alice Duke",
+  "packName": "Jacqueline Fine",
+  "position": 17,
+  "taboo": {
+   "text": "This card now reads \"a non-[auto_fail] symbol\" instead of \"a [skull], [cultist], [tablet], or [elder_thing] chaos token.\""
+  },
+  "copyright": "© 2017 FFG",
+  "set": "aa99f780cd",
+  "setAspect": 1.148,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Profecía oscura</b><b> (</b>[set:e3-2540bab3] <b> 32, </b>[set:e2-09307c83]<b> 17):</b> Estas cartas ahora dicen: “un símbolo que no sea [eldersign]” en lugar de “un símbolo [skull], [cultist], [tablet], [elderthing] o [autofail]”.",
+  "changeShared": true,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Presagio.",
+   "paras": [
+    {
+     "t": "Rápido. Juega esta carta cuando fueses a revelar una ficha de Caos.",
+     "k": "p"
+    },
+    {
+     "t": "Revela 5 fichas de Caos en lugar de 1. Elige una de esas fichas que tenga un símbolo que no sea [eldersign] para resolverla e ignora el resto. Si no es revelada ninguna de esas fichas, elige cualquier otra ficha de entre las reveladas para resolverla e ignora el resto.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ },
+ {
+  "code": "60423",
+  "name": "Mirada hipnótica",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Evento",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 2,
+  "traits": "Hechizo.",
+  "text": "Rápido. Juega esta carta cuando un Enemigo ataque a un investigador que esté en tu Lugar.\nCancela el ataque. A continuación, revela una ficha aleatoria de la bolsa de caos. Si tiene un símbolo [skull], [cultist], [tablet], [elder_thing] o [auto_fail], inflige al Enemigo atacante una cantidad de daño igual a su daño u horror.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Falk",
+  "packName": "Jacqueline Fine",
+  "position": 23,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2016 FFG",
+  "set": "1014fb72e3",
+  "setAspect": 1.322,
+  "w": 738,
+  "h": 1048,
+  "backChange": false,
+  "change": "<b>Velas rituales</b><b> (</b>[set:e2-09307c83][set:e5-6cc1b92c] <b> 29, </b>[set:e2-09307c83]<b> 5), </b><b>Mirada hipnótica</b><b> (</b>[set:e7-98c92876]<b> 153, </b>[set:e2-09307c83]<b> 14, 23) </b><b>Joya de Aureolus</b><b> (</b>[set:e5-6cc1b92c]<b> 269), </b><b>Voz de Ra</b><b> ( 16), </b><b>Desterrar</b><b> (</b>[set:e12-05e0449f]<b> 113):</b> Estas cartas ahora dicen “un símbolo” en lugar de la lista de símbolos indicados.",
+  "changeShared": true,
+  "cat": "mutated",
+  "lang": "es",
+  "rebuilt": "full",
+  "pdf": {
+   "traits": "Hechizo.",
+   "paras": [
+    {
+     "t": "Rápido. Juega esta carta cuando un Enemigo ataque a un investigador que esté en tu Lugar.",
+     "k": "p"
+    },
+    {
+     "t": "Cancela el ataque. A continuación, revela una ficha aleatoria de la bolsa de caos. Si tiene un símbolo, inflige al Enemigo atacante una cantidad de daño igual a su daño u horror.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutada."
+  },
+  "noteOwnLine": true
+ }
+]

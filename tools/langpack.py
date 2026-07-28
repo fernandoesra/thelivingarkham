@@ -596,6 +596,15 @@ def build_registry(packs=None):
         taboo_path = os.path.join(DATA_DIR, f'taboos_{p.code}.json')
         if os.path.exists(taboo_path):
             entry['tabooData'] = f'data/taboos_{p.code}.json'
+        # The taboo card renderer (data/taboo_cards_<code>.json): every card on the taboo list
+        # drawn twice — as printed and as the taboo changes it — reconstructed in the language.
+        # Same rule as the others: listed only when the file exists, so the viewer appears for a
+        # language that ships it and the English-behind-a-beta-banner fallback covers the rest.
+        # This is why adding a language's cards needs no edit to this registry: drop the file in
+        # data/ and rebuild.
+        cards_path = os.path.join(DATA_DIR, f'taboo_cards_{p.code}.json')
+        if os.path.exists(cards_path):
+            entry['tabooCardsData'] = f'data/taboo_cards_{p.code}.json'
         # A pack may ship a flag next to its config. It is decoration: the label
         # is what names the language, so a pack without one is perfectly fine.
         # Listed rather than os.path.exists()-ed: that check is case-insensitive

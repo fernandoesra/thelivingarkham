@@ -1,0 +1,5856 @@
+[
+ {
+  "code": "01033",
+  "name": "Dr. Milan Christopher",
+  "subname": "Professor of Entomology",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 0,
+  "traits": "Ally. Miskatonic.",
+  "text": "You get +1 [intellect].\n[reaction] After you successfully investigate: Gain 1 resource.",
+  "flavour": "\"While I truly believe that this nightmare is just a singular abomination, I must admit that I am exhilarated by the possibility that this is but one specimen of a new genus!\"",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 1,
+  "sanity": 2,
+  "victory": null,
+  "illustrator": "Anthony Devine",
+  "packName": "Core Set",
+  "position": 33,
+  "taboo": {
+   "text": "This card's [reaction] ability now reads: \"After you successfully investigate, exhaust Dr. Milan Christopher...\""
+  },
+  "copyright": "© 2016 FFG",
+  "pdf": {
+   "traits": "Ally. Miskatonic.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "You get +1 [intellect].",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] After you successfully investigate, exhaust Dr. Milan Christopher: Gain 1 resource.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "9ffc9f8609",
+  "setAspect": 0.98,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Dr. Milan Christopher</b><b> (</b>[set:e1-64ef94fd] <b> 33):</b> This card’s [reaction] ability now reads: “After you successfully investigate, exhaust Dr. Milan Christopher…”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "01050",
+  "name": "Elusive",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Tactic.",
+  "text": "Fast. Play only during your turn.\nDisengage from each enemy engaged with you and move to a revealed location with no enemies.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Adam Schumpert",
+  "packName": "Core Set",
+  "position": 50,
+  "taboo": {
+   "text": "This card now reads: \"Disengage from each enemy engaged with you and move to a connecting location with no enemies.\""
+  },
+  "copyright": "© 2016 FFG",
+  "pdf": {
+   "traits": "Tactic.",
+   "paras": [
+    {
+     "t": "Mutated. Fast. Play only during your turn.",
+     "k": "p"
+    },
+    {
+     "t": "Disengage from each enemy engaged with you and move to a connecting location with no enemies.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "9ffc9f8609",
+  "setAspect": 0.98,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Elusive</b><b> (</b>[set:e1-64ef94fd] <b> 50):</b> This card now reads: “Disengage from each enemy engaged with you and move to a connecting location with no enemies.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "01073",
+  "name": "Scavenging",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Talent.",
+  "text": "[reaction] After you successfully investigate by 2 or more, exhaust Scavenging: Choose an [[Item]] card in your discard pile and add it to your hand.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Derk Venneman",
+  "packName": "Core Set",
+  "position": 73,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2016 FFG",
+  "pdf": {
+   "traits": "Talent.",
+   "paras": [
+    {
+     "t": "Chained (+2 experience).",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] After you successfully investigate by 2 or more, exhaust Scavenging: Choose an <b><i>Item</i></b> card in your discard pile and add it to your hand.",
+     "k": "p"
+    }
+   ],
+   "note": "Chained (+2 experience)."
+  },
+  "set": "9ffc9f8609",
+  "setAspect": 0.98,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Scavenging</b><b> (</b>[set:e1-64ef94fd] <b> 73): </b>+2 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "01573",
+  "name": "Scavenging",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Talent.",
+  "text": "[reaction] After you successfully investigate by 2 or more, exhaust Scavenging: Choose an [[Item]] card in your discard pile and add it to your hand.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Derk Venneman",
+  "packName": "Revised Core Set",
+  "position": 73,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2016 FFG",
+  "pdf": {
+   "traits": "Talent.",
+   "paras": [
+    {
+     "t": "Chained (+2 experience).",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] After you successfully investigate by 2 or more, exhaust Scavenging: Choose an <b><i>Item</i></b> card in your discard pile and add it to your hand.",
+     "k": "p"
+    }
+   ],
+   "note": "Chained (+2 experience)."
+  },
+  "set": "9ffc9f8609",
+  "setAspect": 0.98,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Scavenging</b><b> (</b>[set:e1-64ef94fd] <b> 73): </b>+2 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "02002",
+  "name": "Rex Murphy",
+  "subname": "The Reporter",
+  "unique": true,
+  "type": "investigator",
+  "typeName": "Investigator",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": null,
+  "traits": "Reporter.",
+  "text": "[reaction] After you succeed at a skill test by 2 or more while investigating: Discover 1 clue at your location.\n[elder_sign] effect: +2. You may instead choose to automatically fail this skill test to draw 3 cards.",
+  "flavour": "\"This time, nothing will stop me from getting at the truth!\"",
+  "skills": [
+   "willpower",
+   "willpower",
+   "willpower",
+   "intellect",
+   "intellect",
+   "intellect",
+   "intellect",
+   "combat",
+   "combat",
+   "agility",
+   "agility",
+   "agility"
+  ],
+  "stats": [
+   3,
+   4,
+   2,
+   3
+  ],
+  "slots": [],
+  "health": 6,
+  "sanity": 9,
+  "victory": null,
+  "illustrator": "Cristi Balanescu",
+  "packName": "The Dunwich Legacy",
+  "position": 2,
+  "taboo": {
+   "text": "This card's [reaction] ability gains: \"(Limit once per round.)\""
+  },
+  "copyright": "© 2016 FFG",
+  "pdf": {
+   "traits": "Reporter.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] After you succeed at a skill test by 2 or more while investigating: Discover 1 clue at your location. (Limit once per round.)",
+     "k": "p"
+    },
+    {
+     "t": "[eldersign] effect: +2. You may instead choose to automatically fail this skill test to draw 3 cards.",
+     "k": "p"
+    },
+    {
+     "t": "<i>“This time, nothing will stop me from getting at the truth.”</i>",
+     "k": "flav"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "53a8330a05",
+  "setAspect": 1.026,
+  "back": {
+   "name": "[unique]Rex Murphy",
+   "subtitle": "The Reporter",
+   "paras": [
+    "<b>Deck Size: </b>30.",
+    "<b>Deckbuilding Options: </b>Seeker cards ([seeker]) level  0-5, Neutral cards level 0-5, up to five other level 0  cards from any other class.",
+    "<b>Deckbuilding Requirements </b>(do not count  toward deck size): Search for the Truth, Rex’s Curse,  1 random basic weakness.",
+    "<b>Deckbuilding Restrictions: </b>No <b><i>Fortune</i></b> cards."
+   ],
+   "flavour": "<i>When disaster strikes, Rex Murphy is usually on hand, suffering the consequences. After spending a day with Rex, even the most hardened skeptic will concede that the man is cursed. Anytime he had a lead on a good story, something would go wrong. That business in Innsmouth with the photographs that had blown out to sea. The tracks in Dunwich that had washed away in the rain just before he’d brought the sheriff. His terrible fortune has more than once exposed him to gruesome beasts and occult conspiracies. To survive, Rex has developed an inquisitive mind, keeping one step ahead of the next disaster.</i>",
+   "warn": [],
+   "top": 20.03,
+   "left": 7.37,
+   "size": 2.921,
+   "flavSize": 2.921,
+   "lead": 1.021,
+   "gap": 0.383,
+   "photo": [
+    [
+     20.03,
+     41.16
+    ],
+    [
+     25.89,
+     40.76
+    ],
+    [
+     30.16,
+     40.36
+    ],
+    [
+     34.4,
+     39.57
+    ],
+    [
+     40.22,
+     39.17
+    ],
+    [
+     44.49,
+     38.77
+    ],
+    [
+     48.72,
+     38.38
+    ],
+    [
+     54.5,
+     37.58
+    ],
+    [
+     57.46,
+     37.57942440141057
+    ],
+    [
+     61.0,
+     37.58
+    ]
+   ]
+  },
+  "backChange": false,
+  "w": 1048,
+  "h": 738,
+  "change": "<b>Rex Murphy</b><b> (</b>[set:e5-6cc1b92c] <b> 2):</b> This card’s [reaction] ability gains: “(Limit once per round.)”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "02026",
+  "name": "Double or Nothing",
+  "subname": "",
+  "unique": false,
+  "type": "skill",
+  "typeName": "Skill",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 0,
+  "traits": "Fortune.",
+  "text": "Max 1 committed per skill test.\nDouble the difficulty of this skill test. If this skill test is successful, resolve the effects of the successful test twice.",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Mark Molnar",
+  "packName": "The Dunwich Legacy",
+  "position": 26,
+  "taboo": {
+   "text": "Forbidden.",
+   "deck_limit": 0
+  },
+  "copyright": "© 2016 FFG",
+  "pdf": {
+   "traits": "Fortune.",
+   "paras": [
+    {
+     "t": "Forbidden. Max 1 committed per skill test.",
+     "k": "p"
+    },
+    {
+     "t": "Double the difficulty of this skill test. If this skill test is successful, resolve the effects of the successful test twice.",
+     "k": "p"
+    }
+   ],
+   "note": "Forbidden."
+  },
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Double or Nothing</b><b> (</b>[set:e5-6cc1b92c] <b> 26)</b>",
+  "cat": "forbidden",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "02029",
+  "name": "Ritual Candles",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Item.",
+  "text": "[reaction] After a [skull], [cultist], [tablet], or [elder_thing] symbol is revealed during a test you are performing: You get +1 skill value for this test.",
+  "flavour": "The wax tapers give off an eerie glow, and the flames move as if they are alive.",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Kristina Gehrmann",
+  "packName": "The Dunwich Legacy",
+  "position": 29,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2016 FFG",
+  "pdf": {
+   "traits": "Item.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] After a symbol is revealed during a test you are performing: You get +1 skill value for this test.",
+     "k": "p"
+    },
+    {
+     "t": "<i>The wax tapers give off an eerie glow, and the flames move as if they are alive. </i>",
+     "k": "flav"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Ritual Candles</b><b> (</b>[set:e5-6cc1b92c] <b> 29, </b>[set:e2-09307c83] <b>5), </b><b>Hypnotic Gaze</b><b> (</b>[set:e5-6cc1b92c]<b> 153, </b>[set:e2-09307c83] <b>14, </b>[set:e2-09307c83] <b>23), </b><b>Jewel of Aureolus</b><b> (</b>[set:e5-6cc1b92c]<b> 269), </b><b>Voice of Ra</b><b> (</b>[set:e2-09307c83] <b>16), </b><b>Banish</b><b> (</b>[set:e12-05e0449f]<b> 113) :</b> These cards now read “a symbol” instead of the list of indicated symbols.",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "02108",
+  "name": "Pathfinder",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 1,
+  "traits": "Talent.",
+  "text": "[fast] During your turn, if you are not engaged with any enemies, exhaust Pathfinder: Move to a connecting location.",
+  "flavour": "Searchers after horror haunt strange, far places. - H. P. Lovecraft, \"The Picture in the House\"",
+  "skills": [
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Adam Lane",
+  "packName": "The Miskatonic Museum",
+  "position": 108,
+  "taboo": {
+   "xp": 1
+  },
+  "copyright": "© 2016 FFG",
+  "pdf": {
+   "traits": "Talent.",
+   "paras": [
+    {
+     "t": "Chained (+1 experience).",
+     "k": "p"
+    },
+    {
+     "t": "[free] During your turn, if you are not engaged with any enemies, exhaust Pathfinder: Move to a connecting location.",
+     "k": "p"
+    },
+    {
+     "t": "<i>Searchers after horror haunt strange, far places. –H. P. Lovecraft, “The Picture in the House”</i>",
+     "k": "flav"
+    }
+   ],
+   "note": "Chained (+1 experience)."
+  },
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Pathfinder</b><b> (</b>[set:e5-6cc1b92c] <b> 108):</b> +1 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "02111",
+  "name": "Delve Too Deep",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Insight.",
+  "text": "In player order, each investigator draws 1 card from the top of the encounter deck. Then, add Delve Too Deep to the victory display.",
+  "flavour": "Some things, once seen, can't be unseen.",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": 1,
+  "illustrator": "Anders Finér",
+  "packName": "The Miskatonic Museum",
+  "position": 111,
+  "taboo": {
+   "text": "This card gains: \"Group limit 2 copies of Delve Too Deep in the victory display.\""
+  },
+  "copyright": "© 2016 FFG",
+  "pdf": {
+   "traits": "Insight.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "In player order, each investigator draws 1 card from the top of the encounter deck. Then, add Delve Too Deep to the victory display. Group limit 2 copies of Delve Too Deep in the victory display.",
+     "k": "p"
+    },
+    {
+     "t": "<i>Some things, once seen, can’t be unseen.</i>",
+     "k": "flav"
+    },
+    {
+     "t": "<b>Victory 1.</b>",
+     "k": "center"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Delve Too Deep</b><b> (</b>[set:e5-6cc1b92c] <b> 111):</b> This card gains: “Group limit 2 copies of Delve Too Deep in the victory display.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "02153",
+  "name": "Hypnotic Gaze",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 0,
+  "traits": "Spell.",
+  "text": "Fast. Play when an enemy attacks an investigator at your location.\nCancel that attack. Then, reveal a random token from the chaos bag. If it has a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol, deal the attacking enemy's damage to itself. ",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Falk",
+  "packName": "The Essex County Express",
+  "position": 153,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2016 FFG",
+  "pdf": {
+   "traits": "Spell.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "Fast. Play when an enemy attacks an investigator at your location.",
+     "k": "p"
+    },
+    {
+     "t": "Cancel the attack. Then, reveal a random token from the chaos bag. If it has a symbol, deal the attacking enemy’s damage to itself.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "cf3f94c738",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Ritual Candles</b><b> (</b>[set:e5-6cc1b92c] <b> 29, </b>[set:e2-09307c83] <b>5), </b><b>Hypnotic Gaze</b><b> (</b>[set:e5-6cc1b92c]<b> 153, </b>[set:e2-09307c83] <b>14, </b>[set:e2-09307c83] <b>23), </b><b>Jewel of Aureolus</b><b> (</b>[set:e5-6cc1b92c]<b> 269), </b><b>Voice of Ra</b><b> (</b>[set:e2-09307c83] <b>16), </b><b>Banish</b><b> (</b>[set:e12-05e0449f]<b> 113) :</b> These cards now read “a symbol” instead of the list of indicated symbols.",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "02226",
+  "name": "Springfield M1903",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 4,
+  "traits": "Item. Weapon. Firearm.",
+  "text": "Uses (3 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +3 [combat] and deal +2 damage for this attack. Cannot be used to attack enemies engaged with you.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand x2"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Jason Caffoe",
+  "packName": "Undimensioned and Unseen",
+  "position": 226,
+  "taboo": {
+   "text": "This card's [action] ability gains: \"This attack may target a non-[[Elite]] enemy up to one location away from its standard range, ignoring the aloof and retaliate keywords.\""
+  },
+  "copyright": "© 2016 FFG",
+  "pdf": {
+   "traits": "Item. Weapon. Firearm.",
+   "paras": [
+    {
+     "t": "Mutated. Uses (3 ammo).",
+     "k": "p"
+    },
+    {
+     "t": "[action] Spend 1 ammo: <b>Fight.</b> You get +3 [combat] and deal +2 damage for this attack. Cannot be used to attack enemies engaged with you. This attack may target a non-<b><i>Elite</i></b> enemy up to one location away from its standard range, ignoring the aloof and retaliate keywords.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Springfield M1903</b><b> (</b>[set:e5-6cc1b92c] <b> 226):</b> This card’s [action] ability gains: “This attack may target a non‑<i><b>Elite</b></i> enemy up to one location away from its standard range, ignoring the aloof and retaliate keywords.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "02229",
+  "name": "Quick Thinking",
+  "subname": "",
+  "unique": false,
+  "type": "skill",
+  "typeName": "Skill",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 0,
+  "traits": "Innate.",
+  "text": "If this skill test is successful by 2 or more, after it resolves, you may immediately take an action as if it were your turn (this action does not count toward the number of actions you can take each turn).",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "David Auden Nash",
+  "packName": "Undimensioned and Unseen",
+  "position": 229,
+  "taboo": {
+   "text": "At the end of its ability, this card gains: \"(max once per round).\""
+  },
+  "copyright": "© 2016 FFG",
+  "pdf": {
+   "traits": "Innate.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "If this skill test is successful by 2 or more, after it resolves, you may immediately take an action as if it were your turn (this action does not count toward the number of actions you can take each turn). (Max once per round.)",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Quick Thinking</b><b> (</b>[set:e5-6cc1b92c] <b> 229):</b> At the end of its ability, this card gains: “(Max once per round).”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "02263",
+  "name": "Strange Solution",
+  "subname": "Acidic Ichor",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 4,
+  "traits": "Item. Science.",
+  "text": "Researched. Uses (3 supplies).\n[action] Spend 1 supply: <b>Fight.</b> Attack with a base [combat] skill of 6. This attack deals +2 damage.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "combat"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Tiziano Baracchi",
+  "packName": "Where Doom Awaits",
+  "position": 263,
+  "taboo": {
+   "text": "This card's fight ability now reads \"+1 damage\" instead of \"+2 damage.\""
+  },
+  "copyright": "© 2016 FFG",
+  "pdf": {
+   "traits": "Item. Science.",
+   "paras": [
+    {
+     "t": "Mutated. Researched. Uses (3 supplies).",
+     "k": "p"
+    },
+    {
+     "t": "[action] Spend 1 supply: <b>Fight.</b> Attack with a base [combat] skill of 6. This attack deals +1 damage.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Strange Solution (Acidic Ichor)</b><b> (</b>[set:e5-6cc1b92c] <b> 263):</b> This card’s fight ability now reads: “+1 damage” instead of “+2 damage.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "02266",
+  "name": "Ace in the Hole",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 0,
+  "xp": 3,
+  "traits": "Trick.",
+  "text": "Exceptional. Fast. Play only during your turn.\nYou may take an additional 3 actions this turn.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "John Pacer",
+  "packName": "Where Doom Awaits",
+  "position": 266,
+  "taboo": {
+   "text": "This card gains: \"Max once per round.\""
+  },
+  "copyright": "© 2016 FFG",
+  "pdf": {
+   "traits": "Trick.",
+   "paras": [
+    {
+     "t": "Mutated. Exceptional. Fast. Play only during your turn.",
+     "k": "p"
+    },
+    {
+     "t": "You may take an additional 3 actions this turn. (Max once per round.)",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Ace in the Hole</b><b> (</b>[set:e5-6cc1b92c] <b> 266):</b> This card gains: “(Max once per round.)”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "02269",
+  "name": "Jewel of Aureolus",
+  "subname": "Gift of the Homunculi",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 3,
+  "traits": "Item. Relic.",
+  "text": "[reaction] After a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol is revealed during a skill test at your location, exhaust Jewel of Aureolus: Draw 1 card or gain 2 resources.",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [
+   "Accessory"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Dani Hartel",
+  "packName": "Where Doom Awaits",
+  "position": 269,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2016 FFG",
+  "pdf": {
+   "traits": "Item. Relic.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] After a symbol is revealed during a skill test at your location, exhaust Jewel of Aureolus: Draw 1 card or gain 2 resources.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Ritual Candles</b><b> (</b>[set:e5-6cc1b92c] <b> 29, </b>[set:e2-09307c83] <b>5), </b><b>Hypnotic Gaze</b><b> (</b>[set:e5-6cc1b92c]<b> 153, </b>[set:e2-09307c83] <b>14, </b>[set:e2-09307c83] <b>23), </b><b>Jewel of Aureolus</b><b> (</b>[set:e5-6cc1b92c]<b> 269), </b><b>Voice of Ra</b><b> (</b>[set:e2-09307c83] <b>16), </b><b>Banish</b><b> (</b>[set:e12-05e0449f]<b> 113) :</b> These cards now read “a symbol” instead of the list of indicated symbols.",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "02300",
+  "name": "Monster Slayer",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 5,
+  "traits": "Spirit.",
+  "text": "<b>Fight.</b> If this attack succeeds against a non-[[Elite]] enemy, defeat that enemy.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Henning Ludvigsen",
+  "packName": "Lost in Time and Space",
+  "position": 300,
+  "taboo": {
+   "xp": -2
+  },
+  "copyright": "© 2016 FFG",
+  "pdf": {
+   "traits": "Spirit.",
+   "paras": [
+    {
+     "t": "Unchained (–2 experience).",
+     "k": "p"
+    },
+    {
+     "t": "<b>Fight.</b> If this attack succeeds against a non-<b><i>Elite</i></b> enemy, defeat that enemy.",
+     "k": "p"
+    }
+   ],
+   "note": "Unchained (–2 experience)."
+  },
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Monster Slayer</b><b> (</b>[set:e5-6cc1b92c] <b> 300):</b> –2 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "03006",
+  "name": "Lola Hayes",
+  "subname": "The Actress",
+  "unique": true,
+  "type": "investigator",
+  "typeName": "Investigator",
+  "subtypeName": "",
+  "faction": "neutral",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": null,
+  "traits": "Performer.",
+  "text": "<b>Forced</b> - After you draw your opening hand: Choose a role ([survivor], [guardian], [seeker], [rogue], [mystic], or Neutral).\nYou can only play, commit, or trigger abilities on Neutral cards or cards of your role.\n[fast]: Switch your role. (Limit once per round.)\n[elder_sign] effect: +2. You may switch roles.",
+  "flavour": "Perhaps this would be her big comeback.",
+  "skills": [
+   "willpower",
+   "willpower",
+   "willpower",
+   "intellect",
+   "intellect",
+   "intellect",
+   "combat",
+   "combat",
+   "combat",
+   "agility",
+   "agility",
+   "agility"
+  ],
+  "stats": [
+   3,
+   3,
+   3,
+   3
+  ],
+  "slots": [],
+  "health": 6,
+  "sanity": 6,
+  "victory": null,
+  "illustrator": "Magali Villeneuve",
+  "packName": "The Path to Carcosa",
+  "position": 6,
+  "taboo": {
+   "text": "This card's forced ability is moved to its reverse side, and it should now read: \"<b>Additional Setup</b>: After you draw your opening hand, choose a role ([survivor], [guardian], [seeker], [rogue], [mystic], or Neutral).\"\nThis card's front side additionally gains: \"[action]: Switch roles. Does not provoke attacks of opportunity.\""
+  },
+  "copyright": "© 2017 FFG",
+  "pdf": {
+   "traits": "Performer.",
+   "paras": [
+    {
+     "t": "You can only play, commit, or trigger abilities on Neutral cards or cards of your role.",
+     "k": "p"
+    },
+    {
+     "t": "[free]: Switch roles. (Limit once per round.)",
+     "k": "p"
+    },
+    {
+     "t": "[action]: Switch roles. Does not provoke attacks of opportunity.",
+     "k": "p"
+    },
+    {
+     "t": "[eldersign] effect: +2. You may switch roles.",
+     "k": "p"
+    },
+    {
+     "t": "<i>Perhaps this would be her big comeback.</i>",
+     "k": "flav"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "da61d6c0c2",
+  "setAspect": 0.688,
+  "back": {
+   "name": "[unique]Lola Hayes",
+   "subtitle": "The Actress",
+   "paras": [
+    "<b>Deck Size</b>: 35.",
+    "<b>Deckbuilding Options</b>: Survivor, Guardian, Seeker, Rogue, and Mystic cards ([survivor], [guardian], [seeker], [rogue], and [mystic]) level 0-3, Neutral cards level 0-5.",
+    "<b>Deckbuilding Requirements</b> (do not count toward deck size): 2 copies of Improvisation, 2 copies of Crisis of Identity, 1 random basic weakness.",
+    "<b>Additional Requirements</b>: Your deck must include at least 7 cards each from 3 different classes ([survivor], [guardian], [seeker], [rogue], or [mystic])."
+   ],
+   "flavour": "Lola has performed to sold-out houses worldwide, but no play has been as haunting or as odd as The King in Yellow. Even during rehearsals, everything about it brought calamity and dread. When her co-star, Miriam, was found floating dead in the Seine, she decided she'd had enough, and penned a letter to the director explaining that her next performance would be her last. Now she heads home to Arkham for one final show, hoping she can finally be rid of this dreadful play.",
+   "warn": [],
+   "top": 20.03,
+   "left": 7.37,
+   "size": 2.921,
+   "flavSize": 2.936,
+   "lead": 1.021,
+   "gap": 0.236,
+   "photo": [
+    [
+     20.03,
+     41.16
+    ],
+    [
+     25.28,
+     40.76
+    ],
+    [
+     29.55,
+     40.36
+    ],
+    [
+     33.79,
+     39.97
+    ],
+    [
+     39.0,
+     39.17
+    ],
+    [
+     43.27,
+     38.78
+    ],
+    [
+     47.51,
+     38.38
+    ],
+    [
+     52.72,
+     37.98
+    ],
+    [
+     54.85,
+     37.980080206370765
+    ]
+   ]
+  },
+  "backTaboo": {
+   "name": "[unique]Lola Hayes",
+   "subtitle": "The Actress",
+   "paras": [
+    "<b>Deck Size</b>: 35.",
+    "<b>Deckbuilding Options</b>: Survivor, Guardian,  Seeker, Rogue, and Mystic cards ([survivor], [guardian], [seeker], [rogue],  and [mystic]) level 0-3, Neutral cards level 0-5.",
+    "<b>Deckbuilding Requirements</b> (do not count toward  deck size): 2 copies of Improvisation, 2 copies of  Crisis of Identity, 1 random basic weakness.",
+    "<b>Additional Requirements</b>: Your deck must include  at least 7 cards each from 3 different classes ([survivor], [guardian], [seeker], [rogue], or [mystic]).",
+    "<b>Additional Setup:</b> After you draw your opening hand, choose a role ([survivor], [guardian], [seeker],  [rogue], [mystic], or Neutral)."
+   ],
+   "flavour": "<i>Lola has performed to sold-out houses worldwide, but no play has been as haunting or as odd as </i>The King in Yellow<i>. When her co-star, Miriam, was found floating dead in the Seine, she decided she’d had enough, and penned a letter to the director explaining that her next performance would be her last. Now she heads home for one final show.</i>",
+   "warn": [],
+   "top": 20.03,
+   "left": 7.37,
+   "size": 2.921,
+   "flavSize": 2.936,
+   "lead": 1.021,
+   "gap": 0.236,
+   "photo": [
+    [
+     20.03,
+     41.16
+    ],
+    [
+     25.28,
+     40.76
+    ],
+    [
+     29.55,
+     40.36
+    ],
+    [
+     33.79,
+     39.97
+    ],
+    [
+     39.0,
+     39.17
+    ],
+    [
+     43.27,
+     38.78
+    ],
+    [
+     47.51,
+     38.38
+    ],
+    [
+     52.72,
+     37.98
+    ],
+    [
+     54.85,
+     37.980080206370765
+    ]
+   ]
+  },
+  "backChange": true,
+  "w": 1048,
+  "h": 738,
+  "change": "<b>Lola Hayes</b><b> (</b>[set:e1-0e79d900] <b> 6):</b> This card’s forced ability is moved to its reverse side, and it should instead read: “<b>Additional Setup:</b> After you draw your opening hand, choose a role ([survivor], [guardian], [seeker], [rogue], [mystic], or Neutral).” This card’s front side additionally gains: “[action]: Switch roles. Does not provoke attacks of opportunity.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "03019",
+  "name": "Crisis of Identity",
+  "subname": "",
+  "unique": false,
+  "type": "treachery",
+  "typeName": "Treachery",
+  "subtypeName": "Weakness",
+  "faction": "neutral",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": null,
+  "traits": "Madness.",
+  "text": "<b>Revelation</b> - Discard all cards you control of your current role. Then, discard the top card of your deck. Switch your role to the class of the discarded card (if the discarded card is a weakness, switch your role to neutral).",
+  "flavour": "\"I've played so many roles. Madness is to be expected.\"",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matt Bradbury",
+  "packName": "The Path to Carcosa",
+  "position": 19,
+  "taboo": {
+   "text": "This card's revelation ability now reads: \"Discard 1 card in your hand or play area of your current role. Then...\""
+  },
+  "copyright": "© 2017 FFG",
+  "pdf": {
+   "traits": "Madness.",
+   "paras": [
+    {
+     "t": "<b>Revelation</b> – Discard 1 card in your hand or play area of your current role. Then, discard the top card of your deck. Switch your role to the class of the discarded card (if the discarded card is a weakness, switch your role to neutral).",
+     "k": "p"
+    },
+    {
+     "t": "<i>“I’ve played so many roles. Madness is to be expected.”</i>",
+     "k": "flav"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "c541dda3c6",
+  "setAspect": 0.688,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Crisis of Identity</b><b> (</b>[set:e1-0e79d900] <b> 19):</b> This card’s revelation ability now reads: “Discard 1 card in your hand or play area of your current role. Then…”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "03029",
+  "name": "Sleight of Hand",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Trick.",
+  "text": "Fast. Play only during your turn.\nPut an [[Item]] asset into play from your hand. At the end of your turn, if that asset is still in play, return it to your hand.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Ilich Henriquez",
+  "packName": "The Path to Carcosa",
+  "position": 29,
+  "taboo": {
+   "text": "This card's ability now reads: \"Put a level 0-3 [[Item]] asset into play from your hand.\""
+  },
+  "copyright": "© 2017 FFG",
+  "pdf": {
+   "traits": "Trick.",
+   "paras": [
+    {
+     "t": "Mutated. Fast. Play only during your turn.",
+     "k": "p"
+    },
+    {
+     "t": "Put a level 0–3 <b><i>Item</i></b> asset into play from your hand. At the end of your turn, if that asset is still in play, return it to your hand.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "c541dda3c6",
+  "setAspect": 0.688,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Sleight of Hand</b><b> (</b>[set:e1-0e79d900] <b> 29):</b> This card’s ability now reads: “Put a level 0–3 <i><b>Item</b></i> asset into play from your hand.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "03112",
+  "name": "David Renfield",
+  "subname": "Esteemed Eschatologist",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Ally. Patron.",
+  "text": "While David Renfield has at least 1 doom on him, you get +1 [willpower].\n[fast] Exhaust David Renfield: You may place 1 doom on David Renfield. Gain 1 resource for each doom on David Renfield.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 2,
+  "sanity": 1,
+  "victory": null,
+  "illustrator": "Alexandre Dainche",
+  "packName": "Echoes of the Past",
+  "position": 112,
+  "taboo": {
+   "text": "This card's [fast] ability now reads: \"...Gain 1 resource for each doom on David Renfield (to a maximum of 3 resources).\""
+  },
+  "copyright": "© 2017 FFG",
+  "pdf": {
+   "traits": "Ally. Patron.",
+   "paras": [
+    {
+     "t": "Mutated. While David Renfield has at least 1 doom on him, you get +1 [willpower].",
+     "k": "p"
+    },
+    {
+     "t": "[free] Exhaust David Renfield: You may place 1 doom on David Renfield. Gain 1 resource for each doom on David Renfield (to a maximum of 3 resources).",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "c541dda3c6",
+  "setAspect": 0.688,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>David Renfield</b><b> (</b>[set:e1-0e79d900] <b> 112): </b>This card’s [free] ability now reads: “… Gain 1 resource for each doom on David Renfield (to a maximum of 3 resources).”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "03315",
+  "name": "Key of Ys",
+  "subname": "Let the Storm Rage",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "neutral",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 5,
+  "traits": "Item. Relic.",
+  "text": "You get +1 to each of your skills for each horror on Key of Ys.\n<b>Forced</b> - When any amount of horror would be placed on you: Place 1 of that horror on Key of Ys.\n<b>Forced</b> - When Key of Ys leaves play: Discard the top 10 cards of your deck.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [
+   "Accessory"
+  ],
+  "health": null,
+  "sanity": 4,
+  "victory": null,
+  "illustrator": "Stephen Somers",
+  "packName": "Dim Carcosa",
+  "position": 315,
+  "taboo": {
+   "text": "This card gains the Exceptional keyword.",
+   "exceptional": true
+  },
+  "copyright": "© 2017 FFG",
+  "pdf": {
+   "traits": "Item. Relic.",
+   "paras": [
+    {
+     "t": "Mutated. Exceptional.",
+     "k": "p"
+    },
+    {
+     "t": "You get +1 to each of your skills for each horror on Key of Ys.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Forced</b> – When any amount of horror would be placed on you: Place 1 of that horror on Key of Ys.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Forced</b> – When Key of Ys leaves play: Discard the top 10 cards of your deck.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "c541dda3c6",
+  "setAspect": 0.688,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Key of Ys</b><b> (</b>[set:e1-0e79d900] <b> 315):</b> This card gains the exceptional keyword.",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "04032",
+  "name": "Dark Prophecy",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Augury.",
+  "text": "Fast. Play when you would reveal a chaos token.\nReveal 5 chaos tokens instead of 1. Choose one of those tokens with a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol to resolve, and ignore the rest. (If no such token is revealed, choose any one of those tokens to resolve, and ignore the rest.)",
+  "flavour": "The secrets were written in the stars.",
+  "skills": [
+   "willpower",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Alice Duke",
+  "packName": "The Forgotten Age",
+  "position": 32,
+  "taboo": {
+   "text": "This card now reads \"a non-[elder_sign] symbol\" instead of \"a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol.\""
+  },
+  "copyright": "© 2017 FFG",
+  "pdf": {
+   "traits": "Augury.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "Fast. Play when you would reveal a chaos token.",
+     "k": "p"
+    },
+    {
+     "t": "Reveal 5 chaos tokens instead of 1. Choose one of those tokens with a non-[eldersign] symbol to resolve, and ignore the rest. (If no such token is revealed, choose any one of those tokens to resolve, and ignore the rest.)",
+     "k": "p"
+    },
+    {
+     "t": "<i>The secrets were written in the stars.</i>",
+     "k": "flav"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "aa99f780cd",
+  "setAspect": 1.148,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Dark Prophecy</b><b> (</b>[set:e3-2540bab3] <b> 32, </b>[set:e2-09307c83] <b>17): </b>This cards now reads “a non-[eldersign] symbol” instead of “a [skull], [cultist], [tablet], [elderthing], or [autofail] symbol.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "04105",
+  "name": "Persuasion",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Insight. Trick.",
+  "text": "<b>Parley.</b> Choose a non-weakness [[Humanoid]] enemy at your location and test [intellect] (3). This test gets +X difficulty, where X is that enemy's horror value. If you succeed, shuffle the chosen enemy into the encounter deck. If the chosen enemy is [[Elite]], automatically evade it instead.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Rafał Hrynkiewicz",
+  "packName": "Threads of Fate",
+  "position": 105,
+  "taboo": {
+   "text": "This card's ability now reads \"<b>Parley.</b> Choose a non-weakness enemy at your location…\""
+  },
+  "copyright": "© 2018 FFG",
+  "pdf": {
+   "traits": "Insight. Trick.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Parley.</b> Choose a non-weakness enemy at your location and test [intellect] (3). This test gets +X difficulty, where X is that enemy’s horror value. If you succeed, shuffle the chosen enemy into the encounter deck. If the chosen enemy is <b><i>Elite</i></b>, automatically evade it instead.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "26a8cf9379",
+  "setAspect": 1.148,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Persuasion</b><b> (</b>[set:e3-2540bab3] <b> 105):</b> This card’s ability now reads “<b>Parley</b>. Choose a non-weakness enemy at your location…”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "04110",
+  "name": "Counterspell",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 2,
+  "traits": "Spell. Blessed.",
+  "text": "Fast. Play when a [skull], [cultist], [tablet], or [elder_thing] chaos token is revealed during a skill test at your location.\nCancel that chaos token. <i>(Do not reveal a new chaos token to replace it.)</i>",
+  "flavour": "\"Not on my watch.\"",
+  "skills": [
+   "willpower",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matthew Cowdery",
+  "packName": "Threads of Fate",
+  "position": 110,
+  "taboo": {
+   "text": "This card now reads \"a non-[auto_fail] symbol\" instead of \"a [skull], [cultist], [tablet], or [elder_thing] chaos token.\""
+  },
+  "copyright": "© 2018 FFG",
+  "pdf": {
+   "traits": "Spell. Blessed.",
+   "paras": [
+    {
+     "t": "Mutated. Fast. Play when a non-[autofail] symbol is revealed during a skill test at your location.",
+     "k": "p"
+    },
+    {
+     "t": "Cancel that chaos token. <i>(Do not reveal a new chaos token to replace it.)</i>",
+     "k": "p"
+    },
+    {
+     "t": "<i>“Not on my watch.”</i>",
+     "k": "flav"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "aa99f780cd",
+  "setAspect": 1.148,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Counterspell</b><b> (</b>[set:e3-2540bab3] <b> 110): </b>This cards now reads “a non-[autofail] symbol” instead of “a [skull], [cultist], [tablet], or [elderthing] chaos token.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "04233",
+  "name": "Pay Day",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 0,
+  "xp": 1,
+  "traits": "Illicit. Fated.",
+  "text": "Gain 1 resource for each action you performed this turn <i>(including this one)</i>. If it is your turn, end your turn.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Dual Brush Studios",
+  "packName": "The City of Archives",
+  "position": 233,
+  "taboo": {
+   "text": "This card’s ability now reads: “Gain 1 resource for each action you spent this turn…”"
+  },
+  "copyright": "© 2018 FFG",
+  "pdf": {
+   "traits": "Illicit. Fated.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "Gain 1 resource for each action you spent this turn <i>(including this one)</i>. If it is your turn, end your turn.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "aa99f780cd",
+  "setAspect": 1.148,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Pay Day</b><b> (</b>[set:e3-2540bab3] <b> 233):</b> This card’s ability now reads: “Gain 1 resource for each action you spent this turn…”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "04305",
+  "name": "Flamethrower",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 5,
+  "traits": "Item. Weapon. Firearm.",
+  "text": "Uses (4 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> The enemy chosen for this attack must be the enemy engaged with you with the highest fight. You get +4 [combat] for this attack. If this attack is successful, instead of its standard damage, you may assign up to 4 damage among enemies engaged with you <i>(any additional damage adds to this total)</i>.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "combat",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [
+   "Body",
+   "Hand x2"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Jose Vega",
+  "packName": "Shattered Aeons",
+  "position": 305,
+  "taboo": {
+   "xp": 1
+  },
+  "copyright": "© 2018 FFG",
+  "pdf": {
+   "traits": "Item. Weapon. Firearm.",
+   "paras": [
+    {
+     "t": "Chained (+1 experience). Uses (4 ammo).",
+     "k": "p"
+    },
+    {
+     "t": "[action] Spend 1 ammo: <b>Fight.</b> The enemy chosen for this attack must be the enemy engaged with you with the highest fight. You get +4 [combat] for this attack. If this attack is successful, instead of its standard damage, you may assign up to 4 damage among enemies engaged with you <i>(any additional damage adds to this total)</i>.",
+     "k": "p"
+    }
+   ],
+   "note": "Chained (+1 experience)."
+  },
+  "set": "26a8cf9379",
+  "setAspect": 1.148,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Flamethrower</b><b> (</b>[set:e3-2540bab3] <b> 305):</b> +1 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "04309",
+  "name": "All In",
+  "subname": "",
+  "unique": false,
+  "type": "skill",
+  "typeName": "Skill",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 5,
+  "traits": "Fortune.",
+  "text": "Max 1 committed per skill test.\nIf this test is successful, draw 1 card for each point you succeeded by, to a maximum of 5. Shuffle each weakness drawn by this effect back into your deck without resolving it.",
+  "flavour": "",
+  "skills": [
+   "wild",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Borja Pindado",
+  "packName": "Shattered Aeons",
+  "position": 309,
+  "taboo": {
+   "text": "At the end of its ability, this card gains: \"Remove All In from the game.\""
+  },
+  "copyright": "© 2018 FFG",
+  "pdf": {
+   "traits": "Fortune.",
+   "paras": [
+    {
+     "t": "Mutated. Max 1 committed per skill test.",
+     "k": "p"
+    },
+    {
+     "t": "If this test is successful, draw 1 card for each point you succeeded by, to a maximum of 5. Shuffle each weakness drawn by this effect back into your deck without resolving it. Remove All In from the game.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "26a8cf9379",
+  "setAspect": 1.148,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>All In</b><b> (</b>[set:e3-2540bab3] <b> 309):</b> At the end of its ability, this card gains: “Remove All In from the game.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "05020",
+  "name": "Interrogate",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Tactic. Insight.",
+  "text": "<b>Parley.</b> Choose a [[Humanoid]] enemy at your location and test [combat] (3). This test gets +X difficulty, where X is the chosen enemy's damage value. If you succeed, discover 1 clue at your location and 1 clue at any other location.",
+  "flavour": "He was hiding something… but why?",
+  "skills": [
+   "intellect",
+   "combat"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "John Pacer",
+  "packName": "The Circle Undone",
+  "position": 20,
+  "taboo": {
+   "text": "This card's ability now reads \"<b>Parley.</b> Choose a non-[[Elite]] enemy at your location…\""
+  },
+  "copyright": "© 2018 FFG",
+  "pdf": {
+   "traits": "Tactic. Insight.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Parley.</b> Choose a non-<b><i>Elite</i></b> enemy at your location and test [combat] (3). This test gets +X difficulty, where X is that enemy’s damage value. If you succeed, discover 1 clue at your location and 1 clue at any other location.",
+     "k": "p"
+    },
+    {
+     "t": "<i>He was hiding something... but why?</i>",
+     "k": "flav"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Interrogate</b><b> (</b>[set:e12-05e0449f] <b> 20):</b> This card’s ability now reads “<b>Parley</b>. Choose a non-<i><b>Elite</b></i> enemy at your location…”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "05113",
+  "name": "Banish",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 1,
+  "traits": "Spell.",
+  "text": "<b>Evade.</b> Use only on a non-[[Elite]] enemy. This evasion attempt uses [willpower] instead of [agility]. If you succeed, move the enemy just evaded to any location in play. If you succeed and a [skull], [cultist], [tablet], or [elder_thing] symbol was revealed during this evasion attempt, that enemy does not ready during the next upkeep phase.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Stephen Somers",
+  "packName": "The Secret Name",
+  "position": 113,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2018 FFG",
+  "pdf": {
+   "traits": "Spell.",
+   "paras": [
+    {
+     "t": "Mutated. <b>Evade. </b>Use only on a non-<b><i>Elite</i></b> enemy. This evasion attempt uses [willpower] instead of [agility]. If you succeed, move the enemy just evaded to any location in play. If you succeeded and a symbol was revealed during this evasion attempt, that enemy does not ready during the next upkeep phase.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "fbb4e406ac",
+  "setAspect": 1.862,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Ritual Candles</b><b> (</b>[set:e5-6cc1b92c] <b> 29, </b>[set:e2-09307c83] <b>5), </b><b>Hypnotic Gaze</b><b> (</b>[set:e5-6cc1b92c]<b> 153, </b>[set:e2-09307c83] <b>14, </b>[set:e2-09307c83] <b>23), </b><b>Jewel of Aureolus</b><b> (</b>[set:e5-6cc1b92c]<b> 269), </b><b>Voice of Ra</b><b> (</b>[set:e2-09307c83] <b>16), </b><b>Banish</b><b> (</b>[set:e12-05e0449f]<b> 113) :</b> These cards now read “a symbol” instead of the list of indicated symbols.",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "05116",
+  "name": "Scroll of Secrets",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": "mystic",
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Item. Tome.",
+  "text": "Uses (3 secrets).\n[action] Exhaust Scroll of Secrets and spend 1 secret: Look at the bottom card of any investigator's deck or the encounter deck. Then, either discard that card, add it to its owner's hand, place it on the bottom of its deck, or place it on the top of its deck.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matthew Cowdery",
+  "packName": "The Secret Name",
+  "position": 116,
+  "taboo": {
+   "text": "This card's [action] ability is now a [fast] ability."
+  },
+  "copyright": "© 2018 FFG",
+  "pdf": {
+   "traits": "Item. Tome.",
+   "paras": [
+    {
+     "t": "Mutated. Uses (3 secrets).",
+     "k": "p"
+    },
+    {
+     "t": "[free] Exhaust Scroll of Secrets and spend 1 secret: Look at the bottom card of any investigator’s deck or the encounter deck. Then, either discard that card, add it to its owner’s hand, place it on the bottom of its deck, or place it on the top of its deck.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Scroll of Secrets (all three versions)</b><b> (</b>[set:e12-05e0449f] <b> 116, 188, 189):</b> These cards’ [action] abilities are now [free] abilities.",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "05153",
+  "name": "Mr. \"Rook\"",
+  "subname": "Dealer in Secrets",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 0,
+  "traits": "Ally.",
+  "text": "Uses (3 secrets).\n[fast] Exhaust Mr. \"Rook\" and spend 1 secret: Search the top 3, 6, or 9 cards of your deck for any card and draw it. If at least 1 weakness is among the searched cards, draw 1 of them, as well. Shuffle your deck.",
+  "flavour": "\"Are you sure you want to know? There is no going back.\"",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 2,
+  "sanity": 2,
+  "victory": null,
+  "illustrator": "Romana Kendelic",
+  "packName": "The Wages of Sin",
+  "position": 153,
+  "taboo": {
+   "text": "This card's [fast] ability is now a [action] ability."
+  },
+  "copyright": "© 2018 FFG",
+  "pdf": {
+   "traits": "Ally.",
+   "paras": [
+    {
+     "t": "Mutated. Uses (3 secrets).",
+     "k": "p"
+    },
+    {
+     "t": "[action] Exhaust Mr. “Rook” and spend 1 secret: Search the top 3, 6, or 9 cards of your deck for any card and draw it. If at least 1 weakness is among the searched cards, draw 1 of them, as well. Shuffle your deck.",
+     "k": "p"
+    },
+    {
+     "t": "<i>“Are you sure you want to know? There is no going back.”</i>",
+     "k": "flav"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Mr. “Rook”</b><b> (</b>[set:e12-05e0449f] <b> 153):</b> This card’s [free]ability is now a [action] ability.",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "05156",
+  "name": "Swift Reflexes",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Gambit.",
+  "text": "Fast. Play during any investigator's turn, except during an action.\nImmediately take an action as if it were your turn. This action does not count toward the number of actions you can take each turn.",
+  "flavour": "",
+  "skills": [
+   "agility",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Miguel Coimbra",
+  "packName": "The Wages of Sin",
+  "position": 156,
+  "taboo": {
+   "text": "This card gains \"(Limit twice per round.)\""
+  },
+  "copyright": "© 2019 FFG",
+  "pdf": {
+   "traits": "Gambit.",
+   "paras": [
+    {
+     "t": "Mutated. Fast. Play during any investigator’s turn, except during an action.",
+     "k": "p"
+    },
+    {
+     "t": "Immediately take an action as if it were your turn. This action does not count toward the number of actions you can take each turn. (Limit twice per round.)",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "e77ed389f1",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Swift Reflexes</b><b> (</b>[set:e12-05e0449f] <b> 156):</b> This card gains “(Limit twice per round.)”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "05157",
+  "name": "Wither",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Spell.",
+  "text": "[action]: <b>Fight.</b> This attack uses [willpower] instead of [combat]. If a [skull], [cultist], [tablet], or [elder_thing] symbol is revealed during this attack, the attacked enemy gets -1 fight and -1 evade for the remainder of the turn (to a minimum of 1).",
+  "flavour": "",
+  "skills": [
+   "combat"
+  ],
+  "stats": null,
+  "slots": [
+   "Arcane"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Damien Worm",
+  "packName": "The Wages of Sin",
+  "position": 157,
+  "taboo": {
+   "text": "This card now reads \"a symbol token\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2018 FFG",
+  "pdf": {
+   "traits": "Spell.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "[action]: <b>Fight.</b> This attack uses [willpower] instead of [combat]. If a symbol token is revealed during this attack, the attacked enemy gets –1 fight and –1 evade for the remainder of the turn (to a minimum of 1).",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "e77ed389f1",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Wither</b><b> (</b>[set:e12-05e0449f] <b> 157):</b> This card now reads “a symbol token” instead of the list of indicated symbols.",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "05159",
+  "name": "Drawing Thin",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 0,
+  "xp": 0,
+  "traits": "Talent.",
+  "text": "[reaction] When you initiate a skill test, exhaust Drawing Thin: Increase the difficulty of this skill test by 2. Gain 2 resources or draw 1 card.",
+  "flavour": "",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Borja Pindado",
+  "packName": "The Wages of Sin",
+  "position": 159,
+  "taboo": {
+   "xp": 3
+  },
+  "copyright": "© 2018 FFG",
+  "pdf": {
+   "traits": "Talent.",
+   "paras": [
+    {
+     "t": "Chained (+3 experience).",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] When you initiate a skill test, exhaust Drawing Thin: Increase the difficulty of this test by 2. Gain 2 resources or draw 1 card.",
+     "k": "p"
+    }
+   ],
+   "note": "Chained (+3 experience)."
+  },
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Drawing Thin</b><b> (</b>[set:e12-05e0449f] <b> 159):</b> +3 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "05188",
+  "name": "Scroll of Secrets",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 3,
+  "traits": "Item. Tome.",
+  "text": "Uses (3 secrets).\n[action] Exhaust Scroll of Secrets and spend 1 secret: Look at the bottom 3 cards of any investigator's deck or the encounter deck. You may discard 1 of those cards. You may add 1 of those cards to its owner's hand. Place the rest of those cards on either the top or bottom of their deck, in any order.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matthew Cowdery",
+  "packName": "For the Greater Good",
+  "position": 188,
+  "taboo": {
+   "text": "This card's [action] ability is now a [fast] ability."
+  },
+  "copyright": "© 2018 FFG",
+  "pdf": {
+   "traits": "Item. Tome.",
+   "paras": [
+    {
+     "t": "Mutated. Uses (3 secrets).",
+     "k": "p"
+    },
+    {
+     "t": "[free] Exhaust Scroll of Secrets and spend 1 secret: Look at the bottom 3 cards of any investigator’s deck or the encounter deck. You may discard 1 of those cards. You may add 1 of those cards to its owner’s hand. Place the rest of those cards on either the top or bottom of their deck, in any order.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Scroll of Secrets (all three versions)</b><b> (</b>[set:e12-05e0449f] <b> 116, 188, 189):</b> These cards’ [action] abilities are now [free] abilities.",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "05189",
+  "name": "Scroll of Secrets",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 3,
+  "traits": "Item. Tome.",
+  "text": "Uses (4 secrets).\n[action] Exhaust Scroll of Secrets and spend 1 secret: Look at the top or bottom card of any investigator's deck or the encounter deck. Then, either discard that card, add it to its owner's hand, place it on the bottom of its deck, or place it on top of its deck.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matthew Cowdery",
+  "packName": "For the Greater Good",
+  "position": 189,
+  "taboo": {
+   "text": "This card's [action] ability is now a [fast] ability."
+  },
+  "copyright": "© 2018 FFG",
+  "pdf": {
+   "traits": "Item. Tome.",
+   "paras": [
+    {
+     "t": "Mutated. Uses (4 secrets).",
+     "k": "p"
+    },
+    {
+     "t": "[free] Exhaust Scroll of Secrets and spend 1 secret: Look at the top or bottom card of any investigator’s deck or the encounter deck. Then, either discard that card, add it to its owner’s hand, place it on the bottom of its deck, or place it on top of its deck.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Scroll of Secrets (all three versions)</b><b> (</b>[set:e12-05e0449f] <b> 116, 188, 189):</b> These cards’ [action] abilities are now [free] abilities.",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "05230",
+  "name": "Telescopic Sight",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 3,
+  "traits": "Item. Upgrade.",
+  "text": "Fast. Attach to a [[Firearm]] asset you control that takes up two hand slots. Attached asset cannot be used to attack enemies engaged with you.\n[reaction] When you perform a <b>Fight</b> action using attached asset, if you are engaged with no enemies, exhaust Telecopic Sight: This attack can target a non-[[Elite]] enemy at a connecting location. Ignore the aloof and retaliate keywords for this attack.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Tiziano Baracchi",
+  "packName": "Union and Disillusion",
+  "position": 230,
+  "taboo": {
+   "text": "This card loses the text: \"Attached asset cannot be used to attack enemies engaged with you.\""
+  },
+  "copyright": "© 2018 FFG",
+  "pdf": {
+   "traits": "Item. Upgrade.",
+   "paras": [
+    {
+     "t": "Mutated. Fast. Attach to a <b><i>Firearm</i></b> asset you control that takes up two hand slots.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] When you perform a <b>Fight</b> action using attached asset, if you are engaged with no enemies, exhaust Telecopic Sight: This attack can target a non-<b><i>Elite</i></b> enemy at a connecting location. Ignore the aloof and retaliate keywords for this attack.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Telescopic Sight</b><b> (</b>[set:e12-05e0449f] <b> 230):</b> This card loses the text: “Attached asset cannot be used to attack enemies engaged with you.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "05231",
+  "name": "Knowledge is Power",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 0,
+  "xp": 0,
+  "traits": "Insight.",
+  "text": "Fast. Play only during your turn.\nChoose a [[Tome]] or [[Spell]] asset you control, or reveal a [[Tome]] or [[Spell]] asset from your hand. Resolve an [action] or [fast] ability on that asset, ignoring all costs <i>(including its [action] cost, if any)</i>. Then, if that asset was in your hand, you may discard it to draw 1 card.",
+  "flavour": "... and power corrupts.",
+  "skills": [
+   "willpower",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Michal Milkowski",
+  "packName": "Union and Disillusion",
+  "position": 231,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2018 FFG",
+  "pdf": {
+   "traits": "Insight.",
+   "paras": [
+    {
+     "t": "Chained (+2 experience). Fast. Play only during your turn.",
+     "k": "p"
+    },
+    {
+     "t": "Choose a <b><i>Tome</i></b> or <b><i>Spell</i></b> asset you control, or reveal a <b><i>Tome</i></b> or <b><i>Spell</i></b> asset from your hand. Resolve an [action] or [free] ability on that asset, ignoring all costs <i>(including its </i>[action]<i> cost, if any)</i>. Then, if that asset was in your hand, you may discard it to draw 1 card.",
+     "k": "p"
+    }
+   ],
+   "note": "Chained (+2 experience)."
+  },
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Knowledge is Power</b><b> (</b>[set:e12-05e0449f] <b> 231):</b> +2 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "05321",
+  "name": "Wither",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 4,
+  "traits": "Spell.",
+  "text": "[action]: <b>Fight.</b> This attack uses [willpower] instead of [combat]. You get +2 [willpower] for this attack. If a [skull], [cultist], [tablet], or [elder_thing] symbol is revealed during this attack, the attacked enemy gets -1 fight, -1 health, and -1 evade for the remainder of the turn (to a minimum of 1).",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "combat"
+  ],
+  "stats": null,
+  "slots": [
+   "Arcane"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Damien Worm",
+  "packName": "Before the Black Throne",
+  "position": 321,
+  "taboo": {
+   "text": "This card's [action] ability now reads \"...If a symbol token is revealed during this attack, the attacked enemy gets -1 fight, -1 health, and -1 evade until the end of the phase (to a minimum of 1)."
+  },
+  "copyright": "© 2018 FFG",
+  "pdf": {
+   "traits": "Spell.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "[action]: <b>Fight.</b> This attack uses [willpower] instead of [combat]. You get +2 [willpower] for this attack. If a symbol token is revealed during this attack, the attacked enemy gets –1 fight, –1 health, and –1 evade until the end of the phase (to a minimum of 1).",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "e77ed389f1",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Wither</b><b> (</b>[set:e12-05e0449f] <b> 321):</b> This card’s [action] ability now reads “...If a symbol token is revealed during this attack, the attacked enemy gets –1 fight, –1 health, and –1 evade until the end of the phase (to a minimum of 1).”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "05324",
+  "name": "Eucatastrophe",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 3,
+  "traits": "Fortune. Blessed.",
+  "text": "Fast. Play when you reveal a chaos token that would reduce your skill value to 0 during a skill test (including the [auto_fail] token).\nCancel that token and treat it as an [elder_sign] token, instead.",
+  "flavour": "",
+  "skills": [
+   "wild",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Julian Kok",
+  "packName": "Before the Black Throne",
+  "position": 324,
+  "taboo": {
+   "text": "This card's ability gains: \"Remove Eucatastrophe from the game.\""
+  },
+  "copyright": "© 2018 FFG",
+  "pdf": {
+   "traits": "Fortune. Blessed.",
+   "paras": [
+    {
+     "t": "Mutated. Fast. Play when you reveal a chaos token that would reduce your skill value to 0 during a skill test (including the [autofail] token).",
+     "k": "p"
+    },
+    {
+     "t": "Cancel that token and treat it as an [eldersign] token, instead. Remove Eucatastrophe from the game.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "cc74a1cf54",
+  "setAspect": 1.861,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Eucatastrophe</b><b> (</b>[set:e12-05e0449f] <b> 324):</b> This card’s ability gains: “Remove Eucatastrophe from the game.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "06002",
+  "name": "Mandy Thompson",
+  "subname": "The Researcher",
+  "unique": true,
+  "type": "investigator",
+  "typeName": "Investigator",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": null,
+  "traits": "Assistant. Scholar.",
+  "text": "[reaction] When an investigator at your location would search their deck or the encounter deck: They may either search 3 additional cards or resolve 1 additional target of the search. (Limit once per round.)\n[elder_sign] effect: +0. Search the top 3 cards of your deck for a card and either draw it or commit it to this test, if able. Shuffle your deck.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "willpower",
+   "willpower",
+   "intellect",
+   "intellect",
+   "intellect",
+   "intellect",
+   "intellect",
+   "combat",
+   "agility",
+   "agility",
+   "agility"
+  ],
+  "stats": [
+   3,
+   5,
+   1,
+   3
+  ],
+  "slots": [],
+  "health": 6,
+  "sanity": 8,
+  "victory": null,
+  "illustrator": "Tony Foti",
+  "packName": "The Dream-Eaters",
+  "position": 2,
+  "taboo": {
+   "text": "This investigator now reads: \"Deck Size: 50\" and \"Deckbuilding Requirements (do not count towards deck size): 3 copies of Occult Evidence...\""
+  },
+  "copyright": "© 2019 FFG",
+  "pdf": {
+   "traits": "Assistant. Scholar.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] When an investigator at your location would search their deck or the encounter deck: They may either search 3 additional cards or resolve 1 additional target of the search. (Limit once per round.)",
+     "k": "p"
+    },
+    {
+     "t": "[eldersign] effect: +0. Search the top 3 cards of your deck for a card and either draw it or commit it to this test, if able. Shuffle your deck.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "483914db0c",
+  "setAspect": 1.069,
+  "back": {
+   "name": "[unique]Mandy Thompson",
+   "subtitle": "The Researcher",
+   "paras": [
+    "<b>Deck Size</b>: At deck creation, choose 30, 40, or 50.",
+    "<b>Secondary Class Choice</b>: At deck creation, choose Mystic ([mystic]), Rogue ([rogue]), or Survivor ([survivor]).",
+    "<b>Deckbuilding Options</b>: Seeker cards ([seeker]) level 0-5, Neutral cards level 0-5, up to 10 level 0-1 events and/or skills of your chosen secondary class.",
+    "<b>Deckbuilding Requirements</b> (do not count toward deck size): 1 copy of Occult Evidence (2 copies instead if your deck size is 40; 3 copies instead if your deck size is 50), Shocking Discovery, 1 random basic weakness."
+   ],
+   "flavour": "Ever since she was a child, Mandy would read whenever she could not sleep. Such has been the case on many nights. Her remarkable memory and ability to correlate facts have landed her a highly valued job as a researcher for Miskatonic University. She has spent hours poring over the profane pages of ancient, forbidden texts. In doing so, she has discovered a pattern indicating an impending catacylsm. Has paranoia finally caught up to her? Or is a disaster of truly epic proportions on the horizon?",
+   "warn": [],
+   "top": 20.03,
+   "left": 7.38,
+   "size": 2.981,
+   "flavSize": 2.981,
+   "lead": 1.0,
+   "gap": 0.231,
+   "photo": [
+    [
+     20.03,
+     37.18
+    ],
+    [
+     25.28,
+     37.18
+    ],
+    [
+     29.55,
+     36.79
+    ],
+    [
+     34.77,
+     36.39
+    ],
+    [
+     39.04,
+     36.39
+    ],
+    [
+     43.27,
+     36.0
+    ],
+    [
+     48.48,
+     35.6
+    ],
+    [
+     52.76,
+     35.6
+    ],
+    [
+     56.99,
+     34.8
+    ],
+    [
+     62.22,
+     32.02
+    ],
+    [
+     64.34,
+     32.02130692871854
+    ]
+   ]
+  },
+  "backTaboo": {
+   "name": "[unique]Mandy Thompson",
+   "subtitle": "The Researcher",
+   "paras": [
+    "<b>Deck Size</b>: 50.",
+    "<b>Secondary Class Choice</b>: At deck creation, choose  Mystic ([mystic]), Rogue ([rogue]), or Survivor ([survivor]).",
+    "<b>Deckbuilding Options</b>: Seeker cards ([seeker]) level  0–5, Neutral cards level 0–5, up to 10 level 0–1  events and/or skills of your chosen secondary class.",
+    "<b>Deckbuilding Requirements</b> (do not count toward  deck size): 3 copies of Occult Evidence, Shocking  Discovery, 1 random basic weakness."
+   ],
+   "flavour": "<i>Ever since she was a child, Mandy would read whenever she could not sleep. Such has been the case on many nights. Her remarkable memory and ability to correlate facts have landed her a highly valued job as a researcher for Miskatonic University. She has spent hours poring over the profane pages of ancient, forbidden texts. In doing so, she has discovered a pattern indicating an impending catacylsm. Has paranoia finally caught up to her? Or is a disaster of truly epic proportions on the horizon?</i>",
+   "warn": [],
+   "top": 20.03,
+   "left": 7.38,
+   "size": 2.981,
+   "flavSize": 2.981,
+   "lead": 1.0,
+   "gap": 0.231,
+   "photo": [
+    [
+     20.03,
+     37.18
+    ],
+    [
+     25.28,
+     37.18
+    ],
+    [
+     29.55,
+     36.79
+    ],
+    [
+     34.77,
+     36.39
+    ],
+    [
+     39.04,
+     36.39
+    ],
+    [
+     43.27,
+     36.0
+    ],
+    [
+     48.48,
+     35.6
+    ],
+    [
+     52.76,
+     35.6
+    ],
+    [
+     56.99,
+     34.8
+    ],
+    [
+     62.22,
+     32.02
+    ],
+    [
+     64.34,
+     32.02130692871854
+    ]
+   ]
+  },
+  "backChange": true,
+  "w": 1048,
+  "h": 738,
+  "change": "<b>Mandy Thompson</b><b> (</b>[set:e1-32b441de] <b> 2):</b> This investigator now reads: “Deck Size: 50” and “Deckbuilding Requirements (do not count toward deck size): 3 copies of Occult Evidence…”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "06022",
+  "name": "Pendant of the Queen",
+  "subname": "Of Nothing at All",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": null,
+  "traits": "Item. Relic.",
+  "text": "Bonded (Segment of Onyx). Uses (3 charges). If this card has no charges, set it aside, out of play, and shuffle 3 set-aside copies of Segment of Onyx into your deck.\n[fast] Exhaust Pendant of the Queen and spend 1 charge: Choose a revealed location and select one - move to that location, discover 1 clue at that location, or automatically evade an enemy at that location.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [
+   "Accessory"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Diana Martínez",
+  "packName": "The Dream-Eaters",
+  "position": 22,
+  "taboo": {
+   "text": "This card's constant ability now reads: \"If this card has no charges, remove it from the game.\""
+  },
+  "copyright": "© 2019 FFG",
+  "pdf": {
+   "traits": "Item. Relic.",
+   "paras": [
+    {
+     "t": "Mutated. Bonded (Segment of Onyx). Uses (3 charges). If this card has no charges, remove it from the game.",
+     "k": "p"
+    },
+    {
+     "t": "[free] Exhaust Pendant of the Queen and spend 1 charge: Choose a revealed location and select one – move to that location, discover 1 clue at that location, or automatically evade an enemy at that location.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "a719d32223",
+  "setAspect": 1.069,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Pendant of the Queen</b><b> (</b>[set:e1-32b441de] <b> 22):</b> This card’s constant ability now reads: “If this card has no charges, remove it from the game.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "06195",
+  "name": ".35 Winchester",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 0,
+  "traits": "Item. Weapon. Firearm.",
+  "text": "Uses (5 ammo).\n[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack. If a +1, 0, or [elder_sign] chaos token is revealed during this attack, this attack deals +2 damage.",
+  "flavour": "",
+  "skills": [
+   "agility"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand x2"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Stephen Somers",
+  "packName": "Dark Side of the Moon",
+  "position": 195,
+  "taboo": {
+   "text": "This card's [action] ability now reads: \"[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack. If a chaos token with a non-negative modifier is revealed during this attack, this attack deals +2 damage.\""
+  },
+  "copyright": "© 2019 FFG",
+  "pdf": {
+   "traits": "Item. Weapon. Firearm.",
+   "paras": [
+    {
+     "t": "Mutated. Uses (5 ammo).",
+     "k": "p"
+    },
+    {
+     "t": "[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack. If a chaos token with a non-negative modifier is revealed during this attack, this attack deals +2 damage.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "a719d32223",
+  "setAspect": 1.069,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>.35 Winchester</b><b> (</b>[set:e1-32b441de] <b> 195):</b> This card’s [action] ability now reads: “[action] Spend 1 ammo: <b>Fight.</b> You get +2 [combat] for this attack. If a chaos token with a non-negative modifier is revealed during this attack, this attack deals +2 damage.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "06199",
+  "name": "Three Aces",
+  "subname": "",
+  "unique": false,
+  "type": "skill",
+  "typeName": "Skill",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 1,
+  "traits": "Fortune. Practiced.",
+  "text": "Myriad.\nIf you commit 3 copies of Three Aces to a skill test, that test automatically succeeds <i>(do not reveal chaos tokens from the chaos bag)</i>. Then draw 3 cards and gain 3 resources (max once per test).",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Diana Martínez",
+  "packName": "Dark Side of the Moon",
+  "position": 199,
+  "taboo": {
+   "text": "This card's ability gains: \"Remove each committed copy of Three Aces from the game.\""
+  },
+  "copyright": "© 2019 FFG",
+  "pdf": {
+   "traits": "Fortune. Practiced.",
+   "paras": [
+    {
+     "t": "Mutated. Myriad.",
+     "k": "p"
+    },
+    {
+     "t": "If you commit 3 copies of Three Aces to a skill test, that test automatically succeeds <i>(do not reveal chaos tokens from the chaos bag)</i>. Then, draw 3 cards and gain 3 resources (max once per test). Remove each committed copy of Three Aces from the game.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "a719d32223",
+  "setAspect": 1.069,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Three Aces</b><b> (</b>[set:e1-32b441de] <b> 199):</b> This card’s ability gains: “Remove each committed copy of Three Aces from the game.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "06332",
+  "name": "Scavenging",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 2,
+  "traits": "Talent.",
+  "text": "[reaction] After you successfully investigate by 2 or more, exhaust Scavenging: Choose an [[Item]] card in your discard pile and either add it to your hand or play it <i>(paying its cost)</i>.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Derk Venneman",
+  "packName": "Weaver of the Cosmos",
+  "position": 332,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2016 FFG",
+  "pdf": {
+   "traits": "Talent.",
+   "paras": [
+    {
+     "t": "Chained (+2 experience).",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] After you successfully investigate by 2 or more, exhaust Scavenging: Choose an <b><i>Item</i></b> card in your discard pile and either add it to your hand or play it <i>(paying its cost)</i>.",
+     "k": "p"
+    }
+   ],
+   "note": "Chained (+2 experience)."
+  },
+  "set": "a719d32223",
+  "setAspect": 1.069,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Scavenging</b><b> (</b>[set:e1-32b441de] <b> 332): </b>+2 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "07003",
+  "name": "Trish Scarborough",
+  "subname": "The Spy",
+  "unique": true,
+  "type": "investigator",
+  "typeName": "Investigator",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": null,
+  "traits": "Agency. Detective.",
+  "text": "[reaction] After you discover 1 or more clues at a location with an enemy: Either discover 1 additional clue at that location, or automatically evade that enemy. (Limit once per round.)\n[elder_sign] effect: +2. If this is an investigation, you may choose any revealed location; you are now investigating as if you were at that location instead.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "willpower",
+   "intellect",
+   "intellect",
+   "intellect",
+   "intellect",
+   "combat",
+   "combat",
+   "agility",
+   "agility",
+   "agility",
+   "agility"
+  ],
+  "stats": [
+   2,
+   4,
+   2,
+   4
+  ],
+  "slots": [],
+  "health": 8,
+  "sanity": 6,
+  "victory": null,
+  "illustrator": "Magali Villeneuve",
+  "packName": "The Innsmouth Conspiracy",
+  "position": 3,
+  "taboo": {
+   "text": "This card's [reaction] ability now reads: \"After you discover 1 or more clues at a location with an enemy: Either discover 1 additional clue at that location, or automatically evade that enemy if it is non-[[Elite]]. (Limit once per round.)\""
+  },
+  "copyright": "© 2020 FFG",
+  "pdf": {
+   "traits": "Agency. Detective.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] After you discover 1 or more clues at a location with an enemy: Either discover 1 additional clue at that location, or automatically evade that enemy if it is non-<b><i>Elite</i></b>. (Limit once per round.)",
+     "k": "p"
+    },
+    {
+     "t": "[eldersign] effect: +2. If this is an investigation, you may choose any revealed location; you are now investigating as if you were at that location instead.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "410a4bae52",
+  "setAspect": 0.708,
+  "back": {
+   "name": "[unique]Trish Scarborough",
+   "subtitle": "The Spy",
+   "paras": [
+    "<b>Deck Size</b>: 30.",
+    "<b>Deckbuilding Options</b>: Rogue cards ([rogue])  level 0-5, Neutral cards level 0-5, Seeker  cards ([seeker]) level 0-2.",
+    "<b>Deckbuilding Requirements</b> (do not count  toward deck size): In the Shadows, Shadow  Agents, 1 random basic weakness."
+   ],
+   "flavour": "<i>Trish had always excelled in both body and mind, her unwavering focus on excellence and her fearless disposition a winning combination. Given her stellar academic and athletic records, everyone expected to see her become something great. Instead, Trish took a job at a commercial code company. The initial shock of her humble work eventually wore off, and the exceptional Trish Scarborough faded into obscurity. This suited Trish just fine, as it made it harder for anyone to realize the truth: her job was a cover for her true work as a spy with the Black Chamber, the Bureau’s code-breaking agency.</i>",
+   "warn": [],
+   "top": 19.92,
+   "left": 6.97,
+   "size": 3.379,
+   "flavSize": 2.981,
+   "lead": 1.0,
+   "gap": 0.254,
+   "photo": [
+    [
+     19.92,
+     37.18
+    ],
+    [
+     25.93,
+     37.18
+    ],
+    [
+     30.78,
+     36.79
+    ],
+    [
+     35.57,
+     36.39
+    ],
+    [
+     41.55,
+     35.99
+    ],
+    [
+     46.39,
+     35.99
+    ],
+    [
+     51.19,
+     35.59
+    ],
+    [
+     57.12,
+     34.0
+    ],
+    [
+     61.35,
+     29.23
+    ],
+    [
+     63.47,
+     29.234857619104837
+    ]
+   ]
+  },
+  "backChange": false,
+  "w": 1048,
+  "h": 738,
+  "change": "<b>Trish Scarborough</b><b> (</b>[set:e2-16c981ac] <b> 3): </b>This card’s [reaction] ability now reads: “After you discover 1 or more clues at a location with an enemy: Either discover 1 additional clue at that location, or automatically evade that enemy if it is non-<i><b>Elite</b></i>. (Limit once per round.)",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "07122",
+  "name": "Ancient Covenant",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 2,
+  "traits": "Covenant. Blessed.",
+  "text": "Permanent. Limit 1 [[Covenant]] per deck.\n[reaction] When an investigator at your location resolves a [bless] token during a skill test, exhaust Ancient Covenant: Do not reveal another token as part of this [bless] token's effect.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Tiziano Baracchi",
+  "packName": "In Too Deep",
+  "position": 122,
+  "taboo": {
+   "text": "This card's [reaction] ability now reads: \"When you resolve a [bless] token during a skill test...\""
+  },
+  "copyright": "© 2020 FFG",
+  "pdf": {
+   "traits": "Covenant. Blessed.",
+   "paras": [
+    {
+     "t": "Mutated. Permanent. Limit 1 <b><i>Covenant</i></b> per deck.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] When you resolve a [bless] token during a skill test, exhaust Ancient Covenant: Do not reveal another token as part of this [bless] token’s effect.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "40c34d8075",
+  "setAspect": 0.708,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Ancient Covenant</b><b> (</b>[set:e2-16c981ac] <b> 122): </b>This card’s [reaction] ability now reads: “When you resolve a [bless]token during a skill test…”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "07197",
+  "name": "Signum Crucis",
+  "subname": "",
+  "unique": false,
+  "type": "skill",
+  "typeName": "Skill",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 2,
+  "traits": "Practiced. Blessed.",
+  "text": "Commit only to a skill test you are performing, and only if the difficulty of that test is higher than your base skill value.\nAfter you commit Signum Crucis to a skill test, add X [bless] tokens to the chaos bag. X is the difference between the test's difficulty and your base skill value.",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "David Hovey",
+  "packName": "Horror in High Gear",
+  "position": 197,
+  "taboo": {
+   "xp": -2
+  },
+  "copyright": "© 2020 FFG",
+  "pdf": {
+   "traits": "Practiced. Blessed.",
+   "paras": [
+    {
+     "t": "Unchained (–2 experience).",
+     "k": "p"
+    },
+    {
+     "t": "Commit only to a skill test you are performing, and only if the difficulty of that test is higher than your base skill value.",
+     "k": "p"
+    },
+    {
+     "t": "After you commit Signum Crucis to a skill test, add X [bless] tokens to the chaos bag. X is the difference between the test’s difficulty and your base skill value.",
+     "k": "p"
+    }
+   ],
+   "note": "Unchained (–2 experience)."
+  },
+  "set": "40c34d8075",
+  "setAspect": 0.708,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Signum Crucis</b><b> (</b>[set:e2-16c981ac] <b> 197):</b> –2 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "07268",
+  "name": "Flute of the Outer Gods",
+  "subname": "",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": -2,
+  "xp": 4,
+  "traits": "Item. Instrument. Relic. Cursed.",
+  "text": "Exceptional. Seal (up to X [curse]).\n[action] Exhaust Flute of the Outer Gods and release 1 [curse] token sealed on it: Choose a non-[[Elite]] enemy at your location. Either move the chosen enemy to a connecting location, or deal its damage to any enemy at its location. This action does not provoke attacks of opportunity.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Carlos Palma Cruchaga",
+  "packName": "The Lair of Dagon",
+  "position": 268,
+  "taboo": {
+   "text": "This card loses the exceptional keyword and gains \"Limit 1 per deck.\"",
+   "deck_limit": 1,
+   "exceptional": false
+  },
+  "copyright": "© 2020 FFG",
+  "pdf": {
+   "traits": "Item. Instrument. Relic. Cursed.",
+   "paras": [
+    {
+     "t": "Mutated. Seal (up to X [curse]). Limit 1 per deck.",
+     "k": "p"
+    },
+    {
+     "t": "[action] Exhaust Flute of the Outer Gods and release 1 [curse] token sealed on it: Choose a non-<b><i>Elite</i></b> enemy at your location. Either move the chosen enemy to a connecting location, or deal its damage to any enemy at its location. This action does not provoke attacks of opportunity.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "40c34d8075",
+  "setAspect": 0.708,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Flute of the Outer Gods</b><b> (</b>[set:e2-16c981ac] <b> 268):</b> This card loses the exceptional keyword and gains “Limit 1 per deck.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "07269",
+  "name": "A Watchful Peace",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 3,
+  "traits": "Spirit. Blessed.",
+  "text": "As an additional cost to play A Watchful Peace, search the chaos bag and/or cards in play for a total of 5 [bless] tokens and return them to the token pool.\nFast. Play when the \"draw encounter cards\" step of the mythos phase would begin.\nSkip this step of the mythos phase.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Romana Kendelic",
+  "packName": "The Lair of Dagon",
+  "position": 269,
+  "taboo": {
+   "text": "This card's ability gains: \"Remove A Watchful Peace from the game.\""
+  },
+  "copyright": "© 2020 FFG",
+  "pdf": {
+   "traits": "Spirit. Blessed.",
+   "paras": [
+    {
+     "t": "Mutated. As an additional cost to play A Watchful Peace, search the chaos bag and/or cards in play for a total of 5 [bless] tokens and return them to the token pool.",
+     "k": "p"
+    },
+    {
+     "t": "Fast. Play when the \"draw encounter cards\" step of the mythos phase would begin. Skip this step of the mythos phase. Remove A Watchful Peace from the game.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "40c34d8075",
+  "setAspect": 0.708,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>A Watchful Peace</b><b> (</b>[set:e2-16c981ac] <b> 269):</b> This card’s ability gains: “Remove A Watchful Peace from the game.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "07301",
+  "name": "Hallow",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 3,
+  "traits": "Spell. Blessed.",
+  "text": "As an additional cost to play Hallow, return a total of 10 [bless] tokens to the token pool from the chaos bag or sealed on cards in play.\nRemove 1 doom from any card in play.",
+  "flavour": "Even in the deepest darkness, light can still bloom.",
+  "skills": [
+   "willpower",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Romana Kendelic",
+  "packName": "Into the Maelstrom",
+  "position": 301,
+  "taboo": {
+   "text": "This card's ability gains: \"Remove Hallow from the game.\""
+  },
+  "copyright": "© 2020 FFG",
+  "pdf": {
+   "traits": "Spell. Blessed.",
+   "paras": [
+    {
+     "t": "Mutated. As an additional cost to play Hallow, return a total of 10 [bless] tokens to the token pool from the chaos bag or sealed on cards in play.",
+     "k": "p"
+    },
+    {
+     "t": "Remove 1 doom from any card in play. Remove Hallow from the game.",
+     "k": "p"
+    },
+    {
+     "t": "<i>Even in the deepest darkness, light can still bloom.</i>",
+     "k": "flav"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "40c34d8075",
+  "setAspect": 0.708,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Hallow</b><b> (</b>[set:e2-16c981ac] <b> 301):</b> This card’s ability gains: “Remove Hallow from the game.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "07308",
+  "name": "Rite of Equilibrium",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 0,
+  "xp": 5,
+  "traits": "Spell. Blessed. Cursed.",
+  "text": "Either (choose one):\n- Add X [curse] tokens to the chaos bag to add X [bless] tokens to the chaos bag.\n- Remove X [curse] and X [bless] tokens from the chaos bag to heal X total horror from among cards at your location.",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Adam S. Doyle",
+  "packName": "Into the Maelstrom",
+  "position": 308,
+  "taboo": {
+   "xp": -2
+  },
+  "copyright": "© 2020 FFG",
+  "pdf": {
+   "traits": "Spell. Blessed. Cursed.",
+   "paras": [
+    {
+     "t": "Unchained (–2 experience).",
+     "k": "p"
+    },
+    {
+     "t": "Either (choose one):",
+     "k": "p"
+    },
+    {
+     "t": "[bullet] Add X [curse] tokens to the chaos bag to add X [bless] tokens to the chaos bag.",
+     "k": "bullet"
+    },
+    {
+     "t": "[bullet] Remove X [curse] and X [bless] tokens from the chaos bag to heal X total horror from among cards at your location.",
+     "k": "bullet"
+    }
+   ],
+   "note": "Unchained (–2 experience)."
+  },
+  "set": "40c34d8075",
+  "setAspect": 0.708,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Rite of Equilibrium</b><b> (</b>[set:e2-16c981ac] <b> 308):</b> –2 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "08019",
+  "name": "Geared Up",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 0,
+  "traits": "Talent.",
+  "text": "Permanent. Limit 1 per deck. Purchase at deck creation.\n<b>Forced</b> - When your first turn of the game begins: One at a time, play any number of [[Item]] assets from your hand, reducing the cost of each by 1. During this turn, you have 3 fewer actions to take.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Lindsey Messecar",
+  "packName": "Edge of the Earth Investigator Expansion",
+  "position": 19,
+  "taboo": {
+   "text": "This card's <b>Forced</b> effect now reads: \"<b>Forced</b> – When your first turn of the game begins: One at a time, play up to 5 [[Item]] assets...\""
+  },
+  "copyright": "© 2021 FFG",
+  "pdf": {
+   "traits": "Talent.",
+   "paras": [
+    {
+     "t": "Mutated. Permanent. Limit 1 per deck. Purchase at deck creation.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Forced –</b> When your first turn of the game begins: One at a time, play up to 5 <b><i>Item </i></b>assets from your hand, reducing the cost of each by 1. During this turn, you have 3 fewer actions to take.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Geared Up</b><b> (</b>[set:e18-007cab1a] <b> 19):</b> This card’s <b>Forced</b> effect now reads: “<b>Forced</b> – When your first turn of the game begins: One at a time, play up to 5 <i><b>Item</b></i> assets…”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "08032",
+  "name": "Jeremiah Kirby",
+  "subname": "Arctic Archaeologist",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 0,
+  "traits": "Ally. Miskatonic. Wayfarer.",
+  "text": "You get +1 [intellect].\n[reaction] After Jeremiah Kirby enters play, choose \"even\" or \"odd:\" Reveal the top 5 cards of your deck. Draw each card with a cost that matches the chosen option. Shuffle the remaining cards into your deck.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 2,
+  "sanity": 1,
+  "victory": null,
+  "illustrator": "Romana Kendelic",
+  "packName": "Edge of the Earth Investigator Expansion",
+  "position": 32,
+  "taboo": {
+   "text": "This card's ability gains: \"(Max twice per game.)\""
+  },
+  "copyright": "© 2021 FFG",
+  "pdf": {
+   "traits": "Ally. Miskatonic. Wayfarer.",
+   "paras": [
+    {
+     "t": "Mutated. You get +1 [intellect].",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] After Jeremiah Kirby enters play, choose “even” or “odd”: Reveal the top 5 cards of your deck. Draw each card with a cost that matches the chosen option. Shuffle the remaining cards into your deck. (Max twice per game.)",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Jeremiah Kirby</b><b> (</b>[set:e18-007cab1a] <b> 32):</b> This card’s ability gains: “(Max twice per game.)”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "08045",
+  "name": "Prophesiae Profana",
+  "subname": "Atlas of the Unknowable",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 5,
+  "traits": "Item. Relic. Tome.",
+  "text": "While you are not at the locus, you get +1 [intellect], +1 [agility], and you may ignore attacks of opportunity.\n[reaction] After Prophesiae Profana enters play: Choose a revealed location. That location is \"the locus\" until Prophesiae Profana leaves play.\n[action]: Move any investigator to the locus.",
+  "flavour": "",
+  "skills": [
+   "wild",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Drazenka Kimpel",
+  "packName": "Edge of the Earth Investigator Expansion",
+  "position": 45,
+  "taboo": {
+   "text": "This card's constant ability now reads: \"...you get +1 [intellect], +1 [agility], and ignore the first attack of opportunity you take each turn.\""
+  },
+  "copyright": "© 2021 FFG",
+  "pdf": {
+   "traits": "Item. Relic. Tome.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "While you are not at the locus, you get +1 [intellect], +1 [agility], and ignore the first attack of opportunity you take each turn.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] After Prophesiae Profana enters play: Choose a revealed location. That location is “the locus” until Prophesiae Profana leaves play.",
+     "k": "p"
+    },
+    {
+     "t": "[action]: Move any investigator to the locus.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Prophesiae Profana</b><b> (</b>[set:e18-007cab1a] <b> 45):</b> This card’s constant ability now reads: “…you get +1 [intellect], +1 [agility], and ignore the first attack of opportunity you take each turn.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "08055",
+  "name": "Black Market",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 2,
+  "traits": "Favor.",
+  "text": "Fast. Play at the start of the investigation phase.\nOne at a time, reveal cards from the top of any investigator deck(s) until exactly 5 cards have been revealed. Set those cards aside, out of play. While set aside, any investigator may play any of those cards as if they were in their hand. At the start of the next investigation phase, shuffle each of those cards still set aside into its owner's deck.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matt Stawicki",
+  "packName": "Edge of the Earth Investigator Expansion",
+  "position": 55,
+  "taboo": {
+   "text": "This card gains: \"Max once per round.\""
+  },
+  "copyright": "© 2021 FFG",
+  "pdf": {
+   "traits": "Favor.",
+   "paras": [
+    {
+     "t": "Mutated. Fast. Play at the start of the investigation phase. Max once per round. One at a time, reveal cards from the top of any investigator deck(s) until exactly 5 cards have been revealed. Set those cards aside, out of play. While set aside, any investigator may play any of those cards as if they were in their hand. At the start of the next investigation phase, shuffle each of those cards still set aside into its owner’s deck.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Black Market</b><b> (</b>[set:e18-007cab1a] <b> 55):</b> This card gains: “Max once per round.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "08076",
+  "name": "Burn After Reading",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 1,
+  "traits": "Insight.",
+  "text": "Exile a level 0-5 card in your hand. Discover 2 clues at your location. If the exiled card was level 2 or higher, remove 1 doom from the current agenda. Exile Burn After Reading.\n<b>Card designed by the Council-in-Exile at Gen Con 2020</b>",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Romana Kendelic",
+  "packName": "Edge of the Earth Investigator Expansion",
+  "position": 76,
+  "taboo": {
+   "text": "Forbidden.",
+   "deck_limit": 0
+  },
+  "copyright": "© 2021 FFG",
+  "pdf": {
+   "traits": "Insight.",
+   "paras": [
+    {
+     "t": "Forbidden.",
+     "k": "p"
+    },
+    {
+     "t": "Exile a level 0–5 card in your hand. Discover 2 clues at your location. If the exiled card was level 2 or higher, remove 1 doom from the current agenda. Exile Burn After Reading.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Card design by the Council-in-Exile at Gen Con 2020</b>",
+     "k": "center"
+    }
+   ],
+   "note": "Forbidden."
+  },
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Burn After Reading</b><b> (</b>[set:e18-007cab1a] <b> 76)</b>",
+  "cat": "forbidden",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "08093",
+  "name": "Cyclopean Hammer",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": "mystic",
+  "faction3": null,
+  "cost": 5,
+  "xp": 5,
+  "traits": "Item. Relic. Weapon. Melee.",
+  "text": "[action]: <b>Fight.</b> Add your [willpower] to your skill value for this attack. You deal +1 damage for this attack. If you succeed and the enemy is non-[[Elite]], you may move it one location away from you. (If you succeed by 3 or more, you instead deal +2 damage and may move the enemy up to two locations away from you.)",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "willpower",
+   "combat",
+   "combat"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand x2"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Robert Laskey",
+  "packName": "Edge of the Earth Investigator Expansion",
+  "position": 93,
+  "taboo": {
+   "text": "This card's parenthetical now reads: \"...(If you succeed by 3 or more, you may exhaust Cyclopean Hammer to instead deal +2 damage and move the enemy up to two locations away from you.)\""
+  },
+  "copyright": "© 2021 FFG",
+  "pdf": {
+   "traits": "Item. Relic. Weapon. Melee.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "[action]: <b>Fight.</b> Add your [willpower] to your skill value for this attack. You deal +1 damage for this attack. If you succeed and the enemy is non-<b><i>Elite</i></b>, you may move it one location away from you. (If you succeed by 3 or more, you may exhaust Cyclopean Hammer to instead deal +2 damage and move the enemy up to two locations away from you.)",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Cyclopean Hammer</b><b> (</b>[set:e18-007cab1a] <b> 187):</b> This card’s parenthetical now reads: “…(If you succeed by 3 or more, you may exhaust Cyclopean Hammer to instead deal +2 damage and move the enemy up to two locations away from you.)”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "08098",
+  "name": "Eon Chart",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": "rogue",
+  "faction3": null,
+  "cost": 2,
+  "xp": 1,
+  "traits": "Item. Relic.",
+  "text": "Uses (3 secrets).\n[fast] During your turn, exhaust Eon Chart and spend 1 secret: Choose and take one of the following actions (move, evade, or investigate).",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [
+   "Accessory"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Ignacio Bazán Lazcano",
+  "packName": "Edge of the Earth Investigator Expansion",
+  "position": 98,
+  "taboo": {
+   "text": "This card should read \"basic actions\" instead of \"actions.\""
+  },
+  "copyright": "© 2021 FFG",
+  "pdf": {
+   "traits": "Item. Relic.",
+   "paras": [
+    {
+     "t": "Mutated. Uses (3 secrets).",
+     "k": "p"
+    },
+    {
+     "t": "[free] During your turn, exhaust Eon Chart and spend 1 secret: Choose and take one of the following basic actions (move, evade, or investigate).",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Eon Chart (both versions)</b><b> (</b>[set:e18-007cab1a] <b> 98, 100):</b> These cards should read “basic actions” instead of “actions.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "08099",
+  "name": "Gené Beauregard",
+  "subname": "Intrepid Explorer",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": "rogue",
+  "faction3": null,
+  "cost": 5,
+  "xp": 3,
+  "traits": "Ally. Wayfarer.",
+  "text": "You get +1 [intellect] and +1 [agility].\n[reaction] During your turn, after you move to a location, exhaust Gené Beauregard: Move a clue or a non-[[Elite]] enemy from a connecting location to your location, or vice versa.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 2,
+  "sanity": 2,
+  "victory": null,
+  "illustrator": "Vlad Ricean",
+  "packName": "Edge of the Earth Investigator Expansion",
+  "position": 99,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2021 FFG",
+  "pdf": {
+   "traits": "Ally. Wayfarer.",
+   "paras": [
+    {
+     "t": "Chained (+2 experience).",
+     "k": "p"
+    },
+    {
+     "t": "You get +1 [intellect] and +1 [agility].",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] During your turn, after you move to a location, exhaust Gené Beauregard: Move a clue or a non-<b><i>Elite</i></b> enemy from a connecting location to your location, or vice versa.",
+     "k": "p"
+    }
+   ],
+   "note": "Chained (+2 experience)."
+  },
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Gené Beauregard</b><b> (</b>[set:e18-007cab1a] <b> 99):</b> +2 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "08100",
+  "name": "Eon Chart",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": "rogue",
+  "faction3": null,
+  "cost": 2,
+  "xp": 4,
+  "traits": "Item. Relic.",
+  "text": "Uses (3 secrets).\n[fast] During your turn, exhaust Eon Chart and spend 1 secret: Choose and take two different actions of the following, in any order (move, evade, or investigate).",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "agility",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [
+   "Accessory"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Ignacio Bazán Lazcano",
+  "packName": "Edge of the Earth Investigator Expansion",
+  "position": 100,
+  "taboo": {
+   "text": "This card should read \"basic actions\" instead of \"actions.\""
+  },
+  "copyright": "© 2021 FFG",
+  "pdf": {
+   "traits": "Item. Relic.",
+   "paras": [
+    {
+     "t": "Mutated. Uses (3 secrets).",
+     "k": "p"
+    },
+    {
+     "t": "[free] During your turn, exhaust Eon Chart and spend 1 secret: Choose and take two different basic actions of the following, in any order (move, evade, or investigate).",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Eon Chart (both versions)</b><b> (</b>[set:e18-007cab1a] <b> 98, 100):</b> These cards should read “basic actions” instead of “actions.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "08113",
+  "name": "Unscrupulous Loan",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": "survivor",
+  "faction3": null,
+  "cost": 0,
+  "xp": 3,
+  "traits": "Pact.",
+  "text": "Limit 1 per investigator. Cannot leave play.\n[reaction] After you play Unscrupulous Loan: Gain 10 resources.\n<b>Forced</b> - When the game ends or you are eliminated, if you have fewer than 10 resources in your resource pool: Exile Unscrupulous Loan.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Drazenka Kimpel",
+  "packName": "Edge of the Earth Investigator Expansion",
+  "position": 113,
+  "taboo": {
+   "text": "The first line of this card gains: \"Campaign Mode only.\""
+  },
+  "copyright": "© 2021 FFG",
+  "pdf": {
+   "traits": "Pact.",
+   "paras": [
+    {
+     "t": "Mutated. Limit 1 per investigator. Cannot leave play. Campaign Mode only.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] After you play Unscrupulous Loan: Gain 10 resources.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Forced –</b> When the game ends or you are eliminated, if you have fewer than 10 resources in your resource pool: Exile Unscrupulous Loan.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "f553b3db30",
+  "setAspect": 0.957,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Unscrupulous Loan</b><b> (</b>[set:e18-007cab1a] <b> 113):</b> The first line of this card gains: “Campaign Mode only.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "09041",
+  "name": "Empirical Hypothesis",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Talent. Science.",
+  "text": "Customizable. Limit 1 per investigator.\n<b>Forced</b> - At the start of the round: Choose one of the following criteria for this round (you fail a test by 2 or more, or you succeed at a test by 3 or more). When the chosen criteria is met, you may exhaust Empirical Hypothesis to add 1 evidence to it.\n[fast] Spend 1 evidence: Draw 1 card.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Isuardi Therianto",
+  "packName": "The Scarlet Keys Investigator Expansion",
+  "position": 41,
+  "taboo": {
+   "text": "This card's [fast] ability gains \"(Limit twice per round.)\""
+  },
+  "copyright": "© 2022 FFG",
+  "pdf": {
+   "traits": "Talent. Science.",
+   "paras": [
+    {
+     "t": "Mutated. Customizable. Limit 1 per investigator.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Forced –</b> When the round begins: Choose one of the following criteria for this round (you fail a test by 2 or more, or you succeed at a test by 3 or more). When the chosen criteria is met, you may exhaust Empirical Hypothesis to place 1 evidence on it.",
+     "k": "p"
+    },
+    {
+     "t": "[free]Spend 1 evidence: Draw 1 card.(Max twice per round.)",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "8f682a7b0b",
+  "setAspect": 1.04,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Empirical Hypothesis</b><b> (</b>[set:e1-1b5bc68d] <b> 41)</b>: This card’s [free] ability gains: “(Limit twice per round.)”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "09045",
+  "name": "Research Notes",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Item. Tome. Science.",
+  "text": "[reaction] After a player card ability places 1 or more of your clues on your location: Place that many resources on Research Notes, as evidence.\n[action]: Test [intellect] (0). For each point you succeed by, you may spend 1 evidence to discover 1 clue at your location.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Pixoloid Studios",
+  "packName": "The Scarlet Keys Investigator Expansion",
+  "position": 45,
+  "taboo": {
+   "text": "This card's second ability gains: \"(max 3 evidence spent per round).\""
+  },
+  "copyright": "© 2022 FFG",
+  "pdf": {
+   "traits": "Item. Tome. Science.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] After a player card ability places 1 or more of your clues on your location: Place that many resources on Research Notes, as evidence.",
+     "k": "p"
+    },
+    {
+     "t": "[action]: Test [intellect] (0). For each point you succeed by, you may spend 1 evidence to discover 1 clue at your location (max 3 evidence spent per round).",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "8f682a7b0b",
+  "setAspect": 1.04,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Research Notes</b><b> (</b>[set:e1-1b5bc68d] <b> 45)</b>: This card’s second ability gains: “(max 3 evidence spent per round).”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "09072",
+  "name": "Chuck Fergus",
+  "subname": "O'Bannion Driver",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 2,
+  "traits": "Ally. Criminal.",
+  "text": "[reaction] When you play a [[Tactic]] or [[Trick]] event, exhaust Chuck Fergus: Choose one -\n- That event gains fast.\n- That event costs 2 fewer resources to play.\n- You get +2 skill value while performing a skill test during the resolution of that event.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 2,
+  "sanity": 2,
+  "victory": null,
+  "illustrator": "Derek D. Edgell",
+  "packName": "The Scarlet Keys Investigator Expansion",
+  "position": 72,
+  "taboo": {
+   "text": "This card's first bullet point now reads: \"That event gains: \"Fast. Play only during your turn.\"\""
+  },
+  "copyright": "© 2022 FFG",
+  "pdf": {
+   "traits": "Ally. Criminal.",
+   "paras": [
+    {
+     "t": "Mutated. [reaction] When you play a <b><i>Tactic</i></b> or <b><i>Trick</i></b> event, exhaust Chuck Fergus: Choose one –",
+     "k": "p"
+    },
+    {
+     "t": "[bullet] That event gains: “Fast. Play only during your turn.”",
+     "k": "bullet"
+    },
+    {
+     "t": "[bullet] That event costs 2 fewer resources to play.",
+     "k": "bullet"
+    },
+    {
+     "t": "[bullet] You get +2 skill value while performing a skill test during the resolution of that event.",
+     "k": "bullet"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "637fed965e",
+  "setAspect": 1.041,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Chuck Fergus</b><b> (</b>[set:e5-5dd1694d] <b> 32, </b>[set:e1-1b5bc68d]<b> 72)</b>: These cards’ first bullet point now reads: “That event gains: “Fast. Play only during your turn.””",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "09077",
+  "name": "Underworld Market",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 2,
+  "traits": "Connection. Illicit.",
+  "text": "Permanent. Exceptional. You get +10 deck size.\n[reaction] Before drawing your opening hand, choose 10 [[Illicit]] cards from your deck: Shuffle them together and place them next to Underworld Market, as your market deck.\n[reaction] At the start of your turn: Reveal the top 2 cards of your market deck. You may spend 1 resource to draw 1 of them. Place the rest on the bottom, in any order.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Anders Finer",
+  "packName": "The Scarlet Keys Investigator Expansion",
+  "position": 77,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2022 FFG",
+  "pdf": {
+   "traits": "Connection. Illicit.",
+   "paras": [
+    {
+     "t": "Chained (+2). Permanent. Exceptional. You get +10 deck size.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] Before drawing your opening hand, choose 10 <b><i>Illicit</i></b> cards from your deck: Shuffle them together and place them next to Underworld Market, as your market deck.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction]At the start of your turn: Reveal the top 2 cards of your market deck. You may spend 1 resource to draw 1 of them. Place the rest on the bottom, in any order.",
+     "k": "p"
+    }
+   ],
+   "note": "Chained (+2)."
+  },
+  "set": "637fed965e",
+  "setAspect": 1.041,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Underworld Market</b><b> (</b>[set:e1-1b5bc68d] <b> 77)</b>: +2 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "09081",
+  "name": "Power Word",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 0,
+  "traits": "Spell.",
+  "text": "Customizable. Fast. Play only during your turn.\nAttach to a non-[[Elite]] enemy at your location.\n[action] If attached enemy is at your location: <b>Parley.</b> Give it a command (limit once per round per command) -\n- <i>\"Go.\"</i> This enemy moves once in a direction of your choice.\n- <i>\"Cower.\"</i> This enemy exhausts.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Anders Finer",
+  "packName": "The Scarlet Keys Investigator Expansion",
+  "position": 81,
+  "taboo": {
+   "text": "This card’s text box now reads: \"[action] If attached enemy is at your location: <b>Parley.</b> Test [willpower](2). If you succeed, give it a command (limit once per round per command) – \"Go.\" This enemy moves once in a direction of your choice.\"\nThis card’s customizable sheet loses the \"Mercy\" ability and gains\"☐Cower. Add the command: \"- ‘Cower.’ This enemy exhausts.\""
+  },
+  "copyright": "© 2022 FFG",
+  "pdf": {
+   "traits": "Spell.",
+   "paras": [
+    {
+     "t": "Mutated. Customizable. Fast. Play only during your turn.",
+     "k": "p"
+    },
+    {
+     "t": "Attach to a non-<b><i>Elite</i></b> enemy at your location.",
+     "k": "p"
+    },
+    {
+     "t": "[action] If attached enemy is at your location: <b>Parley.</b> Test [willpower] (2). If you succeed, give it a command (limit once per round per command) –",
+     "k": "p"
+    },
+    {
+     "t": "[bullet] <i> \"Go.\"</i> This enemy moves once in a direction of your choice.",
+     "k": "bullet"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "8f682a7b0b",
+  "setAspect": 1.04,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Power Word</b><b> (</b>[set:e1-1b5bc68d] <b> 81)</b>: This card’s [action] ability now reads: “[action] If attached enemy is at your location: <b>Parley</b>. Test [willpower] (2). If you succeed, give it a command (limit once per round per command) – <i>“Go.”</i> This enemy moves once in a direction of your choice.” This card’s customizable sheet loses the “<i>Mercy</i>” ability and gains “☐<b> Cower.</b> Add the command: “<i>‘Cower.’</i> This enemy exhausts.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "09108",
+  "name": "Shed a Light",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Insight. Trick.",
+  "text": "Fast. Play before revealing a chaos token during an investigation you are performing, and only if the difficulty of this test is currently 0.\nThis test automatically succeeds. You discover 1 additional clue at this location and 1 additional clue at any location.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Anders Finer",
+  "packName": "The Scarlet Keys Investigator Expansion",
+  "position": 108,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2022 FFG",
+  "pdf": {
+   "traits": "Insight. Trick.",
+   "paras": [
+    {
+     "t": "Chained (+2 experience).",
+     "k": "p"
+    },
+    {
+     "t": "Fast. Play before revealing a chaos token during an investigation you are performing, and only if the difficulty of this test is currently 0. This test automatically succeeds. You discover 1 additional clue at this location and 1 additional clue at any location.",
+     "k": "p"
+    }
+   ],
+   "note": "Chained (+2 experience)."
+  },
+  "set": "8f682a7b0b",
+  "setAspect": 1.04,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Shed a Light</b><b> (</b>[set:e1-1b5bc68d] <b> 108)</b>: +2 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "09117",
+  "name": "Old Keyring",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "survivor",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 3,
+  "traits": "Item. Tool.",
+  "text": "Uses (3 keys). If there are no keys on Old Keyring, discard it.\n[action]: <b>Investigate.</b> Your location gets -2 shroud for this investigation. If you succeed, remove 1 key from Old Keyring, and if this test's difficulty is 0, you discover 1 additional clue.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Robert Laskey",
+  "packName": "The Scarlet Keys Investigator Expansion",
+  "position": 117,
+  "taboo": {
+   "xp": 1
+  },
+  "copyright": "© 2016 FFG",
+  "pdf": {
+   "traits": "Item. Tool.",
+   "paras": [
+    {
+     "t": "Chained (+1 experience). Uses (3 keys). If there are no keys on Old Keyring, discard it.",
+     "k": "p"
+    },
+    {
+     "t": "[action]: <b>Investigate.</b> Your location gets -2 shroud for this investigation. If you succeed, remove 1 key from Old Keyring, and if this test’s difficulty is 0, you discover 1 additional clue.",
+     "k": "p"
+    }
+   ],
+   "note": "Chained (+1 experience)."
+  },
+  "set": "8f682a7b0b",
+  "setAspect": 1.04,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Old Keyring</b><b> (</b>[set:e1-1b5bc68d] <b> 117)</b>: +1 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "10026",
+  "name": "Hold Up",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Tactic. Trick.",
+  "text": "<b>Parley.</b> Choose an enemy at your location and an [[Item]] asset in your hand. Perform a fight action against the chosen enemy. If you succeed, instead of dealing damage, play the chosen asset, reducing its cost by each point you succeeded by.",
+  "flavour": "\"H-hands where I can see 'em!\"",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Rob Laskey",
+  "packName": "The Feast of Hemlock Vale Investigator Expansion",
+  "position": 26,
+  "taboo": {
+   "text": "This card’s ability reads: \"...If you succeed, play the chosen asset, reducing its cost by the amount you succeeded by.\""
+  },
+  "copyright": "© 2024 FFG",
+  "pdf": {
+   "traits": "Tactic. Trick.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Parley. </b>Choose an enemy at your location and an <b><i>Item</i></b> asset in your hand. Perform a fight action against the chosen enemy. If you succeed, play the chosen asset, reducing its cost by the amount you succeeded by.",
+     "k": "p"
+    },
+    {
+     "t": "<i>“H–hands where I can see ‘em!”</i>",
+     "k": "flav"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "b360a5554e",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Hold Up</b><b> (</b>[set:e1-2dc13c71] <b> 26)</b>: This card’s ability reads: “…If you succeed, play the chosen asset, reducing its cost by the amount you succeeded by.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "10030",
+  "name": "Hand-Eye Coordination",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 1,
+  "traits": "Insight.",
+  "text": "Fast. Play only during your turn.\nResolve an [action] ability on a [[Tool]] or [[Weapon]] asset you control without paying its [action] cost.",
+  "flavour": "Keep your eyes on the target.",
+  "skills": [
+   "intellect",
+   "combat"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Romana Kendelic",
+  "packName": "The Feast of Hemlock Vale Investigator Expansion",
+  "position": 30,
+  "taboo": {
+   "text": "This card’s ability reads: \"Resolve an [action] ability on a level 0–3 [[Tool]] or [[Weapon]] asset you control, ignoring all costs.\""
+  },
+  "copyright": "© 2024 FFG",
+  "pdf": {
+   "traits": "Insight.",
+   "paras": [
+    {
+     "t": "Mutated. Fast. Play only during your turn.",
+     "k": "p"
+    },
+    {
+     "t": "Resolve an [action] ability on a level 0–3 <b><i>Tool</i></b> or <b><i>Weapon</i></b> asset you control, ignoring all costs.",
+     "k": "p"
+    },
+    {
+     "t": "<i>Keep your eyes on the target.</i>",
+     "k": "flav"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "b360a5554e",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Hand-Eye Coordination</b><b> (</b>[set:e1-2dc13c71] <b> 30)</b>: This card’s ability reads: “Resolve an [action] ability on a level 0–3 <i><b>Tool</b></i> or <i><b>Weapon</b></i> asset you control, ignoring all costs.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "10031",
+  "name": "Strong-Armed",
+  "subname": "",
+  "unique": false,
+  "type": "skill",
+  "typeName": "Skill",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 1,
+  "traits": "Innate.",
+  "text": "While Strong-Armed is committed to an attack using a [[Melee]] or [[Ranged]] asset, this attack deals +1 damage. After revealing chaos token(s) for this skill test, you may take 1 damage to cancel that chaos token, return it to the chaos bag, and reveal a new one. <i>(You may do this any number of times.)</i>",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "João Bosco",
+  "packName": "The Feast of Hemlock Vale Investigator Expansion",
+  "position": 31,
+  "taboo": {
+   "xp": 1
+  },
+  "copyright": "© 2024 FFG",
+  "pdf": {
+   "traits": "Innate.",
+   "paras": [
+    {
+     "t": "Chained (+1 experience).",
+     "k": "p"
+    },
+    {
+     "t": "While Strong-Armed is committed to an attack using a <b><i>Melee</i></b> or <b><i>Ranged </i></b>asset, this attack deals +1 damage. After revealing chaos token(s) for this skill test, you may take 1 damage to cancel that chaos token, return it to the chaos bag, and reveal a new one. <i>(You may do this any number of times.)</i>",
+     "k": "p"
+    }
+   ],
+   "note": "Chained (+1 experience)."
+  },
+  "set": "2f304b84b3",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Strong‑Armed</b><b> (</b>[set:e1-2dc13c71] <b> 31)</b>: +1 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "10037",
+  "name": "Flurry of Blows",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 5,
+  "traits": "Tactic. Double. Fated.",
+  "text": "Play only if you control a [[Melee]] asset. As an additional cost to play Flurry of Blows, spend an action.\n<b>Fight.</b> Choose a [[Melee]] asset you control and take an immediate fight action with that asset <i>(without paying its [action] cost)</i>. You may repeat this effect up to three times. After the final attack resolves, if it is your turn, end your turn.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Lin Hsiang",
+  "packName": "The Feast of Hemlock Vale Investigator Expansion",
+  "position": 37,
+  "taboo": {
+   "xp": -2
+  },
+  "copyright": "© 2024 FFG",
+  "pdf": {
+   "traits": "Tactic. Double. Fated.",
+   "paras": [
+    {
+     "t": "Unchained (–2 experience).",
+     "k": "p"
+    },
+    {
+     "t": "Play only if you control a <b><i>Melee</i></b> asset. As an additional cost to play Flurry of Blows, spend an action.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Fight.</b> Choose a <b><i>Melee</i></b> asset you control and take an immediate fight action with that asset <i>(without paying its </i>[action]<i> cost)</i>. You may repeat this effect up to three times. After the final attack resolves, if it is your turn, end your turn.",
+     "k": "p"
+    }
+   ],
+   "note": "Unchained (–2 experience)."
+  },
+  "set": "2f304b84b3",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Flurry of Blows</b><b> (</b>[set:e1-2dc13c71] <b> 37)</b>: –2 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "10059",
+  "name": "Ravenous Myconid",
+  "subname": "Sentient Strain",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 4,
+  "traits": "Creature. Science.",
+  "text": "Researched. Limit 1 per deck.\n[fast]: Search your bonded cards for Uncanny Growth and add it to your hand. (Limit once per round.)\n[reaction] When an investigator draws a non-weakness treachery card, if their locations shroud is equal to or less than Ravenous Myconid's growth: Cancel that treachery's effects and discard it. Remove all growth from Ravenous Myconid.",
+  "flavour": "",
+  "skills": [
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": 1,
+  "sanity": 1,
+  "victory": null,
+  "illustrator": "JB Casacop",
+  "packName": "The Feast of Hemlock Vale Investigator Expansion",
+  "position": 59,
+  "taboo": {
+   "text": "This card’s [reaction] ability reads: \"[reaction] When an investigator draws a non-weakness treachery card, if their location's shroud is less than Ravenous Myconid's growth...\""
+  },
+  "copyright": "© 2024 FFG",
+  "pdf": {
+   "traits": "Creature. Science.",
+   "paras": [
+    {
+     "t": "Mutated. Researched. Limit 1 per deck.",
+     "k": "p"
+    },
+    {
+     "t": "[free]: Search your bonded cards for Uncanny Growth and add it to your hand. (Limit once per round.)",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] When an investigator draws a non-weakness treachery card, if their location’s shroud is less than Ravenous Myconid’s growth: Cancel that treachery’s effects and discard it. Remove all growth from Ravenous Myconid.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "2f304b84b3",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Ravenous Myconid (Sentient Strain)</b><i> </i><b>(</b>[set:e1-2dc13c71] <b> 59)</b>: This card’s [reaction] ability reads: “[reaction] When an investigator draws a non-weakness treachery card, if their location’s shroud is less than Ravenous Myconid’s growth...”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "10060",
+  "name": "Ravenous Myconid",
+  "subname": "Carnivorous Strain",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 4,
+  "traits": "Monster. Science.",
+  "text": "Researched. Limit 1 per deck.\n[fast]: Search your bonded cards for Uncanny Growth and add it to your hand. (Limit once per round.)\n[fast] Choose a non-[[Elite]] enemy at your location with equal or fewer remaining health than the amount of growth on Ravenous Myconid: Defeat that enemy. Remove all growth from Ravenous Myconid.",
+  "flavour": "",
+  "skills": [
+   "combat"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": 1,
+  "sanity": 1,
+  "victory": null,
+  "illustrator": "JB Casacop",
+  "packName": "The Feast of Hemlock Vale Investigator Expansion",
+  "position": 60,
+  "taboo": {
+   "xp": 1
+  },
+  "copyright": "© 2023 FFG",
+  "pdf": {
+   "traits": "Monster. Science.",
+   "paras": [
+    {
+     "t": "Chained (+1 experience). Researched. Limit 1 per deck.",
+     "k": "p"
+    },
+    {
+     "t": "[free]: Search your bonded cards for Uncanny Growth and add it to your hand. (Limit once per round.)",
+     "k": "p"
+    },
+    {
+     "t": "[free] Choose a non-<b><i>Elite</i></b> enemy at your location with equal or fewer remaining health than the amount of growth on Ravenous Myconid: Defeat that enemy. Remove all growth from Ravenous Myconid.",
+     "k": "p"
+    }
+   ],
+   "note": "Chained (+1 experience)."
+  },
+  "set": "2f304b84b3",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Ravenous Myconid (Carnivorous Strain)</b><i> </i><b>(</b>[set:e1-2dc13c71] <b> 60)</b> +1 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "10085",
+  "name": "Rod of Carnamagos",
+  "subname": "Scepter of the Mad Seer",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Item. Relic. Occult. Cursed.",
+  "text": "Limit 1 per deck.\n[fast] Choose a non-[[Elite]] enemy at any location and exhaust Rod of Carnamagos: Reveal 5 random chaos tokens from the chaos bag. If a [curse] token is revealed, search your bonded cards for a random [[Rot]] event and attach it to that enemy.",
+  "flavour": "",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Borja Pindado",
+  "packName": "The Feast of Hemlock Vale Investigator Expansion",
+  "position": 85,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2024 FFG",
+  "pdf": {
+   "traits": "Item. Relic. Occult. Cursed.",
+   "paras": [
+    {
+     "t": "Chained (+2 experience). Limit 1 per deck.",
+     "k": "p"
+    },
+    {
+     "t": "[free] Choose a non-<b><i>Elite</i></b> enemy at any location and exhaust Rod of Carnamagos: Reveal 5 random chaos tokens from the chaos bag. If a [curse] token is revealed, search your bonded cards for a random <b><i>Rot</i></b> event and attach it to that enemy.",
+     "k": "p"
+    }
+   ],
+   "note": "Chained (+2 experience)."
+  },
+  "set": "2f304b84b3",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Rod of Carnamagos</b><b> (</b>[set:e1-2dc13c71] <b> 85)</b>: +2 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "10098",
+  "name": "Rod of Carnamagos",
+  "subname": "Scepter of the Mad Seer",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 2,
+  "traits": "Item. Relic. Occult. Cursed.",
+  "text": "[fast] Choose a non-[[Elite]] enemy at any location and exhaust Rod of Carnamagos: Reveal 5 random chaos tokens from the chaos bag. For each [curse] token revealed, you may search your bonded cards for a [[Rot]] event and attach it to that enemy.",
+  "flavour": "",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Borja Pindado",
+  "packName": "The Feast of Hemlock Vale Investigator Expansion",
+  "position": 98,
+  "taboo": {
+   "xp": 2
+  },
+  "copyright": "© 2024 FFG",
+  "pdf": {
+   "traits": "Item. Relic. Occult. Cursed.",
+   "paras": [
+    {
+     "t": "Chained (+2 experience).",
+     "k": "p"
+    },
+    {
+     "t": "[free] Choose a non-<b><i>Elite</i></b> enemy at any location and exhaust Rod of Carnamagos: Reveal 5 random chaos tokens from the chaos bag. For each [curse] token revealed, you may search your bonded cards for a <b><i>Rot</i></b> event and attach it to that enemy.",
+     "k": "p"
+    }
+   ],
+   "note": "Chained (+2 experience)."
+  },
+  "set": "2f304b84b3",
+  "setAspect": 0.954,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Rod of Carnamagos</b><b> (</b>[set:e1-2dc13c71] <b> 98)</b>: +2 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "11031",
+  "name": "Quick Shot",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "guardian",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 3,
+  "traits": "Spirit.",
+  "text": "Myriad. Fast. Play only during your turn.\nDeal 1 damage to an enemy at your location.\n[reaction] After you draw Quick Shot during your turn: Play it, reducing its resource cost by 2.",
+  "flavour": "They called Sister Sofia the \"hand of God\" for a very good reason.",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Gabby Portal",
+  "packName": "The Drowned City Investigator Expansion",
+  "position": 31,
+  "taboo": {
+   "xp": -2
+  },
+  "copyright": "© 2025 FFG",
+  "pdf": {
+   "traits": "Spirit.",
+   "paras": [
+    {
+     "t": "Unchained (–2 experience).",
+     "k": "p"
+    },
+    {
+     "t": "Myriad. Fast. Play only during your turn.",
+     "k": "p"
+    },
+    {
+     "t": "Deal 1 damage to an enemy at your location.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] After you draw Quick Shot during your turn: Play it, reducing its resource cost by 2.",
+     "k": "p"
+    },
+    {
+     "t": "<i>They called Sister Sofia the “hand of God” for a very good reason.</i>",
+     "k": "flav"
+    }
+   ],
+   "note": "Unchained (–2 experience)."
+  },
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Quick Shot</b><b> (</b>[set:e1-03766b1a] <b> 31)</b>: –2 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "11055",
+  "name": "Bum's Rush",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Tactic. Trick.",
+  "text": "<b>Evade.</b> Add your [combat] value to your skill value for this evasion attempt. If you succeed by 2 or more, deal that enemy 1 damage. If that enemy is non-[[Elite]], you may move it to a connecting location.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "combat"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Diego Gisbert",
+  "packName": "The Drowned City Investigator Expansion",
+  "position": 55,
+  "taboo": {
+   "xp": 1
+  },
+  "copyright": "© 2025 FFG",
+  "pdf": {
+   "traits": "Tactic. Trick.",
+   "paras": [
+    {
+     "t": "Chained (+1 experience).",
+     "k": "p"
+    },
+    {
+     "t": "<b>Evade.</b> Add your [combat] value to your skill value for this evasion attempt. If you succeed by 2 or more, deal that enemy 1 damage. If that enemy is non-<b><i>Elite</i></b>, you may move it to a connecting location.",
+     "k": "p"
+    }
+   ],
+   "note": "Chained (+1 experience)."
+  },
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Bum’s Rush</b><b> (</b>[set:e1-03766b1a] <b> 55)</b>: +1 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "11065",
+  "name": "Blood of Thoth",
+  "subname": "Law Incarnate",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 0,
+  "traits": "Item. Relic.",
+  "text": "[reaction] When 1 or more doom is placed on a card you control, exhaust Blood of Thoth: Place 1 resource on this card <i>(from the token pool)</i>, as an offering.\n[fast] If Blood of Thoth has 3 or more offerings on it, remove all offerings from Blood of Thoth and exhaust it: Choose an investigator at your location to immediately take an action as if it were their turn.",
+  "flavour": "",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [
+   "Accessory"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Pixoloid Studios",
+  "packName": "The Drowned City Investigator Expansion",
+  "position": 65,
+  "taboo": {
+   "text": "This card’s [reaction] ability reads \"[reaction] When doom is placed on a card you control: Place 1 resource (from the token pool) on Blood of Thoth, as an offering.\"\nThis card’s [fast] ability reads \"[fast] During the investigation phase, except during an action, spend 2 offerings and exhaust Blood of Thoth: Choose an investigator at your location to immediately take an action as if it were their turn.\""
+  },
+  "copyright": "© 2025 FFG",
+  "pdf": {
+   "traits": "Item. Relic.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] When doom is placed on a card you control: Place 1 resource <i>(from the token pool)</i>, on this card, as an offering.",
+     "k": "p"
+    },
+    {
+     "t": "[free] During the investigation phase, except during an action, spend 2 offerings and exhaust Blood of Thoth: Choose an investigator at your location to immediately take an action as if it were their turn.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Blood of Thoth</b><b> (</b>[set:e1-03766b1a] <b> 65)</b>: This card’s [reaction] ability reads “[reaction]When doom is placed on a card you control: Place 1 resource<i> (from the token pool)</i> on Blood of Thoth, as an offering.” This card’s [free] ability reads “[free]During the investigation phase, except during an action, spend 2 offerings and exhaust Blood of Thoth: Choose an investigator at your location to immediately take an action as if it were their turn.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "11071",
+  "name": "Spectral Shield",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Spell. Spirit.",
+  "text": "Fast. Play only during your turn. Attach to a player card with health and/or sanity at your location.\n<b>Forced</b> - When attached card takes 1 or more damage/horror: Cancel 1 of that damage/horror. The owner of Spectral Shield must remove 1 charge from an asset they control. If they cannot, discard Spectral Shield.",
+  "flavour": "",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "David Hovey",
+  "packName": "The Drowned City Investigator Expansion",
+  "position": 71,
+  "taboo": {
+   "text": "This card's <b>Forced</b> effect now reads \"The first time attached card takes 1 or more damage/horror each round...\""
+  },
+  "copyright": "© 2025 FFG",
+  "pdf": {
+   "traits": "Spell. Spirit.",
+   "paras": [
+    {
+     "t": "Mutated. Fast. Play only during your turn. Attach to a player card with health and/or sanity at your location.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Forced –</b> The first time attached card takes 1 or more more damage/horror each round: Cancel 1 of that damage/horror. The owner of Spectral Shield must remove 1 charge from an asset they control. If they cannot, discard Spectral Shield.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Spectral Shield</b><b> (</b>[set:e1-03766b1a] <b> 71)</b>: This card’s <b>Forced</b> effect now reads “The first time attached card takes 1 or more damage/horror each round...”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "11075",
+  "name": "Spiritual Echo",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 2,
+  "traits": "Ritual.",
+  "text": "Attach to your location. Limit 1 per location.\n[reaction] After you activate an [action] or [fast] ability on a [[Spell]] or [[Ritual]] asset: Perform that ability again at attached location as if you were there, ignoring that asset's [action] cost, if any. <i>(You may trigger this ability from any location.)</i> Return Spiritual Echo to your hand.",
+  "flavour": "",
+  "skills": [
+   "willpower",
+   "combat"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Andreas Zafiratos",
+  "packName": "The Drowned City Investigator Expansion",
+  "position": 75,
+  "taboo": {
+   "text": "This card gains \"Fast. Play only during your turn.\"\nThis card's [reaction] ability now reads \"...Return Spiritual Echo to your hand at the end of your turn.\" and gains \"(Limit once per round.)\""
+  },
+  "copyright": "© 2025 FFG",
+  "pdf": {
+   "traits": "Ritual.",
+   "paras": [
+    {
+     "t": "Mutated. Fast. Play only during your turn.",
+     "k": "p"
+    },
+    {
+     "t": "Attach to your location. Limit 1 per location.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] After you activate an [action] or [free] ability on a <b><i>Spell</i></b> or <b><i>Ritual</i></b> asset: Perform that ability again at attached location as if you were there, ignoring that asset’s [action] cost, if any. <i>(You may trigger this ability from any location.) </i>Return Spiritual Echo to your hand at the end of your turn. (Limit once per round).",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Spiritual Echo</b><b> (</b>[set:e1-03766b1a] <b> 75)</b>: This card gains “Fast. Play only during your turn.” This card’s [reaction] ability now reads “...Return Spiritual Echo to your hand at the end of your turn.” and gains “(Limit once per round.)”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "11117",
+  "name": "Archibald MacVeigh",
+  "subname": "Beleaguered Lecturer",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "neutral",
+  "faction2": null,
+  "faction3": null,
+  "cost": 4,
+  "xp": 5,
+  "traits": "Ally.",
+  "text": "[[Assistant]], [[Reporter]], [[Scholar]] deck only. Uses (4 secrets).\nYou get +1 [intellect].\nSecrets on assets you control may be spent as resources to pay for [[Insight]] events you play.",
+  "flavour": "\"'Publish or Perish,' they said. Perhaps we'll do both.\"",
+  "skills": [
+   "intellect",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 2,
+  "sanity": 3,
+  "victory": null,
+  "illustrator": "Alexandre Dainche",
+  "packName": "The Drowned City Investigator Expansion",
+  "position": 117,
+  "taboo": {
+   "xp": -2
+  },
+  "copyright": "© 2025 FFG",
+  "pdf": {
+   "traits": "Ally.",
+   "paras": [
+    {
+     "t": "Unchained (–2 experience).",
+     "k": "p"
+    },
+    {
+     "t": "<b><i>Assistant, Reporter, Scholar </i></b>deck only. Uses (4 secrets).",
+     "k": "p"
+    },
+    {
+     "t": "You get +1 [intellect].",
+     "k": "p"
+    },
+    {
+     "t": "Secrets on assets you control may be spent as resources to pay for <b><i>Insight</i></b> events you play.",
+     "k": "p"
+    }
+   ],
+   "note": "Unchained (–2 experience)."
+  },
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Archibald MacVeigh</b><b> (</b>[set:e1-03766b1a] <b> 117)</b>: –2 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "11118",
+  "name": "Library Pass",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "neutral",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 5,
+  "traits": "Item. Miskatonic.",
+  "text": "[[Miskatonic]], [[Scholar]] deck only. Permanent. Limit 1 per deck.\n[fast] During your turn, if there is no asset attached to Library Pass, exhaust Library Pass: Attach a [[Tome]] asset from your hand to Library Pass. Attached asset takes up no slots.\n<b>Forced</b> - When your turn ends: You must either pay 1 resource or place attached asset on the bottom of your deck.",
+  "flavour": "",
+  "skills": [],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Pixoloid Studios",
+  "packName": "The Drowned City Investigator Expansion",
+  "position": 118,
+  "taboo": {
+   "text": "This card’s <b>Forced</b> effect now reads \"When your turn endsL Place attaced asset on the bottom of your deck unless you spend 1 resource.\""
+  },
+  "copyright": "© 2025 FFG",
+  "pdf": {
+   "traits": "Item. Miskatonic.",
+   "paras": [
+    {
+     "t": "Mutated. <b><i>Miskatonic</i></b>, <b><i>Scholar</i></b> deck only. Permanent. Limit 1 per deck.",
+     "k": "p"
+    },
+    {
+     "t": "[free] During your turn, if there is no asset attached to Library Pass, exhaust Library Pass: Attach a <b><i>Tome</i></b> asset from your hand to Library Pass. Attached asset takes up no slots.",
+     "k": "p"
+    },
+    {
+     "t": "<b>Forced –</b> When your turn ends: Place attached asset on the bottom of your deck unless you spend 1 resource.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Library Pass</b><b> (</b>[set:e1-03766b1a] <b> 118)</b>: This card’s <b>Forced</b> effect now reads “When your turn ends: Place attached asset on the bottom of your deck unless you spend 1 resource.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "11120",
+  "name": "On Their Heels",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "neutral",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 5,
+  "traits": "Talent.",
+  "text": "[[Detective]], [[Hunter]], [[Police]], [[Reporter]] deck only.\nLimit 1 per investigator. Uses (5 leads).\n[reaction] After you enter a location with 1 or more enemies, spend 1 lead and exhaust On Their Heels: Either discover 1 clue at your location or deal 1 damage to an enemy at your location.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "combat",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Aaron Miller",
+  "packName": "The Drowned City Investigator Expansion",
+  "position": 120,
+  "taboo": {
+   "text": "The first line of this card gains: \"If On Their Heels has no leads, discard it.\""
+  },
+  "copyright": "© 2025 FFG",
+  "pdf": {
+   "traits": "Talent.",
+   "paras": [
+    {
+     "t": "Mutated. <b><i>Detective</i></b>,<b><i> Hunter</i></b>,<b><i> Police</i></b>,<b><i> Reporter </i></b>deck only.",
+     "k": "p"
+    },
+    {
+     "t": "Limit 1 per investigator. Uses (5 leads). If On Their Heels has no leads, discard it.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] After you enter a location with 1 or more enemies, spend 1 lead and exhaust On Their Heels: Either discover 1 clue at your location or deal 1 damage to an enemy at your location.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "d9b15c18a2",
+  "setAspect": 1.0,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>On Their Heels</b><b> (</b>[set:e1-03766b1a] <b> 120)</b>: The first line of this card gains: “If On Their Heels has no leads, discard it.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "60233",
+  "name": "The Necronomicon",
+  "subname": "Petrus de Dacia Translation",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "seeker",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 5,
+  "traits": "Item. Tome.",
+  "text": "Uses (6 secrets). Limit 1 per deck.\n[fast] Spend 1 secret: You get +2 skill value for this skill test.\n[fast] Spend 2 secrets: Draw 2 cards.\n[fast] Spend 3 secrets: Discover 1 clue at any location.\n[fast] Spend 4 secrets: Deal 3 damage to an enemy engaged with you.",
+  "flavour": "",
+  "skills": [
+   "intellect",
+   "intellect",
+   "intellect",
+   "intellect",
+   "intellect"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Dimitri Bielak",
+  "packName": "Harvey Walters",
+  "position": 33,
+  "taboo": {
+   "text": "Forbidden.",
+   "deck_limit": 0
+  },
+  "copyright": "© 2020 FFG",
+  "pdf": {
+   "traits": "Item. Tome.",
+   "paras": [
+    {
+     "t": "Forbidden. Uses (6 secrets). Limit 1 per deck.",
+     "k": "p"
+    },
+    {
+     "t": "[free] Spend 1 secret: You get +2 skill value for this skill test.",
+     "k": "p"
+    },
+    {
+     "t": "[free] Spend 2 secrets: Draw 2 cards.",
+     "k": "p"
+    },
+    {
+     "t": "[free] Spend 3 secrets: Discover 1 clue at any location.",
+     "k": "p"
+    },
+    {
+     "t": "[free] Spend 4 secrets: Deal 3 damage to an enemy engaged with you.",
+     "k": "p"
+    }
+   ],
+   "note": "Forbidden."
+  },
+  "set": "e7a64922c8",
+  "setAspect": 1.199,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>The Necronomicon (Petrus de Dacia Translation)</b><b> (</b>[set:e2-0404fd53] <b> 33)</b>",
+  "cat": "forbidden",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "60318",
+  "name": "Daredevil",
+  "subname": "",
+  "unique": false,
+  "type": "skill",
+  "typeName": "Skill",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": null,
+  "xp": 0,
+  "traits": "Fortune. Practiced.",
+  "text": "After you commit Daredevil to a skill test, discard cards from the top of your deck until you discard a [rogue] skill you can commit to this test. Commit it. Shuffle each weakness that was discarded by this effect back into your deck.",
+  "flavour": "\"You're a maniac, Wini!\"\n\"I know! Isn't it wonderful?\"",
+  "skills": [
+   "wild"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Borja Pindado",
+  "packName": "Winifred Habbamock",
+  "position": 18,
+  "taboo": {
+   "text": "Instead of \"Shuffle each weakness that was discarded…\", this card's ability now reads: \"After this skill test resolves, draw each weakness discarded by this effect.\""
+  },
+  "copyright": "© 2019 FFG",
+  "pdf": {
+   "traits": "Fortune. Practiced.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "After you commit Daredevil to a skill test, discard cards from the top of your deck until you discard a [rogue] skill you can commit to this test. Commit it. After this skill test resolves, draw each weakness discarded by this effect.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "286bd4f87a",
+  "setAspect": 0.877,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Daredevil</b><b> (</b>[set:e5-5dd1694d] <b> 18):</b> Instead of “Shuffle each weakness that was discarded…”, this card’s ability now reads: “After this skill test resolves, draw each weakness discarded by this effect.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "60327",
+  "name": "Sharpshooter",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 3,
+  "traits": "Talent.",
+  "text": "[reaction] When you use a fight ability on a [[Firearm]] asset, exhaust Sharpshooter: Choose one, or both - \n- This attack uses [agility] instead of [combat]. All modifiers to your [combat] for this attack modify your [agility] instead.\n- Use the attacked enemy's evade value for this attack, instead of their fight value.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matt Bradbury",
+  "packName": "Winifred Habbamock",
+  "position": 27,
+  "taboo": {
+   "xp": -1
+  },
+  "copyright": "© 2019 FFG",
+  "pdf": {
+   "traits": "Talent.",
+   "paras": [
+    {
+     "t": "Unchained (–1 experience).",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] When you use a fight ability on a <b><i>Firearm</i></b> asset, exhaust Sharpshooter: Choose one, or both –",
+     "k": "p"
+    },
+    {
+     "t": "[bullet] This attack uses [agility] instead of [combat]. All modifiers to your [combat] for this attack modify your [agility] instead.",
+     "k": "bullet"
+    },
+    {
+     "t": "[bullet] Use the attacked enemy's evade value for this attack, instead of their fight value.",
+     "k": "bullet"
+    }
+   ],
+   "note": "Unchained (–1 experience)."
+  },
+  "set": "286bd4f87a",
+  "setAspect": 0.877,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Sharpshooter</b><b> (</b>[set:e5-5dd1694d] <b> 27):</b> –1 experience",
+  "cat": "chained",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "60332",
+  "name": "Chuck Fergus",
+  "subname": "O'Bannion Driver",
+  "unique": true,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "rogue",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 5,
+  "traits": "Ally. Criminal.",
+  "text": "[reaction] When you play a [[Tactic]] or [[Trick]] event, exhaust Chuck Fergus: Choose two -\n- That event gains fast.\n- That event costs 2 fewer resources to play.\n- You get +2 skill value while performing a skill test during the resolution of that event.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility",
+   "wild"
+  ],
+  "stats": null,
+  "slots": [
+   "Ally"
+  ],
+  "health": 2,
+  "sanity": 2,
+  "victory": null,
+  "illustrator": "Derek D. Edgell",
+  "packName": "Winifred Habbamock",
+  "position": 32,
+  "taboo": {
+   "text": "This card's first bullet point now reads: \"That event gains: \"Fast. Play only during your turn.\"\""
+  },
+  "copyright": "© 2019 FFG",
+  "pdf": {
+   "traits": "Ally. Criminal.",
+   "paras": [
+    {
+     "t": "Mutated. [reaction] When you play a <b><i>Tactic</i></b> or <b><i>Trick</i></b> event, exhaust Chuck Fergus: Choose two –",
+     "k": "p"
+    },
+    {
+     "t": "[bullet] That event gains: “Fast. Play only during your turn.”",
+     "k": "bullet"
+    },
+    {
+     "t": "[bullet] That event costs 2 fewer resources to play.",
+     "k": "bullet"
+    },
+    {
+     "t": "[bullet] You get +2 skill value while performing a skill test during the resolution of that event.",
+     "k": "bullet"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "892d99f044",
+  "setAspect": 0.877,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Chuck Fergus</b><b> (</b>[set:e5-5dd1694d] <b> 32, </b>[set:e1-1b5bc68d]<b> 72)</b>: These cards’ first bullet point now reads: “That event gains: “Fast. Play only during your turn.””",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": false
+ },
+ {
+  "code": "60405",
+  "name": "Ritual Candles",
+  "subname": "",
+  "unique": false,
+  "type": "asset",
+  "typeName": "Asset",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Item.",
+  "text": "[reaction] After a [skull], [cultist], [tablet], or [elder_thing] symbol is revealed during a test you are performing: You get +1 skill value for this test.",
+  "flavour": "The wax tapers give off an eerie glow, and the flames move as if they are alive.",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [
+   "Hand"
+  ],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Kristina Gehrmann",
+  "packName": "Jacqueline Fine",
+  "position": 5,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2016 FFG",
+  "pdf": {
+   "traits": "Item.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "[reaction] After a symbol is revealed during a test you are performing: You get +1 skill value for this test.",
+     "k": "p"
+    },
+    {
+     "t": "<i>The wax tapers give off an eerie glow, and the flames move as if they are alive. </i>",
+     "k": "flav"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "d97c74ea06",
+  "setAspect": 1.026,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Ritual Candles</b><b> (</b>[set:e5-6cc1b92c] <b> 29, </b>[set:e2-09307c83] <b>5), </b><b>Hypnotic Gaze</b><b> (</b>[set:e5-6cc1b92c]<b> 153, </b>[set:e2-09307c83] <b>14, </b>[set:e2-09307c83] <b>23), </b><b>Jewel of Aureolus</b><b> (</b>[set:e5-6cc1b92c]<b> 269), </b><b>Voice of Ra</b><b> (</b>[set:e2-09307c83] <b>16), </b><b>Banish</b><b> (</b>[set:e12-05e0449f]<b> 113) :</b> These cards now read “a symbol” instead of the list of indicated symbols.",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "60414",
+  "name": "Hypnotic Gaze",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 3,
+  "xp": 0,
+  "traits": "Spell.",
+  "text": "Fast. Play when an enemy attacks an investigator at your location.\nCancel that attack. Then, reveal a random token from the chaos bag. If it has a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol, deal the attacking enemy's damage to itself. ",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Falk",
+  "packName": "Jacqueline Fine",
+  "position": 14,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2016 FFG",
+  "pdf": {
+   "traits": "Spell.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "Fast. Play when an enemy attacks an investigator at your location.",
+     "k": "p"
+    },
+    {
+     "t": "Cancel the attack. Then, reveal a random token from the chaos bag. If it has a symbol, deal the attacking enemy’s damage to itself.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "1014fb72e3",
+  "setAspect": 1.322,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Ritual Candles</b><b> (</b>[set:e5-6cc1b92c] <b> 29, </b>[set:e2-09307c83] <b>5), </b><b>Hypnotic Gaze</b><b> (</b>[set:e5-6cc1b92c]<b> 153, </b>[set:e2-09307c83] <b>14, </b>[set:e2-09307c83] <b>23), </b><b>Jewel of Aureolus</b><b> (</b>[set:e5-6cc1b92c]<b> 269), </b><b>Voice of Ra</b><b> (</b>[set:e2-09307c83] <b>16), </b><b>Banish</b><b> (</b>[set:e12-05e0449f]<b> 113) :</b> These cards now read “a symbol” instead of the list of indicated symbols.",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "60416",
+  "name": "Voice of Ra",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 0,
+  "xp": 0,
+  "traits": "Spell.",
+  "text": "Gain 1 resource. Reveal 3 random tokens from the chaos bag. For each [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol revealed, gain an additional 2 resources.",
+  "flavour": "",
+  "skills": [
+   "willpower"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Matt Bradbury",
+  "packName": "Jacqueline Fine",
+  "position": 16,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2020 FFG",
+  "pdf": {
+   "traits": "Spell.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "Gain 1 resource. Reveal 3 random tokens from the chaos bag. For each symbol revealed, gain an additional 2 resources.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "1014fb72e3",
+  "setAspect": 1.322,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Ritual Candles</b><b> (</b>[set:e5-6cc1b92c] <b> 29, </b>[set:e2-09307c83] <b>5), </b><b>Hypnotic Gaze</b><b> (</b>[set:e5-6cc1b92c]<b> 153, </b>[set:e2-09307c83] <b>14, </b>[set:e2-09307c83] <b>23), </b><b>Jewel of Aureolus</b><b> (</b>[set:e5-6cc1b92c]<b> 269), </b><b>Voice of Ra</b><b> (</b>[set:e2-09307c83] <b>16), </b><b>Banish</b><b> (</b>[set:e12-05e0449f]<b> 113) :</b> These cards now read “a symbol” instead of the list of indicated symbols.",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "60417",
+  "name": "Dark Prophecy",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 1,
+  "xp": 0,
+  "traits": "Augury.",
+  "text": "Fast. Play when you would reveal a chaos token.\nReveal 5 chaos tokens instead of 1. Choose one of those tokens with a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol to resolve, and ignore the rest. (If no such token is revealed, choose any one of those tokens to resolve, and ignore the rest.)",
+  "flavour": "The secrets were written in the stars.",
+  "skills": [
+   "willpower",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Alice Duke",
+  "packName": "Jacqueline Fine",
+  "position": 17,
+  "taboo": {
+   "text": "This card now reads \"a non-[auto_fail] symbol\" instead of \"a [skull], [cultist], [tablet], or [elder_thing] chaos token.\""
+  },
+  "copyright": "© 2017 FFG",
+  "pdf": {
+   "traits": "Augury.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "Fast. Play when you would reveal a chaos token.",
+     "k": "p"
+    },
+    {
+     "t": "Reveal 5 chaos tokens instead of 1. Choose one of those tokens with a non-[eldersign] symbol to resolve, and ignore the rest. (If no such token is revealed, choose any one of those tokens to resolve, and ignore the rest.)",
+     "k": "p"
+    },
+    {
+     "t": "<i>The secrets were written in the stars.</i>",
+     "k": "flav"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "aa99f780cd",
+  "setAspect": 1.148,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Dark Prophecy</b><b> (</b>[set:e3-2540bab3] <b> 32, </b>[set:e2-09307c83] <b>17): </b>This cards now reads “a non-[eldersign] symbol” instead of “a [skull], [cultist], [tablet], [elderthing], or [autofail] symbol.”",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ },
+ {
+  "code": "60423",
+  "name": "Hypnotic Gaze",
+  "subname": "",
+  "unique": false,
+  "type": "event",
+  "typeName": "Event",
+  "subtypeName": "",
+  "faction": "mystic",
+  "faction2": null,
+  "faction3": null,
+  "cost": 2,
+  "xp": 2,
+  "traits": "Spell.",
+  "text": "Fast. Play when an enemy attacks an investigator at your location.\nCancel that attack. Then, reveal a random token from the chaos bag. If it has a [skull], [cultist], [tablet], [elder_thing], or [auto_fail] symbol, deal damage to the attacking enemy equal to its damage or horror.",
+  "flavour": "",
+  "skills": [
+   "combat",
+   "agility",
+   "agility"
+  ],
+  "stats": null,
+  "slots": [],
+  "health": null,
+  "sanity": null,
+  "victory": null,
+  "illustrator": "Falk",
+  "packName": "Jacqueline Fine",
+  "position": 23,
+  "taboo": {
+   "text": "This card now reads \"a symbol\" instead of the list of indicated symbols."
+  },
+  "copyright": "© 2016 FFG",
+  "pdf": {
+   "traits": "Spell.",
+   "paras": [
+    {
+     "t": "Mutated.",
+     "k": "p"
+    },
+    {
+     "t": "Fast. Play when an enemy attacks an investigator at your location.",
+     "k": "p"
+    },
+    {
+     "t": "Cancel the attack. Then, reveal a random token from the chaos bag. If it has a symbol, deal damage to the attacking enemy equal to its damage or horror.",
+     "k": "p"
+    }
+   ],
+   "note": "Mutated."
+  },
+  "set": "1014fb72e3",
+  "setAspect": 1.322,
+  "w": 738,
+  "h": 1048,
+  "change": "<b>Ritual Candles</b><b> (</b>[set:e5-6cc1b92c] <b> 29, </b>[set:e2-09307c83] <b>5), </b><b>Hypnotic Gaze</b><b> (</b>[set:e5-6cc1b92c]<b> 153, </b>[set:e2-09307c83] <b>14, </b>[set:e2-09307c83] <b>23), </b><b>Jewel of Aureolus</b><b> (</b>[set:e5-6cc1b92c]<b> 269), </b><b>Voice of Ra</b><b> (</b>[set:e2-09307c83] <b>16), </b><b>Banish</b><b> (</b>[set:e12-05e0449f]<b> 113) :</b> These cards now read “a symbol” instead of the list of indicated symbols.",
+  "cat": "mutated",
+  "lang": "en",
+  "noteOwnLine": true
+ }
+]

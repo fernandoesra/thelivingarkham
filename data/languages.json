@@ -15,6 +15,7 @@
       "faqV": "2.5",
       "faqDate": "2026-02-01",
       "tabooData": "data/taboos_es.json",
+      "tabooCardsData": "data/taboo_cards_es.json",
       "flag": "langs/es/flag.svg"
     },
     {
@@ -31,6 +32,7 @@
       "faqV": "2.5",
       "faqDate": "2026-02-01",
       "tabooData": "data/taboos_en.json",
+      "tabooCardsData": "data/taboo_cards_en.json",
       "flag": "langs/en/flag.svg"
     },
     {
@@ -47,6 +49,7 @@
       "faqV": "2.5",
       "faqDate": "2026-02-01",
       "tabooData": "data/taboos_de.json",
+      "tabooCardsData": "data/taboo_cards_de.json",
       "flag": "langs/de/flag.svg"
     },
     {
@@ -63,6 +66,7 @@
       "faqV": "2.5",
       "faqDate": "2026-02-01",
       "tabooData": "data/taboos_it.json",
+      "tabooCardsData": "data/taboo_cards_it.json",
       "flag": "langs/it/flag.svg"
     },
     {
