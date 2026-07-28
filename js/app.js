@@ -2837,7 +2837,10 @@ function tabooItemExports(item){
   if(type==='investigator'){
     var front=item.hasAttribute('data-frontsame')?printed:(taboo||printed);
     if(front)out.push({card:front, side:'front'});
-    if(item.hasAttribute('data-backmod')&&backEl)out.push({card:backEl, side:'back'});
+    /* Every investigator prints double-sided, so the back always ships — the reconstructed taboo
+       back for Lola/Mandy, the unchanged printed back for Rex/Trish (TabooCard.back already draws
+       whichever it is). */
+    if(backEl)out.push({card:backEl, side:'back'});
   }else{
     var face=taboo||printed;
     if(face)out.push({card:face, side:'card'});
