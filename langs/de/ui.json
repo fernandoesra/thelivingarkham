@@ -188,6 +188,8 @@
     "tbfront": "Vorderseite",
     "tbbleed": "Mit Beschnitt",
     "tbzoom": "Vergrößern",
+    "tbzoomprev": "Vorherige Version",
+    "tbzoomnext": "Nächste Version",
     "tbfilters": "Filter",
     "tbbleedintro": "Ein Beschnitt ist ein paar Millimeter zusätzliche Grafik rund um die Karte – für Druckereien, die viele Karten auf einmal schneiden und leicht abweichen können. Für den Druck zu Hause meist nicht nötig.",
     "tbnobleed": "Ohne Beschnitt",
@@ -202,6 +204,7 @@
     "tbnonew": "Kein neuer Text",
     "tbsearchlabel": "Suche",
     "tbsearchph": "Kartenname",
+    "tbfaqsel": "Version",
     "tbfiltertype": "Typ",
     "tbfilterclass": "Klasse",
     "tbfiltercat": "Kategorie",
@@ -277,6 +280,9 @@
     "ubdownalltip": "Alle Karten als .zip herunterladen (aktuelle Sprache)",
     "ubdownallwait": "Wird vorbereitet…",
     "ubviewlabel": "Ansichtsmodus",
+    "ubframe": "Rahmen",
+    "ubframev1": "Rahmen V1 (klassisch)",
+    "ubframev2": "Rahmen V2 (strukturiert)",
     "ubviewlist": "Liste",
     "ubviewgallery": "Nur Bilder",
     "ubchaplabel": "Kapitel",
@@ -352,7 +358,8 @@
     "noticeword": "Achtung",
     "taboomut": "Änderung: ",
     "relnotes": "Versionshinweise",
-    "relcurrent": "Aktuelle Version"
+    "relcurrent": "Aktuelle Version",
+    "relold": "Ältere Version"
   },
   "blurbs": {
     "additional-rules": "Grundlagen und Regeln, die die Spielanleitung erweitern.",
@@ -395,8 +402,9 @@
         "**Versionsverlauf**: Jeder Eintrag weiß, in welcher Ausgabe er zuerst erschien und was später umgeschrieben wurde, mit hervorgehobenem Zusatztext und einer Neuigkeitenliste je Version.",
         "**ArkhamDB-Links**: Jede in den Büchern genannte Karte führt zu ihrer genauen Seite in eurer Sprache, ermittelt aus Name, Sammlungsnummer und Produktsymbol.",
         "**Werkzeuge**: Suche über beide Dokumente, automatisch verlinktes Glossar, interaktive Phasendiagramme, Aufbau der Karten, druckbare Schnellübersicht, Produkt- und Begegnungssetsymbole.",
-        "**Ultimaten, Gaben und Refraktionen**: ein Betrachter Karte für Karte mit Filtern nach Kapitel, Typ, Kampagne und Szenario, Zufallsziehung und Bild-Download.",
+        "**Ultimaten, Gaben und Refraktionen**: ein Betrachter Karte für Karte mit Filtern nach Kapitel, Typ, Kampagne und Szenario, Zufallsziehung, **V1/V2-Rahmen**-Wahl und druckfertigem Download (Vorder- und Rückseite, mit oder ohne Beschnitt).",
         "**Die Tabuliste** live von ArkhamDB, gruppiert wie im Buch und Karte für Karte verlinkt.",
+        "**Kartenansicht der Tabuliste**: jede Karte, wie sie gedruckt ist und wie das Tabu sie verändert, in deiner Sprache rekonstruiert; Ermittler zeigen Vorder- und Rückseite, mit der Originalrückseite neben der geänderten. Du kannst sie vergrößern — und mit den Pfeilen zwischen den Versionen wechseln, um sie zu vergleichen — und **druckfertig herunterladen**: Vorder- und Rückseite, mit oder ohne Beschnitt, einzeln oder alle auf einmal.",
         "**Material aus der Community**, immer mit Namensnennung und getrennt von den offiziellen Büchern gehalten — etwa das Timing-Diagramm für Fertigkeitsproben von Korriane.",
         "**Sieben Designs**, hell und dunkel, und eine Oberfläche, die für Tastatur und Screenreader gebaut ist.",
         "**Kostenlos, ohne Gewinnabsicht und offen**: Der gesamte Code liegt auf GitHub, und am Seitenende steht, wie ihr mithelfen könnt — mit einer Übersetzung, einer Korrektur, einer Idee."

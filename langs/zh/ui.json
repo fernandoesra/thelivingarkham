@@ -312,7 +312,8 @@
     "noticeword": "注意",
     "taboomut": "变更（英文）：",
     "relnotes": "版本说明",
-    "relcurrent": "当前版本"
+    "relcurrent": "当前版本",
+    "relold": "旧版本"
   },
   "blurbs": {
     "additional-rules": "扩展核心规则书的基础概念与规则。",
@@ -357,6 +358,7 @@
         "**工具**：跨两份文件的搜索、自动互链的术语表、互动阶段图示、卡牌结构图解、可打印的快速参考表，以及产品与遭遇组图标。",
         "**最后通牒、恩惠与折射**：逐张卡牌的浏览界面，可按章、类型、战役和剧本筛选，并支持随机抽取与图片下载。",
         "**禁忌列表**直接取自 ArkhamDB，按书中的方式分组，并逐张卡牌提供链接。",
+        "**Taboo-list card viewer**: every card drawn as it is printed and as the taboo changes it, rebuilt in your language; investigators show front and back, with the original back beside the errata'd one. Zoom them — and step between versions with the arrows to compare them — and **download them ready to print**: front and back, with or without bleed, one at a time or all at once.",
         "**社群素材**，始终注明作者，并与官方规则书分开呈现——例如 Korriane 制作的技能检定时点图示。",
         "**七种视觉主题**，浅色与深色兼备，界面为键盘操作和屏幕阅读器而设计。",
         "**免费、非营利且开放**：所有代码都公开在 GitHub 上，页面底部也说明了如何出一份力——一份翻译、一处修正、一个点子。"

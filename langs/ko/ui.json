@@ -312,7 +312,8 @@
     "noticeword": "알림",
     "taboomut": "변경(영문): ",
     "relnotes": "릴리스 노트",
-    "relcurrent": "현재 버전"
+    "relcurrent": "현재 버전",
+    "relold": "이전 버전"
   },
   "blurbs": {
     "additional-rules": "기본 규칙서를 넓혀 주는 기초와 규칙.",
@@ -357,6 +358,7 @@
         "**도구**: 두 문서 통합 검색, 자동으로 연결되는 용어집, 인터랙티브 단계 도표, 카드 구조, 인쇄용 빠른 참조, 제품 및 조우 세트 아이콘.",
         "**최후통첩, 은총, 굴절**: 장, 종류, 캠페인, 시나리오로 거를 수 있는 카드별 뷰어와 무작위 뽑기, 이미지 내려받기.",
         "**터부 목록**을 ArkhamDB에서 실시간으로 받아 와, 책이 묶은 방식 그대로 묶고 카드마다 연결했습니다.",
+        "**Taboo-list card viewer**: every card drawn as it is printed and as the taboo changes it, rebuilt in your language; investigators show front and back, with the original back beside the errata'd one. Zoom them — and step between versions with the arrows to compare them — and **download them ready to print**: front and back, with or without bleed, one at a time or all at once.",
         "**커뮤니티 자료**는 언제나 만든 사람을 밝히고 공식 규칙서와 눈에 띄게 따로 두었습니다 — Korriane의 기술 판정 타이밍 도표가 그렇습니다.",
         "**일곱 가지 시각 테마**, 밝은 테마와 어두운 테마, 그리고 키보드와 화면 낭독기를 생각해 만든 인터페이스.",
         "**무료, 비영리, 열린 프로젝트**: 모든 코드는 GitHub에 공개되어 있고, 페이지 아래쪽에 도와주실 수 있는 방법을 적어 두었습니다 — 번역 하나, 수정 하나, 생각 하나."

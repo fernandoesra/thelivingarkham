@@ -317,7 +317,8 @@
     "noticeword": "Uwaga",
     "taboomut": "Zmiana: ",
     "relnotes": "Informacje o wersji",
-    "relcurrent": "Bieżąca wersja"
+    "relcurrent": "Bieżąca wersja",
+    "relold": "Starsza wersja"
   },
   "blurbs": {
     "additional-rules": "Podstawy i zasady rozszerzające podstawową instrukcję.",
@@ -362,6 +363,7 @@
         "**Narzędzia**: wyszukiwarka obejmująca oba dokumenty, automatycznie linkowany słownik, interaktywne diagramy faz, budowa karty, ściągawka do wydruku, ikony produktów i zestawów spotkań.",
         "**Ultimatum, Dobrodziejstwa i Refrakcje**: przeglądarka karta po karcie z filtrami według rozdziału, typu, kampanii i scenariusza, losowaniem i pobieraniem obrazów.",
         "**Lista tabu** pobierana na żywo z ArkhamDB, pogrupowana tak jak w księdze i połączona odnośnikami karta po karcie.",
+        "**Taboo-list card viewer**: every card drawn as it is printed and as the taboo changes it, rebuilt in your language; investigators show front and back, with the original back beside the errata'd one. Zoom them — and step between versions with the arrows to compare them — and **download them ready to print**: front and back, with or without bleed, one at a time or all at once.",
         "**Materiały społeczności**, zawsze z podaniem autora i wyraźnie oddzielone od oficjalnych ksiąg — jak diagram kolejności rozpatrywania testu umiejętności autorstwa Korriane.",
         "**Siedem motywów graficznych**, jasnych i ciemnych, oraz interfejs zaprojektowany z myślą o klawiaturze i czytniku ekranu.",
         "**Darmowy, nienastawiony na zysk i otwarty**: cały kod jest dostępny na GitHubie, a stopka strony wyjaśnia, jak wyciągnąć pomocną dłoń — tłumaczenie, poprawka, pomysł."

@@ -1374,7 +1374,12 @@ var ubSel={};
 /* How the viewer shows a tab: 'list' (a sidebar list + one large card, as before) or
    'gallery' (every card at once, 5argon-style). Remembered across the session. */
 var ubView=(function(){try{return localStorage.getItem('tla-ubview')==='gallery'?'gallery':'list';}catch(e){return 'list';}})();
-var ubBleed=false;   // download UB cards with a print bleed margin, toggled in the tools bar
+var ubBleed=false;   // download UB cards with a print bleed margin, chosen in the download modal
+/* The frame "skin": v1 is 5argon's clean frame (default), v2 the textured one. Only the frame over
+   the art differs; the art and the live text are the same. The picture set swaps by folder. */
+var ubSkin=(function(){try{return localStorage.getItem('tla-ubskin')==='v2'?'v2':'v1';}catch(e){return 'v1';}})();
+function ubCardSrc(it){ return ubSkin==='v2'?('ub/cards-v2/'+it.slug+'.webp'):it.card; }
+function ubThumbSrc(it){ return ubSkin==='v2'?('ub/thumbs-v2/'+it.slug+'.webp'):it.thumb; }
 /* Which chapter's cards to show: 'all', 'cap1' (the retired FAQ — many more refractions) or
    'cap2' (the 2026 Grimoire). Ultimatums and boons are the same in both, so they are tagged
    'both' and show under any filter; only the refractions differ. Remembered for the session. */
@@ -1608,7 +1613,7 @@ function ubDetailHTML(it){
   var L=it.pending?' lang="en"':'';
   var h=it.pending?ubPendingHTML(it):'';
   h+='<div class="tla-ubc'+(it.noart?' is-noart':'')+(it.refraction?' is-refraction':'')+'" data-slug="'+esc(it.slug)+'" data-cat="'+esc(it.cat||'')+'">';
-  h+='<img class="tla-ubc-pic" src="assets/'+esc(it.card)+'" width="'+it.w+'" height="'+it.h+'" alt="" draggable="false" crossorigin="anonymous">';
+  h+='<img class="tla-ubc-pic" src="assets/'+esc(ubCardSrc(it))+'" width="'+it.w+'" height="'+it.h+'" alt="" draggable="false" crossorigin="anonymous">';
   h+='<button type="button" class="tla-ubc-dl" data-ubdl aria-label="'+esc(t('ubdownload'))+'" title="'+esc(t('ubdownload'))+'">'
     +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg></button>';
   if(it.noart)h+='<div class="tla-ubc-noart">'+esc(t('ubnoart'))+'</div>';
@@ -1673,14 +1678,9 @@ function ubSanitizeName(n){return (n||'card').replace(/[\/\\:*?"<>|]+/g,'').repl
 /* The translated folder a card goes in inside the "download all" zip — Ultimatums, Boons or
    Refractions, each its tab's own name, so the archive sorts itself the way the viewer does. */
 function ubFolderName(it){return ubSanitizeName(it.refraction?t('ubrefractions'):it.cat==='boon'?t('ubboons'):t('ubultimatums'));}
-function ubItemFileName(it){
-  return ubFolderName(it)+'/'+ubSanitizeName(it.name)+'.png';
-}
-function ubCardFileName(card){
-  var n=((card.querySelector('.tla-ubc-title')||{}).textContent||'card');
-  if(card.classList.contains('is-refraction'))n=ubRefractionWord()+' - '+n;
-  return ubSanitizeName(n)+'.png';
-}
+/* The download variant, spelled into the file name so a reader can tell copies apart: the bleed
+   choice (i18n) and, for UB, the frame skin (V1/V2 — a skin id, not translated). */
+function ubVariantSuffix(){ return ' - '+(ubBleed?t('tbwithbleed'):t('tbnobleed'))+' - '+ubSkin.toUpperCase(); }
 /* Draw the shown card onto a canvas at a fixed width, in the reader's language, square
    (no rounded corners). Each text layer's real position and font are read off the DOM, so
    the wrapping and the auto-fit size come out as seen. Same-origin picture and symbols, so
@@ -1689,13 +1689,25 @@ function ubCardToBlob(card,mime,quality){
   return new Promise(function(resolve){
     if(!card){resolve(null);return;}
     var img=card.querySelector('.tla-ubc-pic'); if(!img||!img.naturalWidth){resolve(null);return;}
+    var slug=card.getAttribute('data-slug')||'';
     ubFontsReady().then(function(){
+    /* With bleed, draw the FULL-bleed textless plate (its 60/91 px margin is real frame art) scaled
+       so its trim lands on the 1000px box, exactly like the taboo export — never a pixel stretch. */
+    (ubBleed?loadImg('assets/ub/cards'+(ubSkin==='v2'?'-v2':'')+'-bleed/'+slug+'.webp'):Promise.resolve(null)).then(function(full){
       var CW=1000, CH=Math.round(CW*img.naturalHeight/img.naturalWidth);
       var cr=card.getBoundingClientRect(), sc=CW/cr.width;
-      var cv=document.createElement('canvas'); cv.width=CW; cv.height=CH;
-      var ctx=cv.getContext('2d');
-      ctx.drawImage(img,0,0,CW,CH);
-      var X=function(px){return (px-cr.left)*sc;}, Y=function(py){return (py-cr.top)*sc;};
+      var useBleed=!!(ubBleed&&full&&full.naturalWidth);
+      var cv=document.createElement('canvas'), ctx, X, Y;
+      if(useBleed){
+        var mx=Math.round(60*CW/1312), my=Math.round(91*CH/1818);
+        cv.width=CW+2*mx; cv.height=CH+2*my; ctx=cv.getContext('2d');
+        ctx.drawImage(full,0,0,cv.width,cv.height);
+        X=function(px){return mx+(px-cr.left)*sc;}; Y=function(py){return my+(py-cr.top)*sc;};
+      }else{
+        cv.width=CW; cv.height=CH; ctx=cv.getContext('2d');
+        ctx.drawImage(img,0,0,CW,CH);
+        X=function(px){return (px-cr.left)*sc;}; Y=function(py){return (py-cr.top)*sc;};
+      }
       var outline=function(fs){ctx.lineJoin='round'; ctx.strokeStyle='rgba(0,0,0,.92)'; ctx.lineWidth=Math.max(1,fs*0.16);};
       function line(el){
         if(!el)return; var t=(el.textContent||'').trim(); if(!t)return;
@@ -1743,7 +1755,12 @@ function ubCardToBlob(card,mime,quality){
           };
           im.onerror=function(){res();}; im.src=url;
         });
-      })).then(function(){ var out=ubBleed?addBleed(cv):cv; out.toBlob(function(b){resolve(b);},mime||'image/png',quality); });
+      })).then(function(){
+        /* Fallback to the old edge-clamp only if the full-bleed plate is missing. */
+        var out=(ubBleed&&!useBleed)?addBleed(cv):cv;
+        out.toBlob(function(b){resolve(b);},mime||'image/png',quality);
+      });
+    });
     });
   });
 }
@@ -1805,15 +1822,45 @@ function imageToPngBlob(url, bleed){
 function ubBackType(catOrIt){ var c=(catOrIt&&catOrIt.cat)||catOrIt; return c==='ultimatum'?'ultimatum':'boon'; }
 function ubBackUrl(type){ return 'assets/ub/backs/'+type+'.webp'; }
 function ubBackLabel(type){ return (type==='ultimatum'?t('ubultimatums'):t('ubboons'))+' — '+t('tbback'); }
-/* Download one card (the small button on the picture) AND its printed back, so the reader has both
-   sides to print. */
+/* A flat image as a blob at the given mime (the UB no-bleed back). Null if it will not load. */
+function imageBlob(url, mime, quality){
+  return loadImg(url).then(function(im){
+    if(!im||!im.naturalWidth)return null;
+    var cv=document.createElement('canvas'); cv.width=im.naturalWidth; cv.height=im.naturalHeight;
+    cv.getContext('2d').drawImage(im,0,0);
+    return new Promise(function(res){ cv.toBlob(function(b){res(b);}, mime||'image/png', quality); });
+  });
+}
+/* The UB card back as a blob. Without bleed, the trimmed back 1:1. WITH bleed, the FULL-bleed back of
+   the CURRENT skin, scaled so its trim lands where the front's does — same final size as the front
+   for duplex, with the margin the back's own art, never an edge stretch. */
+function ubBackBlob(type, mime, quality){
+  if(!ubBleed) return imageBlob(ubBackUrl(type), mime, quality);
+  return loadImg('assets/ub/backs-bleed/'+type+(ubSkin==='v2'?'-v2':'')+'.webp').then(function(full){
+    if(!full||!full.naturalWidth) return imageToPngBlob(ubBackUrl(type), true);   // last resort: stretch
+    var CW=1000, CH=1386, mx=Math.round(60*CW/1312), my=Math.round(91*CH/1818);
+    var cv=document.createElement('canvas'); cv.width=CW+2*mx; cv.height=CH+2*my;
+    cv.getContext('2d').drawImage(full,0,0,cv.width,cv.height);
+    return new Promise(function(res){ cv.toBlob(function(b){res(b);}, mime||'image/png', quality); });
+  });
+}
+/* Names in the taboo shape — card "…_01", its back "…_02" — inside the card's translated folder. */
+function ubCardExportName(card, side){
+  var name=((card.querySelector('.tla-ubc-title')||{}).textContent||'card');
+  var cat=card.getAttribute('data-cat'), refraction=card.classList.contains('is-refraction');
+  var folder=ubSanitizeName(refraction?t('ubrefractions'):cat==='boon'?t('ubboons'):t('ubultimatums'));
+  if(refraction)name=ubRefractionWord()+' - '+name;
+  return folder+'/'+ubSanitizeName(name+ubVariantSuffix())+(side==='back'?'_02':'_01');
+}
+function ubItemExportName(it, side){
+  return ubFolderName(it)+'/'+ubSanitizeName(it.name+ubVariantSuffix())+(side==='back'?'_02':'_01');
+}
+/* Download one card and its back — the card as _01, the back as _02, in the taboo order. */
 function ubDownload(card){
   if(!card)return;
-  ubCardToBlob(card).then(function(b){ ubSaveBlob(b, ubCardFileName(card)); });
   var type=ubBackType(card.getAttribute('data-cat'));
-  imageToPngBlob(ubBackUrl(type), ubBleed).then(function(b){
-    if(b) ubSaveBlob(b, ubSanitizeName(((card.querySelector('.tla-ubc-title')||{}).textContent||'card')+' — '+t('tbback'))+'.png');
-  });
+  ubCardToBlob(card).then(function(b){ if(b)ubSaveBlob(b, ubCardExportName(card,'card')+'.png'); });
+  ubBackBlob(type,'image/png').then(function(b){ if(b)ubSaveBlob(b, ubCardExportName(card,'back')+'.png'); });
 }
 /* ---- minimal STORE-mode ZIP writer (no deps): PNGs are already compressed, so
    storing them uncompressed keeps the archive small and the code tiny. ---- */
@@ -1894,35 +1941,33 @@ function ubDownloadAll(btn){
   var items=ubAllItems(); if(!items.length)return;
   var label=btn&&btn.querySelector('.tla-ub-tool-label'), orig=label?label.textContent:'';
   if(btn){btn.disabled=true; btn.setAttribute('aria-busy','true'); if(label)label.textContent=t('ubdownallwait');}
-  var slots=new Array(items.length), total=items.length, done=0;
+  /* Two entries per card, interleaved: the card as _01 then its own back as _02 — the taboo order,
+     so each card is immediately followed by its back (many copies of the shared back, as asked). */
+  var entries=[]; items.forEach(function(it){ entries.push({it:it,side:'card'}); entries.push({it:it,side:'back'}); });
+  var slots=new Array(entries.length), total=entries.length, done=0;
   var tick=function(){ done++; if(label)label.textContent=done+' / '+total; };
   var finish=function(){ if(btn){btn.disabled=false; btn.removeAttribute('aria-busy'); if(label)label.textContent=orig;} };
-  /* Seed with the font load so cards auto-fit with the real faces (not fallback metrics). Each
-     concurrent render gets its OWN off-screen host — the canvas reads document.fonts + the decoded
-     picture, so the card needs layout (getBoundingClientRect) but not paint. It MUST hang inside
-     #tla-root: `font-family:'ubtitle',var(--ff-head)` depends on --ff-head, defined on #tla-root;
-     under document.body that var is undefined and the title falls back to the body serif. */
+  /* The back is identical per back-type (+ the chosen bleed/skin), so render each once and reuse the
+     bytes under every card's own back-name instead of re-encoding it for all ~90. */
+  var backCache={};
+  var backBytes=function(type){ if(!backCache[type])backCache[type]=ubBackBlob(type,'image/jpeg',0.95).then(function(b){return b?b.arrayBuffer().then(function(ab){return new Uint8Array(ab);}):null;}); return backCache[type]; };
+  /* Each concurrent card render gets its OWN off-screen host inside #tla-root (the card's
+     `font-family:'ubtitle',var(--ff-head)` depends on --ff-head, defined there; under document.body
+     that var is undefined and the title falls back to the body serif). */
   ubFontsReady().then(function(){
-    return renderPool(items, function(it,idx){
+    return renderPool(entries, function(ent,idx){
+      var it=ent.it, nm=ubItemExportName(it,ent.side)+'.jpg';
+      if(ent.side==='back') return backBytes(ubBackType(it)).then(function(u8){ if(u8)slots[idx]={name:nm, data:u8}; });
       var host=document.createElement('div');
       host.style.cssText='position:fixed;left:-10000px;top:0;width:460px;pointer-events:none';
       (root||document.body).appendChild(host);
       var clean=function(){ try{(root||document.body).removeChild(host);}catch(e){} };
       return ubRenderOffscreen(it,host)
         .then(function(card){return ubCardToBlob(card,'image/jpeg',0.95);})
-        .then(function(b){ if(b)return b.arrayBuffer().then(function(ab){slots[idx]={name:ubItemFileName(it).replace(/\.png$/i,'.jpg'),data:new Uint8Array(ab)};}); })
+        .then(function(b){ if(b)return b.arrayBuffer().then(function(ab){slots[idx]={name:nm, data:new Uint8Array(ab)};}); })
         .then(clean, function(e){ clean(); throw e; });
     }, 4, tick);
-  }).then(function(){
-    /* One copy of each back the section actually uses, at the archive root, so the reader can print
-       the reverse of every card without it repeating 90 times in the zip. */
-    var types={}; items.forEach(function(it){ types[ubBackType(it)]=true; });
-    return Promise.all(Object.keys(types).map(function(type){
-      return imageToPngBlob(ubBackUrl(type), ubBleed).then(function(b){
-        if(b) return b.arrayBuffer().then(function(ab){ slots.push({name:ubSanitizeName(ubBackLabel(type))+'.png', data:new Uint8Array(ab)}); });
-      });
-    }));
-  }).then(function(){ finish(); var files=slots.filter(Boolean); if(files.length)ubSaveBlob(ubZip(files),'the-living-arkham-ultimatums-'+lang+'.zip'); })
+  }).then(function(){ finish(); var files=slots.filter(Boolean); if(files.length)ubSaveBlob(ubZip(files),'the-living-arkham-ultimatums-'+lang+'-'+ubSkin+(ubBleed?'-bleed':'-nobleed')+'.zip'); })
     .catch(function(){ finish(); });
 }
 /* Fisher-Yates: take n distinct items from arr at random (Math.random is fine client-side). */
@@ -2032,6 +2077,11 @@ function ubHTML(s){
     +'<span class="tla-ub-tool-label">'+esc(t('ubdownall'))+'</span></button>';
   /* The chapter filter (Todo / Cap. 1 / Cap. 2) applies only to refractions — ultimatums and
      boons are shared by both chapters — so it lives inside the refractions panel now, not here. */
+  /* Frame skin: v1 (5argon's clean frame) or v2 (textured). Same art and text, different frame. */
+  h+='<div class="tla-ub-view tla-ub-skin" role="group" aria-label="'+esc(t('ubframe'))+'">';
+  h+='<button type="button" class="tla-ub-viewbtn'+(ubSkin==='v1'?' is-on':'')+'" data-ubskin="v1" aria-pressed="'+(ubSkin==='v1')+'" aria-label="'+esc(t('ubframev1'))+'"><span>V1</span></button>';
+  h+='<button type="button" class="tla-ub-viewbtn'+(ubSkin==='v2'?' is-on':'')+'" data-ubskin="v2" aria-pressed="'+(ubSkin==='v2')+'" aria-label="'+esc(t('ubframev2'))+'"><span>V2</span></button>';
+  h+='</div>';
   /* View toggle: the classic list (with one large card) or a gallery of every card. */
   h+='<div class="tla-ub-view" role="group" aria-label="'+esc(t('ubviewlabel'))+'">';
   h+='<button type="button" class="tla-ub-viewbtn'+(ubView==='list'?' is-on':'')+'" data-ubview="list" aria-pressed="'+(ubView==='list')+'" aria-label="'+esc(t('ubviewlist'))+'">'
@@ -2092,7 +2142,7 @@ function ubHTML(s){
         var chip=ubChapChip(it);
         h+='<li role="option" class="tla-ub-item'+(o?' is-sel':'')+(it.pending?' is-pending':'')+'" id="ubopt-'+esc(it.slug)
           +'" data-ubitem="'+esc(it.slug)+'" aria-selected="'+(o?'true':'false')+'" tabindex="'+(o?'0':'-1')+'">'
-          +'<img class="tla-ub-thumb" src="assets/'+esc(it.thumb)+'" width="'+it.tw+'" height="'+it.th
+          +'<img class="tla-ub-thumb" src="assets/'+esc(ubThumbSrc(it))+'" width="'+it.tw+'" height="'+it.th
           +'" loading="lazy" alt=""><span class="tla-ub-iwrap"><span class="tla-ub-iname"'+(it.pending?' lang="en"':'')+'>'+esc(it.name)+'</span>'+sub+'</span>'
           +chip+(it.pending?'<span class="tla-ub-en" title="'+esc(t('ubpending'))+'">EN</span>':'')+'</li>';
       });
@@ -2126,6 +2176,12 @@ function ubReRender(){
 function ubSetView(v){
   if((v!=='list'&&v!=='gallery')||v===ubView)return;
   ubView=v; try{localStorage.setItem('tla-ubview',v);}catch(e){}
+  ubReRender();
+}
+/* Switch the frame skin (v1 / v2): every picture and thumbnail swaps folder, so re-render. */
+function ubSetSkin(v){
+  if((v!=='v1'&&v!=='v2')||v===ubSkin)return;
+  ubSkin=v; try{localStorage.setItem('tla-ubskin',v);}catch(e){}
   ubReRender();
 }
 /* Switch chapter filter (all / cap1 / cap2) — counts and every panel change. The campaign/
@@ -2223,6 +2279,7 @@ function bindUB(){
     var dl=e.target.closest('.tla-ubc-dl'); if(dl){ubDownload(dl.closest('.tla-ubc')); return;}
     if(e.target.closest('#ubdraw-open')){openDraw(); return;}
     var da=e.target.closest('#ubdownall'); if(da){ bleedModal(UB_TRIM_MM,ubBleed,function(bleed){ubBleed=bleed; ubDownloadAll(da);}); return;}
+    var sb2=e.target.closest('[data-ubskin]'); if(sb2){ubSetSkin(sb2.getAttribute('data-ubskin')); return;}
     var vb=e.target.closest('.tla-ub-viewbtn'); if(vb){ubSetView(vb.getAttribute('data-ubview')); return;}
     var cb=e.target.closest('[data-ubchap]'); if(cb){ubSetChap(cb.getAttribute('data-ubchap')); return;}
     var tb=e.target.closest('[data-ubtype]'); if(tb){ubSetType(tb.getAttribute('data-ubtype')); return;}
@@ -2494,6 +2551,14 @@ function nobookHTML(s){
 var tabFilter={type:'',cls:'',cat:'',q:''};
 var tabBleed=false;   // download with a print bleed margin, toggled in the tools bar
 var TAB_CLASSES=['guardian','seeker','rogue','mystic','survivor','neutral'];
+/* The taboo-list versions, newest first. Today there is just one — the list FFG published with
+   FAQ 2.5 on 2026-02-19. When a new FAQ ships a new list, add an entry here (newest first) and tag
+   those cards with a matching `faqv` in the data; the selector, the default and the per-version
+   filter then work with no further wiring. `v` is the FAQ number, `date` its publication (ISO). */
+var TAB_VERSIONS=[{id:'faq25', v:'2.5', date:'2026-02-19'}];
+var tabVersion=TAB_VERSIONS[0].id;   // shown by default: the newest list
+/* "<date> (FAQ <v>)" — the date in the reader's own format, the rest a version id, not translated. */
+function tabVerLabel(ver){ return fmtDate(ver.date)+' (FAQ '+ver.v+')'; }
 function tabCat(c){
   if(c.cat)return c.cat;
   var tb=c.taboo||{};
@@ -2550,8 +2615,10 @@ function tabItemHTML(c,beta){
   var toolsTaboo='<div class="tla-tb-btns">'+dlBtn+zoomBtn+'</div>';
   /* One prominent header per card: the name links to ArkhamDB (its own per-language subdomain), then
      the collection number and the card type -- "A la calle · 11055 · Evento". */
+  /* The name is an h2 (the card is a section under the page's h1): the plate renders its own name as
+     an h3, so without this the heading order jumped h1->h3. The link keeps its class so it stays gold. */
   var head='<div class="tla-tb-head">'
-    +'<a class="tla-tb-name" href="'+esc(adbCardUrl(c.code))+'" target="_blank" rel="noopener">'+esc(c.name)+'</a>'
+    +'<h2 class="tla-tb-name-h"><a class="tla-tb-name" href="'+esc(adbCardUrl(c.code))+'" target="_blank" rel="noopener">'+esc(c.name)+'</a></h2>'
     +(c.subname?'<span class="tla-tb-sub">'+esc(c.subname)+'</span>':'')
     +'<span class="tla-tb-code">'+esc(c.code)+'</span>'
     +(c.typeName?'<span class="tla-tb-type">'+esc(c.typeName)+'</span>':'')+'</div>';
@@ -2561,10 +2628,15 @@ function tabItemHTML(c,beta){
     +' data-type="'+esc(c.type)+'"'
     +' data-factions="'+esc([c.faction,c.faction2,c.faction3].filter(Boolean).join(' '))+'"'
     +' data-cat="'+esc(tabCat(c))+'"'
+    +' data-faqv="'+esc(c.faqv||TAB_VERSIONS[0].id)+'"'   /* which taboo-list version this card is on */
     +(c.backChange?' data-backmod':'')          /* Lola, Mandy: the deck-building back is tabooed too */
     +(c.frontSame?' data-frontsame':'')          /* Mandy: only her back changed, front is unchanged */
     +' data-name="'+esc(tabFold(c.name+' '+(c.subname||'')))+'">';
   h+=head;
+  var inv=(c.type==='investigator');
+  /* An investigator is two-sided, so its card splits into a FRONT (Delantera) and a BACK (Trasera)
+     section, each headed and ruled off. The others are a single row. */
+  if(inv)h+='<div class="tla-tb-sidehead">'+esc(t('tbfront'))+'</div>';
   /* Three columns: the printed card on the left, the taboo card in the centre, the change and its
      notes on the right. Each face is clickable to zoom. */
   h+='<div class="tla-tb-row">';
@@ -2576,8 +2648,21 @@ function tabItemHTML(c,beta){
   else h+='<div class="tla-tb-face-empty" aria-hidden="true"></div>';
   h+='<div class="tla-tb-note">'+tabChangeHTML(c,beta)+'</div>';
   h+='</div>';
-  if(c.back)h+='<div class="tla-tb-back">'+TabooCard.back(c,c.backTaboo||c.back)
-    +(c.backAssisted&&!beta&&lang!=='en'?'<span class="tla-tb-why is-warn">'+esc(t('tbdisclaimer'))+'</span>':'')+'</div>';
+  /* The back. For an investigator whose deck-building side is ALSO tabooed (Lola, Mandy) we show BOTH
+     the printed back and the tabooed back side by side, exactly like the front, so the two can be
+     compared. Others show their single, unchanged back. Non-investigators never carry a back. */
+  if(inv&&c.back){
+    h+='<div class="tla-tb-sidehead">'+esc(t('tbback'))+'</div>';
+    h+='<div class="tla-tb-row tla-tb-backrow">';
+    if(c.backChange&&c.backTaboo){
+      h+='<figure class="tla-tb-face" data-face="back-printed">'+faceCap(t('tbimpresa'))+toolsPrinted+TabooCard.back(c,c.back)+'</figure>';
+      h+='<figure class="tla-tb-face" data-face="back-taboo">'+faceCap(t('tbtaboo'))+toolsTaboo+TabooCard.back(c,c.backTaboo)+'</figure>';
+    }else{
+      h+='<figure class="tla-tb-face" data-face="back">'+faceCap(t('tbback'))+toolsTaboo+TabooCard.back(c,c.back)+'</figure>';
+    }
+    h+='</div>';
+    if(c.backAssisted&&!beta&&lang!=='en')h+='<span class="tla-tb-why is-warn">'+esc(t('tbdisclaimer'))+'</span>';
+  }
   h+='</div>';
   return h;
 }
@@ -2588,13 +2673,12 @@ function tabooCardsHTML(s){
   /* Cards the reader's language has none of: shown in English, said so in English. */
   if(beta)h+='<aside class="tla-obsolete" role="note"><div class="tla-obsolete-tag">Beta</div>'
     +'<div class="tla-obsolete-body"><p class="tla-obsolete-lead">'+esc(t('tbbeta'))+'</p></div></aside>';
-  /* A short lead before the cards: what the taboo list is, a link to the FAQ's full write-up
-     (found by the shared 'faq-taboos' key so it resolves to the reader's own language), and a note
-     saying which list this is (FAQ 2.5, published 2026-02-19) and that more may come. */
+  /* A short lead before the cards: what the taboo list is and a link to the FAQ's full write-up
+     (found by the shared 'faq-taboos' key so it resolves to the reader's own language). WHICH list
+     this is now lives in the version selector at the top of the sidebar, not in a note here. */
   var faqSec=(data.sections||[]).filter(function(x){return x.key==='faq-taboos';})[0];
   var readmore=faqSec?(' <a class="xref" href="#'+esc(lang)+'/'+esc(faqSec.id)+'" data-t="'+esc(faqSec.id)+'">'+esc(t('tbreadmore'))+'</a>'):'';
-  h+='<div class="tla-tb-intro"><p class="tla-tb-intro-lead">'+esc(t('tbintro'))+readmore+'</p>'
-    +'<p class="tla-tb-intro-note">'+esc(t('tbfaqnote'))+'</p></div>';
+  h+='<div class="tla-tb-intro"><p class="tla-tb-intro-lead">'+esc(t('tbintro'))+readmore+'</p></div>';
   /* Which types and classes are actually present, for the filters (counts alongside). */
   var byType={}, byClass={}, byCat={};
   cards.forEach(function(c){
@@ -2615,6 +2699,10 @@ function tabooCardsHTML(s){
   /* The filters live in a sticky sidebar on the left, so they stay in view down the whole list. */
   h+='<div class="tla-tb-layout">';
   h+='<aside class="tla-tb-side" aria-label="'+esc(t('tbfilters'))+'">'
+    +'<div class="tla-tb-field tla-tb-field-ver"><label for="tabf-ver">'+esc(t('tbfaqsel'))+'</label>'
+    +'<select id="tabf-ver" data-tabver aria-label="'+esc(t('tbfaqsel'))+'" title="'+esc(tabVerLabel((TAB_VERSIONS.filter(function(x){return x.id===tabVersion;})[0])||TAB_VERSIONS[0]))+'">'
+    +TAB_VERSIONS.map(function(ve){return '<option value="'+esc(ve.id)+'"'+(ve.id===tabVersion?' selected':'')+'>'+esc(tabVerLabel(ve))+'</option>';}).join('')
+    +'</select></div>'
     +'<div class="tla-tb-field"><label for="tab-q">'+esc(t('tbsearchlabel'))+'</label>'
     +'<input id="tab-q" type="search" data-tabfilter="q" value="'+esc(tabFilter.q)+'" placeholder="'+esc(t('tbsearchph'))+'"></div>'
     +'<div class="tla-tb-field"><label for="tabf-type">'+esc(t('tbfiltertype'))+'</label>'+sel('type',tabFilter.type,t('tball'),typePairs,t('tbfiltertype'))+'</div>'
@@ -2636,15 +2724,19 @@ function tabooCardsHTML(s){
 /* Filter in place: the cards are already drawn and fitted, so a filter change only shows and
    hides them (no re-render, no re-fit, no lost focus or scroll). */
 function tabooApplyFilter(){
-  var items=elMain.querySelectorAll('.tla-tb-item'), q=tabFold(tabFilter.q).trim(), shown=0;
+  var items=elMain.querySelectorAll('.tla-tb-item'), q=tabFold(tabFilter.q).trim(), shown=0, verTotal=0;
   [].forEach.call(items,function(it){
-    var ok=(!q||it.getAttribute('data-name').indexOf(q)>=0)
+    var inVer=(it.getAttribute('data-faqv')===tabVersion);   /* the chosen taboo-list version */
+    if(inVer)verTotal++;
+    var ok=inVer
+      &&(!q||it.getAttribute('data-name').indexOf(q)>=0)
       &&(!tabFilter.type||it.getAttribute('data-type')===tabFilter.type)
       &&(!tabFilter.cls||(' '+it.getAttribute('data-factions')+' ').indexOf(' '+tabFilter.cls+' ')>=0)
       &&(!tabFilter.cat||it.getAttribute('data-cat')===tabFilter.cat);
     it.hidden=!ok; if(ok)shown++;
   });
-  var cnt=elMain.querySelector('[data-tab-count]'); if(cnt)cnt.textContent=shown+' / '+items.length;
+  /* The denominator is this version's card count, not the whole section's. */
+  var cnt=elMain.querySelector('[data-tab-count]'); if(cnt)cnt.textContent=shown+' / '+verTotal;
   var empty=elMain.querySelector('.tla-tb-empty'); if(empty)empty.hidden=shown>0;
 }
 /* Post-render: fit every card's text to its box (with the real faces), wire the filters and
@@ -2659,7 +2751,13 @@ function bindTabooCards(){
       tabFilter[seln.getAttribute('data-tabfilter')]=seln.value; tabooApplyFilter();
     });
   });
-  if(tabFilter.q||tabFilter.type||tabFilter.cls||tabFilter.cat)tabooApplyFilter();
+  var ver=elMain.querySelector('[data-tabver]');
+  if(ver)ver.addEventListener('change',function(){tabVersion=ver.value;
+    var sel=TAB_VERSIONS.filter(function(x){return x.id===tabVersion;})[0]; if(sel)ver.title=tabVerLabel(sel);
+    tabooApplyFilter();});
+  /* Always run once: the version filter hides any card not on the shown list (a no-op today with a
+     single version, but correct the moment a second one is added). */
+  tabooApplyFilter();
   [].forEach.call(elMain.querySelectorAll('[data-tabdl]'),function(btn){
     btn.addEventListener('click',function(e){ e.stopPropagation();
       var face=btn.closest('.tla-tb-face'); tabooDownload(face&&face.querySelector('.tbc'), btn);
@@ -2679,25 +2777,59 @@ function bindTabooCards(){
   });
 }
 /* Zoom a card face: clone it into a modal, blown up, and re-fit the text to the bigger box. */
-function tabooZoom(face){
-  if(!face)return; var card=face.querySelector('.tbc'); if(!card)return;
-  var lbl=(face.querySelector('.tla-tb-cap')||{}).textContent||'';
+/* The label for one face in the zoom carousel — which side/version it is, from its data-face
+   (so an investigator's four faces read unambiguously, not two IMPRESA and two TABÚ). */
+function tabZoomLabel(f){
+  var m={printed:t('tbimpresa'), taboo:t('tbtaboo'),
+    'back-printed':t('tbimpresa')+' · '+t('tbback'), 'back-taboo':t('tbtaboo')+' · '+t('tbback'),
+    back:t('tbback')};
+  return m[f.getAttribute('data-face')]||((f.querySelector('.tla-tb-cap')||{}).textContent||'').trim();
+}
+/* Zoom a card face into a lightbox that is also a small carousel: left/right arrows (and the arrow
+   keys) step through the card's other faces — printed <-> taboo, and an investigator's backs too —
+   with a label up top saying which one is shown, so the versions compare side by side without
+   leaving the zoom. */
+function tabooZoom(startFace){
+  if(!startFace)return;
+  var item=startFace.closest('.tla-tb-item'); if(!item)return;
+  var faces=[].filter.call(item.querySelectorAll('.tla-tb-face'),function(f){return f.querySelector('.tbc');});
+  if(!faces.length)return;
+  var idx=faces.indexOf(startFace); if(idx<0)idx=0;
+  var multi=faces.length>1;
   var prev=document.activeElement;
+  var arrow=function(dir,path){return '<button type="button" class="tla-tb-zoomnav tla-tb-zoom'+dir+'" data-zoom'+dir+' aria-label="'+esc(t(dir==='prev'?'tbzoomprev':'tbzoomnext'))+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'+path+'</svg></button>';};
   var ov=document.createElement('div'); ov.className='tla-tb-zoomov'; ov.setAttribute('role','dialog');
-  ov.setAttribute('aria-modal','true'); ov.setAttribute('aria-label',lbl);
-  ov.innerHTML='<div class="tla-tb-zoombox"><button type="button" class="tla-tb-zoomclose" aria-label="'
-    +esc(t('close'))+'">&times;</button>'+card.outerHTML+'</div>';
+  ov.setAttribute('aria-modal','true'); ov.setAttribute('aria-label',item.getAttribute('data-name')||t('tbtaboo'));
+  ov.innerHTML='<div class="tla-tb-zoombox">'
+    +'<button type="button" class="tla-tb-zoomclose" aria-label="'+esc(t('close'))+'">&times;</button>'
+    +'<div class="tla-tb-zoomhead"><span class="tla-tb-zoomlabel" data-zoomlabel aria-live="polite"></span></div>'
+    +'<div class="tla-tb-zoomstage">'
+    +(multi?arrow('prev','<path d="M15 18l-6-6 6-6"/>')+arrow('next','<path d="M9 6l6 6-6 6"/>'):'')
+    +'<div class="tla-tb-zoomcard" data-zoomcard></div>'
+    +'</div></div>';
   (root||document.body).appendChild(ov);
-  if(window.TabooCard)TabooCard.fitAll(ov);
+  var host=ov.querySelector('[data-zoomcard]'), labelEl=ov.querySelector('[data-zoomlabel]');
+  function show(i){
+    idx=((i%faces.length)+faces.length)%faces.length;
+    host.innerHTML=faces[idx].querySelector('.tbc').outerHTML;
+    labelEl.textContent=tabZoomLabel(faces[idx]);
+    if(window.TabooCard)TabooCard.fitAll(host);
+  }
+  show(idx);
   var close=function(){ try{ov.remove();}catch(e){} document.removeEventListener('keydown',onkey); try{prev&&prev.focus();}catch(e){} };
-  /* Escape leaves; Tab is trapped inside the dialog so focus cannot slip behind the scrim (only the
-     close button is focusable here, so Tab/Shift-Tab both keep it there). */
   var onkey=function(e){
     if(e.key==='Escape'){close(); return;}
+    if(multi&&e.key==='ArrowLeft'){e.preventDefault(); show(idx-1); return;}
+    if(multi&&e.key==='ArrowRight'){e.preventDefault(); show(idx+1); return;}
     if(e.key==='Tab'){var f=[].slice.call(ov.querySelectorAll('button')); if(!f.length)return;
-      e.preventDefault(); (e.shiftKey?f[f.length-1]:f[0]).focus();}
+      e.preventDefault(); var j=f.indexOf(document.activeElement);
+      (e.shiftKey?f[(j<=0?f.length-1:j-1)]:f[(j+1)%f.length]).focus();}
   };
-  ov.addEventListener('click',function(e){ if(e.target===ov||e.target.closest('.tla-tb-zoomclose'))close(); });
+  ov.addEventListener('click',function(e){
+    if(e.target===ov||e.target.closest('.tla-tb-zoomclose')){close(); return;}
+    if(e.target.closest('[data-zoomprev]')){show(idx-1); return;}
+    if(e.target.closest('[data-zoomnext]')){show(idx+1); return;}
+  });
   document.addEventListener('keydown',onkey);
   var cb=ov.querySelector('.tla-tb-zoomclose'); if(cb)cb.focus();
 }
@@ -2832,14 +2964,16 @@ function tabooItemExports(item){
   var type=item.getAttribute('data-type');
   var printed=item.querySelector('.tla-tb-face[data-face="printed"] .tbc');
   var taboo=item.querySelector('.tla-tb-face[data-face="taboo"] .tbc');
-  var backEl=item.querySelector('.tla-tb-back .tbc');
+  /* The printable back is the tabooed one where it exists (Lola, Mandy), else the plain back. The
+     original back (back-printed) is shown for comparison only, never exported. */
+  var backEl=item.querySelector('.tla-tb-face[data-face="back-taboo"] .tbc')
+           ||item.querySelector('.tla-tb-face[data-face="back"] .tbc');
   var out=[];
   if(type==='investigator'){
     var front=item.hasAttribute('data-frontsame')?printed:(taboo||printed);
     if(front)out.push({card:front, side:'front'});
     /* Every investigator prints double-sided, so the back always ships — the reconstructed taboo
-       back for Lola/Mandy, the unchanged printed back for Rex/Trish (TabooCard.back already draws
-       whichever it is). */
+       back for Lola/Mandy, the unchanged printed back for Rex/Trish. */
     if(backEl)out.push({card:backEl, side:'back'});
   }else{
     var face=taboo||printed;
@@ -2848,13 +2982,15 @@ function tabooItemExports(item){
   }
   return out;
 }
-/* The file name for one export entry: "<name> <code> - Tabú_01" for the card, "…Tabú_02" for its
-   back, and the investigator sides spelled out ("Tabú Delantera_01" / "Tabú Trasera_02"). */
+/* The file name for one export entry: "<name> <code> - Tabú_01 - Sin sangrado" for the card,
+   "…Tabú_02 - Con sangrado" for its back, and the investigator sides spelled out. The bleed choice
+   (i18n) goes in the name so a reader can tell the with/without copies apart. */
 function tabooExportName(item, entry){
   var code=item.getAttribute('data-code')||'', name=item.getAttribute('data-name')||code;
   var base=t('tbtaboo');
   if(item.getAttribute('data-type')==='investigator') base+=' '+t(entry.side==='back'?'tbback':'tbfront');
-  return tabooSanitize(name+' '+code+' - '+base+(entry.side==='back'?'_02':'_01'));
+  var bleed=' - '+(tabBleed?t('tbwithbleed'):t('tbnobleed'));
+  return tabooSanitize(name+' '+code+' - '+base+(entry.side==='back'?'_02':'_01')+bleed);
 }
 /* The shared player-card back as a blob. Without bleed, the trimmed back 1:1. WITH bleed, the
    FULL-bleed back scaled so its trim lands exactly where the front's does (front bleed output is the
@@ -2919,7 +3055,7 @@ function tabooDownloadAll(btn){
     }, 6, tick);
   }).then(function(){
     finish(); var files=slots.filter(Boolean);
-    if(files.length)ubSaveBlob(ubZip(files),tabooSanitize('the-living-arkham-taboo-'+lang)+'.zip');
+    if(files.length)ubSaveBlob(ubZip(files),tabooSanitize('the-living-arkham-taboo-'+lang)+(tabBleed?'-bleed':'-nobleed')+'.zip');
   }).catch(function(){ finish(); });
 }
 function render(sid,eid,flash){
@@ -3912,16 +4048,22 @@ function relNotesHTML(){
   if(!rel.length)return '<p class="tla-modal-p">'+esc(t('soon'))+'</p>';
   var h='';
   rel.forEach(function(r,i){
-    h+='<section class="tla-rel-item">';
-    h+='<h3 class="tla-rel-v">'+esc(r.v)+(r.title?' <span class="tla-rel-name">'+esc(r.title)+'</span>':'')+'</h3>';
-    h+='<p class="tla-rel-meta">'+(r.date?esc(fmtDate(r.date)):'')
-      +(i===0?' <span class="tla-rel-now">'+esc(t('relcurrent'))+'</span>':'')+'</p>';
+    /* Each version is a collapsible <details>, collapsed by default and newest first (releases[] is
+       stored newest-first). The summary alone shows the version, its name, the date and a current/old
+       tag; opening it reveals the item list. <details>/<summary> is keyboard- and reader-native. */
+    h+='<details class="tla-rel-item">';
+    h+='<summary class="tla-rel-sum">'
+      +'<span class="tla-rel-head"><span class="tla-rel-v">'+esc(r.v)+'</span>'
+      +(r.title?'<span class="tla-rel-name">'+esc(r.title)+'</span>':'')+'</span>'
+      +'<span class="tla-rel-meta">'+(r.date?esc(fmtDate(r.date)):'')
+      +'<span class="'+(i===0?'tla-rel-now':'tla-rel-old')+'">'+esc(t(i===0?'relcurrent':'relold'))+'</span></span>'
+      +'</summary>';
     if(r.items&&r.items.length){
       h+='<ul class="tla-rel-list">';
       r.items.forEach(function(x){h+='<li>'+relBold(x)+'</li>';});
       h+='</ul>';
     }
-    h+='</section>';
+    h+='</details>';
   });
   return h;
 }

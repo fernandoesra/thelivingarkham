@@ -446,8 +446,9 @@
    Full width, as asked -- it spans the whole section above the sidebar+cards row. */
 .tla-tb-intro{margin:0 0 1.4rem}
 .tla-tb-intro-lead{margin:0 0 .5rem; color:var(--ink2); font:1.05rem/1.6 var(--ff-body)}
-.tla-tb-intro-lead .xref{color:var(--gold); text-decoration:none; font-weight:600}
-.tla-tb-intro-lead .xref:hover,.tla-tb-intro-lead .xref:focus-visible{text-decoration:underline}
+/* #tla-root prefix so the gold beats the generic `#tla-root a` teal, as with the card name. */
+#tla-root .tla-tb-intro-lead .xref{color:var(--gold); text-decoration:none; font-weight:600}
+#tla-root .tla-tb-intro-lead .xref:hover,#tla-root .tla-tb-intro-lead .xref:focus-visible{text-decoration:underline}
 .tla-tb-intro-note{margin:0; color:var(--muted); font:.9rem/1.5 var(--ff-ui)}
 
 /* ---- the section: a STICKY filter sidebar on the left, the card list on the right ---- */
@@ -459,6 +460,11 @@
 .tla-tb-side label{color:var(--muted); font:600 .7rem/1 var(--ff-ui); text-transform:uppercase; letter-spacing:.04em}
 .tla-tb-side select,.tla-tb-side input{padding:.45rem .55rem; border-radius:8px;
   border:1px solid var(--edge2); background:var(--bg); color:var(--ink); font:inherit; width:100%}
+/* The version option ("19 feb 2026 (FAQ 2.5)") is longer than the sidebar; a slightly smaller face
+   and tighter padding fit it, and the full text is always in the dropdown, the title and the a11y
+   name. A ruled gap sets the version apart from the search/filters below it. */
+.tla-tb-field-ver{padding-bottom:.7rem; border-bottom:1px solid var(--edge)}
+.tla-tb-field-ver select{font-size:.82rem; padding-left:.45rem; padding-right:.2rem}
 .tla-tb-count{color:var(--muted); font:.8rem/1 var(--ff-ui); font-variant-numeric:tabular-nums; padding:.15rem 0}
 .tla-tb-side-dl{display:flex; flex-direction:column; gap:.55rem; margin-top:.2rem; padding-top:.7rem;
   border-top:1px solid var(--edge)}
@@ -477,10 +483,15 @@
 .tla-tb-item{padding:1rem 1.1rem 1.2rem; border-radius:14px;
   background:var(--panel); border:1px solid var(--edge)}
 
-/* The card's name gets pride of place -- a link to ArkhamDB -- with its number and type beside it. */
+/* The card's name gets pride of place -- a link to ArkhamDB -- with its number and type beside it.
+   Scoped under #tla-root so it beats the generic `#tla-root a{color:var(--teal2)}` (which has an ID
+   in its selector); without that the card title rendered in the link teal, not the theme's gold. */
 .tla-tb-head{display:flex; align-items:baseline; flex-wrap:wrap; gap:.15rem .6rem; margin:0 0 .9rem}
-.tla-tb-name{font:700 1.44rem/1.2 var(--ff-head); color:var(--gold); text-decoration:none}
-.tla-tb-name:hover,.tla-tb-name:focus-visible{color:var(--gold2); text-decoration:underline}
+/* The h2 wrapper is structural only — it must not add heading margins or a heading font, so the
+   head row still reads as one baseline-aligned line of name + subtitle + number + type. */
+.tla-tb-name-h{margin:0; font:inherit; display:inline}
+#tla-root .tla-tb-name{font:700 1.44rem/1.2 var(--ff-head); color:var(--gold); text-decoration:none}
+#tla-root .tla-tb-name:hover,#tla-root .tla-tb-name:focus-visible{color:var(--gold2); text-decoration:underline}
 .tla-tb-head .tla-tb-sub{color:var(--ink2); font-style:italic; font-size:1.14rem}
 .tla-tb-head .tla-tb-code{color:var(--muted); font:1.02rem/1 var(--ff-ui); font-variant-numeric:tabular-nums}
 .tla-tb-head .tla-tb-type{color:var(--muted); font:600 .86rem/1 var(--ff-ui);
@@ -494,9 +505,11 @@
 .tla-tb-face:focus-visible{outline:2px solid var(--gold); outline-offset:3px; border-radius:6px}
 .tla-tb-face-empty{display:none}
 .tla-tb-cap{display:flex; align-items:center; gap:.4rem; margin:0 0 .45rem}
+/* High-contrast ink on the tinted chip: the small badge text failed WCAG AA at --new on --new-bg
+   in some themes (small text needs 4.5:1), so the label is ink while the red tint stays as accent. */
 .tla-tb-badge{font:700 .72rem/1 var(--ff-ui); letter-spacing:.06em; text-transform:uppercase;
   padding:.24rem .52rem; border-radius:99px; white-space:nowrap;
-  background:var(--new-bg); color:var(--new); border:1px solid var(--new-edge)}
+  background:var(--new-bg); color:var(--ink); border:1px solid var(--new-edge)}
 
 /* Corner buttons: download and a magnifier to zoom — both always shown, side by side. */
 .tla-tb-btns{position:absolute; top:.4rem; right:.4rem; z-index:2; display:flex; gap:.3rem}
@@ -511,14 +524,26 @@
 .tla-tb-note{padding:.95rem 1.1rem; border-radius:10px;
   background:var(--panel2); border:1px solid var(--edge); color:var(--ink2);
   font:1.08rem/1.5 var(--ff-body)}
+/* Bold, in the high-contrast ink: gold here failed WCAG AA on the note's panel2 background in
+   several themes, and accessibility outranks the accent. */
 .tla-tb-note .tla-tb-cat{font-weight:700; color:var(--ink)}
 .tla-tb-note .ico{--ih:1.05em; vertical-align:-.16em; margin:0 .05em; background-color:currentColor}
+/* --ink2 (secondary), not --muted: this disclaimer is small and must clear WCAG AA on the note
+   background, where --muted fell short in some themes. */
 .tla-tb-why{display:block; margin-top:.7rem; padding-top:.7rem;
-  border-top:1px solid var(--edge); color:var(--muted); font-size:.98rem; line-height:1.5}
+  border-top:1px solid var(--edge); color:var(--ink2); font-size:.98rem; line-height:1.5}
 
-.tla-tb-back{margin:1.1rem 0 0; max-width:560px}
+/* An investigator's card divides into Delantera (front) and Trasera (back), each with a ruled
+   heading; the back row carries the landscape backs (one, or the printed+tabooed pair). */
+/* --ink, not --gold: this small heading failed WCAG AA under the zoom scrim in the light themes;
+   the gold accent stays on the divider rule (::after). */
+.tla-tb-sidehead{margin:1.3rem 0 .6rem; font:700 .92rem/1 var(--ff-ui); text-transform:uppercase;
+  letter-spacing:.09em; color:var(--ink); display:flex; align-items:center; gap:.7rem}
+.tla-tb-sidehead::after{content:''; flex:1 1 auto; height:1px; background:var(--gold)}
+.tla-tb-row.tla-tb-backrow{grid-template-columns:minmax(0,400px) minmax(0,400px)}
 
-/* The zoom lightbox: the clicked face, blown up, over a scrim. */
+/* The zoom lightbox: the clicked face, blown up, over a scrim — and a small carousel, with a label
+   up top and left/right arrows that step through the card's other faces to compare them. */
 .tla-tb-zoomov{position:fixed; inset:0; z-index:200; display:flex; align-items:center; justify-content:center;
   padding:2.4rem 1.2rem; background:var(--scrim,rgba(8,6,14,.72))}
 .tla-tb-zoombox{position:relative; width:min(92vw,560px)}
@@ -527,6 +552,20 @@
   border:1px solid var(--edge2); border-radius:8px; background:var(--panel); color:var(--ink);
   font:400 1.4rem/1 var(--ff-ui)}
 .tla-tb-zoomclose:hover{border-color:var(--gold); color:var(--gold)}
+.tla-tb-zoomhead{text-align:center; margin:0 0 .6rem; min-height:1.7rem}
+.tla-tb-zoomlabel{display:inline-block; padding:.28rem .8rem; border-radius:99px;
+  background:var(--panel); border:1px solid var(--edge2); color:var(--ink);
+  font:700 .8rem/1 var(--ff-ui); text-transform:uppercase; letter-spacing:.06em}
+.tla-tb-zoomstage{position:relative}
+.tla-tb-zoomnav{position:absolute; top:50%; transform:translateY(-50%); z-index:2;
+  width:2.7rem; height:2.7rem; display:flex; align-items:center; justify-content:center; cursor:pointer;
+  border-radius:50%; border:1px solid var(--edge2); background:var(--panel); color:var(--ink)}
+.tla-tb-zoomnav:hover{border-color:var(--gold); color:var(--gold)}
+.tla-tb-zoomnav:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
+.tla-tb-zoomnav svg{width:1.4rem; height:1.4rem}
+.tla-tb-zoomprev{left:-1.35rem}
+.tla-tb-zoomnext{right:-1.35rem}
+@media (max-width:640px){ .tla-tb-zoomprev{left:.4rem} .tla-tb-zoomnext{right:.4rem} }
 
 /* Narrower: the sidebar goes on top (a wrapping row), the note under the two cards, then one card. */
 @media (max-width:1040px){

@@ -187,6 +187,8 @@
     "tbfront": "Fronte",
     "tbbleed": "Con abbondanza",
     "tbzoom": "Ingrandisci",
+    "tbzoomprev": "Versione precedente",
+    "tbzoomnext": "Versione successiva",
     "tbfilters": "Filtri",
     "tbbleedintro": "L'abbondanza (bleed) è qualche millimetro di immagine in più attorno alla carta, per le tipografie che tagliano molte carte insieme e possono scostarsi un po'. Per la stampa casalinga di solito non serve.",
     "tbnobleed": "Senza abbondanza",
@@ -201,6 +203,7 @@
     "tbnonew": "Nessun testo nuovo",
     "tbsearchlabel": "Cerca",
     "tbsearchph": "Nome della carta",
+    "tbfaqsel": "Versione",
     "tbfiltertype": "Tipo",
     "tbfilterclass": "Classe",
     "tbfiltercat": "Categoria",
@@ -276,6 +279,9 @@
     "ubdownalltip": "Scarica tutte le carte in un .zip (lingua attuale)",
     "ubdownallwait": "Preparazione…",
     "ubviewlabel": "Modalità di visualizzazione",
+    "ubframe": "Cornice",
+    "ubframev1": "Cornice V1 (classica)",
+    "ubframev2": "Cornice V2 (testurizzata)",
     "ubviewlist": "Elenco",
     "ubviewgallery": "Solo immagini",
     "ubchaplabel": "Capitolo",
@@ -351,7 +357,8 @@
     "noticeword": "Nota",
     "taboomut": "Modifica (in inglese): ",
     "relnotes": "Note di rilascio",
-    "relcurrent": "Versione attuale"
+    "relcurrent": "Versione attuale",
+    "relold": "Versione precedente"
   },
   "blurbs": {
     "additional-rules": "Principi fondamentali e regole che ampliano il regolamento base.",
@@ -394,8 +401,9 @@
         "**Cronologia delle versioni**: ogni voce sa in quale edizione è apparsa per la prima volta e che cosa è stato riscritto in seguito, con il testo aggiunto evidenziato e un elenco di novità per ogni versione.",
         "**Collegamenti ad ArkhamDB**: ogni carta citata dai libri rimanda alla sua pagina esatta, nella tua lingua, ricavata dal nome, dal numero di collezione e dall'icona del prodotto.",
         "**Strumenti**: ricerca su entrambi i documenti, glossario collegato automaticamente, diagrammi delle fasi interattivi, anatomia delle carte, riferimento rapido stampabile, icone dei prodotti e dei set di incontri.",
-        "**Ultimatum, Favori e Rifrazioni**: un visualizzatore carta per carta con filtri per capitolo, tipo, campagna e scenario, pesca casuale e download delle immagini.",
+        "**Ultimatum, Favori e Rifrazioni**: un visualizzatore carta per carta con filtri per capitolo, tipo, campagna e scenario, pesca casuale, scelta della **cornice V1/V2** e download pronto per la stampa (fronte e retro, con o senza abbondanza).",
         "**L'Elenco dei Tabù** in diretta da ArkhamDB, raggruppato come nel libro e collegato carta per carta.",
+        "**Visore delle carte dell'elenco dei tabù**: ogni carta disegnata com'è stampata e come la modifica il tabù, ricostruita nella tua lingua; gli investigatori mostrano fronte e retro, con il retro originale accanto a quello modificato. Puoi ingrandirle — e passare da una versione all'altra con le frecce per confrontarle — e **scaricarle pronte per la stampa**: fronte e retro, con o senza abbondanza, una alla volta o tutte insieme.",
         "**Materiale della comunità**, sempre accreditato e tenuto separato dai libri ufficiali, come il diagramma di Korriane sulle tempistiche delle prove di abilità.",
         "**Sette temi visivi**, chiari e scuri, e un'interfaccia pensata per la tastiera e per il lettore di schermo.",
         "**Gratuito, senza scopo di lucro e aperto**: tutto il codice è su GitHub, e in fondo alla pagina è spiegato come dare una mano — una traduzione, una correzione, un'idea."

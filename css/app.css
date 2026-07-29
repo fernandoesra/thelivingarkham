@@ -875,13 +875,17 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 /* View-mode toggle (list / gallery), pushed to the end of the tools row. */
 .tla-ub-view{margin-left:auto; display:inline-flex; gap:2px; padding:3px; border-radius:10px;
   border:1px solid var(--edge2); background:var(--bg2)}
+/* The frame-skin toggle reuses the view toggle's chip look but sits with the left-hand tools, not
+   pushed to the far right, and keeps its V1/V2 labels even on narrow screens. */
+.tla-ub-skin{margin-left:0}
 .tla-ub-viewbtn{display:inline-flex; align-items:center; gap:6px; cursor:pointer; min-height:32px;
   font-family:var(--ff-ui); font-size:13px; font-weight:600; padding:5px 12px; border-radius:8px;
   border:1px solid transparent; background:transparent; color:var(--ink2)}
 .tla-ub-viewbtn:hover{color:var(--ink)}
 .tla-ub-viewbtn.is-on{background:var(--gold); border-color:var(--gold); color:var(--on-gold)}
 .tla-ub-viewbtn svg{width:15px; height:15px; flex:0 0 auto}
-@media (max-width:560px){.tla-ub-view{margin-left:0}.tla-ub-viewbtn span{display:none}}
+@media (max-width:560px){.tla-ub-view{margin-left:0}.tla-ub-viewbtn span{display:none}
+  .tla-ub-skin .tla-ub-viewbtn span{display:inline}}
 /* Chapter filter (all / cap 1 / cap 2), same segmented look as the view toggle. */
 .tla-ub-chap{display:inline-flex; gap:2px; padding:3px; border-radius:10px;
   border:1px solid var(--edge2); background:var(--bg2)}
@@ -1808,13 +1812,32 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-rel-body{max-height:min(62vh,560px); overflow-y:auto; margin-top:4px;
   margin-right:-14px; padding-right:24px}
 .tla-rel-body:focus-visible{outline:2px solid var(--gold); outline-offset:3px}
-.tla-rel-item+.tla-rel-item{margin-top:22px; padding-top:18px; border-top:1px solid var(--edge2)}
-.tla-rel-v{font-family:var(--ff-head); font-size:20px; color:var(--gold2); margin:0 0 2px;
-  font-variant-numeric:tabular-nums}
+/* Each version is a collapsible <details>; the summary is the disclosure control. */
+.tla-rel-item{border-top:1px solid var(--edge2)}
+.tla-rel-item:first-child{border-top:0}
+.tla-rel-sum{list-style:none; cursor:pointer; user-select:none; display:flex; align-items:baseline;
+  flex-wrap:wrap; gap:6px 14px; padding:14px 2px}
+.tla-rel-sum::-webkit-details-marker{display:none}
+/* A chevron that points right when closed and down when open, in place of the native marker. */
+.tla-rel-sum::before{content:''; flex:0 0 auto; align-self:center; width:8px; height:8px; margin-right:2px;
+  border-right:2px solid var(--gold); border-bottom:2px solid var(--gold);
+  transform:rotate(-45deg); transition:transform .15s}
+.tla-rel-item[open] > .tla-rel-sum::before{transform:rotate(45deg)}
+.tla-rel-sum:hover .tla-rel-v{color:var(--gold)}
+.tla-rel-sum:focus-visible{outline:2px solid var(--gold); outline-offset:2px; border-radius:6px}
+.tla-rel-head{display:flex; align-items:baseline; flex-wrap:wrap; gap:8px; margin-right:auto}
+.tla-rel-v{font-family:var(--ff-head); font-size:20px; color:var(--gold2); font-variant-numeric:tabular-nums}
 .tla-rel-name{font-family:var(--ff-body); font-size:16px; font-style:italic; color:var(--ink)}
-.tla-rel-meta{margin:0 0 10px; font-family:var(--ff-ui); font-size:12.5px; color:var(--muted)}
-.tla-rel-now{display:inline-block; margin-left:6px; padding:1px 7px; border-radius:999px;
-  border:1px solid var(--gold); color:var(--gold2); font-weight:700; font-size:11px}
-.tla-rel-list{margin:0; padding-left:20px; display:flex; flex-direction:column; gap:8px}
+.tla-rel-meta{display:inline-flex; align-items:center; gap:8px; font-family:var(--ff-ui);
+  font-size:12.5px; color:var(--ink2)}
+.tla-rel-now,.tla-rel-old{display:inline-block; padding:1px 7px; border-radius:999px;
+  font-weight:700; font-size:11px}
+.tla-rel-now{border:1px solid var(--gold); color:var(--gold2)}
+.tla-rel-old{border:1px solid var(--edge2); color:var(--ink2)}
+/* Native <details> content-hiding is overridden globally in this app, so — like the nav and the
+   What's-New groups — the list is hidden EXPLICITLY and shown only in the open state. */
+.tla-rel-list{display:none; margin:0 0 14px; padding-left:20px}
+.tla-rel-item[open] > .tla-rel-list{display:flex; flex-direction:column; gap:8px}
 .tla-rel-list li{font-size:14.5px; line-height:1.6; color:var(--ink2)}
 .tla-rel-list strong{color:var(--ink)}
+@media (prefers-reduced-motion:reduce){ .tla-rel-sum::before{transition:none} }

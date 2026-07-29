@@ -312,7 +312,8 @@
     "noticeword": "Remarque",
     "taboomut": "Modification : ",
     "relnotes": "Notes de version",
-    "relcurrent": "Version actuelle"
+    "relcurrent": "Version actuelle",
+    "relold": "Version précédente"
   },
   "blurbs": {
     "additional-rules": "Les principes fondamentaux et les règles qui complètent le livret de règles de base.",
@@ -357,6 +358,7 @@
         "**Outils** : recherche dans les deux documents, glossaire lié automatiquement, diagrammes de phases interactifs, éléments des cartes, référence rapide imprimable, icônes de produits et d'ensembles de rencontres.",
         "**Ultimatums, faveurs et réfractions** : un visualiseur carte par carte avec des filtres par chapitre, type, campagne et scénario, un tirage aléatoire et le téléchargement en image.",
         "**La liste des tabous** en direct depuis ArkhamDB, regroupée comme dans le livre et liée carte par carte.",
+        "**Taboo-list card viewer**: every card drawn as it is printed and as the taboo changes it, rebuilt in your language; investigators show front and back, with the original back beside the errata'd one. Zoom them — and step between versions with the arrows to compare them — and **download them ready to print**: front and back, with or without bleed, one at a time or all at once.",
         "**Matériel de la communauté**, toujours crédité et clairement séparé des livres officiels — comme le diagramme de résolution des tests de compétence, par Korriane.",
         "**Sept thèmes visuels**, clairs et sombres, et une interface pensée pour le clavier et le lecteur d'écran.",
         "**Gratuit, sans but lucratif et ouvert** : tout le code est sur GitHub, et le pied de page explique comment donner un coup de main — une traduction, un correctif, une idée."

@@ -187,6 +187,8 @@
     "tbfront": "Front",
     "tbbleed": "With bleed",
     "tbzoom": "Zoom",
+    "tbzoomprev": "Previous version",
+    "tbzoomnext": "Next version",
     "tbfilters": "Filters",
     "tbbleedintro": "A print bleed is a few extra millimetres of art around the card, for presses that cut many at once and may drift slightly. Printing at home usually doesn't need it.",
     "tbnobleed": "No bleed",
@@ -201,6 +203,7 @@
     "tbnonew": "No new text",
     "tbsearchlabel": "Search",
     "tbsearchph": "Card name",
+    "tbfaqsel": "Version",
     "tbfiltertype": "Type",
     "tbfilterclass": "Class",
     "tbfiltercat": "Category",
@@ -276,6 +279,9 @@
     "ubdownalltip": "Download all cards as a .zip (current language)",
     "ubdownallwait": "Preparing…",
     "ubviewlabel": "View mode",
+    "ubframe": "Frame",
+    "ubframev1": "V1 frame (clean)",
+    "ubframev2": "V2 frame (textured)",
     "ubviewlist": "List",
     "ubviewgallery": "Images only",
     "ubchaplabel": "Chapter",
@@ -351,7 +357,8 @@
     "noticeword": "Note",
     "taboomut": "Change: ",
     "relnotes": "Release notes",
-    "relcurrent": "Current version"
+    "relcurrent": "Current version",
+    "relold": "Older version"
   },
   "blurbs": {
     "additional-rules": "Fundamentals and rules that extend the core rulebook.",
@@ -394,8 +401,9 @@
         "**Version history**: every entry knows which edition it first appeared in and what was rewritten later, with added text highlighted and a what’s-new list per version.",
         "**ArkhamDB links**: every card the books name links to its exact page, in your language, worked out from the name, the collection number and the product’s icon.",
         "**Tools**: search across both documents, an auto-linked glossary, interactive phase diagrams, card anatomy, a printable quick reference, product and encounter-set icons.",
-        "**Ultimatums, Boons and Refractions**: a card-by-card viewer with filters by chapter, type, campaign and scenario, a random draw and image download.",
+        "**Ultimatums, Boons and Refractions**: a card-by-card viewer with filters by chapter, type, campaign and scenario, a random draw, a **V1/V2 frame** choice and a print-ready download (front and back, with or without bleed).",
         "**The taboo list** live from ArkhamDB, grouped the way the book groups it and linked card by card.",
+        "**Taboo-list card viewer**: every card drawn as it is printed and as the taboo changes it, rebuilt in your language; investigators show front and back, with the original back beside the errata'd one. Zoom them — and step between versions with the arrows to compare them — and **download them ready to print**: front and back, with or without bleed, one at a time or all at once.",
         "**Community material**, always credited and kept apart from the official books — such as Korriane's skill-test timing diagram.",
         "**Seven visual themes**, light and dark, and an interface built for the keyboard and the screen reader.",
         "**Free, non-profit and open**: all the code is on GitHub, and the footer explains how to lend a hand — a translation, a fix, an idea."

@@ -188,6 +188,8 @@
     "tbfront": "Delantera",
     "tbbleed": "Con sangre (bleed)",
     "tbzoom": "Ampliar",
+    "tbzoomprev": "Versión anterior",
+    "tbzoomnext": "Versión siguiente",
     "tbfilters": "Filtros",
     "tbbleedintro": "El sangrado (bleed) es un margen extra de imagen alrededor de la carta, para imprentas que cortan varias a la vez y pueden desviarse un poco. Para imprimir en casa no suele hacer falta.",
     "tbnobleed": "Sin sangrado",
@@ -202,6 +204,7 @@
     "tbnonew": "Sin texto nuevo",
     "tbsearchlabel": "Buscar",
     "tbsearchph": "Nombre de la carta",
+    "tbfaqsel": "Versión",
     "tbfiltertype": "Tipo",
     "tbfilterclass": "Clase",
     "tbfiltercat": "Categoría",
@@ -277,6 +280,9 @@
     "ubdownalltip": "Descargar todas las cartas en un .zip (idioma actual)",
     "ubdownallwait": "Preparando…",
     "ubviewlabel": "Modo de visualización",
+    "ubframe": "Marco",
+    "ubframev1": "Marco V1 (clásico)",
+    "ubframev2": "Marco V2 (texturizado)",
     "ubviewlist": "Lista",
     "ubviewgallery": "Solo imagen",
     "ubchaplabel": "Capítulo",
@@ -352,7 +358,8 @@
     "noticeword": "Aviso",
     "taboomut": "Cambio (en inglés): ",
     "relnotes": "Notas de versión",
-    "relcurrent": "Versión actual"
+    "relcurrent": "Versión actual",
+    "relold": "Versión anterior"
   },
   "blurbs": {
     "additional-rules": "Fundamentos y reglas que amplían el reglamento básico.",
@@ -395,8 +402,9 @@
         "**Historial de versiones**: cada entrada sabe en qué edición apareció y qué se reescribió después, con el texto añadido resaltado y una sección de novedades por versión.",
         "**Enlaces a ArkhamDB**: cada carta citada lleva a su ficha exacta, en tu idioma, deducida del nombre, el número de colección y el icono del producto.",
         "**Herramientas**: buscador sobre ambos documentos, glosario enlazado automáticamente, diagramas de fases interactivos, elementos de las cartas, referencia rápida imprimible, iconos de producto y de conjunto de encuentros.",
-        "**Ultimátums, ayudas y refracciones**: visor carta a carta con filtros por capítulo, tipo, campaña y escenario, robo aleatorio y descarga en imagen.",
+        "**Ultimátums, ayudas y refracciones**: visor carta a carta con filtros por capítulo, tipo, campaña y escenario, robo aleatorio, elección de marco **V1 o V2** y descarga lista para imprimir (cara y reverso, con o sin sangrado).",
         "**La lista de tabúes** en vivo desde ArkhamDB, agrupada como en el libro y enlazada carta por carta.",
+        "**Visor de cartas de la lista de tabúes**: cada carta se dibuja como está impresa y como la cambia el tabú, reconstruida en tu idioma; los investigadores muestran delantera y trasera, con la trasera original junto a la erratada. Puedes ampliarlas —y pasar de una versión a otra con las flechas para compararlas— y **descargarlas listas para imprimir**: cara y reverso, con o sin sangrado, una a una o todas a la vez.",
         "**Material de la comunidad**, siempre acreditado y separado de los libros oficiales, como el diagrama de tiempos de las pruebas de habilidad de Korriane.",
         "**Siete temas visuales**, claros y oscuros, y una interfaz pensada para teclado y lector de pantalla.",
         "**Gratis, sin ánimo de lucro y abierto**: todo el código está en GitHub, y el pie de página explica cómo echar una mano —una traducción, un arreglo, una idea—."
