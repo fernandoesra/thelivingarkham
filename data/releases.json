@@ -1,0 +1,184 @@
+[
+  {
+    "v": "1.0.0",
+    "date": "2026-07-29",
+    "i18n": {
+      "es": {
+        "title": "Primera versión pública",
+        "items": [
+          "Dos reglamentos completos y buscables a la vez: **El Grimorio de Arkham** (capítulo 2, la referencia vigente desde 2026) y el **FAQ del capítulo 1** (notas, erratas y preguntas anteriores), separados a propósito porque pueden contradecirse.",
+          "**Once idiomas**: cuatro con los libros completos —español, inglés, alemán e italiano—, cada uno construido desde los PDF oficiales de su propio idioma; y otros siete —francés, portugués, polaco, ruso, ucraniano, coreano y chino— con toda la interfaz traducida mientras esperan sus reglamentos. Cuando un libro todavía no existe en tu idioma, la web te lo dice y te ofrece leerlo en otro. El inglés va por delante: es donde se publican antes las actualizaciones.",
+          "**Historial de versiones**: cada entrada sabe en qué edición apareció y qué se reescribió después, con el texto añadido resaltado y una sección de novedades por versión.",
+          "**Enlaces a ArkhamDB**: cada carta citada lleva a su ficha exacta, en tu idioma, deducida del nombre, el número de colección y el icono del producto.",
+          "**Herramientas**: buscador sobre ambos documentos, glosario enlazado automáticamente, diagramas de fases interactivos, elementos de las cartas, referencia rápida imprimible, iconos de producto y de conjunto de encuentros.",
+          "**Ultimátums, ayudas y refracciones**: visor carta a carta con filtros por capítulo, tipo, campaña y escenario, robo aleatorio, elección de marco **V1 o V2** y descarga lista para imprimir (cara y reverso, con o sin sangrado).",
+          "**La lista de tabúes** en vivo desde ArkhamDB, agrupada como en el libro y enlazada carta por carta.",
+          "**Visor de cartas de la lista de tabúes**: cada carta se dibuja como está impresa y como la cambia el tabú, reconstruida en tu idioma; los investigadores muestran delantera y trasera, con la trasera original junto a la erratada. Puedes ampliarlas —y pasar de una versión a otra con las flechas para compararlas— y **descargarlas listas para imprimir**: cara y reverso, con o sin sangrado, una a una o todas a la vez.",
+          "**Material de la comunidad**, siempre acreditado y separado de los libros oficiales, como el diagrama de tiempos de las pruebas de habilidad de Korriane.",
+          "**Siete temas visuales**, claros y oscuros, y una interfaz pensada para teclado y lector de pantalla.",
+          "**Gratis, sin ánimo de lucro y abierto**: todo el código está en GitHub, y el pie de página explica cómo echar una mano —una traducción, un arreglo, una idea—."
+        ]
+      },
+      "en": {
+        "title": "First public release",
+        "items": [
+          "Two complete rulebooks, searchable together: **The Arkham Grimoire** (chapter 2, the reference in force since 2026) and the **chapter 1 FAQ** (the earlier notes, errata and questions), kept apart on purpose because they can contradict each other.",
+          "**Eleven languages**: four with the books complete — Spanish, English, German and Italian — each built from that language's own official PDFs; and seven more — French, Portuguese, Polish, Russian, Ukrainian, Korean and Chinese — with the whole interface translated while they wait for their rulebooks. When a book does not exist in your language yet, the site says so and offers to show it to you in another. English runs ahead: it is where updates are published first.",
+          "**Version history**: every entry knows which edition it first appeared in and what was rewritten later, with added text highlighted and a what’s-new list per version.",
+          "**ArkhamDB links**: every card the books name links to its exact page, in your language, worked out from the name, the collection number and the product’s icon.",
+          "**Tools**: search across both documents, an auto-linked glossary, interactive phase diagrams, card anatomy, a printable quick reference, product and encounter-set icons.",
+          "**Ultimatums, Boons and Refractions**: a card-by-card viewer with filters by chapter, type, campaign and scenario, a random draw, a **V1/V2 frame** choice and a print-ready download (front and back, with or without bleed).",
+          "**The taboo list** live from ArkhamDB, grouped the way the book groups it and linked card by card.",
+          "**Taboo-list card viewer**: every card drawn as it is printed and as the taboo changes it, rebuilt in your language; investigators show front and back, with the original back beside the errata'd one. Zoom them — and step between versions with the arrows to compare them — and **download them ready to print**: front and back, with or without bleed, one at a time or all at once.",
+          "**Community material**, always credited and kept apart from the official books — such as Korriane's skill-test timing diagram.",
+          "**Seven visual themes**, light and dark, and an interface built for the keyboard and the screen reader.",
+          "**Free, non-profit and open**: all the code is on GitHub, and the footer explains how to lend a hand — a translation, a fix, an idea."
+        ]
+      },
+      "de": {
+        "title": "Erste öffentliche Version",
+        "items": [
+          "Zwei vollständige Regelwerke, gemeinsam durchsuchbar: **Das Arkham Grimoire** (Kapitel 2, die seit 2026 gültige Referenz) und der **FAQ zu Kapitel 1** (die früheren Klarstellungen, Errata und Fragen), bewusst getrennt gehalten, weil sie sich widersprechen können.",
+          "**Elf Sprachen**: vier mit vollständigen Büchern — Spanisch, Englisch, Deutsch und Italienisch —, jeweils aus den offiziellen PDFs der eigenen Sprache aufgebaut; und sieben weitere — Französisch, Portugiesisch, Polnisch, Russisch, Ukrainisch, Koreanisch und Chinesisch — mit vollständig übersetzter Oberfläche, während sie auf ihre Regelwerke warten. Wenn es ein Buch in eurer Sprache noch nicht gibt, sagt die Seite Bescheid und bietet euch an, es in einer anderen zu lesen. Englisch läuft voraus: Dort erscheinen die Aktualisierungen zuerst.",
+          "**Versionsverlauf**: Jeder Eintrag weiß, in welcher Ausgabe er zuerst erschien und was später umgeschrieben wurde, mit hervorgehobenem Zusatztext und einer Neuigkeitenliste je Version.",
+          "**ArkhamDB-Links**: Jede in den Büchern genannte Karte führt zu ihrer genauen Seite in eurer Sprache, ermittelt aus Name, Sammlungsnummer und Produktsymbol.",
+          "**Werkzeuge**: Suche über beide Dokumente, automatisch verlinktes Glossar, interaktive Phasendiagramme, Aufbau der Karten, druckbare Schnellübersicht, Produkt- und Begegnungssetsymbole.",
+          "**Ultimaten, Gaben und Refraktionen**: ein Betrachter Karte für Karte mit Filtern nach Kapitel, Typ, Kampagne und Szenario, Zufallsziehung, **V1/V2-Rahmen**-Wahl und druckfertigem Download (Vorder- und Rückseite, mit oder ohne Beschnitt).",
+          "**Die Tabuliste** live von ArkhamDB, gruppiert wie im Buch und Karte für Karte verlinkt.",
+          "**Kartenansicht der Tabuliste**: jede Karte, wie sie gedruckt ist und wie das Tabu sie verändert, in deiner Sprache rekonstruiert; Ermittler zeigen Vorder- und Rückseite, mit der Originalrückseite neben der geänderten. Du kannst sie vergrößern — und mit den Pfeilen zwischen den Versionen wechseln, um sie zu vergleichen — und **druckfertig herunterladen**: Vorder- und Rückseite, mit oder ohne Beschnitt, einzeln oder alle auf einmal.",
+          "**Material aus der Community**, immer mit Namensnennung und getrennt von den offiziellen Büchern gehalten — etwa das Timing-Diagramm für Fertigkeitsproben von Korriane.",
+          "**Sieben Designs**, hell und dunkel, und eine Oberfläche, die für Tastatur und Screenreader gebaut ist.",
+          "**Kostenlos, ohne Gewinnabsicht und offen**: Der gesamte Code liegt auf GitHub, und am Seitenende steht, wie ihr mithelfen könnt — mit einer Übersetzung, einer Korrektur, einer Idee."
+        ]
+      },
+      "it": {
+        "title": "Prima versione pubblica",
+        "items": [
+          "Due regolamenti completi, ricercabili insieme: **Il Grimorio di Arkham** (capitolo 2, il riferimento in vigore dal 2026) e il **FAQ del capitolo 1** (le note, gli errata e le domande precedenti), tenuti separati di proposito perché possono contraddirsi.",
+          "**Undici lingue**: quattro con i libri completi — spagnolo, inglese, tedesco e italiano —, ciascuna costruita dai PDF ufficiali della propria lingua; e altre sette — francese, portoghese, polacco, russo, ucraino, coreano e cinese — con tutta l'interfaccia tradotta, in attesa dei loro regolamenti. Quando un libro non esiste ancora nella tua lingua, il sito te lo dice e ti propone di leggerlo in un'altra. L'inglese va avanti: è lì che gli aggiornamenti vengono pubblicati per primi.",
+          "**Cronologia delle versioni**: ogni voce sa in quale edizione è apparsa per la prima volta e che cosa è stato riscritto in seguito, con il testo aggiunto evidenziato e un elenco di novità per ogni versione.",
+          "**Collegamenti ad ArkhamDB**: ogni carta citata dai libri rimanda alla sua pagina esatta, nella tua lingua, ricavata dal nome, dal numero di collezione e dall'icona del prodotto.",
+          "**Strumenti**: ricerca su entrambi i documenti, glossario collegato automaticamente, diagrammi delle fasi interattivi, anatomia delle carte, riferimento rapido stampabile, icone dei prodotti e dei set di incontri.",
+          "**Ultimatum, Favori e Rifrazioni**: un visualizzatore carta per carta con filtri per capitolo, tipo, campagna e scenario, pesca casuale, scelta della **cornice V1/V2** e download pronto per la stampa (fronte e retro, con o senza abbondanza).",
+          "**L'Elenco dei Tabù** in diretta da ArkhamDB, raggruppato come nel libro e collegato carta per carta.",
+          "**Visore delle carte dell'elenco dei tabù**: ogni carta disegnata com'è stampata e come la modifica il tabù, ricostruita nella tua lingua; gli investigatori mostrano fronte e retro, con il retro originale accanto a quello modificato. Puoi ingrandirle — e passare da una versione all'altra con le frecce per confrontarle — e **scaricarle pronte per la stampa**: fronte e retro, con o senza abbondanza, una alla volta o tutte insieme.",
+          "**Materiale della comunità**, sempre accreditato e tenuto separato dai libri ufficiali, come il diagramma di Korriane sulle tempistiche delle prove di abilità.",
+          "**Sette temi visivi**, chiari e scuri, e un'interfaccia pensata per la tastiera e per il lettore di schermo.",
+          "**Gratuito, senza scopo di lucro e aperto**: tutto il codice è su GitHub, e in fondo alla pagina è spiegato come dare una mano — una traduzione, una correzione, un'idea."
+        ]
+      },
+      "fr": {
+        "title": "Première version publique",
+        "items": [
+          "Deux corpus de règles complets, consultables ensemble : **le Grimoire d'Arkham** (chapitre 2, la référence en vigueur depuis 2026) et la **FAQ du chapitre 1** (les notes, errata et questions d'avant), gardés séparés à dessein car ils peuvent se contredire.",
+          "**Onze langues** : quatre avec les livres complets — espagnol, anglais, allemand et italien —, chacune construite à partir des PDF officiels de sa propre langue ; et sept autres — français, portugais, polonais, russe, ukrainien, coréen et chinois — avec toute l'interface traduite en attendant leurs livres de règles. Quand un livre n'existe pas encore dans votre langue, le site vous le dit et vous propose de le lire dans une autre. L'anglais garde une longueur d'avance : c'est là que les mises à jour paraissent en premier.",
+          "**Historique des versions** : chaque entrée sait dans quelle édition elle est apparue et ce qui a été réécrit ensuite, avec le texte ajouté surligné et une liste des nouveautés par version.",
+          "**Liens vers ArkhamDB** : chaque carte citée par les livres renvoie à sa fiche exacte, dans votre langue, déduite du nom, du numéro de collection et de l'icône du produit.",
+          "**Outils** : recherche dans les deux documents, glossaire lié automatiquement, diagrammes de phases interactifs, éléments des cartes, référence rapide imprimable, icônes de produits et d'ensembles de rencontres.",
+          "**Ultimatums, faveurs et réfractions** : un visualiseur carte par carte avec des filtres par chapitre, type, campagne et scénario, un tirage aléatoire et le téléchargement en image.",
+          "**La liste des tabous** en direct depuis ArkhamDB, regroupée comme dans le livre et liée carte par carte.",
+          "**Taboo-list card viewer**: every card drawn as it is printed and as the taboo changes it, rebuilt in your language; investigators show front and back, with the original back beside the errata'd one. Zoom them — and step between versions with the arrows to compare them — and **download them ready to print**: front and back, with or without bleed, one at a time or all at once.",
+          "**Matériel de la communauté**, toujours crédité et clairement séparé des livres officiels — comme le diagramme de résolution des tests de compétence, par Korriane.",
+          "**Sept thèmes visuels**, clairs et sombres, et une interface pensée pour le clavier et le lecteur d'écran.",
+          "**Gratuit, sans but lucratif et ouvert** : tout le code est sur GitHub, et le pied de page explique comment donner un coup de main — une traduction, un correctif, une idée."
+        ]
+      },
+      "pt": {
+        "title": "Primeira versão pública",
+        "items": [
+          "Dois regulamentos completos, pesquisáveis ao mesmo tempo: **O Grimório de Arkham** (capítulo 2, a referência em vigor desde 2026) e o **FAQ do capítulo 1** (as notas, erratas e perguntas anteriores), mantidos separados de propósito porque podem se contradizer.",
+          "**Onze idiomas**: quatro com os livros completos — espanhol, inglês, alemão e italiano —, cada um construído a partir dos PDFs oficiais do próprio idioma; e outros sete — francês, português, polonês, russo, ucraniano, coreano e chinês — com toda a interface traduzida enquanto esperam pelos seus regulamentos. Quando um livro ainda não existe no seu idioma, o site avisa e se oferece para mostrá-lo em outro. O inglês vai à frente: é nele que as atualizações são publicadas primeiro.",
+          "**Histórico de versões**: cada entrada sabe em que edição apareceu pela primeira vez e o que foi reescrito depois, com o texto adicionado destacado e uma lista de novidades por versão.",
+          "**Links para o ArkhamDB**: cada carta citada nos livros leva à sua página exata, no seu idioma, deduzida do nome, do número de coleção e do ícone do produto.",
+          "**Ferramentas**: busca nos dois documentos, glossário com links automáticos, diagramas de fases interativos, anatomia das cartas, referência rápida para imprimir, ícones de produto e de conjunto de encontro.",
+          "**Ultimatos, Dádivas e Refrações**: um visualizador carta a carta com filtros por capítulo, tipo, campanha e cenário, sorteio aleatório e download em imagem.",
+          "**A lista de tabus** ao vivo a partir do ArkhamDB, agrupada como no livro e com links carta a carta.",
+          "**Taboo-list card viewer**: every card drawn as it is printed and as the taboo changes it, rebuilt in your language; investigators show front and back, with the original back beside the errata'd one. Zoom them — and step between versions with the arrows to compare them — and **download them ready to print**: front and back, with or without bleed, one at a time or all at once.",
+          "**Material da comunidade**, sempre creditado e mantido separado dos livros oficiais, como o diagrama de Korriane sobre a ordem de resolução dos testes de perícia.",
+          "**Sete temas visuais**, claros e escuros, e uma interface pensada para o teclado e o leitor de tela.",
+          "**Gratuito, sem fins lucrativos e aberto**: todo o código está no GitHub, e o rodapé explica como dar uma mão — uma tradução, uma correção, uma ideia."
+        ]
+      },
+      "pl": {
+        "title": "Pierwsze publiczne wydanie",
+        "items": [
+          "Dwa kompletne zbiory zasad, przeszukiwane jednocześnie: **Grimuar z Arkham** (rozdział 2, punkt odniesienia obowiązujący od 2026 roku) i **FAQ rozdziału 1** (wcześniejsze notatki, erraty i pytania), rozdzielone celowo, ponieważ mogą być ze sobą sprzeczne.",
+          "**Jedenaście języków**: cztery mają komplet ksiąg — hiszpański, angielski, niemiecki i włoski — każdy zbudowany na podstawie oficjalnych plików PDF w danym języku; a kolejnych siedem — francuski, portugalski, polski, rosyjski, ukraiński, koreański i chiński — ma przetłumaczony cały interfejs i czeka na swoje zbiory zasad. Kiedy jakiejś księgi nie ma jeszcze w Twoim języku, strona daje Ci o tym znać i proponuje, że pokaże ją w innym. Angielski wyprzedza resztę: to w nim najpierw pojawiają się aktualizacje.",
+          "**Historia wersji**: każdy wpis wie, w którym wydaniu pojawił się po raz pierwszy i co przepisano w nim później, z wyróżnionym dodanym tekstem i listą nowości dla każdej wersji.",
+          "**Odnośniki do ArkhamDB**: każda karta wymieniona w księgach prowadzi do swojej strony, w Twoim języku, ustalonej na podstawie nazwy, numeru w kolekcji i ikony produktu.",
+          "**Narzędzia**: wyszukiwarka obejmująca oba dokumenty, automatycznie linkowany słownik, interaktywne diagramy faz, budowa karty, ściągawka do wydruku, ikony produktów i zestawów spotkań.",
+          "**Ultimatum, Dobrodziejstwa i Refrakcje**: przeglądarka karta po karcie z filtrami według rozdziału, typu, kampanii i scenariusza, losowaniem i pobieraniem obrazów.",
+          "**Lista tabu** pobierana na żywo z ArkhamDB, pogrupowana tak jak w księdze i połączona odnośnikami karta po karcie.",
+          "**Taboo-list card viewer**: every card drawn as it is printed and as the taboo changes it, rebuilt in your language; investigators show front and back, with the original back beside the errata'd one. Zoom them — and step between versions with the arrows to compare them — and **download them ready to print**: front and back, with or without bleed, one at a time or all at once.",
+          "**Materiały społeczności**, zawsze z podaniem autora i wyraźnie oddzielone od oficjalnych ksiąg — jak diagram kolejności rozpatrywania testu umiejętności autorstwa Korriane.",
+          "**Siedem motywów graficznych**, jasnych i ciemnych, oraz interfejs zaprojektowany z myślą o klawiaturze i czytniku ekranu.",
+          "**Darmowy, nienastawiony na zysk i otwarty**: cały kod jest dostępny na GitHubie, a stopka strony wyjaśnia, jak wyciągnąć pomocną dłoń — tłumaczenie, poprawka, pomysł."
+        ]
+      },
+      "ru": {
+        "title": "Первый публичный выпуск",
+        "items": [
+          "Две полные книги правил с общим поиском: **«Гримуар Аркхэма»** (глава 2, действующий с 2026 года справочник) и **FAQ главы 1** (прежние заметки, эррата и вопросы), намеренно разделённые, потому что они могут противоречить друг другу.",
+          "**Одиннадцать языков**: четыре с полными книгами — испанский, английский, немецкий и итальянский, — и каждый собран из официальных PDF на своём языке; и ещё семь — французский, португальский, польский, русский, украинский, корейский и китайский, — с полностью переведённым интерфейсом, пока они ждут свои книги правил. Когда книги на вашем языке ещё нет, сайт сообщает об этом и предлагает прочитать её на другом. Английский идёт впереди: обновления выходят сначала на нём.",
+          "**История версий**: каждая статья знает, в каком издании она появилась впервые и что было переписано позже; добавленный текст подсвечен, а для каждой версии есть список новинок.",
+          "**Ссылки на ArkhamDB**: каждая названная в книгах карта ведёт на свою страницу, на вашем языке, — она определяется по названию, номеру в коллекции и значку продукта.",
+          "**Инструменты**: поиск по обоим документам, глоссарий с автоматическими ссылками, интерактивные схемы фаз, разбор карты, памятка для печати, значки продуктов и наборов контактов.",
+          "**Ультиматумы, Блага и Преломления**: просмотр карта за картой с фильтрами по главе, типу, кампании и сценарию, случайная выборка и скачивание изображений.",
+          "**Список табу** напрямую из ArkhamDB, сгруппированный так же, как в книге, со ссылкой на каждую карту.",
+          "**Taboo-list card viewer**: every card drawn as it is printed and as the taboo changes it, rebuilt in your language; investigators show front and back, with the original back beside the errata'd one. Zoom them — and step between versions with the arrows to compare them — and **download them ready to print**: front and back, with or without bleed, one at a time or all at once.",
+          "**Материалы сообщества**, всегда с указанием автора и отдельно от официальных книг, — такие как схема порядка розыгрыша проверки навыка от Korriane.",
+          "**Семь визуальных тем**, светлых и тёмных, и интерфейс, рассчитанный на клавиатуру и экранный диктор.",
+          "**Бесплатный, некоммерческий и открытый проект**: весь код лежит на GitHub, а внизу страницы объясняется, чем можно помочь — переводом, исправлением, идеей."
+        ]
+      },
+      "uk": {
+        "title": "Перший публічний випуск",
+        "items": [
+          "Два повні збірники правил зі спільним пошуком: **Гримуар Аркгема** (розділ 2, довідка, чинна з 2026 року) і **FAQ розділу 1** (давніші нотатки, виправлення та запитання) — їх навмисно розділено, бо вони можуть суперечити один одному.",
+          "**Одинадцять мов**: чотири з повними книгами — іспанська, англійська, німецька та італійська — кожна зібрана з офіційних PDF відповідною мовою; і ще сім — французька, португальська, польська, російська, українська, корейська та китайська — з повністю перекладеним інтерфейсом, поки вони чекають на свої збірники правил. Коли книги вашою мовою ще немає, сайт про це повідомляє й пропонує прочитати її іншою. Англійська йде попереду: саме нею оновлення виходять першими.",
+          "**Історія версій**: кожен запис знає, у якому виданні він з’явився вперше і що було переписано згодом; доданий текст виділено, а для кожної версії є список новинок.",
+          "**Посилання на ArkhamDB**: кожна згадана в книгах карта веде на свою точну сторінку вашою мовою — її визначено за назвою, номером у колекції та іконкою продукту.",
+          "**Інструменти**: пошук по обох документах, глосарій з автоматичними посиланнями, інтерактивні схеми фаз, будова карти, швидка довідка для друку, іконки продуктів і наборів зустрічей.",
+          "**Ультиматуми, Дари та Рефракції**: перегляд карта за картою з фільтрами за розділом, типом, кампанією та сценарієм, випадковим витягуванням і завантаженням зображень.",
+          "**Список табу** наживо з ArkhamDB, згрупований так само, як у книзі, з посиланням на кожну карту.",
+          "**Taboo-list card viewer**: every card drawn as it is printed and as the taboo changes it, rebuilt in your language; investigators show front and back, with the original back beside the errata'd one. Zoom them — and step between versions with the arrows to compare them — and **download them ready to print**: front and back, with or without bleed, one at a time or all at once.",
+          "**Матеріали спільноти**, завжди із зазначеним авторством і чітко відокремлені від офіційних книг — як-от схема черговості перевірки навички від Korriane.",
+          "**Сім візуальних тем**, світлих і темних, та інтерфейс, створений для клавіатури й програми читання з екрана.",
+          "**Безкоштовний, некомерційний і відкритий проєкт**: весь код доступний на GitHub, а внизу сторінки пояснено, як допомогти — перекладом, виправленням, ідеєю."
+        ]
+      },
+      "ko": {
+        "title": "첫 공개 버전",
+        "items": [
+          "완전한 규칙서 두 권을 한 번에 검색합니다. **아컴 그리모어**(2장, 2026년부터 적용되는 기준)와 **FAQ 1장**(그 이전의 설명, 정오표, 질문)이며, 서로 어긋날 수 있어 일부러 따로 두었습니다.",
+          "**열한 가지 언어**: 규칙서가 모두 갖춰진 네 언어 — 스페인어, 영어, 독일어, 이탈리아어 — 각각 그 언어의 공식 PDF로 만들었습니다. 나머지 일곱 언어 — 프랑스어, 포르투갈어, 폴란드어, 러시아어, 우크라이나어, 한국어, 중국어 — 규칙서를 기다리는 동안 인터페이스 전체를 먼저 번역해 두었습니다. 책이 아직 여러분의 언어로 나오지 않았다면 사이트가 그 사실을 알려 드리고 다른 언어로 읽으시길 권합니다. 영어가 앞서 갑니다. 갱신은 영어로 가장 먼저 공개됩니다.",
+          "**버전 기록**: 모든 항목이 어느 판에 처음 등장했고 이후 무엇이 다시 쓰였는지 알고 있습니다. 추가된 문구는 강조 표시되고, 버전마다 새 소식 목록이 붙습니다.",
+          "**ArkhamDB 링크**: 책이 언급하는 모든 카드가 여러분의 언어로 된 정확한 페이지로 연결됩니다. 이름, 컬렉션 번호, 제품 아이콘으로 찾아냅니다.",
+          "**도구**: 두 문서 통합 검색, 자동으로 연결되는 용어집, 인터랙티브 단계 도표, 카드 구조, 인쇄용 빠른 참조, 제품 및 조우 세트 아이콘.",
+          "**최후통첩, 은총, 굴절**: 장, 종류, 캠페인, 시나리오로 거를 수 있는 카드별 뷰어와 무작위 뽑기, 이미지 내려받기.",
+          "**터부 목록**을 ArkhamDB에서 실시간으로 받아 와, 책이 묶은 방식 그대로 묶고 카드마다 연결했습니다.",
+          "**Taboo-list card viewer**: every card drawn as it is printed and as the taboo changes it, rebuilt in your language; investigators show front and back, with the original back beside the errata'd one. Zoom them — and step between versions with the arrows to compare them — and **download them ready to print**: front and back, with or without bleed, one at a time or all at once.",
+          "**커뮤니티 자료**는 언제나 만든 사람을 밝히고 공식 규칙서와 눈에 띄게 따로 두었습니다 — Korriane의 기술 판정 타이밍 도표가 그렇습니다.",
+          "**일곱 가지 시각 테마**, 밝은 테마와 어두운 테마, 그리고 키보드와 화면 낭독기를 생각해 만든 인터페이스.",
+          "**무료, 비영리, 열린 프로젝트**: 모든 코드는 GitHub에 공개되어 있고, 페이지 아래쪽에 도와주실 수 있는 방법을 적어 두었습니다 — 번역 하나, 수정 하나, 생각 하나."
+        ]
+      },
+      "zh": {
+        "title": "首个公开版本",
+        "items": [
+          "两本完整的规则书，可以一并搜索：**《阿卡姆魔典》**（第二章，2026 年起生效的参考文件）与**第一章 FAQ**（更早的注解、勘误与问答）。二者刻意分开呈现，因为它们可能互相矛盾。",
+          "**十一种语言**：四种拥有完整的规则书——西班牙语、英语、德语和意大利语——每一种都基于该语言自己的官方 PDF 构建；另外七种——法语、葡萄牙语、波兰语、俄语、乌克兰语、韩语和中文——界面已全部翻译，正在等待各自的规则书。当某本书还没有你所用语言的版本时，本站会告诉你，并建议你用另一种语言阅读。英文版领先一步：更新总是先在英文版发布。",
+          "**版本历史**：每个条目都记录着自己首次出现在哪一版、之后又重写了什么，新增的文本会高亮显示，并按版本提供更新列表。",
+          "**ArkhamDB 链接**：书中提到的每张卡牌都会链接到对应语言的准确页面，链接由卡牌名称、收藏编号和产品图标推算得出。",
+          "**工具**：跨两份文件的搜索、自动互链的术语表、互动阶段图示、卡牌结构图解、可打印的快速参考表，以及产品与遭遇组图标。",
+          "**最后通牒、恩惠与折射**：逐张卡牌的浏览界面，可按章、类型、战役和剧本筛选，并支持随机抽取与图片下载。",
+          "**禁忌列表**直接取自 ArkhamDB，按书中的方式分组，并逐张卡牌提供链接。",
+          "**Taboo-list card viewer**: every card drawn as it is printed and as the taboo changes it, rebuilt in your language; investigators show front and back, with the original back beside the errata'd one. Zoom them — and step between versions with the arrows to compare them — and **download them ready to print**: front and back, with or without bleed, one at a time or all at once.",
+          "**社群素材**，始终注明作者，并与官方规则书分开呈现——例如 Korriane 制作的技能检定时点图示。",
+          "**七种视觉主题**，浅色与深色兼备，界面为键盘操作和屏幕阅读器而设计。",
+          "**免费、非营利且开放**：所有代码都公开在 GitHub 上，页面底部也说明了如何出一份力——一份翻译、一处修正、一个点子。"
+        ]
+      }
+    }
+  }
+]

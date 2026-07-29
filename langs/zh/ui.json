@@ -345,25 +345,5 @@
     "faq-environments": "用于构筑牌组的现行、传承与受限环境。",
     "faq-intro": "这份文件是什么、有哪些新内容，以及它适用于哪些产品。"
   },
-  "releases": [
-    {
-      "v": "1.0.0",
-      "date": "2026-07-20",
-      "title": "首个公开版本",
-      "items": [
-        "两本完整的规则书，可以一并搜索：**《阿卡姆魔典》**（第二章，2026 年起生效的参考文件）与**第一章 FAQ**（更早的注解、勘误与问答）。二者刻意分开呈现，因为它们可能互相矛盾。",
-        "**十一种语言**：四种拥有完整的规则书——西班牙语、英语、德语和意大利语——每一种都基于该语言自己的官方 PDF 构建；另外七种——法语、葡萄牙语、波兰语、俄语、乌克兰语、韩语和中文——界面已全部翻译，正在等待各自的规则书。当某本书还没有你所用语言的版本时，本站会告诉你，并建议你用另一种语言阅读。英文版领先一步：更新总是先在英文版发布。",
-        "**版本历史**：每个条目都记录着自己首次出现在哪一版、之后又重写了什么，新增的文本会高亮显示，并按版本提供更新列表。",
-        "**ArkhamDB 链接**：书中提到的每张卡牌都会链接到对应语言的准确页面，链接由卡牌名称、收藏编号和产品图标推算得出。",
-        "**工具**：跨两份文件的搜索、自动互链的术语表、互动阶段图示、卡牌结构图解、可打印的快速参考表，以及产品与遭遇组图标。",
-        "**最后通牒、恩惠与折射**：逐张卡牌的浏览界面，可按章、类型、战役和剧本筛选，并支持随机抽取与图片下载。",
-        "**禁忌列表**直接取自 ArkhamDB，按书中的方式分组，并逐张卡牌提供链接。",
-        "**Taboo-list card viewer**: every card drawn as it is printed and as the taboo changes it, rebuilt in your language; investigators show front and back, with the original back beside the errata'd one. Zoom them — and step between versions with the arrows to compare them — and **download them ready to print**: front and back, with or without bleed, one at a time or all at once.",
-        "**社群素材**，始终注明作者，并与官方规则书分开呈现——例如 Korriane 制作的技能检定时点图示。",
-        "**七种视觉主题**，浅色与深色兼备，界面为键盘操作和屏幕阅读器而设计。",
-        "**免费、非营利且开放**：所有代码都公开在 GitHub 上，页面底部也说明了如何出一份力——一份翻译、一处修正、一个点子。"
-      ]
-    }
-  ],
   "fallback": "en"
 }

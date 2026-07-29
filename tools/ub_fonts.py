@@ -58,6 +58,19 @@ BASE = (''.join(chr(c) for c in range(0x20, 0x7F))
         + 'ĀāĂăĄąĆćČčĎďĐđĒēĖėĘęĚěĞğĪīĮįŁłŃńŇňŌōŐőŒœŔŕŘřŚśŞşŠšŤťŪūŮůŰűŲųŸŹźŻżŽž')
 
 
+def _str_chars(o, acc):
+    """Every character in every string leaf of a nested structure (a ui pack's strings block is
+    keys -> string or, for plurals, a {one, other, …} dict)."""
+    if isinstance(o, str):
+        acc |= set(o)
+    elif isinstance(o, dict):
+        for v in o.values():
+            _str_chars(v, acc)
+    elif isinstance(o, list):
+        for v in o:
+            _str_chars(v, acc)
+
+
 def _runs_text(blocks):
     out = []
     for b in blocks or []:
@@ -146,6 +159,70 @@ def main():
         subset.main(args)
         print(f'  {name:16} <- {master_name:24} {len(TTFont(dst).getBestCmap())} glyph(s), '
               f'{os.path.getsize(dst):,} B')
+
+    # The site's own heading face (--ff-head in css/app.css) — NOT a card font, so it lives in
+    # assets/fonts/ beside alien-glyphs.woff2, not in ub/. It is the same Teutonic master as the
+    # card title above, but cut to the fixed BASE set rather than the card corpora, because
+    # headings are the interface and chapter titles across every language, not card fields.
+    # Teutonic is Latin-only, so BASE (ASCII + Latin-1/Ext-A + punctuation) is every heading glyph
+    # it can draw; Cyrillic/CJK/Polish-extra headings fall through --ff-head's stack to a serif,
+    # which is correct — there is no blackletter for those. Self-hosting it is what makes EVERY
+    # visitor see the blackletter titles, not only the ones who happen to have Teutonic installed.
+    head_master = os.path.join(FONTS, 'Teutonic.ttf')
+    head_dst = os.path.join(FONTS, 'teutonic.woff2')
+    if os.path.exists(head_master):
+        have = set(TTFont(head_master).getBestCmap())
+        keep = ''.join(c for c in sorted(set(BASE)) if ord(c) in have)
+        if check:
+            cur = set(TTFont(head_dst).getBestCmap()) if os.path.exists(head_dst) else set()
+            short = sorted(c for c in keep if ord(c) not in cur)
+            print(f'  {"teutonic.woff2":16} has {len(cur):4} glyph(s); {len(short)} still missing')
+        else:
+            subset.main([head_master, f'--text={keep}', '--flavor=woff2',
+                         f'--output-file={head_dst}', '--layout-features=*', '--no-hinting',
+                         '--desubroutinize'])
+            print(f'  {"teutonic.woff2":16} <- {"Teutonic.ttf":24} '
+                  f'{len(TTFont(head_dst).getBestCmap())} glyph(s), {os.path.getsize(head_dst):,} B')
+
+    # The site's own BODY face (--ff-body in css/app.css) — Arno Pro, the game's book serif, in
+    # four styles for <strong>/<em>. Self-hosted so the running text reads in Arno for every
+    # visitor, not in whatever serif they happen to have (it was Georgia, missing on stock
+    # Android/Linux, so the body silently changed face there). The charset is BASE plus every
+    # character the built chapters and the interface strings use: Arno covers Latin AND Cyrillic,
+    # so es/en/de/it/fr/pt/pl/ru/uk render in it; CJK (ko/zh) has no Arno glyph and falls through
+    # --ff-body's stack to a system serif, which is unavoidable. Kept apart from the ub/ card
+    # faces on purpose — the site body must not ride on a subset that was cut for the cards.
+    SITE_BODY = {
+        'arno.woff2': 'arnopro-regular.otf',
+        'arno-b.woff2': 'arnopro-bold.otf',
+        'arno-i.woff2': 'arnopro-italic.otf',
+        'arno-bi.woff2': 'arnopro-bolditalic.otf',
+    }
+    body_chars = set(BASE)
+    for path in (sorted(glob.glob(os.path.join(langpack.DATA_DIR, 'grimoire_*.json')))
+                 + sorted(glob.glob(os.path.join(langpack.DATA_DIR, 'faq_*.json')))):
+        with open(path, encoding='utf-8') as f:
+            body_chars |= set(json.dumps(json.load(f), ensure_ascii=False))
+    for pack in langpack.load_valid()[0]:
+        _str_chars((pack.ui or {}).get('strings') or {}, body_chars)
+    for name, master_name in SITE_BODY.items():
+        master = os.path.join(FONTS, master_name)
+        if not os.path.exists(master):
+            print(f'  [warn] master missing, {name} left as it is: {master_name}', file=sys.stderr)
+            continue
+        have = set(TTFont(master).getBestCmap())
+        keep = ''.join(c for c in sorted(body_chars) if ord(c) in have)
+        dst = os.path.join(FONTS, name)
+        if check:
+            cur = set(TTFont(dst).getBestCmap()) if os.path.exists(dst) else set()
+            short = sorted(c for c in keep if ord(c) not in cur)
+            print(f'  {name:16} has {len(cur):4} glyph(s); {len(short)} still missing')
+            continue
+        subset.main([master, f'--text={keep}', '--flavor=woff2', f'--output-file={dst}',
+                     '--layout-features=*', '--no-hinting', '--desubroutinize'])
+        print(f'  {name:16} <- {master_name:24} {len(TTFont(dst).getBestCmap())} glyph(s), '
+              f'{os.path.getsize(dst):,} B')
+
     return 1 if (missing_any and not check) else 0
 
 

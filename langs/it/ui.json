@@ -390,25 +390,5 @@
     "faq-environments": "Ambienti attuale, legacy e limitato per personalizzare i mazzi.",
     "faq-intro": "Che cos'è questo documento, che cosa contiene di nuovo e a quali prodotti si applica."
   },
-  "releases": [
-    {
-      "v": "1.0.0",
-      "date": "2026-07-20",
-      "title": "Prima versione pubblica",
-      "items": [
-        "Due regolamenti completi, ricercabili insieme: **Il Grimorio di Arkham** (capitolo 2, il riferimento in vigore dal 2026) e il **FAQ del capitolo 1** (le note, gli errata e le domande precedenti), tenuti separati di proposito perché possono contraddirsi.",
-        "**Undici lingue**: quattro con i libri completi — spagnolo, inglese, tedesco e italiano —, ciascuna costruita dai PDF ufficiali della propria lingua; e altre sette — francese, portoghese, polacco, russo, ucraino, coreano e cinese — con tutta l'interfaccia tradotta, in attesa dei loro regolamenti. Quando un libro non esiste ancora nella tua lingua, il sito te lo dice e ti propone di leggerlo in un'altra. L'inglese va avanti: è lì che gli aggiornamenti vengono pubblicati per primi.",
-        "**Cronologia delle versioni**: ogni voce sa in quale edizione è apparsa per la prima volta e che cosa è stato riscritto in seguito, con il testo aggiunto evidenziato e un elenco di novità per ogni versione.",
-        "**Collegamenti ad ArkhamDB**: ogni carta citata dai libri rimanda alla sua pagina esatta, nella tua lingua, ricavata dal nome, dal numero di collezione e dall'icona del prodotto.",
-        "**Strumenti**: ricerca su entrambi i documenti, glossario collegato automaticamente, diagrammi delle fasi interattivi, anatomia delle carte, riferimento rapido stampabile, icone dei prodotti e dei set di incontri.",
-        "**Ultimatum, Favori e Rifrazioni**: un visualizzatore carta per carta con filtri per capitolo, tipo, campagna e scenario, pesca casuale, scelta della **cornice V1/V2** e download pronto per la stampa (fronte e retro, con o senza abbondanza).",
-        "**L'Elenco dei Tabù** in diretta da ArkhamDB, raggruppato come nel libro e collegato carta per carta.",
-        "**Visore delle carte dell'elenco dei tabù**: ogni carta disegnata com'è stampata e come la modifica il tabù, ricostruita nella tua lingua; gli investigatori mostrano fronte e retro, con il retro originale accanto a quello modificato. Puoi ingrandirle — e passare da una versione all'altra con le frecce per confrontarle — e **scaricarle pronte per la stampa**: fronte e retro, con o senza abbondanza, una alla volta o tutte insieme.",
-        "**Materiale della comunità**, sempre accreditato e tenuto separato dai libri ufficiali, come il diagramma di Korriane sulle tempistiche delle prove di abilità.",
-        "**Sette temi visivi**, chiari e scuri, e un'interfaccia pensata per la tastiera e per il lettore di schermo.",
-        "**Gratuito, senza scopo di lucro e aperto**: tutto il codice è su GitHub, e in fondo alla pagina è spiegato come dare una mano — una traduzione, una correzione, un'idea."
-      ]
-    }
-  ],
   "fallback": "en"
 }

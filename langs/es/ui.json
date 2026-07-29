@@ -391,25 +391,5 @@
     "faq-optional": "Ultimátums, ayudas y refracciones de la versión anterior.",
     "faq-environments": "Entornos actual, legado y limitado para crear tus mazos.",
     "faq-intro": "Qué es este documento, qué trae de nuevo y a qué productos se aplica."
-  },
-  "releases": [
-    {
-      "v": "1.0.0",
-      "date": "2026-07-20",
-      "title": "Primera versión pública",
-      "items": [
-        "Dos reglamentos completos y buscables a la vez: **El Grimorio de Arkham** (capítulo 2, la referencia vigente desde 2026) y el **FAQ del capítulo 1** (notas, erratas y preguntas anteriores), separados a propósito porque pueden contradecirse.",
-        "**Once idiomas**: cuatro con los libros completos —español, inglés, alemán e italiano—, cada uno construido desde los PDF oficiales de su propio idioma; y otros siete —francés, portugués, polaco, ruso, ucraniano, coreano y chino— con toda la interfaz traducida mientras esperan sus reglamentos. Cuando un libro todavía no existe en tu idioma, la web te lo dice y te ofrece leerlo en otro. El inglés va por delante: es donde se publican antes las actualizaciones.",
-        "**Historial de versiones**: cada entrada sabe en qué edición apareció y qué se reescribió después, con el texto añadido resaltado y una sección de novedades por versión.",
-        "**Enlaces a ArkhamDB**: cada carta citada lleva a su ficha exacta, en tu idioma, deducida del nombre, el número de colección y el icono del producto.",
-        "**Herramientas**: buscador sobre ambos documentos, glosario enlazado automáticamente, diagramas de fases interactivos, elementos de las cartas, referencia rápida imprimible, iconos de producto y de conjunto de encuentros.",
-        "**Ultimátums, ayudas y refracciones**: visor carta a carta con filtros por capítulo, tipo, campaña y escenario, robo aleatorio, elección de marco **V1 o V2** y descarga lista para imprimir (cara y reverso, con o sin sangrado).",
-        "**La lista de tabúes** en vivo desde ArkhamDB, agrupada como en el libro y enlazada carta por carta.",
-        "**Visor de cartas de la lista de tabúes**: cada carta se dibuja como está impresa y como la cambia el tabú, reconstruida en tu idioma; los investigadores muestran delantera y trasera, con la trasera original junto a la erratada. Puedes ampliarlas —y pasar de una versión a otra con las flechas para compararlas— y **descargarlas listas para imprimir**: cara y reverso, con o sin sangrado, una a una o todas a la vez.",
-        "**Material de la comunidad**, siempre acreditado y separado de los libros oficiales, como el diagrama de tiempos de las pruebas de habilidad de Korriane.",
-        "**Siete temas visuales**, claros y oscuros, y una interfaz pensada para teclado y lector de pantalla.",
-        "**Gratis, sin ánimo de lucro y abierto**: todo el código está en GitHub, y el pie de página explica cómo echar una mano —una traducción, un arreglo, una idea—."
-      ]
-    }
-  ]
+  }
 }

@@ -344,7 +344,7 @@ Every rule must match at least once or the build says so, so a rule left over fr
 ```
 langs/<code>/        the only thing a translator writes  (lang.json · ui.json · flag.svg · source/*.pdf · source_faq/*.pdf)
 tools/               the pipeline — knows no language     (python tools/ingest.py)
-data/                generated: grimoire_<code>.json + faq_<code>.json + taboos_<code>.json + languages.json (the registry)
+data/                generated: grimoire_<code>.json + faq_<code>.json + taboos_<code>.json + languages.json (the registry) — plus hand-written data/releases.json (the release notes, every language in one file, fetched when the footer's release panel opens)
 assets/              generated figures + the game icons (shared by every language)
 index.html js/ css/  the app — knows no language
 ```

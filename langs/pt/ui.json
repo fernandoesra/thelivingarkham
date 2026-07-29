@@ -345,25 +345,5 @@
     "faq-environments": "Ambientes atual, legado e limitado para a construção de decks.",
     "faq-intro": "O que é este documento, o que ele traz de novo e a quais produtos se aplica."
   },
-  "releases": [
-    {
-      "v": "1.0.0",
-      "date": "2026-07-20",
-      "title": "Primeira versão pública",
-      "items": [
-        "Dois regulamentos completos, pesquisáveis ao mesmo tempo: **O Grimório de Arkham** (capítulo 2, a referência em vigor desde 2026) e o **FAQ do capítulo 1** (as notas, erratas e perguntas anteriores), mantidos separados de propósito porque podem se contradizer.",
-        "**Onze idiomas**: quatro com os livros completos — espanhol, inglês, alemão e italiano —, cada um construído a partir dos PDFs oficiais do próprio idioma; e outros sete — francês, português, polonês, russo, ucraniano, coreano e chinês — com toda a interface traduzida enquanto esperam pelos seus regulamentos. Quando um livro ainda não existe no seu idioma, o site avisa e se oferece para mostrá-lo em outro. O inglês vai à frente: é nele que as atualizações são publicadas primeiro.",
-        "**Histórico de versões**: cada entrada sabe em que edição apareceu pela primeira vez e o que foi reescrito depois, com o texto adicionado destacado e uma lista de novidades por versão.",
-        "**Links para o ArkhamDB**: cada carta citada nos livros leva à sua página exata, no seu idioma, deduzida do nome, do número de coleção e do ícone do produto.",
-        "**Ferramentas**: busca nos dois documentos, glossário com links automáticos, diagramas de fases interativos, anatomia das cartas, referência rápida para imprimir, ícones de produto e de conjunto de encontro.",
-        "**Ultimatos, Dádivas e Refrações**: um visualizador carta a carta com filtros por capítulo, tipo, campanha e cenário, sorteio aleatório e download em imagem.",
-        "**A lista de tabus** ao vivo a partir do ArkhamDB, agrupada como no livro e com links carta a carta.",
-        "**Taboo-list card viewer**: every card drawn as it is printed and as the taboo changes it, rebuilt in your language; investigators show front and back, with the original back beside the errata'd one. Zoom them — and step between versions with the arrows to compare them — and **download them ready to print**: front and back, with or without bleed, one at a time or all at once.",
-        "**Material da comunidade**, sempre creditado e mantido separado dos livros oficiais, como o diagrama de Korriane sobre a ordem de resolução dos testes de perícia.",
-        "**Sete temas visuais**, claros e escuros, e uma interface pensada para o teclado e o leitor de tela.",
-        "**Gratuito, sem fins lucrativos e aberto**: todo o código está no GitHub, e o rodapé explica como dar uma mão — uma tradução, uma correção, uma ideia."
-      ]
-    }
-  ],
   "fallback": "en"
 }

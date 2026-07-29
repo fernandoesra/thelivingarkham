@@ -14,6 +14,22 @@
 @font-face{font-family:'ubbody';src:url(../assets/fonts/ub/ub-body-i.woff2) format('woff2');font-weight:400;font-style:italic;font-display:swap}
 @font-face{font-family:'ubbody';src:url(../assets/fonts/ub/ub-body-b.woff2) format('woff2');font-weight:700;font-style:normal;font-display:swap}
 @font-face{font-family:'ubbody';src:url(../assets/fonts/ub/ub-body-bi.woff2) format('woff2');font-weight:700;font-style:italic;font-display:swap}
+/* The site's heading face (--ff-head). Same blackletter master as 'ubtitle' (Teutonic) but
+   shipped WHOLE — only ~221 glyphs, so the full face is tiny (~30 KB) — and self-hosted here so
+   EVERY visitor sees the headings in Teutonic, not only those who happen to have it installed
+   (it looked right locally purely because the font was on the machine). Latin only: --ff-head
+   falls the rest — Cyrillic, CJK, the Polish extras it lacks — through to a serif, which is
+   correct, there is no blackletter for those scripts. Regenerate with tools/ub_fonts.py. */
+@font-face{font-family:'teutonic';src:url(../assets/fonts/teutonic.woff2) format('woff2');font-display:swap}
+/* The site's body face (--ff-body): Arno Pro, the game's own book serif — the same master the
+   cards use, self-hosted here in four styles (cut by tools/ub_fonts.py) so the running text reads
+   in Arno for EVERY visitor, not in whatever serif they happen to have (it was Georgia, absent on
+   stock Android/Linux, so the body silently changed face there). Latin + Cyrillic are in the cut;
+   CJK (ko/zh) has no Arno glyph and falls through --ff-body's stack to a system serif. */
+@font-face{font-family:'arno';src:url(../assets/fonts/arno.woff2) format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'arno';src:url(../assets/fonts/arno-b.woff2) format('woff2');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'arno';src:url(../assets/fonts/arno-i.woff2) format('woff2');font-weight:400;font-style:italic;font-display:swap}
+@font-face{font-family:'arno';src:url(../assets/fonts/arno-bi.woff2) format('woff2');font-weight:700;font-style:italic;font-display:swap}
 /* The Drowned City's alien alphabet. The characters underneath are ordinary letters — the face
    is what makes them alien — so the text stays real text: selectable, searchable, and read out
    correctly by a screen reader. `swap` matters more than usual here: until it loads the reader
@@ -173,7 +189,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 
 #tla-root{
   --ff-head:'teutonic','Cinzel',Georgia,'Times New Roman',serif;
-  --ff-body:Georgia,'Iowan Old Style','Palatino Linotype',serif;
+  --ff-body:'arno',Georgia,'Iowan Old Style','Palatino Linotype',serif;
   --ff-ui:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
   /* Type scale. One small set of sizes for the whole interface -- body at 18, labels a step down,
      headings up -- consolidated from ~37 ad-hoc values so the page reads at a consistent rhythm.
@@ -517,7 +533,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   color:#fff; letter-spacing:1px; text-shadow:0 2px 22px rgba(0,0,0,.6); display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:center}
 .tla-hero-sub{font-family:var(--ff-ui); font-size:clamp(16px,2.3vw,21px); margin:0;
   color:rgba(255,255,255,.92); text-shadow:0 1px 10px rgba(0,0,0,.6)}
-.tla-cards-h{font-family:var(--ff-head); font-size:var(--fs-lead); color:var(--gold2); margin:24px 0 4px; letter-spacing:.3px}
+.tla-cards-h{font-family:var(--ff-head); font-size:var(--fs-h2); color:var(--gold2); margin:24px 0 4px; letter-spacing:.3px}
 /* ---------- pennants ----------
    Two of these, explained once above the grid and then flown on the chapters
    they point at. A swallowtail cut and a slow wave: they should read as cloth on
@@ -600,7 +616,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:24px 0 8px}
 /* A shelf heading over its own grid. h3 under the "Explorar" h2, so the outline runs
    h1 > h2 > h3 with nothing skipped. */
-.tla-cards-grp{font-family:var(--ff-head); font-size:var(--fs-lead); color:var(--teal2);
+.tla-cards-grp{font-family:var(--ff-head); font-size:var(--fs-h2); color:var(--gold2);
   margin:26px 0 -10px; letter-spacing:.3px}
 .tla-card.is-soon{border-style:dashed}
 .tla-card.is-soon .tla-card-meta{color:var(--teal2)}
@@ -1317,8 +1333,10 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   padding:3px 10px; border-radius:11px; border:1px solid var(--edge2); background:var(--bg); color:var(--muted)}
 .tla-wngrp-c.new{color:var(--teal2)}
 .tla-wngrp-c.upd{color:var(--gold2)}
+/* padding-top separates the first card row from the header: [open], the summary takes a darker
+   background on hover and, flush against the cards, it read as a shadow pressing on them. */
 .tla-wngrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(248px,1fr)); gap:12px;
-  padding:0 14px 14px}
+  padding:9px 14px 14px}
 .tla-wncard{display:flex; flex-direction:column; gap:4px; text-align:left; cursor:pointer;
   padding:13px 15px; border-radius:10px; border:1px solid var(--edge2); background:var(--panel); transition:transform .1s, border-color .12s}
 .tla-wncard:hover{transform:translateY(-2px); border-color:var(--gold)}
@@ -1870,4 +1888,8 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-rel-item[open] > .tla-rel-list{display:flex; flex-direction:column; gap:8px}
 .tla-rel-list li{font-size:var(--fs-small); line-height:1.6; color:var(--ink2)}
 .tla-rel-list strong{color:var(--ink)}
-@media (prefers-reduced-motion:reduce){ .tla-rel-sum::before{transition:none} }
+/* shown while data/releases.json is fetched the first time the panel opens */
+.tla-rel-loading{width:26px; height:26px; margin:28px auto; border-radius:50%;
+  border:3px solid var(--edge2); border-top-color:var(--gold); animation:tlaspin .7s linear infinite}
+@keyframes tlaspin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){ .tla-rel-sum::before{transition:none} .tla-rel-loading{animation:none} }

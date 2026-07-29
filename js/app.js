@@ -4046,37 +4046,57 @@ function closeLightbox(){
 /* ---------- donate modal ---------- */
 /* ---------- release notes ----------
    What changed and when. The site is a living document like the books it carries, so it says
-   so out loud. The notes themselves are CONTENT — one entry per release, per language — so they
-   live in each pack's ui.json ("releases"), not here; this only lays them out. A very small
-   subset of markdown is honoured (**bold**), because a release note is mostly a list of names
-   and one of them wants emphasis. */
-var elRel=null, lastRel=null;
+   so out loud. The notes are CONTENT — one entry per release, translated per language — and they
+   grow with every ship, so they live in their own file (data/releases.json), fetched on demand
+   the first time the panel opens rather than bundled into every pack's ui.json. Shape: a
+   newest-first array of {v, date, i18n:{<code>:{title, items}}}. A very small subset of markdown
+   is honoured (**bold**); relPick chooses the reader's language with the usual English fallback. */
+var elRel=null, lastRel=null, RELEASES=null, releasesReq=null;
 /* Visibility is the `on` class, as with every other modal here — `hidden` alone leaves the
    box at display:none, so nothing inside it can take focus. */
 function relOpen(){return !!(elRel&&elRel.classList.contains('on'));}
+/* Fetched once and cached, so a changelog that grows with every release never weighs on startup;
+   the panel shows a busy state until it lands, and falls back to the load-error string if it fails. */
+function loadReleases(){
+  if(RELEASES)return Promise.resolve(RELEASES);
+  if(releasesReq)return releasesReq;
+  releasesReq=getJSON('data/releases.json').then(function(r){RELEASES=r||[]; return RELEASES;});
+  return releasesReq;
+}
 function relBold(str){
   /* Escape first, then re-introduce the one tag we allow: nothing from the pack can inject
      markup this way, only ask for emphasis. */
   return esc(str).replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
 }
-function relNotesHTML(){
-  var rel=uiOf(lang,'releases',null)||[];
+/* The reader's language, then down the fallback chain to English — same rule as pick(). Returns
+   the chosen {title, items} and the code it came from, so a fallback can be tagged lang="…". */
+function relPick(entry){
+  var i18n=entry&&entry.i18n; if(!i18n)return null;
+  var ch=chainOf(lang);
+  for(var i=0;i<ch.length;i++){ if(i18n[ch[i]])return {o:i18n[ch[i]], code:ch[i]}; }
+  if(i18n.en)return {o:i18n.en, code:'en'};
+  for(var k in i18n){ if(i18n.hasOwnProperty(k))return {o:i18n[k], code:k}; }
+  return null;
+}
+function relNotesHTML(rel){
+  rel=rel||[];
   if(!rel.length)return '<p class="tla-modal-p">'+esc(t('soon'))+'</p>';
   var h='';
   rel.forEach(function(r,i){
-    /* Each version is a collapsible <details>, collapsed by default and newest first (releases[] is
+    /* Each version is a collapsible <details>, collapsed by default and newest first (the file is
        stored newest-first). The summary alone shows the version, its name, the date and a current/old
        tag; opening it reveals the item list. <details>/<summary> is keyboard- and reader-native. */
+    var p=relPick(r), o=p?p.o:{}, tag=(p&&p.code!==lang)?(' lang="'+esc(p.code)+'"'):'';
     h+='<details class="tla-rel-item">';
     h+='<summary class="tla-rel-sum">'
       +'<span class="tla-rel-head"><span class="tla-rel-v">'+esc(r.v)+'</span>'
-      +(r.title?'<span class="tla-rel-name">'+esc(r.title)+'</span>':'')+'</span>'
+      +(o.title?'<span class="tla-rel-name"'+tag+'>'+esc(o.title)+'</span>':'')+'</span>'
       +'<span class="tla-rel-meta">'+(r.date?esc(fmtDate(r.date)):'')
       +'<span class="'+(i===0?'tla-rel-now':'tla-rel-old')+'">'+esc(t(i===0?'relcurrent':'relold'))+'</span></span>'
       +'</summary>';
-    if(r.items&&r.items.length){
-      h+='<ul class="tla-rel-list">';
-      r.items.forEach(function(x){h+='<li>'+relBold(x)+'</li>';});
+    if(o.items&&o.items.length){
+      h+='<ul class="tla-rel-list"'+tag+'>';
+      o.items.forEach(function(x){h+='<li>'+relBold(x)+'</li>';});
       h+='</ul>';
     }
     h+='</details>';
@@ -4086,9 +4106,19 @@ function relNotesHTML(){
 function openRelease(){
   lastRel=document.activeElement;
   var body=document.getElementById('tla-rel-body');
-  if(body)body.innerHTML=relNotesHTML();
   elRel.hidden=false; elRel.classList.add('on');
   var c=document.getElementById('tla-rel-close'); if(c)try{c.focus();}catch(e){}
+  if(!body)return;
+  /* Already fetched this session -> render now. First time -> a busy state until the file lands. */
+  if(RELEASES){ body.removeAttribute('aria-busy'); body.innerHTML=relNotesHTML(RELEASES); return; }
+  body.setAttribute('aria-busy','true');
+  body.innerHTML='<div class="tla-rel-loading" aria-hidden="true"></div>';
+  loadReleases().then(function(rel){
+    if(!relOpen())return;               // the reader closed the panel before it arrived
+    body.removeAttribute('aria-busy'); body.innerHTML=relNotesHTML(rel);
+  },function(){
+    body.removeAttribute('aria-busy'); body.innerHTML='<p class="tla-modal-p">'+esc(t('loaderr'))+'</p>';
+  });
 }
 function closeRelease(){
   if(!relOpen())return;

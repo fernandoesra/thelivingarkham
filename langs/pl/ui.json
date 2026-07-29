@@ -350,25 +350,5 @@
     "faq-environments": "Środowiska aktualne, dawne i ograniczone przy tworzeniu talii.",
     "faq-intro": "Czym jest ten dokument, co w nim nowego i jakich produktów dotyczy."
   },
-  "releases": [
-    {
-      "v": "1.0.0",
-      "date": "2026-07-20",
-      "title": "Pierwsze publiczne wydanie",
-      "items": [
-        "Dwa kompletne zbiory zasad, przeszukiwane jednocześnie: **Grimuar z Arkham** (rozdział 2, punkt odniesienia obowiązujący od 2026 roku) i **FAQ rozdziału 1** (wcześniejsze notatki, erraty i pytania), rozdzielone celowo, ponieważ mogą być ze sobą sprzeczne.",
-        "**Jedenaście języków**: cztery mają komplet ksiąg — hiszpański, angielski, niemiecki i włoski — każdy zbudowany na podstawie oficjalnych plików PDF w danym języku; a kolejnych siedem — francuski, portugalski, polski, rosyjski, ukraiński, koreański i chiński — ma przetłumaczony cały interfejs i czeka na swoje zbiory zasad. Kiedy jakiejś księgi nie ma jeszcze w Twoim języku, strona daje Ci o tym znać i proponuje, że pokaże ją w innym. Angielski wyprzedza resztę: to w nim najpierw pojawiają się aktualizacje.",
-        "**Historia wersji**: każdy wpis wie, w którym wydaniu pojawił się po raz pierwszy i co przepisano w nim później, z wyróżnionym dodanym tekstem i listą nowości dla każdej wersji.",
-        "**Odnośniki do ArkhamDB**: każda karta wymieniona w księgach prowadzi do swojej strony, w Twoim języku, ustalonej na podstawie nazwy, numeru w kolekcji i ikony produktu.",
-        "**Narzędzia**: wyszukiwarka obejmująca oba dokumenty, automatycznie linkowany słownik, interaktywne diagramy faz, budowa karty, ściągawka do wydruku, ikony produktów i zestawów spotkań.",
-        "**Ultimatum, Dobrodziejstwa i Refrakcje**: przeglądarka karta po karcie z filtrami według rozdziału, typu, kampanii i scenariusza, losowaniem i pobieraniem obrazów.",
-        "**Lista tabu** pobierana na żywo z ArkhamDB, pogrupowana tak jak w księdze i połączona odnośnikami karta po karcie.",
-        "**Taboo-list card viewer**: every card drawn as it is printed and as the taboo changes it, rebuilt in your language; investigators show front and back, with the original back beside the errata'd one. Zoom them — and step between versions with the arrows to compare them — and **download them ready to print**: front and back, with or without bleed, one at a time or all at once.",
-        "**Materiały społeczności**, zawsze z podaniem autora i wyraźnie oddzielone od oficjalnych ksiąg — jak diagram kolejności rozpatrywania testu umiejętności autorstwa Korriane.",
-        "**Siedem motywów graficznych**, jasnych i ciemnych, oraz interfejs zaprojektowany z myślą o klawiaturze i czytniku ekranu.",
-        "**Darmowy, nienastawiony na zysk i otwarty**: cały kod jest dostępny na GitHubie, a stopka strony wyjaśnia, jak wyciągnąć pomocną dłoń — tłumaczenie, poprawka, pomysł."
-      ]
-    }
-  ],
   "fallback": "en"
 }

@@ -390,25 +390,5 @@
     "faq-optional": "Ultimaten, Gaben und Refraktionen aus der früheren Fassung.",
     "faq-environments": "Aktuelle, Legacy- und Limitierte Umgebung für den Deckbau.",
     "faq-intro": "Was dieses Dokument ist, was daran neu ist und für welche Produkte es gilt."
-  },
-  "releases": [
-    {
-      "v": "1.0.0",
-      "date": "2026-07-20",
-      "title": "Erste öffentliche Version",
-      "items": [
-        "Zwei vollständige Regelwerke, gemeinsam durchsuchbar: **Das Arkham Grimoire** (Kapitel 2, die seit 2026 gültige Referenz) und der **FAQ zu Kapitel 1** (die früheren Klarstellungen, Errata und Fragen), bewusst getrennt gehalten, weil sie sich widersprechen können.",
-        "**Elf Sprachen**: vier mit vollständigen Büchern — Spanisch, Englisch, Deutsch und Italienisch —, jeweils aus den offiziellen PDFs der eigenen Sprache aufgebaut; und sieben weitere — Französisch, Portugiesisch, Polnisch, Russisch, Ukrainisch, Koreanisch und Chinesisch — mit vollständig übersetzter Oberfläche, während sie auf ihre Regelwerke warten. Wenn es ein Buch in eurer Sprache noch nicht gibt, sagt die Seite Bescheid und bietet euch an, es in einer anderen zu lesen. Englisch läuft voraus: Dort erscheinen die Aktualisierungen zuerst.",
-        "**Versionsverlauf**: Jeder Eintrag weiß, in welcher Ausgabe er zuerst erschien und was später umgeschrieben wurde, mit hervorgehobenem Zusatztext und einer Neuigkeitenliste je Version.",
-        "**ArkhamDB-Links**: Jede in den Büchern genannte Karte führt zu ihrer genauen Seite in eurer Sprache, ermittelt aus Name, Sammlungsnummer und Produktsymbol.",
-        "**Werkzeuge**: Suche über beide Dokumente, automatisch verlinktes Glossar, interaktive Phasendiagramme, Aufbau der Karten, druckbare Schnellübersicht, Produkt- und Begegnungssetsymbole.",
-        "**Ultimaten, Gaben und Refraktionen**: ein Betrachter Karte für Karte mit Filtern nach Kapitel, Typ, Kampagne und Szenario, Zufallsziehung, **V1/V2-Rahmen**-Wahl und druckfertigem Download (Vorder- und Rückseite, mit oder ohne Beschnitt).",
-        "**Die Tabuliste** live von ArkhamDB, gruppiert wie im Buch und Karte für Karte verlinkt.",
-        "**Kartenansicht der Tabuliste**: jede Karte, wie sie gedruckt ist und wie das Tabu sie verändert, in deiner Sprache rekonstruiert; Ermittler zeigen Vorder- und Rückseite, mit der Originalrückseite neben der geänderten. Du kannst sie vergrößern — und mit den Pfeilen zwischen den Versionen wechseln, um sie zu vergleichen — und **druckfertig herunterladen**: Vorder- und Rückseite, mit oder ohne Beschnitt, einzeln oder alle auf einmal.",
-        "**Material aus der Community**, immer mit Namensnennung und getrennt von den offiziellen Büchern gehalten — etwa das Timing-Diagramm für Fertigkeitsproben von Korriane.",
-        "**Sieben Designs**, hell und dunkel, und eine Oberfläche, die für Tastatur und Screenreader gebaut ist.",
-        "**Kostenlos, ohne Gewinnabsicht und offen**: Der gesamte Code liegt auf GitHub, und am Seitenende steht, wie ihr mithelfen könnt — mit einer Übersetzung, einer Korrektur, einer Idee."
-      ]
-    }
-  ]
+  }
 }
