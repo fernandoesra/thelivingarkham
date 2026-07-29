@@ -300,15 +300,15 @@
   /* The vertical slack is for descenders hanging out of a tight line box; sideways there is no
      such thing, and letting a word run 0.3em past its box hid the last letter of SUPPORTO on the
      Italian plaque. So width is judged tightly and height is not. */
-  /* `vtol` is the vertical slack allowed, as a share of the font size. The default (+0.06) forgives
-     the descender hair a tight line box lets poke below. A NEGATIVE value asks for real HEADROOM
-     instead: the multi-line body sits at a line-wrap boundary -- one step of `--fit` is a whole
-     extra line -- and the biggest size that "fits by a pixel" here fits under one browser's metrics
-     and wraps that extra line, clipped, under another's (the same card reads fine on reload and
-     spills after a language switch). Asking the body to clear the box by a couple of pixels lands
-     it safely inside the boundary on every engine, at the cost of a hair more shrink. */
+  /* `vtol` is the vertical slack allowed, as a share of the font size; the default (+0.06) forgives
+     the descender hair a tight line box lets poke below its box. */
   function fit(el, prop, lo, vtol) {
-    if (!el) return;
+    /* Skip an element with no box: the filter hides non-matching cards with `hidden` (display:none),
+       and a hidden element reports scrollHeight === clientHeight === 0, which "fits" at any size --
+       so measuring it would stamp --fit back to 1 (unshrunk), and the card would then appear HUGE and
+       clipped the instant the filter reveals it again. Leaving it untouched keeps the size it was
+       fitted to while visible. */
+    if (!el || !el.clientHeight) return;
     var set = function (f) { el.style.setProperty(prop, f); };
     var top = 1, vt = vtol == null ? 0.06 : vtol;
     var fits = function () {
