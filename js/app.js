@@ -734,6 +734,7 @@ function openThemeMenu(){
   dropThemeTip();                     // they found it; stop saying so
   buildThemePicker();
   elThemeMenu.hidden=false; elTheme.setAttribute('aria-expanded','true');
+  clampHeaderMenu(elThemeMenu, elThemeMenu.closest('.tla-themewrap'));
   var on=elThemeMenu.querySelector('input:checked')||elThemeMenu.querySelector('input');
   if(on)on.focus();
 }
@@ -3636,10 +3637,25 @@ function buildLangBar(){
 }
 function langMenuEl(){return document.getElementById('tla-langmenu');}
 function langMenuOpen(){var m=langMenuEl(); return !!m&&!m.hidden;}
+/* Keep a header dropdown (language / theme) inside the viewport. Both menus are
+   position:absolute; right:0 inside their wrapper — correct while the wrapper sits on the
+   RIGHT of the header, but on a narrow screen the header wraps and the wrapper can land on
+   the LEFT, where right:0 pushes the menu off the left edge and clips the language names.
+   Measure on open and, only if it would spill, re-anchor with an explicit left. No-op (no
+   inline style) when the default right:0 already fits, so the desktop layout is untouched. */
+function clampHeaderMenu(menu, wrap){
+  if(!menu||!wrap||menu.hidden)return;
+  menu.style.left=''; menu.style.right='';           // restore the CSS default (right:0) before measuring
+  var margin=8, wr=wrap.getBoundingClientRect(), mw=menu.offsetWidth, vw=window.innerWidth;
+  var vpLeft=wr.right-mw;                             // where right:0 lands the menu's left edge, in viewport coords
+  var clamped=Math.max(margin, Math.min(vpLeft, vw-mw-margin));
+  if(Math.abs(clamped-vpLeft)>0.5){ menu.style.right='auto'; menu.style.left=(clamped-wr.left)+'px'; }
+}
 function openLangMenu(){
   var m=langMenuEl(), b=document.getElementById('tla-langcur');
   if(!m||!b)return;
   m.hidden=false; b.setAttribute('aria-expanded','true');
+  clampHeaderMenu(m, document.querySelector('.tla-lang'));
   var first=m.querySelector('button'); if(first)first.focus();
 }
 function closeLangMenu(refocus){
@@ -4510,6 +4526,9 @@ function wireEvents(){
     }
     syncFoot();                       // the breakpoint decides whether it folds at all
     syncStickyHeight(); layoutFlowLoops();
+    // a rotate/resize with a header dropdown open moves its wrapper — re-clamp it
+    if(langMenuOpen())clampHeaderMenu(langMenuEl(), document.querySelector('.tla-lang'));
+    if(themeMenuOpen())clampHeaderMenu(elThemeMenu, elThemeMenu.closest('.tla-themewrap'));
   },{passive:true});
 
   // clicking the backdrop (or the image) dismisses it, as before — but the

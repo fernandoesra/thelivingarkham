@@ -34,6 +34,37 @@
       }catch(e){}
     })();
   </script>
+  <script>
+    /* Lock the app shell to the LIVE viewport height. #tla-root is height:100dvh
+       (see css/app.css), but that unit can go stale on Android Chrome after a cold
+       first load: the root is overflow:hidden and the real scroller is an inner rail,
+       so the document never scrolls, and when the URL bar retracts (growing the
+       viewport) 100dvh is never re-resolved — the shell stays short and the dark body
+       shows below the footer until a manual refresh. We size it ourselves instead.
+       VALUE is window.innerHeight: it tracks the URL bar, but NOT the on-screen
+       keyboard (the viewport meta has no interactive-widget, so it resizes-visual) —
+       reading visualViewport.height here would instead collapse the shell to ~half
+       whenever the in-page search box is focused. Inline in <head> so the height is
+       right before first paint; the bare 100dvh in CSS is the no-JS fallback. */
+    (function(){
+      var de=document.documentElement, last=-1;
+      function setAppH(){
+        var h=window.innerHeight;
+        if(!h||h===last)return;            // no-op while nothing really changed (avoids thrash during the URL-bar animation)
+        last=h; de.style.setProperty('--app-h',h+'px');
+      }
+      setAppH();
+      addEventListener('resize',setAppH,{passive:true});
+      addEventListener('orientationchange',setAppH,{passive:true});
+      addEventListener('load',setAppH,{passive:true});      // re-read once resources have settled the bar
+      addEventListener('pageshow',setAppH,{passive:true});  // bfcache restore (back/forward)
+      if(window.requestAnimationFrame)requestAnimationFrame(setAppH);
+      /* visualViewport 'resize' is the reliable URL-bar signal on Android Chrome; we
+         subscribe for TIMING but still read innerHeight for the VALUE, so a keyboard
+         open (which also fires it) stays a harmless no-op. */
+      if(window.visualViewport)window.visualViewport.addEventListener('resize',setAppH,{passive:true});
+    })();
+  </script>
   <link rel="stylesheet" href="css/app.css">
   <!-- the game icons, sized from their own font metrics (tools/extract_icons.py) -->
   <link rel="stylesheet" href="css/icons.css">

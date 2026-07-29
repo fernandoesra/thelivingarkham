@@ -24,6 +24,18 @@
 *,*::before,*::after{box-sizing:border-box}
 html,body{margin:0;height:100%}
 body{background:var(--page,#1a1f26);font-family:Georgia,'Iowan Old Style',serif}
+/* body paints --page, which shows only if the shell (#tla-root) is ever shorter than
+   the viewport — a transient during a mobile URL-bar move. The palette blocks below set
+   --page on #tla-root, but body is an ANCESTOR of #tla-root and cannot inherit from it,
+   so we mirror each theme's page colour onto <html> here (body then inherits it). Keeps
+   any seam theme-correct instead of a hardcoded dark stripe on the light themes. */
+html[data-theme="slate"]{--page:#1a1f26}
+html[data-theme="moss"]{--page:#121711}
+html[data-theme="midnight"]{--page:#232936}
+html[data-theme="plum"]{--page:#0f0a10}
+html[data-theme="neon"]{--page:#0d0a0c}
+html[data-theme="parchment"]{--page:#e9e1cf}
+html[data-theme="fog"]{--page:#e3e8ee}
 
 .tla-skip{position:absolute;left:8px;top:-48px;z-index:300;background:var(--gold);color:var(--on-gold);
   font-family:var(--ff-ui);font-weight:700;padding:10px 16px;border-radius:8px;text-decoration:none;transition:top .15s}
@@ -198,7 +210,14 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   --sym-cultist:#004a17; --sym-tablet:#0f2f4b; --sym-elderthing:#37335f;
   font-size:var(--fs-body); color:var(--ink); font-family:var(--ff-body); line-height:1.65;
   -webkit-font-smoothing:antialiased;
-  height:100dvh; display:flex; flex-direction:column; position:relative; overflow:hidden;
+  /* height:var(--app-h) locks the shell to the LIVE viewport; a small head-time
+     script keeps --app-h = window.innerHeight. The bare 100dvh stays as the no-JS
+     fallback. Why not 100dvh alone: this root is overflow:hidden and the scroller
+     is an inner rail (.tla-main), so the document never scrolls — and on Android
+     Chrome a 100dvh that was resolved while the URL bar was shown can then fail to
+     re-resolve when the bar retracts (no root-scroll signal), leaving the shell
+     short and the dark body showing below the footer until a manual refresh. */
+  height:100dvh; height:var(--app-h,100dvh); display:flex; flex-direction:column; position:relative; overflow:hidden;
   background:radial-gradient(135% 92% at 50% -18%, var(--bggrad) 0%, var(--bg) 55%);
 }
 #tla-root a{color:var(--teal2); text-decoration:none}
