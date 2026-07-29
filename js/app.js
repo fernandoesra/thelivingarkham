@@ -4194,19 +4194,32 @@ var TOUR=[{t:'tour1t',d:'tour1d',langs:true},
           {t:'tour2t',d:'tour2d',sel:'.tla-lang'},
           {t:'tour3t',d:'tour3d',sel:'#tla-theme'},
           {t:'tour4t',d:'tour4d',sel:'#tla-search-open'},
-          {t:'tour5t',d:'tour5d',sel:'#tla-nav'},
+          {t:'tour5t',d:'tour5d',sel:['#tla-nav','#tla-burger']},
           {t:'tour6t',d:'tour6d'}];
 var tourAt=-1, elTour=null, lastTour=null;
 function tourSeen(){try{return localStorage.getItem('tla-tour')==='done';}catch(e){return true;}}
 function tourMark(){try{localStorage.setItem('tla-tour','done');}catch(e){}}
 function tourOpen(){return tourAt>=0;}
 function tourTarget(step){
-  var el=step.sel&&document.querySelector(step.sel);
-  if(!el)return null;
-  var r=el.getBoundingClientRect();
-  /* Hidden, folded away or off the viewport: no rectangle rather than one drawn over nothing. */
-  if(!r.width||!r.height||r.bottom<0||r.top>window.innerHeight)return null;
-  return r;
+  if(!step.sel)return null;
+  /* A stop can name several candidates; we point at the first one actually on screen. The
+     sidebar stop is #tla-nav on desktop, but on a phone that drawer is folded off-canvas
+     (transform:translateX(-100%) + visibility:hidden), so there we fall through to #tla-burger,
+     the button that opens it — otherwise the spotlight lands on nothing at x=-300. */
+  var sels=typeof step.sel==='string'?[step.sel]:step.sel;
+  for(var i=0;i<sels.length;i++){
+    var el=document.querySelector(sels[i]);
+    if(!el)continue;
+    var r=el.getBoundingClientRect();
+    /* Visible = has a box, that box is inside the viewport on BOTH axes (the folded drawer keeps
+       its width but sits off to the left), and it is not display:none / visibility:hidden. */
+    if(!r.width||!r.height)continue;
+    if(r.bottom<=0||r.top>=window.innerHeight||r.right<=0||r.left>=window.innerWidth)continue;
+    var cs; try{cs=getComputedStyle(el);}catch(e){cs=null;}
+    if(cs&&(cs.visibility==='hidden'||cs.display==='none'))continue;
+    return r;
+  }
+  return null;
 }
 function tourPlace(){
   if(!elTour)return;
