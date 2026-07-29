@@ -163,6 +163,17 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   --ff-head:'teutonic','Cinzel',Georgia,'Times New Roman',serif;
   --ff-body:Georgia,'Iowan Old Style','Palatino Linotype',serif;
   --ff-ui:'Segoe UI',system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+  /* Type scale. One small set of sizes for the whole interface -- body at 18, labels a step down,
+     headings up -- consolidated from ~37 ad-hoc values so the page reads at a consistent rhythm.
+     This is the UI ONLY: the card faces (.tla-ubc*, and .tbc* in taboo.css) size their text in
+     cqw off the plate and are deliberately left alone. Change a size here, not on a rule. */
+  --fs-micro:13px;   /* the smallest: numeric badges, kbd, counts */
+  --fs-eyebrow:14px; /* uppercase eyebrows/labels, captions, meta */
+  --fs-small:16px;   /* secondary controls: nav items, buttons, tabs */
+  --fs-body:18px;    /* body reading text, inputs, primary controls */
+  --fs-lead:21px;    /* lead paragraphs, emphasis, the smallest headings */
+  --fs-h3:25px;      /* sub-section and section headings */
+  --fs-h2:31px;      /* callout and the largest in-flow headings */
   /* Icons are drawn at their true font size. On paper that is right; on a screen
      a touch larger reads better, without disturbing their proportions. */
   --icon-scale:1.15;
@@ -185,7 +196,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   --sym-agility:#005439; --sym-wild:#725b07;
   --sym-eldersign:#348792; --sym-autofail:#64070f; --sym-skull:#7c2b26;
   --sym-cultist:#004a17; --sym-tablet:#0f2f4b; --sym-elderthing:#37335f;
-  font-size:16px; color:var(--ink); font-family:var(--ff-body); line-height:1.65;
+  font-size:var(--fs-body); color:var(--ink); font-family:var(--ff-body); line-height:1.65;
   -webkit-font-smoothing:antialiased;
   height:100dvh; display:flex; flex-direction:column; position:relative; overflow:hidden;
   background:radial-gradient(135% 92% at 50% -18%, var(--bggrad) 0%, var(--bg) 55%);
@@ -205,8 +216,8 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-brand:hover{text-decoration:none}
 .tla-sigil{width:40px;height:40px;flex:0 0 auto;color:var(--gold);filter:drop-shadow(0 1px 3px rgba(0,0,0,.45))}
 .tla-titles{min-width:0; display:flex; flex-direction:column}
-.tla-title{font-family:var(--ff-head); font-size:24px; line-height:1; letter-spacing:.5px; color:var(--gold2); white-space:nowrap; display:flex; align-items:center}
-.tla-sub{font-family:var(--ff-ui); font-size:13px; color:var(--muted); letter-spacing:.3px; margin-top:4px}
+.tla-title{font-family:var(--ff-head); font-size:var(--fs-h3); line-height:1; letter-spacing:.5px; color:var(--gold2); white-space:nowrap; display:flex; align-items:center}
+.tla-sub{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--muted); letter-spacing:.3px; margin-top:4px}
 .tla-spacer{flex:1 1 auto}
 /* search trigger (opens the overlay) — icon + "/" shortcut hint */
 .tla-searchbtn{flex:0 0 auto; height:44px; padding:0 10px 0 12px; border-radius:10px; cursor:pointer;
@@ -214,7 +225,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   background:var(--panel); border:1px solid var(--edge2); color:var(--gold2)}
 .tla-searchbtn:hover{background:var(--panel2); border-color:var(--gold)}
 .tla-searchbtn > svg{width:19px;height:19px}
-.tla-searchbtn-kbd{font-family:var(--ff-ui); font-size:12px; color:var(--muted); line-height:1.5;
+.tla-searchbtn-kbd{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--muted); line-height:1.5;
   border:1px solid var(--edge2); border-radius:5px; padding:1px 7px; background:var(--bg)}
 .tla-theme{flex:0 0 auto; width:44px; height:44px; border-radius:10px; border:1px solid var(--edge2);
   background:var(--panel); color:var(--gold2); cursor:pointer; display:inline-flex; align-items:center; justify-content:center}
@@ -233,24 +244,24 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-themetip{position:absolute; top:calc(100% + 8px); right:0; z-index:59;
   display:flex; align-items:center; gap:8px; width:max-content; max-width:min(74vw,260px);
   background:var(--gold); color:var(--on-gold); border-radius:10px; padding:8px 6px 8px 11px;
-  box-shadow:var(--shadow); font-family:var(--ff-ui); font-size:13px; line-height:1.3;
+  box-shadow:var(--shadow); font-family:var(--ff-ui); font-size:var(--fs-eyebrow); line-height:1.3;
   animation:tlatip .5s ease both}
 /* the notch, pointing back at the button it is about */
 .tla-themetip::before{content:''; position:absolute; top:-5px; right:15px; width:10px; height:10px;
   background:var(--gold); transform:rotate(45deg)}
 .tla-themetip-t{position:relative}
 .tla-themetip-x{flex:0 0 auto; width:26px; height:26px; border:0; border-radius:6px; cursor:pointer;
-  background:transparent; color:var(--on-gold); font-size:17px; line-height:1;
+  background:transparent; color:var(--on-gold); font-size:var(--fs-body); line-height:1;
   display:inline-flex; align-items:center; justify-content:center}
 .tla-themetip-x:hover{background:rgba(0,0,0,.14)}
 @keyframes tlatip{from{opacity:0; transform:translateY(-5px)}to{opacity:1; transform:none}}
 @media (prefers-reduced-motion:reduce){ .tla-themetip{animation:none} }
 
 .tla-themeset{border:0; margin:0; padding:0}
-.tla-themeset-h{font-family:var(--ff-ui); font-size:11px; text-transform:uppercase;
+.tla-themeset-h{font-family:var(--ff-ui); font-size:var(--fs-micro); text-transform:uppercase;
   letter-spacing:1px; color:var(--muted); padding:0 6px 8px}
 .tla-themeopt{display:flex; align-items:center; gap:10px; padding:7px 8px; border-radius:8px;
-  cursor:pointer; font-family:var(--ff-ui); font-size:14px; color:var(--ink2); min-height:36px}
+  cursor:pointer; font-family:var(--ff-ui); font-size:var(--fs-small); color:var(--ink2); min-height:36px}
 .tla-themeopt:hover{background:var(--panel2); color:var(--ink)}
 /* the radio itself stays real and focusable — it is only moved out of sight, so
    the whole row is the label and the keyboard model is the browser's own */
@@ -276,7 +287,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   font-family:var(--ff-ui)}
 .tla-lang[hidden]{display:none}
 .tla-lang button{display:flex; align-items:center; gap:7px; min-height:44px;
-  background:transparent; color:var(--ink2); border:0; padding:0 12px; font-size:14px;
+  background:transparent; color:var(--ink2); border:0; padding:0 12px; font-size:var(--fs-small);
   font-weight:700; cursor:pointer; letter-spacing:.4px}
 .tla-lang button:hover{background:var(--panel)}
 .tla-lang button[aria-pressed=true]{background:var(--gold); color:var(--on-gold)}
@@ -303,7 +314,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-lang button[aria-pressed=true] .tla-flag{filter:none; opacity:1;
   box-shadow:0 0 0 1px rgba(0,0,0,.4) inset, 0 0 0 1px rgba(0,0,0,.28)}
 .tla-burger{display:none; background:var(--panel); border:1px solid var(--edge2); color:var(--ink);
-  width:44px;height:44px; border-radius:10px; cursor:pointer; font-size:19px; align-items:center; justify-content:center}
+  width:44px;height:44px; border-radius:10px; cursor:pointer; font-size:var(--fs-lead); align-items:center; justify-content:center}
 
 /* ---------- search overlay (modal) ---------- */
 .tla-searchmodal{position:fixed; inset:0; z-index:120; display:flex; align-items:flex-start; justify-content:center;
@@ -314,14 +325,14 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-searchmodal-bar{display:flex; align-items:center; gap:10px; padding:13px 14px; border-bottom:1px solid var(--edge); flex:0 0 auto}
 .tla-searchmodal-bar > svg{width:20px;height:20px;color:var(--muted);flex:0 0 auto}
 .tla-searchmodal-bar input{flex:1 1 auto; min-width:0; background:transparent; border:0; outline:none;
-  font-family:var(--ff-ui); font-size:17px; color:var(--ink)}
+  font-family:var(--ff-ui); font-size:var(--fs-body); color:var(--ink)}
 .tla-searchmodal-bar input::placeholder{color:var(--muted)}
 .tla-searchmodal-cancel{flex:0 0 auto; background:var(--bg); border:1px solid var(--edge2); color:var(--ink2);
-  font-family:var(--ff-ui); font-size:13px; font-weight:600; padding:8px 12px; border-radius:8px; cursor:pointer}
+  font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:600; padding:8px 12px; border-radius:8px; cursor:pointer}
 .tla-searchmodal-cancel:hover{background:var(--panel2); color:var(--ink)}
 .tla-searchhint{display:flex; gap:16px; flex-wrap:wrap; padding:10px 15px; border-top:1px solid var(--edge); flex:0 0 auto;
-  font-family:var(--ff-ui); font-size:12px; color:var(--muted)}
-.tla-searchhint kbd{border:1px solid var(--edge2); border-radius:4px; padding:0 5px; margin-right:3px; background:var(--bg); font-size:11px}
+  font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--muted)}
+.tla-searchhint kbd{border:1px solid var(--edge2); border-radius:4px; padding:0 5px; margin-right:3px; background:var(--bg); font-size:var(--fs-micro)}
 
 /* ---------- search results ---------- */
 .tla-results{flex:1 1 auto; min-height:0; overflow:auto; display:none}
@@ -329,20 +340,20 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-res{padding:11px 14px; border-bottom:1px solid var(--edge); cursor:pointer; font-family:var(--ff-ui)}
 .tla-res:last-child{border-bottom:0}
 .tla-res:hover,.tla-res.sel{background:var(--panel2)}
-.tla-res .rt{font-weight:600; color:var(--ink); font-size:15px}
+.tla-res .rt{font-weight:600; color:var(--ink); font-size:var(--fs-small)}
 /* Two selectors, not one. They were welded into ".tla-res .rt .tla-res .rs", which asks
    for a .rs inside a .tla-res inside a .rt inside a .tla-res — nothing on the page is
    that, so this was the only .rs rule in the file and it never matched. The chapter then
    rendered in the title's own size and weight with no gap: "Mazo de EncuentrosI · Glosario". */
-.tla-res .rs{font-size:12px; color:var(--gold2); margin-left:8px; font-weight:600}
+.tla-res .rs{font-size:var(--fs-eyebrow); color:var(--gold2); margin-left:8px; font-weight:600}
 .tla-res .rt .ico{--icon:var(--gold2)}
-.tla-res .rx{font-size:13px; color:var(--muted); margin-top:3px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
+.tla-res .rx{font-size:var(--fs-eyebrow); color:var(--muted); margin-top:3px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden}
 .tla-res mark{background:var(--mark); color:var(--mark-ink); border-radius:2px; padding:0 1px}
-.tla-res-empty{padding:18px; color:var(--muted); font-family:var(--ff-ui); font-size:14px; text-align:center}
+.tla-res-empty{padding:18px; color:var(--muted); font-family:var(--ff-ui); font-size:var(--fs-small); text-align:center}
 /* The corpus divider in split search results (Grimoire / FAQ chapter 1). A label, not an
    option: sticky so the reader always knows which document the rows below belong to. */
 .tla-res-grp{position:sticky; top:0; z-index:1; padding:7px 14px; font-family:var(--ff-ui);
-  font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+  font-size:var(--fs-micro); font-weight:700; letter-spacing:.06em; text-transform:uppercase;
   color:var(--gold2); background:var(--panel2); border-bottom:1px solid var(--edge)}
 .tla-res-grpn{color:var(--muted); font-weight:600}
 /* Two corpora side by side: the Grimoire on the left, the FAQ chapter 1 on the right, split
@@ -367,10 +378,10 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   padding:20px; background:var(--scrim); backdrop-filter:blur(3px)}
 .tla-confirm-box{width:min(460px,100%); background:var(--panel); border:1px solid var(--edge2);
   border-radius:14px; box-shadow:var(--shadow); padding:20px}
-.tla-confirm-t{font-family:var(--ff-head); font-size:20px; color:var(--ink); margin:0 0 10px}
-.tla-confirm-d{font-family:var(--ff-ui); font-size:14px; color:var(--ink2); line-height:1.55; margin:0 0 14px}
+.tla-confirm-t{font-family:var(--ff-head); font-size:var(--fs-lead); color:var(--ink); margin:0 0 10px}
+.tla-confirm-d{font-family:var(--ff-ui); font-size:var(--fs-small); color:var(--ink2); line-height:1.55; margin:0 0 14px}
 .tla-confirm-d b{color:var(--ink)}
-.tla-confirm-rm{display:flex; align-items:center; gap:9px; font-family:var(--ff-ui); font-size:13px;
+.tla-confirm-rm{display:flex; align-items:center; gap:9px; font-family:var(--ff-ui); font-size:var(--fs-eyebrow);
   color:var(--muted); margin-bottom:16px; cursor:pointer}
 /* Our own checkbox, so the "remember" toggle matches the book's ink and gold rather than the
    browser's default blue box. appearance:none removes the native control; the tick is a rotated
@@ -384,7 +395,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   border:solid var(--on-gold); border-width:0 2px 2px 0; transform:rotate(45deg)}
 .tla-confirm-rm-cb:focus-visible{outline:2px solid var(--teal2); outline-offset:2px}
 .tla-confirm-btns{display:flex; gap:10px; justify-content:flex-end; flex-wrap:wrap}
-.tla-confirm-cancel,.tla-confirm-ok{font-family:var(--ff-ui); font-size:14px; font-weight:600;
+.tla-confirm-cancel,.tla-confirm-ok{font-family:var(--ff-ui); font-size:var(--fs-small); font-weight:600;
   padding:9px 16px; border-radius:9px; cursor:pointer; border:1px solid var(--edge2)}
 .tla-confirm-cancel{background:var(--bg); color:var(--ink2)}
 .tla-confirm-cancel:hover{background:var(--panel2); color:var(--ink)}
@@ -429,25 +440,25 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-navgrp[open] > .tla-nav-grp-s::before{transform:rotate(45deg)}
 .tla-nav-grp-s:hover{color:var(--ink)}
 .tla-nav-grp-s:focus-visible{outline:3px solid var(--gold); outline-offset:2px; border-radius:6px}
-.tla-nav-grp{font-family:var(--ff-ui); font-size:11px; font-weight:700; letter-spacing:1.2px;
+.tla-nav-grp{font-family:var(--ff-ui); font-size:var(--fs-micro); font-weight:700; letter-spacing:1.2px;
   text-transform:uppercase; color:var(--muted); margin:0}
 .tla-nav-sec{margin-bottom:2px}
 /* Announced, not written: dimmer than a chapter, but never so dim it fails contrast —
    the word "Próximamente" is the whole content of the row. */
-.tla-nav-cnt.is-soon{font-size:11px; letter-spacing:.4px; text-transform:uppercase;
+.tla-nav-cnt.is-soon{font-size:var(--fs-micro); letter-spacing:.4px; text-transform:uppercase;
   color:var(--teal2); border-color:var(--edge2); background:var(--panel)}
 .tla-nav-btn{display:flex; align-items:center; gap:10px; width:100%; text-align:left; cursor:pointer;
-  background:transparent; border:0; color:var(--ink2); font-family:var(--ff-ui); font-size:16px;
+  background:transparent; border:0; color:var(--ink2); font-family:var(--ff-ui); font-size:var(--fs-body);
   padding:11px 11px; border-radius:9px; line-height:1.35; min-height:44px}
 .tla-nav-btn:hover{background:var(--panel); color:var(--ink)}
 .tla-nav-btn.active{background:linear-gradient(90deg,var(--mark),transparent); color:var(--gold2); box-shadow:inset 3px 0 0 var(--gold)}
-.tla-nav-num{font-family:var(--ff-head); font-size:14.5px; color:var(--gold); min-width:28px; opacity:.9}
+.tla-nav-num{font-family:var(--ff-head); font-size:var(--fs-small); color:var(--gold); min-width:28px; opacity:.9}
 .tla-nav-btn.active .tla-nav-num{opacity:1}
-.tla-nav-cnt{margin-left:auto; font-size:13px; color:var(--muted); background:var(--bg); border:1px solid var(--edge); border-radius:11px; padding:1px 8px; font-family:var(--ff-ui)}
+.tla-nav-cnt{margin-left:auto; font-size:var(--fs-eyebrow); color:var(--muted); background:var(--bg); border:1px solid var(--edge); border-radius:11px; padding:1px 8px; font-family:var(--ff-ui)}
 .tla-sublist{margin:2px 0 10px 14px; padding-left:10px; border-left:1px solid var(--edge); display:none}
 .tla-nav-sec.open .tla-sublist{display:block}
-.tla-sublink{display:block; padding:8px 9px; font-family:var(--ff-ui); font-size:15px; color:var(--muted); border-radius:7px; cursor:pointer;
-  white-space:nowrap; overflow:hidden; text-overflow:ellipsis; border:0; background:transparent; width:100%; text-align:left; min-height:36px}
+.tla-sublink{display:block; padding:8px 9px; font-family:var(--ff-ui); font-size:var(--fs-small); color:var(--muted); border-radius:7px; cursor:pointer;
+  line-height:1.3; border:0; background:transparent; width:100%; text-align:left; min-height:36px}
 .tla-sublink:hover{background:var(--panel); color:var(--ink2)}
 .tla-sublink.active{color:var(--gold2)}
 /* A nav sublink is a label, not prose: entry titles that are set bold or italic in the text
@@ -457,11 +468,11 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 #tla-root .tla-sublink em,#tla-root .tla-sublink i{font-style:normal}
 
 /* ---------- content ---------- */
-.tla-crumb{font-family:var(--ff-ui); font-size:13px; color:var(--muted); letter-spacing:.4px; margin-bottom:8px; text-transform:uppercase}
-.tla-h1{font-family:var(--ff-head); font-size:clamp(30px,4vw,44px); line-height:1.08; color:var(--gold2); margin:0 0 8px; letter-spacing:.4px; text-wrap:balance}
+.tla-crumb{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--muted); letter-spacing:.4px; margin-bottom:8px; text-transform:uppercase}
+.tla-h1{font-family:var(--ff-head); font-size:clamp(33px,4vw,46px); line-height:1.08; color:var(--gold2); margin:0 0 8px; letter-spacing:.4px; text-wrap:balance}
 .tla-h1 .tla-rn{color:var(--gold); opacity:.78; margin-right:.35em}
 .tla-rule{height:1px; background:linear-gradient(90deg,var(--gold),transparent); margin:16px 0 24px; opacity:.6}
-.tla-lead{font-size:18px; color:var(--ink2); margin:0 0 22px}
+.tla-lead{font-size:var(--fs-lead); color:var(--ink2); margin:0 0 22px}
 
 /* ---------- landing ---------- */
 .tla-landing{max-width:1040px}
@@ -483,18 +494,18 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   background-size:cover, cover, cover, cover; background-position:center; background-repeat:no-repeat}
 .tla-hero-inner{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
   text-align:center; gap:10px; padding:24px}
-.tla-hero-title{font-family:var(--ff-head); font-size:clamp(34px,6.4vw,66px); line-height:1; margin:0;
+.tla-hero-title{font-family:var(--ff-head); font-size:clamp(38px,6.4vw,64px); line-height:1; margin:0;
   color:#fff; letter-spacing:1px; text-shadow:0 2px 22px rgba(0,0,0,.6); display:flex; align-items:center; gap:12px; flex-wrap:wrap; justify-content:center}
-.tla-hero-sub{font-family:var(--ff-ui); font-size:clamp(14px,2.3vw,19px); margin:0;
+.tla-hero-sub{font-family:var(--ff-ui); font-size:clamp(16px,2.3vw,21px); margin:0;
   color:rgba(255,255,255,.92); text-shadow:0 1px 10px rgba(0,0,0,.6)}
-.tla-cards-h{font-family:var(--ff-head); font-size:21px; color:var(--gold2); margin:24px 0 4px; letter-spacing:.3px}
+.tla-cards-h{font-family:var(--ff-head); font-size:var(--fs-lead); color:var(--gold2); margin:24px 0 4px; letter-spacing:.3px}
 /* ---------- pennants ----------
    Two of these, explained once above the grid and then flown on the chapters
    they point at. A swallowtail cut and a slow wave: they should read as cloth on
    a pole, which is why the tail is notched rather than merely rounded. */
 .tla-pennant{--flag:var(--gold); --flag-ink:var(--on-gold);
   position:relative; display:inline-block; flex:0 0 auto;
-  font-family:var(--ff-ui); font-size:12px; font-weight:700; letter-spacing:.7px;
+  font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:700; letter-spacing:.7px;
   text-transform:uppercase; white-space:nowrap;
   /* The box is 5px taller than the cloth top and bottom. That gap is headroom:
      a clip-path cannot draw outside its own box, so without it the fly could
@@ -524,7 +535,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
    touching, so it keeps a gap of its own. */
 .tla-notice-mt{border-left-color:var(--gold); margin:18px 0 26px}
 .tla-notice-mt svg{color:var(--gold2)}
-.tla-notice p{margin:0; font-family:var(--ff-body); font-size:15px; line-height:1.6; color:var(--ink2)}
+.tla-notice p{margin:0; font-family:var(--ff-body); font-size:var(--fs-small); line-height:1.6; color:var(--ink2)}
 .tla-notice b{color:var(--gold2)}
 #tla-root .tla-notice a{color:var(--gold2); text-decoration:underline; text-underline-offset:2px}
 #tla-root .tla-notice a:hover{color:var(--ink)}
@@ -559,9 +570,9 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 }
 .tla-pennantkey{list-style:none; display:flex; flex-wrap:wrap; gap:8px 24px; margin:14px 0 0; padding:0}
 .tla-pennantkey-i{display:flex; align-items:center; gap:6px; min-width:0}
-.tla-pennant-d{font-family:var(--ff-ui); font-size:14px; color:var(--muted)}
+.tla-pennant-d{font-family:var(--ff-ui); font-size:var(--fs-small); color:var(--muted)}
 /* on a card the pennant flies from the top-left corner, over the border */
-.tla-cardpennant{position:absolute; top:8px; left:-5px; z-index:1; font-size:10.5px;
+.tla-cardpennant{position:absolute; top:8px; left:-5px; z-index:1; font-size:var(--fs-micro);
   padding:9px 38px 9px 9px; animation-duration:4.6s}
 .tla-card.has-pennant{padding-top:44px}
 /* Cloth does not flap for someone who asked the page to hold still. */
@@ -570,7 +581,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-cards{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:24px 0 8px}
 /* A shelf heading over its own grid. h3 under the "Explorar" h2, so the outline runs
    h1 > h2 > h3 with nothing skipped. */
-.tla-cards-grp{font-family:var(--ff-head); font-size:16px; color:var(--teal2);
+.tla-cards-grp{font-family:var(--ff-head); font-size:var(--fs-lead); color:var(--teal2);
   margin:26px 0 -10px; letter-spacing:.3px}
 .tla-card.is-soon{border-style:dashed}
 .tla-card.is-soon .tla-card-meta{color:var(--teal2)}
@@ -578,8 +589,8 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
    card that opens onto nothing. */
 .tla-soon{margin:18px 0 0; padding:22px 20px; text-align:center;
   border:1px dashed var(--edge2); border-radius:12px; background:var(--panel)}
-.tla-soon-h{font-family:var(--ff-head); font-size:20px; color:var(--teal2); margin:0 0 6px; letter-spacing:.3px}
-.tla-soon-d{font-family:var(--ff-body); font-size:15px; color:var(--muted); margin:0}
+.tla-soon-h{font-family:var(--ff-head); font-size:var(--fs-lead); color:var(--teal2); margin:0 0 6px; letter-spacing:.3px}
+.tla-soon-d{font-family:var(--ff-body); font-size:var(--fs-small); color:var(--muted); margin:0}
 .tla-card{position:relative; display:flex; flex-direction:column; gap:7px; width:100%; text-align:left; cursor:pointer;
   padding:18px 20px; border-radius:12px; border:1px solid var(--edge2); background:var(--panel); color:inherit;
   transition:transform .12s ease, border-color .12s, background .12s}
@@ -587,28 +598,28 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-card-top{display:flex; align-items:baseline; gap:11px}
 /* --gold2 not --gold: at 15px on the light panel, --gold measures 4.43:1 — just
    under the 4.5:1 minimum for body-size text. */
-.tla-card-num{font-family:var(--ff-head); font-size:15px; color:var(--gold2); min-width:22px; flex:0 0 auto}
-.tla-card-title{font-family:var(--ff-head); font-size:21px; line-height:1.15; color:var(--gold2)}
-.tla-card-meta{font-family:var(--ff-ui); font-size:13px; color:var(--muted)}
+.tla-card-num{font-family:var(--ff-head); font-size:var(--fs-small); color:var(--gold2); min-width:22px; flex:0 0 auto}
+.tla-card-title{font-family:var(--ff-head); font-size:var(--fs-lead); line-height:1.15; color:var(--gold2)}
+.tla-card-meta{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--muted)}
 .tla-card.news{border-color:var(--new-edge); background:linear-gradient(120deg,var(--new-bg),transparent 68%),var(--panel)}
 .tla-card.news:hover{border-color:var(--new)}
 .tla-card.news .tla-card-num,.tla-card.news .tla-card-title{color:var(--new)}
 .tla-landing-about{margin-top:34px; padding-top:20px; border-top:1px solid var(--edge)}
-.tla-landing-about h2{font-family:var(--ff-head); font-size:21px; color:var(--gold2); margin:0 0 12px; letter-spacing:.3px}
+.tla-landing-about h2{font-family:var(--ff-head); font-size:var(--fs-lead); color:var(--gold2); margin:0 0 12px; letter-spacing:.3px}
 
 /* Rincón Miskatonic intro panel */
 .tla-rm{display:flex; gap:24px; align-items:center; margin:0 0 6px; padding:22px 26px;
   border:1px solid var(--edge2); border-radius:14px;
   background:linear-gradient(115deg, var(--mark), transparent 62%), var(--panel)}
 .tla-rm-body{flex:1 1 auto; min-width:0}
-.tla-rm-title{font-family:var(--ff-head); font-size:23px; color:var(--gold2); margin:0 0 9px; letter-spacing:.3px}
+.tla-rm-title{font-family:var(--ff-head); font-size:var(--fs-h3); color:var(--gold2); margin:0 0 9px; letter-spacing:.3px}
 /* No measure cap here. The panel is a two-column band — prose, then the sigil — and capping
    the prose at 66ch inside a column that takes all the remaining width opened a dead gap
    between the two. The column itself is what sets the measure now. */
-.tla-rm-body p{font-size:16.5px; color:var(--ink2); margin:0 0 15px; line-height:1.7}
+.tla-rm-body p{font-size:var(--fs-body); color:var(--ink2); margin:0 0 15px; line-height:1.7}
 .tla-rm-body p b{color:var(--gold2)} .tla-rm-body p i{color:var(--ink)}
 /* #tla-root prefix so these win over the ID-specific `#tla-root a` link colour */
-#tla-root .tla-rm-cta{display:inline-flex; align-items:center; gap:8px; font-family:var(--ff-ui); font-weight:700; font-size:14.5px;
+#tla-root .tla-rm-cta{display:inline-flex; align-items:center; gap:8px; font-family:var(--ff-ui); font-weight:700; font-size:var(--fs-small);
   padding:11px 18px; border-radius:9px; background:var(--gold); color:var(--on-gold); border:1px solid var(--gold)}
 #tla-root .tla-rm-cta:hover{background:var(--gold2); color:var(--on-gold); text-decoration:none}
 /* The project name set in italics, in the CTA and the title (see rmName). It must take its
@@ -621,7 +632,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 
 /* external link chip (e.g. retired-FAQ document that the PDF shows as a QR) */
 #tla-root .tla-extlink{display:inline-flex; align-items:center; gap:7px; margin:2px 0 16px;
-  font-family:var(--ff-ui); font-weight:600; font-size:14px; padding:9px 15px; border-radius:9px;
+  font-family:var(--ff-ui); font-weight:600; font-size:var(--fs-small); padding:9px 15px; border-radius:9px;
   border:1px solid var(--teal); color:var(--teal2); background:transparent}
 #tla-root .tla-extlink:hover{background:var(--mark); color:var(--teal2); text-decoration:none}
 .tla-extlink svg{width:15px; height:15px; flex:0 0 auto}
@@ -643,7 +654,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
    once you know your letter. */
 .tla-aztoggle{display:flex; align-items:center; gap:10px; width:100%; cursor:pointer;
   background:transparent; border:0; padding:0; min-height:34px; text-align:left; color:inherit}
-.tla-azfilter .tla-azlabel{font-family:var(--ff-ui); font-size:12px; text-transform:uppercase;
+.tla-azfilter .tla-azlabel{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); text-transform:uppercase;
   letter-spacing:1px; color:var(--muted); flex:0 0 auto}
 .tla-azchev{width:18px; height:18px; flex:0 0 auto; color:var(--muted); transition:transform .18s ease}
 .tla-azfilter.is-folded .tla-azchev{transform:rotate(-90deg)}
@@ -652,17 +663,17 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-azpanel[hidden]{display:none}
 .tla-azrow{display:flex; flex-wrap:wrap; gap:6px; align-items:center}
 .tla-azbtn{min-width:36px; height:36px; padding:0 8px; border-radius:8px; border:1px solid var(--edge2); background:var(--bg2);
-  color:var(--ink2); font-family:var(--ff-ui); font-size:14px; font-weight:600; cursor:pointer}
+  color:var(--ink2); font-family:var(--ff-ui); font-size:var(--fs-small); font-weight:600; cursor:pointer}
 .tla-azbtn:hover{background:var(--panel2); color:var(--ink); border-color:var(--gold)}
 .tla-azbtn.active{background:var(--gold); color:var(--on-gold); border-color:var(--gold)}
 .tla-azbtn.all{width:auto; padding:0 14px}
 /* pushed right, and the last thing to be given up when the bar is narrow */
-.tla-azcount{font-family:var(--ff-ui); font-size:13px; color:var(--muted);
+.tla-azcount{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--muted);
   margin-left:auto; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0}
 .tla-azfilter.is-folded .tla-azcount{color:var(--gold2)}
 /* Empty state: a version filter can leave a glossary letter (or the whole
    chapter) with nothing to show. Speak to it instead of a blank pane. */
-.tla-glossnone{font-family:var(--ff-ui); font-size:15px; color:var(--muted);
+.tla-glossnone{font-family:var(--ff-ui); font-size:var(--fs-small); color:var(--muted);
   margin:28px 0; padding:18px 20px; border:1px dashed var(--edge2);
   border-radius:10px; background:var(--bg2); text-align:center}
 
@@ -670,11 +681,11 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
    toolbar's height changes with the alphabet and the width (it wraps to two rows
    on a narrow pane), so app.js measures it and sets --sticky-h. */
 .tla-entry{scroll-margin-top:calc(var(--sticky-h,0px) + 24px); margin:0 0 30px; padding-top:4px}
-.tla-entry h2{font-family:var(--ff-head); font-size:24px; color:var(--gold2); margin:26px 0 10px; letter-spacing:.3px;
+.tla-entry h2{font-family:var(--ff-head); font-size:var(--fs-h3); color:var(--gold2); margin:26px 0 10px; letter-spacing:.3px;
   display:flex; align-items:center; gap:8px}
 /* 24x24 minimum: the glyph is small, so the target is padded out around it
    (WCAG 2.5.8). inline-flex keeps it on the heading's baseline row. */
-.tla-entry h2 .anchor{opacity:0; color:var(--muted); font-family:var(--ff-ui); font-size:17px;
+.tla-entry h2 .anchor{opacity:0; color:var(--muted); font-family:var(--ff-ui); font-size:var(--fs-body);
   text-decoration:none; transition:opacity .15s;
   display:inline-flex; align-items:center; justify-content:center;
   min-width:24px; min-height:24px; vertical-align:middle}
@@ -682,7 +693,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 /* A subsection heading: in the book it is set larger and in teal, with a rule
    under it, and it opens the run of entries that follow. It used to render
    SMALLER than them — the flag that marked it was read backwards. */
-.tla-entry.is-subhead h2{color:var(--teal2); font-size:27px; margin-top:38px;
+.tla-entry.is-subhead h2{color:var(--teal2); font-size:var(--fs-h2); margin-top:38px;
   padding-bottom:8px; border-bottom:1px solid var(--teal); display:block}
 .tla-entry.is-subhead h2 .anchor{float:right}
 
@@ -691,10 +702,10 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-entry.is-callout{border:1px solid var(--new-edge); border-radius:14px;
   padding:20px 26px 22px; margin:30px 0; text-align:center;
   background:linear-gradient(180deg,var(--new-bg),transparent 70%),var(--panel)}
-.tla-entry.is-callout h2{justify-content:center; color:var(--new); font-size:30px;
+.tla-entry.is-callout h2{justify-content:center; color:var(--new); font-size:var(--fs-h2);
   margin:0 0 4px; letter-spacing:1px}
 .tla-entry.is-callout .tla-p{color:var(--ink); max-width:62ch; margin:0 auto}
-.tla-entry.is-callout .tla-p:first-of-type{font-family:var(--ff-head); font-size:19px;
+.tla-entry.is-callout .tla-p:first-of-type{font-family:var(--ff-head); font-size:var(--fs-lead);
   color:var(--new); letter-spacing:.4px; margin-bottom:12px;
   text-decoration:underline; text-underline-offset:5px; text-decoration-thickness:1px}
 .tla-entry.is-callout .anchor{display:none}
@@ -703,11 +714,11 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-obsolete{display:flex; align-items:center; gap:18px; margin:0 0 26px; padding:16px 20px;
   border:1px solid var(--new-edge); border-left:5px solid var(--new); border-radius:12px;
   background:linear-gradient(180deg,var(--new-bg),transparent 80%),var(--panel)}
-.tla-obsolete-tag{flex:0 0 auto; font-family:var(--ff-head); font-size:21px; font-weight:700;
+.tla-obsolete-tag{flex:0 0 auto; font-family:var(--ff-head); font-size:var(--fs-lead); font-weight:700;
   letter-spacing:1.5px; color:var(--new); text-transform:uppercase}
 .tla-obsolete-body{min-width:0}
-.tla-obsolete-lead{margin:0 0 6px; font-size:15px; color:var(--ink); line-height:1.55}
-.tla-obsolete-p{margin:0; font-size:14.5px; color:var(--ink2); line-height:1.6}
+.tla-obsolete-lead{margin:0 0 6px; font-size:var(--fs-small); color:var(--ink); line-height:1.55}
+.tla-obsolete-p{margin:0; font-size:var(--fs-small); color:var(--ink2); line-height:1.6}
 /* The epigraph a document opens with — a quotation, so it is set as one: indented, with the
    attribution at the far end of the line rather than looking like another sentence of it. */
 .tla-entry.is-epigraph .tla-p{padding-left:18px; border-left:2px solid var(--edge2)}
@@ -717,12 +728,12 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
    translated. Three columns, a row per step; the free-window rows are tinted AND labelled,
    never tinted alone. Wide, so it scrolls inside its own box rather than the page. */
 .tla-fm{margin:34px 0 0; padding-top:26px; border-top:1px solid var(--edge2)}
-.tla-fm-title{font-family:var(--ff-head); font-size:24px; margin:0 0 16px; color:var(--ink)}
+.tla-fm-title{font-family:var(--ff-head); font-size:var(--fs-h3); margin:0 0 16px; color:var(--ink)}
 .tla-fm-wrap{overflow-x:auto; margin:18px 0 0; border:1px solid var(--edge2); border-radius:12px}
-.tla-fm-table{border-collapse:collapse; width:100%; min-width:640px; font-size:14.5px}
+.tla-fm-table{border-collapse:collapse; width:100%; min-width:640px; font-size:var(--fs-small)}
 .tla-fm-table th,.tla-fm-table td{text-align:left; vertical-align:top; padding:11px 14px;
   border-bottom:1px solid var(--edge2)}
-.tla-fm-table thead th{font-family:var(--ff-ui); font-size:12px; font-weight:700;
+.tla-fm-table thead th{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:700;
   letter-spacing:.6px; text-transform:uppercase; color:var(--muted); background:var(--bg2);
   position:sticky; top:0}
 .tla-fm-table tbody tr:last-child th,.tla-fm-table tbody tr:last-child td{border-bottom:0}
@@ -741,20 +752,20 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-fm-order>*:first-child{margin-top:0}
 .tla-fm-p,.tla-fm-eg{margin:0 0 4px}
 .tla-fm-eg{padding-left:14px; border-left:2px solid var(--edge2)}
-.tla-fm-credit{margin:14px 0 0; font-size:13.5px; color:var(--ink2)}
+.tla-fm-credit{margin:14px 0 0; font-size:var(--fs-eyebrow); color:var(--ink2)}
 .tla-obsolete-lead+.tla-obsolete-p{margin-top:2px}
 #tla-root .tla-obsolete-go{display:inline-flex; align-items:center; gap:6px; font-family:var(--ff-ui);
-  font-weight:700; font-size:13.5px; color:var(--new); text-decoration:underline; text-underline-offset:3px}
+  font-weight:700; font-size:var(--fs-eyebrow); color:var(--new); text-decoration:underline; text-underline-offset:3px}
 #tla-root .tla-obsolete-go:hover{filter:brightness(1.12)}
 @media (max-width:560px){.tla-obsolete{flex-direction:column; align-items:flex-start; gap:10px}}
 
 /* ---------- phase diagrams ---------- */
 /* The book draws these as boxes joined by fat arrows: teal for a numbered step,
    red for a player window. Same shapes here, built from the same text. */
-.tla-diagbadge{font-family:var(--ff-ui); font-size:11px; font-weight:700; letter-spacing:.6px;
+.tla-diagbadge{font-family:var(--ff-ui); font-size:var(--fs-micro); font-weight:700; letter-spacing:.6px;
   text-transform:uppercase; color:var(--teal2); border:1px solid var(--teal);
   border-radius:6px; padding:1px 7px; vertical-align:middle; white-space:nowrap}
-.tla-toc a .tla-diagbadge{font-size:10.5px; padding:0 5px; margin-left:4px}
+.tla-toc a .tla-diagbadge{font-size:var(--fs-micro); padding:0 5px; margin-left:4px}
 .tla-flowwrap{position:relative; max-width:620px; margin:22px auto 30px}
 .tla-flow{list-style:none; margin:0; padding:0}
 /* the loops the book curves back up the right-hand side. The boxes' own words
@@ -767,9 +778,9 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-flow-item{display:flex; flex-direction:column; align-items:center}
 .tla-flow-box{width:100%; border:2px solid var(--teal); border-radius:26px;
   padding:12px 22px; text-align:center; background:var(--panel);
-  font-size:15.5px; line-height:1.5; color:var(--ink)}
+  font-size:var(--fs-small); line-height:1.5; color:var(--ink)}
 .tla-flow-item.is-window .tla-flow-box{border-color:var(--new-edge); color:var(--new);
-  font-family:var(--ff-ui); font-weight:700; font-size:14.5px; padding:9px 22px}
+  font-family:var(--ff-ui); font-weight:700; font-size:var(--fs-small); padding:9px 22px}
 .tla-flow-item.is-window .ico{--icon:var(--new)}
 .tla-flow-item.is-goto .tla-flow-box{font-style:italic; font-weight:600}
 /* the arrow takes the colour of the box it leaves, as in the book */
@@ -788,7 +799,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 /* Borderless, so the legend lays out as an ordinary line instead of being notched
    into a frame. The frame belongs to the row below it. */
 .tla-diagpick{border:0; margin:0 0 18px; padding:0; min-width:0}
-.tla-diagpick-lg{font-family:var(--ff-ui); font-size:11px; text-transform:uppercase;
+.tla-diagpick-lg{font-family:var(--ff-ui); font-size:var(--fs-micro); text-transform:uppercase;
   letter-spacing:1px; color:var(--muted); padding:0 0 7px}
 /* The pill nests inside the frame's radius only because both are pills and the
    padding is EQUAL on all four sides: outer radius = inner radius + padding exactly.
@@ -797,7 +808,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-diagpick-row{display:inline-flex; align-items:center; gap:4px; max-width:100%;
   border:1px solid var(--edge2); border-radius:999px; padding:4px; background:var(--panel)}
 .tla-diagopt{position:relative; display:inline-flex; align-items:center; justify-content:center;
-  border-radius:999px; cursor:pointer; font-family:var(--ff-ui); font-size:13.5px; color:var(--ink2);
+  border-radius:999px; cursor:pointer; font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--ink2);
   padding:0 14px; min-height:34px; text-align:center}
 .tla-diagopt:hover{background:var(--panel2); color:var(--ink)}
 .tla-diagopt input{position:absolute; width:1px; height:1px; opacity:0; margin:0}
@@ -838,13 +849,13 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
    diamonds, the arrows, the key — is rebuilt as text. `data-hot` on the section
    is the whole cross-highlight: set it to a number and both sides light up. */
 .tla-anat{margin:26px 0 34px}
-.tla-anat-h{font-family:var(--ff-head); font-size:22px; color:var(--gold2);
+.tla-anat-h{font-family:var(--ff-head); font-size:var(--fs-h3); color:var(--gold2);
   margin:0 0 6px; font-weight:400}
-.tla-anat-hint{margin:0 0 14px; font-size:14.5px; color:var(--muted); max-width:62ch}
+.tla-anat-hint{margin:0 0 14px; font-size:var(--fs-small); color:var(--muted); max-width:62ch}
 /* the cards, as tabs */
 .tla-anat-tabs{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 18px;
   border-bottom:1px solid var(--edge2); padding-bottom:10px}
-.tla-anat-tab{font-family:var(--ff-ui); font-size:13.5px; line-height:1.2;
+.tla-anat-tab{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); line-height:1.2;
   padding:8px 13px; min-height:34px; border-radius:8px; cursor:pointer;
   border:1px solid var(--edge2); background:var(--panel); color:var(--ink2)}
 .tla-anat-tab:hover{background:var(--panel2); color:var(--ink)}
@@ -854,20 +865,20 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-anat-split{display:grid; grid-template-columns:300px minmax(0,1fr); gap:24px 28px;
   align-items:start}
 .tla-anatcard{margin:0; min-width:0}
-.tla-anatcard-t{font-family:var(--ff-head); font-size:15px; color:var(--gold2);
+.tla-anatcard-t{font-family:var(--ff-head); font-size:var(--fs-small); color:var(--gold2);
   margin:8px 0 0; text-align:center}
 /* the frame is the marker's positioning context, so it must hug the image exactly */
 .tla-anatcard-frame{position:relative; display:block; line-height:0}
 .tla-anatcard-img{display:block; width:100%; height:auto; border-radius:9px;
   background:var(--figbg)}
-.tla-anat-none{margin:0; color:var(--muted); font-size:15px}
+.tla-anat-none{margin:0; color:var(--muted); font-size:var(--fs-small)}
 
 /* ---- Ultimatums & Boons viewer ---- */
 .tla-ub{margin:6px 0 0}
 /* Viewer-wide tools row (draw a random hand, download all as .zip). */
 .tla-ub-tools{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px}
 .tla-ub-tool{display:inline-flex; align-items:center; gap:7px; cursor:pointer; min-height:38px;
-  font-family:var(--ff-ui); font-size:14px; font-weight:600; padding:8px 15px; border-radius:9px;
+  font-family:var(--ff-ui); font-size:var(--fs-small); font-weight:600; padding:8px 15px; border-radius:9px;
   border:1px solid var(--edge2); background:var(--panel); color:var(--ink2)}
 .tla-ub-tool:hover{background:var(--panel2); color:var(--ink); border-color:var(--gold)}
 .tla-ub-tool:disabled{opacity:.6; cursor:progress}
@@ -879,7 +890,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
    pushed to the far right, and keeps its V1/V2 labels even on narrow screens. */
 .tla-ub-skin{margin-left:0}
 .tla-ub-viewbtn{display:inline-flex; align-items:center; gap:6px; cursor:pointer; min-height:32px;
-  font-family:var(--ff-ui); font-size:13px; font-weight:600; padding:5px 12px; border-radius:8px;
+  font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:600; padding:5px 12px; border-radius:8px;
   border:1px solid transparent; background:transparent; color:var(--ink2)}
 .tla-ub-viewbtn:hover{color:var(--ink)}
 .tla-ub-viewbtn.is-on{background:var(--gold); border-color:var(--gold); color:var(--on-gold)}
@@ -889,7 +900,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 /* Chapter filter (all / cap 1 / cap 2), same segmented look as the view toggle. */
 .tla-ub-chap{display:inline-flex; gap:2px; padding:3px; border-radius:10px;
   border:1px solid var(--edge2); background:var(--bg2)}
-.tla-ub-chapbtn{cursor:pointer; min-height:32px; font-family:var(--ff-ui); font-size:13px;
+.tla-ub-chapbtn{cursor:pointer; min-height:32px; font-family:var(--ff-ui); font-size:var(--fs-eyebrow);
   font-weight:600; padding:5px 12px; border-radius:8px; border:1px solid transparent;
   background:transparent; color:var(--ink2)}
 .tla-ub-chapbtn:hover{color:var(--ink)}
@@ -899,10 +910,10 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-ub-rfilter{display:flex; flex-wrap:wrap; align-items:flex-end; gap:16px 26px; margin:0 0 20px;
   padding:15px 18px; border:1px solid var(--edge2); border-radius:12px; background:var(--bg2)}
 .tla-ub-fgroup{display:flex; flex-direction:column; gap:7px}
-.tla-ub-flabel{display:block; font-family:var(--ff-ui); font-size:11.5px; font-weight:700;
+.tla-ub-flabel{display:block; font-family:var(--ff-ui); font-size:var(--fs-micro); font-weight:700;
   letter-spacing:.6px; text-transform:uppercase; color:var(--muted)}
 .tla-ub-sel{display:flex; flex-direction:column; gap:7px; min-width:0}
-.tla-ub-selbox{font-family:var(--ff-ui); font-size:14.5px; font-weight:600; color:var(--ink);
+.tla-ub-selbox{font-family:var(--ff-ui); font-size:var(--fs-small); font-weight:600; color:var(--ink);
   min-height:40px; min-width:210px; max-width:min(300px,72vw); padding:8px 34px 8px 13px; cursor:pointer;
   border:1px solid var(--edge2); border-radius:10px; background:var(--panel);
   background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23b89a5f' stroke-width='2.4'><path d='M6 9l6 6 6-6'/></svg>");
@@ -913,13 +924,13 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-ub-selbox:disabled{opacity:.45; cursor:not-allowed; background-image:none}
 .tla-ub-selbox option{color:var(--ink); background:var(--panel)}
 .tla-ub-clear{display:inline-flex; align-items:center; gap:6px; font-family:var(--ff-ui);
-  font-size:13.5px; font-weight:600; color:var(--ink2); cursor:pointer; min-height:40px;
+  font-size:var(--fs-eyebrow); font-weight:600; color:var(--ink2); cursor:pointer; min-height:40px;
   padding:8px 14px; border:1px solid var(--edge2); border-radius:10px; background:var(--panel)}
 .tla-ub-clear:hover{background:var(--panel2); color:var(--ink); border-color:var(--gold)}
 .tla-ub-clear svg{width:14px; height:14px}
 /* Which chapter a refraction belongs to (Cap. 1 / Cap. 2) — shown as a labelled pill, never
    colour alone, so the two chapters read apart at a glance in the list and gallery. */
-.tla-ub-chip{flex:0 0 auto; font-family:var(--ff-ui); font-size:11px; font-weight:700;
+.tla-ub-chip{flex:0 0 auto; font-family:var(--ff-ui); font-size:var(--fs-micro); font-weight:700;
   letter-spacing:.3px; padding:2px 8px; border-radius:999px; border:1px solid var(--edge2);
   white-space:nowrap; color:var(--ink2); background:var(--bg)}
 .tla-ub-chip.tla-chip-cap1{color:var(--teal2)}
@@ -930,7 +941,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   background:var(--panel); box-shadow:0 1px 4px rgba(0,0,0,.35)}
 .tla-ub-tabs{display:flex; flex-wrap:wrap; gap:6px; margin:0 0 20px;
   border-bottom:1px solid var(--edge2); padding-bottom:10px}
-.tla-ub-tab{font-family:var(--ff-ui); font-size:14px; line-height:1.2;
+.tla-ub-tab{font-family:var(--ff-ui); font-size:var(--fs-small); line-height:1.2;
   padding:9px 15px; min-height:38px; border-radius:9px; cursor:pointer;
   border:1px solid var(--edge2); background:var(--panel); color:var(--ink2)}
 .tla-ub-tab:hover{background:var(--panel2); color:var(--ink)}
@@ -939,7 +950,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 /* The count keeps full opacity: dimming it blended the ink toward the tab background and
    dropped it under 4.5:1 on several themes (and toward gold on the selected tab). The
    smaller size already reads it as secondary. */
-.tla-ub-n{font-size:12px; font-weight:400; margin-left:2px}
+.tla-ub-n{font-size:var(--fs-eyebrow); font-weight:400; margin-left:2px}
 /* Gallery: every card of the tab at once, filling the width (5argon-style). A card
    enlarges to a full-size render in the lightbox on click; its glossary links stay
    visible but non-interactive so a click zooms rather than also navigating away. */
@@ -960,11 +971,11 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-ub-thumb{width:72px; height:auto; flex:0 0 auto; display:block; border-radius:6px;
   background:var(--figbg); box-shadow:0 1px 3px rgba(0,0,0,.4)}
 .tla-ub-iwrap{display:flex; flex-direction:column; min-width:0}
-.tla-ub-iname{font-family:var(--ff-ui); font-size:16.5px; color:var(--ink2); line-height:1.3}
+.tla-ub-iname{font-family:var(--ff-ui); font-size:var(--fs-body); color:var(--ink2); line-height:1.3}
 .tla-ub-item.is-sel .tla-ub-iname{color:var(--gold2); font-weight:600}
 /* A refraction's campaign/scenario, under its name in the list. */
 .tla-ub-isub{display:inline-flex; align-items:center; gap:6px; margin-top:3px;
-  font-family:var(--ff-ui); font-size:13px; font-style:italic; color:var(--muted); line-height:1.2}
+  font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-style:italic; color:var(--muted); line-height:1.2}
 .tla-ub-isub .tla-ubc-sym{width:16px; height:16px; flex:0 0 auto; background-color:var(--gold2); filter:none}
 /* A scenario refraction lists its campaign and scenario on two labelled lines. */
 .tla-ub-isub2{flex-direction:column; align-items:flex-start; gap:4px; margin-top:5px}
@@ -972,7 +983,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-ub-isublbl{font-style:normal; font-weight:700; color:var(--ink2)}
 /* "EN": this card is still in English, awaiting translation. */
 .tla-ub-en{margin-left:auto; flex:0 0 auto; align-self:center; font-family:var(--ff-ui);
-  font-size:10px; font-weight:700; letter-spacing:.5px; color:var(--gold2);
+  font-size:var(--fs-micro); font-weight:700; letter-spacing:.5px; color:var(--gold2);
   background:var(--mark); border:1px solid var(--gold); border-radius:5px; padding:1px 5px}
 /* No auto side-margins here: this is a grid cell, and an auto margin turns off the
    stretch that gives it width — with the card size-contained (below) that collapses it
@@ -988,7 +999,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-ub-stepbtn:hover:not([disabled]){background:var(--panel2); color:var(--ink); border-color:var(--gold)}
 .tla-ub-stepbtn[disabled]{opacity:.35; cursor:default}
 .tla-ub-stepbtn svg{width:20px; height:20px}
-.tla-ub-stepn{font-family:var(--ff-ui); font-size:13px; font-weight:600; color:var(--muted);
+.tla-ub-stepn{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:600; color:var(--muted);
   font-variant-numeric:tabular-nums; min-width:9ch; text-align:center}
 /* The card is rendered LIVE: a fixed textless picture (art + 5argon's frame, the
    printed English text hidden under it) with the title, type line and rule laid over
@@ -1073,11 +1084,11 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 /* Item present in English but not yet in this language: shown in English, flagged. */
 .tla-ub-pending{display:flex; align-items:flex-start; gap:9px; max-width:400px;
   margin:0 auto 16px; padding:9px 13px; border-radius:10px; font-family:var(--ff-ui);
-  font-size:13px; line-height:1.35; background:var(--mark); color:var(--mark-ink);
+  font-size:var(--fs-eyebrow); line-height:1.35; background:var(--mark); color:var(--mark-ink);
   border:1px solid var(--gold)}
 .tla-ub-pending svg{width:17px; height:17px; flex:0 0 auto; margin-top:1px; color:var(--gold2)}
 .tla-ub-pending b{color:var(--gold2); font-weight:700}
-.tla-ub-credit{font-family:var(--ff-ui); font-size:13px; color:var(--muted);
+.tla-ub-credit{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--muted);
   margin:24px 0 0; display:flex; flex-wrap:wrap; gap:4px 12px; align-items:center}
 .tla-ub-credit .tla-extlink{margin:0}
 @media (max-width:760px){
@@ -1093,7 +1104,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-anatmark{position:absolute; width:26px; height:26px; margin:-13px 0 0 -13px;
   padding:0; border-radius:50%; cursor:pointer;
   border:2px solid var(--gold); background:var(--panel); color:var(--gold2);
-  font-family:var(--ff-ui); font-size:12.5px; font-weight:700; line-height:1;
+  font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:700; line-height:1;
   display:flex; align-items:center; justify-content:center;
   box-shadow:0 1px 4px rgba(0,0,0,.55); transition:transform .12s ease}
 .tla-anatmark:hover{background:var(--gold); color:var(--on-gold); transform:scale(1.15)}
@@ -1103,13 +1114,13 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 
 .tla-anat-key{margin:0; padding:0; list-style:none; counter-reset:none}
 .tla-anat-key > li{display:flex; gap:10px; align-items:baseline;
-  padding:7px 9px; border-radius:8px; font-size:15.5px; line-height:1.55;
+  padding:7px 9px; border-radius:8px; font-size:var(--fs-small); line-height:1.55;
   color:var(--ink); border:1px solid transparent}
 .tla-anat-key > li.is-hot{background:var(--mark); border-color:var(--gold)}
 .tla-anat-key > li.flash{animation:tlaflash 1.6s ease}
 .tla-anat-n{flex:0 0 auto; min-width:22px; height:22px; border-radius:50%;
   border:1px solid var(--teal); color:var(--teal2); background:var(--panel);
-  font-family:var(--ff-ui); font-size:11.5px; font-weight:700;
+  font-family:var(--ff-ui); font-size:var(--fs-micro); font-weight:700;
   display:inline-flex; align-items:center; justify-content:center; padding:0 4px}
 .tla-anat-key > li.is-hot .tla-anat-n{border-color:var(--gold); color:var(--gold2)}
 .tla-anat-term{color:var(--gold2); font-weight:600}
@@ -1127,9 +1138,9 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   .tla-anatmark,.tla-anatmark:hover,.tla-anat .tla-anatmark.is-hot{transition:none; transform:none}
   .tla-anat-key > li.flash{animation:none}
 }
-.tla-p{margin:0 0 13px; font-size:17px; color:var(--ink)}
+.tla-p{margin:0 0 13px; font-size:var(--fs-body); color:var(--ink)}
 .tla-bul{list-style:none; margin:0 0 13px; padding:0}
-.tla-bul li{position:relative; padding-left:22px; margin:0 0 9px; font-size:16.5px; color:var(--ink2)}
+.tla-bul li{position:relative; padding-left:22px; margin:0 0 9px; font-size:var(--fs-body); color:var(--ink2)}
 .tla-bul li::before{content:""; position:absolute; left:2px; top:.6em; width:8px;height:8px; transform:rotate(45deg);
   background:var(--gold); opacity:.85; border-radius:1px}
 /* The book's second bullet, kept distinct by shape but not by colour: teal means
@@ -1154,11 +1165,11 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 /* inline "new since last version" text */
 .tla-new{background:var(--new-bg); box-shadow:inset 0 -2px 0 var(--new-edge); border-radius:3px; padding:0 .05em}
 /* version badges next to entry titles */
-.tla-vbadge{font-family:var(--ff-ui); font-size:12px; font-weight:700; letter-spacing:.5px; text-transform:uppercase;
+.tla-vbadge{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:700; letter-spacing:.5px; text-transform:uppercase;
   padding:2px 8px; border-radius:20px; white-space:nowrap; vertical-align:middle; line-height:1.4}
 .tla-vbadge.new{color:var(--new); border:1px solid var(--new-edge); background:transparent}
 .tla-vbadge.upd{color:var(--gold2); border:1px solid var(--gold); background:transparent}
-.tla-entry h2 .tla-vbadge{font-size:12px}
+.tla-entry h2 .tla-vbadge{font-size:var(--fs-eyebrow)}
 .tla-entry.is-new{border-left:3px solid var(--new-edge); padding-left:16px; margin-left:-19px}
 .tla-entry.is-upd{border-left:3px solid var(--gold); padding-left:16px; margin-left:-19px}
 
@@ -1171,7 +1182,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
    dozens of runs — words, icons, more words — and flex makes every one of them a flex
    item with an 8px gap, which shreds the sentence into a column of fragments. It has
    to flow as text; the badge and the anchor are inline and follow it. */
-.tla-entry[data-kind="faq"] h2{display:block; font-family:var(--ff-body); font-size:17.5px;
+.tla-entry[data-kind="faq"] h2{display:block; font-family:var(--ff-body); font-size:var(--fs-body);
   font-style:italic; font-weight:600; line-height:1.45; color:var(--ink);
   margin:26px 0 8px; letter-spacing:0}
 .tla-entry[data-kind="faq"] h2 .tla-vbadge{font-style:normal; margin-left:6px}
@@ -1204,10 +1215,10 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
   -webkit-mask-position:center; mask-position:center;
   -webkit-mask-size:contain; mask-size:contain}
-.tla-vb-star{font-size:30px; color:var(--new); flex:0 0 auto}
+.tla-vb-star{font-size:var(--fs-h2); color:var(--new); flex:0 0 auto}
 .tla-vb-main{display:flex; flex-direction:column; min-width:0}
-.tla-vb-t{font-size:16px; font-weight:700; color:var(--ink)}
-.tla-vb-d{font-size:13px; color:var(--muted); margin-top:2px}
+.tla-vb-t{font-size:var(--fs-body); font-weight:700; color:var(--ink)}
+.tla-vb-d{font-size:var(--fs-eyebrow); color:var(--muted); margin-top:2px}
 .tla-vb-cta{margin-left:auto; font-weight:700; color:var(--new); white-space:nowrap; align-self:center}
 
 /* ---------- waiting on a translation ----------
@@ -1218,17 +1229,17 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   margin:0 0 22px; padding:18px 20px; border-radius:12px;
   background:linear-gradient(100deg, var(--mark), transparent 62%), var(--panel);
   border:1px solid var(--gold)}
-.tla-pending-star{font-size:28px; color:var(--gold2); flex:0 0 auto; margin-top:2px}
+.tla-pending-star{font-size:var(--fs-h2); color:var(--gold2); flex:0 0 auto; margin-top:2px}
 .tla-pending-body{min-width:0}
-.tla-pending-t{font-family:var(--ff-head); font-size:21px; font-weight:400;
+.tla-pending-t{font-family:var(--ff-head); font-size:var(--fs-lead); font-weight:400;
   color:var(--gold2); margin:0 0 6px; letter-spacing:.3px}
-.tla-pending-d{font-size:15px; color:var(--ink2); margin:0; max-width:70ch; line-height:1.55}
+.tla-pending-d{font-size:var(--fs-small); color:var(--ink2); margin:0; max-width:70ch; line-height:1.55}
 .tla-pending-cta{display:inline-flex; align-items:center; min-height:40px; margin-top:12px;
   padding:0 16px; border-radius:9px; cursor:pointer; font-family:var(--ff-ui);
-  font-size:14.5px; font-weight:700;
+  font-size:var(--fs-small); font-weight:700;
   background:var(--gold); color:var(--on-gold); border:1px solid var(--gold)}
 .tla-pending-cta:hover{background:var(--gold2); border-color:var(--gold2)}
-@media (max-width:560px){ .tla-pending{gap:12px; padding:15px 14px} .tla-pending-star{font-size:22px} }
+@media (max-width:560px){ .tla-pending{gap:12px; padding:15px 14px} .tla-pending-star{font-size:var(--fs-h3)} }
 
 /* version history: one chip per edition, newest first */
 .tla-vertabs{display:flex; flex-wrap:wrap; gap:8px; align-items:stretch; margin:0 0 18px}
@@ -1237,23 +1248,23 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   background:var(--panel); border:1px solid var(--edge2); color:var(--ink2)}
 .tla-vertab:hover{background:var(--panel2); border-color:var(--gold)}
 .tla-vertab.active{background:var(--gold); border-color:var(--gold); color:var(--on-gold)}
-.tla-vertab-v{font-size:16px; font-weight:700}
-.tla-vertab-d{font-size:13px; opacity:.8}
+.tla-vertab-v{font-size:var(--fs-body); font-weight:700}
+.tla-vertab-d{font-size:var(--fs-eyebrow); opacity:.8}
 /* full strength on the gold chip: at .8 the date measures 3.6:1 there, under the
    4.5:1 this size needs */
 .tla-vertab.active .tla-vertab-d{opacity:1}
 .tla-vertab-n{position:absolute; top:-7px; right:-7px; min-width:20px; text-align:center;
-  font-size:11px; font-weight:700; line-height:1.6; border-radius:10px; padding:0 5px;
+  font-size:var(--fs-micro); font-weight:700; line-height:1.6; border-radius:10px; padding:0 5px;
   background:var(--new-bg); border:1px solid var(--new-edge); color:var(--new)}
 .tla-vertab.active .tla-vertab-n{background:var(--panel); border-color:var(--gold)}
 /* the first edition changed nothing — it is where everything began */
 .tla-vertab.is-origin{cursor:default; background:transparent; border-style:dashed;
-  color:var(--muted); font-size:12.5px; justify-content:center}
+  color:var(--muted); font-size:var(--fs-eyebrow); justify-content:center}
 .tla-vertab.is-origin:hover{background:transparent; border-color:var(--edge2)}
-.tla-wnhelp{font-family:var(--ff-ui); font-size:15px; color:var(--muted); margin:-4px 0 14px; max-width:70ch}
+.tla-wnhelp{font-family:var(--ff-ui); font-size:var(--fs-small); color:var(--muted); margin:-4px 0 14px; max-width:70ch}
 
 /* where an entry came from, and when it was touched */
-.tla-prov{font-family:var(--ff-ui); font-size:12px; color:var(--muted); margin:10px 0 0;
+.tla-prov{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--muted); margin:10px 0 0;
   padding-top:8px; border-top:1px dashed var(--edge)}
 
 /* nav "Novedades" item */
@@ -1261,9 +1272,9 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-nav-sec.is-news .tla-nav-num{color:var(--new)}
 
 /* what's-new view */
-.tla-wnh{font-family:var(--ff-head); font-size:24px; color:var(--gold2); margin:28px 0 12px; display:flex; align-items:center; gap:10px}
-.tla-wncount{font-family:var(--ff-ui); font-size:15.5px; color:var(--muted); font-weight:600}
-.tla-wnh .tla-vbadge{font-size:11px}
+.tla-wnh{font-family:var(--ff-head); font-size:var(--fs-h3); color:var(--gold2); margin:28px 0 12px; display:flex; align-items:center; gap:10px}
+.tla-wncount{font-family:var(--ff-ui); font-size:var(--fs-small); color:var(--muted); font-weight:600}
+.tla-wnh .tla-vbadge{font-size:var(--fs-micro)}
 /* One row per chapter. The row is the scannable thing; the cards inside are what you
    open once you know where to look. */
 .tla-wngrp{border:1px solid var(--edge); border-radius:11px; background:var(--panel); margin:0 0 8px}
@@ -1278,12 +1289,12 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-wngrp[open] > .tla-wngrp-s::before{transform:rotate(45deg)}
 .tla-wngrp-s:hover{background:var(--bg)}
 .tla-wngrp-s:focus-visible{outline:2px solid var(--teal2); outline-offset:-2px}
-.tla-wngrp-n{flex:0 0 auto; min-width:2.2em; font-family:var(--ff-ui); font-size:13.5px;
+.tla-wngrp-n{flex:0 0 auto; min-width:2.2em; font-family:var(--ff-ui); font-size:var(--fs-eyebrow);
   font-weight:700; letter-spacing:.5px; color:var(--muted)}
-.tla-wngrp-t{font-family:var(--ff-head); font-size:19px; color:var(--ink); min-width:0; letter-spacing:.2px}
+.tla-wngrp-t{font-family:var(--ff-head); font-size:var(--fs-lead); color:var(--ink); min-width:0; letter-spacing:.2px}
 /* The count carries the same colour the badges use, so "new" and "rewritten" read the
    same here as they do on an entry — and it is a word plus a number, never colour alone. */
-.tla-wngrp-c{margin-left:auto; flex:0 0 auto; font-family:var(--ff-ui); font-size:13.5px;
+.tla-wngrp-c{margin-left:auto; flex:0 0 auto; font-family:var(--ff-ui); font-size:var(--fs-eyebrow);
   padding:3px 10px; border-radius:11px; border:1px solid var(--edge2); background:var(--bg); color:var(--muted)}
 .tla-wngrp-c.new{color:var(--teal2)}
 .tla-wngrp-c.upd{color:var(--gold2)}
@@ -1294,8 +1305,8 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-wncard:hover{transform:translateY(-2px); border-color:var(--gold)}
 .tla-wncard.new{border-left:3px solid var(--new-edge)}
 .tla-wncard.upd{border-left:3px solid var(--gold)}
-.tla-wntitle{font-family:var(--ff-head); font-size:20px; color:var(--ink); line-height:1.25}
-.tla-wnsec{font-family:var(--ff-ui); font-size:15px; color:var(--muted)}
+.tla-wntitle{font-family:var(--ff-head); font-size:var(--fs-lead); color:var(--ink); line-height:1.25}
+.tla-wnsec{font-family:var(--ff-ui); font-size:var(--fs-small); color:var(--muted)}
 
 /* ---------- game icons (recolourable PNG masks) ---------- */
 .tla-entry h2 .ico,.tla-wnh .ico,.tla-h1 .ico{--icon:var(--gold2)}
@@ -1308,11 +1319,11 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 /* the "i" sits on the image; colours are theme-independent (it floats over artwork) */
 .tla-montage-i{position:absolute; top:10px; right:10px; width:31px; height:31px; border-radius:50%; cursor:pointer;
   border:1px solid rgba(231,210,154,.55); background:rgba(16,20,26,.82); color:#e7d29a;
-  font-family:var(--ff-head); font-size:18px; font-weight:700; line-height:1;
+  font-family:var(--ff-head); font-size:var(--fs-lead); font-weight:700; line-height:1;
   display:inline-flex; align-items:center; justify-content:center; -webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px)}
 .tla-montage-i:hover{background:#e7d29a; color:#171008; border-color:#e7d29a}
 /* source credit band wrapping the image (original page · document version) */
-.tla-montage-cap{font-family:var(--ff-ui); font-size:12.5px; color:var(--muted); letter-spacing:.2px;
+.tla-montage-cap{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--muted); letter-spacing:.2px;
   padding:9px 14px; border-top:1px solid var(--edge); background:var(--bg2)}
 /* the textual alternative is kept hidden as a data source; shown in the modal below */
 .tla-montage-info{display:none}
@@ -1325,12 +1336,12 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   background:var(--panel); border:1px solid var(--edge2); border-radius:14px; box-shadow:var(--shadow)}
 .tla-figmodal-head{display:flex; align-items:center; justify-content:space-between; gap:12px;
   padding:13px 16px; border-bottom:1px solid var(--edge); flex:0 0 auto}
-.tla-figmodal-h{margin:0; font-family:var(--ff-ui); font-size:12px; letter-spacing:1.4px; text-transform:uppercase; color:var(--gold2)}
-.tla-figmodal-close{flex:0 0 auto; background:none; border:0; color:var(--muted); font-size:20px; line-height:1;
+.tla-figmodal-h{margin:0; font-family:var(--ff-ui); font-size:var(--fs-eyebrow); letter-spacing:1.4px; text-transform:uppercase; color:var(--gold2)}
+.tla-figmodal-close{flex:0 0 auto; background:none; border:0; color:var(--muted); font-size:var(--fs-lead); line-height:1;
   cursor:pointer; padding:2px 7px; border-radius:8px}
 .tla-figmodal-close:hover{color:var(--ink); background:var(--panel2)}
 .tla-figmodal-body{padding:16px 18px; overflow:auto}
-.tla-figmodal-body p{margin:0 0 10px; font-size:15.5px; color:var(--ink2); line-height:1.62}
+.tla-figmodal-body p{margin:0 0 10px; font-size:var(--fs-small); color:var(--ink2); line-height:1.62}
 .tla-figmodal-body p:last-child{margin:0}
 .tla-figmodal-body b{color:var(--gold2)} .tla-figmodal-body i{color:var(--ink)}
 /* standalone symbol drawn as a PDF vector, re-inserted as a centred icon */
@@ -1341,20 +1352,20 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-figs{display:flex; flex-direction:column; gap:22px; margin-top:8px}
 .tla-fig{border:1px solid var(--edge2); border-radius:10px; overflow:hidden; background:var(--figbg); box-shadow:var(--shadow)}
 .tla-fig img{display:block; width:100%; height:auto; cursor:zoom-in}
-.tla-fig figcaption{font-family:var(--ff-ui); font-size:13px; color:var(--muted); padding:9px 13px; border-top:1px solid var(--edge); background:var(--bg2)}
-.tla-note{border-left:4px solid var(--gold); background:var(--mark); padding:14px 18px; border-radius:0 8px 8px 0; margin:0 0 18px; font-size:16px; color:var(--ink)}
+.tla-fig figcaption{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--muted); padding:9px 13px; border-top:1px solid var(--edge); background:var(--bg2)}
+.tla-note{border-left:4px solid var(--gold); background:var(--mark); padding:14px 18px; border-radius:0 8px 8px 0; margin:0 0 18px; font-size:var(--fs-body); color:var(--ink)}
 .tla-note b{color:var(--gold2)}
 
 /* ---------- toc (right) ---------- */
-.tla-toc-h{font-family:var(--ff-ui); font-size:13px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--muted); margin:0 0 12px}
-.tla-toc a{display:block; font-family:var(--ff-ui); font-size:15px; color:var(--muted); padding:7px 9px; border-left:2px solid transparent; line-height:1.45}
+.tla-toc-h{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--muted); margin:0 0 12px}
+.tla-toc a{display:block; font-family:var(--ff-ui); font-size:var(--fs-small); color:var(--muted); padding:7px 9px; border-left:2px solid transparent; line-height:1.45}
 .tla-toc a:hover{color:var(--ink2); text-decoration:none}
 .tla-toc a.on{color:var(--gold2); border-left-color:var(--gold)}
 .tla-toc a.is-subhead{color:var(--teal2); font-weight:700; margin-top:8px}
 .tla-toc a .ico{--icon:var(--muted)}
 
 /* ---------- footer ---------- */
-.tla-foot{flex:0 0 auto; border-top:1px solid var(--edge); padding:14px 22px; font-family:var(--ff-ui); font-size:13px; color:var(--muted);
+.tla-foot{flex:0 0 auto; border-top:1px solid var(--edge); padding:14px 22px; font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--muted);
   display:flex; gap:14px; flex-wrap:wrap; align-items:center; justify-content:space-between; background:var(--bg2)}
 .tla-foot-body{display:contents}
 /* No fold on a wide screen: there is room, so the credits just sit there. The
@@ -1395,8 +1406,8 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 
 /* ---------- Modified Reprints table ---------- */
 .tla-rp-wrap{overflow-x:auto; margin:20px 0 0}
-.tla-reprints{border-collapse:collapse; width:100%; font-family:var(--ff-ui); font-size:15px}
-.tla-reprints th{text-align:left; font-size:11.5px; text-transform:uppercase; letter-spacing:.7px;
+.tla-reprints{border-collapse:collapse; width:100%; font-family:var(--ff-ui); font-size:var(--fs-small)}
+.tla-reprints th{text-align:left; font-size:var(--fs-micro); text-transform:uppercase; letter-spacing:.7px;
   color:var(--muted); font-weight:700; padding:0 14px 9px; border-bottom:1px solid var(--edge2)}
 .tla-reprints td{padding:9px 14px; border-bottom:1px solid var(--edge); vertical-align:middle}
 .tla-reprints tbody tr:hover td{background:var(--bg2)}
@@ -1408,7 +1419,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-rp-card{color:var(--ink); font-weight:600}
 .tla-rp-link{text-align:right; white-space:nowrap}
 #tla-root .tla-adb{display:inline-flex; align-items:center; gap:6px; color:var(--teal2);
-  font-size:13.5px; font-weight:600; text-decoration:none}
+  font-size:var(--fs-eyebrow); font-weight:600; text-decoration:none}
 #tla-root .tla-adb:hover{color:var(--gold2); text-decoration:underline}
 .tla-adb svg{width:14px; height:14px; flex:0 0 auto}
 /* A card name in the errata/FAQ, linked out to ArkhamDB. Dotted underline so it reads as
@@ -1432,33 +1443,33 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-taboos[open] > .tla-taboos-sum::before{transform:rotate(45deg)}
 .tla-taboos-sum:hover{background:var(--bg)}
 .tla-taboos-sum:focus-visible{outline:2px solid var(--teal2); outline-offset:-2px}
-.tla-taboos-sumt{font-size:15px; font-weight:700; color:var(--ink)}
-.tla-taboo-ver{margin-left:auto; font-size:12.5px; font-weight:700; color:var(--gold2)}
+.tla-taboos-sumt{font-size:var(--fs-small); font-weight:700; color:var(--ink)}
+.tla-taboo-ver{margin-left:auto; font-size:var(--fs-eyebrow); font-weight:700; color:var(--gold2)}
 .tla-taboos-body{padding:4px 16px 14px}
 /* The lead-in and the per-bucket explanation: prose, so they read as prose and not as another
    row of the index — muted, narrower than the card list, and out of the way of the names. */
 .tla-taboos-lead{margin:2px 0 10px; max-width:68ch; color:var(--ink2); line-height:1.6}
-.tla-taboo-desc{margin:2px 0 8px; max-width:68ch; color:var(--muted); font-size:14px; line-height:1.55}
-.tla-taboo-note{margin:14px 0 0; max-width:68ch; color:var(--muted); font-size:14px; line-height:1.55}
+.tla-taboo-desc{margin:2px 0 8px; max-width:68ch; color:var(--muted); font-size:var(--fs-small); line-height:1.55}
+.tla-taboo-note{margin:14px 0 0; max-width:68ch; color:var(--muted); font-size:var(--fs-small); line-height:1.55}
 .tla-taboo-grp{margin:12px 0 0}
-.tla-taboo-h{font-family:var(--ff-head); font-size:18px; color:var(--teal2); margin:0 0 8px;
+.tla-taboo-h{font-family:var(--ff-head); font-size:var(--fs-lead); color:var(--teal2); margin:0 0 8px;
   display:flex; align-items:baseline; gap:9px}
-.tla-taboo-n{font-family:var(--ff-ui); font-size:13px; font-weight:700; color:var(--muted)}
+.tla-taboo-n{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:700; color:var(--muted)}
 .tla-taboo-list{list-style:none; margin:0; padding:0; display:grid;
   grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:6px 18px}
 .tla-taboo-card{display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 10px; padding:5px 0;
   border-bottom:1px solid var(--edge)}
 .tla-taboo-card.is-forbidden{color:var(--new)}
 #tla-root .tla-taboo-name{display:inline-flex; align-items:center; gap:5px; font-family:var(--ff-ui);
-  font-size:14.5px; font-weight:600; color:var(--ink); text-decoration:none}
+  font-size:var(--fs-small); font-weight:600; color:var(--ink); text-decoration:none}
 #tla-root .tla-taboo-name:hover{color:var(--gold2); text-decoration:underline; text-underline-offset:3px}
 .tla-taboo-ext{width:12px; height:12px; flex:0 0 auto; opacity:.65}
 .tla-taboo-coll{display:inline-flex; align-items:center; gap:6px; font-family:var(--ff-ui);
-  font-size:12.5px; color:var(--muted)}
+  font-size:var(--fs-eyebrow); color:var(--muted)}
 .tla-taboo-coll .tla-prodicon{width:17px; height:17px}
 .tla-taboo-pos{font-variant-numeric:tabular-nums; font-weight:700; color:var(--ink2)}
 .tla-taboo-pos::before{content:"·"; margin-right:5px; color:var(--muted); font-weight:400}
-.tla-taboo-tag{margin-left:auto; font-family:var(--ff-ui); font-size:11.5px; font-weight:700;
+.tla-taboo-tag{margin-left:auto; font-family:var(--ff-ui); font-size:var(--fs-micro); font-weight:700;
   letter-spacing:.3px; padding:1px 8px; border-radius:999px; white-space:nowrap}
 .tla-taboo-xp{color:var(--gold2); border:1px solid var(--edge2)}
 .tla-taboo-forb{color:var(--new); border:1px solid var(--new-edge); background:var(--new-bg)}
@@ -1472,16 +1483,16 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   border:1px solid var(--edge2); border-radius:16px; box-shadow:var(--shadow); padding:28px 26px 24px}
 .tla-modal-close{position:absolute; top:10px; right:10px; width:38px; height:38px; cursor:pointer;
   border-radius:9px; border:1px solid var(--edge2); background:var(--bg2); color:var(--ink2);
-  font-size:17px; line-height:1}
+  font-size:var(--fs-body); line-height:1}
 .tla-modal-close:hover{background:var(--panel2); color:var(--ink)}
-.tla-modal-t{font-family:var(--ff-head); font-size:24px; color:var(--gold2); letter-spacing:.3px;
+.tla-modal-t{font-family:var(--ff-head); font-size:var(--fs-h3); color:var(--gold2); letter-spacing:.3px;
   margin:0 30px 12px 0}
-.tla-modal-p{font-family:var(--ff-body); font-size:15px; line-height:1.6; color:var(--ink2); margin:0 0 20px}
+.tla-modal-p{font-family:var(--ff-body); font-size:var(--fs-small); line-height:1.6; color:var(--ink2); margin:0 0 20px}
 /* #tla-root-qualified so its colour outranks the blanket `#tla-root a` link colour —
    otherwise the label renders in the teal link colour on the gold button (1.3:1). */
 /* The one call to action a modal is allowed: PayPal's, GitHub's, and whatever comes next. */
 #tla-root .tla-modal-cta{display:inline-flex; align-items:center; gap:9px; text-decoration:none;
-  font-family:var(--ff-ui); font-size:15px; font-weight:700; padding:11px 20px; border-radius:10px;
+  font-family:var(--ff-ui); font-size:var(--fs-small); font-weight:700; padding:11px 20px; border-radius:10px;
   background:var(--gold); color:var(--on-gold)}
 #tla-root .tla-modal-cta:hover{background:var(--gold2); color:var(--on-gold); text-decoration:none}
 .tla-modal-cta svg{width:17px; height:18px; flex:0 0 auto}
@@ -1490,7 +1501,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
    someone forgot to wire up — and it is a p element, so there is nothing to click or tab onto.
    Colour is --ink2, the same as body copy, so the contrast is one the site already proves. */
 .tla-discord-pending{display:inline-flex; align-items:center; gap:9px; margin:0;
-  font-family:var(--ff-ui); font-size:14px; font-weight:600; padding:10px 18px;
+  font-family:var(--ff-ui); font-size:var(--fs-small); font-weight:600; padding:10px 18px;
   border-radius:10px; border:1px dashed var(--edge2); color:var(--ink2)}
 .tla-discord-pending svg{width:17px; height:18px; flex:0 0 auto; opacity:.75}
 
@@ -1502,13 +1513,13 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   max-height:calc(100vh - 28px); overflow-y:auto}
 .tla-ubdraw-form{display:flex; flex-wrap:wrap; align-items:flex-end; gap:14px 18px; margin:0}
 .tla-ubdraw-field{display:flex; flex-direction:column; gap:6px}
-.tla-ubdraw-field label{font-family:var(--ff-ui); font-size:13px; font-weight:700; color:var(--ink2)}
+.tla-ubdraw-field label{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:700; color:var(--ink2)}
 .tla-ubdraw-num{display:inline-flex; align-items:center; gap:9px}
-.tla-ubdraw-num input{width:76px; font-family:var(--ff-ui); font-size:15px; padding:8px 10px;
+.tla-ubdraw-num input{width:76px; font-family:var(--ff-ui); font-size:var(--fs-small); padding:8px 10px;
   border-radius:8px; border:1px solid var(--edge2); background:var(--bg2); color:var(--ink)}
-.tla-ubdraw-max{font-family:var(--ff-ui); font-size:12px; color:var(--muted); white-space:nowrap}
+.tla-ubdraw-max{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--muted); white-space:nowrap}
 #tla-root .tla-ubdraw-go{display:inline-flex; align-items:center; gap:8px; cursor:pointer; min-height:40px;
-  font-family:var(--ff-ui); font-size:15px; font-weight:700; padding:9px 20px; border-radius:10px;
+  font-family:var(--ff-ui); font-size:var(--fs-small); font-weight:700; padding:9px 20px; border-radius:10px;
   border:1px solid var(--gold); background:var(--gold); color:var(--on-gold)}
 #tla-root .tla-ubdraw-go:hover{background:var(--gold2); color:var(--on-gold)}
 .tla-ubdraw-go svg{width:17px; height:17px; flex:0 0 auto}
@@ -1519,9 +1530,9 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-ubdraw-group{margin:0 0 20px; padding:16px 16px 18px; border:1px solid var(--edge2);
   border-radius:14px; background:var(--bg2)}
 .tla-ubdraw-group:last-child{margin-bottom:0}
-.tla-ubdraw-h{font-family:var(--ff-head); font-size:20px; color:var(--gold2); margin:0 0 12px; outline:none}
-.tla-ubdraw-n{font-family:var(--ff-ui); font-size:14px; font-weight:400; color:var(--muted)}
-.tla-ubdraw-list{margin:0 0 14px; padding-left:22px; font-family:var(--ff-body); font-size:15px; line-height:1.7; color:var(--ink2); columns:2; column-gap:34px}
+.tla-ubdraw-h{font-family:var(--ff-head); font-size:var(--fs-lead); color:var(--gold2); margin:0 0 12px; outline:none}
+.tla-ubdraw-n{font-family:var(--ff-ui); font-size:var(--fs-small); font-weight:400; color:var(--muted)}
+.tla-ubdraw-list{margin:0 0 14px; padding-left:22px; font-family:var(--ff-body); font-size:var(--fs-small); line-height:1.7; color:var(--ink2); columns:2; column-gap:34px}
 .tla-ubdraw-list li{break-inside:avoid}
 .tla-ubdraw-list b{color:var(--ink)}
 .tla-ubdraw-empty{font-family:var(--ff-body); color:var(--ink2); margin:6px 0 0}
@@ -1535,7 +1546,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
    read as belonging to the card above and to no other, which a full-width bar does and a
    small floating control does not. cursor is restated because the card sets zoom-in. */
 .tla-ubdraw-swap{display:block; width:100%; margin-top:10px; min-height:38px; padding:0 12px;
-  cursor:pointer; font-family:var(--ff-ui); font-size:13px; font-weight:700; letter-spacing:.3px;
+  cursor:pointer; font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:700; letter-spacing:.3px;
   color:var(--ink2); background:var(--panel2); border:1px solid var(--edge2); border-radius:9px}
 .tla-ubdraw-swap:hover:not(:disabled){background:var(--gold); color:var(--on-gold); border-color:transparent}
 .tla-ubdraw-swap:disabled{opacity:.45; cursor:default}
@@ -1544,7 +1555,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-lb{position:fixed; inset:0; background:rgba(6,7,10,.93); z-index:300; display:none; align-items:center; justify-content:center; padding:24px; cursor:zoom-out}
 .tla-lb.on{display:flex}
 .tla-lb img{max-width:96vw; max-height:92vh; border-radius:8px; box-shadow:0 20px 60px rgba(0,0,0,.7)}
-.tla-lb-close{position:absolute; top:18px; right:22px; color:#fff; font-size:30px; cursor:pointer; background:none; border:0; line-height:1}
+.tla-lb-close{position:absolute; top:18px; right:22px; color:#fff; font-size:var(--fs-h2); cursor:pointer; background:none; border:0; line-height:1}
 
 /* ---------- mobile nav scrim ---------- */
 .tla-scrim{display:none; position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:45}
@@ -1569,7 +1580,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   .tla-nav.on{transform:none; visibility:visible; transition:transform .22s ease, visibility 0s}
   .tla-searchbtn{padding:0; width:44px; justify-content:center}
   .tla-searchbtn-kbd{display:none}
-  .tla-title{font-size:21px}
+  .tla-title{font-size:var(--fs-lead)}
   .tla-sub{display:none}
   /* The credits fold: two wrapped lines cost ~100px of a 667px phone, and they
      are the least urgent thing on the screen. One tap brings them back. */
@@ -1577,7 +1588,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   .tla-foot-toggle{display:flex; align-items:center; justify-content:space-between; gap:8px;
     width:100%; min-height:40px; padding:0; cursor:pointer;
     background:transparent; border:0; color:var(--muted);
-    font-family:var(--ff-ui); font-size:12.5px; text-transform:uppercase; letter-spacing:.9px}
+    font-family:var(--ff-ui); font-size:var(--fs-eyebrow); text-transform:uppercase; letter-spacing:.9px}
   .tla-foot-toggle::after{content:''; width:9px; height:9px; flex:0 0 auto;
     border-right:2px solid currentColor; border-bottom:2px solid currentColor;
     transform:rotate(-135deg) translate(-2px,-2px); transition:transform .18s ease}
@@ -1601,41 +1612,41 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   -webkit-mask-size:contain; mask-size:contain}
 .tla-prodicon.is-none{background:none; border:1px dashed var(--edge2); border-radius:6px}
 .tla-icongrp{margin:26px 0 0}
-.tla-icongrp-h{font-family:var(--ff-head); font-size:19px; color:var(--teal2); margin:0 0 6px; letter-spacing:.3px}
-.tla-icongrp-d{font-family:var(--ff-body); font-size:15px; color:var(--ink2); margin:0 0 12px; max-width:66ch}
+.tla-icongrp-h{font-family:var(--ff-head); font-size:var(--fs-lead); color:var(--teal2); margin:0 0 6px; letter-spacing:.3px}
+.tla-icongrp-d{font-family:var(--ff-body); font-size:var(--fs-small); color:var(--ink2); margin:0 0 12px; max-width:66ch}
 /* "not out yet" is content, not an error: the book prints the heading and leaves it
    blank, so the site says why rather than hiding the group. */
-.tla-iconsoon{font-family:var(--ff-ui); font-size:13.5px; color:var(--muted); margin:0;
+.tla-iconsoon{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--muted); margin:0;
   padding:10px 14px; border:1px dashed var(--edge2); border-radius:10px; background:var(--panel)}
 .tla-icontable{list-style:none; margin:0; padding:0; display:grid; gap:8px;
   grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}
 .tla-iconrow{display:flex; align-items:center; gap:12px; min-width:0;
   padding:8px 12px; border:1px solid var(--edge); border-radius:10px; background:var(--panel)}
-.tla-iconcode{flex:0 0 auto; font-family:var(--ff-ui); font-size:12px; font-weight:700;
+.tla-iconcode{flex:0 0 auto; font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:700;
   letter-spacing:.5px; color:var(--muted)}
-.tla-iconname{font-family:var(--ff-body); font-size:15px; color:var(--ink); min-width:0}
+.tla-iconname{font-family:var(--ff-body); font-size:var(--fs-small); color:var(--ink); min-width:0}
 .tla-qrlink{display:inline-flex; align-items:center; gap:7px; margin:4px 0 6px;
-  font-family:var(--ff-ui); font-size:13.5px; color:var(--teal2);
+  font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--teal2);
   text-decoration:underline; text-underline-offset:3px; min-height:24px}
 .tla-qrlink:hover{color:var(--gold2)}
 .tla-qrlink svg{width:15px; height:15px; flex:0 0 auto}
 /* A nested group: an expansion heading owns grids, and the grids own the icons. */
 .tla-icongrp.is-l2{margin-left:14px; padding-left:14px; border-left:2px solid var(--edge)}
-.tla-icongrp.is-l2 .tla-icongrp-h{font-size:16px; color:var(--gold2)}
+.tla-icongrp.is-l2 .tla-icongrp-h{font-size:var(--fs-body); color:var(--gold2)}
 
 /* The substitution table. A real <table>, because it IS one: two columns of sets and a
    header that says which is which — which the book leaves to an arrow the reader has to
    interpret, and a screen reader cannot. */
 .tla-subst{margin:14px 0 0}
 .tla-substbar{display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; margin:0 0 12px}
-.tla-substlab{font-family:var(--ff-ui); font-size:13px; color:var(--muted)}
+.tla-substlab{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--muted)}
 .tla-substq{flex:1 1 200px; max-width:320px; min-height:36px; padding:6px 12px;
-  font-family:var(--ff-body); font-size:15px; color:var(--ink);
+  font-family:var(--ff-body); font-size:var(--fs-small); color:var(--ink);
   background:var(--panel); border:1px solid var(--edge2); border-radius:9px}
 .tla-substq:focus-visible{outline:2px solid var(--teal2); outline-offset:1px}
-.tla-substcount{flex:0 0 auto; margin:0; font-family:var(--ff-ui); font-size:13px; color:var(--muted)}
+.tla-substcount{flex:0 0 auto; margin:0; font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--muted)}
 .tla-substtable{width:100%; border-collapse:collapse; font-family:var(--ff-body)}
-.tla-substtable th{font-family:var(--ff-ui); font-size:12px; font-weight:700;
+.tla-substtable th{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:700;
   letter-spacing:.5px; text-transform:uppercase; color:var(--muted);
   text-align:left; padding:0 12px 8px; border-bottom:1px solid var(--edge2)}
 .tla-substtable td{padding:10px 12px; border-bottom:1px solid var(--edge); vertical-align:middle}
@@ -1646,7 +1657,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   -webkit-mask-position:center; mask-position:center;
   -webkit-mask-size:contain; mask-size:contain}
 .tla-substmark.is-none{background:none; border:1px dashed var(--edge2); border-radius:6px}
-.tla-substname{font-size:15px; color:var(--ink); min-width:0}
+.tla-substname{font-size:var(--fs-small); color:var(--ink); min-width:0}
 /* A fan-out row's targets stack vertically with the operator between them, so the row
    reads as one-on-the-left, two-on-the-right — the shape the book draws with its brace,
    and the shape its own diagrams use. The source cell centres against the taller stack. */
@@ -1656,9 +1667,9 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
    book sets it; the word beside it is for the reader who cannot see a glyph. */
 .tla-substop{display:inline-flex; align-items:center; justify-content:center;
   margin:0 10px; padding:0 8px; min-height:22px;
-  font-family:var(--ff-ui); font-size:13px; font-weight:700; color:var(--teal2);
+  font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:700; color:var(--teal2);
   background:var(--panel); border:1px solid var(--edge2); border-radius:999px}
-.tla-substnone{font-family:var(--ff-ui); font-size:13.5px; color:var(--muted); margin:12px 0 0;
+.tla-substnone{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--muted); margin:12px 0 0;
   padding:10px 14px; border:1px dashed var(--edge2); border-radius:10px; background:var(--panel)}
 /* Narrow: a two-column table of long set names stops being a table. Each row becomes a
    block, and the column headers move onto the cells so the "which is which" survives. */
@@ -1668,7 +1679,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   .tla-substrow{padding:10px 0; border-bottom:1px solid var(--edge)}
   .tla-substtable td{border-bottom:0; padding:4px 0}
   .tla-substtable td::before{display:block; margin:0 0 4px;
-    font-family:var(--ff-ui); font-size:11px; font-weight:700; letter-spacing:.5px;
+    font-family:var(--ff-ui); font-size:var(--fs-micro); font-weight:700; letter-spacing:.5px;
     text-transform:uppercase; color:var(--muted); content:attr(data-h)}
   .tla-substop{margin:6px 0 6px 38px}
 }
@@ -1680,18 +1691,18 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-extras{margin:14px 0 0; padding:14px 16px; border:1px dashed var(--edge2);
   border-left:3px solid var(--teal2); border-radius:10px; background:var(--panel)}
 .tla-extras-h{display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:0 0 4px;
-  font-family:var(--ff-ui); font-size:13.5px; color:var(--ink)}
-.tla-extras-tag{font-size:10.5px; font-weight:700; letter-spacing:.8px; text-transform:uppercase;
+  font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--ink)}
+.tla-extras-tag{font-size:var(--fs-micro); font-weight:700; letter-spacing:.8px; text-transform:uppercase;
   color:var(--teal2); border:1px solid var(--edge2); border-radius:999px; padding:2px 8px; background:var(--bg)}
-.tla-extras-d{font-family:var(--ff-body); font-size:13px; color:var(--muted); margin:0 0 10px; max-width:66ch}
+.tla-extras-d{font-family:var(--ff-body); font-size:var(--fs-eyebrow); color:var(--muted); margin:0 0 10px; max-width:66ch}
 .tla-extras-l{list-style:none; margin:0; padding:0; display:grid; gap:10px}
 .tla-extras-l li{display:flex; flex-direction:column; gap:2px}
 .tla-extras-l a{display:inline-flex; align-items:center; gap:7px; min-height:24px;
-  font-family:var(--ff-ui); font-size:14px; color:var(--teal2);
+  font-family:var(--ff-ui); font-size:var(--fs-small); color:var(--teal2);
   text-decoration:underline; text-underline-offset:3px}
 .tla-extras-l a:hover{color:var(--gold2)}
 .tla-extras-l a svg{width:14px; height:14px; flex:0 0 auto}
-.tla-extras-n{font-family:var(--ff-body); font-size:13px; color:var(--muted); max-width:66ch}
+.tla-extras-n{font-family:var(--ff-body); font-size:var(--fs-eyebrow); color:var(--muted); max-width:66ch}
 
 /* The banner that points to the printable sheet at the foot — the shape of the book's
    own callout, in the calm teal rather than the red STOP, because it invites rather than
@@ -1700,16 +1711,16 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   margin:6px 0 20px; padding:14px 18px; border-radius:12px;
   border:1px solid var(--edge2); border-left:3px solid var(--teal2); background:var(--panel)}
 .tla-qrbanner svg{width:20px; height:20px; flex:0 0 auto; color:var(--teal2)}
-.tla-qrbanner-t{flex:1 1 220px; margin:0; font-family:var(--ff-body); font-size:14.5px; color:var(--ink2)}
+.tla-qrbanner-t{flex:1 1 220px; margin:0; font-family:var(--ff-body); font-size:var(--fs-small); color:var(--ink2)}
 .tla-qrbanner-go{flex:0 0 auto; min-height:38px; padding:0 16px; cursor:pointer;
-  font-family:var(--ff-ui); font-size:13.5px; font-weight:600; color:var(--on-gold);
+  font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:600; color:var(--on-gold);
   background:var(--gold); border:0; border-radius:9px}
 .tla-qrbanner-go:hover{background:var(--gold2)}
 .tla-qrbanner-go:focus-visible{outline:3px solid var(--gold); outline-offset:2px}
 
 /* ---------- quick reference: the interactive symbol key ---------- */
 .tla-qref{display:grid; gap:24px; margin:8px 0 20px}
-.tla-qref-h{font-family:var(--ff-head); font-size:19px; color:var(--teal2); margin:0 0 12px;
+.tla-qref-h{font-family:var(--ff-head); font-size:var(--fs-lead); color:var(--teal2); margin:0 0 12px;
   letter-spacing:.3px}
 .tla-symgrid{list-style:none; margin:0; padding:0; display:grid;
   grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:10px}
@@ -1726,12 +1737,12 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
    outlines it. */
 .tla-symchip .ico{width:24px; height:24px;
   filter:drop-shadow(0 0 .6px rgba(26,20,10,.7)) drop-shadow(0 0 .6px rgba(26,20,10,.55))}
-.tla-symname{font-family:var(--ff-body); font-size:15px; color:var(--ink); min-width:0}
+.tla-symname{font-family:var(--ff-body); font-size:var(--fs-small); color:var(--ink); min-width:0}
 /* the sheet image, kept as a download under the interactive key */
 .tla-fig.is-download{border:1px dashed var(--edge2); border-radius:12px; overflow:hidden; background:var(--figbg)}
 .tla-fig.is-download img{display:block; width:100%; height:auto}
 .tla-dl{display:inline-flex; align-items:center; gap:8px; min-height:40px; padding:0 4px;
-  font-family:var(--ff-ui); font-size:14px; color:var(--teal2);
+  font-family:var(--ff-ui); font-size:var(--fs-small); color:var(--teal2);
   text-decoration:underline; text-underline-offset:3px}
 .tla-dl:hover{color:var(--gold2)}
 .tla-dl svg{width:16px; height:16px; flex:0 0 auto}
@@ -1756,13 +1767,13 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   box-shadow:0 18px 44px rgba(0,0,0,.5)}
 .tla-tour-card.is-centred{left:50%; top:50%; transform:translate(-50%,-50%)}
 .tla-tour-card:focus{outline:none}
-.tla-tour-step{margin:0 0 6px; font-family:var(--ff-ui); font-size:11.5px; font-weight:700;
+.tla-tour-step{margin:0 0 6px; font-family:var(--ff-ui); font-size:var(--fs-micro); font-weight:700;
   letter-spacing:.6px; text-transform:uppercase; color:var(--ink2)}
-.tla-tour-t{margin:0 0 8px; font-family:var(--ff-head); font-size:21px; color:var(--ink)}
-.tla-tour-d{margin:0; font-size:14.5px; line-height:1.6; color:var(--ink2)}
+.tla-tour-t{margin:0 0 8px; font-family:var(--ff-head); font-size:var(--fs-lead); color:var(--ink)}
+.tla-tour-d{margin:0; font-size:var(--fs-small); line-height:1.6; color:var(--ink2)}
 .tla-tour-btns{display:flex; align-items:center; gap:8px; margin-top:16px}
 .tla-tour-gap{flex:1 1 auto}
-.tla-tour-btns button{cursor:pointer; font-family:var(--ff-ui); font-size:13.5px; font-weight:600;
+.tla-tour-btns button{cursor:pointer; font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:600;
   min-height:38px; padding:8px 14px; border-radius:10px; border:1px solid var(--edge2);
   background:var(--panel); color:var(--ink2)}
 .tla-tour-btns button:hover{color:var(--ink); border-color:var(--gold)}
@@ -1781,7 +1792,7 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-tour-langs{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;
   max-height:min(38vh,190px); overflow-y:auto}
 .tla-tour-lang{display:inline-flex; align-items:center; gap:7px; cursor:pointer;
-  font-family:var(--ff-ui); font-size:13.5px; font-weight:600; min-height:38px;
+  font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:600; min-height:38px;
   padding:7px 12px; border-radius:10px; border:1px solid var(--edge2);
   background:var(--panel); color:var(--ink2)}
 .tla-tour-lang:hover{color:var(--ink); border-color:var(--gold)}
@@ -1791,14 +1802,14 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
    over the image's own dark gradient, so it keeps the hero's white; the link underlines on
    hover and focus like every other outbound link. */
 .tla-hero-illus{position:absolute; left:0; bottom:0; margin:0; padding:10px 14px;
-  font-family:var(--ff-ui); font-size:12.5px; letter-spacing:.2px;
+  font-family:var(--ff-ui); font-size:var(--fs-eyebrow); letter-spacing:.2px;
   color:rgba(255,255,255,.88); text-shadow:0 1px 8px rgba(0,0,0,.85)}
 #tla-root .tla-hero-illus a{color:#fff; text-decoration:underline; text-underline-offset:3px}
 #tla-root .tla-hero-illus a:hover{color:var(--gold)}
 /* What a mutated card's text now says. English only (ArkhamDB keeps no translation), so it is
    set apart and labelled rather than passed off as the reader's language. */
-.tla-taboo-mut{flex:1 1 100%; margin:6px 0 0; font-size:14px; line-height:1.55; color:var(--ink2)}
-.tla-taboo-mutlbl{font-family:var(--ff-ui); font-size:11.5px; font-weight:700; letter-spacing:.5px;
+.tla-taboo-mut{flex:1 1 100%; margin:6px 0 0; font-size:var(--fs-small); line-height:1.55; color:var(--ink2)}
+.tla-taboo-mutlbl{font-family:var(--ff-ui); font-size:var(--fs-micro); font-weight:700; letter-spacing:.5px;
   text-transform:uppercase; color:var(--muted); margin-right:6px}
 
 /* Release notes — what changed and when, reached from the "i" in the footer's icon row.
@@ -1826,18 +1837,18 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-rel-sum:hover .tla-rel-v{color:var(--gold)}
 .tla-rel-sum:focus-visible{outline:2px solid var(--gold); outline-offset:2px; border-radius:6px}
 .tla-rel-head{display:flex; align-items:baseline; flex-wrap:wrap; gap:8px; margin-right:auto}
-.tla-rel-v{font-family:var(--ff-head); font-size:20px; color:var(--gold2); font-variant-numeric:tabular-nums}
-.tla-rel-name{font-family:var(--ff-body); font-size:16px; font-style:italic; color:var(--ink)}
+.tla-rel-v{font-family:var(--ff-head); font-size:var(--fs-lead); color:var(--gold2); font-variant-numeric:tabular-nums}
+.tla-rel-name{font-family:var(--ff-body); font-size:var(--fs-body); font-style:italic; color:var(--ink)}
 .tla-rel-meta{display:inline-flex; align-items:center; gap:8px; font-family:var(--ff-ui);
-  font-size:12.5px; color:var(--ink2)}
+  font-size:var(--fs-eyebrow); color:var(--ink2)}
 .tla-rel-now,.tla-rel-old{display:inline-block; padding:1px 7px; border-radius:999px;
-  font-weight:700; font-size:11px}
+  font-weight:700; font-size:var(--fs-micro)}
 .tla-rel-now{border:1px solid var(--gold); color:var(--gold2)}
 .tla-rel-old{border:1px solid var(--edge2); color:var(--ink2)}
 /* Native <details> content-hiding is overridden globally in this app, so — like the nav and the
    What's-New groups — the list is hidden EXPLICITLY and shown only in the open state. */
 .tla-rel-list{display:none; margin:0 0 14px; padding-left:20px}
 .tla-rel-item[open] > .tla-rel-list{display:flex; flex-direction:column; gap:8px}
-.tla-rel-list li{font-size:14.5px; line-height:1.6; color:var(--ink2)}
+.tla-rel-list li{font-size:var(--fs-small); line-height:1.6; color:var(--ink2)}
 .tla-rel-list strong{color:var(--ink)}
 @media (prefers-reduced-motion:reduce){ .tla-rel-sum::before{transition:none} }

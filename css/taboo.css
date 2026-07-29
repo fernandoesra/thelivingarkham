@@ -22,7 +22,10 @@
    the container, and an element cannot query itself, so cqw here would fall back to the viewport
    and the corner would grow with the window. */
 .tbc{position:relative; width:100%; max-width:460px; margin:0 auto;
-  container-type:inline-size; overflow:hidden; border-radius:2.8%/2%}
+  container-type:inline-size; overflow:hidden; border-radius:2.8%/2%;
+  /* A card draws its icons in its own ink, not the app's --icon: the plate is a fixed cream, so the
+     glyph is dark regardless of theme. Scoped here so the app's coloured icons are untouched. */
+  --icon:currentColor}
 .tbc-pic{display:block; width:100%; height:auto}
 .tbc-l{position:absolute; margin:0; color:#231f20}
 
@@ -311,9 +314,15 @@
    them all into a square box made every one a different size -- the lightning bolt of a free
    trigger, two and a half times as wide as it is tall, came out at 0.394 em, less than half.
    The per-icon ratios below are generated from the SVGs themselves by tb/gen_aspects.py. */
+/* This rule shares the bare `.ico` selector with icons.css and, loading later, would win. It must
+   therefore agree with icons.css on the COLOUR (background-color:var(--icon)) or it silently repaints
+   every icon on the site -- that is what turned the quick-reference symbols from their brand colours
+   to the page ink. The card wants its icons in its own ink, so it sets --icon:currentColor on .tbc
+   (below); everywhere else --icon keeps whatever the app set. Sizing here is card-relative and
+   matches icons.css's per-glyph metrics, so it is harmless where it overlaps. */
 .ico{display:inline-block; --ih:.872em; height:var(--ih); width:calc(var(--ih)*var(--ia,1));
   vertical-align:-.11em;
-  background-color:currentColor; -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
+  background-color:var(--icon); -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat;
   -webkit-mask-position:center; mask-position:center; -webkit-mask-size:contain; mask-size:contain}
 .ico-action{--ia:1.333}
 .ico-bullet{--ia:1.620}

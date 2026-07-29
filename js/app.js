@@ -989,7 +989,7 @@ function diagOptions(s){
   return [['all',t('viewall')],['diag',t('viewdiag')]];
 }
 function diagSwitch(s){
-  var h='<fieldset class="tla-diagpick"><legend class="tla-diagpick-lg">'+esc(t('viewas'))+'</legend>';
+  var h='<fieldset class="tla-diagpick"><legend class="tla-diagpick-lg">'+esc(t('viewdiagrams'))+'</legend>';
   h+='<div class="tla-diagpick-row">';
   diagOptions(s).forEach(function(o){
     var on=o[0]===docView;
