@@ -285,7 +285,7 @@ The skill-test chapter carries a second, **fanmade** view: the community's break
 
 ## The interactive taboo list
 
-The Resources shelf carries a live **taboo list**, built from ArkhamDB's public API (`tools/taboos.py` → `data/taboos_<code>.json`). Every card on the current taboo list is grouped the way the book groups them — *Chained/Unchained* (an experience cost), *Mutated* (a rules-text change) and *Forbidden* (barred) — each with its collection number, its product icon (matched to the FAQ's own icon tables), and a **direct link** to the card on ArkhamDB in the reader's language. The mutation text ArkhamDB stores is English only, so it is tagged `lang="en"` and the list cross-links to the FAQ's own taboo chapter for the full write-up. It refreshes as part of `ingest.py` (network, best-effort: an offline build keeps the committed data). Run it on its own with `python tools/taboos.py`.
+The Resources shelf carries a live **taboo list**, built from ArkhamDB's public API (`tools/taboos.py` → `data/taboos_<code>.json`). Every card on the current taboo list is grouped the way the book groups them — *Chained/Unchained* (an experience cost), *Mutated* (a rules-text change) and *Forbidden* (barred) — each with its collection number, its product icon (matched to the FAQ's own icon tables), and a **direct link** to the card on ArkhamDB in the reader's language. The mutation text ArkhamDB stores is English only, so it is tagged `lang="en"` and the list cross-links to the FAQ's own taboo chapter for the full write-up. It refreshes as part of `ingest.py` (network, best-effort: an offline build keeps the committed data), so `data/taboos_<code>.json` is **regenerated from ArkhamDB on every build** — don't hand-edit it, a fix there is lost on the next ingest. The translated mutation wording lives in the FAQ's own taboo chapter below the list; the editable card data for the viewer is a **separate** file (next section). Run it on its own with `python tools/taboos.py`.
 
 ## The taboo card renderer
 
@@ -296,19 +296,27 @@ Two things are worth knowing before you touch it:
 * **The card art is language-independent.** The plates in `assets/taboo/` (`plates/` for the screen, `plates-hi/` for print, plus `back.webp`) are **textless** — every word you see is drawn over them by the browser from the data file. So a new language reuses the shared plates and ships **only its data**.
 * **Everything the renderer draws lives in one file per language,** `data/taboo_cards_<code>.json` — one record per card, keyed by its ArkhamDB `code`. The site fetches it directly, so a text fix shows on reload with no rebuild.
 
-### Correcting a card
+### Correcting a card or a translation
 
-Open `data/taboo_cards_<code>.json`, find the record by `code` (or `name`), fix it **in place** — keep the file's LF line endings, don't let an editor reformat the whole thing — and reload the page. The fields you are likely to touch:
+`data/taboo_cards_<code>.json` is the only file to touch for the viewer, and it is safe to touch: `ingest.py` does **not** rebuild it — the reconstruction that produced it is a separate, git-ignored pipeline — so a hand fix here survives a rebuild. Open the file, find the record by `code` (or `name`), fix it **in place** — keep the file's LF line endings, don't let an editor reformat the whole thing — and reload; the site fetches the file directly, so the change shows with no build step.
 
-| field | what it is |
+**Everything a reader sees is one of these — this is what you translate or correct:**
+
+| field | the text it draws |
 |---|---|
 | `name`, `subname`, `traits`, `text`, `flavour` | the **printed** face, as ArkhamDB prints it in this language. Card icons are written as `[reaction]`, `[intellect]`, `[eldersign]`… |
-| `pdf.paras` | the **taboo** face — the reconstructed printed text with the change applied (rewritten rules for a *mutated* card; the printed text plus the "(+1 experience)" line for a *chained/unchained* one) |
-| `change` | the one-line change note drawn under the pair (HTML, same icon codes) |
-| `cat` | `chained` · `unchained` · `mutated` · `forbidden` — sets the grouping and the badge |
-| `rebuilt`, `assisted` | provenance: they drive the "reconstructed / AI-assisted" disclaimer. Leave them unless you are changing how faithful the record is |
+| `pdf.note`, `pdf.paras`, `pdf.traits` | the **taboo** face — the reconstructed text with the change applied (rewritten rules for a *mutated* card; the printed text plus the "(+1 experience)" line for a *chained/unchained* one) |
+| `change` | the one-line change note drawn under the pair, in this language (HTML, same icon codes) |
 
-`taboo.text` is ArkhamDB's English change text, kept for reference — it is **not** what the card shows, so don't translate it. Send a correction as a PR with just the changed `data/taboo_cards_<code>.json`.
+**Leave these alone.** `taboo.text` is the change *in English*:
+
+```json
+"taboo": { "text": "This card's ability gains: \"Remove Eucatastrophe from the game.\"" }
+```
+
+It is ArkhamDB's original wording, kept only as the source the language's `change` was written from. The viewer **never shows it** while `change` is set (which it always is), so **do not translate it** — seeing English here is expected, not a bug. The same goes for the codes and numbers that are not language at all: `cat` (grouping and badge), `rebuilt`/`assisted` (they drive the "reconstructed / AI-assisted" disclaimer), and the geometry and identity fields (`code`, `set`, `setAspect`, `w`, `h`, `cost`, `xp`, `faction`, `skills`, `stats`, …).
+
+Send a correction as a PR with just the changed `data/taboo_cards_<code>.json`.
 
 ### Adding a language
 
