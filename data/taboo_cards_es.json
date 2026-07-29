@@ -3885,6 +3885,7 @@
   },
   {
     "code": "09081",
+    "bulletIndent": [4.52, 12],
     "name": "Palabra de poder",
     "subname": "",
     "unique": false,

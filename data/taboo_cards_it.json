@@ -4272,6 +4272,7 @@
  },
  {
   "code": "09081",
+  "bulletIndent": 4.52,
   "name": "Parola di Potere",
   "subname": "",
   "unique": false,

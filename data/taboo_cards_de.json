@@ -4279,6 +4279,7 @@
  },
  {
   "code": "09081",
+  "bulletIndent": 4.52,
   "name": "Machtwort",
   "subname": "",
   "unique": false,

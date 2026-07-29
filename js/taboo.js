@@ -24,11 +24,6 @@
      overridable so the same file works in both. */
   var BASE = (typeof window !== 'undefined' && window.TABOO_BASE) || 'assets/taboo/';
 
-  /* Choice-bullet indent for the few cards whose bullets FFG sets INDENTED (sub-items of the line
-     above), not at the text margin where almost every card hangs them. Value in cqw -- a fraction of
-     the card width, measured off the FFG PDF -- so it holds at any font size. Power Word's "Go."/
-     "Cower." commands sit 4.52% of the card in from the rules margin (page 161 of the taboo PDF). */
-  var BULLET_INDENT = { '09081': 4.52 };
 
   function esc(s) {
     return String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
@@ -94,13 +89,25 @@
     return out + esc(text.slice(i));
   }
 
+  /* The indent of the n-th choice-bullet on a card, as an inline --bulletindent (in cqw, a fraction
+     of the card width from the text margin). `c.bulletIndent` is EITHER one number, shared by every
+     bullet, OR an ARRAY with a value per bullet in order -- so a card with two bullets can nudge each
+     one independently. Absent, or a hole in the array, leaves the ◆ at the margin (its FFG place on
+     an asset; an event's ogive then rides it in on its own). Tune it per language in the data file. */
+  function bulletInset(c, n) {
+    var bi = c && c.bulletIndent;
+    var v = bi == null ? null : (typeof bi === 'number' ? bi : bi[n]);
+    return (v == null || v === '') ? '' : ' style="--bulletindent:' + esc(v) + 'cqw"';
+  }
+
   /* `lead` is text that joins the FIRST paragraph rather than standing on its own line: FFG runs
      the taboo note straight into the keyword line, printing "Chained (+2 experience). Uses
      (4 ammo)." as one sentence run. Checked against all 94 -- not one prints it on a line of
      its own unless the card has no keyword line at all. */
-  function paras(text, cls, lead) {
+  function paras(text, cls, lead, c) {
     var list = String(text || '').split(/\n+/).filter(Boolean);
     if (lead) list[0] = list.length ? lead + ' ' + list[0] : lead;
+    var bn = 0;
     return list.map(function (p) {
       /* ArkhamDB writes the choices of a "Choose one" ability as lines beginning "- ". FFG sets
          them behind an ornament, hanging in the margin -- the same mark the taboo side already
@@ -112,8 +119,8 @@
          faces; the printed side comes from ArkhamDB, where the markup is all there is to go on. */
       var whole = p.replace(/\[[a-z_]+\]/g, '').trim();
       var mid = !bullet && (/^<b>[^<]*<\/b>\.?$/.test(whole) || /^<i>[^<]*<\/i>\.?$/.test(whole));
-      return '<p class="' + cls + (bullet ? ' tbc-bullet' : mid ? ' tbc-mid' : '') + '">'
-        + runsHTML(p) + '</p>';
+      return '<p class="' + cls + (bullet ? ' tbc-bullet' : mid ? ' tbc-mid' : '') + '"'
+        + (bullet ? bulletInset(c, bn++) : '') + '>' + runsHTML(p) + '</p>';
     }).join('');
   }
 
@@ -162,9 +169,7 @@
   function cardHTML(c, taboo) {
     var h = '<div class="tbc" data-type="' + esc(c.type) + '" data-code="' + esc(c.code)
       + '" data-faction="' + esc(c.faction || '')
-      + '" data-lang="' + esc(c.lang || 'en') + '"'
-      + (BULLET_INDENT[c.code] ? ' style="--bulletindent:' + BULLET_INDENT[c.code] + 'cqw"' : '')
-      + '>';
+      + '" data-lang="' + esc(c.lang || 'en') + '">';
     h += '<img class="tbc-pic" src="' + BASE + 'plates/' + esc(c.code) + '.webp" width="' + c.w
       + '" height="' + c.h + '" alt="" draggable="false">';
 
@@ -251,15 +256,17 @@
          paragraphs, so lead is empty here), and the rebuilt languages break or run the note to match. */
       var ownLine = lead && c.noteOwnLine;
       if (ownLine) body += '<p class="tbc-p">' + runsHTML(lead) + '</p>';
+      var bn = 0;
       body += c.pdf.paras.map(function (p, i) {
         var cls = 'tbc-p' + (p.k === 'flav' ? ' tbc-flav' : p.k === 'center' ? ' tbc-mid'
           : p.k === 'bullet' ? ' tbc-bullet' : '');
         var t = (i === 0 && lead && !ownLine && p.k !== 'bullet' ? lead + ' ' : '') + p.t;
-        return '<p class="' + cls + '">' + runsHTML(t) + '</p>';
+        return '<p class="' + cls + '"' + (p.k === 'bullet' ? bulletInset(c, bn++) : '') + '>'
+          + runsHTML(t) + '</p>';
       }).join('');
     } else {
       if (c.traits) body += '<p class="tbc-traits">' + traitsHTML(c.traits, c.lang, false) + '</p>';
-      body += paras(c.text, 'tbc-p', taboo ? tabooNote(c) : '');
+      body += paras(c.text, 'tbc-p', taboo ? tabooNote(c) : '', c);
       if (c.flavour && !taboo) body += '<p class="tbc-flav">' + runsHTML(c.flavour) + '</p>';
       /* Victory points. ArkhamDB keeps them in their own field, OUT of the rules text, so a printed
          face built from that text drops the "Victory N." FFG prints under the flavour (Delve Too
