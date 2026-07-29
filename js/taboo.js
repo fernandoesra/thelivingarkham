@@ -300,13 +300,20 @@
   /* The vertical slack is for descenders hanging out of a tight line box; sideways there is no
      such thing, and letting a word run 0.3em past its box hid the last letter of SUPPORTO on the
      Italian plaque. So width is judged tightly and height is not. */
-  function fit(el, prop, lo, start) {
+  /* `vtol` is the vertical slack allowed, as a share of the font size. The default (+0.06) forgives
+     the descender hair a tight line box lets poke below. A NEGATIVE value asks for real HEADROOM
+     instead: the multi-line body sits at a line-wrap boundary -- one step of `--fit` is a whole
+     extra line -- and the biggest size that "fits by a pixel" here fits under one browser's metrics
+     and wraps that extra line, clipped, under another's (the same card reads fine on reload and
+     spills after a language switch). Asking the body to clear the box by a couple of pixels lands
+     it safely inside the boundary on every engine, at the cost of a hair more shrink. */
+  function fit(el, prop, lo, vtol) {
     if (!el) return;
     var set = function (f) { el.style.setProperty(prop, f); };
-    var top = start || 1;
+    var top = 1, vt = vtol == null ? 0.06 : vtol;
     var fits = function () {
       var em = parseFloat(getComputedStyle(el).fontSize);
-      return el.scrollHeight <= el.clientHeight + em * 0.06
+      return el.scrollHeight <= el.clientHeight + em * vt
         && el.scrollWidth <= el.clientWidth + 0.5;
     };
     set(top);
@@ -462,6 +469,12 @@
     return h + '</div>';
   }
 
+  /* The faces the card draws in, as document.fonts.load() specs. Loaded before the auto-fit
+     measures, so it sizes to the real metrics and not Georgia's. Mirrors app.js's TAB_FONT_SPECS
+     (the downloader waits on the same set); keep the two in step. */
+  var FIT_FONT_SPECS = ['40px ubtitle', '40px ubbody', '700 40px ubbody', 'italic 40px ubbody',
+    'italic 700 40px ubbody', '40px bolton'];
+
   window.TabooCard = {
     html: cardHTML,
     back: backHTML,
@@ -469,13 +482,55 @@
        instead of printing [action] and [fast] as literal text. */
     runs: runsHTML,
     /* The auto-fit has to measure with the real faces, not the fallback, or every card is sized
-       for Georgia and then re-drawn in Arno. document.fonts.ready settles that. */
+       for Georgia and then re-drawn wider in ubbody: the block grows and the last line -- a
+       "Victory N." -- drops out of the clipped box. document.fonts.ready is NOT enough on its own.
+       By the time a reader opens this section the page's OTHER fonts have already settled it, so it
+       is an already-resolved promise whose .then fires on the next microtask -- before the card
+       faces, referenced here for the first time, have finished loading. So load those exact faces
+       first and fit after; fit() forces a layout as it measures, so it then reads the real metrics. */
     fitAll: function (root) {
+      var scope = root || document;
       var run = function () {
-        [].forEach.call((root || document).querySelectorAll('.tbc'), fitCard);
+        [].forEach.call(scope.querySelectorAll('.tbc'), fitCard);
       };
-      run();
-      if (document.fonts && document.fonts.ready) document.fonts.ready.then(run);
+      var spills = function (body) {
+        var em = parseFloat(getComputedStyle(body).fontSize);
+        return body.scrollHeight > body.clientHeight + em * 0.06 || body.scrollWidth > body.clientWidth + 0.5;
+      };
+      /* Settling the fit is two jobs, and fit() alone is not reliable enough for either while faces
+         are still applying to layout. A face loads, then reflows the text a frame or more later --
+         with a still plateau BEFORE it applies -- and a fit measured across that reflow reads a stale
+         wrap: a flavour that momentarily sits on one line keeps the larger size, then drops to two and
+         spills the clipped box, stuck, because the height is now stable at the wrong value. So:
+           - GROW every card to the real metrics a few times as they apply, for FFG's sizing; and
+           - every frame, SHRINK anything that is spilling and keep at it -- no guess at "settled by
+             now": a spill just keeps getting re-fit until one pass lands while the page is at rest and
+             the size sticks (a hand re-fit once settled always sizes it right). Exit after a stretch
+             with nothing spilling, or a hard frame cap. Each idle frame is one cheap read. */
+      var settle = function () {
+        var grow = { 6: 1, 15: 1, 32: 1, 66: 1, 130: 1 };   // ~0.1 / 0.25 / 0.5 / 1.1 / 2.2 s
+        var frames = 0, clear = 0;
+        var loop = function () {
+          if (grow[frames]) run();
+          var spill = false;
+          [].forEach.call(scope.querySelectorAll('.tbc'), function (card) {
+            var body = card.querySelector('.tbc-body');
+            if (body && spills(body)) { fitCard(card); spill = true; }
+          });
+          clear = spill ? 0 : clear + 1;
+          if (++frames < 360 && clear < 30 && window.requestAnimationFrame) requestAnimationFrame(loop);
+        };
+        loop();
+      };
+      run();                                    // instant, best-effort (may still be the fallback)
+      var d = window.document && document.fonts;
+      if (d && d.load) {
+        Promise.all(FIT_FONT_SPECS.map(function (f) { return d.load(f).catch(function () {}); }))
+          .then(function () { return d.ready; })
+          .then(settle).catch(function () {});   // authoritative: real faces loaded AND applied
+      } else if (d && d.ready) {
+        d.ready.then(settle);
+      }
     }
   };
 })();
