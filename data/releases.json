@@ -1,5 +1,99 @@
 [
   {
+    "v": "1.0.1",
+    "date": "2026-07-30",
+    "i18n": {
+      "es": {
+        "title": "Retoques de interfaz",
+        "items": [
+          "**Menú lateral** más pulido: más aire entre secciones y con los títulos en la tipografía del grimorio.",
+          "**Buscador**: al pulsar Enter salta siempre al mejor resultado y se cierra, aunque escribas y pulses muy rápido.",
+          "**Discord**: el botón del pie de página te llevará a un tema en la comunidad inglesa de Discord de Mythos Busters."
+        ]
+      },
+      "en": {
+        "title": "Interface polish",
+        "items": [
+          "**Sidebar** polish: more breathing room between sections, with titles now in the book's typeface.",
+          "**Search**: pressing Enter now always jumps to the best match and closes, even if you type and hit Enter very fast.",
+          "**Discord**: the footer button takes you to a thread in the English-language Mythos Busters Discord community."
+        ]
+      },
+      "de": {
+        "title": "Feinschliff der Oberfläche",
+        "items": [
+          "**Seitenmenü** aufgeräumt: mehr Luft zwischen den Abschnitten, mit Titeln in der Schrift des Buches.",
+          "**Suche**: Enter springt jetzt immer zum besten Treffer und schließt sich, auch wenn man sehr schnell tippt und Enter drückt.",
+          "**Discord**: Der Button in der Fußzeile führt zu einem Thema in der englischsprachigen Mythos-Busters-Discord-Community."
+        ]
+      },
+      "it": {
+        "title": "Ritocchi all'interfaccia",
+        "items": [
+          "**Menu laterale** rifinito: più spazio tra le sezioni, con i titoli nel carattere del libro.",
+          "**Ricerca**: premendo Invio ora si va sempre al risultato migliore e la ricerca si chiude, anche digitando e premendo molto in fretta.",
+          "**Discord**: il pulsante nel piè di pagina porta a un topic nella community Discord inglese di Mythos Busters."
+        ]
+      },
+      "fr": {
+        "title": "Peaufinage de l'interface",
+        "items": [
+          "**Menu latéral** peaufiné : plus d'espace entre les sections, avec les titres dans la typographie du livre.",
+          "**Recherche** : appuyer sur Entrée mène désormais toujours au meilleur résultat et ferme la recherche, même en tapant et validant très vite.",
+          "**Discord** : le bouton en pied de page mène à un sujet dans la communauté Discord anglophone de Mythos Busters."
+        ]
+      },
+      "pt": {
+        "title": "Ajustes na interface",
+        "items": [
+          "**Menu lateral** aprimorado: mais espaço entre as seções, com os títulos na tipografia do livro.",
+          "**Pesquisa**: ao carregar em Enter, salta sempre para o melhor resultado e fecha, mesmo escrevendo e carregando muito depressa.",
+          "**Discord**: o botão no rodapé leva a um tópico na comunidade inglesa de Discord de Mythos Busters."
+        ]
+      },
+      "pl": {
+        "title": "Dopracowanie interfejsu",
+        "items": [
+          "**Menu boczne** dopracowane: więcej odstępu między sekcjami, z tytułami w kroju pisma z księgi.",
+          "**Wyszukiwarka**: naciśnięcie Enter zawsze przenosi teraz do najlepszego wyniku i zamyka okno, nawet przy bardzo szybkim pisaniu.",
+          "**Discord**: przycisk w stopce prowadzi do wątku w anglojęzycznej społeczności Discord Mythos Busters."
+        ]
+      },
+      "ru": {
+        "title": "Доработка интерфейса",
+        "items": [
+          "**Боковое меню** доработано: больше пространства между разделами, а заголовки — шрифтом книги.",
+          "**Поиск**: нажатие Enter теперь всегда открывает лучший результат и закрывает поиск, даже если печатать и жать очень быстро.",
+          "**Discord**: кнопка в подвале ведёт к теме в англоязычном Discord-сообществе Mythos Busters."
+        ]
+      },
+      "uk": {
+        "title": "Доопрацювання інтерфейсу",
+        "items": [
+          "**Бічне меню** відшліфовано: більше простору між розділами, а заголовки — шрифтом книги.",
+          "**Пошук**: натискання Enter тепер завжди відкриває найкращий результат і закриває пошук, навіть якщо друкувати й натискати дуже швидко.",
+          "**Discord**: кнопка у підвалі веде до теми в англомовній спільноті Discord Mythos Busters."
+        ]
+      },
+      "ko": {
+        "title": "인터페이스 다듬기",
+        "items": [
+          "**사이드 메뉴** 정돈: 섹션 간 간격을 넓히고 제목에 책의 서체를 적용했습니다.",
+          "**검색**: 이제 Enter를 누르면 아주 빠르게 입력해도 항상 가장 잘 맞는 결과로 이동하고 검색창이 닫힙니다.",
+          "**Discord**: 하단의 버튼을 누르면 Mythos Busters 영어 Discord 커뮤니티의 한 주제로 이동합니다."
+        ]
+      },
+      "zh": {
+        "title": "界面优化",
+        "items": [
+          "**侧边菜单**优化：各节间距更大，标题改用书籍字体。",
+          "**搜索**：现在按 Enter 总会跳转到最匹配的结果并关闭搜索，即使输入后立刻回车也一样。",
+          "**Discord**：页脚的按钮会带你前往 Mythos Busters 英文 Discord 社区中的一个主题帖。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.0.0",
     "date": "2026-07-30",
     "i18n": {

@@ -199,22 +199,18 @@
   </div>
 
   <!-- DISCORD MODAL -->
-  <!-- The same shape as the donate modal, with one difference: there is no invite URL yet, so
-       where its link would sit there is a plain chip that says so. Deliberately NOT a button or
-       an <a> — a control that goes nowhere is worse than no control, and the reader deserves to
-       be told rather than to find out by clicking.
-       WHEN THE INVITE EXISTS: replace the <p class="tla-discord-pending"> below with
-         <a class="tla-modal-cta" href="…" target="_blank" rel="noopener"> icon + span </a>
-       (the donate modal above is the working example), then drop "discordpending" from all
-       eleven langs/*/ui.json and this rule from css/app.css. -->
+  <!-- The same shape as the donate modal: a .tla-modal-cta linking to the project's channel in the
+       Mythos Busters Discord. It is a channel link (opens Discord for a member of that server), not
+       a public join-invite. The old "discordpending" placeholder — its string in every ui.json and
+       its css rule — was dropped once the link existed; "mtnotice" links the word "Discord" too. -->
   <div class="tla-modal" id="tla-discord" role="dialog" aria-modal="true" aria-labelledby="tla-discord-t" hidden>
     <div class="tla-modal-box">
       <button class="tla-modal-close" id="tla-discord-close" type="button" data-i18n-attr="aria-label:close" aria-label="Cerrar">✕</button>
       <h2 class="tla-modal-t" id="tla-discord-t" data-i18n="discordtitle">Habla con nosotros en Discord</h2>
       <p class="tla-modal-p" id="tla-discord-body" data-i18n="discordbody">Para hablar sobre este proyecto en Discord, dirígete al Discord de Mythos Busters mediante el siguiente enlace:</p>
-      <p class="tla-discord-pending">
+      <a class="tla-modal-cta" href="https://discord.com/channels/225349059689447425/1532382329224429599" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.32 4.37A19.79 19.79 0 0 0 15.43 2.86a.07.07 0 0 0-.08.04c-.21.37-.44.86-.61 1.25a18.27 18.27 0 0 0-5.48 0 12.6 12.6 0 0 0-.62-1.25.08.08 0 0 0-.08-.04c-1.71.3-3.35.81-4.88 1.51a.07.07 0 0 0-.04.03C.53 9.05-.32 13.58.1 18.06a.08.08 0 0 0 .03.06 19.9 19.9 0 0 0 5.99 3.03.08.08 0 0 0 .08-.03c.46-.63.88-1.3 1.23-1.99a.08.08 0 0 0-.04-.11c-.65-.25-1.28-.55-1.87-.89a.08.08 0 0 1 0-.13 10.2 10.2 0 0 0 .37-.29.07.07 0 0 1 .08-.01c3.93 1.79 8.18 1.79 12.06 0a.07.07 0 0 1 .08.01c.12.1.25.2.37.29a.08.08 0 0 1 0 .13c-.6.35-1.22.64-1.87.89a.08.08 0 0 0-.04.11c.36.7.77 1.36 1.22 1.99a.08.08 0 0 0 .09.03 19.84 19.84 0 0 0 6-3.03.08.08 0 0 0 .03-.06c.5-5.18-.84-9.67-3.55-13.66a.06.06 0 0 0-.03-.03zM8.02 15.33c-1.18 0-2.16-1.08-2.16-2.42 0-1.33.96-2.42 2.16-2.42 1.21 0 2.18 1.1 2.16 2.42 0 1.34-.96 2.42-2.16 2.42zm7.97 0c-1.18 0-2.16-1.08-2.16-2.42 0-1.33.96-2.42 2.16-2.42 1.21 0 2.18 1.1 2.16 2.42 0 1.34-.95 2.42-2.16 2.42z"/></svg>
-        <span data-i18n="discordpending">Enlace pendiente de creación</span></p>
+        <span data-i18n="discordcta">Ir al Discord</span></a>
     </div>
   </div>
 

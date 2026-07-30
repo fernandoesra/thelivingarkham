@@ -3450,10 +3450,9 @@ function renderLanding(s){
   /* A pack whose interface was machine-translated says so, before anything else on the
      page claims authorship. Driven by the string being there, not by a list of language
      codes: a pack translated by a person simply leaves it empty and no notice appears.
-     TODO: the notice names Discord as a way to report a mistake but cannot link it yet —
-     there is no invite URL in the project. When one exists it has to land in TWO places, or
-     half the site will know about it: the href of "mtnotice" in every ui.json, and the
-     Discord dialog in index.html (see its comment). The e-mail and GitHub links work today. */
+     The notice offers three ways to report a mistake, all live: the "mtnotice" string links
+     e-mail, GitHub, and the word "Discord" (the same channel the footer's Discord modal opens
+     — the two homes for that URL, per the modal's comment in index.html). */
   var mt=t('mtnotice');
   if(mt&&mt!=='mtnotice'){
     h+='<aside class="tla-notice tla-notice-mt" role="note">'
@@ -4538,7 +4537,7 @@ function wireEvents(){
   document.getElementById('tla-scrim').addEventListener('click',closeNav);
 
   var qTimer=null;
-  elQ.addEventListener('input',function(){clearTimeout(qTimer); qTimer=setTimeout(function(){search(elQ.value);},110);});
+  elQ.addEventListener('input',function(){clearTimeout(qTimer); qTimer=setTimeout(function(){qTimer=null; search(elQ.value);},110);});
   elQ.addEventListener('focus',function(){if(elQ.value.trim().length>=2)search(elQ.value);});
   /* No Escape here: the document handler owns it, so that one press closes one
      layer. Handling it here too would close the dialog and then let the same
@@ -4546,7 +4545,13 @@ function wireEvents(){
   elQ.addEventListener('keydown',function(e){
     if(e.key==='ArrowDown'){e.preventDefault();moveSel(1);}
     else if(e.key==='ArrowUp'){e.preventDefault();moveSel(-1);}
-    else if(e.key==='Enter'){var items=elRes.querySelectorAll('.tla-res'); var chosen=items[resSel<0?0:resSel]; if(chosen){gotoTarget(chosen.getAttribute('data-eid'),true);closeSearch();}}
+    else if(e.key==='Enter'){e.preventDefault();
+      /* Enter can beat the 110ms input debounce: if a search is still pending, run it NOW so the
+         results match what's typed, and cancel the timer so it can't fire after we close (which
+         left the panel reopening intermittently). No pending timer -> keep the arrow selection. */
+      if(qTimer){clearTimeout(qTimer); qTimer=null; search(elQ.value);}
+      var items=elRes.querySelectorAll('.tla-res'); var chosen=items[resSel<0?0:resSel];
+      if(chosen){gotoTarget(chosen.getAttribute('data-eid'),true);closeSearch();}}
   });
   document.addEventListener('keydown',function(e){
     if(e.key==='Tab'){trapTab(e); return;}
