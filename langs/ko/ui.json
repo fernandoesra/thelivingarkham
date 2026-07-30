@@ -234,6 +234,8 @@
     "ghcta": "GitHub에서 코드 보기",
     "ubdownload": "카드 내려받기",
     "ubdownall": "전체 내려받기",
+    "tbclear": "필터 지우기",
+    "tbdlnote": "필터가 적용되어 있으면 필터링된 카드만 내려받습니다.",
     "ubdownalltip": "모든 카드를 .zip 파일로 내려받기 (현재 언어)",
     "ubdownallwait": "준비 중…",
     "ubviewlabel": "보기 방식",

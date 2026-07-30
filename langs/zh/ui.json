@@ -234,6 +234,8 @@
     "ghcta": "在 GitHub 上查看代码",
     "ubdownload": "下载卡牌",
     "ubdownall": "全部下载",
+    "tbclear": "清除筛选",
+    "tbdlnote": "启用筛选时，只会下载筛选后的卡牌。",
     "ubdownalltip": "将所有卡牌打包成 .zip 下载（当前语言）",
     "ubdownallwait": "准备中…",
     "ubviewlabel": "显示模式",

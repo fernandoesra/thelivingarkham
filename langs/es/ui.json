@@ -209,6 +209,8 @@
     "tbfilterclass": "Clase",
     "tbfiltercat": "Categoría",
     "tball": "Todas",
+    "tbclear": "Borrar filtros",
+    "tbdlnote": "Con un filtro activo, solo se descargará lo filtrado.",
     "tbempty": "Ninguna carta coincide con los filtros.",
     "tbbeta": "This section isn't available in your language yet — the taboo cards are shown in English. It's in beta; report anything wrong to Rincón Miskatonic.",
     "tbcat_chained": "Encadenada/Desencadenada",

@@ -209,6 +209,8 @@
     "tbfilterclass": "Klasse",
     "tbfiltercat": "Kategorie",
     "tball": "Alle",
+    "tbclear": "Filter zurücksetzen",
+    "tbdlnote": "Bei aktivem Filter werden nur die gefilterten Karten heruntergeladen.",
     "tbempty": "Keine Karte entspricht den Filtern.",
     "tbbeta": "This section isn't available in your language yet — the taboo cards are shown in English. It's in beta; report anything wrong to Rincón Miskatonic.",
     "tbcat_chained": "Verkettet/Unverkettet",

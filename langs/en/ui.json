@@ -208,6 +208,8 @@
     "tbfilterclass": "Class",
     "tbfiltercat": "Category",
     "tball": "All",
+    "tbclear": "Clear filters",
+    "tbdlnote": "With a filter active, only the filtered cards download.",
     "tbempty": "No cards match the filters.",
     "tbbeta": "This section isn't available in your language yet — the taboo cards are shown in English. It's in beta; report anything wrong to Rincón Miskatonic.",
     "tbcat_chained": "Chained/Unchained",

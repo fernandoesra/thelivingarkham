@@ -2706,14 +2706,17 @@ function tabooCardsHTML(s){
     +'</select></div>'
     +'<div class="tla-tb-field"><label for="tab-q">'+esc(t('tbsearchlabel'))+'</label>'
     +'<input id="tab-q" type="search" data-tabfilter="q" value="'+esc(tabFilter.q)+'" placeholder="'+esc(t('tbsearchph'))+'"></div>'
+    +'<div class="tla-tb-field"><label for="tabf-cat">'+esc(t('tbfiltercat'))+'</label>'+sel('cat',tabFilter.cat,t('tball'),catPairs,t('tbfiltercat'))+'</div>'
     +'<div class="tla-tb-field"><label for="tabf-type">'+esc(t('tbfiltertype'))+'</label>'+sel('type',tabFilter.type,t('tball'),typePairs,t('tbfiltertype'))+'</div>'
     +'<div class="tla-tb-field"><label for="tabf-cls">'+esc(t('tbfilterclass'))+'</label>'+sel('cls',tabFilter.cls,t('tball'),classPairs,t('tbfilterclass'))+'</div>'
-    +'<div class="tla-tb-field"><label for="tabf-cat">'+esc(t('tbfiltercat'))+'</label>'+sel('cat',tabFilter.cat,t('tball'),catPairs,t('tbfiltercat'))+'</div>'
+    +'<button type="button" class="tla-tb-clear" data-tabclear hidden>'+esc(t('tbclear'))+'</button>'
     +'<span class="tla-tb-count" data-tab-count role="status" aria-live="polite">'+cards.length+' / '+cards.length+'</span>'
     +'<div class="tla-tb-side-dl">'
     +'<button type="button" class="tla-tb-btn" data-tabdlall>'
     +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>'
-    +'<span class="tla-tb-dlall-label">'+esc(t('ubdownall'))+'</span></button></div>'
+    +'<span class="tla-tb-dlall-label">'+esc(t('ubdownall'))+'</span></button>'
+    /* only the shown (filtered) cards download, so warn when a filter is narrowing the set */
+    +'<p class="tla-tb-dlnote" data-tab-dlnote hidden>'+esc(t('tbdlnote'))+'</p></div>'
     +'</aside>';
   h+='<div class="tla-tb-main">';
   h+='<p class="tla-tb-empty" hidden>'+esc(t('tbempty'))+'</p>';
@@ -2739,6 +2742,12 @@ function tabooApplyFilter(){
   /* The denominator is this version's card count, not the whole section's. */
   var cnt=elMain.querySelector('[data-tab-count]'); if(cnt)cnt.textContent=shown+' / '+verTotal;
   var empty=elMain.querySelector('.tla-tb-empty'); if(empty)empty.hidden=shown>0;
+  /* The clear-filters button and the "download only shows the filtered set" note are relevant
+     only while a name/category/type/class filter is narrowing the list (the version picker is not
+     one of these). Toggled here so they follow every filter change and the initial state. */
+  var hasF=!!(tabFilter.q||tabFilter.type||tabFilter.cls||tabFilter.cat);
+  var clr=elMain.querySelector('[data-tabclear]'); if(clr)clr.hidden=!hasF;
+  var note=elMain.querySelector('[data-tab-dlnote]'); if(note)note.hidden=!hasF;
 }
 /* Post-render: fit every card's text to its box (with the real faces), wire the filters and
    apply whatever filter was already set (it persists across a navigate-away-and-back). */
@@ -2775,6 +2784,15 @@ function bindTabooCards(){
   var all=elMain.querySelector('[data-tabdlall]');
   if(all)all.addEventListener('click',function(){
     bleedModal(TABOO_TRIM_MM,tabBleed,function(bleed){tabBleed=bleed; tabooDownloadAll(all);});
+  });
+  /* Clear filters: reset name/type/class/category (not the version), sync the controls and re-apply. */
+  var clr=elMain.querySelector('[data-tabclear]');
+  if(clr)clr.addEventListener('click',function(){
+    tabFilter.q=''; tabFilter.type=''; tabFilter.cls=''; tabFilter.cat='';
+    var qi=elMain.querySelector('input[data-tabfilter="q"]'); if(qi)qi.value='';
+    [].forEach.call(elMain.querySelectorAll('select[data-tabfilter]'),function(sn){sn.value='';});
+    tabooApplyFilter();
+    if(qi)qi.focus();
   });
 }
 /* Zoom a card face: clone it into a modal, blown up, and re-fit the text to the bigger box. */

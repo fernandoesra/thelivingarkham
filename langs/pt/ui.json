@@ -234,6 +234,8 @@
     "ghcta": "Ver o código no GitHub",
     "ubdownload": "Baixar carta",
     "ubdownall": "Baixar tudo",
+    "tbclear": "Limpar filtros",
+    "tbdlnote": "Com um filtro ativo, só se baixam as cartas filtradas.",
     "ubdownalltip": "Baixar todas as cartas em um .zip (idioma atual)",
     "ubdownallwait": "Preparando…",
     "ubviewlabel": "Modo de exibição",

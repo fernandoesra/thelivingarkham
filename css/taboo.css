@@ -475,8 +475,16 @@
 .tla-tb-field-ver{padding-bottom:.7rem; border-bottom:1px solid var(--edge)}
 .tla-tb-field-ver select{font-size:.82rem; padding-left:.45rem; padding-right:.2rem}
 .tla-tb-count{color:var(--muted); font:.8rem/1 var(--ff-ui); font-variant-numeric:tabular-nums; padding:.15rem 0}
+/* Reset-filters: a quiet text button that only shows while a filter is narrowing the list. */
+.tla-tb-clear{align-self:flex-start; margin:-.15rem 0 -.1rem; padding:.1rem 0; background:none; border:0;
+  cursor:pointer; color:var(--teal2); font:600 .74rem/1.2 var(--ff-ui); text-decoration:underline; text-underline-offset:2px}
+.tla-tb-clear:hover{color:var(--ink)}
+.tla-tb-clear[hidden]{display:none}
 .tla-tb-side-dl{display:flex; flex-direction:column; gap:.55rem; margin-top:.2rem; padding-top:.7rem;
   border-top:1px solid var(--edge)}
+/* Note under "download all": only the filtered set downloads. Shown only when a filter is active. */
+.tla-tb-dlnote{margin:0; color:var(--muted); font:.72rem/1.35 var(--ff-ui)}
+.tla-tb-dlnote[hidden]{display:none}
 .tla-tb-btn{display:inline-flex; align-items:center; justify-content:center; gap:.4rem; cursor:pointer;
   padding:.55rem .8rem; border-radius:8px; border:1px solid var(--edge2);
   background:var(--bg); color:var(--ink); font:600 .82rem/1 var(--ff-ui)}

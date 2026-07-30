@@ -208,6 +208,8 @@
     "tbfilterclass": "Classe",
     "tbfiltercat": "Categoria",
     "tball": "Tutte",
+    "tbclear": "Cancella filtri",
+    "tbdlnote": "Con un filtro attivo si scaricano solo le carte filtrate.",
     "tbempty": "Nessuna carta corrisponde ai filtri.",
     "tbbeta": "This section isn't available in your language yet — the taboo cards are shown in English. It's in beta; report anything wrong to Rincón Miskatonic.",
     "tbcat_chained": "Limitate/Agevolate",

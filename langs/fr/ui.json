@@ -234,6 +234,8 @@
     "ghcta": "Voir le code sur GitHub",
     "ubdownload": "Télécharger la carte",
     "ubdownall": "Tout télécharger",
+    "tbclear": "Effacer les filtres",
+    "tbdlnote": "Avec un filtre actif, seules les cartes filtrées sont téléchargées.",
     "ubdownalltip": "Télécharger toutes les cartes dans un .zip (langue actuelle)",
     "ubdownallwait": "Préparation…",
     "ubviewlabel": "Mode d'affichage",
