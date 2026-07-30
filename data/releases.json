@@ -1,5 +1,77 @@
 [
   {
+    "v": "1.0.2",
+    "date": "2026-07-30",
+    "i18n": {
+      "es": {
+        "title": "Correcciones visuales",
+        "items": [
+          "**Pie de página**: eliminada una fina franja que podía asomar bajo el pie en pantallas de alta resolución con el zoom (del sistema o del navegador) al 125 % o 150 %."
+        ]
+      },
+      "en": {
+        "title": "Visual fixes",
+        "items": [
+          "**Footer**: removed a thin strip that could show below the footer on high-resolution screens with system or browser zoom at 125% or 150%."
+        ]
+      },
+      "de": {
+        "title": "Visuelle Korrekturen",
+        "items": [
+          "**Fußzeile**: Ein schmaler Streifen, der unter der Fußzeile auf hochauflösenden Bildschirmen bei 125 % oder 150 % System- oder Browserzoom erscheinen konnte, wurde entfernt."
+        ]
+      },
+      "it": {
+        "title": "Correzioni visive",
+        "items": [
+          "**Piè di pagina**: rimossa una sottile striscia che poteva comparire sotto il piè di pagina su schermi ad alta risoluzione con zoom di sistema o del browser al 125 % o 150 %."
+        ]
+      },
+      "fr": {
+        "title": "Corrections visuelles",
+        "items": [
+          "**Pied de page** : suppression d'une fine bande qui pouvait apparaître sous le pied de page sur les écrans haute résolution avec un zoom système ou navigateur de 125 % ou 150 %."
+        ]
+      },
+      "pt": {
+        "title": "Correções visuais",
+        "items": [
+          "**Rodapé**: removida uma faixa fina que podia aparecer sob o rodapé em ecrãs de alta resolução com o zoom do sistema ou do navegador a 125 % ou 150 %."
+        ]
+      },
+      "pl": {
+        "title": "Poprawki wizualne",
+        "items": [
+          "**Stopka**: usunięto cienki pasek, który mógł pojawiać się pod stopką na ekranach o wysokiej rozdzielczości przy powiększeniu systemu lub przeglądarki 125 % lub 150 %."
+        ]
+      },
+      "ru": {
+        "title": "Визуальные исправления",
+        "items": [
+          "**Подвал**: убрана тонкая полоса, которая могла появляться под подвалом на экранах высокого разрешения при системном масштабе или масштабе браузера 125 % или 150 %."
+        ]
+      },
+      "uk": {
+        "title": "Візуальні виправлення",
+        "items": [
+          "**Підвал**: прибрано тонку смугу, що могла з'являтися під підвалом на екранах високої роздільності за системного масштабу або масштабу браузера 125 % чи 150 %."
+        ]
+      },
+      "ko": {
+        "title": "화면 표시 수정",
+        "items": [
+          "**푸터**: 시스템 또는 브라우저 확대/축소가 125 % 또는 150 %인 고해상도 화면에서 푸터 아래에 나타날 수 있던 얇은 띠를 없앴습니다."
+        ]
+      },
+      "zh": {
+        "title": "显示修复",
+        "items": [
+          "**页脚**：修复了在高分辨率屏幕、系统或浏览器缩放为 125% 或 150% 时页脚下方可能出现的一条细边。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.0.1",
     "date": "2026-07-30",
     "i18n": {
