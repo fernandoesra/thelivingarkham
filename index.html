@@ -49,18 +49,13 @@
     (function(){
       var de=document.documentElement, last=-1;
       function setAppH(){
+        /* --app-h is the shell height on TOUCH, where a dynamic URL bar needs innerHeight (see
+           app.css). Desktop overrides to height:100dvh via @media(pointer:fine), so the value we
+           write here is ignored on the desktop where a fractional DPR would otherwise round it
+           short. Keep the VALUE innerHeight (not visualViewport.height): tracks the URL bar, not
+           the on-screen keyboard. */
         var h=window.innerHeight;
-        if(!h)return;
-        /* Desktop at a fractional device-pixel ratio (a 4K panel at 150%, say) rounds
-           innerHeight a hair below the painted layout viewport, so #tla-root falls short
-           and the dark body shows as a thin band below the footer. On a non-touch pointer
-           there is no dynamic URL bar, so clientHeight IS the real height — cover it. We do
-           NOT do this on touch: there clientHeight is the LARGE (URL-bar-retracted) layout
-           viewport, and using it would push the footer under the bar / keyboard — the very
-           bug reading innerHeight for the value avoids. */
-        var coarse=window.matchMedia&&window.matchMedia('(pointer:coarse)').matches;
-        if(!coarse&&de.clientHeight>h)h=de.clientHeight;
-        if(h===last)return;                // no-op while nothing really changed (avoids thrash during the URL-bar animation)
+        if(!h||h===last)return;            // no-op while nothing really changed (avoids thrash during the URL-bar animation)
         last=h; de.style.setProperty('--app-h',h+'px');
       }
       setAppH();
