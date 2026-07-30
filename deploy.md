@@ -66,9 +66,10 @@ itself with nothing to configure, redirects HTTP to HTTPS by default, and refuse
 that does not parse instead of falling over on the next boot. The
 [nginx equivalent](#nginx-instead-of-caddy) is at the end if you would rather.
 
-The worked example is an **OVHcloud** VPS running **Ubuntu/Debian**, with the domain's DNS managed
-at **hostealo**. Any provider works and every step carries over; this is just the version with the
-real commands filled in. Run them as root, or put `sudo` in front.
+The worked example is the machine the site actually runs on: an **OVHcloud** VPS on
+**Ubuntu 26.04**, with the domain registered and its DNS zone hosted at OVH too. Any provider works
+and every step carries over; this is just the version with the real commands filled in. Run them as
+root, or put `sudo` in front — OVH gives you an `ubuntu` user, not root.
 
 ### 1. Point the domain at the VPS
 
@@ -79,24 +80,45 @@ curl -4 ifconfig.me     # IPv4
 ip -6 addr              # IPv6, if OVH assigned one
 ```
 
-In hostealo's **DNS zone** for your domain, set:
+The zone is under **Web Cloud → Domains → your domain → DNS zone**. Four records:
 
-| Type | Name | Value |
+| Type | Subdomain | Target |
 |---|---|---|
-| `A` | `@` | your VPS IPv4 |
+| `A` | *(empty)* | your VPS IPv4 |
 | `A` | `www` | your VPS IPv4 |
-| `AAAA` | `@` and `www` | your VPS IPv6 *(only if you have one)* |
+| `AAAA` | *(empty)* | your VPS IPv6 *(only if you have one)* |
+| `AAAA` | `www` | your VPS IPv6 |
 
-Leave every other record alone — in particular **do not touch `MX` / mail records**: moving the `A`
-record moves only the website, and deleting the mail records would break your email. If the domain
-was previously served by hostealo's own hosting, repointing `A` is what hands the site to the VPS.
+**Never touch the `MX` records** — the `mx*.mail.ovh.net` entries are the domain's mail, they have
+nothing to do with the website, and deleting them takes your email down with them. Leave the `SPF`
+and OVH's `ownercheck` `TXT` alone too.
 
-Do this **first**. DNS takes minutes to a few hours, and Caddy asks Let's Encrypt for the
-certificate the moment it starts — that fails, loudly and repeatedly, until the name resolves to
-this machine. Confirm before moving on:
+Two things will waste an hour each if you do not know them:
+
+- **A web redirection owns the records it creates.** A domain freshly registered at OVH normally
+  ships with one — the parking page. In the zone it looks like `A` records pointing at
+  `213.186.33.5` (which reverse-resolves to `redirect.ovh.net`) plus `TXT` markers such as
+  `"1|www.yourdomain.com"`. Those belong to the redirection service, not to you, so editing them can
+  simply be undone. Delete the redirection first, in the **Redirection** tab; it takes its own `A`
+  and `TXT` records with it, and then the zone is yours to fill in.
+- **The panel shows a stale snapshot for several minutes.** While the blue *"actions have been
+  carried out recently on the DNS zone"* banner is up, the record list is frozen — it will happily
+  keep listing an `A` record that has already been deleted. Ask the authoritative server instead,
+  which is never wrong:
+
+  ```bash
+  dig +short yourdomain.com @dns106.ovh.net       # use your zone's own NS
+  nslookup -type=A yourdomain.com dns106.ovh.net  # same thing without dig
+  ```
+
+Do all of this **first**. Caddy asks Let's Encrypt for the certificate the moment it starts, and
+that fails, loudly and repeatedly, until the name resolves to this machine. OVH warns about 24
+hours; in practice it is minutes. Confirm against a public resolver — that is what the world sees,
+and what Let's Encrypt will query:
 
 ```bash
-dig +short yourdomain.org      # should print the VPS IPv4
+dig +short yourdomain.com @1.1.1.1        # should print the VPS IPv4
+dig +short yourdomain.com AAAA @8.8.8.8   # and the IPv6
 ```
 
 ### 2. First login and hardening
@@ -212,8 +234,20 @@ systemctl reload caddy
 
 Then open **https://yourdomain.org** — note the `https`. You never asked for a certificate: Caddy
 saw a public domain name in the config, obtained one from Let's Encrypt on startup, and began
-redirecting `http` to it. If the page does not come up, `journalctl -u caddy -n 50` says why, and
-it is almost always DNS not yet pointing here (step 1).
+redirecting `http` to it.
+
+**Give it a good fifteen seconds before you judge it.** Two names means two ACME orders, run one
+after the other, and a `curl` fired too early comes back empty even though nothing is wrong —
+which reads exactly like a failure. The log is what tells you the truth:
+
+```bash
+journalctl -u caddy -n 40 --no-pager | grep -E "certificate obtained|authz_status|error"
+```
+
+One `certificate obtained successfully` per name and you are done. If instead you see ACME errors,
+they are almost always DNS not yet pointing here (step 1) — and the `served key authentication`
+lines are worth reading either way, because they are Let's Encrypt reaching your port 80 from
+several places at once, over IPv6 as well if you added the `AAAA` records.
 
 Every outbound link in the site (ArkhamDB, ArtStation, the blog, GitHub, PayPal) is already `https`,
 so there is no mixed content to chase.
@@ -233,34 +267,29 @@ systemctl is-enabled caddy    # → enabled
 The `.deb` normally enables it already. Run it anyway; it is idempotent, and this is the one thing
 that must not be assumed.
 
-For the crash case, check what the shipped unit actually does — do not take anyone's word for it,
-this line has changed between releases:
+The crash case needs work, because **Caddy's packaged unit ships no `Restart=` line at all** —
+verified on 2.11.4 from the cloudsmith repo, where `systemctl cat caddy | grep -i restart` prints
+nothing. Without the override below, a Caddy that dies stays dead until somebody notices. This is
+not optional.
+
+Write the drop-in directly rather than through `systemctl edit`, which opens an interactive editor
+and is no use if you are pasting a block of commands:
 
 ```bash
-systemctl cat caddy | grep -i restart
-```
-
-- **Nothing printed** — systemd will not restart it at all. Add the override below.
-- **`Restart=on-abnormal`** — it restarts on a signal, a timeout or a watchdog failure, but *not*
-  when Caddy exits with an ordinary non-zero status. Strengthen it with the same override.
-- **`Restart=on-failure`** — already what you want. Skip ahead to the verification.
-
-```bash
-systemctl edit caddy
-```
-
-That opens an empty override file (`/etc/systemd/system/caddy.service.d/override.conf`). Put this
-between the comment markers, save, and apply it:
-
-```ini
+mkdir -p /etc/systemd/system/caddy.service.d
+tee /etc/systemd/system/caddy.service.d/override.conf > /dev/null <<'EOF'
 [Service]
 Restart=on-failure
 RestartSec=2s
+EOF
+systemctl daemon-reload && systemctl restart caddy
+systemctl show caddy -p Restart          # → Restart=on-failure
 ```
 
-```bash
-systemctl daemon-reload && systemctl restart caddy
-```
+The drop-in wins over whatever the package ships, so it is safe to apply unconditionally — worth
+knowing if a future release does add a `Restart=` of its own. `on-failure` is the one to want:
+`on-abnormal`, which some units use, covers a signal or a watchdog timeout but *not* an ordinary
+non-zero exit.
 
 Now verify both, rather than trusting the file:
 
@@ -306,6 +335,45 @@ cd /var/www/thelivingarkham && git pull
 Static files are re-read on the next request, so there is **nothing to restart** — no reload, no
 service, no cache to clear. The caching policy above revalidates HTML/CSS/JS/JSON, so readers see
 the new content on their next visit with no cache-busting to do.
+
+### More than one domain, and the `www` question
+
+Serve the site on **one** name and redirect every other name to it. Two addresses returning identical
+content is duplicate content: search engines split the ranking between them instead of adding it up,
+and two "real" URLs end up in links and bookmarks. A `301` says *the real address is this one* and
+consolidates everything.
+
+`www` counts. If both `example.org` and `www.example.org` serve the site, that is the same duplicate.
+Pick one — bare is the usual choice — and redirect the other.
+
+```caddy
+example.org {
+	root * /var/www/thelivingarkham
+	file_server
+	# …the rest of the site block
+}
+
+www.example.org, otherdomain.org, www.otherdomain.org {
+	redir https://example.org{uri} permanent
+}
+```
+
+`{uri}` carries the path and query across, so an old deep link reaches the same page instead of
+landing on the home page. `permanent` is the `301`.
+
+Two things about ordering, both of which can take the site down if you get them wrong:
+
+- **Point the new name's DNS at the server *before* adding it to the Caddyfile.** Reload with a name
+  that does not resolve yet and Caddy retries the ACME order in a loop; Let's Encrypt rate-limits
+  failures, so those attempts are not free.
+- **Never flip which name is canonical before the new one resolves.** The old name would `301` to a
+  domain that answers nothing, and then *both* addresses are dead rather than one. Verify with a
+  public resolver first — `dig +short newname.org @1.1.1.1` — and keep a `Caddyfile.bak` so
+  reverting is one `cp` and a reload.
+
+Nothing in the repository names a domain — no `<base>`, no `rel="canonical"`, no absolute URLs in the
+JS or the data — so switching the canonical name is a server-side change only. There is nothing to
+rebuild.
 
 ### nginx instead of Caddy
 
@@ -460,6 +528,31 @@ Each one fails for a different reason, so between them they cover the whole conf
 3. **Search finds something** (press `/`, type a rule). → both corpora loaded.
 4. **Resources → Ultimatums & Boons: download a card.** → `.webp` and `.woff2` types are right and the canvas is not tainted.
 5. **FAQ chapter 1 → The list of taboos**: the index opens, a card renders, and it links out to ArkhamDB. → `data/taboos_*.json` and `data/taboo_cards_*.json` arrived.
+
+Those five need a browser. Everything the *server* is responsible for can be checked in one paste —
+run this before you open the site, because it tells you which of the five would fail and why:
+
+```bash
+D=https://yourdomain.org
+printf "%-30s " "root"                    ; curl -so /dev/null -w "%{http_code} HTTP/%{http_version}\n" $D/
+printf "%-30s " "www"                     ; curl -so /dev/null -w "%{http_code}\n" https://www.yourdomain.org/
+printf "%-30s " "http -> https"           ; curl -so /dev/null -w "%{http_code} -> %{redirect_url}\n" http://yourdomain.org/
+printf "%-30s " "data/languages.json"     ; curl -so /dev/null -w "%{http_code} %{content_type}\n" $D/data/languages.json
+printf "%-30s " "teutonic.woff2"          ; curl -so /dev/null -w "%{http_code} %{content_type}\n" $D/assets/fonts/teutonic.woff2
+printf "%-30s " "a card .webp"            ; curl -so /dev/null -w "%{http_code} %{content_type}\n" $D/assets/ub/backs/boon.webp
+printf "%-30s " ".git/config (want 404)"  ; curl -so /dev/null -w "%{http_code}\n" $D/.git/config
+curl -sI -H "Accept-Encoding: gzip,zstd" $D/data/languages.json | grep -i content-encoding
+curl -sI $D/js/app.js                     | grep -i cache-control   # → no-cache
+curl -sI $D/assets/fonts/teutonic.woff2   | grep -i cache-control   # → immutable
+curl -sI $D/assets/ub/backs/boon.webp     | grep -i cache-control   # → max-age=86400
+```
+
+Wanted: `200` and `HTTP/2` at the root, `application/json`, `font/woff2` and `image/webp` on their
+three files, `308` on the redirect, `gzip` or `zstd` on the JSON — and **`404` on `.git/config`**.
+That last one is the only line that is about safety rather than function: if you cloned into the web
+root, the entire repository history is sitting on disk under the document root, and the `@dotfiles`
+matcher is the one thing standing between it and the internet. A `200` there means anyone can
+download it.
 
 ---
 
