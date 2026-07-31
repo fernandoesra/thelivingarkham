@@ -20,6 +20,9 @@ langs/*/source_faq/*.pdf
 assets/img/_inspect-*.png
 # test output
 a11y-report.json
+# Deployment notes — Fernando's own runbook for the VPS, not part of the site.
+# Kept locally and used; it just does not belong in the public repo.
+deploy.md
 # python
 __pycache__/
 *.pyc

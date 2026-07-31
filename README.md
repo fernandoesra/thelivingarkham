@@ -352,7 +352,9 @@ index.html js/ css/  the app — knows no language
 The app reads `data/languages.json` to learn which languages exist (and which have a FAQ corpus, via `faqData`), and fetches a language only when it is first shown. A language is listed there only once its content has actually been built, so a half-finished pack can sit in `langs/` without putting a dead button in the header. The FAQ is optional per language: a pack without a `"faq"` block simply has no FAQ shelf.
 
 Pipeline details (parser, auto-links, icons, montages): [`tools/README.md`](tools/README.md).
-Putting it on a server: [`deploy.md`](deploy.md).
+Putting it on a server: there is nothing to it — the files are the site. Serve the folder over
+http(s) and you are done: no build step, no runtime, no database. The one hard requirement is that
+it *is* http(s) and not `file://`, because the app loads its content with `fetch()`.
 
 ## Commands
 
