@@ -1,5 +1,88 @@
 [
   {
+    "v": "1.1.0",
+    "date": "2026-07-31",
+    "i18n": {
+      "es": {
+        "title": "Instalable y sin conexión",
+        "items": [
+          "**Instalar y usar sin conexión**: ya puedes instalar The Living Arkham como una app (en el móvil o el PC) y consultarla sin internet. Desde el pie de página eliges guardar solo las reglas o todo, con las imágenes.",
+          "**Interfaz más limpia**: los avisos y las tarjetas ahora son planos, sin el aspecto de «tarjeta flotante»."
+        ]
+      },
+      "en": {
+        "title": "Installable and offline",
+        "items": [
+          "**Install and use offline**: you can now install The Living Arkham as an app (on phone or PC) and use it without internet. From the footer you choose to save just the rules, or everything with images.",
+          "**Cleaner interface**: notices and cards are now flat, without the “floating card” look."
+        ]
+      },
+      "de": {
+        "title": "Installierbar und offline",
+        "items": [
+          "**Installieren und offline nutzen**: Du kannst The Living Arkham jetzt als App (auf dem Handy oder PC) installieren und ohne Internet nutzen. In der Fußzeile wählst du, ob du nur die Regeln oder alles mit Bildern speicherst.",
+          "**Aufgeräumtere Oberfläche**: Hinweise und Karten sind jetzt flach, ohne den „schwebende Karte“-Look."
+        ]
+      },
+      "it": {
+        "title": "Installabile e offline",
+        "items": [
+          "**Installa e usa offline**: ora puoi installare The Living Arkham come app (su telefono o PC) e consultarlo senza internet. Dal piè di pagina scegli se salvare solo le regole o tutto, con le immagini.",
+          "**Interfaccia più pulita**: avvisi e schede ora sono piatti, senza l'aspetto da «scheda fluttuante»."
+        ]
+      },
+      "fr": {
+        "title": "Installable et hors ligne",
+        "items": [
+          "**Installer et utiliser hors ligne** : vous pouvez désormais installer The Living Arkham comme une app (sur téléphone ou PC) et le consulter hors ligne. Depuis le pied de page, vous choisissez d'enregistrer seulement les règles, ou tout avec les images.",
+          "**Interface plus épurée** : les avis et les cartes sont maintenant plats, sans l'aspect « carte flottante »."
+        ]
+      },
+      "pt": {
+        "title": "Instalável e sem ligação",
+        "items": [
+          "**Instalar e usar sem ligação**: já podes instalar o The Living Arkham como uma app (no telemóvel ou PC) e consultá-lo sem internet. No rodapé escolhes guardar só as regras ou tudo, com as imagens.",
+          "**Interface mais limpa**: os avisos e os cartões agora são planos, sem o aspeto de «cartão flutuante»."
+        ]
+      },
+      "pl": {
+        "title": "Instalowalna i offline",
+        "items": [
+          "**Instalacja i tryb offline**: możesz teraz zainstalować The Living Arkham jako aplikację (na telefonie lub komputerze) i korzystać z niej bez internetu. W stopce wybierasz, czy zapisać tylko zasady, czy wszystko z obrazami.",
+          "**Czytelniejszy interfejs**: powiadomienia i karty są teraz płaskie, bez wyglądu „unoszącej się karty”."
+        ]
+      },
+      "ru": {
+        "title": "Устанавливается и работает офлайн",
+        "items": [
+          "**Установка и работа офлайн**: теперь можно установить The Living Arkham как приложение (на телефоне или ПК) и пользоваться им без интернета. В подвале вы выбираете: сохранить только правила или всё, вместе с изображениями.",
+          "**Более чистый интерфейс**: уведомления и карточки теперь плоские, без вида «парящей карточки»."
+        ]
+      },
+      "uk": {
+        "title": "Встановлюється й працює офлайн",
+        "items": [
+          "**Встановлення та офлайн**: тепер можна встановити The Living Arkham як застосунок (на телефоні чи ПК) і користуватися ним без інтернету. У підвалі ви обираєте: зберегти лише правила чи все, разом із зображеннями.",
+          "**Чистіший інтерфейс**: сповіщення та картки тепер пласкі, без вигляду «картки, що ширяє»."
+        ]
+      },
+      "ko": {
+        "title": "설치 및 오프라인 지원",
+        "items": [
+          "**설치 및 오프라인 사용**: 이제 The Living Arkham을 앱으로 설치(휴대폰 또는 PC)하여 인터넷 없이 사용할 수 있습니다. 하단에서 규칙만 저장할지, 이미지까지 전부 저장할지 선택합니다.",
+          "**더 깔끔한 인터페이스**: 알림과 카드가 이제 평평해져 '떠 있는 카드' 느낌이 사라졌습니다."
+        ]
+      },
+      "zh": {
+        "title": "可安装、可离线",
+        "items": [
+          "**安装并离线使用**：现在可以将 The Living Arkham 安装为应用（手机或电脑）并在没有网络时使用。在页脚可以选择只保存规则，或连同图片一起全部保存。",
+          "**更简洁的界面**：提示和卡片现在是扁平的，去掉了“悬浮卡片”的观感。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.0.2",
     "date": "2026-07-30",
     "i18n": {

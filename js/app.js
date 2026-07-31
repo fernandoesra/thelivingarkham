@@ -4015,6 +4015,7 @@ function dialogs(){
     {box:elDonate,   isOpen:donateOpen,  close:closeDonate},
     {box:elGh,       isOpen:ghOpen,      close:closeGh},
     {box:elDiscord,  isOpen:discordOpen, close:closeDiscord},
+    {box:elOffline,  isOpen:offlineOpen, close:closeOffline},
     {box:elUbDraw,   isOpen:drawOpen,    close:closeDraw},
     /* Last, so it wins when opened over another dialog (a drawn card zoomed over the
        draw modal): openDialog() takes the last open entry, and trapTab/Escape follow it. */
@@ -4194,6 +4195,61 @@ function closeGh(){
   elGh.classList.remove('on'); elGh.hidden=true;
   try{if(lastGh)lastGh.focus();}catch(e){}
   lastGh=null;
+}
+
+/* ---------- use offline (PWA) ----------
+   sw.js does the caching; this panel just drives it: install the app, and let the reader keep
+   the rules — or everything — offline. It all no-ops without a service worker (the footer icon
+   stays hidden), so nothing here can break a browser that does not support it. */
+var elOffline=null, lastOffline=null, deferredInstall=null;
+function offlineOpen(){return !!elOffline&&elOffline.classList.contains('on');}
+function openOffline(){
+  lastOffline=document.activeElement;
+  elOffline.hidden=false; elOffline.classList.add('on');
+  var pr=document.getElementById('tla-offline-prog'); if(pr)pr.hidden=true;      // no stray bar
+  var st=document.getElementById('tla-offline-status'); if(st)st.textContent=t('offlinenote');
+  try{document.getElementById('tla-offline-close').focus();}catch(e){}
+  offlineAskStatus();
+}
+function closeOffline(){
+  if(!offlineOpen())return;
+  elOffline.classList.remove('on'); elOffline.hidden=true;
+  try{if(lastOffline)lastOffline.focus();}catch(e){}
+  lastOffline=null;
+}
+function offlineSW(){ return ('serviceWorker' in navigator) ? navigator.serviceWorker : null; }
+function offlineAskStatus(){ var sw=offlineSW(); if(sw&&sw.controller)sw.controller.postMessage({type:'status'}); }
+function offlineMark(id, saved){ var b=document.getElementById(id); if(b)b.classList.toggle('is-saved', !!saved); }
+function offlineBusy(on){
+  var r=document.getElementById('tla-offline-rules'), a=document.getElementById('tla-offline-all');
+  if(r)r.disabled=on; if(a)a.disabled=on;
+}
+function offlineProgress(done,total){
+  var pr=document.getElementById('tla-offline-prog'), bar=document.getElementById('tla-offline-bar'), tx=document.getElementById('tla-offline-progtext');
+  if(!pr)return; pr.hidden=false;
+  var pct=total?Math.max(0,Math.min(100,Math.round(done/total*100))):0;
+  if(bar)bar.style.width=pct+'%';
+  if(tx)tx.textContent=t('offlinebusy')+' '+pct+'%';
+}
+function offlineDownload(what){
+  var sw=offlineSW(); if(!sw||!sw.controller)return;
+  offlineBusy(true); offlineProgress(0,1);
+  sw.controller.postMessage({type:'cache', what:what});
+}
+function offlineOnMessage(m){
+  if(!m||!m.type)return;
+  if(m.type==='status'){
+    var rulesSaved=m.rules&&m.rules.total>0&&m.rules.have>=m.rules.total;
+    var allSaved=rulesSaved&&m.assets&&m.assets.total>0&&m.assets.have>=m.assets.total;
+    offlineMark('tla-offline-rules', rulesSaved);
+    offlineMark('tla-offline-all', allSaved);
+  }else if(m.type==='cache-progress'){
+    offlineProgress(m.done, m.total);
+  }else if(m.type==='cache-done'){
+    var pr=document.getElementById('tla-offline-prog'); if(pr)pr.hidden=true;    // bar gone when done
+    var st=document.getElementById('tla-offline-status'); if(st)st.textContent=t('offlinedone');
+    offlineBusy(false); offlineAskStatus();
+  }
 }
 
 /* ---------- draw-at-random modal ---------- */
@@ -4609,6 +4665,27 @@ function wireEvents(){
   document.getElementById('tla-gh-close').addEventListener('click',closeGh);
   // backdrop only — a click inside the box must not close it
   elGh.addEventListener('click',function(e){if(e.target===elGh)closeGh();});
+
+  /* PWA "use offline" panel — wired only where the browser can do it, so the footer icon
+     (hidden in the markup) is revealed only when it works; everything else no-ops. */
+  if('serviceWorker' in navigator){
+    elOffline=document.getElementById('tla-offline');
+    var offIco=document.getElementById('tla-offline-open');
+    if(offIco){ offIco.hidden=false; offIco.addEventListener('click',openOffline); }
+    var offX=document.getElementById('tla-offline-close'); if(offX)offX.addEventListener('click',closeOffline);
+    if(elOffline)elOffline.addEventListener('click',function(e){if(e.target===elOffline)closeOffline();});
+    var offRules=document.getElementById('tla-offline-rules'); if(offRules)offRules.addEventListener('click',function(){offlineDownload('rules');});
+    var offAll=document.getElementById('tla-offline-all'); if(offAll)offAll.addEventListener('click',function(){offlineDownload('all');});
+    navigator.serviceWorker.addEventListener('message',function(e){offlineOnMessage(e.data);});
+    var offInstall=document.getElementById('tla-offline-install');
+    if(offInstall)offInstall.addEventListener('click',function(){
+      if(!deferredInstall)return;
+      try{ deferredInstall.prompt(); deferredInstall.userChoice.then(function(){deferredInstall=null; offInstall.hidden=true;}); }
+      catch(e){ deferredInstall=null; offInstall.hidden=true; }
+    });
+    addEventListener('beforeinstallprompt',function(e){ e.preventDefault(); deferredInstall=e; if(offInstall)offInstall.hidden=false; });
+    addEventListener('appinstalled',function(){ deferredInstall=null; if(offInstall)offInstall.hidden=true; });
+  }
 
   document.getElementById('tla-ubdraw-close').addEventListener('click',closeDraw);
   elUbDraw.addEventListener('click',function(e){

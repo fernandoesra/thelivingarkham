@@ -1545,6 +1545,28 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   background:var(--gold); color:var(--on-gold)}
 #tla-root .tla-modal-cta:hover{background:var(--gold2); color:var(--on-gold); text-decoration:none}
 .tla-modal-cta svg{width:17px; height:18px; flex:0 0 auto}
+/* ---------- use-offline (PWA) panel ---------- flat boxes, no sheen/shadow/lift */
+.tla-off-opts{display:flex; flex-direction:column; gap:10px; margin:14px 0 2px}
+#tla-root #tla-offline-install{display:flex; width:100%; justify-content:center; margin:2px 0 0}
+#tla-root .tla-off-btn{display:flex; align-items:baseline; justify-content:space-between; gap:12px;
+  width:100%; text-align:left; cursor:pointer; padding:12px 15px; border-radius:10px;
+  border:1px solid var(--edge2); background:var(--panel); color:var(--ink); font-family:var(--ff-ui);
+  transition:border-color .12s, background .12s}
+#tla-root .tla-off-btn:hover{border-color:var(--gold); background:var(--panel2)}
+#tla-root .tla-off-btn:disabled{opacity:.55; cursor:default}
+.tla-off-btn-t{font-size:var(--fs-small); font-weight:600}
+.tla-off-btn-s{font-size:var(--fs-eyebrow); color:var(--muted); white-space:nowrap; font-variant-numeric:tabular-nums}
+.tla-off-btn.is-saved{border-color:var(--teal)}
+.tla-off-btn.is-saved .tla-off-btn-s{color:var(--teal2)}
+#tla-root .tla-off-btn.is-saved .tla-off-btn-t::before{content:'\2713\00a0'; color:var(--teal2); font-weight:700}
+.tla-off-prog{display:flex; align-items:center; gap:10px; margin:10px 0 2px}
+.tla-off-bar{flex:1 1 auto; height:8px; border-radius:99px; background:var(--bg); overflow:hidden; border:1px solid var(--edge2)}
+.tla-off-bar i{display:block; height:100%; width:0; background:var(--gold); transition:width .2s}
+.tla-off-progtext{flex:0 0 auto; font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--ink2); font-variant-numeric:tabular-nums}
+.tla-off-note{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--muted); line-height:1.5; margin:12px 0 0}
+/* these set display via class/id, which would otherwise beat the [hidden] attribute — let hidden win */
+.tla-off-prog[hidden]{display:none}
+#tla-root #tla-offline-install[hidden]{display:none}
 
 /* ---------- draw-at-random modal ---------- */
 /* Near-fullscreen so drawn cards are large and readable. Later in the file than
