@@ -1,83 +1,94 @@
 [
   {
-    "v": "1.1.1",
+    "v": "1.2.0",
     "date": "2026-07-31",
     "i18n": {
       "es": {
-        "title": "Indicador de carga",
+        "title": "Carga, icono y ajustes",
         "items": [
           "**Aviso de carga**: la lista de tabúes tardaba un poco en prepararse en el móvil sin avisar; ahora muestra un indicador y evita pulsar sin querer mientras carga.",
-          "**Icono de la web**: al guardarla en la pantalla de inicio del móvil o al compartir el enlace, ahora sale su icono en lugar de uno genérico."
+          "**Icono de la web**: al guardarla en la pantalla de inicio del móvil o al compartir el enlace, ahora sale su icono en lugar de uno genérico.",
+          "**Barra superior**: en algunas pantallas grandes o con zoom, al abrir ciertas secciones desaparecía la barra de arriba y quedaba un hueco bajo el pie; corregido."
         ]
       },
       "en": {
-        "title": "Loading indicator",
+        "title": "Loading, icon and tweaks",
         "items": [
           "**Loading indicator**: the list of taboos took a moment to prepare on phones with no sign of it; it now shows a spinner and blocks stray taps while it loads.",
-          "**Site icon**: adding the site to a phone's home screen, or sharing the link, now shows its own icon instead of a generic one."
+          "**Site icon**: adding the site to a phone's home screen, or sharing the link, now shows its own icon instead of a generic one.",
+          "**Top bar**: on some large or zoomed screens, opening certain sections made the top bar disappear and left a gap under the footer; fixed."
         ]
       },
       "de": {
-        "title": "Ladeanzeige",
+        "title": "Ladeanzeige, Symbol und Feinschliff",
         "items": [
           "**Ladeanzeige**: die Liste der Tabus brauchte auf dem Handy einen Moment, ohne Hinweis; jetzt erscheint eine Ladeanzeige und versehentliche Tipps werden währenddessen blockiert.",
-          "**Website-Symbol**: Wird die Seite zum Startbildschirm hinzugefügt oder der Link geteilt, erscheint jetzt ihr eigenes Symbol statt eines allgemeinen."
+          "**Website-Symbol**: Wird die Seite zum Startbildschirm hinzugefügt oder der Link geteilt, erscheint jetzt ihr eigenes Symbol statt eines allgemeinen.",
+          "**Obere Leiste**: Auf manchen großen oder gezoomten Bildschirmen verschwand beim Öffnen bestimmter Abschnitte die obere Leiste und unter der Fußzeile blieb eine Lücke; behoben."
         ]
       },
       "it": {
-        "title": "Indicatore di caricamento",
+        "title": "Caricamento, icona e ritocchi",
         "items": [
           "**Indicatore di caricamento**: la lista dei tabù ci metteva un po' a prepararsi su telefono senza avvisare; ora mostra un indicatore e blocca i tocchi accidentali mentre carica.",
-          "**Icona del sito**: aggiungendolo alla schermata iniziale del telefono o condividendo il link, ora compare la sua icona invece di una generica."
+          "**Icona del sito**: aggiungendolo alla schermata iniziale del telefono o condividendo il link, ora compare la sua icona invece di una generica.",
+          "**Barra superiore**: su alcuni schermi grandi o con zoom, aprendo certe sezioni la barra in alto spariva e restava uno spazio vuoto sotto il piè di pagina; corretto."
         ]
       },
       "fr": {
-        "title": "Indicateur de chargement",
+        "title": "Chargement, icône et ajustements",
         "items": [
           "**Indicateur de chargement** : la liste des tabous mettait un peu de temps à se préparer sur téléphone, sans rien signaler ; un indicateur s'affiche désormais et bloque les touchers accidentels pendant le chargement.",
-          "**Icône du site** : en l'ajoutant à l'écran d'accueil du téléphone ou en partageant le lien, c'est désormais sa propre icône qui apparaît, et non une icône générique."
+          "**Icône du site** : en l'ajoutant à l'écran d'accueil du téléphone ou en partageant le lien, c'est désormais sa propre icône qui apparaît, et non une icône générique.",
+          "**Barre supérieure** : sur certains écrans grands ou zoomés, l'ouverture de certaines sections faisait disparaître la barre du haut et laissait un vide sous le pied de page ; corrigé."
         ]
       },
       "pt": {
-        "title": "Indicador de carregamento",
+        "title": "Carregamento, ícone e ajustes",
         "items": [
           "**Indicador de carregamento**: a lista de tabus demorava um pouco a preparar no telemóvel sem avisar; agora mostra um indicador e bloqueia toques acidentais enquanto carrega.",
-          "**Ícone do site**: ao guardá-lo no ecrã principal do telemóvel ou ao partilhar a ligação, aparece agora o seu próprio ícone em vez de um genérico."
+          "**Ícone do site**: ao guardá-lo no ecrã principal do telemóvel ou ao partilhar a ligação, aparece agora o seu próprio ícone em vez de um genérico.",
+          "**Barra superior**: em alguns ecrãs grandes ou com zoom, ao abrir certas secções a barra de cima desaparecia e ficava um espaço vazio sob o rodapé; corrigido."
         ]
       },
       "pl": {
-        "title": "Wskaźnik ładowania",
+        "title": "Ładowanie, ikona i poprawki",
         "items": [
           "**Wskaźnik ładowania**: lista tabu chwilę się przygotowywała na telefonie bez żadnej informacji; teraz pokazuje wskaźnik i blokuje przypadkowe dotknięcia podczas ładowania.",
-          "**Ikona strony**: po dodaniu jej do ekranu głównego telefonu lub udostępnieniu odnośnika pojawia się teraz jej własna ikona zamiast ogólnej."
+          "**Ikona strony**: po dodaniu jej do ekranu głównego telefonu lub udostępnieniu odnośnika pojawia się teraz jej własna ikona zamiast ogólnej.",
+          "**Górny pasek**: na niektórych dużych lub powiększonych ekranach otwarcie pewnych sekcji powodowało zniknięcie górnego paska i lukę pod stopką; naprawiono."
         ]
       },
       "ru": {
-        "title": "Индикатор загрузки",
+        "title": "Загрузка, значок и доработки",
         "items": [
           "**Индикатор загрузки**: список табу готовился на телефоне некоторое время без каких-либо признаков; теперь показывается индикатор и блокируются случайные нажатия во время загрузки.",
-          "**Значок сайта**: при добавлении на главный экран телефона или при отправке ссылки теперь показывается его собственный значок, а не стандартный."
+          "**Значок сайта**: при добавлении на главный экран телефона или при отправке ссылки теперь показывается его собственный значок, а не стандартный.",
+          "**Верхняя панель**: на некоторых больших экранах или при масштабировании при открытии определённых разделов верхняя панель исчезала и под подвалом оставался пустой участок; исправлено."
         ]
       },
       "uk": {
-        "title": "Індикатор завантаження",
+        "title": "Завантаження, піктограма та доопрацювання",
         "items": [
           "**Індикатор завантаження**: список табу трохи готувався на телефоні без жодних ознак; тепер показується індикатор і блокуються випадкові дотики під час завантаження.",
-          "**Піктограма сайту**: коли ви додаєте його на головний екран телефона або надсилаєте посилання, тепер показується його власна піктограма, а не типова."
+          "**Піктограма сайту**: коли ви додаєте його на головний екран телефона або надсилаєте посилання, тепер показується його власна піктограма, а не типова.",
+          "**Верхня панель**: на деяких великих екранах або з масштабуванням під час відкриття певних розділів верхня панель зникала й під підвалом залишався порожній проміжок; виправлено."
         ]
       },
       "ko": {
-        "title": "로딩 표시",
+        "title": "로딩, 아이콘, 다듬기",
         "items": [
           "**로딩 표시**: 금기 목록이 휴대폰에서 아무 표시 없이 준비에 잠시 걸렸습니다. 이제 로딩 표시가 나타나고 로딩 중 실수 터치를 막습니다.",
-          "**사이트 아이콘**: 휴대폰 홈 화면에 추가하거나 링크를 공유할 때 이제 일반 아이콘 대신 사이트 고유의 아이콘이 표시됩니다."
+          "**사이트 아이콘**: 휴대폰 홈 화면에 추가하거나 링크를 공유할 때 이제 일반 아이콘 대신 사이트 고유의 아이콘이 표시됩니다.",
+          "**상단 바**: 일부 큰 화면이나 확대된 화면에서 특정 섹션을 열면 상단 바가 사라지고 푸터 아래에 빈 공간이 생기던 문제를 수정했습니다."
         ]
       },
       "zh": {
-        "title": "加载提示",
+        "title": "加载、图标与优化",
         "items": [
           "**加载提示**：禁忌清单在手机上准备时会卡顿一会儿且没有任何提示；现在会显示加载提示，并在加载期间避免误触。",
-          "**网站图标**：将网站添加到手机主屏幕或分享链接时，现在会显示它自己的图标，而不是通用图标。"
+          "**网站图标**：将网站添加到手机主屏幕或分享链接时，现在会显示它自己的图标，而不是通用图标。",
+          "**顶部栏**：在某些大屏幕或缩放的屏幕上，打开某些章节时顶部栏会消失、页脚下方出现空白；已修复。"
         ]
       }
     }

@@ -229,12 +229,16 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   -webkit-font-smoothing:antialiased;
   /* height:var(--app-h) locks the shell to the LIVE viewport; a small head-time
      script keeps --app-h = window.innerHeight. The bare 100dvh stays as the no-JS
-     fallback. Why not 100dvh alone: this root is overflow:hidden and the scroller
+     fallback. Why not 100dvh alone: this root clips its overflow and the scroller
      is an inner rail (.tla-main), so the document never scrolls — and on Android
      Chrome a 100dvh that was resolved while the URL bar was shown can then fail to
      re-resolve when the bar retracts (no root-scroll signal), leaving the shell
      short and the dark body showing below the footer until a manual refresh. */
-  height:100dvh; height:var(--app-h,100dvh); display:flex; flex-direction:column; position:relative; overflow:hidden;
+  /* overflow:CLIP, not hidden: an overflow:hidden box is still programmatically scrollable, so a
+     scrollIntoView() to an in-page anchor (e.g. #es/…--excepciones) scrolls the SHELL as well as
+     the inner rail — the header slides up out of view and a dead band opens under the footer. clip
+     clips the same but is not a scroll container, so scrollIntoView can only move .tla-main. */
+  height:100dvh; height:var(--app-h,100dvh); display:flex; flex-direction:column; position:relative; overflow:clip;
   background:radial-gradient(135% 92% at 50% -18%, var(--bggrad) 0%, var(--bg) 55%);
 }
 /* Desktop has no dynamic URL bar, so the JS innerHeight lock (--app-h) is not needed there
