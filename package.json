@@ -1,6 +1,6 @@
 {
   "name": "thelivingarkham",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "The Living Arkham (beta) — interactive, multilingual rules grimoire for Arkham Horror: The Card Game. Static web app, ready for GitHub Pages.",
   "type": "commonjs",
   "homepage": ".",

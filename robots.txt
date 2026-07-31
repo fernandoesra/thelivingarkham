@@ -1,0 +1,9 @@
+# The Living Arkham — https://thelivingarkham.com
+# Everything a reader can see is meant to be found. Crawl it.
+
+User-agent: *
+Allow: /
+
+# A clone of the repository IS the site, so the Python build pipeline ships
+# inside the web root even though it is not part of what anyone reads.
+Disallow: /tools/

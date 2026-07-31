@@ -1919,3 +1919,17 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   border:3px solid var(--edge2); border-top-color:var(--gold); animation:tlaspin .7s linear infinite}
 @keyframes tlaspin{to{transform:rotate(360deg)}}
 @media (prefers-reduced-motion:reduce){ .tla-rel-sum::before{transition:none} .tla-rel-loading{animation:none} }
+/* ---------- blocking loader (slow taboo render) ---------- */
+.tla-loading{position:fixed; inset:0; z-index:400; display:flex; align-items:center; justify-content:center;
+  background:var(--scrim); -webkit-backdrop-filter:blur(2px); backdrop-filter:blur(2px)}
+.tla-loading[hidden]{display:none}   /* the class sets display:flex, which would otherwise beat [hidden] */
+.tla-loading-box{display:flex; flex-direction:column; align-items:center; gap:16px}
+/* The site's sigil (a curled tentacle) fills with gold from the bottom, on a loop. The fill is a
+   plain div animated with transform, so it keeps rising on the compositor even while the main
+   thread is frozen building the taboo gallery; the sigil mask gives it the tentacle shape. */
+.tla-loading-sigil{width:82px; height:82px; animation:tlapulse 1.5s ease-in-out infinite}
+.tla-loading-sigil svg{display:block; width:100%; height:100%}
+.tla-loading-sig{fill:var(--gold)}
+@keyframes tlapulse{0%,100%{opacity:.5; transform:scale(.9)} 50%{opacity:1; transform:scale(1)}}
+.tla-loading-t{font-family:var(--ff-ui); font-size:var(--fs-small); color:var(--ink2); letter-spacing:.3px}
+@media (prefers-reduced-motion:reduce){ .tla-loading-sigil{animation:none; opacity:1; transform:none} }

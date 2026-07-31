@@ -3077,6 +3077,11 @@ function tabooDownloadAll(btn){
     if(files.length)ubSaveBlob(ubZip(files),tabooSanitize('the-living-arkham-taboo-'+lang)+(tabBleed?'-bleed':'-nobleed')+'.zip');
   }).catch(function(){ finish(); });
 }
+/* A blocking loader for the one slow render, the taboo gallery. Its spinner is a CSS transform
+   animation, so it keeps turning on the compositor even while the main thread is frozen fitting
+   ~190 card faces; the full-screen overlay stops the reader tapping other things meanwhile. */
+function showLoading(){ var el=document.getElementById('tla-loading'); if(el)el.hidden=false; }
+function hideLoading(){ var el=document.getElementById('tla-loading'); if(el)el.hidden=true; }
 function render(sid,eid,flash){
   var s=data.sections.filter(function(x){return x.id===sid;})[0]; if(!s)s=data.sections[0];
   curSec=s;
@@ -3206,17 +3211,30 @@ function render(sid,eid,flash){
      substitute — unless the reader asked for it alone. */
   if(s.fanmade&&!diagOnly())h+=fanmadeHTML(s);
   h+='</div>';
-  elMain.innerHTML=h;
-  syncStickyHeight();          // before any scroll-to, so the target clears the toolbar
-  layoutFlowLoops();
-  bindAnatomy();
-  bindUB();
-  bindTabooCards();
-  [].forEach.call(elMain.querySelectorAll('.tla-subst'),substFilter);
-  buildToc(s,ents);
-  markNav(sid);
-  if(eid){var el=document.getElementById('e-'+eid); if(el){el.scrollIntoView({block:'start'}); if(flash){el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}}}
-  else{elMain.scrollTop=0;}
+  markNav(sid);                // highlight the nav now, not after a 10-15 s taboo render
+  var commit=function(){
+    elMain.innerHTML=h;
+    syncStickyHeight();        // before any scroll-to, so the target clears the toolbar
+    layoutFlowLoops();
+    bindAnatomy();
+    bindUB();
+    bindTabooCards();
+    [].forEach.call(elMain.querySelectorAll('.tla-subst'),substFilter);
+    buildToc(s,ents);
+    if(eid){var el=document.getElementById('e-'+eid); if(el){el.scrollIntoView({block:'start'}); if(flash){el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}}}
+    else{elMain.scrollTop=0;}
+    hideLoading();
+  };
+  /* The taboo gallery parses ~190 card faces and fits each to its box — 10-15 s of synchronous work
+     on a phone, with nothing on screen. Put a blocking loader up first and yield TWICE so the browser
+     paints it before the freeze; every other section is fast enough to commit straight away. */
+  if(s.kind==='taboocards' && window.requestAnimationFrame){
+    elMain.innerHTML=''; elMain.scrollTop=0;   // clear the previous section so the loader sits on a clean dark ground, not the page you came from
+    showLoading();
+    requestAnimationFrame(function(){ requestAnimationFrame(commit); });
+  } else {
+    commit();
+  }
 }
 function verBanner(li){
   return '<button class="tla-verbanner" type="button" data-go="novedades">'

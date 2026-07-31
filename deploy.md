@@ -14,7 +14,8 @@ double-clicking `index.html` shows a blank page. Any HTTP server fixes it.
 
 The rest is reference: [what to upload](#what-to-upload),
 [other servers and MIME types](#other-servers-and-mime-types), [the checks after deploying](#after-deploying-check-these-five),
-[rebuilding the content](#rebuilding-the-content) and a few [notes](#notes).
+[traffic statistics](#traffic-statistics), [rebuilding the content](#rebuilding-the-content) and a
+few [notes](#notes).
 
 ---
 
@@ -556,6 +557,78 @@ download it.
 
 ---
 
+## Traffic statistics
+
+Google Analytics is the wrong tool here, and not on principle: it is a third-party script that sets
+cookies, it needs a consent banner in the EU, it sends your readers' data to Google — and between a
+third and a half of visitors block it, so you pay all of that for a number that is wrong anyway.
+
+The site already generates everything you need. Caddy can log every request it serves, and
+**GoAccess** turns those logs into a dashboard. No JavaScript on the page, no cookies, no consent
+banner, no third party: the reader is not involved at all. What you give up is in-page events — the
+logs know a `.webp` was requested, not that someone clicked "download card".
+
+**1. Turn on the access log** — Caddy does not log by default. Inside the site block:
+
+```caddy
+	log {
+		output file /var/log/caddy/access.log {
+			roll_size 20MiB
+			roll_keep 10
+			roll_keep_for 2160h
+		}
+	}
+```
+
+> ⚠️ **`sudo caddy validate` creates that file as root, and then the service cannot write to it.**
+> Validating does not merely parse — it provisions the modules, and provisioning the file writer
+> *creates the log file*. Run under `sudo` it lands as `root:root` mode `0600`, and the reload then
+> fails with `open /var/log/caddy/access.log: permission denied` forever, no matter what the
+> directory permissions say. The confusing part is that everything else looks correct: the folder is
+> owned by `caddy`, and `sudo -u caddy touch` succeeds — because it creates a *different* file.
+> Make `chown -R caddy:caddy /var/log/caddy` a permanent step between `validate` and `reload`.
+
+A `LogsDirectory=caddy` drop-in is worth adding anyway (systemd then creates the directory with the
+right owner and adds it to the sandbox's writable paths), but it is hygiene, not the fix above.
+
+**2. Teach GoAccess the format.** Caddy logs JSON; GoAccess needs the field names spelled out. This
+matches Caddy 2.11:
+
+```
+log-format {"ts":"%x","request":{"client_ip":"%h","proto":"%H","method":"%m","host":"%v","uri":"%U","headers":{"User-Agent":["%u"],"Referer":["%R"]}},"size":"%b","status":"%s"}
+date-format %s
+time-format %s
+anonymize-ip true
+ignore-crawlers true
+real-os true
+```
+
+The one thing that will not work out of the box: Caddy writes `"ts":1785478441.368`, a **fractional**
+epoch, and `%s` wants whole seconds — `Token '…' doesn't match specifier '%x'`. Strip the decimals on
+the way in rather than changing Caddy's time format, so the log keeps its full precision on disk for
+when you need to line a request up against an error:
+
+```bash
+cat /var/log/caddy/access.log /var/log/caddy/access-*.log 2>/dev/null \
+  | sed 's/"ts":\([0-9]*\)\.[0-9]*/"ts":\1/' \
+  | goaccess - -p /etc/goaccess/caddy.conf -o /var/www/stats/new-index.html
+```
+
+GoAccess rejects an output filename whose extension is not `.html`, `.json` or `.csv` — so the
+temporary file for an atomic write must still end in `.html`, and must sit in the destination
+directory, since `mv` is only atomic within one filesystem. A `systemd` timer on `OnCalendar=*:0/15`
+regenerates it.
+
+**3. Serve it on its own subdomain, not on a path.** `stats.example.org`, with `basic_auth` (hash it
+with `caddy hash-password`) and its own site block appended to the Caddyfile — so the block that
+serves the site is not touched at all. The subdomain is not cosmetic: the site is a PWA, and its
+service worker intercepts every same-origin request. On a path, `/stats` would be served
+stale-while-revalidate — showing a cached dashboard when the whole point is that it refreshes — and
+would fall back to the site's own home page whenever the network hiccuped. A different origin is
+outside the service worker's reach by its first rule.
+
+---
+
 ## Rebuilding the content
 
 Only needed to change the data, and only ever done **locally** — the server never builds. It
@@ -587,6 +660,9 @@ Then commit, push, and on the server `git pull`.
   breaks unless that origin sends `Access-Control-Allow-Origin`: it draws the artwork onto a
   `<canvas>` and exports it, which a cross-origin image taints. Same-origin — the normal case —
   needs nothing.
-- **No analytics, no cookies, no third-party scripts.** The only things stored are the reader's own
-  choices, in `localStorage`: language, theme, whether the tour has been seen, and the viewer's
-  filters.
+- **No client-side analytics, no cookies, no third-party scripts.** Nothing is loaded from another
+  origin and nothing tracks the reader across the web. The only things stored *in the browser* are
+  the reader's own choices, in `localStorage`: language, theme, whether the tour has been seen, and
+  the viewer's filters. The *server* keeps ordinary access logs — see
+  [traffic statistics](#traffic-statistics) — which is why that sentence says "client-side": no
+  consent banner is needed, but the claim has to stay exact.
