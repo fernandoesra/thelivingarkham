@@ -15,9 +15,15 @@
    BUMP SW_VERSION on every release (see tools/other/instructions.md §7): it renames the shell
    cache, so activate() drops the old one and the new shell/text is served. */
 
-const SW_VERSION = '1.2.1';
+const SW_VERSION = '1.2.2';
 const SHELL = 'tla-shell-' + SW_VERSION;   // shell + read/downloaded text, replaced each version
-const MEDIA = 'tla-media';                 // images, kept across versions (immutable per URL)
+// Images are cache-first and, being immutable per URL, are kept across versions — a plain
+// SW_VERSION bump does NOT drop them, so offline images survive text-only releases. Bump
+// MEDIA_VERSION instead whenever a cached image's CONTENT changes at the SAME URL (a fixed card
+// or back): it renames the media cache, so activate() drops the stale one and the corrected
+// images are re-fetched fresh. (Raised to 2 in 1.2.2, after the Scorched Earth + back fixes.)
+const MEDIA_VERSION = '2';
+const MEDIA = 'tla-media-' + MEDIA_VERSION;
 
 function isMedia(path) {
   return /\/assets\/(ub|taboo|img|products|faqsets|icons)\//.test(path)
@@ -72,11 +78,14 @@ self.addEventListener('fetch', function (e) {
 
   if (isMedia(url.pathname)) {
     e.respondWith((async function () {
-      const hit = await caches.match(req);
+      const cache = await caches.open(MEDIA);
+      const hit = await cache.match(req);               // only THIS version's media cache
       if (hit) return hit;
       try {
-        const res = await fetch(req);
-        if (res && res.ok) (await caches.open(MEDIA)).put(req, res.clone());
+        // 'no-cache' on the miss: revalidate with the server so a re-fetch after a MEDIA_VERSION
+        // bump gets the corrected bytes, not a stale copy from the browser's own HTTP cache.
+        const res = await fetch(req, { cache: 'no-cache' });
+        if (res && res.ok) cache.put(req, res.clone());
         return res;
       } catch (err) { return hit || Response.error(); }
     })());

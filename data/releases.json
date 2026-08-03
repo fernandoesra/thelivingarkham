@@ -1,5 +1,88 @@
 [
   {
+    "v": "1.2.2",
+    "date": "2026-08-03",
+    "i18n": {
+      "es": {
+        "title": "Archivos al día y estadísticas anónimas",
+        "items": [
+          "**Archivos siempre al día**: tras una actualización, la app refresca por su cuenta las imágenes guardadas que hayan cambiado (por ejemplo, una carta corregida), así que siempre ves la última versión sin borrar nada a mano.",
+          "**Estadísticas anónimas de uso**: la web anota qué sección se abre y en qué idioma, y nada más, para decidir qué merece la pena mejorar. Sin cookies, sin terceros y sin nada que te identifique."
+        ]
+      },
+      "en": {
+        "title": "Files up to date, anonymous stats",
+        "items": [
+          "**Files stay current**: after an update, the app now refreshes any saved images that have changed on its own (for example, a corrected card), so you always see the latest version without clearing anything by hand.",
+          "**Anonymous usage stats**: the site notes which section is opened and in which language, and nothing else, to decide what is worth improving. No cookies, no third parties, nothing that identifies you."
+        ]
+      },
+      "de": {
+        "title": "Dateien aktuell und anonyme Statistik",
+        "items": [
+          "**Dateien bleiben aktuell**: Nach einer Aktualisierung frischt die App geänderte gespeicherte Bilder (etwa eine korrigierte Karte) von selbst auf, sodass du immer die neueste Version siehst, ohne etwas von Hand zu löschen.",
+          "**Anonyme Nutzungsstatistik**: Die Seite notiert, welcher Abschnitt in welcher Sprache geöffnet wird — mehr nicht —, um zu entscheiden, was sich zu verbessern lohnt. Keine Cookies, keine Dritten, nichts, was dich identifiziert."
+        ]
+      },
+      "it": {
+        "title": "File aggiornati e statistiche anonime",
+        "items": [
+          "**File sempre aggiornati**: dopo un aggiornamento, l'app ricarica da sola le immagini salvate che sono cambiate (per esempio una carta corretta), così vedi sempre l'ultima versione senza cancellare nulla a mano.",
+          "**Statistiche d'uso anonime**: il sito annota quale sezione viene aperta e in che lingua, nient'altro, per decidere cosa vale la pena migliorare. Niente cookie, niente terze parti, niente che ti identifichi."
+        ]
+      },
+      "fr": {
+        "title": "Fichiers à jour et statistiques anonymes",
+        "items": [
+          "**Fichiers toujours à jour** : après une mise à jour, l'app rafraîchit d'elle-même les images enregistrées qui ont changé (par exemple une carte corrigée), pour que vous voyiez toujours la dernière version sans rien effacer à la main.",
+          "**Statistiques d'usage anonymes** : le site note quelle section est ouverte et dans quelle langue, rien de plus, afin de décider ce qui mérite d'être amélioré. Aucun cookie, aucun tiers, rien qui vous identifie."
+        ]
+      },
+      "pt": {
+        "title": "Ficheiros atualizados e estatísticas anónimas",
+        "items": [
+          "**Ficheiros sempre atualizados**: após uma atualização, a app renova sozinha as imagens guardadas que mudaram (por exemplo, uma carta corrigida), para que vejas sempre a versão mais recente sem apagar nada à mão.",
+          "**Estatísticas de uso anónimas**: o site regista que secção é aberta e em que idioma, e nada mais, para decidir o que vale a pena melhorar. Sem cookies, sem terceiros e sem nada que te identifique."
+        ]
+      },
+      "pl": {
+        "title": "Aktualne pliki i anonimowe statystyki",
+        "items": [
+          "**Pliki zawsze aktualne**: po aktualizacji aplikacja sama odświeża zapisane obrazy, które się zmieniły (na przykład poprawioną kartę), więc zawsze widzisz najnowszą wersję bez ręcznego czyszczenia.",
+          "**Anonimowe statystyki użycia**: strona zapisuje, która sekcja została otwarta i w jakim języku — i nic więcej — aby zdecydować, co warto ulepszyć. Bez ciasteczek, bez stron trzecich, bez niczego, co by Cię identyfikowało."
+        ]
+      },
+      "ru": {
+        "title": "Актуальные файлы и анонимная статистика",
+        "items": [
+          "**Файлы всегда актуальны**: после обновления приложение само обновляет сохранённые изображения, которые изменились (например, исправленную карту), поэтому вы всегда видите последнюю версию и ничего не нужно чистить вручную.",
+          "**Анонимная статистика использования**: сайт отмечает, какой раздел открыт и на каком языке, и больше ничего, чтобы решать, что стоит улучшить. Без файлов cookie, без третьих сторон и без чего-либо, что вас идентифицирует."
+        ]
+      },
+      "uk": {
+        "title": "Актуальні файли та анонімна статистика",
+        "items": [
+          "**Файли завжди актуальні**: після оновлення застосунок сам оновлює збережені зображення, що змінилися (наприклад, виправлену карту), тож ви завжди бачите найновішу версію й нічого не треба чистити вручну.",
+          "**Анонімна статистика використання**: сайт занотовує, який розділ відкрито і якою мовою, і нічого більше, щоб вирішувати, що варто покращити. Без файлів cookie, без третіх сторін і без нічого, що вас ідентифікує."
+        ]
+      },
+      "ko": {
+        "title": "최신 파일과 익명 통계",
+        "items": [
+          "**항상 최신 파일**: 업데이트 후, 앱이 변경된 저장 이미지(예: 수정된 카드)를 스스로 새로 고쳐서 손으로 지우지 않아도 항상 최신 버전을 보게 됩니다.",
+          "**익명 이용 통계**: 어떤 섹션을 어떤 언어로 열었는지만 기록해, 무엇을 개선할지 정하는 데 씁니다. 쿠키도, 제3자도, 당신을 식별하는 것도 없습니다."
+        ]
+      },
+      "zh": {
+        "title": "文件保持最新与匿名统计",
+        "items": [
+          "**文件始终最新**：更新后，应用会自动刷新已改动的已保存图片（例如修正过的卡牌），因此你无需手动清除即可始终看到最新版本。",
+          "**匿名使用统计**：网站会记录打开了哪个章节、使用哪种语言，仅此而已，用来决定接下来改进什么。没有 Cookie，没有第三方，没有任何能识别你的信息。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.2.1",
     "date": "2026-08-03",
     "i18n": {
