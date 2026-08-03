@@ -1,5 +1,88 @@
 [
   {
+    "v": "1.2.1",
+    "date": "2026-08-03",
+    "i18n": {
+      "es": {
+        "title": "Versiones V1 y V2",
+        "items": [
+          "**Ultimátum de tierra quemada**: esta refracción se veía igual en las dos versiones del marco (V1 y V2); ahora cada versión muestra su marco propio.",
+          "**Reversos al descargar**: al guardar una carta o el pack completo, el reverso ahora corresponde a la versión del marco (V1 o V2) que tengas elegida; antes siempre se descargaba el de la V2. Nota: si habías guardado la web para usarla sin conexión, borra los datos guardados de la app para que se actualice el reverso corregido."
+        ]
+      },
+      "en": {
+        "title": "V1 and V2 versions",
+        "items": [
+          "**Ultimatum of Scorched Earth**: this refraction looked the same in both frame styles (V1 and V2); now each style shows its own frame.",
+          "**Card backs in downloads**: when you save a card or the whole pack, the back now matches the frame version (V1 or V2) you have chosen; before, it always downloaded the V2 one. Note: if you had saved the site for offline use, clear the app's saved data so the corrected back updates."
+        ]
+      },
+      "de": {
+        "title": "V1- und V2-Versionen",
+        "items": [
+          "**Ultimatum der verbrannten Erde**: Diese Refraktion sah in beiden Rahmenstilen (V1 und V2) gleich aus; jetzt zeigt jeder Stil seinen eigenen Rahmen.",
+          "**Rückseiten beim Download**: Beim Speichern einer Karte oder des ganzen Pakets passt die Rückseite jetzt zur gewählten Rahmenversion (V1 oder V2); zuvor wurde immer die V2 heruntergeladen. Hinweis: Wenn du die Seite zur Offlinenutzung gespeichert hattest, lösche die gespeicherten App-Daten, damit die korrigierte Rückseite übernommen wird."
+        ]
+      },
+      "it": {
+        "title": "Versioni V1 e V2",
+        "items": [
+          "**Ultimatum della Terra Bruciata**: questa rifrazione appariva identica nei due stili di cornice (V1 e V2); ora ogni stile mostra la propria cornice.",
+          "**Retro nei download**: salvando una carta o l'intero pacchetto, il retro ora corrisponde alla versione della cornice (V1 o V2) scelta; prima veniva scaricato sempre quello della V2. Nota: se avevi salvato il sito per l'uso offline, cancella i dati salvati dell'app affinché il retro corretto venga aggiornato."
+        ]
+      },
+      "fr": {
+        "title": "Versions V1 et V2",
+        "items": [
+          "**Réfraction « Terre brûlée »** : cette carte s'affichait de la même façon dans les deux styles de cadre (V1 et V2) ; chaque style montre désormais son propre cadre.",
+          "**Dos lors du téléchargement** : en enregistrant une carte ou le pack complet, le dos correspond désormais à la version de cadre (V1 ou V2) choisie ; auparavant, c'était toujours celui de la V2 qui était téléchargé. Remarque : si vous aviez enregistré le site pour une utilisation hors ligne, effacez les données enregistrées de l'app pour que le dos corrigé soit pris en compte."
+        ]
+      },
+      "pt": {
+        "title": "Versões V1 e V2",
+        "items": [
+          "**Refração «Terra queimada»**: esta carta aparecia igual nos dois estilos de moldura (V1 e V2); agora cada estilo mostra a sua própria moldura.",
+          "**Versos ao descarregar**: ao guardar uma carta ou o pacote completo, o verso agora corresponde à versão da moldura (V1 ou V2) escolhida; antes descarregava-se sempre o da V2. Nota: se tinhas guardado o site para usar sem ligação, apaga os dados guardados da app para que o verso corrigido seja atualizado."
+        ]
+      },
+      "pl": {
+        "title": "Wersje V1 i V2",
+        "items": [
+          "**Refrakcja „Spalona ziemia”**: ta karta wyglądała tak samo w obu stylach ramki (V1 i V2); teraz każdy styl pokazuje własną ramkę.",
+          "**Tyły kart przy pobieraniu**: podczas zapisywania karty lub całego pakietu tył odpowiada teraz wybranej wersji ramki (V1 lub V2); wcześniej zawsze pobierał się ten z V2. Uwaga: jeśli zapisałeś stronę do użytku offline, wyczyść zapisane dane aplikacji, aby zaktualizować poprawiony tył."
+        ]
+      },
+      "ru": {
+        "title": "Версии V1 и V2",
+        "items": [
+          "**Преломление «Выжженная земля»**: эта карта выглядела одинаково в обоих стилях рамки (V1 и V2); теперь каждый стиль показывает свою рамку.",
+          "**Рубашки при скачивании**: при сохранении карты или всего набора рубашка теперь соответствует выбранной версии рамки (V1 или V2); раньше всегда скачивалась рубашка V2. Примечание: если вы сохраняли сайт для работы офлайн, очистите сохранённые данные приложения, чтобы обновилась исправленная рубашка."
+        ]
+      },
+      "uk": {
+        "title": "Версії V1 і V2",
+        "items": [
+          "**Рефракція «Випалена земля»**: ця карта виглядала однаково в обох стилях рамки (V1 і V2); тепер кожен стиль показує власну рамку.",
+          "**Сорочки під час завантаження**: під час збереження карти або всього набору сорочка тепер відповідає вибраній версії рамки (V1 чи V2); раніше завжди завантажувалася сорочка V2. Примітка: якщо ви зберігали сайт для роботи офлайн, очистіть збережені дані застосунку, щоб оновилася виправлена сорочка."
+        ]
+      },
+      "ko": {
+        "title": "V1과 V2 버전",
+        "items": [
+          "**굴절 '초토화'**: 이 카드가 두 가지 테두리 스타일(V1과 V2)에서 똑같이 보였습니다. 이제 각 스타일이 고유한 테두리를 표시합니다.",
+          "**내려받기 시 카드 뒷면**: 카드 한 장이나 전체 묶음을 저장할 때 뒷면이 이제 선택한 테두리 버전(V1 또는 V2)과 일치합니다. 이전에는 항상 V2가 내려받아졌습니다. 참고: 오프라인 사용을 위해 사이트를 저장해 두었다면, 앱의 저장된 데이터를 지워야 수정된 뒷면이 반영됩니다."
+        ]
+      },
+      "zh": {
+        "title": "V1 与 V2 版本",
+        "items": [
+          "**折射牌「焦土」**：这张牌在两种边框样式（V1 和 V2）下显示相同；现在每种样式都会显示各自的边框。",
+          "**下载时的牌背**：保存单张牌或整个牌组时，牌背现在会与所选的边框版本（V1 或 V2）一致；此前总是下载 V2 的牌背。注意：如果你曾保存本站以离线使用，请清除应用的已保存数据，修正后的牌背才会更新。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.2.0",
     "date": "2026-07-31",
     "i18n": {

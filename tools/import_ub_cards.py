@@ -144,8 +144,12 @@ def pre_framed(path):
 # Finished cards whose art lives outside the main export (an artist's own composite in the
 # "Nuevos" folder beside the source). `file` is that composite; it is bleed-cropped as is.
 EXTRA = [
+    # V1 (5argon's clean frame) art. The v2 "skin", the with-bleed exports and this card's backs
+    # are regenerated offline — there is no committed builder for the cards-v2 / *-bleed / backs
+    # dirs (they were added as binaries); the v2 source is Refraction_scorched_earth_fix_v2.png,
+    # beside this file in the "Nuevos" folder.
     {'slug': 'ultimatum-of-scorched-earth', 'en': 'Ultimatum of Scorched Earth',
-     'cat': 'ultimatum', 'refraction': True, 'file': 'Refraction_scorched_earth.png'},
+     'cat': 'ultimatum', 'refraction': True, 'file': 'Refraction_scorched_earth_fix_v1.png'},
 ]
 
 # Cards the Grimoire names but with no art anywhere yet — rendered from the frame alone.

@@ -1819,9 +1819,10 @@ function imageToPngBlob(url, bleed){
     return new Promise(function(res){ cv.toBlob(function(b){res(b);},'image/png'); });
   });
 }
-/* The UB set has two card backs: one for ultimatums, one for boons (a refraction is a boon). */
+/* The UB set has two card backs: one for ultimatums, one for boons (a refraction is a boon),
+   each in the two frame skins — the no-bleed back follows ubSkin just like the bleed one below. */
 function ubBackType(catOrIt){ var c=(catOrIt&&catOrIt.cat)||catOrIt; return c==='ultimatum'?'ultimatum':'boon'; }
-function ubBackUrl(type){ return 'assets/ub/backs/'+type+'.webp'; }
+function ubBackUrl(type){ return 'assets/ub/backs/'+type+(ubSkin==='v2'?'-v2':'')+'.webp'; }
 function ubBackLabel(type){ return (type==='ultimatum'?t('ubultimatums'):t('ubboons'))+' — '+t('tbback'); }
 /* A flat image as a blob at the given mime (the UB no-bleed back). Null if it will not load. */
 function imageBlob(url, mime, quality){
