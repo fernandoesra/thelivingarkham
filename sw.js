@@ -54,6 +54,12 @@ self.addEventListener('fetch', function (e) {
   try { url = new URL(req.url); } catch (err) { return; }
   if (url.origin !== self.location.origin) return;   // never touch cross-origin
 
+  // Usage beacons (app.js -> ping()). Never intercept and never cache: the
+  // stale-while-revalidate branch below would serve a cached 204 and the
+  // beacon would stop reaching the server after the first navigation — the
+  // panel would flatline silently, which is worse than erroring.
+  if (url.pathname.indexOf('/e/') === 0) return;
+
   if (req.mode === 'navigate') {
     e.respondWith((async function () {
       try { return await fetch(req); }

@@ -3861,6 +3861,26 @@ function bleedModal(trim,current,onConfirm){
   ov.querySelector('.tla-bleed-go').focus();
 }
 
+/* ---------- usage beacon ----------
+   Routing happens in the URL #fragment, which the browser never sends, so the
+   access log sees every visit as a single request for "/" and cannot say which
+   section anyone actually read. One same-origin beacon per navigation closes
+   that gap and nothing else: no cookie, no identifier, no third party, no body.
+   The PATH is the entire datum and the server answers 204 with nothing, so what
+   is recorded is exactly what you can see here in the source.
+   Two things that are load-bearing rather than incidental: the section is
+   reported by `key` and not by `id`, because ids are translated and the same
+   chapter would otherwise split into eleven unrelated rows; and every failure is
+   swallowed, because a statistic must never be able to break a page. `sw.js`
+   skips /e/ on purpose too — a cached 204 would silence this after the first
+   navigation and the numbers would quietly flatline instead of erroring. */
+function ping(kind,a,b){
+  try{
+    var u='/e/'+kind+'/'+encodeURIComponent(a)+(b?'/'+encodeURIComponent(b):'');
+    fetch(u,{method:'GET',keepalive:true,cache:'no-store'}).then(null,function(){});
+  }catch(e){}
+}
+
 /* The hash is the single source of truth. A language in it is honoured only if
    the registry knows it — an unknown code falls back to the current language
    rather than being read as an entry id. */
@@ -3888,6 +3908,10 @@ function route(){
        under it would pull focus onto the page the reader cannot reach. */
     if(!firstRoute&&!tourOpen()){try{elMain.focus({preventScroll:true});}catch(e){}} firstRoute=false;
     try{localStorage.setItem('tla-lang',L);}catch(e){}
+    /* Reported after render, so it is the section actually shown rather than the
+       one the hash asked for — a stale deep link lands on the first chapter, and
+       that is what the reader saw. */
+    if(curSec)ping('s',L,curSec.key||curSec.id);
   }, function(err){ if(mine===routeSeq)fatal(err); });
 }
 /* Switching language keeps you on the same chapter. Chapters are matched by
