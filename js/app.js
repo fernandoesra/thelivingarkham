@@ -3083,6 +3083,27 @@ function tabooDownloadAll(btn){
    ~190 card faces; the full-screen overlay stops the reader tapping other things meanwhile. */
 function showLoading(){ var el=document.getElementById('tla-loading'); if(el)el.hidden=false; }
 function hideLoading(){ var el=document.getElementById('tla-loading'); if(el)el.hidden=true; }
+/* A pointer from a rules-text chapter to its live interactive VIEWER in Resources, where the same
+   cards can be browsed and downloaded. `key` is the target viewer's section key: 'ultimatums' (the
+   Ultimatums/Boons/Refractions gallery) or 'taboos' (the taboo-list card viewer). Shown only where
+   that viewer is actually live in this language — a book-less language has neither the rule text
+   nor the viewer content, and the taboo viewer stays a "coming soon" placeholder until its cards
+   load (attachTabooCards flips its kind to 'taboocards'), so there is nothing to point at. The link
+   is a normal xref, so from the FAQ it goes through the usual cross-corpus confirm (faq1 -> grimoire). */
+function xrefBannerHTML(key){
+  var v=null,i; for(i=0;i<data.sections.length;i++){ if(data.sections[i].key===key){v=data.sections[i];break;} }
+  if(!v)return '';
+  var u=v.ub, live = key==='ultimatums'
+    ? !!(u&&((u.ultimatums||[]).length||(u.boons||[]).length||(u.refractions||[]).length))
+    : v.kind!=='placeholder';
+  if(!live)return '';
+  var link='<a class="xref" href="#'+esc(lang)+'/'+esc(v.id)+'" data-t="'+esc(v.id)+'">'+esc(v.title)+'</a>';
+  var p=String(t('ubxref')||'').split('{link}');
+  var txt=p.length<2?esc(p[0]||''):esc(p[0])+link+esc(p[1]||'');
+  return '<aside class="tla-xrefbanner">'
+    +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="9" height="12" rx="1.5" transform="rotate(-15 12 20)"/><rect x="11" y="8" width="9" height="12" rx="1.5" transform="rotate(15 12 20)"/></svg>'
+    +'<p class="tla-xrefbanner-t">'+txt+'</p></aside>';
+}
 function render(sid,eid,flash){
   var s=data.sections.filter(function(x){return x.id===sid;})[0]; if(!s)s=data.sections[0];
   curSec=s;
@@ -3097,6 +3118,11 @@ function render(sid,eid,flash){
   h+='<div class="tla-crumb">'+(s.num?('· '+s.num+' ·'):'')+' The Living Arkham</div>';
   h+='<h1 class="tla-h1">'+(s.num?'<span class="tla-rn">'+s.num+'.</span>':'')+esc(s.title)+'</h1>';
   h+='<div class="tla-rule"></div>';
+  /* Below a FAQ chapter's title (the whole chapter IS the topic): a pointer to its live viewer in
+     Resources. The grimoire's optional-rules chapter mixes topics, so ITS ultimatums banner is
+     placed under the "Ultimatums and Boons" heading instead (in the entries loop below). */
+  if(s.key==='faq-optional')h+=xrefBannerHTML('ultimatums');
+  else if(s.key==='faq-taboos')h+=xrefBannerHTML('taboos');
   /* This language has the interface but not the books. Say so here, on the chapter the reader
      actually opened, and hand them the same chapter in a language that has it — the ids are
      shared with that language precisely so this link can exist (see bookShell). */
@@ -3171,6 +3197,13 @@ function render(sid,eid,flash){
      empty". Only the glossary needs it; every other kind always has content. */
   if(s.kind==='glossary' && !ents.length){h+='<p class="tla-glossnone">'+esc(t('glossnone'))+'</p>';}
   var lv=latestV();
+  /* The grimoire's optional-rules chapter mixes topics, so the ultimatums-viewer banner goes under
+     the "Ultimatums and Boons" heading rather than at the chapter top. That heading is the entry
+     right before the "Ultimatums" card list, whose title is t('ubultimatums') in every language. */
+  var ubHeadId=null;
+  if(s.key==='optional-rules'){
+    for(var uhi=0;uhi<ents.length;uhi++){ if(ents[uhi].title===t('ubultimatums')){ if(uhi>0)ubHeadId=ents[uhi-1].id; break; } }
+  }
   ents.forEach(function(e){
     /* An entry that is wholly new needs no per-word diff marks — the badge
        already says so. One that was rewritten does: the marks are the point. */
@@ -3187,6 +3220,7 @@ function render(sid,eid,flash){
     h+='<article class="tla-entry'+role+(brandNew?' is-new':'')+(lv&&isChangedIn(e,lv)?' is-upd':'')
       +'" data-kind="'+esc(s.kind)+'" id="e-'+esc(e.id)+'">';
     h+='<h2>'+titleHTML(e)+diagBadge(e)+verBadge(e)+'<a class="anchor" href="#'+lang+'/'+esc(e.id)+'" title="'+esc(t('jump'))+'" aria-label="'+esc(t('jump'))+'">§</a></h2>';
+    if(ubHeadId&&e.id===ubHeadId)h+=xrefBannerHTML('ultimatums');
     h+=e.table?substHTML(e):(e.flow?flowHTML(e):blocksHTML(e.blocks,brandNew));
     h+=qrLinkHTML(e);
     h+=extrasHTML(e);
@@ -3762,12 +3796,16 @@ function gotoTarget(eid,flash){var f=findEntry(lang,eid); if(f)setHash(lang,f.ei
 var xcorpOK=false;
 function secById(sid){for(var i=0;i<data.sections.length;i++){if(data.sections[i].id===sid)return data.sections[i];}return null;}
 function targetCorpus(eid){var f=findEntry(lang,eid); if(!f)return null; var s=secById(f.sid); return s?(s.corpus||'grimoire'):null;}
+/* The Resources viewers (the Ultimatums gallery, the taboo card viewer, …) live in the grimoire
+   corpus but are interactive TOOLS, not rules text — a link to them from the FAQ crosses no
+   rules-difference, so the cross-corpus guard is skipped for them (see navGuard). */
+function targetGroup(eid){var f=findEntry(lang,eid); if(!f)return null; var s=secById(f.sid); return s?(s.group||''):'';}
 function targetTitle(eid){var f=findEntry(lang,eid); if(!f)return eid; var s=secById(f.sid); if(!s)return eid;
   if(!f.eid)return s.title;
   for(var j=0;j<(s.entries||[]).length;j++){if(s.entries[j].id===f.eid)return s.entries[j].title;}
   return s.title;}
 function navGuard(eid,proceed){
-  if(!xcorpOK && curSec && curSec.corpus==='faq1' && targetCorpus(eid)==='grimoire'){openConfirm(eid,proceed);}
+  if(!xcorpOK && curSec && curSec.corpus==='faq1' && targetCorpus(eid)==='grimoire' && targetGroup(eid)!=='resources'){openConfirm(eid,proceed);}
   else proceed();
 }
 function openConfirm(eid,proceed){

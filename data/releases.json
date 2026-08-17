@@ -1,5 +1,77 @@
 [
   {
+    "v": "1.3.0",
+    "date": "2026-08-03",
+    "i18n": {
+      "es": {
+        "title": "Enlaces a los visores",
+        "items": [
+          "En las secciones de reglas de **Ultimátums, ayudas y refracciones** y de **la lista de tabúes** ahora hay un aviso que te lleva a su visor interactivo, donde puedes ver cada carta y descargarla."
+        ]
+      },
+      "en": {
+        "title": "Links to the viewers",
+        "items": [
+          "The rules sections for **Ultimatums, Boons and Refractions** and for **the taboo list** now carry a note that takes you to their interactive viewer, where you can see and download each card."
+        ]
+      },
+      "de": {
+        "title": "Links zu den Betrachtern",
+        "items": [
+          "Die Regelabschnitte zu **Ultimaten, Gaben und Refraktionen** und zur **Tabuliste** tragen jetzt einen Hinweis, der zum jeweiligen interaktiven Betrachter führt, wo du jede Karte ansehen und herunterladen kannst."
+        ]
+      },
+      "it": {
+        "title": "Collegamenti ai visori",
+        "items": [
+          "Le sezioni delle regole di **Ultimatum, favori e rifrazioni** e dell'**elenco dei tabù** ora hanno un avviso che porta al rispettivo visore interattivo, dove puoi vedere e scaricare ogni carta."
+        ]
+      },
+      "fr": {
+        "title": "Liens vers les visionneuses",
+        "items": [
+          "Les sections de règles des **Ultimatums, faveurs et réfractions** et de **la liste des tabous** comportent désormais un avis qui mène à leur visionneuse interactive, où vous pouvez voir et télécharger chaque carte."
+        ]
+      },
+      "pt": {
+        "title": "Ligações aos visualizadores",
+        "items": [
+          "As secções de regras de **Ultimatos, dádivas e refrações** e da **lista de tabus** têm agora um aviso que te leva ao respetivo visualizador interativo, onde podes ver e descarregar cada carta."
+        ]
+      },
+      "pl": {
+        "title": "Odnośniki do przeglądarek",
+        "items": [
+          "Sekcje zasad **Ultimatum, dobrodziejstw i refrakcji** oraz **listy tabu** mają teraz informację prowadzącą do odpowiedniej interaktywnej przeglądarki, w której możesz obejrzeć i pobrać każdą kartę."
+        ]
+      },
+      "ru": {
+        "title": "Ссылки на просмотрщики",
+        "items": [
+          "В разделах правил об **ультиматумах, благах и преломлениях** и о **списке табу** теперь есть указатель на соответствующий интерактивный просмотр, где можно посмотреть и скачать каждую карту."
+        ]
+      },
+      "uk": {
+        "title": "Посилання на переглядачі",
+        "items": [
+          "У розділах правил про **ультиматуми, дари та рефракції** й про **список табу** тепер є вказівник на відповідний інтерактивний перегляд, де можна подивитися й завантажити кожну карту."
+        ]
+      },
+      "ko": {
+        "title": "뷰어 링크",
+        "items": [
+          "**최후통첩, 은총, 굴절**과 **금기 목록**의 규칙 섹션에 이제 각각의 대화형 뷰어로 이동하는 안내가 있어, 각 카드를 보고 내려받을 수 있습니다."
+        ]
+      },
+      "zh": {
+        "title": "指向查看器的链接",
+        "items": [
+          "**最后通牒、恩惠与折射**以及**禁忌列表**的规则章节现在会有一条提示，带你前往对应的互动查看器，在那里可以查看并下载每张卡牌。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.2.2",
     "date": "2026-08-03",
     "i18n": {

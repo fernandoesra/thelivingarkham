@@ -1774,11 +1774,12 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 /* The banner that points to the printable sheet at the foot — the shape of the book's
    own callout, in the calm teal rather than the red STOP, because it invites rather than
    interrupts. */
-.tla-qrbanner{display:flex; align-items:center; gap:12px; flex-wrap:wrap;
+.tla-qrbanner,.tla-xrefbanner{display:flex; align-items:center; gap:12px; flex-wrap:wrap;
   margin:6px 0 20px; padding:14px 18px; border-radius:12px;
   border:1px solid var(--edge2); border-left:3px solid var(--teal2); background:var(--panel)}
-.tla-qrbanner svg{width:20px; height:20px; flex:0 0 auto; color:var(--teal2)}
-.tla-qrbanner-t{flex:1 1 220px; margin:0; font-family:var(--ff-body); font-size:var(--fs-small); color:var(--ink2)}
+.tla-qrbanner svg,.tla-xrefbanner svg{width:20px; height:20px; flex:0 0 auto; color:var(--teal2)}
+.tla-qrbanner-t,.tla-xrefbanner-t{flex:1 1 220px; margin:0; font-family:var(--ff-body); font-size:var(--fs-small); color:var(--ink2)}
+.tla-xrefbanner-t a{color:var(--teal2); font-weight:600; text-decoration:underline; text-underline-offset:2px}
 .tla-qrbanner-go{flex:0 0 auto; min-height:38px; padding:0 16px; cursor:pointer;
   font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:600; color:var(--on-gold);
   background:var(--gold); border:0; border-radius:9px}
