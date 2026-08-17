@@ -335,7 +335,20 @@
      load so it never delays first paint; failures are silent (the site works fine without it). */
   if ('serviceWorker' in navigator) {
     addEventListener('load', function () {
-      navigator.serviceWorker.register('sw.js').catch(function () {});
+      /* When a newly deployed service worker takes control, the page is still showing the files the
+         OLD one cached — and a normal reload hits that cache too, so only a hard-refresh (which the
+         reader has no way of knowing to do) would reveal the update. Instead, reload once ourselves
+         the moment the new worker takes over. Guarded to fire only on a real UPDATE (a controller
+         already existed — never the first-ever install) and only once. */
+      if (navigator.serviceWorker.controller) {
+        var reloaded = false;
+        navigator.serviceWorker.addEventListener('controllerchange', function () {
+          if (reloaded) return; reloaded = true; location.reload();
+        });
+      }
+      navigator.serviceWorker.register('sw.js').then(function (reg) {
+        if (reg) reg.update().catch(function () {});   // check for a new version on arrival
+      }).catch(function () {});
     });
   }
 </script>

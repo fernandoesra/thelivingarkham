@@ -15,7 +15,7 @@
    BUMP SW_VERSION on every release (see tools/other/instructions.md §7): it renames the shell
    cache, so activate() drops the old one and the new shell/text is served. */
 
-const SW_VERSION = '1.3.0';
+const SW_VERSION = '1.3.1';
 const SHELL = 'tla-shell-' + SW_VERSION;   // shell + read/downloaded text, replaced each version
 // Images are cache-first and, being immutable per URL, are kept across versions — a plain
 // SW_VERSION bump does NOT drop them, so offline images survive text-only releases. Bump

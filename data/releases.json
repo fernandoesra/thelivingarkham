@@ -1,5 +1,77 @@
 [
   {
+    "v": "1.3.1",
+    "date": "2026-08-03",
+    "i18n": {
+      "es": {
+        "title": "Actualización automática",
+        "items": [
+          "Cuando se publica una versión nueva, la web ahora se actualiza sola en tu siguiente visita, sin que tengas que recargar a mano."
+        ]
+      },
+      "en": {
+        "title": "Automatic updates",
+        "items": [
+          "When a new version is published, the site now updates itself on your next visit, with no need to refresh by hand."
+        ]
+      },
+      "de": {
+        "title": "Automatische Aktualisierung",
+        "items": [
+          "Wenn eine neue Version veröffentlicht wird, aktualisiert sich die Seite jetzt beim nächsten Besuch von selbst — ohne manuelles Neuladen."
+        ]
+      },
+      "it": {
+        "title": "Aggiornamento automatico",
+        "items": [
+          "Quando viene pubblicata una nuova versione, il sito ora si aggiorna da solo alla tua prossima visita, senza bisogno di ricaricare a mano."
+        ]
+      },
+      "fr": {
+        "title": "Mise à jour automatique",
+        "items": [
+          "Quand une nouvelle version est publiée, le site se met désormais à jour tout seul lors de votre prochaine visite, sans avoir à recharger à la main."
+        ]
+      },
+      "pt": {
+        "title": "Atualização automática",
+        "items": [
+          "Quando é publicada uma versão nova, o site agora atualiza-se sozinho na tua próxima visita, sem precisares de recarregar à mão."
+        ]
+      },
+      "pl": {
+        "title": "Automatyczna aktualizacja",
+        "items": [
+          "Gdy publikowana jest nowa wersja, strona sama się teraz aktualizuje przy następnej wizycie, bez ręcznego odświeżania."
+        ]
+      },
+      "ru": {
+        "title": "Автоматическое обновление",
+        "items": [
+          "Когда выходит новая версия, сайт теперь обновляется сам при следующем посещении — вручную перезагружать не нужно."
+        ]
+      },
+      "uk": {
+        "title": "Автоматичне оновлення",
+        "items": [
+          "Коли виходить нова версія, сайт тепер оновлюється сам під час наступного відвідування — вручну перезавантажувати не потрібно."
+        ]
+      },
+      "ko": {
+        "title": "자동 업데이트",
+        "items": [
+          "새 버전이 게시되면 이제 다음 방문 시 사이트가 스스로 업데이트되어, 직접 새로 고칠 필요가 없습니다."
+        ]
+      },
+      "zh": {
+        "title": "自动更新",
+        "items": [
+          "发布新版本后，网站现在会在你下次访问时自动更新，无需手动刷新。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.3.0",
     "date": "2026-08-03",
     "i18n": {
