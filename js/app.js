@@ -134,6 +134,7 @@ var elNav=document.getElementById('tla-nav'), elMain=document.getElementById('tl
     elSModal=document.getElementById('tla-searchmodal'),
     elSOpen=document.getElementById('tla-search-open'),
     elSCancel=document.getElementById('tla-search-cancel'),
+    elSClear=document.getElementById('tla-search-clear'),
     elFigModal=document.getElementById('tla-figmodal'),
     elFigHead=document.getElementById('tla-figmodal-h'),
     elFigBody=document.getElementById('tla-figmodal-body'),
@@ -3974,8 +3975,55 @@ function norm(s){return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/
    under the other. Order and per-corpus cap are fixed here; renderResults draws the split. */
 var SEARCH_CORPORA=[{corpus:'grimoire',grp:'grpgrimoire'},{corpus:'faq1',grp:'grpchapter1'}];
 var SEARCH_CAP=30;
+/* ---------- on-device search history ----------
+   Which queries the reader has run and how often — kept in localStorage, never leaves the device.
+   The box offers the ones they RETURN to (searched >= SRCH_MIN times), most-used first, so a one-off
+   search never clutters it. A search "counts" only when the reader ACTS on it (opens a result or
+   presses Enter on one), not on every keystroke. */
+var SRCH_KEY='tla-searches', SRCH_VER=2, SRCH_MIN=2, SRCH_MAX=40, SRCH_SHOW=6;
+/* Stored as {v, m:{key:{n,t,q}}}. The `v` guards the schema: an older/foreign shape — e.g. the
+   pre-release build that saved the TYPED text instead of the chosen result's title — fails the
+   check and is dropped, so no one is left staring at stale "esc"/"lug"-style entries. */
+function srchLoad(){try{var o=JSON.parse(localStorage.getItem(SRCH_KEY)); if(o&&o.v===SRCH_VER&&o.m&&typeof o.m==='object')return o.m;}catch(e){} return {};}
+function srchSave(m){try{localStorage.setItem(SRCH_KEY,JSON.stringify({v:SRCH_VER,m:m}));}catch(e){}}
+function recordSearch(q){
+  q=String(q||'').trim(); if(q.length<2)return;
+  var key=q.toLowerCase(), o=srchLoad(), e=o[key], now=(+new Date());
+  if(e){e.n++; e.t=now; e.q=q;} else {o[key]={n:1,t:now,q:q};}
+  var ks=Object.keys(o);
+  if(ks.length>SRCH_MAX){ks.sort(function(a,b){return o[a].t-o[b].t;}); for(var i=0;i<ks.length-SRCH_MAX;i++)delete o[ks[i]];}
+  srchSave(o);
+}
+function topSearches(){
+  var o=srchLoad(), a=[], k; for(k in o){if(o.hasOwnProperty(k)&&o[k]&&o[k].n>=SRCH_MIN)a.push(o[k]);}
+  a.sort(function(x,y){return (y.n-x.n)||(y.t-x.t);});
+  return a.slice(0,SRCH_SHOW);
+}
+function clearSearches(){try{localStorage.removeItem(SRCH_KEY);}catch(e){}}
+function toggleClear(){if(elSClear)elSClear.hidden=!(elQ.value&&elQ.value.length);}
+/* The "most searched" panel, shown in place of results while the box is empty. Items reuse the
+   result rows' id sequence (tla-res-N) + role=option, so the same arrow-key navigation and
+   aria-activedescendant work over them; a `.tla-sugg` is APPLIED to the box (autocomplete) on
+   click/Enter, instead of navigating to a page. */
+function suggHTML(){
+  var top=topSearches(); if(!top.length)return '';
+  var h='<div class="tla-sugg-wrap"><div class="tla-sugg-hd"><span>'+esc(t('mostsearched'))+'</span>'
+    +'<button type="button" class="tla-sugg-clear" data-suggclear>'+esc(t('clearhist'))+'</button></div>';
+  top.forEach(function(e,i){
+    h+='<button type="button" class="tla-sugg" role="option" id="tla-res-'+i+'" data-i="'+i+'" aria-selected="false" data-q="'+esc(e.q)+'">'
+      +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>'
+      +'<span class="tla-sugg-q">'+esc(e.q)+'</span></button>';
+  });
+  return h+'</div>';
+}
+function showSuggestions(){
+  var h=suggHTML();
+  if(!h){closeResults();return;}
+  elRes.innerHTML=h; elRes.classList.add('on'); resSel=-1; clearActiveDesc(); setExpanded(true);
+}
+function applySugg(q){elQ.value=q; try{elQ.focus();}catch(e){} toggleClear(); search(q);}
 function search(q){
-  q=norm(q.trim()); if(q.length<2){closeResults();return;}
+  q=norm(q.trim()); if(q.length<2){showSuggestions();return;}
   var terms=q.split(/\s+/), arr=searchIndex[lang], by={};
   for(var i=0;i<arr.length;i++){var it=arr[i]; var hayT=norm(it.title), hayX=norm(it.text);
     var score=0,ok=true;
@@ -4021,7 +4069,7 @@ function renderResults(groups,terms){
     if(multi)h+='<div class="tla-res-col" role="group" aria-label="'+esc(g.label)+'">';
     if(multi)h+='<div class="tla-res-grp" role="presentation">'+esc(g.label)+' <span class="tla-res-grpn">'+g.items.length+'</span></div>';
     g.items.forEach(function(o){var it=o.it;
-      h+='<div class="tla-res" role="option" id="tla-res-'+i+'" aria-selected="false" data-eid="'+esc(it.eid)+'" data-i="'+i+'">';
+      h+='<div class="tla-res" role="option" id="tla-res-'+i+'" aria-selected="false" data-eid="'+esc(it.eid)+'" data-title="'+esc(it.title)+'" data-i="'+i+'">';
       /* A real space, not only the CSS gap: this whole row is the option's accessible name,
          so without it a screen reader says "Mazo de EncuentrosI" as one word — and it is
          also what the reader sees if the stylesheet ever fails to load. */
@@ -4038,7 +4086,7 @@ function renderResults(groups,terms){
 function clearActiveDesc(){elQ.removeAttribute('aria-activedescendant');}
 function closeResults(){elRes.classList.remove('on'); elRes.innerHTML=''; resSel=-1; clearActiveDesc(); setExpanded(false);}
 function setExpanded(v){elQ.setAttribute('aria-expanded',v?'true':'false');}
-function moveSel(d){var items=elRes.querySelectorAll('.tla-res'); if(!items.length)return;
+function moveSel(d){var items=elRes.querySelectorAll('.tla-res, .tla-sugg'); if(!items.length)return;
   resSel=(resSel+d+items.length)%items.length;
   [].forEach.call(items,function(x,i){
     x.classList.toggle('sel',i===resSel);
@@ -4052,12 +4100,13 @@ function openSearch(){
   lastSearchSrc=document.activeElement;   // '/' can be pressed from anywhere
   elSModal.hidden=false;
   try{elQ.focus();elQ.select();}catch(e){}
-  if(elQ.value.trim().length>=2)search(elQ.value);
+  toggleClear();
+  if(elQ.value.trim().length>=2)search(elQ.value); else showSuggestions();
 }
 /* Focus goes back where it came from, not always to the header button: the
    dialog can be opened with '/' from anywhere on the page. */
 function closeSearch(){
-  elSModal.hidden=true; elQ.value=''; closeResults();
+  elSModal.hidden=true; elQ.value=''; closeResults(); toggleClear();
   var back=(lastSearchSrc&&document.contains(lastSearchSrc))?lastSearchSrc:elSOpen;
   lastSearchSrc=null;
   try{back.focus();}catch(e){}
@@ -4629,7 +4678,12 @@ function wireEvents(){
     if(v)setVerOnly(v.value);
   });
   elToc.addEventListener('click',function(e){var a=e.target.closest('[data-eid]'); if(a){e.preventDefault(); gotoTarget(a.getAttribute('data-eid'),true);}});
-  elRes.addEventListener('click',function(e){var r=e.target.closest('.tla-res'); if(r){gotoTarget(r.getAttribute('data-eid'),true); closeSearch();}});
+  elRes.addEventListener('click',function(e){
+    if(e.target.closest('[data-suggclear]')){clearSearches(); showSuggestions(); return;}
+    var s=e.target.closest('.tla-sugg'); if(s){applySugg(s.getAttribute('data-q')); return;}
+    var r=e.target.closest('.tla-res'); if(r){recordSearch(r.getAttribute('data-title')); gotoTarget(r.getAttribute('data-eid'),true); closeSearch();}
+  });
+  if(elSClear)elSClear.addEventListener('click',function(){elQ.value=''; try{elQ.focus();}catch(e){} toggleClear(); showSuggestions();});
   elSOpen.addEventListener('click',openSearch);
   elSCancel.addEventListener('click',closeSearch);
   elSModal.addEventListener('click',function(e){if(e.target===elSModal)closeSearch();});
@@ -4674,7 +4728,7 @@ function wireEvents(){
   document.getElementById('tla-scrim').addEventListener('click',closeNav);
 
   var qTimer=null;
-  elQ.addEventListener('input',function(){clearTimeout(qTimer); qTimer=setTimeout(function(){qTimer=null; search(elQ.value);},110);});
+  elQ.addEventListener('input',function(){toggleClear(); clearTimeout(qTimer); qTimer=setTimeout(function(){qTimer=null; search(elQ.value);},110);});
   elQ.addEventListener('focus',function(){if(elQ.value.trim().length>=2)search(elQ.value);});
   /* No Escape here: the document handler owns it, so that one press closes one
      layer. Handling it here too would close the dialog and then let the same
@@ -4687,8 +4741,11 @@ function wireEvents(){
          results match what's typed, and cancel the timer so it can't fire after we close (which
          left the panel reopening intermittently). No pending timer -> keep the arrow selection. */
       if(qTimer){clearTimeout(qTimer); qTimer=null; search(elQ.value);}
-      var items=elRes.querySelectorAll('.tla-res'); var chosen=items[resSel<0?0:resSel];
-      if(chosen){gotoTarget(chosen.getAttribute('data-eid'),true);closeSearch();}}
+      var items=elRes.querySelectorAll('.tla-res, .tla-sugg'); var chosen=items[resSel<0?0:resSel];
+      if(chosen){
+        if(chosen.classList.contains('tla-sugg')){applySugg(chosen.getAttribute('data-q'));}
+        else {recordSearch(chosen.getAttribute('data-title')); gotoTarget(chosen.getAttribute('data-eid'),true); closeSearch();}
+      }}
   });
   document.addEventListener('keydown',function(e){
     if(e.key==='Tab'){trapTab(e); return;}

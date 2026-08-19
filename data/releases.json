@@ -1,5 +1,77 @@
 [
   {
+    "v": "1.4.0",
+    "date": "2026-08-03",
+    "i18n": {
+      "es": {
+        "title": "Búsquedas sugeridas",
+        "items": [
+          "**El buscador recuerda tus búsquedas**: al abrirlo te sugiere lo que **más buscas** (a partir de la segunda vez) y, al pulsarlo, te lo autocompleta. Todo se guarda solo en tu dispositivo. También añadimos un botón para borrar el texto y otro para borrar el historial."
+        ]
+      },
+      "en": {
+        "title": "Search suggestions",
+        "items": [
+          "**The search remembers your searches**: when you open it, it suggests what you **search most** (from the second time on), and clicking one autocompletes it. Everything is stored only on your device. We also added a button to clear the text and one to clear the history."
+        ]
+      },
+      "de": {
+        "title": "Suchvorschläge",
+        "items": [
+          "**Die Suche merkt sich deine Suchen**: Beim Öffnen schlägt sie vor, wonach du **am häufigsten suchst** (ab dem zweiten Mal); ein Klick füllt es aus. Alles wird nur auf deinem Gerät gespeichert. Dazu gibt es einen Knopf zum Leeren des Texts und einen zum Löschen des Verlaufs."
+        ]
+      },
+      "it": {
+        "title": "Suggerimenti di ricerca",
+        "items": [
+          "**La ricerca ricorda le tue ricerche**: quando la apri ti suggerisce ciò che **cerchi di più** (dalla seconda volta in poi) e con un clic lo completa. Tutto è salvato solo sul tuo dispositivo. Abbiamo aggiunto anche un pulsante per cancellare il testo e uno per cancellare la cronologia."
+        ]
+      },
+      "fr": {
+        "title": "Suggestions de recherche",
+        "items": [
+          "**La recherche se souvient de vos recherches** : à l'ouverture, elle suggère ce que vous **cherchez le plus** (à partir de la deuxième fois) ; un clic le complète. Tout est enregistré uniquement sur votre appareil. Nous avons aussi ajouté un bouton pour effacer le texte et un pour effacer l'historique."
+        ]
+      },
+      "pt": {
+        "title": "Sugestões de pesquisa",
+        "items": [
+          "**A pesquisa lembra as tuas pesquisas**: ao abri-la, sugere o que **mais procuras** (a partir da segunda vez) e, ao clicar, completa-o. Tudo é guardado apenas no teu dispositivo. Também adicionámos um botão para limpar o texto e outro para limpar o histórico."
+        ]
+      },
+      "pl": {
+        "title": "Sugestie wyszukiwania",
+        "items": [
+          "**Wyszukiwarka pamięta twoje wyszukiwania**: po otwarciu podpowiada to, czego **szukasz najczęściej** (od drugiego razu), a kliknięcie uzupełnia tekst. Wszystko zapisywane jest tylko na twoim urządzeniu. Dodaliśmy też przycisk do czyszczenia tekstu i do czyszczenia historii."
+        ]
+      },
+      "ru": {
+        "title": "Подсказки поиска",
+        "items": [
+          "**Поиск запоминает ваши запросы**: при открытии он подсказывает то, что вы **ищете чаще всего** (со второго раза), а по клику подставляет запрос. Всё хранится только на вашем устройстве. Мы также добавили кнопку очистки текста и кнопку очистки истории."
+        ]
+      },
+      "uk": {
+        "title": "Підказки пошуку",
+        "items": [
+          "**Пошук запам'ятовує ваші запити**: під час відкриття він підказує те, що ви **шукаєте найчастіше** (з другого разу), а після кліку підставляє запит. Усе зберігається лише на вашому пристрої. Ми також додали кнопку очищення тексту й кнопку очищення історії."
+        ]
+      },
+      "ko": {
+        "title": "검색 제안",
+        "items": [
+          "**검색이 검색어를 기억합니다**: 검색창을 열면 **가장 많이 검색한** 항목을 제안하고(두 번째부터), 누르면 자동으로 채워집니다. 모든 정보는 기기에만 저장됩니다. 텍스트를 지우는 버튼과 기록을 지우는 버튼도 추가했습니다."
+        ]
+      },
+      "zh": {
+        "title": "搜索建议",
+        "items": [
+          "**搜索会记住你的搜索**：打开搜索时会推荐你**最常搜索**的内容（从第二次起），点击即可自动填入。所有内容只保存在你的设备上。我们还加了清除文本和清除历史的按钮。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.3.1",
     "date": "2026-08-03",
     "i18n": {
