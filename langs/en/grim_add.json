@@ -1,0 +1,23 @@
+{
+  "_comment": "Additions to the Arkham Grimoire taken from OFFICIAL FFG campaign guides that FFG has not yet folded into the Grimoire itself. Layered by tools/grim_add.py as a new Grimoire version so The Living Arkham stays current while the official Grimoire catches up. 'Children of Blood' (Vástagos de la sangre, product ahc106) introduced the Predator keyword — text taken from its campaign guide (langs/en/source/ahc106_campaign_guide-web.pdf, p.4).",
+  "version": {
+    "v": "1.1C",
+    "date": "2026-08-26",
+    "ed": "From the Children of Blood manual"
+  },
+  "credit": {
+    "name": "Children of Blood",
+    "url": "https://www.fantasyflightgames.com/en/products/arkham-horror-the-card-game/products/children-blood/"
+  },
+  "additions": [
+    {
+      "section": "glossary",
+      "title": "Predator",
+      "blocks": [
+        { "type": "p", "runs": [{ "kind": "text", "t": "Predator is a keyword ability." }] },
+        { "type": "p", "runs": [{ "kind": "text", "t": "During the enemy phase (after hunter enemies move and before enemies attack), each ready, unengaged enemy with the predator keyword deals 1 damage to a non-Elite enemy at its location with a fight value lower than its own." }] },
+        { "type": "bullet", "level": 1, "runs": [{ "kind": "text", "t": "Given the choice between multiple other enemies, a predator enemy will deal its damage to the enemy with the lowest (or tied for the lowest) remaining health." }] }
+      ]
+    }
+  ]
+}

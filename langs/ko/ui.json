@@ -75,6 +75,8 @@
     "close": "닫기",
     "updateready": "새 버전이 있습니다",
     "updatego": "업데이트",
+    "srcby": "매뉴얼:",
+    "grimaddnote": "이 항목들은 공식 그리모어가 아니라 {name} 캠페인 매뉴얼에서 가져온 것입니다. FFG가 그리모어를 업데이트할 때까지 추가해 둡니다.",
     "closeimg": "이미지 닫기",
     "diagram": "도표",
     "diagrams": {
@@ -103,7 +105,7 @@
     "flagrelevant": "중요 섹션",
     "flagrelevantd": "가장 먼저 살펴보게 될 내용입니다.",
     "flowlabel": "단계별 타이밍 도표",
-    "footby": "The Living Arkham <b>v1.5.0</b> · <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>의 프로젝트",
+    "footby": "The Living Arkham <b>v1.5.1</b> · <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>의 프로젝트",
     "footinfo": "크레딧",
     "footsrc": "<a href=\"https://www.fantasyflightgames.com/en/products/arkham-horror-the-card-game/\" target=\"_blank\" rel=\"noopener\">Arkham Horror: The Card Game</a>™ 및 모든 관련 콘텐츠 © <a href=\"https://www.fantasyflightgames.com/en/index/\" target=\"_blank\" rel=\"noopener\">Fantasy Flight Games (FFG)</a>. 이 사이트는 FFG가 제작하거나 승인하지 않았으며, FFG와 아무런 제휴 관계가 없습니다.",
     "glossnone": "이 필터에 맞는 항목이 없습니다.",

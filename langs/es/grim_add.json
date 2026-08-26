@@ -1,0 +1,27 @@
+{
+  "_comment": "Adiciones al Grimorio de Arkham tomadas de guías de campaña OFICIALES de FFG que aún no se han incorporado al propio Grimorio. Se aplican con tools/grim_add.py como una versión nueva del Grimorio para que The Living Arkham esté al día mientras el Grimorio oficial se pone al corriente. «Vástagos de la sangre» (Children of Blood, producto ahc106) introdujo la palabra clave Depredador — texto de su guía de campaña.",
+  "version": {
+    "v": "1.1C",
+    "date": "2026-08-26",
+    "ed": "Del manual de Vástagos de la sangre"
+  },
+  "credit": {
+    "name": "Vástagos de la sangre",
+    "url": "https://b2b.asmodee.es/ah-lcg-5-v%C3%A1stagos-de-la-sangre-ahc106es"
+  },
+  "additions": [
+    {
+      "section": "glossary",
+      "title": "Depredador",
+      "blocks": [
+        { "type": "p", "runs": [{ "kind": "text", "t": "Depredador es una capacidad de palabra clave." }] },
+        { "type": "p", "runs": [
+          { "kind": "text", "t": "Durante la fase de Enemigos (después de que los Enemigos Cazador se muevan y antes de que los Enemigos ataquen), cada Enemigo preparado y no enfrentado que tenga la palabra clave Depredador inflige 1 punto de daño a un Enemigo que no sea " },
+          { "kind": "text", "t": "Élite", "bold": true, "italic": true },
+          { "kind": "text", "t": ", que esté en su Lugar y que tenga un valor de combate menor que el suyo." }
+        ] },
+        { "type": "bullet", "level": 1, "runs": [{ "kind": "text", "t": "Si el enemigo Depredador puede elegir entre varios Enemigos distintos, infligirá su daño al Enemigo con menos salud restante (o que esté empatado en menor salud restante)." }] }
+      ]
+    }
+  ]
+}

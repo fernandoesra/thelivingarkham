@@ -1840,6 +1840,15 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 /* Which campaign a guide-errata addition belongs to: a small pill, set apart from the credit. */
 .tla-adatag-camp{font-weight:600; color:var(--gold2); border:1px solid var(--edge2);
   border-radius:20px; padding:1px 9px; white-space:nowrap}
+/* Credit line under a Grimoire entry taken from an official campaign guide (grim_add): sits just
+   below the heading, quiet, so the reader knows it is not from the Grimoire itself. */
+.tla-srctag{display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin:-4px 0 10px;
+  font-family:var(--ff-ui); font-size:var(--fs-eyebrow)}
+.tla-srctag-t{font-weight:600; text-transform:uppercase; letter-spacing:.04em; color:var(--teal2)}
+.tla-srctag-go{color:var(--teal2); font-weight:600; text-decoration:underline; text-underline-offset:2px}
+/* The campaign-guide What's New banner reuses .tla-adabanner but has a single paragraph. */
+.tla-adabanner-solo .tla-adabanner-t{margin:0}
+.tla-adabanner-solo .tla-adabanner-go{display:inline}
 .tla-adabanner{margin:6px 0 20px; padding:16px 18px;
   border-radius:12px; border:1px solid var(--edge2); border-left:3px solid var(--teal2); background:var(--panel)}
 .tla-adabanner-t{margin:0 0 13px; font-family:var(--ff-body); font-size:var(--fs-small); line-height:1.6; color:var(--ink2)}

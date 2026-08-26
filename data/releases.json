@@ -1,5 +1,88 @@
 [
   {
+    "v": "1.5.1",
+    "date": "2026-08-26",
+    "i18n": {
+      "es": {
+        "title": "Vástagos de la sangre en el Grimorio",
+        "items": [
+          "**Nueva palabra clave: Depredador** (de *Vástagos de la sangre*), añadida al Grimorio como versión 1.1C. La tomamos de la guía de campaña oficial mientras FFG la incorpora al Grimorio.",
+          "**En el Grimorio**, la sección de Novedades resalta ahora solo los cambios de la versión más reciente."
+        ]
+      },
+      "en": {
+        "title": "Children of Blood in the Grimoire",
+        "items": [
+          "**New keyword: Predator** (from *Children of Blood*), added to the Grimoire as version 1.1C. Taken from the official campaign guide while FFG folds it into the Grimoire.",
+          "**In the Grimoire**, What's New now highlights only the newest version's changes."
+        ]
+      },
+      "de": {
+        "title": "Children of Blood im Grimoire",
+        "items": [
+          "**Neues Schlüsselwort: Predator** (aus *Children of Blood*), dem Grimoire als Version 1.1C hinzugefügt — aus dem offiziellen Kampagnenheft, bis FFG es ins Grimoire übernimmt. (Zunächst auf Englisch und Spanisch.)",
+          "**Im Grimoire** hebt „Neuigkeiten“ jetzt nur noch die Änderungen der neuesten Version hervor."
+        ]
+      },
+      "it": {
+        "title": "Children of Blood nel Grimorio",
+        "items": [
+          "**Nuova parola chiave: Predator** (da *Children of Blood*), aggiunta al Grimorio come versione 1.1C — dal manuale di campagna ufficiale, mentre FFG la integra nel Grimorio. (Per ora in inglese e spagnolo.)",
+          "**Nel Grimorio**, la sezione Novità ora evidenzia solo le modifiche della versione più recente."
+        ]
+      },
+      "fr": {
+        "title": "Children of Blood dans le Grimoire",
+        "items": [
+          "**Nouveau mot-clé : Predator** (de *Children of Blood*), ajouté au Grimoire en version 1.1C — d'après le manuel de campagne officiel, en attendant que FFG l'intègre au Grimoire. (Pour l'instant en anglais et en espagnol.)",
+          "**Dans le Grimoire**, les Nouveautés ne mettent plus en avant que les changements de la version la plus récente."
+        ]
+      },
+      "pt": {
+        "title": "Children of Blood no Grimório",
+        "items": [
+          "**Nova palavra-chave: Predator** (de *Children of Blood*), adicionada ao Grimório como versão 1.1C — do manual de campanha oficial, enquanto a FFG a integra ao Grimório. (Por agora em inglês e espanhol.)",
+          "**No Grimório**, a secção Novidades agora destaca apenas as alterações da versão mais recente."
+        ]
+      },
+      "pl": {
+        "title": "Children of Blood w Grimuarze",
+        "items": [
+          "**Nowe słowo kluczowe: Predator** (z *Children of Blood*), dodane do Grimuaru jako wersja 1.1C — z oficjalnego podręcznika kampanii, zanim FFG doda je do Grimuaru. (Na razie po angielsku i hiszpańsku.)",
+          "**W Grimuarze** sekcja Nowości podświetla teraz tylko zmiany z najnowszej wersji."
+        ]
+      },
+      "ru": {
+        "title": "Children of Blood в Гримуаре",
+        "items": [
+          "**Новое ключевое слово: Predator** (из *Children of Blood*), добавлено в Гримуар как версия 1.1C — из официального руководства кампании, пока FFG не включит его в Гримуар. (Пока на английском и испанском.)",
+          "**В Гримуаре** раздел «Новое» теперь подсвечивает только изменения самой свежей версии."
+        ]
+      },
+      "uk": {
+        "title": "Children of Blood у Ґримуарі",
+        "items": [
+          "**Нове ключове слово: Predator** (з *Children of Blood*), додано до Ґримуара як версію 1.1C — з офіційного посібника кампанії, поки FFG не додасть його до Ґримуара. (Наразі англійською та іспанською.)",
+          "**У Ґримуарі** розділ «Новинки» тепер підсвічує лише зміни найновішої версії."
+        ]
+      },
+      "ko": {
+        "title": "그리모어에 추가된 Children of Blood",
+        "items": [
+          "**새 키워드: Predator** (*Children of Blood*), 그리모어에 버전 1.1C로 추가 — 공식 캠페인 매뉴얼에서 가져왔으며 FFG가 그리모어에 반영할 때까지 유지합니다. (현재 영어와 스페인어.)",
+          "**그리모어**의 새 소식은 이제 가장 최신 버전의 변경 사항만 강조합니다."
+        ]
+      },
+      "zh": {
+        "title": "魔典中的《Children of Blood》",
+        "items": [
+          "**新关键词：Predator**（出自《Children of Blood》），作为 1.1C 版加入魔典——取自官方战役手册，在 FFG 将其纳入魔典之前先行收录。（目前提供英文和西班牙文。）",
+          "**魔典**的更新内容现在只会高亮最新版本的改动。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.5.0",
     "date": "2026-08-25",
     "i18n": {

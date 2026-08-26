@@ -16,7 +16,7 @@ Outputs data/grimoire_<lang>.json plus a validation report.
 import json, re, sys, os, unicodedata
 from collections import Counter
 import langpack, history, ultimatums, reprints, cardlinks, text_fixes
-import grim_vecicons, faq_seticons, adb_names, adb_resolve, fanmade
+import grim_vecicons, faq_seticons, adb_names, adb_resolve, fanmade, grim_add
 from langpack import slugify
 
 def norm(t):
@@ -1263,6 +1263,10 @@ def finalize(pack, allsecs, title_index):
                 if any(r.get('red') for b in e['blocks'] for r in b['runs']):
                     changed.setdefault(e['id'], []).append(last)
     versions, whatsnew = apply_versions(allsecs, pack, added, changed)
+    # Official campaign-guide additions FFG has not yet folded into the Grimoire (e.g. the Predator
+    # keyword from Children of Blood), layered as a new version — AFTER the edition diff so it is a
+    # version of its own, BEFORE the linkers so its text gets glossary auto-links like the rest.
+    grimadd = grim_add.apply(allsecs, pack, versions, whatsnew)
     # The curated text corrections go here: AFTER the edition diff, so a correction never reads as
     # the newest edition having rewritten the entry; BEFORE the linkers, so a word we just rejoined
     # ("Ju gador" -> "Jugador") can still be matched and linked.
@@ -1295,6 +1299,8 @@ def finalize(pack, allsecs, title_index):
     rp = reprints.attach(allsecs, pack)
     data = {'lang': pack.code, 'sections': allsecs, 'versions': versions, 'whatsnew': whatsnew,
             'groupOrder': list(langpack.SECTION_GROUPS)}
+    if grimadd:                        # the campaign-guide credit for the What's New banner
+        data['grimadd'] = grimadd['credit']
     return data, {'links': links, 'autolinks': autolinks, 'versions': versions,
                   'whatsnew': whatsnew, 'ub': ub, 'reprints': rp}
 

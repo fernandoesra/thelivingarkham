@@ -199,7 +199,10 @@ function seticonHTML(r){
    nested in either is invalid HTML and a "nested-interactive" a11y failure — the outer
    control already navigates, so the inner link is redundant there anyway. */
 function runsHTML(runs,suppressNew,flat){
-  var h='';
+  /* Only the NEWEST version's inline changes are highlighted. A run carries the version it was
+     added/changed in (r.v); older versions' marks are history, not news, so once a newer version
+     ships (e.g. 1.1C after 1.1) the previous version's red runs stop being highlighted. */
+  var h='', hv=latestV();
   for(var i=0;i<runs.length;i++){var r=runs[i];
     if(r.kind==='icon'){h+=iconHTML(r.name); continue;}
     if(r.kind==='seticon'){if(!flat)h+=seticonHTML(r); continue;}
@@ -229,7 +232,7 @@ function runsHTML(runs,suppressNew,flat){
        landing page. It is an action on this page, so it is a button. */
     else if(r.kind==='flowref')  inner='<button type="button" class="tla-flowref" data-flow="'+esc(r.target)+'">'+wrap(esc(r.t),r)+'</button>';
     else                         inner=wrap(esc(r.t),r);
-    if(r.v && !suppressNew){inner='<span class="tla-new" title="'+esc(t('addedin')+r.v)+'">'+inner+'</span>';}
+    if(r.v===hv && !suppressNew){inner='<span class="tla-new" title="'+esc(t('addedin')+r.v)+'">'+inner+'</span>';}
     h+=inner;
   }
   return h;
@@ -326,6 +329,24 @@ function adaBannerHTML(a){
     +adaSourceHTML('assets/img/archivos-de-arkham-logo-libro.png', a.name, a.url||ADA_SITE, ADA_DL)
     +adaSourceHTML('assets/rincon-logo.png', 'Rincón Miskatonic', RM_SITE, '')
     +'</div></aside>';
+}
+/* An entry the Grimoire itself does not yet carry, taken from an official FFG campaign guide
+   (tools/grim_add.py): a small credit line by the heading naming the guide, so it is never
+   mistaken for the official Grimoire. Mirrors the AdA credit tag on the FAQ. */
+function srcTagHTML(src){
+  return '<div class="tla-srctag">'
+    +'<span class="tla-srctag-t">'+esc(t('srcby'))+'</span> '
+    +'<a class="tla-srctag-go" href="'+esc(src.url)+'" target="_blank" rel="noopener">'+esc(src.name)+' <span aria-hidden="true">↗</span></a></div>';
+}
+/* The What's New banner for the campaign-guide version (1.1C…): says these entries are NOT from the
+   official Grimoire but from the named guide, with a link. `grimaddnote` carries a {name} slot the
+   guide's name links into. */
+function grimBannerHTML(a){
+  var parts=t('grimaddnote').split('{name}');
+  return '<aside class="tla-adabanner tla-adabanner-solo" role="note"><p class="tla-adabanner-t">'
+    +esc(parts[0])
+    +'<a class="tla-adabanner-go" href="'+esc(a.url)+'" target="_blank" rel="noopener">'+esc(a.name)+' <span aria-hidden="true">↗</span></a>'
+    +esc(parts[1]||'')+'</p></aside>';
 }
 /* The PDF shows a QR code to the retired-FAQ document after a sentence ending in
    a colon; render a real link instead. Which sentence that is depends on the
@@ -3311,6 +3332,7 @@ function render(sid,eid,flash){
     h+='<article class="tla-entry'+role+(brandNew?' is-new':'')+(lv&&isChangedIn(e,lv)?' is-upd':'')
       +'" data-kind="'+esc(s.kind)+'" id="e-'+esc(e.id)+'">';
     h+='<h2>'+titleHTML(e)+diagBadge(e)+verBadge(e)+'<a class="anchor" href="#'+lang+'/'+esc(e.id)+'" title="'+esc(t('jump'))+'" aria-label="'+esc(t('jump'))+'">§</a></h2>';
+    if(e.source)h+=srcTagHTML(e.source);   // an entry brought in from an official campaign guide
     if(ubHeadId&&e.id===ubHeadId)h+=xrefBannerHTML('ultimatums');
     h+=e.table?substHTML(e):(e.flow?flowHTML(e):blocksHTML(e.blocks,brandNew));
     h+=qrLinkHTML(e);
@@ -3458,9 +3480,11 @@ function renderWhatsNew(){
        chapter must not call itself "the Grimoire". Corpus picks the right line. */
     h+='<div class="tla-note">'+esc(t(wd.corpus==='faq1'?'newsintrofaq':'newsintro'))+'</div>';
     if(wn['new'].length){h+='<h2 class="tla-wnh"><span class="tla-vbadge new">'+esc(t('newbadge'))+'</span> '+esc(t('newentries'))+' <span class="tla-wncount">'+wn['new'].length+'</span></h2>';
-      /* The community credit sits directly UNDER the "New entries" heading, saying those entries
-         come from Archivos de Arkham / Rincón Miskatonic. Shown only on the AdA extension version. */
+      /* The source credit sits directly UNDER the "New entries" heading, saying where those entries
+         come from. FAQ → the AdA/Rincón community banner; Grimoire → the campaign-guide banner
+         (grimadd). Shown only on the extension version (the one carrying an `ed` descriptor). */
       if(cur.ed&&curSec&&curSec.ada)h+=adaBannerHTML(curSec.ada);
+      else if(cur.ed&&wd.corpus==='grimoire'&&data&&data.grimadd)h+=grimBannerHTML(data.grimadd);
       h+='<p class="tla-wnhelp">'+esc(t('newhelp').replace('{v}',cur.v))+'</p>'+wnList(wn['new'],'new');}
     if(wn.updated.length){h+='<h2 class="tla-wnh"><span class="tla-vbadge upd">'+esc(t('updbadge'))+'</span> '+esc(t('updentries'))+' <span class="tla-wncount">'+wn.updated.length+'</span></h2>'
       +'<p class="tla-wnhelp">'+esc(t('updhelp').replace('{v}',cur.v))+'</p>'+wnList(wn.updated,'upd');}
