@@ -1,0 +1,551 @@
+{
+  "_comment": "Adiciones de Archivos de Arkham (archivosarkham.com) al FAQ oficial del capítulo 1, aplicadas como la capa/versión 2.5A por tools/faq.py (apply_ada). Cada adición se inyecta como un bloque marcado en su sección de errata, con crédito y enlace a su web, y aparece en las Novedades del FAQ. Contenido en español (su FAQ mejorado es en español). 'sub' = título exacto de la subsección de erratas donde va; 'ver' = su etiqueta de versión de origen (la 'A' indica que es un añadido de AdA contrastado con FFG). Primera sección hecha: 'Fe de erratas del reglamento'; el resto se irá ampliando.",
+  "version": {
+    "v": "2.5A",
+    "date": "2026-08-25",
+    "ed": "Extendido por Archivos de Arkham"
+  },
+  "credit": {
+    "name": "Archivos de Arkham",
+    "url": "https://archivosarkham.com/"
+  },
+  "additions": [
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas del reglamento",
+      "ver": "v1.9 A",
+      "head": "Página 14 de la referencia de reglas, columna 1, «Infligir daño/horror»",
+      "body": "El párrafo debería decir: «Tras aplicar daño/horror, si un Apoyo tiene una cantidad de daño igual o mayor que su salud o de horror igual o mayor que su cordura, queda derrotado y se coloca en la pila de descartes de su propietario.»"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v1.5.1 A",
+      "head": "El Devorador de las profundidades, Preparación",
+      "body": "En el primer punto de la Preparación, debería decir: «Reúne todas las cartas de los siguientes conjuntos de encuentros: El Devorador de las Profundidades, Antiguos males, Miedo impactante, Gules y Secta oscura.».",
+      "campaign": "La Noche de la Fanática"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v2.0 A",
+      "head": "Página 7 de la guía de campaña «Reedición»",
+      "body": "En el segundo y tercer puntos de la Preparación en lugar de «Recibidor» el lugar al que se refiere es al «Vestíbulo»",
+      "campaign": "El Camino a Carcosa"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v2.0 A",
+      "head": "Página 16 de la guía de campaña «Reedición»",
+      "body": "El penúltimo punto debería decir: ese investigador debe recibir un punto de horror inmediatamente.",
+      "campaign": "El Camino a Carcosa"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v1.6 A",
+      "head": "La máscara pálida, sección de adyacencia de los Lugares en las catacumbas.",
+      "body": "La última frase del segundo párrafo debería decir: «Durante este escenario, los Lugares adyacentes se consideran conectados entre sí.»",
+      "campaign": "El Camino a Carcosa"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v2.2 A",
+      "head": "Penumbrosa Carcosa, Preparación «Reedición»",
+      "body": "Añade el siguiente punto a la preparación de este escenario: El afectado por la Debilidad «El hombre de la máscara pálida» la busca en su mazo y la pone aparte, fuera del juego.",
+      "campaign": "El Camino a Carcosa"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v1.5 A",
+      "head": "El Límite del Otro Lado, introducción 3",
+      "body": "En el párrafo siguiente a la introducción 3, debería decir: Introducción 4.",
+      "campaign": "La Era Olvidada"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v1.5 A",
+      "head": "Interludio II: El precio del progreso, página 17 de la guía de campaña",
+      "body": "La primera línea debería decir: «No leas esto a menos que los investigadores están siendo cazados.»",
+      "campaign": "El Círculo Roto"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v2.2 A",
+      "head": "En las garras del caos, preparación",
+      "body": "Después del cuarto punto añade un nuevo punto que dice lo siguiente: Reúne las cartas del conjunto que no haya sido usado «Música de los condenados» o «Secretos del universo» y déjalas aparte, fuera del juego.",
+      "campaign": "El Círculo Roto"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v1.7 A",
+      "head": "Interludio I: El gato negro, cuadros de texto",
+      "body": "En el cuadro de texto de la resolución «Si el gato negro llevó noticias del problema de los investigadores» debería añadirse: «Añade 1 ficha [[elderthing]] a las bolsas de caos de ambas campañas.».",
+      "campaign": "Los Devoradores de Sueños"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v1.8 A",
+      "head": "El pozo de la desesperación, sección Destellos del Pasado",
+      "body": "La última frase del primer párrafo debería decir: «...como las que hay a continuación y en la siguiente página.»",
+      "campaign": "La Conspiración de Innsmouth"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v1.9.1 A",
+      "head": "La guarida de Dagón, sección Recuerdos recuperados",
+      "body": "En el primer punto del apartado «Comprueba la sección «Recuerdos recuperados» del registro de campaña» debería decir: Al crear el mazo de Plan, usa el plan 2a – «Lo que acecha debajo (v.I)» y retira de la partida el plan 2a – «Lo que acecha debajo (v.II)»",
+      "campaign": "La Conspiración de Innsmouth"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v2.0.1 A",
+      "head": "Página 69 de la guía de campaña",
+      "body": "El símbolo después de Informe de estado Omega debería ser: Ω",
+      "campaign": "Las Llaves Escarlata"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v2.3 A",
+      "head": "Página 3 de la preparación de la campaña",
+      "body": "La preparación de la bolsa de caos en dificultad Experto debe incluir una ficha –7 en lugar de una de las fichas –6.",
+      "campaign": "La Fiesta del Valle de la Cicuta"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v2.2 A",
+      "head": "La Última Tarde, preparación",
+      "body": "El segundo subpunto del cuarto punto debería decir: Pon 1 copia del enemigo Festejante enajenada en juego en el salón comunitario. Si hay 3 o 4 investigadores en la partida, pon la otra copia de la Festejante enajenada en juego en la Capilla Cicuta.",
+      "campaign": "La Fiesta del Valle de la Cicuta"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v2.3 A",
+      "head": "Página 59 de la guía de campaña Códice",
+      "body": "En el último códice falta el título «Códice Θ: Dra. Rosa Marquez»",
+      "campaign": "La Fiesta del Valle de la Cicuta"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v2.2 A",
+      "head": "Iconos de conjuntos de encuentros",
+      "body": "El icono que indica «Micónidos» debería decir: La Casa Cicuta. El icono que indica «La Casa Cicuta» debería decir: Micónidos.",
+      "campaign": "La Fiesta del Valle de la Cicuta"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v2.4 A",
+      "head": "El Apiario, preparación del escenario",
+      "body": "En el segundo punto debería decir: «...como se indica en el diagrama de colocación de Lugares de la página 26.»",
+      "campaign": "La Ciudad Sumergida"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v2.3 A",
+      "head": "Página 42 de la guía de campaña «Reedición», Lista de logros",
+      "body": "El último logro debería decir «Pericia de Innsmouth».",
+      "campaign": "La Conspiración de Innsmouth"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v2.3 A",
+      "head": "Página 46 de la guía de campaña «Reedición», Iconos de conjuntos de encuentros",
+      "body": "Falta el icono de campaña Máscaras de medianoche dentro de los iconos «De la caja básica».",
+      "campaign": "La Conspiración de Innsmouth"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.6 A",
+      "head": "Aislamiento de pacientes – Celda ocupada (179)",
+      "body": "La acción de esta carta debería decir: «…; recuerda que «los investigadores soltaron a un paciente peligroso».»"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.6 A",
+      "head": "Alma perdida (227)",
+      "body": "El final de la capacidad Revelación debería decir: «Si tienes una cantidad mayor de Convicciones que de Dudas…»"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.7 A",
+      "head": "Carta de Referencia de escenario (48b)",
+      "body": "El primer punto debería decir: Después, deja aparte La puerta al Infierno (es un lado revelado de un Lugar «Catacumbas»), elige al azar 5 Lugares Catacumbas y retíralos de la partida sin mirarlos, a continuación vuelve a añadir La puerta al infierno a los lugares que no se retiraron."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.6 A",
+      "head": "Bestia de Aldebarán (88)",
+      "body": "La primera capacidad de esta carta ha de ser ignorada: «Presa - Más horror.»"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v1.5.1 A",
+      "head": "Página 11 de la guía de campaña.",
+      "body": "El seguimiento de escenarios se refiere al último escenario como Denumbrosa Carcosa y debería decir Penumbrosa Carcosa.",
+      "campaign": "El Camino a Carcosa"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.9 A",
+      "head": "Henry Deveau «Clásica y Reedición» (130b)",
+      "body": "Esta carta debería decir: «Haz avanzar el acto al acto 3c»."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.8 A",
+      "head": "El corazón de los Antiguos ( 205a y 205b)",
+      "body": "El nombre de esta carta debería ser: El corazón de los Ancianos."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.0.1 A",
+      "head": "El corazón de los Ancianos «Reedición» ( 205a y 205b)",
+      "body": "El efecto de revelación de la ficha del caos (Antiguo) debería decir: –3. Si fracasas recibe 1 punto de horror."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.2 A",
+      "head": "Portales a otros tiempos «Reedición» (319)",
+      "body": "Al final del primer párrafo debería decir: Cada investigador añade la primera traición Maleficio de la pila de descartes de Encuentros al mazo de Exploración y baraja éste."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.0.1 A",
+      "head": "Mordisco de serpiente «Reedición» (80)",
+      "body": "El nombre de esta carta debería ser: Picadura de serpiente."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.2 A",
+      "head": "El patíbulo «Reedición» ( 170a, 170b)",
+      "body": "El texto de estas dos caras de esta carta no debería tener «–X.»"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.2 A",
+      "head": "Guardia de la celda (219)",
+      "body": "La capacidad Obligado de esta carta debería decir: «Cuando evites al Guardia de la celda por 2 o más...»"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.2 A",
+      "head": "Acto 2b—Desde las profundidades (242)",
+      "body": "El último párrafo debería decir: «Pon en juego la carta de Lugar La trampa de los espíritus puesta aparte.»"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.2 A",
+      "head": "Acto 3b—El fin (57)",
+      "body": "El tercer punto de esta carta debería terminar con: «(→R6).»"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.0.1 A",
+      "head": "Sumo sacerdote que no debe ser descrito (311)",
+      "body": "La capacidad [[free]] de esta carta debería decir: Si este enemigo está agotado."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.8 A",
+      "head": "New Church Green (75)",
+      "body": "La capacidad [[action]][[action]] de esta carta debería decir: «Si no hay pistas sobre New Church Green: Mira la primera carta del mazo de Indicios. Si no tiene Victoria X, descártala. Límite de grupo de una vez por partida.»"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.9 A",
+      "head": "Isla solitaria (171)",
+      "body": "El número de carta de esta carta debería ser 169 y no 171, ya que la 171 es Isla desgastada por el oleaje."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.5 A",
+      "head": "Archivos hundidos (250)",
+      "body": "El efecto Obligado de esta carta debería decir: «Después de que los archivos hundidos sean revelados: Quedan totalmente inundados...»"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.2 A",
+      "head": "Híbrido Lupino (23)",
+      "body": "El texto de esta carta debería decir: «Aparición – Campo exterior (este)»"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.2 A",
+      "head": "Híbrido Lupino (24)",
+      "body": "El texto de esta carta debería decir: «Aparición – Campo exterior (sur)»"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v2.4 A",
+      "head": "El Apiario, preparación del escenario",
+      "body": "En el segundo punto debería decir: «...según el diagrama de colocación de Lugares de la página 30.»",
+      "campaign": "La Ciudad Sumergida"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.4 A",
+      "head": "Acto 1b - La extensión urbana (143)",
+      "body": "El último párrafo debería decir: «Coge las 5 cartas superiores del mazo de Cumbres...»"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de la guía de campaña",
+      "ver": "v1.6 A",
+      "head": "«La masa que lo devoraba todo», Resoluciones",
+      "body": "Donde indica Resolución 3 debería decir: «Resolución 2.»",
+      "campaign": "Escenarios independientes"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.8 A",
+      "head": "acto 2a—Fisiología extraterrestre (14)",
+      "body": "La capacidad [[free]] de esta carta debería decir: «Mientras un investigador que esté en tu Lugar esté atacando al Corazón vulnerable, gasta 1 pista: Ese investigador recibe +2 [[combat]] para este ataque.»"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.2 A",
+      "head": "Seguridad del hotel (33)",
+      "body": "Esta carta debería decir: «Aparición – Lugar vacío más cercano»."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.8 A",
+      "head": "Humano amistoso (14)",
+      "body": "La capacidad [[reaction]] de esta carta debería decir: «Después de que tengas éxito en una prueba de habilidad, agota al Humano amistoso y gasta una golosina.»"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.5 A",
+      "head": "Ruinas del rey serpiente (43)",
+      "body": "Los rasgos de este lugar deberían ser: Jungla · Ruinas"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.4 A",
+      "head": "Inner Chamber – Parallel Scenario Relics of the Past (71)",
+      "body": "This card’s [[action]] ability should read: «…draw 1 non–location card revealed in this way and check your supplies. If you have chalk, you may choose 1additional non–location card revealed and draw it…»",
+      "note": "Este escenario desafío aún no ha sido publicado en español por FFG. Se deja la nota en inglés a la espera de su traducción y saber si aplica.",
+      "href": "https://www.fantasyflightgames.com/en/news/2024/1/1/relics-of-the-past/"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.7 A",
+      "head": "Jim Culver (4)",
+      "body": "Esta carta tiene el rasgo Intérprete en lugar de Artista."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.9.1 A",
+      "head": "Improvisando sobre la marcha (25)",
+      "body": "Esta carta debería llamarse «Improvisar sobre la marcha»."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.7 A",
+      "head": "Lola Hayes (6)",
+      "body": "Esta carta tiene el rasgo Intérprete en lugar de Artista."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.0.1 A",
+      "head": "Finn Edwards «Reedición» (3)",
+      "body": "La sección Requisitos de creación de mazos debería decir: Artículos de contrabando, Fiel .38 de Finn, Pillado in fraganti, 1 Debilidad básica aleatoria."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.0.1 A",
+      "head": "Interrogatorio cruel «Reedición» (261)",
+      "body": "La capacidad (Acción) de esta carta debería decir: Realiza una prueba de ([[willpower]]) (2). Si tienes éxito, descarta el interrogatorio cruel."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.0.1 A",
+      "head": "Tiempo prestado (308)",
+      "body": "La capacidad obligado de esta carta debería decir: Cuando comience tu turno: Retira todos los clics de Tiempo prestado. Puedes realizar esa misma cantidad de acciones adicionales en este turno."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.6 A",
+      "head": "Tony Morgan (3)",
+      "body": "En la elección de clase secundaria de estas cartas debería decir: Elige entre Guardián [[guardian]], Buscador [[seeker]] o Superviviente [[survivor]]."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.7 A",
+      "head": "Patrice Hathaway (5)",
+      "body": "Esta carta tiene el rasgo Intérprete en lugar de Artista."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.6 A",
+      "head": "Esperanza, Fervor y Augur ( 31, 32 y 33)",
+      "body": "La capacidad acción de estas cartas debería decir: «…esta prueba tiene éxito automáticamente; a continuación…»"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.2 A",
+      "head": "Narcolepsia «Reedición» (37)",
+      "body": "Esta carta debería decir: «No puedes realizar acciones, activar capacidades ni jugar cartas.»"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.3 A",
+      "head": "Receptáculo vacío «Reedición» (276)",
+      "body": "La última línea de esta carta debería decir: «las cargas del Receptáculo vacío al Devorador de deseos»."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.9.1 A",
+      "head": "Secretos enterrados (9)",
+      "body": "Esta carta debería decir: Si tu Lugar puede ser investigado, no puedes moverte excepto mediante efectos de cartas de escenario."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.9.1 A",
+      "head": "Lily Chen (10)",
+      "body": "Esta carta debería decir: Efecto [[eldersign]]: +2. Después de que acabe esta prueba, dale la vuelta a una Disciplina Roto que controles para mostrar su lado Firme."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.9.1 A",
+      "head": "Bob Jenkins (16)",
+      "body": "En la sección de historia de esta carta falta el siguiente fragmento: «negocio de su vida. Quizás pueda jubilarse por fin, comprar el barco al que le tiene echado el ojo y pasar el resto de sus días pescando en un paraíso tropical. O a lo mejor Bob acabe por ver finalmente que no es oro todo lo que reluce»."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.9.1 A",
+      "head": "Mano a mano (20)",
+      "body": "La carta 229 y 25 ya tienen este nombre. Esta carta debería llamarse «Cara a cara»."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.9.1 A",
+      "head": "Adivinación (Nivel 1) (101)",
+      "body": "Esta carta tiene el rasgo Presagio en lugar de Augurio."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.9.1 A",
+      "head": "Adivinación (Nivel 4) (103)",
+      "body": "Esta carta tiene el rasgo Presagio en lugar de Augurio."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.9.1 A",
+      "head": "Recuerdo preciado «De una vida futura» (115)",
+      "body": "Esta carta tiene el rasgo Maldito en lugar de Bendito."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.2 A",
+      "head": "Influencia hipnótica (96)",
+      "body": "Esta carta debería decir: «el investigador que la realiza puede ignorar todas las palabras clave o efectos de Lugar que fuesen a activarse durante la prueba.»"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.2 A",
+      "head": "Brújula de marinero (122)",
+      "body": "Esta carta debería decir: «Recibes +1[[intellect]] para esta prueba de habilidad»"
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.6 A",
+      "head": "Juramento inconfesable (Cobardía) (13)",
+      "body": "La capacidad reacción de esta carta debería ser una capacidad de acción."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v2.0.1 A",
+      "head": "Tommy Malloy (3)",
+      "body": "Esta carta tiene el rasgo Sindicato en lugar de Sindicalista."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.9 A",
+      "head": "Grete Wagner ( 7 y 28)",
+      "body": "Esta carta tiene el rasgo Aliado en lugar de Aliada y Cazador en lugar de Cazadora."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.8 A",
+      "head": "Lonnie Rittner (9)",
+      "body": "El nombre de esta carta debería ser: Lonnie Ritter."
+    },
+    {
+      "section": "faq-errata",
+      "sub": "Fe de erratas de las cartas",
+      "ver": "v1.9 A",
+      "by": "rincon",
+      "card": "08004",
+      "head": "Norman Withers (7)",
+      "body": "En las Opciones de creación de mazos de esta carta debería decir: «Cartas Buscador ([[seeker]]) de nivel 0, cartas Místico ([[mystic]]) de nivel 1-5, cartas neutrales de nivel 0-5, hasta otras 5 cartas Místico ([[mystic]]) de nivel 0.»"
+    }
+  ]
+}

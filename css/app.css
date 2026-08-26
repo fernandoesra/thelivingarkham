@@ -598,6 +598,10 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-pennant.is-relevant{--flag:var(--new); --flag-ink:var(--on-accent)}
 .tla-pennant.is-recommended{--flag:var(--teal); --flag-ink:var(--on-accent)}
 .tla-pennant.is-extra{--flag:var(--green); --flag-ink:var(--on-accent)}
+/* Coming soon: a striking amber — the "under construction" signal. Fixed rather than themed
+   on purpose: it is a status colour like a warning light, not part of any theme's accent, and
+   it must read as loud on every ground. Ink stays dark for high contrast on the amber cloth. */
+.tla-pennant.is-soon{--flag:#e08a1e; --flag-ink:#1f1304}
 /* Landing notice: English-leads-translation, and how to help fill a gap. */
 .tla-notice{display:flex; gap:12px; align-items:flex-start; margin:18px 0 2px; padding:14px 18px;
   border:1px solid var(--edge2); border-radius:12px; background:var(--bg2)}
@@ -915,6 +919,10 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-flowref:hover{color:var(--gold2)}
 .tla-entry.flash{animation:tlaflash 1.6s ease}
 @keyframes tlaflash{0%,18%{background:var(--mark)}100%{background:transparent}}
+/* a search jump highlights the matched block with a ring (works on any element, keeps its bg) */
+.tla-hit{animation:tlahit 1.8s ease; border-radius:6px}
+@keyframes tlahit{0%,22%{box-shadow:0 0 0 3px var(--mark)}100%{box-shadow:0 0 0 3px transparent}}
+@media (prefers-reduced-motion:reduce){.tla-hit{animation:none}}
 
 /* ---------- card anatomy ---------- */
 /* The card stays a picture; everything the book drew around it — the numbered
@@ -1321,9 +1329,16 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-vertab.active{background:var(--gold); border-color:var(--gold); color:var(--on-gold)}
 .tla-vertab-v{font-size:var(--fs-body); font-weight:700}
 .tla-vertab-d{font-size:var(--fs-eyebrow); opacity:.8}
+/* a version with an edition descriptor reads inline "v · descriptor · date", dot-separated,
+   the same shape as the origin chip — one baseline row instead of the plain two-line stack */
+.tla-vertab.has-ed{flex-direction:row; align-items:baseline; flex-wrap:wrap; gap:0}
+.tla-vertab-ed{font-size:var(--fs-eyebrow); opacity:.85}
+.tla-vertab-sep{font-size:var(--fs-eyebrow); opacity:.5; padding:0 .4em}
 /* full strength on the gold chip: at .8 the date measures 3.6:1 there, under the
    4.5:1 this size needs */
 .tla-vertab.active .tla-vertab-d{opacity:1}
+.tla-vertab.active .tla-vertab-ed{opacity:1}
+.tla-vertab.active .tla-vertab-sep{opacity:.7}
 .tla-vertab-n{position:absolute; top:-7px; right:-7px; min-width:20px; text-align:center;
   font-size:var(--fs-micro); font-weight:700; line-height:1.6; border-radius:10px; padding:0 5px;
   background:var(--new-bg); border:1px solid var(--new-edge); color:var(--new)}
@@ -1804,6 +1819,59 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-qrbanner svg,.tla-xrefbanner svg{width:20px; height:20px; flex:0 0 auto; color:var(--teal2)}
 .tla-qrbanner-t,.tla-xrefbanner-t{flex:1 1 220px; margin:0; font-family:var(--ff-body); font-size:var(--fs-small); color:var(--ink2)}
 .tla-xrefbanner-t a{color:var(--teal2); font-weight:600; text-decoration:underline; text-underline-offset:2px}
+/* Archivos de Arkham additions to the FAQ: per-entry flag + general banner (flat, no shadow/gradient). */
+.tla-adaitem{margin:14px 0; padding:11px 14px; border:1px solid var(--edge2); border-left:3px solid var(--teal2);
+  border-radius:10px; background:var(--panel)}
+.tla-adaitem .tla-p{margin:0}
+/* An editorial note inside an addition (e.g. why a parallel-scenario card is left in English):
+   set apart from the correction above it, quieter, with a thin divider. */
+.tla-adaitem-note{margin:9px 0 0; padding-top:8px; border-top:1px dashed var(--edge2);
+  font-family:var(--ff-ui); font-size:var(--fs-small); font-style:italic; color:var(--muted)}
+/* Deep-linked from What's New: flash a highlight ring without disturbing the panel background. */
+.tla-adaitem.flash{animation:adaflash 1.6s ease}
+@keyframes adaflash{0%,18%{box-shadow:0 0 0 3px var(--mark)}100%{box-shadow:0 0 0 3px transparent}}
+@media (prefers-reduced-motion:reduce){.tla-adaitem.flash{animation:none}}
+.tla-adatag{display:flex; align-items:center; flex-wrap:wrap; gap:6px; margin:0 0 7px;
+  font-family:var(--ff-ui); font-size:var(--fs-eyebrow)}
+.tla-adatag-logo{width:18px; height:18px; flex:0 0 auto; object-fit:contain}
+.tla-adatag-t{font-weight:600; text-transform:uppercase; letter-spacing:.04em; color:var(--teal2)}
+.tla-adatag-go{color:var(--teal2); font-weight:600; text-decoration:underline; text-underline-offset:2px}
+.tla-adatag-v{color:var(--muted); font-variant-numeric:tabular-nums}
+/* Which campaign a guide-errata addition belongs to: a small pill, set apart from the credit. */
+.tla-adatag-camp{font-weight:600; color:var(--gold2); border:1px solid var(--edge2);
+  border-radius:20px; padding:1px 9px; white-space:nowrap}
+.tla-adabanner{margin:6px 0 20px; padding:16px 18px;
+  border-radius:12px; border:1px solid var(--edge2); border-left:3px solid var(--teal2); background:var(--panel)}
+.tla-adabanner-t{margin:0 0 13px; font-family:var(--ff-body); font-size:var(--fs-small); line-height:1.6; color:var(--ink2)}
+/* The two contributing communities side by side, each with its (larger) logo, a link to its site
+   and a link to download its original resources. */
+.tla-adabanner-srcs{display:flex; flex-wrap:wrap; gap:14px 26px}
+.tla-adabanner-src{display:flex; align-items:center; gap:12px; min-width:0}
+.tla-adabanner-logo{width:48px; height:48px; flex:0 0 auto; object-fit:contain}
+.tla-adabanner-links{display:flex; flex-direction:column; gap:1px; min-width:0}
+.tla-adabanner-go{font-family:var(--ff-ui); font-size:var(--fs-small); font-weight:600; color:var(--teal2);
+  text-decoration:underline; text-underline-offset:2px}
+.tla-adabanner-dl{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:600; color:var(--muted); text-decoration:none}
+.tla-adabanner-dl:hover{color:var(--teal2); text-decoration:underline; text-underline-offset:2px}
+/* "New version available" toast — a floating, transient notice (not a content card), so a soft
+   shadow is warranted to lift it off the page. Slides up from the bottom, auto-dismissable. */
+.tla-uptoast{position:fixed; left:50%; bottom:20px; transform:translate(-50%,150%); z-index:400;
+  display:flex; align-items:center; gap:10px; max-width:min(92vw,460px);
+  padding:10px 10px 10px 16px; background:var(--panel); color:var(--ink);
+  border:1px solid var(--edge2); border-radius:12px; box-shadow:0 8px 26px rgba(0,0,0,.30);
+  font-family:var(--ff-ui); font-size:var(--fs-small); opacity:0;
+  transition:transform .28s ease, opacity .28s ease}
+.tla-uptoast.on{transform:translate(-50%,0); opacity:1}
+.tla-uptoast-t{flex:1 1 auto; min-width:0}
+.tla-uptoast-go{flex:0 0 auto; cursor:pointer; font-family:var(--ff-ui); font-weight:600;
+  font-size:var(--fs-small); color:var(--on-gold); background:var(--gold); border:0;
+  border-radius:8px; padding:7px 14px}
+.tla-uptoast-go:hover{background:var(--gold2)}
+.tla-uptoast-go:focus-visible{outline:3px solid var(--gold); outline-offset:2px}
+.tla-uptoast-x{flex:0 0 auto; cursor:pointer; background:transparent; border:0; color:var(--muted);
+  font-size:19px; line-height:1; padding:3px 7px; border-radius:6px}
+.tla-uptoast-x:hover{color:var(--ink)}
+@media (prefers-reduced-motion:reduce){.tla-uptoast{transition:opacity .2s ease; transform:translate(-50%,0)}}
 .tla-qrbanner-go{flex:0 0 auto; min-height:38px; padding:0 16px; cursor:pointer;
   font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:600; color:var(--on-gold);
   background:var(--gold); border:0; border-radius:9px}

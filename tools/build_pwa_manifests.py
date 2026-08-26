@@ -51,7 +51,10 @@ shell += [rel(p) for p in sorted(Path('assets/fonts').glob('*.woff2'))]
 shell += ['manifest.webmanifest',
           'assets/favicon.svg', 'assets/favicon-32.png', 'assets/favicon-180.png',
           'assets/icon-192.png', 'assets/icon-512.png', 'assets/icon-maskable-512.png',
-          'assets/eldersign.svg']
+          'assets/eldersign.svg',
+          # small inline brand mark shown with the FAQ's Archivos de Arkham additions (rules text) —
+          # 11 KB, so it rides in the light shell and renders offline for rules-only downloaders too
+          'assets/img/archivos-de-arkham-logo-libro.png']
 shell += [r for r in REGISTRIES if Path(r).exists()]
 for code in lang_codes:                       # every language's UI, so it opens offline in any
     for f in ('ui.json', 'lang.json', 'ub.json', 'flag.svg'):

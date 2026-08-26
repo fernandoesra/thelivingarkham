@@ -744,6 +744,89 @@ def reseat_seticons(sections):
                 b['runs'] = _reseat_seticons_runs(b.get('runs', []))
 
 
+def _insert_ada_seticon(block, fp):
+    """Slot a set icon into one Archivos de Arkham block. The bold head is the reference; a card
+    reference already has "( number)" parens (icon goes after the '('), a guide reference has none
+    so an empty "( )" is appended — either way _reseat_seticons_runs then seats the icon, exactly
+    the "Name ( <icon> number)" / "Ref ( <icon> )" shape the official errata print."""
+    runs = [r for r in (block.get('runs') or []) if r]
+    he = 0
+    for i, r in enumerate(runs):          # the head is the leading bold run(s); the body follows
+        if r.get('bold'):
+            he = i + 1
+        else:
+            break
+    head, body = runs[:he], runs[he:]
+    atoms = []
+    for r in head:
+        if r.get('kind') == 'text':
+            atoms.extend(('c', ch) for ch in r['t'])
+        else:
+            atoms.append(('o', r))
+    slots = 0
+    for i, a in enumerate(atoms):
+        if a[0] == 'c' and a[1] == '(':
+            inner = _bracket_text(atoms, i)
+            if inner is not None and _NUMS_ONLY.match(inner):
+                slots += 1
+    if slots == 0:                        # a guide reference: give it the empty icon parens
+        head = head + [{'kind': 'text', 't': ' ( )', 'bold': True}]
+        slots = 1
+    seticons = [{'kind': 'seticon', 'fp': fp} for _ in range(slots)]
+    block['runs'] = _reseat_seticons_runs(head + seticons) + body
+
+
+# A few icons traced from the FAQ PDF came out wrong (a doubled/overlapping shape); swap them for
+# the clean product-icon-chapter art (assets/products/, seticonHTML routes non "e<n>-" fps there).
+SETICON_FIXES = {
+    'e4-f4dbde58': 'fc-2-77c2407f',   # Nathaniel Cho: the faqset trace is two overlapping gloves
+}
+
+
+def tidy_seticon_parens(sections):
+    """Tidy every set icon: swap a known-bad traced fp for the clean product art, and remove the
+    stray space it leaves before a closing ')': "( <icon> )" -> "( <icon>)" (a numbered
+    "( <icon> 6)" keeps its space before the number)."""
+    def fix(runs):
+        for i, r in enumerate(runs):
+            if not r or r.get('kind') != 'seticon':
+                continue
+            if r.get('fp') in SETICON_FIXES:
+                r['fp'] = SETICON_FIXES[r['fp']]
+            if i + 1 < len(runs):
+                nxt = runs[i + 1]
+                if nxt and nxt.get('kind') == 'text':
+                    nt = re.sub(r'^\s+\)', ')', nxt.get('t', ''))   # " )" / "  ) " -> ")" / ") "
+                    if nt != nxt['t']:
+                        nxt['t'] = nt
+        return runs
+    for s in sections:
+        for b in s.get('intro', []):
+            fix(b.get('runs', []))
+        for e in s.get('entries', []):
+            if e.get('titleRuns'):
+                fix(e['titleRuns'])
+            for b in e.get('blocks', []):
+                fix(b.get('runs', []))
+
+
+def apply_ada_seticons(sections, code):
+    """Insert the recovered AdA set icons, keyed per block id by langs/<code>/faq_ada_seticons.json.
+    Runs AFTER the linkers so the card names are already split into their adbcard + number runs."""
+    p = os.path.join(langpack.ROOT, 'langs', code, 'faq_ada_seticons.json')
+    if not os.path.exists(p):
+        return 0
+    fp_of = json.load(open(p, encoding='utf-8'))
+    n = 0
+    for s in sections:
+        for e in s.get('entries', []):
+            for b in e.get('blocks', []):
+                if b.get('ada') and b.get('id') in fp_of:
+                    _insert_ada_seticon(b, fp_of[b['id']])
+                    n += 1
+    return n
+
+
 def link_cards(sections, pack):
     """ArkhamDB links for "Name ( 20)" card references. Unlike the Grimoire (where card
     refs live only in errata/FAQ), the FAQ names cards throughout — errata, rulings, taboos,
@@ -859,6 +942,117 @@ def rejoin_split_bullets(sections):
     return n
 
 
+# ---- Archivos de Arkham additions (langs/<code>/faq_ada.json) --------------
+def _body_runs(text):
+    """Split an addition's correction into runs, turning [[icon]] markers (curated into
+    faq_ada.json, e.g. [[guardian]], [[intellect]], [[free]]) into game-icon runs — the same
+    `kind:'icon'` runs the official errata carry, so they render as the real glyph."""
+    out = []
+    for j, part in enumerate(re.split(r'\[\[(\w+)\]\]', text)):
+        if j % 2 == 1:
+            out.append({'kind': 'icon', 'name': part})
+        elif part:
+            out.append({'kind': 'text', 't': part})
+    return out
+
+
+# Named credit sources for additions that someone OTHER than Archivos de Arkham reconstructed.
+# An addition opts in with "by": "<key>" and its block then carries this name/url/logo instead of
+# the default AdA credit (e.g. the Norman Withers / Carolyn Fern deck-building options, translated
+# from ArkhamDB by Rincón Miskatonic).
+_ADA_SOURCES = {
+    'rincon': {'name': 'Rincón Miskatonic', 'url': 'https://rinconmiskatonic.org/',
+               'logo': 'assets/rincon-logo.png'},
+}
+
+
+def _ada_head_runs(head, card, href=None):
+    """The bold head of an addition. Plain bold text unless it names a card ('card' = the exact
+    ArkhamDB code) or carries an explicit external link ('href'): then the name (everything before
+    the first '(') becomes a link — pinned to that ArkhamDB code, or to that URL — and the "( n)"
+    marker stays bold text after it. Pinning to a code fixes Norman Withers (08004, not the promo
+    98007 that would win by position); an href points a parallel-scenario reference at its FFG
+    announcement instead of a card page. The pre-built adbcard also keeps the linkers off it."""
+    if not card and not href:
+        return [{'kind': 'text', 't': head, 'bold': True}]
+    m = re.match(r'^(.*?)(\s*\(.*)$', head)
+    name, rest = (m.group(1), m.group(2)) if m else (head, '')
+    run = {'kind': 'adbcard', 't': name, 'q': name, 'bold': True}
+    if card:
+        run['code'] = card
+    if href:
+        run['href'] = href
+    runs = [run]
+    if rest:
+        runs.append({'kind': 'text', 't': rest, 'bold': True})
+    return runs
+
+
+def apply_ada(sections, code):
+    """Layer the community additions from Archivos de Arkham (archivosarkham.com) onto the built
+    FAQ as version 2.5A. Each addition is appended to its errata subsection as a flagged block
+    (`ada` carries the credit + its origin marker). Called BEFORE the linkers so the additions'
+    card references pick up their ArkhamDB links + glossary auto-links exactly like the official
+    errata (the AdA PDF's set icons are not recoverable, but the links are). Marks the faq-intro
+    section for the general banner. Spanish only for now; a language with no faq_ada.json is
+    untouched. Returns {version, credit, new:[whatsnew items]} or None."""
+    p = os.path.join(langpack.ROOT, 'langs', code, 'faq_ada.json')
+    if not os.path.exists(p):
+        return None
+    ada = json.load(open(p, encoding='utf-8'))
+    credit, ver = ada['credit'], ada['version']
+    secs = {s['key']: s for s in sections}
+    wn_new = []
+    for idx, add in enumerate(ada.get('additions', [])):
+        sec = secs.get(add['section'])
+        if not sec:
+            print(f"  [warn] faq_ada {code}: section {add['section']!r} not found — skipped")
+            continue
+        ent = next((e for e in sec.get('entries', []) if e.get('title') == add['sub']), None)
+        if ent is None:
+            print(f"  [warn] faq_ada {code}: subsection {add['sub']!r} not in {add['section']} — skipped")
+            continue
+        blk_id = 'ada-' + str(idx)            # a per-block anchor so What's New links to the exact
+        # Credit: the AdA layer by default, or a named source ('by') for an addition someone else
+        # reconstructed — it rides on the block with its own name, url and (optional) logo.
+        cr = _ADA_SOURCES.get(add.get('by')) or {'name': credit['name'], 'url': credit['url']}
+        ada_meta = {'name': cr['name'], 'url': cr['url'], 'ver': add['ver']}
+        if cr.get('logo'):
+            ada_meta['logo'] = cr['logo']
+        if add.get('campaign'):               # which campaign a guide-errata addition belongs to
+            ada_meta['campaign'] = add['campaign']
+        body = ((' — ' + add['body']) if add.get('body') else '')
+        blocks = ent.setdefault('blocks', [])
+        head_block = {                        # addition head, not just its errata subsection heading
+            'type': 'p',
+            'id': blk_id,
+            'ada': ada_meta,
+            'runs': _ada_head_runs(add['head'], add.get('card'), add.get('href')) + _body_runs(body),
+        }
+        if add.get('note'):                   # an editorial note shown inside the box (e.g. why a
+            head_block['note'] = add['note']  # parallel-scenario card is left untranslated)
+        blocks.append(head_block)
+        # A real bullet list, when the addition carries one — emitted as ordinary `bullet` blocks
+        # so the linkers reach them too (glossary/card auto-links); the app draws them INSIDE this
+        # addition's box (blocksHTML consumes the bullets that follow an `ada` block).
+        for item in add.get('bullets', []) or []:
+            blocks.append({'type': 'bullet', 'level': 1, 'runs': _body_runs(item)})
+        # `sub`/`suborder` let What's New group the additions by their errata SUBSECTION
+        # (reglamento / guía / cartas) instead of lumping all under the one section heading.
+        try:
+            sub_order = sec['entries'].index(ent)
+        except ValueError:
+            sub_order = 999
+        wn_new.append({'sid': sec['id'], 'sec': sec['title'], 'num': sec.get('num', ''),
+                       'id': blk_id, 'title': add['head'],
+                       'sub': add['sub'], 'suborder': sub_order})
+    if not wn_new:
+        return None
+    # the general credit banner rides on data['ada'] (set by build) and is rendered on the FAQ's
+    # What's New section — where the AdA content actually appears — not on the intro chapter.
+    return {'version': ver, 'credit': credit, 'new': wn_new}
+
+
 # ---- build -----------------------------------------------------------------
 def build(pack, grimoire_data):
     """Build the FAQ corpus for one language. `grimoire_data` is that language's already
@@ -939,6 +1133,9 @@ def build(pack, grimoire_data):
     # The curated text corrections (see tools/text_fixes.py), before the linkers so a rejoined
     # word can still be matched.
     text_fixes.apply(sections, pack.code)
+    # Archivos de Arkham community additions (Spanish only) — injected BEFORE the linkers so their
+    # card references get ArkhamDB links + glossary auto-links exactly like the official errata.
+    ada = apply_ada(sections, pack.code)
     # Links: card refs -> ArkhamDB first (so a whole card name is not half-eaten by the
     # glossary auto-linker), then cross-refs and auto-links into the GRIMOIRE.
     cards = link_cards(sections, pack)
@@ -961,16 +1158,29 @@ def build(pack, grimoire_data):
     autolink_input = ([gloss] + sections) if gloss else sections
     autolinks = assemble.autolink(autolink_input, tindex, pack)
 
+    # The AdA additions' set icons are not traceable from the community PDF (unlike the official
+    # errata, whose vector art faq_seticons recovers), so slot in the recovered ones from the
+    # curated per-block map — after the linkers, so a card name is already its adbcard + number.
+    ada_icons = apply_ada_seticons(sections, pack.code)
+    tidy_seticon_parens(sections)   # drop the stray space in "( <icon> )" everywhere (all languages)
+
     versions = [{'v': v['v'], 'date': v['date']} for v in cfg['versions']]
     data = {
         'lang': pack.code,
         'corpus': 'faq1',
         'sections': sections,
         'versions': versions,
-        'whatsnew': {},                 # single base version: nothing is "new" yet
+        'whatsnew': {},                 # single base version until the AdA layer adds 2.5A
         'groupOrder': [GROUP],
     }
-    report = {'sections': len(sections),
+    if ada:                             # layer version 2.5A + its What's New (apply_ada, above)
+        v_new = {'v': ada['version']['v'], 'date': ada['version']['date']}
+        if ada['version'].get('ed'):    # an edition descriptor for its version chip
+            v_new['ed'] = ada['version']['ed']
+        data['versions'].append(v_new)
+        data['whatsnew'][ada['version']['v']] = {'new': ada['new'], 'updated': []}
+        data['ada'] = ada['credit']
+    report = {'sections': len(sections), 'ada': (len(ada['new']) if ada else 0),
               'entries': sum(len(s['entries']) for s in sections),
               'cards': refs, 'direct': direct, 'links': links, 'autolinks': autolinks,
               'seticons': seticons, 'seticon_art': len(seticon_svgs), 'iconref': iconref}

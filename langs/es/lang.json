@@ -262,6 +262,15 @@
     },
     {
       "num": "",
+      "key": "faq-encounters",
+      "id": "conjuntos-capitulo-1",
+      "title": "Conjuntos de encuentros del capítulo 1",
+      "kind": "placeholder",
+      "group": "resources",
+      "figures": []
+    },
+    {
+      "num": "",
       "key": "ultimatums",
       "id": "ultimatums-refracciones",
       "title": "Ultimátums, Ayudas y Refracciones",

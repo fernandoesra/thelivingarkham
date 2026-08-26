@@ -265,6 +265,15 @@
     },
     {
       "num": "",
+      "key": "faq-encounters",
+      "id": "chapter-1-encounter-sets",
+      "title": "Chapter 1 Encounter Sets",
+      "kind": "placeholder",
+      "group": "resources",
+      "figures": []
+    },
+    {
+      "num": "",
       "key": "ultimatums",
       "id": "ultimatums-refractions",
       "title": "Ultimatums, Boons and Refractions",

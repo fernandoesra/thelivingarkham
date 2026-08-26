@@ -25,6 +25,11 @@ var GRIM = {},        // code -> grimoire data (loaded on demand)
     REG = null,       // the language registry
     LANGS = [];       // registry entries, in display order
 var BLOG='https://rinconmiskatonic.org/', SIGIL_SVG='';
+/* Where each community publishes the original resources behind its FAQ additions — the "download"
+   link in the credit banner. Archivos de Arkham has a downloads page; Rincón Miskatonic gets no
+   download link (Fernando's call), only the site link. */
+var ADA_SITE='https://archivosarkham.com/', ADA_DL='https://archivosarkham.com/descargas/',
+    RM_SITE='https://rinconmiskatonic.org/';
 /* Who drew the banner. A credit, not content: the same fact in every language, so it lives
    here rather than in each pack's strings — only the word "Illus." is translated. */
 var HERO_ART={by:'Aurore Folny', url:'https://www.artstation.com/aurorefolny'};
@@ -154,6 +159,25 @@ function esc(s){return (s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;'
    reader asking for a new tab or window, not for us to route them. */
 function modClick(e){return e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey;}
 function announce(msg){if(elLive){elLive.textContent=''; setTimeout(function(){elLive.textContent=msg;},40);}}
+/* A discreet "new version available" toast. The service-worker registration (index.html) calls
+   this only when an update installs WHILE the reader is looking at the page; tapping "update"
+   applies it now, and either way it auto-applies the next time they return to the app. Shown once
+   per detected update, and never for the first install. */
+var updateToastShown=false;
+window.tlaUpdateToast=function(reg){
+  if(updateToastShown||document.querySelector('.tla-uptoast'))return; updateToastShown=true;
+  var el=document.createElement('div');
+  el.className='tla-uptoast'; el.setAttribute('role','status');
+  el.innerHTML='<span class="tla-uptoast-t">'+esc(t('updateready'))+'</span>'
+    +'<button type="button" class="tla-uptoast-go">'+esc(t('updatego'))+'</button>'
+    +'<button type="button" class="tla-uptoast-x" aria-label="'+esc(t('close'))+'">×</button>';
+  el.querySelector('.tla-uptoast-go').addEventListener('click',function(){
+    if(reg&&reg.waiting)reg.waiting.postMessage({type:'skipWaiting'}); else location.reload();
+  });
+  el.querySelector('.tla-uptoast-x').addEventListener('click',function(){el.classList.remove('on'); setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el);},250);});
+  document.body.appendChild(el);
+  requestAnimationFrame(function(){el.classList.add('on');});
+};
 /* Labels come from a pack, so they are escaped like any other authored text:
    a label containing a quote would otherwise break out of the attribute. */
 function iconHTML(name){return '<i class="ico ico-'+esc(name)+'" title="'+esc(iconLabel(name))+'"></i>';}
@@ -162,7 +186,12 @@ function iconHTML(name){return '<i class="ico ico-'+esc(name)+'" title="'+esc(ic
    per-shape SVG, named by the shape's fingerprint. The build works out which campaign most of
    these marks stand for (tools/adb_resolve.py) and stores it as `pn`, so the icon can say
    "Legado de Dunwich" instead of the generic label; one that was never identified keeps it. */
-function seticonHTML(r){var u='assets/faqsets/'+esc(r.fp)+'.svg', lbl=r.pn||t('faqseticon');
+function seticonHTML(r){
+  /* Official FAQ set icons are traced into assets/faqsets/ (fp like "e1-…"). The Archivos de
+     Arkham additions reuse the product-icon chapter's own art (fp like "fc-…"/"faq-…"/"return-…")
+     which lives in assets/products/ — so route by that prefix; both are recolourable masks. */
+  var dir=/^e\d+-/.test(r.fp)?'faqsets':'products';
+  var u='assets/'+dir+'/'+esc(r.fp)+'.svg', lbl=r.pn||t('faqseticon');
   return '<i class="ico tla-seticon" role="img" aria-label="'+esc(lbl)+'" title="'+esc(lbl)
     +'" style="-webkit-mask-image:url('+u+');mask-image:url('+u+')"></i>';}
 /* flat: render every interactive run (link, card link, flow ref) as plain text. A title
@@ -190,8 +219,10 @@ function runsHTML(runs,suppressNew,flat){
        they are opening. Anything it could not pin down keeps the honest fallback: a search,
        which lists every printing. External either way, so it opens in a new tab. */
     else if(r.kind==='adbcard'){
+      /* An explicit href overrides the ArkhamDB link — e.g. a parallel-scenario reference that
+         points at its FFG announcement instead of a card page. */
       var tip=t('viewadb')+(r.pn?' · '+r.pn:'');
-      inner='<a class="tla-adbcard" href="'+esc(r.code?adbCardUrl(r.code):adbSearchUrl(r.q))+'" target="_blank" rel="noopener" title="'+esc(tip)+'">'+wrap(esc(r.t),r)+'</a>';
+      inner='<a class="tla-adbcard" href="'+esc(r.href||(r.code?adbCardUrl(r.code):adbSearchUrl(r.q)))+'" target="_blank" rel="noopener" title="'+esc(tip)+'">'+wrap(esc(r.t),r)+'</a>';
     }
     /* A button, not a link: this scrolls to a box inside the same diagram and must
        NOT touch the URL — the hash is the router's, and "#fl-…" would route to the
@@ -204,14 +235,23 @@ function runsHTML(runs,suppressNew,flat){
   return h;
 }
 function wrap(s,r){
-  if(r.bold)s='<strong>'+s+'</strong>';
-  if(r.italic)s='<em>'+s+'</em>';
   /* The Drowned City's alien script (tools/icons.py is_alien_font). Drawn with the book's own
      face rather than printed as the Latin letters underneath, which the reader is not meant to
      see — but the letters ARE the text, so they stay the element's content: they remain
      selectable, findable by the search box, and read out correctly, because the glyphs spell
-     exactly those letters. The title says which script it is for anyone who hovers. */
-  if(r.alien)s='<span class="tla-alien" title="'+esc(t('alienscript'))+'">'+s+'</span>';
+     exactly those letters. Each glyph is a single letter (a substitution cipher), so it is
+     wrapped ALONE and its title names that letter — "…La ciudad sumergida — Letra A" — rather
+     than repeating the same script name over a whole word. Spaces stay as glyph separators. */
+  if(r.alien){
+    var raw=r.t||'', base=t('alienscript'), lw=t('alienletter'), a='';
+    for(var ai=0;ai<raw.length;ai++){var ch=raw.charAt(ai), cc=raw.charCodeAt(ai);
+      if(cc===32||cc===160){a+=ch; continue;}   // 32 space, 160 nbsp: glyph separators, kept
+      a+='<span class="tla-alien" title="'+esc(base+(lw?' — '+lw+' '+ch.toUpperCase():''))+'">'+esc(ch)+'</span>';
+    }
+    s=a;
+  }
+  if(r.bold)s='<strong>'+s+'</strong>';
+  if(r.italic)s='<em>'+s+'</em>';
   return s;
 }
 /* suppressNew: inside an entry that is itself brand new, every run would be
@@ -226,7 +266,22 @@ function blocksHTML(blocks,suppressNew,noFaq){
   var h='',i=0;
   while(i<blocks.length){
     var b=blocks[i];
-    if(b.type==='bullet'){
+    if(b.ada){
+      var adaNote=b.note;
+      h+='<div class="tla-adaitem"'+(b.id?' id="e-'+esc(b.id)+'"':'')+'>'+adaTagHTML(b.ada)+'<p class="tla-p">'+runsHTML(b.runs,suppressNew)+'</p>'; i++;
+      /* An addition's own bullet list (emitted by apply_ada as plain bullet blocks right after
+         the head) is drawn INSIDE its box — same <ul> the rest of the site uses. */
+      if(i<blocks.length && blocks[i].type==='bullet' && !blocks[i].ada){
+        h+='<ul class="tla-bul">';
+        while(i<blocks.length && blocks[i].type==='bullet' && !blocks[i].ada){
+          h+='<li class="'+(blocks[i].level===2?'l2':'l1')+'">'+runsHTML(blocks[i].runs,suppressNew)+'</li>'; i++;
+        }
+        h+='</ul>';
+      }
+      /* An editorial note, e.g. why a parallel-scenario card is left in English. */
+      if(adaNote)h+='<p class="tla-adaitem-note">'+esc(adaNote)+'</p>';
+      h+='</div>';
+    } else if(b.type==='bullet'){
       h+='<ul class="tla-bul">';
       while(i<blocks.length && blocks[i].type==='bullet'){
         h+='<li class="'+(blocks[i].level===2?'l2':'l1')+'">'+runsHTML(blocks[i].runs,suppressNew)+'</li>'; i++;
@@ -236,6 +291,41 @@ function blocksHTML(blocks,suppressNew,noFaq){
     else { h+='<p class="tla-p">'+runsHTML(b.runs,suppressNew)+'</p>'+(noFaq?'':faqLink(plainOfRuns(b.runs))); i++; }
   }
   return h;
+}
+/* Archivos de Arkham (archivosarkham.com) contributes contrasted additions to the FAQ. Each is
+   flagged in place with a credit + link; a general banner sits at the top of the FAQ (adaBannerHTML).
+   The credit (name/url) rides on each block's `ada`; only Spanish carries these for now. */
+function adaTagHTML(a){
+  /* Most additions credit Archivos de Arkham; one reconstructed elsewhere carries its own logo
+     (a.logo) — e.g. Rincón Miskatonic for the Norman/Carolyn deck-building options. */
+  return '<div class="tla-adatag"><img class="tla-adatag-logo" src="'+esc(a.logo||'assets/img/archivos-de-arkham-logo-libro.png')+'" alt="" width="18" height="18" loading="lazy" decoding="async">'
+    +'<span class="tla-adatag-t">'+esc(t('adaby'))+'</span> '
+    +'<a class="tla-adatag-go" href="'+esc(a.url)+'" target="_blank" rel="noopener">'+esc(a.name)+' <span aria-hidden="true">↗</span></a>'
+    +(a.ver?' <span class="tla-adatag-v">'+esc(a.ver)+'</span>':'')
+    /* Which campaign a guide-errata addition belongs to (only guide errata carry this). */
+    +(a.campaign?' <span class="tla-adatag-camp">'+esc(a.campaign)+'</span>':'')
+    +'</div>';
+}
+/* One community credit inside the banner: its (larger) logo, a link to its site, and a link to
+   download the original resources it published. */
+function adaSourceHTML(logo, name, url, dl){
+  return '<div class="tla-adabanner-src">'
+    +'<img class="tla-adabanner-logo" src="'+esc(logo)+'" alt="" width="48" height="48" loading="lazy" decoding="async">'
+    +'<div class="tla-adabanner-links">'
+    +'<a class="tla-adabanner-go" href="'+esc(url)+'" target="_blank" rel="noopener">'+rmName(name)+' <span aria-hidden="true">↗</span></a>'
+    +(dl?'<a class="tla-adabanner-dl" href="'+esc(dl)+'" target="_blank" rel="noopener">'+esc(t('adadl'))+' <span aria-hidden="true">↓</span></a>':'')
+    +'</div></div>';
+}
+/* The banner that introduces the community additions, shown right under the "New entries" heading.
+   Both contributing communities are credited — Archivos de Arkham and Rincón Miskatonic — each with
+   its own logo and a download link to its original resources. */
+function adaBannerHTML(a){
+  return '<aside class="tla-adabanner" role="note">'
+    +'<p class="tla-adabanner-t">'+esc(t('adanote'))+'</p>'
+    +'<div class="tla-adabanner-srcs">'
+    +adaSourceHTML('assets/img/archivos-de-arkham-logo-libro.png', a.name, a.url||ADA_SITE, ADA_DL)
+    +adaSourceHTML('assets/rincon-logo.png', 'Rincón Miskatonic', RM_SITE, '')
+    +'</div></aside>';
 }
 /* The PDF shows a QR code to the retired-FAQ document after a sentence ending in
    a colon; render a real link instead. Which sentence that is depends on the
@@ -269,7 +359,7 @@ function faqLink(txt){
     +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 3h7v7"/><path d="M21 3l-9 9"/><path d="M19 14v5a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5"/></svg>'
     +esc(t('faqlabel'))+'</a>';
 }
-function plainOfRuns(runs,L){var s='';for(var i=0;i<runs.length;i++){s+=runs[i].kind==='text'||runs[i].kind==='link'?runs[i].t:(' '+(pick(L||lang,'icons',runs[i].name)||'')+' ');}return s;}
+function plainOfRuns(runs,L){var s='';for(var i=0;i<runs.length;i++){var r=runs[i];s+=(r.t!=null)?r.t:(' '+(pick(L||lang,'icons',r.name)||'')+' ');}return s;}
 function plainOfBlocks(blocks,L){return blocks.map(function(b){return plainOfRuns(b.runs,L);}).join(' ');}
 function titleHTML(e){return e.titleRuns?runsHTML(e.titleRuns,true):esc(e.title);}
 /* Same title with its links flattened, for a nav button or a contents link (see runsHTML). */
@@ -819,7 +909,7 @@ function mergeFaq(g, faq){
   var li=latestInfo(faq);
   if(li && !fsecs.some(function(x){return x.id==='faq-novedades';})){
     fsecs.unshift({num:'',key:'faq-whatsnew',id:'faq-novedades',kind:'whatsnew',group:'chapter1',
-      corpus:'faq1',title:pick(g.lang,'strings','news')||'What\'s New',ver:li,
+      corpus:'faq1',title:pick(g.lang,'strings','news')||'What\'s New',ver:li,ada:faq.ada,
       corpusVersions:faq.versions,corpusWhatsnew:faq.whatsnew,intro:[],entries:[],figures:[]});
   }
   /* the FAQ shelf sits directly below the grimoire's */
@@ -3257,8 +3347,15 @@ function render(sid,eid,flash){
     bindTabooCards();
     [].forEach.call(elMain.querySelectorAll('.tla-subst'),substFilter);
     buildToc(s,ents);
-    if(eid){var el=document.getElementById('e-'+eid); if(el){el.scrollIntoView({block:'start'}); if(flash){el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}}}
+    if(eid){var el=document.getElementById('e-'+eid); if(el){
+      /* A search jump lands on the entry, but the match may be one block among many (a card in
+         the errata list). If we know what was searched, scroll to that block and highlight it. */
+      var hit=pendingFind&&pendingFind.length?scrollToMatch(el,pendingFind):null;
+      if(hit){hit.scrollIntoView({block:'center'}); hit.classList.remove('tla-hit');void hit.offsetWidth;hit.classList.add('tla-hit');}
+      else{el.scrollIntoView({block:'start'}); if(flash){el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}}
+    }}
     else{elMain.scrollTop=0;}
+    pendingFind=null;
     hideLoading();
   };
   /* The taboo gallery parses ~190 card faces and fits each to its box — 10-15 s of synchronous work
@@ -3338,11 +3435,16 @@ function renderWhatsNew(){
   h+='<div class="tla-vertabs" role="group" aria-label="'+esc(t('history'))+'">';
   vs.forEach(function(v){
     var n=wd.whatsnew[v.v], count=n['new'].length+n.updated.length;
-    h+='<button class="tla-vertab'+(cur&&v.v===cur.v?' active':'')+'" type="button" data-wnv="'+esc(v.v)+'"'
+    /* A version can carry an edition descriptor (the Spanish FAQ's AdA extension). When it does,
+       the chip reads inline "v · descriptor · date" — the same dot-separated shape as the origin
+       chip's "primera edición" — instead of the plain two-line version/date. */
+    var sep='<span class="tla-vertab-sep" aria-hidden="true">·</span>';
+    var inner=v.ed
+      ? '<span class="tla-vertab-v">v'+esc(v.v)+'</span>'+sep+'<span class="tla-vertab-ed">'+esc(v.ed)+'</span>'+sep+'<span class="tla-vertab-d">'+esc(fmtDate(v.date))+'</span>'
+      : '<span class="tla-vertab-v">v'+esc(v.v)+'</span><span class="tla-vertab-d">'+esc(fmtDate(v.date))+'</span>';
+    h+='<button class="tla-vertab'+(cur&&v.v===cur.v?' active':'')+(v.ed?' has-ed':'')+'" type="button" data-wnv="'+esc(v.v)+'"'
       +' aria-pressed="'+(!!cur&&v.v===cur.v)+'">'
-      +'<span class="tla-vertab-v">v'+esc(v.v)+'</span>'
-      +'<span class="tla-vertab-d">'+esc(fmtDate(v.date))+'</span>'
-      +'<span class="tla-vertab-n">'+count+'</span></button>';
+      +inner+'<span class="tla-vertab-n">'+count+'</span></button>';
   });
   var first=(wd.versions||[])[0];
   if(first && !wd.whatsnew[first.v]){
@@ -3352,9 +3454,14 @@ function renderWhatsNew(){
   h+='</div>';
 
   if(cur){
-    h+='<div class="tla-note">'+esc(t('newsintro'))+'</div>';
-    if(wn['new'].length){h+='<h2 class="tla-wnh"><span class="tla-vbadge new">'+esc(t('newbadge'))+'</span> '+esc(t('newentries'))+' <span class="tla-wncount">'+wn['new'].length+'</span></h2>'
-      +'<p class="tla-wnhelp">'+esc(t('newhelp').replace('{v}',cur.v))+'</p>'+wnList(wn['new'],'new');}
+    /* Same What's New machinery serves both shelves, but the copy names the document — the FAQ
+       chapter must not call itself "the Grimoire". Corpus picks the right line. */
+    h+='<div class="tla-note">'+esc(t(wd.corpus==='faq1'?'newsintrofaq':'newsintro'))+'</div>';
+    if(wn['new'].length){h+='<h2 class="tla-wnh"><span class="tla-vbadge new">'+esc(t('newbadge'))+'</span> '+esc(t('newentries'))+' <span class="tla-wncount">'+wn['new'].length+'</span></h2>';
+      /* The community credit sits directly UNDER the "New entries" heading, saying those entries
+         come from Archivos de Arkham / Rincón Miskatonic. Shown only on the AdA extension version. */
+      if(cur.ed&&curSec&&curSec.ada)h+=adaBannerHTML(curSec.ada);
+      h+='<p class="tla-wnhelp">'+esc(t('newhelp').replace('{v}',cur.v))+'</p>'+wnList(wn['new'],'new');}
     if(wn.updated.length){h+='<h2 class="tla-wnh"><span class="tla-vbadge upd">'+esc(t('updbadge'))+'</span> '+esc(t('updentries'))+' <span class="tla-wncount">'+wn.updated.length+'</span></h2>'
       +'<p class="tla-wnhelp">'+esc(t('updhelp').replace('{v}',cur.v))+'</p>'+wnList(wn.updated,'upd');}
   }
@@ -3376,17 +3483,23 @@ function renderWhatsNew(){
 function wnList(items,cls){
   var by={}, order=[];
   items.forEach(function(it){
-    var k=it.sid||it.sec||'?';
-    if(!by[k]){by[k]={items:[], sec:it.sec, num:it.num}; order.push(k);}
+    /* Group by SUBSECTION when the item carries one (the FAQ errata split into reglamento /
+       guía / cartas), else by section — so "Notas y fe de erratas" opens into its three real
+       subsections instead of one lump. */
+    var k=(it.sub!=null?it.sid+'|'+it.sub:(it.sid||it.sec||'?'));
+    if(!by[k]){by[k]={items:[], sec:it.sec, num:it.num, sub:it.sub, ord:(it.suborder!=null?it.suborder:999)}; order.push(k);}
     by[k].items.push(it);
   });
+  /* Stable sort keeps section-only groups (all ord=999) in arrival order and files the
+     subsections in their canonical reglamento→guía→cartas order. */
+  order.sort(function(a,b){return by[a].ord-by[b].ord;});
   var h='';
   order.forEach(function(k){
-    var g=by[k], n=g.items.length;
+    var g=by[k], n=g.items.length, title=g.sub||g.sec;
     h+='<details class="tla-wngrp">';
     h+='<summary class="tla-wngrp-s">'
-      +(g.num?('<span class="tla-wngrp-n">'+esc(g.num)+'</span>'):'<span class="tla-wngrp-n">•</span>')
-      +'<span class="tla-wngrp-t">'+esc(g.sec)+'</span>'
+      +(g.num&&!g.sub?('<span class="tla-wngrp-n">'+esc(g.num)+'</span>'):'<span class="tla-wngrp-n">•</span>')
+      +'<span class="tla-wngrp-t">'+esc(title)+'</span>'
       +'<span class="tla-wngrp-c '+cls+'">'+n+' '+esc(plural('entries',n))+'</span></summary>';
     h+='<div class="tla-wngrid">';
     g.items.forEach(function(it){
@@ -3424,9 +3537,10 @@ function rmPanel(){
    third thing. The keys are the fixed vocabulary every pack already agrees on
    (langpack.SECTION_KEYS), so this needs no translation and no pack changes. */
 var FLAGS=[
-  {id:'relevant',    keys:['whatsnew','glossary','errata-viewer','faq-errata']},
+  {id:'relevant',    keys:['whatsnew','faq-whatsnew','glossary','faq-errata']},
   {id:'recommended', keys:['timing','skill-tests','errata','faq','faq-questions']},
-  {id:'extra',       keys:['ultimatums','taboos']}
+  {id:'extra',       keys:['ultimatums','taboos']},
+  {id:'soon',        keys:['errata-viewer','faq-encounters']}
 ];
 function flagOf(s2){
   for(var i=0;i<FLAGS.length;i++){ if(FLAGS[i].keys.indexOf(s2.key)>=0)return FLAGS[i].id; }
@@ -3654,9 +3768,27 @@ function syncHash(cur){
 
 /* ---------- routing (URL hash = single source of truth) ---------- */
 var lastFlash=false;
+var pendingFind=null, curSrchTerms=null;   // last search terms; pendingFind = scroll-to after a jump
+/* The block inside `root` that best matches the query — the one containing the MOST distinct
+   terms (returning early on a full match) — so a multi-word search lands on the card/paragraph
+   where the words appear TOGETHER, not the first block with a stray common word like "of".
+   Falls back to null (entry top) when nothing matches. */
+function scrollToMatch(root,terms){
+  var els=root.querySelectorAll('.tla-adaitem,p,li,h2,h3,dd,dt,td,th,blockquote,summary');
+  var real=[]; for(var ti=0;ti<terms.length;ti++){if(terms[ti])real.push(terms[ti]);}
+  if(!real.length)return null;
+  var best=null,bestCnt=0;
+  for(var i=0;i<els.length;i++){var txt=norm(els[i].textContent||''),cnt=0;
+    for(var j=0;j<real.length;j++){if(txt.indexOf(real[j])>=0)cnt++;}
+    if(cnt>bestCnt){bestCnt=cnt;best=els[i]; if(cnt===real.length)break;}}
+  return bestCnt>0?best:null;
+}
 function findEntry(L,eid){
   var g=GRIM[L]; for(var i=0;i<g.sections.length;i++){var s=g.sections[i]; if(s.id===eid)return{sid:s.id,eid:null};
-    for(var j=0;j<(s.entries||[]).length;j++){if(s.entries[j].id===eid)return{sid:s.id,eid:eid};}}
+    for(var j=0;j<(s.entries||[]).length;j++){var e=s.entries[j]; if(e.id===eid)return{sid:s.id,eid:eid};
+      /* a block-level anchor (e.g. an Archivos de Arkham addition) so What's New can land on the
+         exact item, not just its subsection — the block renders with the same e-<id> convention */
+      var bl=e.blocks||[]; for(var k=0;k<bl.length;k++){if(bl[k].id===eid)return{sid:s.id,eid:eid};}}}
   return null;
 }
 function regOf(L){for(var i=0;i<LANGS.length;i++){if(LANGS[i].code===L)return LANGS[i];}return null;}
@@ -4025,6 +4157,7 @@ function applySugg(q){elQ.value=q; try{elQ.focus();}catch(e){} toggleClear(); se
 function search(q){
   q=norm(q.trim()); if(q.length<2){showSuggestions();return;}
   var terms=q.split(/\s+/), arr=searchIndex[lang], by={};
+  curSrchTerms=terms;   // remembered so a result click can scroll to the matching block
   for(var i=0;i<arr.length;i++){var it=arr[i]; var hayT=norm(it.title), hayX=norm(it.text);
     var score=0,ok=true;
     for(var ti=0;ti<terms.length;ti++){var tm=terms[ti];
@@ -4042,15 +4175,52 @@ function search(q){
   });
   renderResults(groups,terms);
 }
-function hl(text,terms){
-  var out=esc(text);
-  terms.forEach(function(tm){if(!tm)return; var re=new RegExp('('+tm.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig');
-    out=out.replace(re,'<mark>$1</mark>');});
-  return out;
+/* Normalize character-by-character, keeping a map from every normalized-char index back to the
+   index of the ORIGINAL char that produced it. Terms are matched against `n` (accent- and
+   case-insensitive, same rule as norm()), then the hit is drawn on the original text via `map`
+   — so "profecia" highlights "Profecía". map has a trailing sentinel (= text.length). */
+function normMap(s){
+  s=s||''; var n='',map=[];
+  for(var i=0;i<s.length;i++){
+    var c=s[i].toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+    for(var j=0;j<c.length;j++){n+=c[j]; map.push(i);}
+  }
+  map.push(s.length);
+  return {n:n,map:map};
 }
+/* All hits of every term in `text`, as [start,end) ranges in ORIGINAL coordinates, sorted. */
+function termHits(text,terms){
+  var nm=normMap(text), n=nm.n, map=nm.map, hits=[];
+  for(var ti=0;ti<terms.length;ti++){var tm=terms[ti]; if(!tm)continue;
+    var from=0,p; while((p=n.indexOf(tm,from))>=0){hits.push({s:map[p],e:map[p+tm.length],ti:ti,np:p}); from=p+tm.length;}}
+  hits.sort(function(a,b){return a.s-b.s;});
+  return hits;
+}
+function hl(text,terms){
+  var hits=termHits(text,terms); if(!hits.length)return esc(text);
+  var merged=[]; for(var i=0;i<hits.length;i++){var h=hits[i];
+    if(merged.length&&h.s<=merged[merged.length-1][1]){var last=merged[merged.length-1]; if(h.e>last[1])last[1]=h.e;}
+    else merged.push([h.s,h.e]);}
+  var out='',pos=0;
+  for(var k=0;k<merged.length;k++){var m=merged[k];
+    out+=esc(text.slice(pos,m[0]))+'<mark>'+esc(text.slice(m[0],m[1]))+'</mark>'; pos=m[1];}
+  return out+esc(text.slice(pos));
+}
+/* A 160-char window over the best CLUSTER of terms, not the first stray one: for a multi-word
+   query on a long errata blob, this lands on the run where the words appear together (all of
+   "relics of the past"), not on an early lone "of". Ranked by distinct terms in the window,
+   then tightest span. */
 function snippet(text,terms){
-  var nt=norm(text),pos=-1; for(var i=0;i<terms.length;i++){var p=nt.indexOf(terms[i]); if(p>=0&&(pos<0||p<pos))pos=p;}
-  if(pos<0)pos=0; var st=Math.max(0,pos-40); var frag=text.slice(st,st+160); if(st>0)frag='…'+frag; return frag;
+  var WIN=160, hits=termHits(text,terms);
+  if(!hits.length){var f0=text.slice(0,WIN); return text.length>WIN?f0+'…':f0;}
+  var best=hits[0],bestCnt=0,bestSpan=1e9;
+  for(var i=0;i<hits.length;i++){var lo=hits[i].s,hi=lo+WIN,seen={},cnt=0,maxEnd=lo;
+    for(var j=i;j<hits.length&&hits[j].s<hi;j++){if(!seen[hits[j].ti]){seen[hits[j].ti]=1;cnt++;} if(hits[j].e>maxEnd)maxEnd=hits[j].e;}
+    var span=maxEnd-lo;
+    if(cnt>bestCnt||(cnt===bestCnt&&span<bestSpan)){bestCnt=cnt;bestSpan=span;best=hits[i];}}
+  var st=Math.max(0,best.s-40), frag=text.slice(st,st+WIN);
+  if(st>0)frag='…'+frag; if(st+WIN<text.length)frag=frag+'…';
+  return frag;
 }
 /* `groups` = [{label, items:[{it,score}]}], already split by corpus. The result rows keep
    ONE flat id sequence (tla-res-0, tla-res-1, …) across every group so keyboard navigation
@@ -4681,7 +4851,7 @@ function wireEvents(){
   elRes.addEventListener('click',function(e){
     if(e.target.closest('[data-suggclear]')){clearSearches(); showSuggestions(); return;}
     var s=e.target.closest('.tla-sugg'); if(s){applySugg(s.getAttribute('data-q')); return;}
-    var r=e.target.closest('.tla-res'); if(r){recordSearch(r.getAttribute('data-title')); gotoTarget(r.getAttribute('data-eid'),true); closeSearch();}
+    var r=e.target.closest('.tla-res'); if(r){recordSearch(r.getAttribute('data-title')); pendingFind=curSrchTerms; gotoTarget(r.getAttribute('data-eid'),true); closeSearch();}
   });
   if(elSClear)elSClear.addEventListener('click',function(){elQ.value=''; try{elQ.focus();}catch(e){} toggleClear(); showSuggestions();});
   elSOpen.addEventListener('click',openSearch);
@@ -4744,7 +4914,7 @@ function wireEvents(){
       var items=elRes.querySelectorAll('.tla-res, .tla-sugg'); var chosen=items[resSel<0?0:resSel];
       if(chosen){
         if(chosen.classList.contains('tla-sugg')){applySugg(chosen.getAttribute('data-q'));}
-        else {recordSearch(chosen.getAttribute('data-title')); gotoTarget(chosen.getAttribute('data-eid'),true); closeSearch();}
+        else {recordSearch(chosen.getAttribute('data-title')); pendingFind=curSrchTerms; gotoTarget(chosen.getAttribute('data-eid'),true); closeSearch();}
       }}
   });
   document.addEventListener('keydown',function(e){

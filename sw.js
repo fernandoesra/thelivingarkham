@@ -15,7 +15,7 @@
    BUMP SW_VERSION on every release (see tools/other/instructions.md §7): it renames the shell
    cache, so activate() drops the old one and the new shell/text is served. */
 
-const SW_VERSION = '1.4.0';
+const SW_VERSION = '1.5.0';
 const SHELL = 'tla-shell-' + SW_VERSION;   // shell + read/downloaded text, replaced each version
 // Images are cache-first and, being immutable per URL, are kept across versions — a plain
 // SW_VERSION bump does NOT drop them, so offline images survive text-only releases. Bump
@@ -39,7 +39,9 @@ self.addEventListener('install', function (e) {
     await Promise.all(urls.map(function (u) {
       return cache.add(new Request(u, { cache: 'no-cache' })).catch(function () {});
     }));
-    self.skipWaiting();
+    // NOT skipWaiting here: a freshly-installed update WAITS until the page asks it to take over
+    // ({type:'skipWaiting'} below). The page decides WHEN — silently while it is hidden, or the
+    // moment the reader returns to it — so an update never reloads the page mid-read.
   })());
 });
 
@@ -160,6 +162,9 @@ async function cacheStatus(client) {
 self.addEventListener('message', function (e) {
   const d = e.data;
   if (!d) return;
+  // The page asks a freshly-installed update to take over now (it then fires activate ->
+  // clients.claim -> the page's controllerchange -> one reload onto the new version).
+  if (d.type === 'skipWaiting') { self.skipWaiting(); return; }
   if (d.type === 'cache') e.waitUntil(cacheBulk(d.what === 'all' ? 'all' : 'rules', e.source));
   else if (d.type === 'status') e.waitUntil(cacheStatus(e.source));
 });

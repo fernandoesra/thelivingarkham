@@ -268,8 +268,9 @@ def resolve(sections, code, quiet=False):
     # Pass 1 — name + number. An unambiguous hit also votes for what its icon means.
     votes, packvotes, pending = {}, {}, []
     for run, nums, icons in refs:
-        if run.get('code'):
-            continue                               # already answered by hand (tools/card_links.json)
+        if run.get('code') or run.get('href'):
+            continue                               # already answered by hand, or pinned to an
+                                                   # explicit external link (faq_ada href)
         if not nums:
             # Cited by name and mark alone. Nothing to look up here, but the mark names a
             # campaign, so pass 2 still has something to go on.

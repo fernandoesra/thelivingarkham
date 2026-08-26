@@ -16,6 +16,7 @@ assets/templates/
 # The folders themselves stay in the repo, each with a README saying which file belongs there.
 langs/*/source/*.pdf
 langs/*/source_faq/*.pdf
+langs/*/source_encounter_ch1/*.pdf
 # scratch renders from tools/inspect_pdf.py --grid
 assets/img/_inspect-*.png
 # test output

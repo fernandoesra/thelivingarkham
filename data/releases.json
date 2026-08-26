@@ -1,5 +1,99 @@
 [
   {
+    "v": "1.5.0",
+    "date": "2026-08-25",
+    "i18n": {
+      "es": {
+        "title": "Novedades y añadidos del FAQ",
+        "items": [
+          "**Novedades por documento**: la sección de Novedades ahora distingue el Grimorio del FAQ, para que cada uno muestre sus propios cambios según van creciendo.",
+          "**El FAQ del capítulo 1 se amplía con Archivos de Arkham** (en español): añade las aportaciones de esa comunidad que el FAQ oficial de FFG no recoge (v2.5A) —contrastadas frente al oficial para no repetir lo que ya teníamos—, cada una señalada, acreditada con enlace a su web y enlazada a la carta en ArkhamDB.",
+          "**Buscador**: ahora encuentra los nombres de carta dentro de las erratas del FAQ."
+        ]
+      },
+      "en": {
+        "title": "FAQ news and additions",
+        "items": [
+          "**Per-document What's New**: the What's New section now separates the Grimoire from the chapter 1 FAQ, so each shows its own changes as they grow.",
+          "**The chapter 1 FAQ expands with Archivos de Arkham** (in Spanish): it adds this community's contributions that FFG's official FAQ doesn't already cover (v2.5A) —cross-checked against the official one so nothing is repeated—, each one flagged, credited with a link to their site, and linked to the card on ArkhamDB.",
+          "**Search**: it now finds card names inside the FAQ errata."
+        ]
+      },
+      "de": {
+        "title": "FAQ: Neuigkeiten und Ergänzungen",
+        "items": [
+          "**Neuigkeiten pro Dokument**: Der Neuigkeiten-Bereich trennt jetzt das Grimoire vom Kapitel-1-FAQ, damit jedes seine eigenen Änderungen zeigt, während sie wachsen.",
+          "**Das Kapitel-1-FAQ wächst mit Archivos de Arkham** (auf Spanisch): Es ergänzt die Beiträge dieser Community, die im offiziellen FFG-FAQ noch fehlen (v2.5A) – gegen das offizielle abgeglichen, damit nichts doppelt vorkommt –, jeder gekennzeichnet, mit Link zu ihrer Seite und zur Karte auf ArkhamDB.",
+          "**Suche**: Sie findet jetzt Kartennamen innerhalb der FAQ-Errata."
+        ]
+      },
+      "it": {
+        "title": "Novità e aggiunte del FAQ",
+        "items": [
+          "**Novità per documento**: la sezione Novità ora distingue il Grimorio dal FAQ del capitolo 1, così ciascuno mostra i propri cambiamenti man mano che crescono.",
+          "**Il FAQ del capitolo 1 si amplia con Archivos de Arkham** (in spagnolo): aggiunge i contributi di quella comunità che il FAQ ufficiale di FFG non copre già (v2.5A) —confrontati con quello ufficiale per non ripetere ciò che avevamo già—, ciascuno segnalato, accreditato con link al loro sito e collegato alla carta su ArkhamDB.",
+          "**Ricerca**: ora trova i nomi delle carte all'interno delle errata del FAQ."
+        ]
+      },
+      "fr": {
+        "title": "Nouveautés et ajouts de la FAQ",
+        "items": [
+          "**Nouveautés par document** : la section Nouveautés sépare désormais le Grimoire de la FAQ du chapitre 1, pour que chacun montre ses propres changements au fil de leur évolution.",
+          "**La FAQ du chapitre 1 s'enrichit avec Archivos de Arkham** (en espagnol) : elle ajoute les contributions de cette communauté que la FAQ officielle de FFG ne couvre pas déjà (v2.5A) —vérifiées face à l'officielle pour ne rien répéter—, chacune signalée, créditée avec un lien vers leur site et reliée à la carte sur ArkhamDB.",
+          "**Recherche** : elle trouve désormais les noms de cartes dans les errata de la FAQ."
+        ]
+      },
+      "pt": {
+        "title": "Novidades e adições do FAQ",
+        "items": [
+          "**Novidades por documento**: a secção de Novidades passa a distinguir o Grimório do FAQ do capítulo 1, para que cada um mostre as suas próprias mudanças à medida que crescem.",
+          "**O FAQ do capítulo 1 amplia-se com Archivos de Arkham** (em espanhol): acrescenta as contribuições dessa comunidade que o FAQ oficial da FFG ainda não cobre (v2.5A) —comparadas com o oficial para não repetir o que já tínhamos—, cada uma assinalada, creditada com ligação ao seu site e ligada à carta no ArkhamDB.",
+          "**Pesquisa**: passa a encontrar os nomes das cartas dentro das erratas do FAQ."
+        ]
+      },
+      "pl": {
+        "title": "Nowości i dodatki do FAQ",
+        "items": [
+          "**Nowości według dokumentu**: sekcja Nowości oddziela teraz Grimuar od FAQ rozdziału 1, aby każdy pokazywał własne zmiany w miarę ich przybywania.",
+          "**FAQ rozdziału 1 rozrasta się z Archivos de Arkham** (po hiszpańsku): dodaje wkład tej społeczności, którego nie ma jeszcze w oficjalnym FAQ FFG (v2.5A) — porównany z oficjalnym, by nic nie powtarzać — każdy oznaczony, z odnośnikiem do ich strony i do karty w ArkhamDB.",
+          "**Wyszukiwarka**: teraz znajduje nazwy kart w erratach FAQ."
+        ]
+      },
+      "ru": {
+        "title": "Новости и дополнения FAQ",
+        "items": [
+          "**Новости по документам**: раздел «Новости» теперь разделяет «Гримуар» и FAQ главы 1, чтобы каждый показывал свои изменения по мере их появления.",
+          "**FAQ главы 1 расширяется вместе с Archivos de Arkham** (на испанском): добавлены материалы этого сообщества, которых ещё нет в официальном FAQ FFG (v2.5A) — сверенные с официальным, чтобы не повторяться, — каждый отмечен, со ссылкой на их сайт и на карту в ArkhamDB.",
+          "**Поиск**: теперь находит названия карт внутри errata FAQ."
+        ]
+      },
+      "uk": {
+        "title": "Новини та доповнення FAQ",
+        "items": [
+          "**Новини за документами**: розділ «Новини» тепер розділяє «Гримуар» і FAQ розділу 1, щоб кожен показував власні зміни в міру їх появи.",
+          "**FAQ розділу 1 розширюється разом з Archivos de Arkham** (іспанською): додано матеріали цієї спільноти, яких ще немає в офіційному FAQ FFG (v2.5A) — звірені з офіційним, щоб не повторюватися, — кожен позначений, із посиланням на їхній сайт і на карту в ArkhamDB.",
+          "**Пошук**: тепер знаходить назви карт усередині errata FAQ."
+        ]
+      },
+      "ko": {
+        "title": "FAQ 새 소식과 추가",
+        "items": [
+          "**문서별 새 소식**: 새 소식 섹션이 이제 그리모어와 1장 FAQ를 구분하여, 각자 늘어나는 변경 사항을 따로 보여 줍니다.",
+          "**1장 FAQ가 Archivos de Arkham과 함께 확장됩니다**(스페인어): FFG 공식 FAQ에 아직 없는 이 커뮤니티의 기여 내용을 추가합니다(v2.5A). 중복을 피하려고 공식 FAQ와 대조했으며, 각 항목은 표시되고 그들의 사이트 링크와 ArkhamDB 카드 링크가 함께 제공됩니다.",
+          "**검색**: 이제 FAQ 정오표 안의 카드 이름을 찾습니다."
+        ]
+      },
+      "zh": {
+        "title": "FAQ 新增与补充",
+        "items": [
+          "**按文档分列的更新**：更新区块现在区分《魔典》和第一章 FAQ，让两者各自展示随时间增加的改动。",
+          "**第一章 FAQ 与 Archivos de Arkham 一同扩充**（西班牙语）：补充该社群中官方 FFG FAQ 尚未收录的内容（v2.5A）——已与官方对照以避免重复——每条都有标注，并附上其网站链接和 ArkhamDB 卡牌链接。",
+          "**搜索**：现在能在 FAQ 勘误中找到卡牌名称。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.4.0",
     "date": "2026-08-03",
     "i18n": {

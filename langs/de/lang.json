@@ -262,6 +262,15 @@
     },
     {
       "num": "",
+      "key": "faq-encounters",
+      "id": "begegnungssets-kapitel-1",
+      "title": "Begegnungssets aus Kapitel 1",
+      "kind": "placeholder",
+      "group": "resources",
+      "figures": []
+    },
+    {
+      "num": "",
       "key": "ultimatums",
       "id": "ultimaten-refraktionen",
       "title": "Ultimaten, Gaben und Refraktionen",

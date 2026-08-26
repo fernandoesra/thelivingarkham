@@ -33,8 +33,8 @@ DEFAULT_LANG = 'es'
 SECTION_KEYS = [
     'glossary', 'additional-rules', 'timing', 'skill-tests', 'initiation', 'setup',
     'card-anatomy', 'campaign', 'deck-building', 'errata', 'faq', 'optional-rules',
-    'reprints', 'icon-reference', 'encounter-icons', 'errata-viewer', 'ultimatums',
-    'taboos', 'encounter-variation', 'quick-reference',
+    'reprints', 'icon-reference', 'encounter-icons', 'errata-viewer', 'faq-encounters',
+    'ultimatums', 'taboos', 'encounter-variation', 'quick-reference',
 ]
 
 # What the site files a section under. The site is growing past the book — some of what

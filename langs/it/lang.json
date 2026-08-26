@@ -269,6 +269,15 @@
     },
     {
       "num": "",
+      "key": "faq-encounters",
+      "id": "set-incontri-capitolo-1",
+      "title": "Set di incontri del capitolo 1",
+      "kind": "placeholder",
+      "group": "resources",
+      "figures": []
+    },
+    {
+      "num": "",
       "key": "ultimatums",
       "id": "ultimatum-rifrazioni",
       "title": "Ultimatum, Favori e Rifrazioni",

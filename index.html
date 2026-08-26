@@ -336,19 +336,43 @@
      load so it never delays first paint; failures are silent (the site works fine without it). */
   if ('serviceWorker' in navigator) {
     addEventListener('load', function () {
-      /* When a newly deployed service worker takes control, the page is still showing the files the
-         OLD one cached — and a normal reload hits that cache too, so only a hard-refresh (which the
-         reader has no way of knowing to do) would reveal the update. Instead, reload once ourselves
-         the moment the new worker takes over. Guarded to fire only on a real UPDATE (a controller
-         already existed — never the first-ever install) and only once. */
-      if (navigator.serviceWorker.controller) {
+      var sw = navigator.serviceWorker, pendingReg = null;
+      /* When a newly deployed worker takes control, the page still shows the files the OLD one
+         cached — and a normal reload hits that cache too, so only a hard-refresh (which the reader
+         cannot know to do) would reveal the update. So reload once ourselves the moment the new
+         worker takes over. Guarded to fire only on a real UPDATE (a controller already existed —
+         never the first-ever install) and only once. */
+      if (sw.controller) {
         var reloaded = false;
-        navigator.serviceWorker.addEventListener('controllerchange', function () {
+        sw.addEventListener('controllerchange', function () {
           if (reloaded) return; reloaded = true; location.reload();
         });
       }
-      navigator.serviceWorker.register('sw.js').then(function (reg) {
-        if (reg) reg.update().catch(function () {});   // check for a new version on arrival
+      function apply(reg) { if (reg.waiting) reg.waiting.postMessage({ type: 'skipWaiting' }); }
+      function onReady(reg) {
+        /* A new version is installed and waiting. Apply it WITHOUT interrupting reading: silently
+           if the page is hidden; otherwise offer a discreet toast and, either way, apply it the
+           next time the reader returns to the app. */
+        if (document.visibilityState === 'hidden') { apply(reg); return; }
+        pendingReg = reg;
+        if (window.tlaUpdateToast) { try { window.tlaUpdateToast(reg); } catch (e) {} }
+      }
+      sw.register('sw.js').then(function (reg) {
+        if (!reg) return;
+        if (reg.waiting && sw.controller) onReady(reg);          // an update was already waiting
+        reg.addEventListener('updatefound', function () {
+          var nw = reg.installing; if (!nw) return;
+          nw.addEventListener('statechange', function () {
+            if (nw.state === 'installed' && sw.controller) onReady(reg);
+          });
+        });
+        reg.update().catch(function () {});                                                  // check now,
+        setInterval(function () { reg.update().catch(function () {}); }, 30 * 60 * 1000);    // periodically,
+        document.addEventListener('visibilitychange', function () {                          // and on return
+          if (document.visibilityState !== 'visible') return;
+          if (pendingReg) { var r = pendingReg; pendingReg = null; apply(r); }   // auto-update on return
+          reg.update().catch(function () {});
+        });
       }).catch(function () {});
     });
   }
