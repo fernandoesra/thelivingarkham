@@ -1,5 +1,99 @@
 [
   {
+    "v": "1.5.2",
+    "date": "2026-08-31",
+    "i18n": {
+      "es": {
+        "title": "Descargas de tabú idénticas a la pantalla",
+        "items": [
+          "**Descargas de tabú fieles a la web:** los rótulos de tipo y de debilidad («TRAICIÓN», «DEBILIDAD»…) se exportan ahora en mayúsculas, centrados y con el espaciado correcto, y los rombos ◆ de la línea de rasgos salen del tamaño exacto (antes se veían más grandes en la descarga).",
+          "**Sin desbordes en la imagen descargada:** las palabras con guion que parten de línea y el recorte de los marcos se reproducen igual que en pantalla, de modo que el texto largo ya no se sale de su sitio en el archivo.",
+          "**Traseras de investigador corregidas en la descarga:** el reverso de creación de mazos (Rex, Lola, Mandy, Trish) se descargaba aún con una versión antigua de la foto que dejaba un margen pálido en el polaroid; ahora usa la imagen corregida, igual que en la web."
+        ]
+      },
+      "en": {
+        "title": "Taboo downloads that match the screen",
+        "items": [
+          "**Faithful taboo downloads:** the type and weakness banners (TREACHERY, WEAKNESS…) now export in uppercase, centred and correctly letter-spaced, and the ◆ diamonds on the traits line come out at the exact size (they used to look larger in the download).",
+          "**No overflow in the saved image:** hyphenated words that break across lines and the clipping of each frame are reproduced just as on screen, so long text no longer spills out of place in the file.",
+          "**Corrected investigator backs in the download:** the deck-building back (Rex, Lola, Mandy, Trish) was still downloading with an old version of the photo that left a pale margin around the polaroid; it now uses the corrected image, matching the web."
+        ]
+      },
+      "de": {
+        "title": "Tabu-Downloads wie auf dem Bildschirm",
+        "items": [
+          "**Originalgetreue Tabu-Downloads:** Die Typen- und Schwäche-Banner (VERRAT, SCHWÄCHE …) werden jetzt in Großbuchstaben, zentriert und mit korrektem Buchstabenabstand exportiert, und die ◆-Rauten der Merkmalszeile erscheinen in der exakten Größe (im Download wirkten sie zuvor größer).",
+          "**Kein Überlaufen im gespeicherten Bild:** Am Bindestrich umbrechende Wörter und das Beschneiden der Rahmen werden genau wie am Bildschirm wiedergegeben, sodass langer Text in der Datei nicht mehr aus seinem Feld ragt.",
+          "**Korrigierte Ermittler-Rückseiten im Download:** Die Deckbau-Rückseite (Rex, Lola, Mandy, Trish) wurde noch mit einer alten Fassung des Fotos heruntergeladen, die am Polaroid einen blassen Rand ließ; sie verwendet jetzt das korrigierte Bild wie im Web."
+        ]
+      },
+      "it": {
+        "title": "Download dei tabù identici allo schermo",
+        "items": [
+          "**Download dei tabù fedeli:** le fasce di tipo e debolezza (TRADIMENTO, DEBOLEZZA…) ora vengono esportate in maiuscolo, centrate e con la spaziatura corretta, e i rombi ◆ della riga dei tratti escono della dimensione esatta (nel download apparivano più grandi).",
+          "**Nessuna fuoriuscita nell’immagine salvata:** le parole con trattino che vanno a capo e il ritaglio delle cornici vengono riprodotti come sullo schermo, così il testo lungo non esce più dal suo spazio nel file.",
+          "**Retri degli investigatori corretti nel download:** il retro di costruzione del mazzo (Rex, Lola, Mandy, Trish) veniva ancora scaricato con una vecchia versione della foto che lasciava un margine chiaro attorno alla polaroid; ora usa l’immagine corretta, come nel sito."
+        ]
+      },
+      "fr": {
+        "title": "Téléchargements de tabous fidèles à l’écran",
+        "items": [
+          "**Téléchargements de tabous fidèles :** les bandeaux de type et de faiblesse (TRAÎTRISE, FAIBLESSE…) s’exportent désormais en majuscules, centrés et avec le bon interlettrage, et les losanges ◆ de la ligne de traits sortent à la taille exacte (ils paraissaient plus grands au téléchargement).",
+          "**Plus de débordement dans l’image enregistrée :** les mots à trait d’union qui passent à la ligne et le rognage de chaque cadre sont reproduits comme à l’écran, si bien que le texte long ne déborde plus de sa place dans le fichier.",
+          "**Dos d’investigateurs corrigés au téléchargement :** le dos de création de deck (Rex, Lola, Mandy, Trish) se téléchargeait encore avec une ancienne version de la photo laissant une marge pâle autour du polaroïd ; il utilise désormais l’image corrigée, comme sur le site."
+        ]
+      },
+      "pt": {
+        "title": "Transferências de tabu iguais ao ecrã",
+        "items": [
+          "**Transferências de tabu fiéis:** as faixas de tipo e de fraqueza (TRAIÇÃO, FRAQUEZA…) passam a exportar-se em maiúsculas, centradas e com o espaçamento correto, e os losangos ◆ da linha de traços saem no tamanho exato (na transferência pareciam maiores).",
+          "**Sem transbordo na imagem guardada:** as palavras com hífen que mudam de linha e o recorte das molduras são reproduzidos como no ecrã, pelo que o texto longo já não sai do lugar no ficheiro.",
+          "**Versos de investigador corrigidos na transferência:** o verso de construção de baralho (Rex, Lola, Mandy, Trish) ainda era transferido com uma versão antiga da foto que deixava uma margem clara à volta da polaroid; passa a usar a imagem corrigida, como no site."
+        ]
+      },
+      "pl": {
+        "title": "Pobrane tabu zgodne z ekranem",
+        "items": [
+          "**Wierne pobieranie tabu:** belki typu i słabości (ZDRADA, SŁABOŚĆ…) są teraz eksportowane wielkimi literami, wyśrodkowane i z poprawnym odstępem między literami, a romby ◆ w wierszu cech mają dokładny rozmiar (w pobranym pliku wyglądały na większe).",
+          "**Bez wychodzenia poza ramkę w zapisanym obrazie:** słowa dzielone łącznikiem przenoszone do nowego wiersza oraz przycinanie ramek są odwzorowane tak jak na ekranie, więc długi tekst nie wychodzi już poza swoje miejsce w pliku.",
+          "**Poprawione rewersy badaczy w pobieraniu:** rewers budowania talii (Rex, Lola, Mandy, Trish) pobierał się jeszcze ze starą wersją zdjęcia, która zostawiała jasny margines wokół polaroidu; teraz używa poprawionego obrazu, tak jak w witrynie."
+        ]
+      },
+      "ru": {
+        "title": "Скачивание табу — как на экране",
+        "items": [
+          "**Точные загрузки табу:** плашки типа и слабости (ПРЕДАТЕЛЬСТВО, СЛАБОСТЬ…) теперь экспортируются заглавными, по центру и с правильным межбуквенным интервалом, а ромбы ◆ в строке черт выходят точного размера (раньше в загрузке они выглядели крупнее).",
+          "**Без выхода за рамку в сохранённом изображении:** слова с переносом по дефису и обрезка рамок воспроизводятся так же, как на экране, поэтому длинный текст больше не вылезает за пределы в файле.",
+          "**Исправленные рубашки сыщиков при скачивании:** оборот для сборки колоды (Rex, Lola, Mandy, Trish) всё ещё скачивался со старой версией фото, оставлявшей бледную рамку вокруг полароида; теперь используется исправленное изображение, как на сайте."
+        ]
+      },
+      "uk": {
+        "title": "Завантаження табу — як на екрані",
+        "items": [
+          "**Точні завантаження табу:** плашки типу та слабкості (ЗРАДА, СЛАБКІСТЬ…) тепер експортуються великими літерами, по центру та з правильним міжлітерним інтервалом, а ромби ◆ у рядку рис виходять точного розміру (раніше в завантаженні вони здавалися більшими).",
+          "**Без виходу за рамку в збереженому зображенні:** слова з переносом через дефіс і обрізання рамок відтворюються так само, як на екрані, тож довгий текст більше не виходить за межі у файлі.",
+          "**Виправлені звороти дослідників у завантаженні:** зворот для збирання колоди (Rex, Lola, Mandy, Trish) досі завантажувався зі старою версією фото, що лишала бліду рамку навколо полароїда; тепер використовується виправлене зображення, як на сайті."
+        ]
+      },
+      "ko": {
+        "title": "화면과 똑같은 금기 카드 다운로드",
+        "items": [
+          "**정확한 금기 다운로드:** 유형 및 약점 배너(반역, 약점 등)가 이제 대문자로, 가운데 정렬되고 자간이 올바르게 내보내지며, 특성 줄의 ◆ 마름모가 정확한 크기로 나옵니다(이전에는 다운로드에서 더 크게 보였습니다).",
+          "**저장된 이미지에서 넘침 없음:** 하이픈에서 줄바꿈되는 단어와 각 테두리의 잘림이 화면과 똑같이 재현되어, 긴 텍스트가 파일에서 제자리를 벗어나지 않습니다.",
+          "**다운로드의 조사자 뒷면 수정:** 덱 구성 뒷면(Rex, Lola, Mandy, Trish)이 폴라로이드 주위에 옅은 여백을 남기는 예전 사진으로 다운로드되고 있었는데, 이제 웹과 동일하게 수정된 이미지를 사용합니다."
+        ]
+      },
+      "zh": {
+        "title": "与屏幕一致的禁忌卡下载",
+        "items": [
+          "**忠实的禁忌卡下载：**类型与弱点横幅（诡计、弱点等）现在以大写、居中并带正确字距导出，特征行的 ◆ 菱形也以精确尺寸呈现（此前在下载中显得偏大）。",
+          "**保存的图像不再溢出：**在连字符处换行的单词以及各边框的裁剪都与屏幕上完全一致地重现，因此长文本在文件中不再超出其位置。",
+          "**下载中的调查员卡背已修正：**牌组构建卡背（Rex、Lola、Mandy、Trish）此前下载时仍使用旧版照片，宝丽来照片周围留有浅色边缘；现在改用与网站一致的修正图像。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.5.1",
     "date": "2026-08-26",
     "i18n": {

@@ -15,14 +15,14 @@
    BUMP SW_VERSION on every release (see tools/other/instructions.md §7): it renames the shell
    cache, so activate() drops the old one and the new shell/text is served. */
 
-const SW_VERSION = '1.5.1';
+const SW_VERSION = '1.5.2';
 const SHELL = 'tla-shell-' + SW_VERSION;   // shell + read/downloaded text, replaced each version
 // Images are cache-first and, being immutable per URL, are kept across versions — a plain
 // SW_VERSION bump does NOT drop them, so offline images survive text-only releases. Bump
 // MEDIA_VERSION instead whenever a cached image's CONTENT changes at the SAME URL (a fixed card
 // or back): it renames the media cache, so activate() drops the stale one and the corrected
 // images are re-fetched fresh. (Raised to 2 in 1.2.2, after the Scorched Earth + back fixes.)
-const MEDIA_VERSION = '2';
+const MEDIA_VERSION = '3';
 const MEDIA = 'tla-media-' + MEDIA_VERSION;
 
 function isMedia(path) {

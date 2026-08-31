@@ -3015,6 +3015,25 @@ function tabooCardToBlob(card,mime,quality){
         X=function(px){return (px-cr.left)*sc;}; Y=function(py){return (py-cr.top)*sc;};
       }
       var iconJobs=[];
+      /* Clip a painted node to the nearest fixed box its CSS sets overflow:hidden on (name, subtitle,
+         type plaque, band, body, back name/sub). The web auto-fit only shrinks to a floor and then
+         lets the box CLIP the overspill; without this the export would draw that overspill in full,
+         spilling text past the banner/plaque/field edge and over the art. Returns true when it opened
+         a clip (the caller must ctx.restore() once). getBoundingClientRect is the exact box the browser
+         clips to — these boxes carry no padding/border, so the border-box rect is the clip box. */
+      var CLIP_BOXES=['tbc-name','tbc-sub','tbc-type','tbc-band','tbc-body','tbc-bname','tbc-bsub'];
+      function clipToBox(node){
+        var p=node.nodeType===3?node.parentElement:node;
+        for(;p&&p!==card;p=p.parentElement){
+          var pc=p.classList; if(!pc)continue;
+          for(var i=0;i<CLIP_BOXES.length;i++){ if(pc.contains(CLIP_BOXES[i])){
+            var b=p.getBoundingClientRect();
+            ctx.save(); ctx.beginPath(); ctx.rect(X(b.left),Y(b.top),b.width*sc,b.height*sc); ctx.clip();
+            return true;
+          } }
+        }
+        return false;
+      }
       /* One inline symbol: its own SVG mask, tinted with the element's colour, at its box. */
       function drawIcon(el){
         var cs=getComputedStyle(el), m=cs.maskImage||cs.webkitMaskImage||'';
@@ -3027,17 +3046,37 @@ function tabooCardToBlob(card,mime,quality){
             var tc=document.createElement('canvas'); tc.width=w; tc.height=h;
             var tx=tc.getContext('2d'); tx.drawImage(im,0,0,w,h);
             tx.globalCompositeOperation='source-in'; tx.fillStyle=tint; tx.fillRect(0,0,w,h);
-            ctx.drawImage(tc,X(r.left),Y(r.top)); res();
+            /* clip inside the onload: the draw happens after the walker finished, so the clip must be
+               opened and closed here around this icon's own drawImage, not at drawIcon-call time. */
+            var clipped=clipToBox(el);
+            ctx.drawImage(tc,X(r.left),Y(r.top));
+            if(clipped)ctx.restore();
+            res();
           };
           im.onerror=function(){res();}; im.src=url;
         }));
       }
-      /* The Spanish traits separator: a small rotated square in the text colour. */
+      /* The Spanish traits separator: a small rotated square in the text colour. The DOM element
+         is a .30em square that CSS already turns 45deg, so its getBoundingClientRect() is the box
+         of the ROTATED diamond (its width = side*sqrt2, the diagonal). We repaint it as a square
+         we rotate ourselves, so the painted side must be that box divided by sqrt2 (rad = box/2/sqrt2)
+         — dividing only by 2 rotates an already-diagonal length again and blows the diamond up ~41%. */
       function drawDiamond(el){
         var r=el.getBoundingClientRect(), cs=getComputedStyle(el);
-        var cx=X((r.left+r.right)/2), cy=Y((r.top+r.bottom)/2), rad=r.width*sc/2;
+        var cx=X((r.left+r.right)/2), cy=Y((r.top+r.bottom)/2), rad=r.width*sc/(2*Math.SQRT2);
+        var clipped=clipToBox(el);
         ctx.save(); ctx.translate(cx,cy); ctx.rotate(Math.PI/4);
         ctx.fillStyle=cs.backgroundColor||'#231f20'; ctx.fillRect(-rad,-rad,rad*2,rad*2); ctx.restore();
+        if(clipped)ctx.restore();
+      }
+      /* Match a CSS text-transform when redrawing a text node: the DOM keeps the source case, but the
+         type plaque ("Traición") and weakness banner render UPPERCASE via CSS. Drawing the raw node
+         value left it lower-case and, being narrower than the rendered caps, sitting off the centre. */
+      function cssCase(s,tt){
+        if(tt==='uppercase')return s.toUpperCase();
+        if(tt==='lowercase')return s.toLowerCase();
+        if(tt==='capitalize')return s.replace(/\S+/g,function(w){return w.charAt(0).toUpperCase()+w.slice(1);});
+        return s;
       }
       /* A run of text: drawn word by word at each word's own on-screen box, so the browser's
          wrapping is reproduced without re-wrapping. Bold/italic/colour/stroke come off the DOM. */
@@ -3046,19 +3085,47 @@ function tabooCardToBlob(card,mime,quality){
         var cs=getComputedStyle(parent);
         ctx.font=cs.fontStyle+' '+cs.fontWeight+' '+(parseFloat(cs.fontSize)*sc)+'px '+cs.fontFamily;
         ctx.fillStyle=cs.color; ctx.textBaseline='middle'; ctx.textAlign='left';
+        /* Mirror CSS letter-spacing: the type plaque and weakness/enemy bands track their letters
+           apart and centre the result, so without this the label exports tighter and left of centre.
+           Reset to 0px every call — the property is sticky on the context, and body text is 'normal'. */
+        if('letterSpacing' in ctx){var ls=cs.letterSpacing; ctx.letterSpacing=(ls&&ls!=='normal')?(parseFloat(ls)*sc)+'px':'0px';}
         var strokeW=parseFloat(cs.getPropertyValue('-webkit-text-stroke-width'))*sc||0;
         var strokeC=cs.getPropertyValue('-webkit-text-stroke-color')||'#000';
         var order=(cs.paintOrder||'').indexOf('stroke')===0;
+        var tt=cs.textTransform;
+        function paint(w,x,y){
+          if(strokeW>0&&order){ctx.lineJoin='round'; ctx.lineWidth=strokeW; ctx.strokeStyle=strokeC; ctx.strokeText(w,x,y);}
+          ctx.fillText(w,x,y);
+          if(strokeW>0&&!order){ctx.lineJoin='round'; ctx.lineWidth=strokeW; ctx.strokeStyle=strokeC; ctx.strokeText(w,x,y);}
+        }
+        var clipped=clipToBox(node);
         var text=node.nodeValue, re=/\S+/g, m;
         while((m=re.exec(text))){
           var range=document.createRange();
           range.setStart(node,m.index); range.setEnd(node,m.index+m[0].length);
           var rects=range.getClientRects(); if(!rects.length)continue;
-          var r=rects[0], x=X(r.left), y=Y((r.top+r.bottom)/2), w=m[0];
-          if(strokeW>0&&order){ctx.lineJoin='round'; ctx.lineWidth=strokeW; ctx.strokeStyle=strokeC; ctx.strokeText(w,x,y);}
-          ctx.fillText(w,x,y);
-          if(strokeW>0&&!order){ctx.lineJoin='round'; ctx.lineWidth=strokeW; ctx.strokeStyle=strokeC; ctx.strokeText(w,x,y);}
+          var w=cssCase(m[0],tt);
+          /* A single whitespace-delimited token can still wrap at an in-word break (a hyphen, en dash
+             or soft hyphen); the browser then reports one client rect per visual line. Paint each line's
+             fragment at its own box so the wrapped tail drops to the next line instead of overrunning
+             the first. (The transform-changed-length guard keeps the char indices aligned; wrapping
+             text is text-transform:none in practice, so this branch runs with w===m[0].) */
+          if(rects.length===1 || w.length!==m[0].length){
+            var r=rects[0]; paint(w,X(r.left),Y((r.top+r.bottom)/2));
+          }else{
+            var off=m.index, segTop=null, segLeft=0, seg='';
+            for(var ci=0;ci<m[0].length;ci++){
+              var cr=document.createRange(); cr.setStart(node,off+ci); cr.setEnd(node,off+ci+1);
+              var q=cr.getClientRects(); if(!q.length)continue;
+              var qr=q[q.length-1], mid=(qr.top+qr.bottom)/2;
+              if(segTop===null){segTop=mid; segLeft=qr.left;}
+              else if(Math.abs(mid-segTop)>1){paint(seg,X(segLeft),Y(segTop)); segTop=mid; segLeft=qr.left; seg='';}
+              seg+=w.charAt(ci);
+            }
+            if(seg!=='')paint(seg,X(segLeft),Y(segTop));
+          }
         }
+        if(clipped)ctx.restore();
       }
       var walker=document.createTreeWalker(card,NodeFilter.SHOW_TEXT|NodeFilter.SHOW_ELEMENT,{acceptNode:function(n){
         if(n.nodeType===3)return n.nodeValue&&n.nodeValue.trim()?NodeFilter.FILTER_ACCEPT:NodeFilter.FILTER_REJECT;
