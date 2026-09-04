@@ -1,5 +1,77 @@
 [
   {
+    "v": "1.5.3",
+    "date": "2026-09-04",
+    "i18n": {
+      "es": {
+        "title": "Marcador de tabú solo en la cara tabú",
+        "items": [
+          "**El icono de tabú ya no aparece en la carta impresa:** en la comparativa, la cara «impresa» es exactamente como la publica FFG, así que nuestro marcador casero (el símbolo junto al nombre que indica el tipo de tabú) se muestra ahora solo en la cara «tabú»."
+        ]
+      },
+      "en": {
+        "title": "Taboo marker only on the taboo face",
+        "items": [
+          "**The taboo icon no longer appears on the printed card:** in the comparison, the printed face is exactly as FFG prints it, so our home-made marker (the symbol next to the name that flags the taboo type) now shows only on the taboo face."
+        ]
+      },
+      "de": {
+        "title": "Tabu-Markierung nur auf der Tabu-Seite",
+        "items": [
+          "**Das Tabu-Symbol erscheint nicht mehr auf der gedruckten Karte:** In der Gegenüberstellung ist die gedruckte Seite genau wie von FFG veröffentlicht, daher wird unsere eigene Markierung (das Symbol neben dem Namen für die Tabu-Art) jetzt nur noch auf der Tabu-Seite angezeigt."
+        ]
+      },
+      "it": {
+        "title": "Simbolo del tabù solo sul lato tabù",
+        "items": [
+          "**L’icona del tabù non compare più sulla carta stampata:** nel confronto, il lato «stampato» è esattamente come lo pubblica FFG, quindi il nostro contrassegno (il simbolo accanto al nome che indica il tipo di tabù) ora appare solo sul lato «tabù»."
+        ]
+      },
+      "fr": {
+        "title": "Marqueur de tabou seulement sur la face tabou",
+        "items": [
+          "**L’icône de tabou n’apparaît plus sur la carte imprimée :** dans le comparatif, la face « imprimée » est exactement telle que FFG la publie, donc notre marqueur maison (le symbole près du nom indiquant le type de tabou) ne s’affiche désormais que sur la face « tabou »."
+        ]
+      },
+      "pt": {
+        "title": "Marcador de tabu apenas na face tabu",
+        "items": [
+          "**O ícone de tabu já não aparece na carta impressa:** na comparação, a face «impressa» é exatamente como a FFG a publica, por isso o nosso marcador caseiro (o símbolo junto ao nome que indica o tipo de tabu) passa a aparecer apenas na face «tabu»."
+        ]
+      },
+      "pl": {
+        "title": "Znacznik tabu tylko na stronie tabu",
+        "items": [
+          "**Ikona tabu nie pojawia się już na karcie drukowanej:** w porównaniu strona „drukowana” jest dokładnie taka, jak publikuje ją FFG, więc nasz własny znacznik (symbol obok nazwy wskazujący rodzaj tabu) jest teraz widoczny tylko na stronie „tabu”."
+        ]
+      },
+      "ru": {
+        "title": "Метка табу только на стороне табу",
+        "items": [
+          "**Значок табу больше не отображается на печатной карте:** в сравнении «печатная» сторона в точности такая, какой её издаёт FFG, поэтому наша собственная метка (символ рядом с названием, указывающий тип табу) теперь показывается только на стороне «табу»."
+        ]
+      },
+      "uk": {
+        "title": "Позначка табу лише на боці табу",
+        "items": [
+          "**Значок табу більше не показується на друкованій картці:** у порівнянні «друкований» бік точно такий, яким його видає FFG, тож наша власна позначка (символ біля назви, що вказує тип табу) тепер відображається лише на боці «табу»."
+        ]
+      },
+      "ko": {
+        "title": "터부 표식은 터부 면에만",
+        "items": [
+          "**인쇄된 카드에는 터부 아이콘이 더 이상 표시되지 않습니다:** 비교에서 「인쇄」 면은 FFG가 발행한 그대로이므로, 터부 종류를 나타내는 이름 옆의 자체 표식은 이제 「터부」 면에만 표시됩니다."
+        ]
+      },
+      "zh": {
+        "title": "禁忌标记仅显示在禁忌面",
+        "items": [
+          "**原印卡不再显示禁忌图标：**在对比中，「原印」面与 FFG 发行的完全一致，因此我们自制的标记（名称旁表示禁忌类型的符号）现在只显示在「禁忌」面。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.5.2",
     "date": "2026-08-31",
     "i18n": {

@@ -211,8 +211,11 @@
        else. Having both made the whole name 5% wider than the printed one, which pushed the mark
        out to the left once the line was centred. FFG's own gap between the mark and the first
        letter measures zero: their glyph carries its own advance. */
+    /* Our home-made taboo mark (cultist/tablet/autofail by category) belongs ONLY on the taboo
+       face; the printed face is exactly as FFG prints it and must not carry our marker. The unique
+       bullet stays on both — that one IS FFG's own. */
     h += '<h3 class="tbc-l tbc-name"><span>' + (c.unique ? iconHTML('unique') : '')
-      + esc(c.name) + '</span>' + tabmark(c) + '</h3>';
+      + esc(c.name) + '</span>' + (taboo ? tabmark(c) : '') + '</h3>';
     if (c.subname) h += '<div class="tbc-l tbc-sub">' + esc(c.subname) + '</div>';
     /* A treachery does not carry its type on the little trapezoid under a cost crown -- it has no
        cost at all. It prints TREACHERY on a band above the name, and a weakness prints WEAKNESS
