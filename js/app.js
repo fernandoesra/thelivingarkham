@@ -291,6 +291,18 @@ function blocksHTML(blocks,suppressNew,noFaq){
       }
       h+='</ul>';
     } else if(b.type==='sym'){ h+='<div class="tla-sym">'+runsHTML(b.runs,suppressNew)+'</div>'; i++; }
+    else if(b.type==='table'){
+      /* A small data table lifted out of a run-on paragraph FFG prints as prose (e.g. standalone
+         mode's experience -> extra basic weaknesses). head = column labels, rows = arrays of cells,
+         all plain text. Scrolls inside its own box on narrow screens. */
+      h+='<div class="tla-tablewrap" tabindex="0"><table class="tla-table">';
+      if(b.head && b.head.length){ h+='<thead><tr>';
+        for(var hc=0;hc<b.head.length;hc++)h+='<th>'+esc(b.head[hc])+'</th>'; h+='</tr></thead>'; }
+      h+='<tbody>'; var trs=b.rows||[];
+      for(var ri=0;ri<trs.length;ri++){ h+='<tr>';
+        for(var ci=0;ci<trs[ri].length;ci++)h+='<td>'+esc(trs[ri][ci])+'</td>'; h+='</tr>'; }
+      h+='</tbody></table></div>'; i++;
+    }
     else { h+='<p class="tla-p">'+runsHTML(b.runs,suppressNew)+'</p>'+(noFaq?'':faqLink(plainOfRuns(b.runs))); i++; }
   }
   return h;

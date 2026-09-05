@@ -1,5 +1,77 @@
 [
   {
+    "v": "1.5.4",
+    "date": "2026-09-05",
+    "i18n": {
+      "es": {
+        "title": "Tabla legible en «Escenarios independientes»",
+        "items": [
+          "**La tabla de puntos de experiencia y Debilidades básicas adicionales** de la entrada «Escenarios independientes» del Grimorio se mostraba como un párrafo corrido difícil de leer; ahora es una tabla clara de dos columnas."
+        ]
+      },
+      "en": {
+        "title": "A readable table in Standalone Mode",
+        "items": [
+          "**The experience → additional basic weaknesses table** in the Grimoire’s Standalone Mode entry was shown as a hard-to-read run-on paragraph; it now displays as a clear two-column table."
+        ]
+      },
+      "de": {
+        "title": "Übersichtliche Tabelle im Einzelspielmodus",
+        "items": [
+          "**Die Tabelle „Erfahrungspunkte → zusätzliche Grundschwächen“** im Grimoire-Eintrag „Einzelspielszenario“ wurde als schwer lesbarer Fließtext dargestellt; sie erscheint jetzt als übersichtliche zweispaltige Tabelle."
+        ]
+      },
+      "it": {
+        "title": "Tabella leggibile nella Modalità Autoconclusiva",
+        "items": [
+          "**La tabella punti esperienza → debolezze base aggiuntive** nella voce «Modalità Autoconclusiva» del Grimorio era un paragrafo continuo difficile da leggere; ora è una chiara tabella a due colonne."
+        ]
+      },
+      "fr": {
+        "title": "Un tableau lisible en Mode autonome",
+        "items": [
+          "**Le tableau expérience → faiblesses de base supplémentaires** de l’entrée « Mode autonome » du Grimoire était présenté comme un paragraphe continu difficile à lire ; il s’affiche désormais sous forme de tableau clair à deux colonnes."
+        ]
+      },
+      "pt": {
+        "title": "Uma tabela legível no Modo Autónomo",
+        "items": [
+          "**A tabela experiência → fraquezas básicas adicionais** da entrada «Modo Autónomo» do Grimório aparecia como um parágrafo corrido difícil de ler; passa a mostrar-se como uma tabela clara de duas colunas."
+        ]
+      },
+      "pl": {
+        "title": "Czytelna tabela w trybie samodzielnym",
+        "items": [
+          "**Tabela punktów doświadczenia → dodatkowe podstawowe słabości** we wpisie „Tryb samodzielny” w Grimuarze była zbitym, trudnym do czytania akapitem; teraz jest przejrzystą tabelą z dwiema kolumnami."
+        ]
+      },
+      "ru": {
+        "title": "Читаемая таблица в одиночном режиме",
+        "items": [
+          "**Таблица «опыт → дополнительные базовые слабости»** в статье «Одиночный режим» Гримуара выводилась сплошным трудночитаемым абзацем; теперь это понятная таблица из двух столбцов."
+        ]
+      },
+      "uk": {
+        "title": "Зручна таблиця в одиночному режимі",
+        "items": [
+          "**Таблиця «досвід → додаткові базові слабкості»** у статті «Одиночний режим» Ґримуара показувалася суцільним, важким для читання абзацом; тепер це зрозуміла таблиця з двох стовпців."
+        ]
+      },
+      "ko": {
+        "title": "독립 시나리오의 읽기 쉬운 표",
+        "items": [
+          "**경험치 → 추가 기본 약점 표**가 그리모어의 「독립 시나리오」 항목에서 읽기 어려운 줄글로 표시되었는데, 이제 명확한 2열 표로 보여줍니다."
+        ]
+      },
+      "zh": {
+        "title": "独立冒险中更易读的表格",
+        "items": [
+          "**经验值 → 额外基础弱点对照表**此前在魔典「独立冒险」条目中以难以阅读的连续段落呈现，现在改为清晰的两列表格。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.5.3",
     "date": "2026-09-04",
     "i18n": {

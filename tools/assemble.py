@@ -16,7 +16,7 @@ Outputs data/grimoire_<lang>.json plus a validation report.
 import json, re, sys, os, unicodedata
 from collections import Counter
 import langpack, history, ultimatums, reprints, cardlinks, text_fixes
-import grim_vecicons, faq_seticons, adb_names, adb_resolve, fanmade, grim_add
+import grim_vecicons, faq_seticons, adb_names, adb_resolve, fanmade, grim_add, grim_tables
 from langpack import slugify
 
 def norm(t):
@@ -1263,6 +1263,11 @@ def finalize(pack, allsecs, title_index):
                 if any(r.get('red') for b in e['blocks'] for r in b['runs']):
                     changed.setdefault(e['id'], []).append(last)
     versions, whatsnew = apply_versions(allsecs, pack, added, changed)
+    # The standalone-mode "experience -> extra basic weaknesses" table, which FFG prints as a run-on
+    # sentence, is lifted into a real table block. AFTER the edition diff (it is not a change), and
+    # BEFORE the linkers so the prose framing it still gets glossary auto-links. Idempotent and
+    # language-agnostic; see tools/grim_tables.py.
+    grim_tables.apply(allsecs)
     # Official campaign-guide additions FFG has not yet folded into the Grimoire (e.g. the Predator
     # keyword from Children of Blood), layered as a new version — AFTER the edition diff so it is a
     # version of its own, BEFORE the linkers so its text gets glossary auto-links like the rest.

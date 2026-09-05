@@ -829,6 +829,18 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-fm-p,.tla-fm-eg{margin:0 0 4px}
 .tla-fm-eg{padding-left:14px; border-left:2px solid var(--edge2)}
 .tla-fm-credit{margin:14px 0 0; font-size:var(--fs-eyebrow); color:var(--ink2)}
+/* A generic data table for a rules entry (blocksHTML type:'table') — styled like the timing
+   reference above: flat, boxed, scrolls on narrow screens. Used for the standalone-mode
+   experience -> extra basic weaknesses table that FFG prints as a run-on paragraph. */
+.tla-tablewrap{overflow-x:auto; margin:14px 0; border:1px solid var(--edge2); border-radius:12px}
+.tla-table{border-collapse:collapse; width:100%; font-size:var(--fs-small)}
+.tla-table th,.tla-table td{text-align:left; vertical-align:top; padding:10px 14px;
+  border-bottom:1px solid var(--edge2)}
+.tla-table thead th{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:700;
+  letter-spacing:.6px; text-transform:uppercase; color:var(--muted); background:var(--bg2)}
+.tla-table tbody tr:last-child th,.tla-table tbody tr:last-child td{border-bottom:0}
+.tla-table td{color:var(--ink); font-variant-numeric:tabular-nums}
+.tla-tablewrap:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
 .tla-obsolete-lead+.tla-obsolete-p{margin-top:2px}
 #tla-root .tla-obsolete-go{display:inline-flex; align-items:center; gap:6px; font-family:var(--ff-ui);
   font-weight:700; font-size:var(--fs-eyebrow); color:var(--new); text-decoration:underline; text-underline-offset:3px}
