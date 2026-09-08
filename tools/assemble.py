@@ -1337,6 +1337,18 @@ def main():
     allsecs = [intro] + sections
     data, rep = finalize(pack, allsecs, title_index)
     json.dump(data, open(pack.data_path, 'w', encoding='utf-8'), ensure_ascii=False)
+    # The FAQ chapter-1 refractions are a POST-step (see ingest.py): the viewer lives in the
+    # Grimoire (chapter 2, one refraction) but the retired FAQ (chapter 1) carries ~18 more, whose
+    # rule text is in the FAQ and whose art is in the registry. A standalone rebuild here must run it
+    # too, or every chapter-1 refraction vanishes from the viewer — the regression that shipped when
+    # V1.1C and 1.5.x were rebuilt with assemble.py alone. Per-language and idempotent. (The
+    # cross-language English fill, ub_merge, spans ALL languages and re-sorts them, so it stays in
+    # ingest.py — run `python tools/ingest.py` or `python tools/ub_merge.py` to refresh that.)
+    try:
+        import ub_cap1
+        ub_cap1.build(pack)
+    except Exception as e:
+        print(f'  [warn] ub cap1 refractions skipped: {type(e).__name__}: {e}', file=sys.stderr)
     links, autolinks, versions, whatsnew, ub = (
         rep['links'], rep['autolinks'], rep['versions'], rep['whatsnew'], rep['ub'])
     # ---- report ----

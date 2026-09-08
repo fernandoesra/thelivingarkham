@@ -1,5 +1,77 @@
 [
   {
+    "v": "1.5.5",
+    "date": "2026-09-08",
+    "i18n": {
+      "es": {
+        "title": "Refracciones recuperadas en «Ultimátums, Ayudas y Refracciones»",
+        "items": [
+          "**Vuelven a aparecer todas las refracciones** en el visor de «Ultimátums, Ayudas y Refracciones»: un fallo de compilación había dejado solo 1 de 19 (se habían perdido las del capítulo 1, procedentes de la FAQ). Ya se muestran las 19, con su filtro por capítulo."
+        ]
+      },
+      "en": {
+        "title": "Refractions restored in the Ultimatums viewer",
+        "items": [
+          "**All the refractions are back** in the Ultimatums, Boons & Refractions viewer: a build glitch had left only 1 of 19 (the chapter-1 refractions, from the FAQ, had gone missing). All 19 show again, with their chapter filter."
+        ]
+      },
+      "de": {
+        "title": "Refraktionen im Viewer wiederhergestellt",
+        "items": [
+          "**Alle Refraktionen sind wieder da** im Viewer „Ultimaten, Segen und Refraktionen“: durch einen Build-Fehler war nur 1 von 19 zu sehen (die Refraktionen aus Kapitel 1, aus dem FAQ, fehlten). Alle 19 erscheinen wieder, mit ihrem Kapitelfilter."
+        ]
+      },
+      "it": {
+        "title": "Rifrazioni ripristinate nel visore",
+        "items": [
+          "**Tornano tutte le rifrazioni** nel visore «Ultimatum, Favori e Rifrazioni»: un errore di compilazione ne mostrava solo 1 su 19 (mancavano quelle del capitolo 1, dalla FAQ). Ora si vedono di nuovo tutte e 19, con il filtro per capitolo."
+        ]
+      },
+      "fr": {
+        "title": "Réfractions rétablies dans le visualiseur",
+        "items": [
+          "**Toutes les réfractions sont de retour** dans le visualiseur « Ultimatums, Bienfaits et Réfractions » : un bug de compilation n’en affichait plus qu’1 sur 19 (les réfractions du chapitre 1, issues de la FAQ, avaient disparu). Les 19 réapparaissent, avec leur filtre par chapitre."
+        ]
+      },
+      "pt": {
+        "title": "Refrações repostas no visualizador",
+        "items": [
+          "**Voltam todas as refrações** no visualizador «Ultimatos, Bênçãos e Refrações»: um erro de compilação mostrava apenas 1 de 19 (faltavam as do capítulo 1, da FAQ). Voltam a aparecer as 19, com o filtro por capítulo."
+        ]
+      },
+      "pl": {
+        "title": "Przywrócone refrakcje w przeglądarce",
+        "items": [
+          "**Wróciły wszystkie refrakcje** w przeglądarce „Ultimatum, Dobrodziejstwa i Refrakcje”: błąd kompilacji pozostawiał tylko 1 z 19 (brakowało tych z rozdziału 1, z FAQ). Znów widać wszystkie 19, z filtrem rozdziału."
+        ]
+      },
+      "ru": {
+        "title": "Восстановлены рефракции в просмотрщике",
+        "items": [
+          "**Вернулись все рефракции** в просмотрщике «Ультиматумы, дары и рефракции»: из-за ошибки сборки показывалась лишь 1 из 19 (пропали рефракции из главы 1, из FAQ). Снова видны все 19, с фильтром по главам."
+        ]
+      },
+      "uk": {
+        "title": "Відновлені рефракції у переглядачі",
+        "items": [
+          "**Повернулися всі рефракції** у переглядачі «Ультиматуми, дари та рефракції»: через помилку збірки показувалася лише 1 з 19 (зникли рефракції з розділу 1, з FAQ). Знову видно всі 19, з фільтром за розділами."
+        ]
+      },
+      "ko": {
+        "title": "뷰어의 굴절 복구",
+        "items": [
+          "**모든 굴절이 다시 표시됩니다**(「궁극·보너스·굴절」 뷰어): 빌드 오류로 19개 중 1개만 보였습니다(FAQ의 1장 굴절이 사라졌었음). 이제 19개가 모두, 챕터 필터와 함께 표시됩니다."
+        ]
+      },
+      "zh": {
+        "title": "查看器的折射已恢复",
+        "items": [
+          "**所有折射重新出现**在「终极、恩泽与折射」查看器中：因构建错误此前 19 个只显示 1 个（缺失了来自 FAQ 的第 1 章折射）。现已重新显示全部 19 个，并带有章节筛选。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.5.4",
     "date": "2026-09-05",
     "i18n": {
