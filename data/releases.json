@@ -1,5 +1,88 @@
 [
   {
+    "v": "1.5.6",
+    "date": "2026-10-07",
+    "i18n": {
+      "es": {
+        "title": "Mejoras en el buscador",
+        "items": [
+          "**El buscador ya te deja en la entrada correcta.** Al pulsar un resultado, la entrada aparece justo debajo de la barra de letras (antes se centraba la coincidencia y parecía que el salto se quedaba una entrada corto). Si la coincidencia está más abajo en una entrada larga, te desplaza hasta ella.",
+          "**El historial de búsqueda ahora es por idioma.** Si buscabas en español y cambiabas a inglés, seguías viendo tus búsquedas en español, que no servían. Ahora cada idioma tiene su propio «Más buscados», y al pulsar una sugerencia saltas directo a esa entrada."
+        ]
+      },
+      "en": {
+        "title": "Search improvements",
+        "items": [
+          "**Search results now land on the right entry.** Clicking a result places the entry just below the A-Z bar (it used to centre the match, so the jump looked one entry short). If the match is further down a long entry, it scrolls to it.",
+          "**Search history is now per language.** If you searched in Spanish and switched to English, you still saw your Spanish searches, which did nothing. Each language now has its own “Most searched”, and clicking a suggestion jumps straight to that entry."
+        ]
+      },
+      "de": {
+        "title": "Verbesserungen bei der Suche",
+        "items": [
+          "**Suchergebnisse landen jetzt auf dem richtigen Eintrag.** Ein Klick auf ein Ergebnis setzt den Eintrag direkt unter die A-Z-Leiste (vorher wurde der Treffer zentriert, sodass der Sprung einen Eintrag zu kurz wirkte). Liegt der Treffer weiter unten in einem langen Eintrag, wird dorthin gescrollt.",
+          "**Der Suchverlauf ist jetzt pro Sprache.** Wer auf Spanisch suchte und zu Englisch wechselte, sah weiter die spanischen Suchen, die ins Leere liefen. Jede Sprache hat nun ihre eigene Liste „Meistgesucht“, und ein Klick auf einen Vorschlag springt direkt zu diesem Eintrag."
+        ]
+      },
+      "it": {
+        "title": "Miglioramenti alla ricerca",
+        "items": [
+          "**I risultati di ricerca ora portano alla voce giusta.** Cliccando un risultato, la voce compare appena sotto la barra A-Z (prima la corrispondenza veniva centrata e il salto sembrava fermarsi una voce prima). Se la corrispondenza è più in basso in una voce lunga, la pagina scorre fino a essa.",
+          "**La cronologia di ricerca ora è per lingua.** Se cercavi in spagnolo e passavi all’inglese, continuavi a vedere le ricerche spagnole, che non facevano nulla. Ora ogni lingua ha la sua «Più cercati» e cliccando un suggerimento salti direttamente a quella voce."
+        ]
+      },
+      "fr": {
+        "title": "Améliorations de la recherche",
+        "items": [
+          "**Les résultats de recherche mènent désormais à la bonne entrée.** Un clic sur un résultat place l’entrée juste sous la barre A-Z (auparavant la correspondance était centrée, si bien que le saut semblait s’arrêter une entrée trop tôt). Si la correspondance est plus bas dans une entrée longue, le défilement y mène.",
+          "**L’historique de recherche est désormais par langue.** Si vous cherchiez en espagnol puis passiez à l’anglais, vous voyiez encore vos recherches espagnoles, qui ne menaient à rien. Chaque langue a maintenant sa propre liste « Les plus recherchés », et cliquer une suggestion vous amène directement à cette entrée."
+        ]
+      },
+      "pt": {
+        "title": "Melhorias na pesquisa",
+        "items": [
+          "**Os resultados da pesquisa passam a abrir na entrada certa.** Ao clicar num resultado, a entrada aparece logo abaixo da barra A-Z (antes a correspondência ficava centrada e o salto parecia ficar uma entrada atrás). Se a correspondência estiver mais abaixo numa entrada longa, a página desloca-se até ela.",
+          "**O histórico de pesquisa passa a ser por idioma.** Se pesquisava em espanhol e mudava para inglês, continuava a ver as pesquisas em espanhol, que não faziam nada. Cada idioma tem agora a sua lista «Mais procurados», e clicar numa sugestão salta diretamente para essa entrada."
+        ]
+      },
+      "pl": {
+        "title": "Ulepszenia wyszukiwania",
+        "items": [
+          "**Wyniki wyszukiwania prowadzą teraz do właściwego hasła.** Kliknięcie wyniku umieszcza hasło tuż pod paskiem A-Z (wcześniej dopasowanie było wyśrodkowane, więc skok wyglądał, jakby kończył się o jedno hasło za wcześnie). Jeśli dopasowanie jest niżej w długim haśle, strona przewija się do niego.",
+          "**Historia wyszukiwania jest teraz osobna dla każdego języka.** Jeśli szukałeś po hiszpańsku i przełączyłeś na angielski, wciąż widziałeś hiszpańskie wyszukiwania, które nic nie dawały. Każdy język ma teraz własną listę „Najczęściej szukane”, a kliknięcie podpowiedzi przenosi od razu do danego hasła."
+        ]
+      },
+      "ru": {
+        "title": "Улучшения поиска",
+        "items": [
+          "**Результаты поиска теперь открывают нужную статью.** При нажатии на результат статья оказывается прямо под алфавитной панелью (раньше совпадение центрировалось, и переход выглядел на одну статью короче). Если совпадение ниже в длинной статье, страница прокручивается к нему.",
+          "**История поиска теперь отдельная для каждого языка.** Если вы искали на испанском и переключались на английский, то по-прежнему видели испанские запросы, которые ничего не делали. Теперь у каждого языка свой список «Чаще всего искали», а клик по подсказке сразу открывает нужную статью."
+        ]
+      },
+      "uk": {
+        "title": "Покращення пошуку",
+        "items": [
+          "**Результати пошуку тепер відкривають потрібну статтю.** Після натискання на результат стаття з’являється одразу під абетковою панеллю (раніше збіг центрувався, і перехід виглядав на одну статтю коротшим). Якщо збіг нижче у довгій статті, сторінка прокручується до нього.",
+          "**Історія пошуку тепер окрема для кожної мови.** Якщо ви шукали іспанською та перемикалися на англійську, то все одно бачили іспанські запити, які нічого не робили. Тепер кожна мова має власний список «Найчастіше шукане», а клік по підказці одразу відкриває потрібну статтю."
+        ]
+      },
+      "ko": {
+        "title": "검색 개선",
+        "items": [
+          "**검색 결과가 이제 올바른 항목으로 이동합니다.** 결과를 클릭하면 항목이 A-Z 막대 바로 아래에 표시됩니다(이전에는 일치 항목이 가운데 정렬되어 한 항목 위로 이동한 것처럼 보였습니다). 일치 항목이 긴 항목의 아래쪽에 있으면 거기까지 스크롤합니다.",
+          "**검색 기록이 이제 언어별로 구분됩니다.** 스페인어로 검색한 뒤 영어로 바꾸면 아무 소용 없는 스페인어 검색어가 계속 보였습니다. 이제 언어마다 자체 “많이 찾은 항목” 목록이 있으며, 추천을 클릭하면 해당 항목으로 바로 이동합니다."
+        ]
+      },
+      "zh": {
+        "title": "搜索改进",
+        "items": [
+          "**搜索结果现在会定位到正确的条目。**点击结果后，条目显示在字母栏正下方（此前会将匹配项居中，使跳转看起来少了一条）。若匹配项位于较长条目的靠下位置，则滚动到该处。",
+          "**搜索历史现在按语言区分。**此前用西班牙语搜索后切换到英文，仍会看到无用的西班牙语搜索项。现在每种语言都有各自的「最常搜索」，点击建议会直接跳转到该条目。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.5.5",
     "date": "2026-09-08",
     "i18n": {

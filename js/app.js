@@ -3449,11 +3449,21 @@ function render(sid,eid,flash){
     [].forEach.call(elMain.querySelectorAll('.tla-subst'),substFilter);
     buildToc(s,ents);
     if(eid){var el=document.getElementById('e-'+eid); if(el){
-      /* A search jump lands on the entry, but the match may be one block among many (a card in
-         the errata list). If we know what was searched, scroll to that block and highlight it. */
+      /* A search jump parks the ENTRY at the top — its scroll-margin-top clears the sticky A-Z bar —
+         the expected "you are here". The match may be one block among many (a card deep in an errata
+         list); if we know what was searched AND that block is below the fold, bring it up too. But a
+         heading / first-block match is already in view, so the entry stays at the top instead of being
+         CENTRED: centring left the PREVIOUS entry on top, so the jump looked one entry short. */
+      el.scrollIntoView({block:'start'});
       var hit=pendingFind&&pendingFind.length?scrollToMatch(el,pendingFind):null;
-      if(hit){hit.scrollIntoView({block:'center'}); hit.classList.remove('tla-hit');void hit.offsetWidth;hit.classList.add('tla-hit');}
-      else{el.scrollIntoView({block:'start'}); if(flash){el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}}
+      if(hit&&hit!==el){
+        var mb=elMain.getBoundingClientRect(), hb=hit.getBoundingClientRect();
+        if(hb.top>mb.bottom-48){                      // the match sits below the fold: scroll down to it
+          var pad=parseFloat(getComputedStyle(el).scrollMarginTop)||0;
+          elMain.scrollTop+=hb.top-(mb.top+pad);      // park it just under the sticky bar, not centred
+        }
+        hit.classList.remove('tla-hit');void hit.offsetWidth;hit.classList.add('tla-hit');
+      } else if(flash){el.classList.remove('flash');void el.offsetWidth;el.classList.add('flash');}
     }}
     else{elMain.scrollTop=0;}
     pendingFind=null;
@@ -4215,26 +4225,36 @@ var SEARCH_CAP=30;
    The box offers the ones they RETURN to (searched >= SRCH_MIN times), most-used first, so a one-off
    search never clutters it. A search "counts" only when the reader ACTS on it (opens a result or
    presses Enter on one), not on every keystroke. */
-var SRCH_KEY='tla-searches', SRCH_VER=2, SRCH_MIN=2, SRCH_MAX=40, SRCH_SHOW=6;
-/* Stored as {v, m:{key:{n,t,q}}}. The `v` guards the schema: an older/foreign shape — e.g. the
-   pre-release build that saved the TYPED text instead of the chosen result's title — fails the
-   check and is dropped, so no one is left staring at stale "esc"/"lug"-style entries. */
+var SRCH_KEY='tla-searches', SRCH_VER=3, SRCH_MIN=2, SRCH_MAX=40, SRCH_SHOW=6;
+/* Stored as {v, m:{<lang>:{<eid>:{n,t,title}}}} — the "most opened" entries, keyed by the ENTRY
+   the reader opened (not the typed text or the localized title), bucketed PER LANGUAGE. Per-language
+   is the honest shape: entries carry no cross-language key (only sections do — see setLang), so a
+   Spanish history cannot be re-expressed in English; instead each language keeps its own, and a
+   suggestion you click is always an entry in the corpus you are currently searching, so it can
+   never "do nothing". The `v` guards the schema: an older/foreign shape — the global v2 title map,
+   or the pre-release build that saved the TYPED text — fails the check and is dropped. */
 function srchLoad(){try{var o=JSON.parse(localStorage.getItem(SRCH_KEY)); if(o&&o.v===SRCH_VER&&o.m&&typeof o.m==='object')return o.m;}catch(e){} return {};}
 function srchSave(m){try{localStorage.setItem(SRCH_KEY,JSON.stringify({v:SRCH_VER,m:m}));}catch(e){}}
-function recordSearch(q){
-  q=String(q||'').trim(); if(q.length<2)return;
-  var key=q.toLowerCase(), o=srchLoad(), e=o[key], now=(+new Date());
-  if(e){e.n++; e.t=now; e.q=q;} else {o[key]={n:1,t:now,q:q};}
-  var ks=Object.keys(o);
-  if(ks.length>SRCH_MAX){ks.sort(function(a,b){return o[a].t-o[b].t;}); for(var i=0;i<ks.length-SRCH_MAX;i++)delete o[ks[i]];}
-  srchSave(o);
+function recordSearch(eid,title){
+  eid=String(eid||''); title=String(title||'').trim(); if(!eid||!title)return;
+  var all=srchLoad(), m=all[lang]||(all[lang]={}), e=m[eid], now=(+new Date());
+  if(e){e.n++; e.t=now; e.title=title;} else {m[eid]={n:1,t:now,title:title};}
+  var ks=Object.keys(m);
+  if(ks.length>SRCH_MAX){ks.sort(function(a,b){return m[a].t-m[b].t;}); for(var i=0;i<ks.length-SRCH_MAX;i++)delete m[ks[i]];}
+  srchSave(all);
 }
 function topSearches(){
-  var o=srchLoad(), a=[], k; for(k in o){if(o.hasOwnProperty(k)&&o[k]&&o[k].n>=SRCH_MIN)a.push(o[k]);}
+  /* Only the CURRENT language's bucket, and only entries that still exist (findEntry): a suggestion
+     is a one-click jump, so one that would land nowhere (a renamed/removed entry after a rebuild) is
+     dropped rather than shown. */
+  var m=srchLoad()[lang]||{}, a=[], k;
+  for(k in m){if(m.hasOwnProperty(k)&&m[k]&&m[k].n>=SRCH_MIN&&findEntry(lang,k))a.push({eid:k,n:m[k].n,t:m[k].t,title:m[k].title});}
   a.sort(function(x,y){return (y.n-x.n)||(y.t-x.t);});
   return a.slice(0,SRCH_SHOW);
 }
-function clearSearches(){try{localStorage.removeItem(SRCH_KEY);}catch(e){}}
+/* Clears the CURRENT language's history only — it matches the panel the reader is looking at, so a
+   reader in English never silently wipes their Spanish list. */
+function clearSearches(){try{var all=srchLoad(); delete all[lang]; if(Object.keys(all).length)srchSave(all); else localStorage.removeItem(SRCH_KEY);}catch(e){}}
 function toggleClear(){if(elSClear)elSClear.hidden=!(elQ.value&&elQ.value.length);}
 /* The "most searched" panel, shown in place of results while the box is empty. Items reuse the
    result rows' id sequence (tla-res-N) + role=option, so the same arrow-key navigation and
@@ -4245,9 +4265,9 @@ function suggHTML(){
   var h='<div class="tla-sugg-wrap"><div class="tla-sugg-hd"><span>'+esc(t('mostsearched'))+'</span>'
     +'<button type="button" class="tla-sugg-clear" data-suggclear>'+esc(t('clearhist'))+'</button></div>';
   top.forEach(function(e,i){
-    h+='<button type="button" class="tla-sugg" role="option" id="tla-res-'+i+'" data-i="'+i+'" aria-selected="false" data-q="'+esc(e.q)+'">'
+    h+='<button type="button" class="tla-sugg" role="option" id="tla-res-'+i+'" data-i="'+i+'" aria-selected="false" data-eid="'+esc(e.eid)+'" data-title="'+esc(e.title)+'">'
       +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>'
-      +'<span class="tla-sugg-q">'+esc(e.q)+'</span></button>';
+      +'<span class="tla-sugg-q">'+esc(e.title)+'</span></button>';
   });
   return h+'</div>';
 }
@@ -4256,7 +4276,10 @@ function showSuggestions(){
   if(!h){closeResults();return;}
   elRes.innerHTML=h; elRes.classList.add('on'); resSel=-1; clearActiveDesc(); setExpanded(true);
 }
-function applySugg(q){elQ.value=q; try{elQ.focus();}catch(e){} toggleClear(); search(q);}
+/* A suggestion is one of your own "most opened" entries: clicking it jumps STRAIGHT to that entry
+   (and reinforces its count), the same gotoTarget a result uses — no re-typed search that could
+   miss. pendingFind stays null, so render() parks the entry at the top rather than hunting a term. */
+function openSuggestion(eid,title){if(!eid)return; recordSearch(eid,title); pendingFind=null; gotoTarget(eid,true); closeSearch();}
 function search(q){
   q=norm(q.trim()); if(q.length<2){showSuggestions();return;}
   var terms=q.split(/\s+/), arr=searchIndex[lang], by={};
@@ -4953,8 +4976,8 @@ function wireEvents(){
   elToc.addEventListener('click',function(e){var a=e.target.closest('[data-eid]'); if(a){e.preventDefault(); gotoTarget(a.getAttribute('data-eid'),true);}});
   elRes.addEventListener('click',function(e){
     if(e.target.closest('[data-suggclear]')){clearSearches(); showSuggestions(); return;}
-    var s=e.target.closest('.tla-sugg'); if(s){applySugg(s.getAttribute('data-q')); return;}
-    var r=e.target.closest('.tla-res'); if(r){recordSearch(r.getAttribute('data-title')); pendingFind=curSrchTerms; gotoTarget(r.getAttribute('data-eid'),true); closeSearch();}
+    var s=e.target.closest('.tla-sugg'); if(s){openSuggestion(s.getAttribute('data-eid'),s.getAttribute('data-title')); return;}
+    var r=e.target.closest('.tla-res'); if(r){recordSearch(r.getAttribute('data-eid'),r.getAttribute('data-title')); pendingFind=curSrchTerms; gotoTarget(r.getAttribute('data-eid'),true); closeSearch();}
   });
   if(elSClear)elSClear.addEventListener('click',function(){elQ.value=''; try{elQ.focus();}catch(e){} toggleClear(); showSuggestions();});
   elSOpen.addEventListener('click',openSearch);
@@ -5016,8 +5039,8 @@ function wireEvents(){
       if(qTimer){clearTimeout(qTimer); qTimer=null; search(elQ.value);}
       var items=elRes.querySelectorAll('.tla-res, .tla-sugg'); var chosen=items[resSel<0?0:resSel];
       if(chosen){
-        if(chosen.classList.contains('tla-sugg')){applySugg(chosen.getAttribute('data-q'));}
-        else {recordSearch(chosen.getAttribute('data-title')); pendingFind=curSrchTerms; gotoTarget(chosen.getAttribute('data-eid'),true); closeSearch();}
+        if(chosen.classList.contains('tla-sugg')){openSuggestion(chosen.getAttribute('data-eid'),chosen.getAttribute('data-title'));}
+        else {recordSearch(chosen.getAttribute('data-eid'),chosen.getAttribute('data-title')); pendingFind=curSrchTerms; gotoTarget(chosen.getAttribute('data-eid'),true); closeSearch();}
       }}
   });
   document.addEventListener('keydown',function(e){
