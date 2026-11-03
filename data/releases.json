@@ -1,5 +1,77 @@
 [
   {
+    "v": "1.5.8",
+    "date": "2026-11-03",
+    "i18n": {
+      "es": {
+        "title": "Nombre del evento corregido en las cartas fan",
+        "items": [
+          "**Nombre del evento corregido en las cartas fan.** El crédito de las cartas de los Cultist Challenges decía «Semana del Terror 2026». El evento es la Week of Arkham Horror 2026, así que ahora dice «Semana de Arkham Horror 2026»."
+        ]
+      },
+      "en": {
+        "title": "Event name fixed on the fan cards",
+        "items": [
+          "**Event name fixed on the fan cards.** The Spanish credit on the Cultist Challenges cards named the event wrong (“Semana del Terror 2026”); it now reads “Semana de Arkham Horror 2026” — the Week of Arkham Horror 2026. The other languages already had it right."
+        ]
+      },
+      "de": {
+        "title": "Veranstaltungsname auf den Fan-Karten korrigiert",
+        "items": [
+          "**Veranstaltungsname auf den Fan-Karten korrigiert.** Der spanische Credit auf den Cultist-Challenges-Karten nannte die Veranstaltung falsch („Semana del Terror 2026“); jetzt steht dort „Semana de Arkham Horror 2026“ — die Week of Arkham Horror 2026. In den anderen Sprachen war sie bereits korrekt."
+        ]
+      },
+      "it": {
+        "title": "Corretto il nome dell'evento sulle carte fan",
+        "items": [
+          "**Corretto il nome dell'evento sulle carte fan.** Il credito in spagnolo sulle carte dei Cultist Challenges nominava l'evento in modo errato («Semana del Terror 2026»); ora riporta «Semana de Arkham Horror 2026» — la Week of Arkham Horror 2026. Nelle altre lingue era già corretto."
+        ]
+      },
+      "fr": {
+        "title": "Nom de l'événement corrigé sur les cartes fan",
+        "items": [
+          "**Nom de l'événement corrigé sur les cartes fan.** Le crédit en espagnol sur les cartes des Cultist Challenges nommait mal l'événement (« Semana del Terror 2026 ») ; il indique désormais « Semana de Arkham Horror 2026 » — la Week of Arkham Horror 2026. Dans les autres langues, il était déjà correct."
+        ]
+      },
+      "pt": {
+        "title": "Nome do evento corrigido nas cartas fan",
+        "items": [
+          "**Nome do evento corrigido nas cartas fan.** O crédito em espanhol nas cartas dos Cultist Challenges nomeava o evento de forma errada («Semana del Terror 2026»); agora diz «Semana de Arkham Horror 2026» — a Week of Arkham Horror 2026. Nos outros idiomas já estava correto."
+        ]
+      },
+      "pl": {
+        "title": "Poprawiona nazwa wydarzenia na kartach fan",
+        "items": [
+          "**Poprawiona nazwa wydarzenia na kartach fan.** Hiszpański podpis na kartach Cultist Challenges błędnie nazywał wydarzenie („Semana del Terror 2026“); teraz brzmi „Semana de Arkham Horror 2026“ — Week of Arkham Horror 2026. W pozostałych językach był już poprawny."
+        ]
+      },
+      "ru": {
+        "title": "Исправлено название события на фанатских картах",
+        "items": [
+          "**Исправлено название события на фанатских картах.** Испанская подпись на картах Cultist Challenges называла событие неверно («Semana del Terror 2026»); теперь там «Semana de Arkham Horror 2026» — Week of Arkham Horror 2026. На других языках всё было правильно."
+        ]
+      },
+      "uk": {
+        "title": "Виправлено назву події на фанатських картах",
+        "items": [
+          "**Виправлено назву події на фанатських картах.** Іспанський підпис на картах Cultist Challenges називав подію неправильно («Semana del Terror 2026»); тепер там «Semana de Arkham Horror 2026» — Week of Arkham Horror 2026. Іншими мовами все було правильно."
+        ]
+      },
+      "ko": {
+        "title": "팬 카드의 이벤트 이름 수정",
+        "items": [
+          "**팬 카드의 이벤트 이름 수정.** Cultist Challenges 카드의 스페인어 크레딧이 이벤트 이름을 잘못 표기했습니다(「Semana del Terror 2026」). 이제 「Semana de Arkham Horror 2026」 — Week of Arkham Horror 2026으로 표시됩니다. 다른 언어에서는 이미 올바르게 표기되어 있었습니다."
+        ]
+      },
+      "zh": {
+        "title": "修正了 fan 卡牌上的活动名称",
+        "items": [
+          "**修正了 fan 卡牌上的活动名称。**Cultist Challenges 卡牌的西班牙文署名把活动名称写错了（「Semana del Terror 2026」）；现已改为「Semana de Arkham Horror 2026」——即 Week of Arkham Horror 2026。其他语言此前已正确。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.5.7",
     "date": "2026-11-03",
     "i18n": {
