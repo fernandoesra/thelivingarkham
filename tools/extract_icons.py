@@ -33,6 +33,17 @@ CSS_PATH = os.path.join(langpack.ROOT, 'css', 'icons.css')
 # sits at. Everything else (0.8–0.9em) is left exactly as the font drew it.
 MIN_HEIGHT_EM = 0.62
 
+# Icons whose glyph is in NO pipeline PDF (the Grimoire / FAQ fonts this tool traces), so they
+# cannot be re-traced here and would otherwise be dropped from the regenerated css. The blood
+# token (Children of Blood, 2026) lives only in that campaign guide — a Google-Drive manual, not
+# a repo source — so its SVG was traced once from the guide's ArkhamHorrorLCGU glyph U+F279 and
+# committed to assets/icons/blood.svg. Its metrics (width_em, height_em, baseline_em) are the
+# glyph's own, read the same way trace_glyphs reads every other icon. A traced glyph of the same
+# name always wins (setdefault below); the committed .svg is never overwritten.
+EXTRA_ICONS = {
+    'blood': (0.581, 0.699, 0.001),
+}
+
 
 # ---- the font ---------------------------------------------------------------
 def _family(basefont):
@@ -291,6 +302,14 @@ def build(pack, outdir=ICONS_DIR):
         h_em = 0.72
         symbols[name] = (h_em * im.width / im.height, h_em, -0.02)
         print(f'  symbol {name} -> assets/icons/{name}.png')
+
+    # Externally-sourced icons (committed .svg, not in any pipeline font): keep their css rule so
+    # a rebuild never drops them. A traced glyph of the same name wins (setdefault).
+    for nm, (w, h, base) in EXTRA_ICONS.items():
+        if os.path.exists(os.path.join(outdir, nm + '.svg')):
+            glyphs.setdefault(nm, (None, w, h, base))
+        else:
+            print(f'  [warn] extra icon {nm}: assets/icons/{nm}.svg missing — rule skipped')
 
     if glyphs or symbols:
         write_css(glyphs, symbols)

@@ -157,6 +157,20 @@ def main(argv):
             failed.append((pack.code, 'unexpected error (traceback above)'))
             traceback.print_exc()
 
+    # The fan-made "Cultist Challenges" cards (English only): inject them into the English
+    # viewer BEFORE the cross-language fill, so ub_merge carries them to the other languages
+    # as pending — exactly like a late English boon. (ub_cap1's chapter-1 refractions are
+    # per-language, read from each FAQ, so they run AFTER the fill instead.)
+    if built:
+        step('ultimatums & boons — fan-made Cultist Challenges cards (English)')
+        import ub_fanmade
+        en = next((p for p in book_packs if p.code == 'en'), None)
+        if en is not None:
+            try:
+                ub_fanmade.build(en)
+            except Exception as e:
+                print(f'  [warn] fan-made UB cards skipped: {e}', file=sys.stderr)
+
     # Fill the Ultimatums & Boons viewer across languages: cards English has and the
     # others do not yet are shown in English, flagged. Needs every language built first,
     # so it runs here, once, after the loop — never inside a single pack's build.
@@ -192,6 +206,18 @@ def main(argv):
                 ub_cap1.build(pack)
             except Exception as e:
                 print(f'  [warn] chapter-1 refractions skipped for {pack.code}: {e}', file=sys.stderr)
+
+    # Community Spanish translations (Rincón Miskatonic) for the cards English added that Spanish
+    # has no official translation for yet: splice each into the Spanish grimoire in place of its
+    # English fallback, credited and flagged. After the cross-language fill (the pending Spanish
+    # cards must exist first) and before ub_registry's slim. Spanish only; a no-op until filled.
+    if built:
+        step('ultimatums & boons — Spanish community translations (Rincón Miskatonic)')
+        try:
+            import ub_es
+            ub_es.build()
+        except Exception as e:
+            print(f'  [warn] Spanish UB translations skipped: {e}', file=sys.stderr)
 
     if built:
         # One drawing per mark, shared by every language. Runs after the corpora are

@@ -152,8 +152,52 @@ EXTRA = [
      'cat': 'ultimatum', 'refraction': True, 'file': 'Refraction_scorched_earth_fix_v1.png'},
 ]
 
-# Cards the Grimoire names but with no art anywhere yet — rendered from the frame alone.
-PLACEHOLDERS = []
+# The fan-made "Cultist Challenges" cards (Week of Arkham Horror 2026); their rule text is
+# injected by tools/ub_fanmade.py. Frame by role: three GENERAL ultimatums use the common
+# frame; the five campaign-wide Children of Blood ultimatums use the refraction frame with
+# NO scenario diamond; the three scenario-specific Children of Blood refractions use the
+# diamond frame (its encounter-set symbol is drawn live by the app, once curated).
+#
+# `art` is the artist's full-bleed 1432x2000 PNG (no frame/text) in the "Nuevos/Fanmade"
+# folder beside the main source; the frame is laid over it exactly like the main import, so
+# the window shows the illustration. A card whose `art` file is absent falls back to a dark-
+# ground placeholder, flagged noart, until its illustration arrives. Illustrators come from
+# ub_illustrators.json like every other card.
+FANMADE = [
+    {'slug': 'ultimatum-of-maddening-truth', 'en': 'Ultimatum of Maddening Truth',
+     'cat': 'ultimatum', 'refraction': False, 'frame': 'Ultimatum-Common.png',
+     'art': '01-maddening-truth-by-Woodrow J. Hinton III.png'},
+    {'slug': 'ultimatum-of-torment', 'en': 'Ultimatum of Torment',
+     'cat': 'ultimatum', 'refraction': False, 'frame': 'Ultimatum-Common.png',
+     'art': '02-torment-by-Ethan Patrick Harris.png'},
+    {'slug': 'ultimatum-of-nihilism', 'en': 'Ultimatum of Nihilism',
+     'cat': 'ultimatum', 'refraction': False, 'frame': 'Ultimatum-Common.png',
+     'art': '03-Nihilism-by-Brian Valenzuela.png'},
+    {'slug': 'ultimatum-of-thin-blood', 'en': 'Ultimatum of Thin Blood',
+     'cat': 'ultimatum', 'refraction': True, 'frame': 'Ultimatum-Refraction-NoSet.png',
+     'art': '04-Thin-blood-by-Peter Polach.png'},
+    {'slug': 'ultimatum-of-regret', 'en': 'Ultimatum of Regret',
+     'cat': 'ultimatum', 'refraction': True, 'frame': 'Ultimatum-Refraction-NoSet.png',
+     'art': '05-Regret-by-Drazenka Kimpel.png'},
+    {'slug': 'ultimatum-of-blood-frenzy', 'en': 'Ultimatum of Blood Frenzy (campaign)',
+     'cat': 'ultimatum', 'refraction': True, 'frame': 'Ultimatum-Refraction-NoSet.png',
+     'art': '06-blood-frenzy-campaing-by-Peter Polach.png'},
+    {'slug': 'ultimatum-of-accursed-blood', 'en': 'Ultimatum of Accursed Blood',
+     'cat': 'ultimatum', 'refraction': True, 'frame': 'Ultimatum-Refraction-NoSet.png',
+     'art': '07-Accursed-blood-By-Brian Valenzuela.png'},
+    {'slug': 'ultimatum-of-cold-blood', 'en': 'Ultimatum of Cold Blood',
+     'cat': 'ultimatum', 'refraction': True, 'frame': 'Ultimatum-Refraction-NoSet.png',
+     'art': '08-Cold-blood-by-Jeff Lee Johnson.png'},
+    {'slug': 'ultimatum-of-hostility', 'en': 'Ultimatum of Hostility',
+     'cat': 'ultimatum', 'refraction': True, 'frame': 'Ultimatum-Refraction.png',
+     'art': '09-hostility-by-Andreia Ugrai.png'},
+    {'slug': 'ultimatum-of-the-horde', 'en': 'Ultimatum of the Horde',
+     'cat': 'ultimatum', 'refraction': True, 'frame': 'Ultimatum-Refraction.png',
+     'art': '10-horde-by-Stella Spente.png'},
+    {'slug': 'ultimatum-of-blood-frenzy-blood-money', 'en': 'Ultimatum of Blood Frenzy (scenario)',
+     'cat': 'ultimatum', 'refraction': True, 'frame': 'Ultimatum-Refraction.png',
+     'art': '11-frenzy-blood-money-by-Ethan Patrick.png'},
+]
 
 
 def save_webp(im, dst, width, quality):
@@ -243,24 +287,34 @@ def main():
         n += 1
         print(f'  {ex["slug"]}  {cw}x{ch}  (finished art, {ex["cat"]}{", refraction" if ex["refraction"] else ""})')
 
-    # Art-less cards the manual lists: the frame over a dark ground, marked noart so the
-    # viewer knows there is no illustrator line to draw and shows an "illustration soon" hint.
-    for pl in PLACEHOLDERS:
+    # Fan-made cards. Each has the artist's full-bleed art (no frame/text) in nuevos/Fanmade;
+    # the frame is laid over it so the window shows the illustration, exactly like the main
+    # import. A card still lacking its art gets the frame over a dark ground, flagged noart, so
+    # the viewer draws no illustrator line and shows an "illustration soon" hint until it lands.
+    fanmade_dir = os.path.join(nuevos, 'Fanmade')
+    for pl in FANMADE:
         if pl['slug'] in registry:
             continue
         if not os.path.exists(os.path.join(FRAMES, pl['frame'])):
-            print(f'  skip placeholder (no frame): {pl["slug"]}')
+            print(f'  skip fanmade (no frame): {pl["slug"]}')
             continue
-        pic = placeholder(pl['frame'])
+        artpath = os.path.join(fanmade_dir, pl['art']) if pl.get('art') else None
+        has_art = bool(artpath and os.path.exists(artpath))
+        pic = framed(artpath, pl['frame']) if has_art else placeholder(pl['frame'])
         cw, ch = save_webp(pic, os.path.join(OUT, 'cards', pl['slug'] + '.webp'), args.width, 82)
         tw, th = save_webp(pic, os.path.join(OUT, 'thumbs', pl['slug'] + '.webp'), args.thumb, 80)
-        registry[pl['slug']] = {
-            'cat': pl['cat'], 'refraction': pl['refraction'], 'en': pl['en'], 'noart': True,
+        rec = {
+            'cat': pl['cat'], 'refraction': pl['refraction'], 'en': pl['en'],
             'card': f'ub/cards/{pl["slug"]}.webp', 'w': cw, 'h': ch,
             'thumb': f'ub/thumbs/{pl["slug"]}.webp', 'tw': tw, 'th': th,
         }
+        if illus.get(pl['slug']):
+            rec['illus'] = illus[pl['slug']]
+        if not has_art:
+            rec['noart'] = True
+        registry[pl['slug']] = rec
         n += 1
-        print(f'  {pl["slug"]}  {cw}x{ch}  (placeholder, no art)')
+        print(f'  {pl["slug"]}  {cw}x{ch}  ({"art" if has_art else "placeholder, no art"})')
 
     # Refraction subtitle symbols (encounter set + collection), applied by slug.
     refr = json.load(open(REFR, encoding='utf-8')) if os.path.exists(REFR) else {}

@@ -175,7 +175,11 @@ window.tlaUpdateToast=function(reg){
     if(reg&&reg.waiting)reg.waiting.postMessage({type:'skipWaiting'}); else location.reload();
   });
   el.querySelector('.tla-uptoast-x').addEventListener('click',function(){el.classList.remove('on'); setTimeout(function(){if(el.parentNode)el.parentNode.removeChild(el);},250);});
-  document.body.appendChild(el);
+  /* Inside #tla-root, not <body>: the palette tokens (--panel/--ink/--gold/--ff-ui…) live on
+     #tla-root, and body is its ANCESTOR, so a toast on body resolves them to their initial values
+     — transparent background, default font/size — and the page shows straight through it. The shell
+     clips its overflow but never a position:fixed child (the modals prove it), so it still floats. */
+  (document.getElementById('tla-root')||document.body).appendChild(el);
   requestAnimationFrame(function(){el.classList.add('on');});
 };
 /* Labels come from a pack, so they are escaped like any other authored text:
@@ -1667,10 +1671,28 @@ function ubTypeLine(it){
 /* An item English has but this language does not yet: shown in English, flagged
    above the card with the version it arrived in (the changelog carries the rest). */
 function ubPendingHTML(it){
-  var msg=it.sinceVer?t('ubpendingv').replace('{v}',it.sinceVer):t('ubpending');
+  /* The notice names where the card came from: a fan-made Cultist Challenges card, or one the
+     Grimoire added in version {v} — either way still awaiting an official translation. */
+  var msg=it.fanmade?t('ubpendingfan')
+         :it.sinceVer?t('ubpendingv').split('{v}').join(it.sinceVer)
+         :t('ubpending');
   return '<div class="tla-ub-pending">'
     +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'
     +'<circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>'
+    +'<span>'+esc(msg)+'</span></div>';
+}
+/* A card translated by the community (e.g. Rincón Miskatonic) but not yet by the publisher:
+   it reads in this language, with a note naming where the card came from (a fan-made Cultist
+   Challenges card, or one the Grimoire added in version {v}) and crediting that community
+   translation — making clear it is ours, not the official one. Driven by the per-language
+   `tby` field (tools/ub_es.py); `fanmade`/`sinceVer` mirror ubPendingHTML's origin split. */
+function ubTransHTML(it){
+  var by=it.tby||'';
+  var msg=it.fanmade?t('ubtransfan').split('{by}').join(by)
+         :it.sinceVer?t('ubtransv').split('{v}').join(it.sinceVer).split('{by}').join(by)
+         :t('ubtranslatedby').split('{by}').join(by);
+  return '<div class="tla-ub-pending tla-ub-trans">'
+    +'<img class="tla-ub-trans-logo" src="assets/rincon-logo.png" alt="" width="18" height="18">'
     +'<span>'+esc(msg)+'</span></div>';
 }
 /* A masked SVG symbol drawn in the card's cream: encounter-set and product marks are
@@ -1730,14 +1752,25 @@ function ubSubtitleHTML(it){
   }
   return runsHTML(it.subtitle,true);
 }
+/* A player-made card (the Week of Arkham Horror "Cultist Challenges"): a bold, centred
+   credit naming its creator, printed ON the card just BELOW the rules text — like a printed
+   card's "Card design by …" line — so it rides along into the downloaded image too
+   (ubCardToBlob draws it like the other card text; the is-fanmade rule above shortens the
+   rule box to reserve the strip). English-only content; the label is localized (ubfanmade). */
+function ubFanmadeHTML(it){
+  if(!it||!it.fanmade)return '';
+  /* split/join, not replace(): a '$' in an author name is a literal here, not a $1/$& token. */
+  var msg=it.author?t('ubfanmade').split('{author}').join(it.author):t('ubfanmadeanon');
+  return '<div class="tla-ubc-fanmade">'+esc(msg)+'</div>';
+}
 function ubDetailHTML(it){
   if(!it)return '';
   /* The card is built from layers: the textless picture, then the title, type line
      and rule over it. When the text is the English fallback it is tagged lang="en" so
      a screen reader switches voice, and the banner says why. */
   var L=it.pending?' lang="en"':'';
-  var h=it.pending?ubPendingHTML(it):'';
-  h+='<div class="tla-ubc'+(it.noart?' is-noart':'')+(it.refraction?' is-refraction':'')+'" data-slug="'+esc(it.slug)+'" data-cat="'+esc(it.cat||'')+'">';
+  var h=it.tby?ubTransHTML(it):it.pending?ubPendingHTML(it):'';
+  h+='<div class="tla-ubc'+(it.noart?' is-noart':'')+(it.refraction?' is-refraction':'')+(it.fanmade?' is-fanmade':'')+'" data-slug="'+esc(it.slug)+'" data-cat="'+esc(it.cat||'')+'">';
   h+='<img class="tla-ubc-pic" src="assets/'+esc(ubCardSrc(it))+'" width="'+it.w+'" height="'+it.h+'" alt="" draggable="false" crossorigin="anonymous">';
   h+='<button type="button" class="tla-ubc-dl" data-ubdl aria-label="'+esc(t('ubdownload'))+'" title="'+esc(t('ubdownload'))+'">'
     +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg></button>';
@@ -1754,6 +1787,7 @@ function ubDetailHTML(it){
   h+='<div class="tla-ubc-rule"'+L+'>'+blocksHTML(it.blocks,true,true)+'</div>';
   if(it.collection)h+='<div class="tla-ubc-coll">'+ubSymHTML(it.collection)+'</div>';
   if(it.illus)h+='<div class="tla-ubc-illus">'+esc(t('ubillus'))+' '+esc(it.illus)+'</div>';
+  h+=ubFanmadeHTML(it);
   h+='</div>';
   return h;
 }
@@ -1843,19 +1877,65 @@ function ubCardToBlob(card,mime,quality){
         ctx.textAlign=cen?'center':'left';
         ctx.strokeText(t,x,y); ctx.fillText(t,x,y);
       }
-      function para(el){
+      function para(el,center){
         if(!el)return; var t=(el.textContent||'').replace(/\s+/g,' ').trim(); if(!t)return;
         var r=el.getBoundingClientRect(), s=getComputedStyle(el);
         var fs=parseFloat(s.fontSize)*sc, lh=parseFloat(s.lineHeight)*sc||fs*1.3, bw=r.width*sc;
-        ctx.font='normal '+s.fontWeight+' '+fs+'px '+s.fontFamily;
-        ctx.fillStyle=s.color; ctx.textAlign='left'; ctx.textBaseline='top'; outline(fs);
+        ctx.font=(center?s.fontStyle:'normal')+' '+s.fontWeight+' '+fs+'px '+s.fontFamily;
+        ctx.fillStyle=s.color; ctx.textAlign=center?'center':'left'; ctx.textBaseline='top'; outline(fs);
         var words=t.split(' '), ln='', out=[];
         words.forEach(function(w){var tt=ln?ln+' '+w:w; if(ln&&ctx.measureText(tt).width>bw){out.push(ln);ln=w;}else ln=tt;});
         if(ln)out.push(ln);
-        var x=X(r.left), y=Y(r.top);
+        var x=center?X(r.left+r.width/2):X(r.left), y=Y(r.top);
         out.forEach(function(l){ctx.strokeText(l,x,y); ctx.fillText(l,x,y); y+=lh;});
       }
-      line(card.querySelector('.tla-ubc-title'));
+      /* The title and the rules box can WRAP, carry inline [icon] glyphs, and hold bold/italic
+         card-trait runs — none of which textContent word-wrap can reproduce (it dropped the icons,
+         flattened the traits, and drew the title on one line ignoring its box). drawRich paints each
+         text fragment and icon EXACTLY where the browser laid it out (per-character Range rects),
+         with that run's own font / weight / style / colour, so the export matches the viewer 1:1.
+         Inline icons are collected and masked in afterwards with the other symbols (they are cream,
+         like `.tla-ubc-rule .ico` and the set marks). */
+      function eachTextLine(rng,node,cb){
+        var val=node.nodeValue,m=val.length,st=-1,top=0,bot=0,left=0;
+        for(var k=0;k<m;k++){
+          rng.setStart(node,k); rng.setEnd(node,k+1);
+          var rs=rng.getClientRects(); if(!rs.length)continue;
+          var rc=rs[rs.length-1]; if(!rc.width&&!rc.height)continue;
+          if(st<0){st=k;top=rc.top;bot=rc.bottom;left=rc.left;}
+          else if(Math.abs(rc.top-top)>1){cb(val.slice(st,k),left,(top+bot)/2);st=k;top=rc.top;bot=rc.bottom;left=rc.left;}
+        }
+        if(st>=0)cb(val.slice(st,m),left,(top+bot)/2);
+      }
+      function drawRich(el){
+        var icons=[]; if(!el)return icons;
+        var er=el.getBoundingClientRect(), center=getComputedStyle(el).textAlign==='center';
+        var cx=X(er.left+er.width/2), rng=document.createRange();
+        (function walk(node){
+          for(var c=node.firstChild;c;c=c.nextSibling){
+            if(c.nodeType===3){
+              if(!/\S/.test(c.nodeValue))continue;
+              var cs=getComputedStyle(c.parentNode), fs=parseFloat(cs.fontSize)*sc;
+              ctx.font=cs.fontStyle+' '+cs.fontWeight+' '+fs+'px '+cs.fontFamily;
+              ctx.fillStyle=cs.color; ctx.textBaseline='middle'; ctx.textAlign=center?'center':'left';
+              if('letterSpacing' in ctx){var ls=parseFloat(cs.letterSpacing); ctx.letterSpacing=((ls>0?ls:0)*sc)+'px';}
+              outline(fs);
+              eachTextLine(rng,c,function(txt,left,ymid){
+                var tt=txt.replace(/\s+$/,''); if(!/\S/.test(tt))return;
+                var x=center?cx:X(left), y=Y(ymid);
+                ctx.strokeText(tt,x,y); ctx.fillText(tt,x,y);
+              });
+            }else if(c.nodeType===1){
+              var cl=c.classList;
+              if(cl&&(cl.contains('ico')||cl.contains('tla-ubc-sym')))icons.push(c);
+              else walk(c);
+            }
+          }
+        })(el);
+        if('letterSpacing' in ctx)ctx.letterSpacing='0px';
+        return icons;
+      }
+      var titleIcons=drawRich(card.querySelector('.tla-ubc-title'));
       /* The subtitle flows text and inline symbols; draw each text span at its own place so
          the symbols (drawn below with the other marks) land between them, as on screen. */
       var subtxts=card.querySelectorAll('.tla-ubc-subtitle .tla-ubc-subtxt,.tla-ubc-subtitle .tla-ubc-subsep');
@@ -1864,8 +1944,9 @@ function ubCardToBlob(card,mime,quality){
       line(card.querySelector('.tla-ubc-type'));
       line(card.querySelector('.tla-ubc-illus'));
       line(card.querySelector('.tla-ubc-noart'));
-      para(card.querySelector('.tla-ubc-rule'));
-      var syms=[].slice.call(card.querySelectorAll('.tla-ubc-setmark .tla-ubc-sym,.tla-ubc-coll .tla-ubc-sym,.tla-ubc-subtitle .tla-ubc-sym'));
+      var ruleIcons=drawRich(card.querySelector('.tla-ubc-rule'));
+      para(card.querySelector('.tla-ubc-fanmade'), true);   // the fan-made credit, centred
+      var syms=[].slice.call(card.querySelectorAll('.tla-ubc-setmark .tla-ubc-sym,.tla-ubc-coll .tla-ubc-sym,.tla-ubc-subtitle .tla-ubc-sym')).concat(ruleIcons,titleIcons);
       Promise.all(syms.map(function(sy){
         return new Promise(function(res){
           var s=getComputedStyle(sy), m=s.maskImage||s.webkitMaskImage||'';
@@ -1998,12 +2079,22 @@ function crc32(bytes){
   return (c^0xFFFFFFFF)>>>0;
 }
 function ubZip(files){
-  var enc=new TextEncoder(), parts=[], central=[], offset=0;
+  var enc=new TextEncoder(), parts=[], central=[], offset=0, used={};
   var FLAG=0x0800;                                   // bit 11: file names are UTF-8 (accents)
   var u16=function(n){return [n&0xFF,(n>>>8)&0xFF];};
   var u32=function(n){return [n&0xFF,(n>>>8)&0xFF,(n>>>16)&0xFF,(n>>>24)&0xFF];};
+  /* Two shown cards can share a display name (the two different "Ultimatum of Blood Frenzy"
+     fan-made cards do), so their entries would land on the same path and an extractor would
+     keep only the last — silently dropping a distinct card. Uniquify repeats as "x.jpg",
+     "x (2).jpg", … (counter before the extension) so every card survives the archive. */
+  var uniq=function(nm){
+    if(!used[nm]){used[nm]=1; return nm;}
+    var dot=nm.lastIndexOf('.'), base=dot>0?nm.slice(0,dot):nm, ext=dot>0?nm.slice(dot):'', k=2;
+    while(used[base+' ('+k+')'+ext])k++;
+    nm=base+' ('+k+')'+ext; used[nm]=1; return nm;
+  };
   files.forEach(function(f){
-    var name=enc.encode(f.name), data=f.data, crc=crc32(data), n=data.length;
+    var name=enc.encode(uniq(f.name)), data=f.data, crc=crc32(data), n=data.length;
     var lh=[].concat(u32(0x04034b50),u16(20),u16(FLAG),u16(0),u16(0),u16(0),u32(crc),u32(n),u32(n),u16(name.length),u16(0));
     parts.push(new Uint8Array(lh),name,data);
     var cd=[].concat(u32(0x02014b50),u16(20),u16(20),u16(FLAG),u16(0),u16(0),u16(0),u32(crc),u32(n),u32(n),
@@ -2150,6 +2241,7 @@ function ubDrawPaint(focusSel){
     h+='<ol class="tla-ubdraw-list">';
     g.picks.forEach(function(it){
       h+='<li'+(it.pending?' lang="en"':'')+'><b>'+esc(it.name)+'</b>'
+        +(it.fanmade?' <span class="tla-ub-fan" title="'+esc(t('ubfanchiptitle'))+'">'+esc(t('ubfanchip'))+'</span>':'')
         +(it.pending?' <span class="tla-ub-en" title="'+esc(t('ubpending'))+'">EN</span>':'')+'</li>';
     });
     h+='</ol><div class="tla-ubdraw-cards">';
@@ -2270,7 +2362,7 @@ function ubHTML(s){
           +'" data-ubitem="'+esc(it.slug)+'" aria-selected="'+(o?'true':'false')+'" tabindex="'+(o?'0':'-1')+'">'
           +'<img class="tla-ub-thumb" src="assets/'+esc(ubThumbSrc(it))+'" width="'+it.tw+'" height="'+it.th
           +'" loading="lazy" alt=""><span class="tla-ub-iwrap"><span class="tla-ub-iname"'+(it.pending?' lang="en"':'')+'>'+esc(it.name)+'</span>'+sub+'</span>'
-          +chip+(it.pending?'<span class="tla-ub-en" title="'+esc(t('ubpending'))+'">EN</span>':'')+'</li>';
+          +chip+(it.fanmade?'<span class="tla-ub-fan" title="'+esc(t('ubfanchiptitle'))+'">'+esc(t('ubfanchip'))+'</span>':'')+(it.pending?'<span class="tla-ub-en" title="'+esc(t('ubpending'))+'">EN</span>':'')+'</li>';
       });
       h+='</ul><div class="tla-ub-detail">'+ubPaneHTML(s,cat,sel)+'</div></div>';
     }

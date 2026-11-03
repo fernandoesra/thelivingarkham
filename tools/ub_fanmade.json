@@ -1,0 +1,68 @@
+{
+  "_comment": "Fanmade Ultimatums & Refractions from FFG's 'Week of Arkham Horror 2026' Cultist Challenges document (player-submitted, NOT official FFG design). Injected into the Ultimatums/Boons/Refractions viewer by tools/ub_fanmade.py (a post-step mirroring ub_cap1.py), ENGLISH ONLY for now; other languages show them as pending via ub_merge. Each card carries an 'author' credit rendered as a bold, centred notice (i18n strings ubfanmade / ubfanmadeanon). chapter 'cc' = Cultist Challenges, a source distinct from cap1 (retired FAQ) and cap2 (2026 Grimoire): the viewer hides 'cc' from the Ch.1/Ch.2 cuts and shows it under 'All' and the campaign filter. Each slug must also exist in assets/ub/index.json (added as a noart placeholder by import_ub_cards.py) or the card is silently dropped. NOTE the two 'Ultimatum of Blood Frenzy' are DIFFERENT cards (distinct slugs); their names carry a (campaign)/(scenario) suffix so they can be told apart.",
+  "cards": [
+    {
+      "slug": "ultimatum-of-maddening-truth", "cat": "ultimatum", "refraction": false, "chapter": "both",
+      "name": "Ultimatum of Maddening Truth", "author": "The Beard",
+      "blocks": [{"type": "p", "runs": [{"kind": "text", "t": "Each investigator that controls more than 1 "}, {"kind": "icon", "name": "perinvestigator"}, {"kind": "text", "t": " clues gets –2 sanity."}]}]
+    },
+    {
+      "slug": "ultimatum-of-torment", "cat": "ultimatum", "refraction": false, "chapter": "both",
+      "name": "Ultimatum of Torment", "author": "The Beard",
+      "blocks": [{"type": "p", "runs": [{"kind": "text", "t": "When you draw a signature weakness, reveal it and take 1 horror."}]}]
+    },
+    {
+      "slug": "ultimatum-of-nihilism", "cat": "ultimatum", "refraction": false, "chapter": "both",
+      "name": "Ultimatum of Nihilism", "author": "Head Librarian Chad",
+      "blocks": [{"type": "p", "runs": [{"kind": "text", "t": "Each time an investigator reveals, cancels, or ignores an autofail token, that investigator takes 1 damage or 1 horror."}]}]
+    },
+    {
+      "slug": "ultimatum-of-thin-blood", "cat": "ultimatum", "refraction": true, "chapter": "cap2",
+      "campaign": "Children of Blood",
+      "name": "Ultimatum of Thin Blood", "author": "DerBK",
+      "blocks": [{"type": "p", "runs": [{"kind": "text", "t": "Whenever you seal a "}, {"kind": "icon", "name": "blood"}, {"kind": "text", "t": " token on your investigator, also take a direct damage."}]}]
+    },
+    {
+      "slug": "ultimatum-of-regret", "cat": "ultimatum", "refraction": true, "chapter": "cap2",
+      "campaign": "Children of Blood",
+      "name": "Ultimatum of Regret", "author": "DerBK",
+      "blocks": [{"type": "p", "runs": [{"kind": "text", "t": "Whenever a "}, {"kind": "text", "t": "Civilian", "bold": true, "italic": true}, {"kind": "text", "t": " enemy is defeated, each investigator takes a direct horror and a mental trauma."}]}]
+    },
+    {
+      "slug": "ultimatum-of-blood-frenzy", "cat": "ultimatum", "refraction": true, "chapter": "cap2",
+      "campaign": "Children of Blood",
+      "name": "Ultimatum of Blood Frenzy (campaign)", "author": "DerBK",
+      "blocks": [{"type": "p", "runs": [{"kind": "text", "t": "The first time a "}, {"kind": "text", "t": "Monster", "bold": true, "italic": true}, {"kind": "text", "t": " enemy attacks you each round, if you have a "}, {"kind": "icon", "name": "blood"}, {"kind": "text", "t": " token sealed on your investigator: Release a "}, {"kind": "icon", "name": "blood"}, {"kind": "text", "t": " token and the enemy attacks you an additional time."}]}]
+    },
+    {
+      "slug": "ultimatum-of-accursed-blood", "cat": "ultimatum", "refraction": true, "chapter": "cap2",
+      "campaign": "Children of Blood",
+      "name": "Ultimatum of Accursed Blood", "author": "The Beard",
+      "blocks": [{"type": "p", "runs": [{"kind": "text", "t": "Treat the modifier of each revealed "}, {"kind": "icon", "name": "blood"}, {"kind": "text", "t": " token as –2 instead of –1."}]}]
+    },
+    {
+      "slug": "ultimatum-of-cold-blood", "cat": "ultimatum", "refraction": true, "chapter": "cap2",
+      "campaign": "Children of Blood",
+      "name": "Ultimatum of Cold Blood", "author": "The Beard",
+      "blocks": [{"type": "p", "runs": [{"kind": "text", "t": "In addition to their normal effect, "}, {"kind": "icon", "name": "blood"}, {"kind": "text", "t": " tokens gain the following effect: “If another "}, {"kind": "icon", "name": "blood"}, {"kind": "text", "t": " token is revealed from the chaos bag during the same test, immediately end the ‘reveal chaos tokens’ step of the skill test and resolve the test as an automatic failure.”"}]}]
+    },
+    {
+      "slug": "ultimatum-of-hostility", "cat": "ultimatum", "refraction": true, "chapter": "cap2",
+      "campaign": "Children of Blood", "scenario": "River of Blood",
+      "name": "Ultimatum of Hostility", "author": "DerBK",
+      "blocks": [{"type": "p", "runs": [{"kind": "text", "t": "The residents of Arkham aren’t cooperative with the investigator’s attempts to keep them out of harm’s way. Based on the difficulty, replace one (Easy), two (Standard/Hard), or three (Expert) of the Waterfront Civilians with Bystanders from the Arkham Horror: The Card Game (2026) Core Set. When instructed to spawn a "}, {"kind": "text", "t": "Civilian", "bold": true, "italic": true}, {"kind": "text", "t": ", draw one of the four civilians at random to spawn."}]}]
+    },
+    {
+      "slug": "ultimatum-of-the-horde", "cat": "ultimatum", "refraction": true, "chapter": "cap2",
+      "campaign": "Children of Blood", "scenario": "New Horizons",
+      "name": "Ultimatum of the Horde", "author": "DerBK",
+      "blocks": [{"type": "p", "runs": [{"kind": "text", "t": "Each copy of Child of Blood gains surge. During Setup, also gather the three copies of Child of Blood from the Blood Money encounter set."}]}]
+    },
+    {
+      "slug": "ultimatum-of-blood-frenzy-blood-money", "cat": "ultimatum", "refraction": true, "chapter": "cap2",
+      "campaign": "Children of Blood", "scenario": "Blood Money",
+      "name": "Ultimatum of Blood Frenzy (scenario)", "author": "DerBK",
+      "blocks": [{"type": "p", "runs": [{"kind": "text", "t": "While a "}, {"kind": "text", "t": "Monster", "bold": true, "italic": true}, {"kind": "text", "t": " enemy is at their location, Suspicious Guests and Priscilla Thomas can not be parlayed with."}]}]
+    }
+  ]
+}

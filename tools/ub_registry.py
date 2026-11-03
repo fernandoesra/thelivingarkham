@@ -12,7 +12,8 @@ could see it, because a missing icon looks like a design decision.
 
 So the shared half is lifted out into data/ub.json, written once:
 
-    slug -> {cat, refraction, chapter, card, w, h, thumb, tw, th, illus, set, collection}
+    slug -> {cat, refraction, chapter, card, w, h, thumb, tw, th, illus, set, collection,
+             fanmade, author}
 
 and each language keeps only what it actually says:
 
@@ -31,8 +32,10 @@ import langpack
 
 # What belongs to the card rather than to a language. `set` and `collection` are art ids
 # (the encounter-set and campaign symbols); `chapter` is which rulebook the card came from.
+# `fanmade`/`author` mark the player-made Cultist Challenges cards — the author is a name,
+# not a translation — so they ride along here too and reach every language once.
 SHARED = ('cat', 'refraction', 'chapter', 'card', 'w', 'h', 'thumb', 'tw', 'th',
-          'illus', 'set', 'collection')
+          'illus', 'set', 'collection', 'fanmade', 'author')
 BUCKETS = ('ultimatums', 'boons', 'refractions')
 
 REGISTRY = os.path.join(langpack.DATA_DIR, 'ub.json')
@@ -81,6 +84,22 @@ def build(codes=None, quiet=False):
             for rec in ub.get(bucket, []):
                 seen.setdefault(rec['slug'], []).append((code, rec))
 
+    # A card's shared record can be rebuilt here only from a language whose grimoire still
+    # carries the fields inline — one just (re)assembled, before THIS step slims it away. On a
+    # single-language rebuild (`ingest.py de`), English is not re-assembled and stays slimmed,
+    # so an English-only card (a late English boon, the fan-made Cultist Challenges cards)
+    # appears only as the other languages' field-less pending copies and would vote to {} —
+    # silently blanking its art and its fanmade/author credit in this committed file, for every
+    # viewer language at once. So keep the previous record when this run can prove nothing about
+    # a card, and keep any card no grimoire in this run mentioned at all. A full rebuild is
+    # unaffected: every card's native language is present and votes, so `shared` is never empty.
+    prior = {}
+    if os.path.exists(REGISTRY):
+        try:
+            prior = json.load(open(REGISTRY, encoding='utf-8')).get('cards', {})
+        except (OSError, ValueError):
+            prior = {}
+
     cards, lifted = {}, 0
     for slug, pairs in seen.items():
         shared = {}
@@ -97,7 +116,9 @@ def build(codes=None, quiet=False):
             shared[key] = json.loads(best[0]) if len(best) == 1 else json.loads(
                 next(json.dumps(rec.get(key), ensure_ascii=False, sort_keys=True)
                      for code, rec in pairs if rec.get(key) not in (None, '')))
-        cards[slug] = shared
+        cards[slug] = shared or prior.get(slug, shared)
+    for slug, rec in prior.items():
+        cards.setdefault(slug, rec)
 
     with open(REGISTRY, 'w', encoding='utf-8') as f:
         json.dump({'cards': cards}, f, ensure_ascii=False)
@@ -116,7 +137,7 @@ def build(codes=None, quiet=False):
     filled = sum(1 for slug in cards
                  for key in ('set', 'collection')
                  if cards[slug].get(key)
-                 and any(r.get(key) in (None, '') for _c, r in seen[slug]))
+                 and any(r.get(key) in (None, '') for _c, r in seen.get(slug, [])))
     say(f'  ub registry -> data/ub.json: {len(cards)} card(s) written once, '
         f'{lifted} duplicated field(s) removed from the languages'
         + (f'; {filled} symbol(s) a language was missing now come from the shared record'

@@ -1,5 +1,121 @@
 [
   {
+    "v": "1.5.7",
+    "date": "2026-11-03",
+    "i18n": {
+      "es": {
+        "title": "Cartas de los Cultist Challenges 2026 y varias mejoras",
+        "items": [
+          "**Nuevas cartas: los Cultist Challenges 2026.** El visor de «Ultimátums, Ayudas y Refracciones» incorpora las 11 cartas comunitarias de los Cultist Challenges 2026 y la Ayuda de Nodens, ya con su ilustración real y el crédito de cada ilustrador. Las cartas de la comunidad van marcadas como «fan» y con una nota de su origen.",
+          "**Traducidas al español por Rincón Miskatonic.** Las cartas que solo estaban en inglés (las de los Cultist Challenges y las añadidas al Grimorio 1.1) ya se leen en español, con un aviso de que es nuestra traducción comunitaria a la espera de la oficial. En los demás idiomas siguen en inglés.",
+          "**Descargas de carta idénticas al visor.** Al descargar una carta de «Ultimátums, Ayudas y Refracciones», el título se ajusta igual que en pantalla y la caja de habilidad sale con sus iconos (como la ficha de sangre) y sus rasgos en negrita y cursiva (Monstruo, Civil…), exactamente como se ven.",
+          "**Retoques en las cartas y la lista.** Subimos un poco el título y el subtítulo de todas las cartas, y corregimos el subtítulo de campaña que en la lista se solapaba con la etiqueta de capítulo.",
+          "**Aviso de nueva versión arreglado en el móvil.** El aviso de «Nueva versión disponible» se veía transparente y descolocado en el móvil; ahora aparece sólido y legible."
+        ]
+      },
+      "en": {
+        "title": "Cards from the Cultist Challenges 2026, and several improvements",
+        "items": [
+          "**New cards: the Cultist Challenges 2026.** The Ultimatums, Boons & Refractions viewer now includes the 11 community Cultist Challenges 2026 cards and the Boon of Nodens, each with its real illustration and illustrator credit. The community cards are marked as fan cards, with a note on where they come from.",
+          "**Translated into Spanish by Rincón Miskatonic.** The cards that were English-only (the Cultist Challenges cards and the Grimoire 1.1 additions) now read in Spanish, with a note that it's our community translation while the official one is pending. In the other languages they stay in English.",
+          "**Card downloads that match the viewer.** When you download a card from Ultimatums, Boons & Refractions, the title now wraps just like on screen and the ability box comes out with its icons (such as the blood token) and its bold-italic traits (Monster, Civilian…), exactly as shown.",
+          "**Touch-ups to the cards and the list.** The title and subtitle sit a little higher on every card, and the campaign subtitle that overlapped the chapter tag in the list is fixed.",
+          "**“New version available” notice fixed on mobile.** The “New version available” notice showed through transparently and out of place on mobile; it now appears solid and legible."
+        ]
+      },
+      "de": {
+        "title": "Karten der Cultist Challenges 2026 und mehrere Verbesserungen",
+        "items": [
+          "**Neue Karten: die Cultist Challenges 2026.** Der Viewer „Ultimaten, Segen und Refraktionen“ enthält jetzt die 11 Community-Karten der Cultist Challenges 2026 und den Boon of Nodens, jeweils mit echter Illustration und Illustrator-Nennung. Die Community-Karten sind als Fan-Karten gekennzeichnet, mit einem Hinweis auf ihre Herkunft.",
+          "**Von Rincón Miskatonic ins Spanische übersetzt.** Die zuvor nur englischen Karten (die der Cultist Challenges und die Ergänzungen zum Grimoire 1.1) lesen sich nun auf Spanisch, mit einem Hinweis, dass es unsere Community-Übersetzung ist, solange die offizielle aussteht. In den anderen Sprachen bleiben sie englisch.",
+          "**Karten-Downloads wie im Viewer.** Beim Herunterladen einer Karte aus „Ultimaten, Segen und Refraktionen“ bricht der Titel jetzt genau wie am Bildschirm um, und das Fähigkeitsfeld erscheint mit seinen Symbolen (etwa dem Blut-Marker) und seinen fett-kursiven Merkmalen (Monster, Civilian …), genau wie angezeigt.",
+          "**Feinschliff an den Karten und der Liste.** Titel und Untertitel sitzen auf jeder Karte etwas höher, und der Kampagnen-Untertitel, der sich in der Liste mit der Kapitel-Markierung überlappte, ist korrigiert.",
+          "**Hinweis „Neue Version verfügbar“ auf dem Handy behoben.** Der Hinweis „Neue Version verfügbar“ wirkte auf dem Handy durchsichtig und verrutscht; jetzt erscheint er deckend und gut lesbar."
+        ]
+      },
+      "it": {
+        "title": "Carte dei Cultist Challenges 2026 e vari miglioramenti",
+        "items": [
+          "**Nuove carte: i Cultist Challenges 2026.** Il visore «Ultimatum, Favori e Rifrazioni» include ora le 11 carte della comunità dei Cultist Challenges 2026 e il Boon of Nodens, ciascuna con la sua illustrazione reale e il credito dell'illustratore. Le carte della comunità sono contrassegnate come «fan», con una nota sulla loro origine.",
+          "**Tradotte in spagnolo da Rincón Miskatonic.** Le carte finora solo in inglese (quelle dei Cultist Challenges e le aggiunte al Grimorio 1.1) ora si leggono in spagnolo, con un avviso che è la nostra traduzione della comunità in attesa di quella ufficiale. Nelle altre lingue restano in inglese.",
+          "**Download delle carte identici al visore.** Scaricando una carta da «Ultimatum, Favori e Rifrazioni», il titolo va a capo come sullo schermo e il riquadro dell'abilità esce con le sue icone (come il segnalino sangue) e i suoi tratti in grassetto corsivo (Monster, Civilian…), esattamente come appaiono.",
+          "**Ritocchi alle carte e all'elenco.** Il titolo e il sottotitolo stanno un po' più in alto su ogni carta, ed è corretto il sottotitolo di campagna che nell'elenco si sovrapponeva all'etichetta di capitolo.",
+          "**Avviso «Nuova versione disponibile» corretto su cellulare.** L'avviso «Nuova versione disponibile» appariva trasparente e fuori posto su cellulare; ora è pieno e leggibile."
+        ]
+      },
+      "fr": {
+        "title": "Cartes des Cultist Challenges 2026 et plusieurs améliorations",
+        "items": [
+          "**Nouvelles cartes : les Cultist Challenges 2026.** Le visualiseur « Ultimatums, Bienfaits et Réfractions » comprend désormais les 11 cartes communautaires des Cultist Challenges 2026 et le Boon of Nodens, chacune avec sa véritable illustration et le crédit de l'illustrateur. Les cartes de la communauté sont marquées comme cartes « fan », avec une note sur leur origine.",
+          "**Traduites en espagnol par Rincón Miskatonic.** Les cartes jusqu'ici uniquement en anglais (celles des Cultist Challenges et les ajouts au Grimoire 1.1) se lisent désormais en espagnol, avec une note indiquant qu'il s'agit de notre traduction communautaire en attendant l'officielle. Dans les autres langues, elles restent en anglais.",
+          "**Téléchargements de cartes fidèles au visualiseur.** En téléchargeant une carte depuis « Ultimatums, Bienfaits et Réfractions », le titre passe à la ligne comme à l'écran et le cadre de capacité sort avec ses icônes (comme le jeton de sang) et ses traits en gras-italique (Monster, Civilian…), exactement comme affichés.",
+          "**Retouches sur les cartes et la liste.** Le titre et le sous-titre sont un peu plus hauts sur chaque carte, et le sous-titre de campagne qui chevauchait l'étiquette de chapitre dans la liste est corrigé.",
+          "**Avis « Nouvelle version disponible » corrigé sur mobile.** L'avis « Nouvelle version disponible » apparaissait transparent et décalé sur mobile ; il s'affiche désormais plein et lisible."
+        ]
+      },
+      "pt": {
+        "title": "Cartas dos Cultist Challenges 2026 e várias melhorias",
+        "items": [
+          "**Novas cartas: os Cultist Challenges 2026.** O visualizador «Ultimatos, Bênçãos e Refrações» passa a incluir as 11 cartas da comunidade dos Cultist Challenges 2026 e o Boon of Nodens, cada uma com a sua ilustração real e o crédito do ilustrador. As cartas da comunidade vêm marcadas como «fan», com uma nota sobre a sua origem.",
+          "**Traduzidas para espanhol por Rincón Miskatonic.** As cartas que só existiam em inglês (as dos Cultist Challenges e as adições ao Grimório 1.1) já se leem em espanhol, com um aviso de que é a nossa tradução comunitária enquanto a oficial não chega. Nos outros idiomas continuam em inglês.",
+          "**Transferências de carta iguais ao visualizador.** Ao transferir uma carta de «Ultimatos, Bênçãos e Refrações», o título muda de linha como no ecrã e a caixa de habilidade sai com os seus ícones (como a ficha de sangue) e os seus traços a negrito e itálico (Monster, Civilian…), exatamente como se veem.",
+          "**Retoques nas cartas e na lista.** O título e o subtítulo ficam um pouco mais acima em cada carta, e corrigiu-se o subtítulo de campanha que na lista se sobrepunha à etiqueta de capítulo.",
+          "**Aviso «Nova versão disponível» corrigido no telemóvel.** O aviso «Nova versão disponível» aparecia transparente e deslocado no telemóvel; agora aparece sólido e legível."
+        ]
+      },
+      "pl": {
+        "title": "Karty z Cultist Challenges 2026 i kilka usprawnień",
+        "items": [
+          "**Nowe karty: Cultist Challenges 2026.** Przeglądarka „Ultimatum, Dobrodziejstwa i Refrakcje“ zawiera teraz 11 społecznościowych kart z Cultist Challenges 2026 oraz Boon of Nodens, każdą z prawdziwą ilustracją i podpisem ilustratora. Karty społeczności są oznaczone jako „fan“, z notką o ich pochodzeniu.",
+          "**Przetłumaczone na hiszpański przez Rincón Miskatonic.** Karty dostępne dotąd tylko po angielsku (te z Cultist Challenges i dodatki do Grimuaru 1.1) czyta się teraz po hiszpańsku, z informacją, że to nasze tłumaczenie społecznościowe w oczekiwaniu na oficjalne. W pozostałych językach zostają po angielsku.",
+          "**Pobieranie kart zgodne z przeglądarką.** Przy pobieraniu karty z „Ultimatum, Dobrodziejstwa i Refrakcje“ tytuł łamie się tak jak na ekranie, a pole zdolności wychodzi ze swoimi ikonami (jak żeton krwi) i cechami pogrubioną kursywą (Monster, Civilian…), dokładnie tak, jak są wyświetlane.",
+          "**Poprawki kart i listy.** Tytuł i podtytuł są nieco wyżej na każdej karcie, a podtytuł kampanii, który na liście nachodził na etykietę rozdziału, został poprawiony.",
+          "**Powiadomienie „Dostępna nowa wersja“ poprawione na telefonie.** Powiadomienie „Dostępna nowa wersja“ było na telefonie przezroczyste i przesunięte; teraz wyświetla się pełne i czytelne."
+        ]
+      },
+      "ru": {
+        "title": "Карты из Cultist Challenges 2026 и ряд улучшений",
+        "items": [
+          "**Новые карты: Cultist Challenges 2026.** В просмотрщике «Ультиматумы, дары и рефракции» теперь есть 11 общественных карт Cultist Challenges 2026 и Boon of Nodens, каждая с настоящей иллюстрацией и указанием художника. Карты сообщества помечены как фанатские, с примечанием об их происхождении.",
+          "**Переведены на испанский силами Rincón Miskatonic.** Карты, бывшие только на английском (из Cultist Challenges и дополнения к Гримуару 1.1), теперь читаются на испанском, с пометкой, что это наш общественный перевод в ожидании официального. На других языках они остаются на английском.",
+          "**Скачивание карт совпадает с просмотрщиком.** При скачивании карты из «Ультиматумы, дары и рефракции» заголовок переносится так же, как на экране, а блок способности выходит со своими значками (например, жетоном крови) и чертами полужирным курсивом (Monster, Civilian…), ровно как показано.",
+          "**Доработки карт и списка.** Заголовок и подзаголовок на каждой карте теперь чуть выше, а подзаголовок кампании, налезавший в списке на метку главы, исправлен.",
+          "**Уведомление «Доступна новая версия» исправлено на телефоне.** Уведомление «Доступна новая версия» на телефоне выглядело прозрачным и смещённым; теперь оно отображается плотным и читаемым."
+        ]
+      },
+      "uk": {
+        "title": "Карти з Cultist Challenges 2026 і низка покращень",
+        "items": [
+          "**Нові карти: Cultist Challenges 2026.** У переглядачі «Ультиматуми, дари та рефракції» тепер є 11 спільнотних карт Cultist Challenges 2026 і Boon of Nodens, кожна зі справжньою ілюстрацією та зазначенням художника. Карти спільноти позначені як фанатські, з приміткою про їхнє походження.",
+          "**Перекладені іспанською силами Rincón Miskatonic.** Карти, що були лише англійською (із Cultist Challenges і додатки до Ґримуара 1.1), тепер читаються іспанською, із приміткою, що це наш спільнотний переклад в очікуванні офіційного. Іншими мовами вони лишаються англійською.",
+          "**Завантаження карт збігається з переглядачем.** Під час завантаження карти з «Ультиматуми, дари та рефракції» заголовок переноситься так само, як на екрані, а блок здібності виходить зі своїми значками (як-от жетоном крові) та рисами напівжирним курсивом (Monster, Civilian…), точно як показано.",
+          "**Доопрацювання карт і списку.** Заголовок і підзаголовок на кожній карті тепер трохи вище, а підзаголовок кампанії, що в списку налазив на позначку розділу, виправлено.",
+          "**Сповіщення «Доступна нова версія» виправлено на телефоні.** Сповіщення «Доступна нова версія» на телефоні виглядало прозорим і зміщеним; тепер воно відображається щільним і розбірливим."
+        ]
+      },
+      "ko": {
+        "title": "Cultist Challenges 2026 카드와 여러 개선",
+        "items": [
+          "**새 카드: Cultist Challenges 2026.** 「궁극·보너스·굴절」 뷰어에 Cultist Challenges 2026의 커뮤니티 카드 11장과 Boon of Nodens가 추가되었습니다. 각 카드에 실제 일러스트와 일러스트레이터 크레딧이 들어갑니다. 커뮤니티 카드는 팬 카드로 표시되며 출처 안내가 함께 표시됩니다.",
+          "**Rincón Miskatonic의 스페인어 번역.** 그동안 영어로만 있던 카드(Cultist Challenges 카드와 그리모어 1.1 추가분)를 이제 스페인어로 읽을 수 있습니다. 공식 번역이 나올 때까지의 커뮤니티 번역이라는 안내가 함께 표시되며, 다른 언어에서는 영어로 유지됩니다.",
+          "**뷰어와 똑같은 카드 다운로드.** 「궁극·보너스·굴절」에서 카드를 다운로드하면 제목이 화면과 똑같이 줄바꿈되고, 능력 상자가 아이콘(예: 피 토큰)과 굵은 기울임 특성(Monster, Civilian 등)과 함께 화면 그대로 나옵니다.",
+          "**카드와 목록 다듬기.** 모든 카드에서 제목과 부제를 조금 위로 올렸고, 목록에서 챕터 태그와 겹치던 캠페인 부제를 바로잡았습니다.",
+          "**모바일에서 ‘새 버전이 있습니다’ 알림 수정.** ‘새 버전이 있습니다’ 알림이 모바일에서 투명하고 어긋나 보였는데, 이제 불투명하고 읽기 쉽게 표시됩니다."
+        ]
+      },
+      "zh": {
+        "title": "Cultist Challenges 2026 卡牌与多项改进",
+        "items": [
+          "**新卡牌：Cultist Challenges 2026。**「终极、恩泽与折射」查看器现已收录 Cultist Challenges 2026 的 11 张社区卡牌以及 Boon of Nodens，每张都配有真实插画和插画师署名。社区卡牌标记为「fan」，并附有来源说明。",
+          "**由 Rincón Miskatonic 翻译为西班牙文。**此前仅有英文的卡牌（Cultist Challenges 的卡牌以及魔典 1.1 的新增内容）现已可用西班牙文阅读，并注明这是我们的社区翻译、官方版本尚未推出。其他语言仍保持英文。",
+          "**卡牌下载与查看器一致。**从「终极、恩泽与折射」下载卡牌时，标题的换行与屏幕上相同，技能框会带有其图标（如血标记）和加粗斜体的特征（Monster、Civilian 等），与显示完全一致。",
+          "**卡牌与列表的微调。**每张卡牌的标题和副标题略微上移，并修正了列表中与章节标签重叠的战役副标题。",
+          "**修复移动端「有新版本可用」提示。**「有新版本可用」提示在移动端显示为透明且错位；现已显示为不透明且清晰可读。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.5.6",
     "date": "2026-10-07",
     "i18n": {

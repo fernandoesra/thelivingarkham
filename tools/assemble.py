@@ -1349,6 +1349,14 @@ def main():
         ub_cap1.build(pack)
     except Exception as e:
         print(f'  [warn] ub cap1 refractions skipped: {type(e).__name__}: {e}', file=sys.stderr)
+    # The fan-made "Cultist Challenges" cards (English only), injected the same way — a
+    # POST-step, since they are not in the optional-rules chapter either. English-only, so
+    # this is a no-op for the other languages here; ingest.py's ub_merge carries them over.
+    try:
+        import ub_fanmade
+        ub_fanmade.build(pack)
+    except Exception as e:
+        print(f'  [warn] ub fanmade cards skipped: {type(e).__name__}: {e}', file=sys.stderr)
     links, autolinks, versions, whatsnew, ub = (
         rep['links'], rep['autolinks'], rep['versions'], rep['whatsnew'], rep['ub'])
     # ---- report ----

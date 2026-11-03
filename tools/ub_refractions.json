@@ -13,5 +13,15 @@
   "boon-of-atonement": { "set": "scen-shades-of-suffering" },
   "boon-of-bliss": { "set": "scen-fate-of-the-vale" },
   "boon-of-the-miners": { "set": "scen-fate-of-the-vale" },
-  "ultimatum-of-the-sleeper": { "set": "scen-doom-of-arkham-2" }
+  "ultimatum-of-the-sleeper": { "set": "scen-doom-of-arkham-2" },
+
+  "_cob": "Children of Blood (fan-made Cultist Challenges 2026): AHC106 is the campaign symbol and the scenario encounter-set symbols were cut from the ahc106 campaign guide's vector line-art (tools/… extract). Campaign-wide refractions carry only 'collection'; the three scenario ones add their 'set'.",
+  "ultimatum-of-thin-blood": { "collection": "AHC106" },
+  "ultimatum-of-regret": { "collection": "AHC106" },
+  "ultimatum-of-blood-frenzy": { "collection": "AHC106" },
+  "ultimatum-of-accursed-blood": { "collection": "AHC106" },
+  "ultimatum-of-cold-blood": { "collection": "AHC106" },
+  "ultimatum-of-hostility": { "set": "scen-river-of-blood", "collection": "AHC106" },
+  "ultimatum-of-the-horde": { "set": "scen-new-horizons", "collection": "AHC106" },
+  "ultimatum-of-blood-frenzy-blood-money": { "set": "scen-blood-money", "collection": "AHC106" }
 }
