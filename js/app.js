@@ -166,7 +166,12 @@ function announce(msg){if(elLive){elLive.textContent=''; setTimeout(function(){e
    per detected update, and never for the first install. */
 var updateToastShown=false;
 window.tlaUpdateToast=function(reg){
-  if(updateToastShown||document.querySelector('.tla-uptoast'))return; updateToastShown=true;
+  if(updateToastShown||document.querySelector('.tla-uptoast'))return;
+  /* The service-worker check (index.html) can fire before app.js has loaded the language pack —
+     then t() has no strings and the toast would print the raw keys ("updateready"/"updatego"). A
+     key resolving to itself is exactly that state, so wait and retry until the pack is in. */
+  if(t('updateready')==='updateready'){ setTimeout(function(){window.tlaUpdateToast(reg);},150); return; }
+  updateToastShown=true;
   var el=document.createElement('div');
   el.className='tla-uptoast'; el.setAttribute('role','status');
   el.innerHTML='<span class="tla-uptoast-t">'+esc(t('updateready'))+'</span>'

@@ -1557,8 +1557,8 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-toc a .ico{--icon:var(--muted)}
 
 /* ---------- footer ---------- */
-.tla-foot{flex:0 0 auto; border-top:1px solid var(--edge); padding:14px 22px; font-family:var(--ff-ui); font-size:var(--fs-eyebrow); color:var(--muted);
-  display:flex; gap:14px; flex-wrap:wrap; align-items:center; justify-content:space-between; background:var(--bg2)}
+.tla-foot{flex:0 0 auto; border-top:1px solid var(--edge); padding:12px 20px; font-family:var(--ff-ui); font-size:12px; color:var(--muted);
+  display:flex; gap:9px 16px; flex-wrap:wrap; align-items:center; justify-content:space-between; background:var(--bg2)}
 .tla-foot-body{display:contents}
 /* No fold on a wide screen: there is room, so the credits just sit there. The
    button is display:none rather than merely invisible, so it is out of the tab
