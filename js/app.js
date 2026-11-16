@@ -3627,7 +3627,7 @@ function render(sid,eid,flash){
   if(s.kind==='whatsnew'){renderWhatsNew(); markNav(sid); return;}
   if(s.kind==='intro'){renderLanding(s); markNav(sid); return;}
   var ents=visibleEntries(s);
-  var h='<div class="tla-doc'+(s.kind==='taboocards'?' tla-doc--wide':'')+'">';
+  var h='<div class="tla-doc'+((s.kind==='taboocards'||s.kind==='encounters')?' tla-doc--wide':'')+'">';
   h+='<div class="tla-crumb">'+(s.num?('· '+s.num+' ·'):'')+' The Living Arkham</div>';
   h+='<h1 class="tla-h1">'+(s.num?'<span class="tla-rn">'+s.num+'.</span>':'')+esc(s.title)+'</h1>';
   h+='<div class="tla-rule"></div>';

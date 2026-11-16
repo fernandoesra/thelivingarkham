@@ -714,7 +714,16 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-enc-csub{font-family:var(--ff-ui); font-size:var(--fs-small); color:var(--muted); font-style:italic}
 .tla-enc-copies{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:600; color:var(--ink2);
   background:var(--bg2); border:1px solid var(--edge2); border-radius:5px; padding:1px 7px; flex:0 0 auto}
-@media(max-width:560px){.tla-enc-art{width:118px}}
+@media(max-width:560px){
+  .tla-enc-art{width:118px}
+  /* The selector row is label + <select> + download button on one line on desktop.
+     On a phone the <select>'s 320px floor plus its label no longer fits the gutter,
+     so stack: label over a full-width select, with the download button wrapping below. */
+  .tla-enc-sel{align-items:stretch}
+  .tla-enc-selwrap{flex:1 1 100%; flex-direction:column; align-items:flex-start; gap:6px}
+  .tla-enc-selbox{width:100%; min-width:0}
+  .tla-enc-dlcamp{align-self:flex-start; max-width:100%}
+}
 /* card zoom: the clicked art enlarged over a scrim, with prev/next arrows that step through the
    set's cards — disabled (not wrapped) at the first and last. */
 .tla-enc-zoomov{position:fixed; inset:0; z-index:300; display:flex; align-items:center; justify-content:center;
@@ -1766,11 +1775,15 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 
 /* ---------- responsive ---------- */
 @media(max-width:1180px){
-  .tla-body{grid-template-columns:280px minmax(0,1fr)}
+  /* is-wide must be listed too: `.tla-body.is-wide` (0,2,0) outranks a bare
+     `.tla-body` (0,1,0), so without it the wide sections (taboo cards, encounter
+     sets) keep the desktop 3-column grid on tablet/phone — main lands in the 308px
+     nav track and the content jams against the left edge. */
+  .tla-body, .tla-body.is-wide{grid-template-columns:280px minmax(0,1fr)}
   .tla-toc{display:none}
 }
 @media(max-width:820px){
-  .tla-body{grid-template-columns:1fr}
+  .tla-body, .tla-body.is-wide{grid-template-columns:1fr}
   .tla-burger{display:inline-flex}
   /* visibility, not just transform: sliding the drawer off-canvas leaves its
      buttons in the tab order, so a keyboard user Tabs blind through the whole
