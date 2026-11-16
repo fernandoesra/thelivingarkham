@@ -1576,11 +1576,8 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
 .tla-foot-logo{display:inline-flex; line-height:0; flex:0 0 auto}
 .tla-foot-logo img{width:24px; height:24px; display:block; border-radius:50%}
 .tla-foot-contact{display:inline-flex; align-items:center; gap:8px 12px; flex-wrap:wrap}
-/* The action cluster: a bare mailto (just the address, opens the reader's mail client),
-   then four icon-only controls — source, chat, donate, release notes. */
-#tla-root .tla-foot-mail{display:inline-flex; align-items:center; gap:6px; text-decoration:none}
-#tla-root .tla-foot-mail:hover{text-decoration:underline}
-/* The four travel together. Without this they are four separate flex items, and on a phone the
+/* The action cluster: icon-only controls — e-mail, source, chat, donate, release notes. */
+/* They travel together. Without this they are four separate flex items, and on a phone the
    line breaks wherever it happens to run out — leaving GitHub stranded beside the e-mail and the
    other three on the row below. As one item the whole cluster wraps, or none of it does. */
 .tla-foot-icos{display:inline-flex; align-items:center; gap:8px; flex:0 0 auto}
