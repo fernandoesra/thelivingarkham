@@ -16,6 +16,7 @@
       "faqDate": "2026-02-01",
       "tabooData": "data/taboos_es.json",
       "tabooCardsData": "data/taboo_cards_es.json",
+      "encountersData": "data/encounters_es.json",
       "flag": "langs/es/flag.svg"
     },
     {

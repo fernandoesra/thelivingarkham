@@ -68,7 +68,7 @@ text = [rel(p) for p in sorted(Path('data').glob('*.json')) if rel(p) not in REG
 # ---- every servable image / card face (download -> everything) ----
 IMG = {'.webp', '.png', '.jpg', '.jpeg', '.svg', '.avif'}
 assets = []
-for d in ('assets/ub', 'assets/taboo', 'assets/img', 'assets/products',
+for d in ('assets/ub', 'assets/taboo', 'assets/encounters', 'assets/img', 'assets/products',
           'assets/faqsets', 'assets/icons'):
     assets += under(d, IMG | {'.woff2'})       # card-face fonts live beside the plates
 assets += ['assets/general_banner_01.webp']

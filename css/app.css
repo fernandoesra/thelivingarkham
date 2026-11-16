@@ -668,6 +668,75 @@ html[data-theme="fog"] #tla-root, .tla-pal-fog{
   border:1px dashed var(--edge2); border-radius:12px; background:var(--panel)}
 .tla-soon-h{font-family:var(--ff-head); font-size:var(--fs-lead); color:var(--teal2); margin:0 0 6px; letter-spacing:.3px}
 .tla-soon-d{font-family:var(--ff-body); font-size:var(--fs-small); color:var(--muted); margin:0}
+
+/* ---------- chapter-1 themed encounter sets viewer (Resources) ---------- */
+.tla-enc-lead{color:var(--ink2); margin:0 0 20px; max-width:none; line-height:1.55}
+#tla-root .tla-enc-lead a{color:var(--gold2); text-decoration:underline; text-underline-offset:2px}
+#tla-root .tla-enc-lead a:hover{color:var(--ink)}
+.tla-enc-sel{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:0 0 24px}
+.tla-enc-selwrap{display:flex; align-items:center; gap:10px}
+.tla-enc-dlcamp{display:inline-flex; align-items:center; gap:7px; flex:0 0 auto; cursor:pointer;
+  font-family:var(--ff-ui); font-size:var(--fs-small); color:var(--ink); background:var(--panel);
+  border:1px solid var(--edge2); border-radius:8px; padding:8px 13px}
+.tla-enc-dlcamp:hover{background:var(--gold); color:var(--on-gold); border-color:var(--gold)}
+.tla-enc-dlcamp[aria-busy=true]{opacity:.85; cursor:progress}
+.tla-enc-dlcamp svg{width:15px; height:15px; flex:0 0 auto}
+.tla-enc-dlspin{display:none; width:14px; height:14px; flex:0 0 auto; border:2px solid currentColor;
+  border-right-color:transparent; border-radius:50%; animation:tlaspin .7s linear infinite}
+.tla-enc-dlcamp[aria-busy=true] .tla-enc-dlspin{display:inline-block}
+.tla-enc-dlcamp[aria-busy=true] svg{display:none}
+.tla-enc-sellabel{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); text-transform:uppercase; letter-spacing:.9px; color:var(--muted)}
+.tla-enc-selbox{font-family:var(--ff-ui); font-size:var(--fs-small); color:var(--ink); background:var(--panel);
+  border:1px solid var(--edge2); border-radius:8px; padding:8px 12px; min-width:min(320px,88vw)}
+.tla-enc-set{margin:0 0 30px; border-top:1px solid var(--edge); padding-top:18px}
+.tla-enc-set:first-of-type{border-top:0; padding-top:0}
+.tla-enc-sethd{display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:0 0 14px}
+.tla-enc-seticon{width:34px; height:34px; flex:0 0 auto; display:inline-block; background-color:var(--gold2);
+  -webkit-mask-repeat:no-repeat; mask-repeat:no-repeat; -webkit-mask-position:center; mask-position:center;
+  -webkit-mask-size:contain; mask-size:contain}
+.tla-enc-setname{font-family:var(--ff-head); font-weight:400; font-size:var(--fs-lead); color:var(--ink); margin:0; flex:1 1 auto; min-width:0}
+.tla-enc-count{font-family:var(--ff-ui); font-size:.62em; font-weight:400; color:var(--muted); white-space:nowrap}
+.tla-enc-cards{display:flex; flex-wrap:wrap; gap:26px 36px; align-items:flex-start}
+.tla-enc-card{margin:0; display:flex; flex-direction:column; gap:8px}
+.tla-enc-arts{display:flex; gap:7px; flex-wrap:wrap; align-items:flex-start}
+.tla-enc-slot{position:relative; display:inline-flex; gap:7px; line-height:0}
+.tla-enc-art{width:152px; height:auto; aspect-ratio:732/1039; display:block; border-radius:7px;
+  border:1px solid var(--edge); background:var(--bg2); cursor:zoom-in}
+.tla-enc-dl1{position:absolute; top:5px; right:5px; display:inline-flex; align-items:center; justify-content:center;
+  width:27px; height:27px; padding:0; cursor:pointer; border-radius:6px; background:rgba(12,14,18,.6);
+  color:#f4ecd8; border:1px solid rgba(244,236,216,.22)}
+.tla-enc-dl1:hover{background:var(--gold); color:var(--on-gold); border-color:var(--gold)}
+.tla-enc-dl1 svg{width:15px; height:15px}
+.tla-enc-cap{display:flex; align-items:baseline; gap:4px 8px; flex-wrap:wrap}
+.tla-enc-cname{font-family:var(--ff-ui); font-size:var(--fs-small); color:var(--ink)}
+#tla-root a.tla-enc-cname{color:var(--ink); text-decoration:none}
+#tla-root a.tla-enc-cname:hover{color:var(--gold2); text-decoration:underline; text-underline-offset:2px}
+.tla-enc-csub{font-family:var(--ff-ui); font-size:var(--fs-small); color:var(--muted); font-style:italic}
+.tla-enc-copies{font-family:var(--ff-ui); font-size:var(--fs-eyebrow); font-weight:600; color:var(--ink2);
+  background:var(--bg2); border:1px solid var(--edge2); border-radius:5px; padding:1px 7px; flex:0 0 auto}
+@media(max-width:560px){.tla-enc-art{width:118px}}
+/* card zoom: the clicked art enlarged over a scrim, with prev/next arrows that step through the
+   set's cards — disabled (not wrapped) at the first and last. */
+.tla-enc-zoomov{position:fixed; inset:0; z-index:300; display:flex; align-items:center; justify-content:center;
+  padding:2.4rem 1.2rem; background:var(--scrim,rgba(8,6,14,.82))}
+.tla-enc-zoombox{position:relative; display:flex; flex-direction:column; align-items:center; gap:.8rem; max-width:min(94vw,520px)}
+.tla-enc-zoomclose{position:absolute; top:-2.7rem; right:0; width:2.2rem; height:2.2rem; cursor:pointer;
+  border:1px solid var(--edge2); border-radius:8px; background:var(--panel); color:var(--ink); font:400 1.4rem/1 var(--ff-ui)}
+.tla-enc-zoomclose:hover{border-color:var(--gold); color:var(--gold)}
+.tla-enc-zoomstage{position:relative; display:flex; align-items:center; justify-content:center; width:100%}
+.tla-enc-zoomimg{max-width:100%; max-height:80vh; width:auto; height:auto; display:block;
+  border-radius:10px; border:1px solid var(--edge2); background:var(--bg2)}
+.tla-enc-zoomnav{position:absolute; top:50%; transform:translateY(-50%); z-index:2;
+  width:2.7rem; height:2.7rem; display:flex; align-items:center; justify-content:center; cursor:pointer;
+  border-radius:50%; border:1px solid var(--edge2); background:var(--panel); color:var(--ink)}
+.tla-enc-zoomnav:hover{border-color:var(--gold); color:var(--gold)}
+.tla-enc-zoomnav:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
+.tla-enc-zoomnav[disabled]{opacity:.35; cursor:default; pointer-events:none}
+.tla-enc-zoomnav svg{width:1.4rem; height:1.4rem}
+.tla-enc-zoomprev{left:-1.35rem}
+.tla-enc-zoomnext{right:-1.35rem}
+.tla-enc-zoomcap{text-align:center; font-family:var(--ff-ui); font-size:var(--fs-small); color:var(--ink2)}
+@media(max-width:640px){.tla-enc-zoomprev{left:.4rem} .tla-enc-zoomnext{right:.4rem}}
 .tla-card{position:relative; display:flex; flex-direction:column; gap:7px; width:100%; text-align:left; cursor:pointer;
   padding:18px 20px; border-radius:12px; border:1px solid var(--edge2); background:var(--panel); color:inherit;
   transition:border-color .12s, background .12s}

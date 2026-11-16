@@ -21,6 +21,7 @@ var GRIM = {},        // code -> grimoire data (loaded on demand)
     FAQ = {},         // code -> FAQ chapter 1 corpus (loaded on demand, may be absent)
     TABOO = {},       // code -> interactive taboo list (loaded on demand, may be absent)
     TABOOCARDS = {},  // code -> {cards, beta}: the taboo card reprints (own, or English fallback)
+    ENCOUNTERS = {},  // code -> themed chapter-1 encounter sets (own file; es only for now, else absent)
     PACKS = {},       // code -> ui.json
     REG = null,       // the language registry
     LANGS = [];       // registry entries, in display order
@@ -992,6 +993,230 @@ function loadTabooCards(reg, L){
   return getJSON(own||'data/taboo_cards_en.json').then(function(c){
     return {cards:c, beta:!own};
   },function(){return null;});
+}
+/* The themed chapter-1 encounter-set viewer. The reserved "faq-encounters" section ships as a
+   "coming soon" placeholder; once a language's encounter data is loaded (only Spanish for now),
+   it turns into the real viewer — filter by campaign, each set's cards with their copy counts,
+   whole-set download. A language with no file keeps the placeholder ("en preparación"). The data
+   is Spanish-only on purpose (the themed cards are only made in Spanish so far). Idempotent. */
+function attachEncounters(g, enc){
+  if(!g||!enc||!enc.campaigns||!enc.campaigns.length)return;
+  for(var i=0;i<g.sections.length;i++){
+    if(g.sections[i].key==='faq-encounters'){
+      g.sections[i].kind='encounters';
+      g.sections[i].encounters=enc;
+      g.sections[i].nobook=false;   // its content IS these cards, not a borrowed shell
+      break;
+    }
+  }
+}
+/* ---- the themed chapter-1 encounter-set viewer (Resources, "faq-encounters") ---- */
+var encCampaign='';                 // the campaign whose sets are shown; '' resolves to the default
+var encBleed=false;                 // whole-campaign download variant (remembered between downloads)
+function encPad(n){return ('00'+n).slice(-3);}
+/* The campaign to show: the one remembered, else the data's default, else the first with content. */
+function encChosenCampaign(enc){
+  var camps=(enc&&enc.campaigns)||[], byId={}, i;
+  for(i=0;i<camps.length;i++)byId[camps[i].id]=camps[i];
+  if(encCampaign&&byId[encCampaign])return byId[encCampaign];
+  for(i=0;i<camps.length;i++)if(camps[i]['default'])return camps[i];
+  for(i=0;i<camps.length;i++)if(!camps[i].pending)return camps[i];
+  return camps[0]||null;
+}
+/* How many physical cards a set / a campaign holds (the sum of copies — a Location is one
+   double-faced card). Counted live from the data so the badge can never drift from the content. */
+function encSetCount(set){var n=0; (set&&set.cards||[]).forEach(function(c){n+=(c.copies||1);}); return n;}
+function encCampCount(enc, camp){var n=0; (camp&&camp.sets||[]).forEach(function(code){var s=enc.sets&&enc.sets[code]; if(s&&!s.compositionPending)n+=encSetCount(s);}); return n;}
+function encCountLabel(n){return '('+t('enccount').split('{n}').join(n)+')';}
+var ENC_DLSVG='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>';
+/* One encounter set: its symbol and name, a whole-set download, and its cards. Each physical card
+   is a SLOT of two numbered images — ODD is the front, EVEN the back (a shared card back for
+   enemies/treacheries; for a Location both faces are real art, odd=unrevealed, even=revealed, so
+   both are shown). The image numbers are derived by walking the physical count. A card's copies
+   each carry their own themed art, shown side by side under the card name (+ subtitle, + ×N). */
+function encSetHTML(campId, code, set){
+  var ic='assets/encounters/icons/'+esc(code)+'.webp', base=esc(campId+'/'+code);
+  var dlc=esc(t('encdlcard'));
+  var h='<section class="tla-enc-set">';
+  /* The set symbol is a single-colour silhouette, painted as a CSS mask in the theme's accent —
+     the raw dark art would vanish on the dark palettes. Same idea as the product icons. */
+  h+='<header class="tla-enc-sethd">'
+    +'<span class="tla-enc-seticon" style="-webkit-mask-image:url(\''+ic+'\');mask-image:url(\''+ic+'\')" aria-hidden="true"></span>'
+    +'<h3 class="tla-enc-setname">'+esc(set.name)+' <span class="tla-enc-count">'+esc(encCountLabel(encSetCount(set)))+'</span></h3>'
+    +'</header>';
+  h+='<div class="tla-enc-cards">';
+  var phys=0, dir='assets/encounters/'+base+'/';
+  (set.cards||[]).forEach(function(card){
+    var copies=card.copies||1, isLoc=(card.type==='location'), i;
+    h+='<figure class="tla-enc-card'+(isLoc?' tla-enc-card--loc':'')+'"><div class="tla-enc-arts">';
+    for(i=0;i<copies;i++){
+      var front=encPad(2*phys+1), back=encPad(2*phys+2); phys++;
+      var nm=esc(encCardBase(card, i, copies));
+      h+='<span class="tla-enc-slot" data-encbase="'+base+'" data-encf="'+front+'" data-encb="'+back+'"'
+        +(isLoc?' data-encloc="1"':'')+' data-encname="'+nm+'">'
+        +'<img class="tla-enc-art" src="'+dir+front+'.webp" alt="'+esc(card.name)+'" loading="lazy" decoding="async" width="183" height="260">'
+        +(isLoc?'<img class="tla-enc-art" src="'+dir+back+'.webp" alt="'+nm+'" loading="lazy" decoding="async" width="183" height="260">':'')
+        +'<button type="button" class="tla-enc-dl1" data-encdlcard aria-label="'+dlc+'" title="'+dlc+'">'+ENC_DLSVG+'</button>'
+        +'</span>';
+    }
+    /* The name links to the card's exact ArkhamDB page in the reader's language. The code is the
+       core-set prefix "01" + the collection number — e.g. Profundo joven (col 181) -> 01181. */
+    var adbCode=(card.cnum!=null)?'01'+encPad(card.cnum):null;
+    h+='</div><figcaption class="tla-enc-cap">'
+      +(adbCode?'<a class="tla-enc-cname" href="'+esc(adbCardUrl(adbCode))+'" target="_blank" rel="noopener" title="'+esc(t('viewadb'))+'">'+esc(card.name)+'</a>'
+               :'<span class="tla-enc-cname">'+esc(card.name)+'</span>')
+      +(card.subtitle?' <span class="tla-enc-csub">'+esc(card.subtitle)+'</span>':'')
+      +(copies>1?' <span class="tla-enc-copies">'+esc(t('enccopies').split('{n}').join(copies))+'</span>':'')
+      +'</figcaption></figure>';
+  });
+  h+='</div></section>';
+  return h;
+}
+/* ---- encounter downloads (client-side, mirrors the Ultimatums download) ---- */
+/* Repaint a staged card webp into an image blob — PNG (lossless) for single cards, JPEG for the big
+   campaign zip. Drawing to a canvas means the click SAVES a real file and never opens a preview. */
+function encImgBlob(src, mime, q){
+  return loadImg(src).then(function(img){
+    if(!img)return null;
+    var cv=document.createElement('canvas'); cv.width=img.naturalWidth||732; cv.height=img.naturalHeight||1039;
+    cv.getContext('2d').drawImage(img,0,0);
+    return new Promise(function(res){ try{cv.toBlob(function(b){res(b||null);}, mime||'image/png', q);}catch(e){res(null);} });
+  });
+}
+/* A filename-safe label that KEEPS the Spanish text (accents, spaces) — only the characters a file
+   system forbids are dropped, so the saved files read in Spanish. */
+function encFname(s){return (String(s==null?'':s).replace(/[\/\\:*?"<>|\u0000-\u001f]+/g,' ').replace(/\s+/g,' ').trim())||'carta';}
+/* The filename base for one physical card copy: its name, subtitle, and the two numbers printed on
+   the card — the encounter-set number (ce) and the collection number (col) — so you can tell which
+   card it is; plus the copy index when the card repeats. */
+function encCardBase(card, i, copies){
+  var s=card.name+(card.subtitle?' - '+card.subtitle:'')+' (ce '+(card.enum!=null?card.enum:'?')+', col '+(card.cnum!=null?card.cnum:'?')+')';
+  if(copies>1)s+=', copia '+(i+1);
+  return encFname(s);
+}
+/* One card: save its two faces as separate PNGs (front/back, or a Location's unrevealed/revealed) —
+   no zip. The second save is staggered so the browser does not drop it as a duplicate click. */
+function encDownloadCard(slot){
+  var base=slot.getAttribute('data-encbase'), f=slot.getAttribute('data-encf'), b=slot.getAttribute('data-encb');
+  var loc=slot.getAttribute('data-encloc')==='1', nm=slot.getAttribute('data-encname'), dir='assets/encounters/'+base+'/';
+  Promise.all([encImgBlob(dir+f+'.webp','image/png'), encImgBlob(dir+b+'.webp','image/png')]).then(function(r){
+    if(r[0])ubSaveBlob(r[0], nm+' - '+(loc?'sin revelar':'delantera')+'.png');
+    if(r[1])setTimeout(function(){ubSaveBlob(r[1], nm+' - '+(loc?'revelado':'trasera')+'.png');}, 350);
+  });
+}
+/* The whole campaign: every card of every built set, front and back, in one zip (JPEG to keep it
+   sane), organised into per-set folders. Mirrors ubDownloadAll's pool + zip. */
+function encDownloadCampaign(btn, bleed){
+  var campId=btn.getAttribute('data-encdlcamp'); if(!campId||btn.getAttribute('aria-busy')==='true')return;
+  var enc=curSec&&curSec.encounters; if(!enc)return;
+  var camp=null; (enc.campaigns||[]).forEach(function(c){if(c.id===campId)camp=c;});
+  if(!camp||camp.pending)return;
+  var tasks=[];
+  (camp.sets||[]).forEach(function(code){
+    var set=enc.sets&&enc.sets[code]; if(!set||set.compositionPending)return;
+    var dir='assets/encounters/'+campId+'/'+code+(bleed?'-bleed':'')+'/', phys=0, folder=encFname(set.name);
+    (set.cards||[]).forEach(function(card){
+      var copies=card.copies||1, loc=(card.type==='location'), i;
+      for(i=0;i<copies;i++){
+        var f=encPad(2*phys+1), bk=encPad(2*phys+2), nm=encCardBase(card,i,copies); phys++;
+        tasks.push({src:dir+f+'.webp', name:folder+'/'+nm+' - '+(loc?'sin revelar':'delantera')+'.jpg'});
+        tasks.push({src:dir+bk+'.webp', name:folder+'/'+nm+' - '+(loc?'revelado':'trasera')+'.jpg'});
+      }
+    });
+  });
+  if(!tasks.length)return;
+  /* Loader on the button: the spinner (via aria-busy) plus a live count, like the Ultimatums
+     download — the zip can take a few seconds to build, so it must say it is working. */
+  var lbl=btn.querySelector('.tla-enc-dlcamplbl'), orig=lbl?lbl.textContent:'';
+  btn.disabled=true; btn.setAttribute('aria-busy','true'); if(lbl)lbl.textContent=t('ubdownallwait');
+  var total=tasks.length, cnt=0, tick=function(){cnt++; if(lbl)lbl.textContent=cnt+' / '+total;};
+  var done=function(){btn.disabled=false; btn.removeAttribute('aria-busy'); if(lbl)lbl.textContent=orig;};
+  var slots=new Array(tasks.length);
+  renderPool(tasks, function(tk,idx){
+    return encImgBlob(tk.src,'image/jpeg',0.95).then(function(bl){
+      if(bl&&bl.arrayBuffer)return bl.arrayBuffer().then(function(ab){slots[idx]={name:tk.name,data:new Uint8Array(ab)};});
+    });
+  }, 4, tick).then(function(){ var files=slots.filter(Boolean); if(files.length)ubSaveBlob(ubZip(files), encFname(camp.name+' - '+(bleed?t('tbwithbleed'):t('tbnobleed')))+'.zip'); done(); }, done);
+}
+function encountersHTML(s){
+  var enc=s.encounters; if(!enc)return '';
+  var camps=enc.campaigns||[], cur=encChosenCampaign(enc);
+  if(cur)encCampaign=cur.id;
+  var h='<div class="tla-enc">';
+  /* enclead carries authored anchors (BGG + the two blog downloads), so it is inserted as HTML,
+     not escaped — the same treatment as the footer credit lines. */
+  h+='<p class="tla-enc-lead">'+t('enclead')+'</p>';
+  h+='<div class="tla-enc-sel">'
+    +'<label class="tla-enc-selwrap"><span class="tla-enc-sellabel">'+esc(t('enccampaign'))+'</span>'
+    +'<select class="tla-enc-selbox" data-enccamp>';
+  camps.forEach(function(c){
+    var suf=c.pending?' · '+t('encpendingtag'):' '+encCountLabel(encCampCount(enc,c));
+    h+='<option value="'+esc(c.id)+'"'+(cur&&c.id===cur.id?' selected':'')+'>'
+      +esc(c.name+suf)+'</option>';
+  });
+  h+='</select></label>';
+  if(cur&&!cur.pending){
+    h+='<button type="button" class="tla-enc-dlcamp" data-encdlcamp="'+esc(cur.id)+'" title="'+esc(t('encdlcamp'))+'">'
+      +'<span class="tla-enc-dlspin" aria-hidden="true"></span>'+ENC_DLSVG
+      +'<span class="tla-enc-dlcamplbl">'+esc(t('encdlcamp'))+'</span></button>';
+  }
+  h+='</div>';
+  if(!cur){return h+'</div>';}
+  if(cur.pending){
+    h+='<div class="tla-soon tla-enc-soon"><p class="tla-soon-h">'+esc(t('soon'))+'</p>'
+      +'<p class="tla-soon-d">'+esc(t('encpendingdesc'))+'</p></div>';
+  }else{
+    (cur.sets||[]).forEach(function(code){
+      var set=enc.sets&&enc.sets[code];
+      if(set&&!set.compositionPending)h+=encSetHTML(cur.id, code, set);
+    });
+  }
+  return h+'</div>';
+}
+/* Click a card to zoom it, then step through the OTHER cards of the same set with the arrows (or
+   the keyboard) — like the taboo viewer, but the ends are hard stops: at the first card the "back"
+   arrow is disabled, at the last the "next" one is. Scoped to the clicked card's own .tla-enc-set. */
+function encZoom(startImg){
+  if(!startImg)return;
+  var set=startImg.closest('.tla-enc-set'); if(!set)return;
+  var imgs=[].slice.call(set.querySelectorAll('.tla-enc-art')); if(!imgs.length)return;
+  var idx=imgs.indexOf(startImg); if(idx<0)idx=0;
+  var multi=imgs.length>1, prevFocus=document.activeElement;
+  var arrow=function(dir,path){return '<button type="button" class="tla-enc-zoomnav tla-enc-zoom'+dir+'" data-enczoom'+dir+' aria-label="'+esc(t(dir==='prev'?'ubprev':'ubnext'))+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">'+path+'</svg></button>';};
+  var ov=document.createElement('div'); ov.className='tla-enc-zoomov'; ov.setAttribute('role','dialog'); ov.setAttribute('aria-modal','true');
+  ov.innerHTML='<div class="tla-enc-zoombox">'
+    +'<button type="button" class="tla-enc-zoomclose" aria-label="'+esc(t('close'))+'">&times;</button>'
+    +'<div class="tla-enc-zoomstage">'
+    +(multi?arrow('prev','<path d="M15 18l-6-6 6-6"/>')+arrow('next','<path d="M9 6l6 6-6 6"/>'):'')
+    +'<img class="tla-enc-zoomimg" data-enczoomimg alt="">'
+    +'</div><div class="tla-enc-zoomcap" data-enczoomcap aria-live="polite"></div></div>';
+  (document.getElementById('tla-root')||document.body).appendChild(ov);
+  var imgEl=ov.querySelector('[data-enczoomimg]'), capEl=ov.querySelector('[data-enczoomcap]');
+  var pbtn=ov.querySelector('[data-enczoomprev]'), nbtn=ov.querySelector('[data-enczoomnext]');
+  function show(i){
+    idx=Math.max(0, Math.min(i, imgs.length-1));          // clamp — no wrap-around
+    imgEl.src=imgs[idx].src; imgEl.alt=imgs[idx].alt||'';
+    var a=imgs[idx].alt||'';
+    capEl.textContent=(a?a+' · ':'')+(idx+1)+' / '+imgs.length;
+    if(pbtn)pbtn.disabled=(idx<=0);
+    if(nbtn)nbtn.disabled=(idx>=imgs.length-1);
+  }
+  show(idx);
+  var close=function(){ try{ov.parentNode.removeChild(ov);}catch(e){} document.removeEventListener('keydown',onkey); try{prevFocus&&prevFocus.focus();}catch(e){} };
+  var onkey=function(e){
+    if(e.key==='Escape'){close(); return;}
+    if(multi&&e.key==='ArrowLeft'){e.preventDefault(); show(idx-1); return;}
+    if(multi&&e.key==='ArrowRight'){e.preventDefault(); show(idx+1); return;}
+    if(e.key==='Tab'){var f=[].slice.call(ov.querySelectorAll('button')).filter(function(b){return !b.disabled;}); if(!f.length)return;
+      e.preventDefault(); var j=f.indexOf(document.activeElement); (e.shiftKey?f[(j<=0?f.length-1:j-1)]:f[(j+1)%f.length]).focus();}
+  };
+  ov.addEventListener('click',function(e){
+    if(e.target===ov||e.target.closest('.tla-enc-zoomclose')){close(); return;}
+    if(e.target.closest('[data-enczoomprev]')){show(idx-1); return;}
+    if(e.target.closest('[data-enczoomnext]')){show(idx+1); return;}
+  });
+  document.addEventListener('keydown',onkey);
+  var cb=ov.querySelector('.tla-enc-zoomclose'); if(cb)cb.focus();
 }
 /* the nav badge counts what the newest edition brought — in whichever corpus the
    What's New section belongs to (the FAQ carries its own history). */
@@ -3393,7 +3618,7 @@ function render(sid,eid,flash){
   /* The taboo card gallery wants the horizontal room a prose column does not: it collapses the
      right-hand "on this page" rail (empty here anyway) so two large cards sit side by side. Set
      on every path, so navigating away restores the rail. */
-  var shell=document.querySelector('.tla-body'); if(shell)shell.classList.toggle('is-wide', s.kind==='taboocards');
+  var shell=document.querySelector('.tla-body'); if(shell)shell.classList.toggle('is-wide', s.kind==='taboocards'||s.kind==='encounters');
   if(s.kind==='whatsnew'){renderWhatsNew(); markNav(sid); return;}
   if(s.kind==='intro'){renderLanding(s); markNav(sid); return;}
   var ents=visibleEntries(s);
@@ -3442,6 +3667,7 @@ function render(sid,eid,flash){
   if(s.kind==='icons'){h+=iconsHTML(s);}
   if(s.kind==='ultimatums'){h+=ubHTML(s);}
   if(s.kind==='taboocards'){h+=tabooCardsHTML(s);}
+  if(s.kind==='encounters'){h+=encountersHTML(s);}
   if(s.taboos){h+=taboosHTML(s);}
   if(s.reprints){h+=reprintsHTML(s);}
   /* quickref renders its text sub-sections through the normal entries loop below (so
@@ -4189,7 +4415,7 @@ function fmtMm(n){
   try{return n.toLocaleString(loc,{minimumFractionDigits:1,maximumFractionDigits:1});}
   catch(e){return (Math.round(n*10)/10).toFixed(1);}
 }
-function bleedModal(trim,current,onConfirm){
+function bleedModal(trim,current,onConfirm,titleKey){
   var prev=document.activeElement;
   var bw=0.047, bh=0.034;                 // per-edge fraction of W/H; must match addBleed()
   var dims=function(withBleed){
@@ -4208,7 +4434,7 @@ function bleedModal(trim,current,onConfirm){
   ov.setAttribute('aria-labelledby','tla-bleed-t'); ov.setAttribute('aria-describedby','tla-bleed-d');
   ov.innerHTML='<div class="tla-bleedbox">'
     +'<button type="button" class="tla-bleedclose" aria-label="'+esc(t('close'))+'">&times;</button>'
-    +'<h2 class="tla-bleed-t" id="tla-bleed-t">'+esc(t('ubdownall'))+'</h2>'
+    +'<h2 class="tla-bleed-t" id="tla-bleed-t">'+esc(t(titleKey||'ubdownall'))+'</h2>'
     +'<p class="tla-bleed-d" id="tla-bleed-d">'+esc(t('tbbleedintro'))+'</p>'
     +'<div class="tla-bleed-opts" role="radiogroup">'+opt(false,!current)+opt(true,!!current)+'</div>'
     +'<div class="tla-bleed-btns"><button type="button" class="tla-bleed-go">'
@@ -5055,7 +5281,10 @@ function wireEvents(){
     }
     var mi=e.target.closest('.tla-montage-i'); if(mi){openFigInfo(mi); return;}
     var mimg=e.target.closest('.tla-montage-img'); if(mimg){openLightbox(mimg.src,mimg.alt); return;}
-    var img=e.target.closest('.tla-fig img'); if(img){openLightbox(img.src,img.alt);}
+    var img=e.target.closest('.tla-fig img'); if(img){openLightbox(img.src,img.alt); return;}
+    var edlc=e.target.closest('[data-encdlcard]'); if(edlc){var sl=edlc.closest('.tla-enc-slot'); if(sl)encDownloadCard(sl); return;}
+    var edls=e.target.closest('[data-encdlcamp]'); if(edls){bleedModal(UB_TRIM_MM, encBleed, function(bl){encBleed=bl; encDownloadCampaign(edls, bl);}, 'encdlcamp'); return;}
+    var eart=e.target.closest('.tla-enc-art'); if(eart){encZoom(eart); return;}
   });
   /* 'change', not 'click': arrow keys move a radio group without ever clicking, and a
      click handler would leave the keyboard unable to switch views at all. */
@@ -5064,6 +5293,8 @@ function wireEvents(){
     if(r)setDocView(r.value);
     var v=e.target.closest('.tla-verpick input[name=tla-verview]');
     if(v)setVerOnly(v.value);
+    var ec=e.target.closest('[data-enccamp]');
+    if(ec){encCampaign=ec.value; if(curSec)render(curSec.id,null,false);}
   });
   elToc.addEventListener('click',function(e){var a=e.target.closest('[data-eid]'); if(a){e.preventDefault(); gotoTarget(a.getAttribute('data-eid'),true);}});
   elRes.addEventListener('click',function(e){
@@ -5368,10 +5599,14 @@ function loadLang(L){
     UBREG?Promise.resolve(UBREG):getJSON('data/ub.json').then(function(r){return r;},function(){return null;}),
     // The taboo card reprints for the viewer in the Resources section: the language's own, or the
     // English ones with a beta flag. Optional and never fatal (see loadTabooCards / attachTabooCards).
-    loadTabooCards(reg, L)
+    loadTabooCards(reg, L),
+    // The themed chapter-1 encounter sets (Spanish only for now): absent or 404 -> the Resources
+    // "faq-encounters" section keeps its "coming soon" placeholder. Optional and never fatal.
+    (ENCOUNTERS[L]||!reg.encountersData)?Promise.resolve(ENCOUNTERS[L]||null)
+      :getJSON(reg.encountersData).then(function(f){return f;},function(){return null;})
   ]).then(function(res){
     GRIM[L]=res[0]; PACKS[L]=res[1]; if(res[2])FAQ[L]=res[2]; if(res[3])TABOO[L]=res[3];
-    if(res[4])UBREG=res[4]; if(res[5])TABOOCARDS[L]=res[5];
+    if(res[4])UBREG=res[4]; if(res[5])TABOOCARDS[L]=res[5]; if(res[6])ENCOUNTERS[L]=res[6];
     hydrateUB(GRIM[L]);
     return loadChain(L);
   }).then(function(){
@@ -5380,6 +5615,7 @@ function loadLang(L){
     mergeFaq(GRIM[L], FAQ[L]);          // splice the FAQ corpus in as its own shelf
     attachTaboos(GRIM[L], TABOO[L]);    // hang the taboo list on the Resources section
     attachTabooCards(GRIM[L], TABOOCARDS[L]); // turn the taboos placeholder into the card viewer
+    attachEncounters(GRIM[L], ENCOUNTERS[L]); // turn the encounters placeholder into its viewer
     buildIndex(L);
     delete loading[L];
     return L;

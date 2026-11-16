@@ -1,5 +1,88 @@
 [
   {
+    "v": "1.6.0",
+    "date": "2026-11-15",
+    "i18n": {
+      "es": {
+        "title": "Conjuntos de encuentros del capítulo 1",
+        "items": [
+          "**Nueva sección: «Conjuntos de encuentros del capítulo 1».** Los conjuntos de encuentros de la caja básica (2016) con arte extendido, tematizados por campaña: por ahora La Noche de la Fanática, El Legado de Dunwich y El Camino a Carcosa (el resto, en preparación). Eliges una campaña y ves sus conjuntos ordenados, con todas las cartas y cuántas copias lleva cada una.",
+          "**Galería interactiva.** Haz zoom en cualquier carta y pasa a la anterior o la siguiente dentro del conjunto, abre cada carta en su página de ArkhamDB y descarga las cartas sueltas (delantera y dorso) o la campaña entera en un .zip. También enlazamos a las entradas del blog con los archivos maquetados para imprenta."
+        ]
+      },
+      "en": {
+        "title": "Chapter 1 encounter sets",
+        "items": [
+          "**New section: Chapter 1 encounter sets.** The core box (2016) encounter sets with extended art, themed by campaign: for now Night of the Zealot, The Dunwich Legacy and The Path to Carcosa (the rest in preparation). Pick a campaign to see its sets in order, with every card and how many copies each has. For now, in Spanish.",
+          "**Interactive gallery.** Zoom into any card and step to the previous or next one within the set, open each card on its ArkhamDB page, and download individual cards (front and back) or a whole campaign as a .zip. We also link to the blog posts with the print-ready files."
+        ]
+      },
+      "de": {
+        "title": "Begegnungssets aus Kapitel 1",
+        "items": [
+          "**Neuer Bereich: Begegnungssets aus Kapitel 1.** Die Begegnungssets der Grundbox (2016) mit erweitertem Artwork, nach Kampagne thematisiert: vorerst Night of the Zealot, The Dunwich Legacy und The Path to Carcosa (der Rest in Vorbereitung). Wähle eine Kampagne, um ihre Sets der Reihe nach zu sehen, mit jeder Karte und wie viele Exemplare es von jeder gibt. Vorerst auf Spanisch.",
+          "**Interaktive Galerie.** Zoome in jede Karte und blättere im Set zur vorherigen oder nächsten, öffne jede Karte auf ihrer ArkhamDB-Seite und lade einzelne Karten (Vorder- und Rückseite) oder eine ganze Kampagne als .zip herunter. Außerdem verlinken wir die Blogbeiträge mit den druckfertigen Dateien."
+        ]
+      },
+      "it": {
+        "title": "Set di incontri del capitolo 1",
+        "items": [
+          "**Nuova sezione: set di incontri del capitolo 1.** I set di incontri della scatola base (2016) con illustrazioni estese, a tema per campagna: per ora Night of the Zealot, The Dunwich Legacy e The Path to Carcosa (il resto in preparazione). Scegli una campagna per vederne i set in ordine, con ogni carta e quante copie ne ha ciascuna. Per ora in spagnolo.",
+          "**Galleria interattiva.** Ingrandisci qualsiasi carta e passa alla precedente o alla successiva all'interno del set, apri ogni carta sulla sua pagina di ArkhamDB e scarica le singole carte (fronte e retro) o un'intera campagna in un .zip. Colleghiamo anche agli articoli del blog con i file pronti per la stampa."
+        ]
+      },
+      "fr": {
+        "title": "Ensembles de rencontre du chapitre 1",
+        "items": [
+          "**Nouvelle section : ensembles de rencontre du chapitre 1.** Les ensembles de rencontre de la boîte de base (2016) avec illustrations étendues, thématisés par campagne : pour l'instant Night of the Zealot, The Dunwich Legacy et The Path to Carcosa (le reste en préparation). Choisissez une campagne pour voir ses ensembles dans l'ordre, avec chaque carte et le nombre d'exemplaires de chacune. Pour l'instant en espagnol.",
+          "**Galerie interactive.** Zoomez sur n'importe quelle carte et passez à la précédente ou à la suivante au sein de l'ensemble, ouvrez chaque carte sur sa page ArkhamDB, et téléchargez des cartes individuelles (recto et verso) ou une campagne entière dans un .zip. Nous renvoyons aussi vers les articles de blog contenant les fichiers prêts à imprimer."
+        ]
+      },
+      "pt": {
+        "title": "Conjuntos de encontro do capítulo 1",
+        "items": [
+          "**Nova secção: conjuntos de encontro do capítulo 1.** Os conjuntos de encontro da caixa básica (2016) com arte estendida, tematizados por campanha: por agora Night of the Zealot, The Dunwich Legacy e The Path to Carcosa (os restantes em preparação). Escolhe uma campanha para ver os seus conjuntos por ordem, com todas as cartas e quantas cópias tem cada uma. Por agora, em espanhol.",
+          "**Galeria interativa.** Amplia qualquer carta e passa à anterior ou à seguinte dentro do conjunto, abre cada carta na sua página da ArkhamDB e transfere cartas individuais (frente e verso) ou uma campanha inteira num .zip. Também ligamos às publicações do blogue com os ficheiros prontos para impressão."
+        ]
+      },
+      "pl": {
+        "title": "Zestawy spotkań z rozdziału 1",
+        "items": [
+          "**Nowa sekcja: zestawy spotkań z rozdziału 1.** Zestawy spotkań z podstawowego pudełka (2016) z rozszerzoną grafiką, tematyzowane według kampanii: na razie Night of the Zealot, The Dunwich Legacy i The Path to Carcosa (reszta w przygotowaniu). Wybierz kampanię, aby zobaczyć jej zestawy po kolei, z każdą kartą i liczbą kopii każdej z nich. Na razie po hiszpańsku.",
+          "**Interaktywna galeria.** Przybliż dowolną kartę i przechodź do poprzedniej lub następnej w obrębie zestawu, otwórz każdą kartę na jej stronie w ArkhamDB oraz pobieraj pojedyncze karty (awers i rewers) lub całą kampanię w pliku .zip. Linkujemy też do wpisów na blogu z plikami gotowymi do druku."
+        ]
+      },
+      "ru": {
+        "title": "Наборы столкновений главы 1",
+        "items": [
+          "**Новый раздел: наборы столкновений главы 1.** Наборы столкновений из базовой коробки (2016) с расширенным артом, оформленные по кампаниям: пока Night of the Zealot, The Dunwich Legacy и The Path to Carcosa (остальные в подготовке). Выберите кампанию, чтобы увидеть её наборы по порядку, с каждой картой и числом её копий. Пока на испанском.",
+          "**Интерактивная галерея.** Увеличивайте любую карту и листайте к предыдущей или следующей в наборе, открывайте каждую карту на её странице ArkhamDB и скачивайте отдельные карты (лицо и оборот) или целую кампанию в .zip. Также даём ссылки на записи блога с готовыми к печати файлами."
+        ]
+      },
+      "uk": {
+        "title": "Набори зустрічей розділу 1",
+        "items": [
+          "**Новий розділ: набори зустрічей розділу 1.** Набори зустрічей із базової коробки (2016) з розширеним артом, оформлені за кампаніями: наразі Night of the Zealot, The Dunwich Legacy і The Path to Carcosa (решта в підготовці). Оберіть кампанію, щоб побачити її набори по порядку, з кожною картою та кількістю її копій. Наразі іспанською.",
+          "**Інтерактивна галерея.** Збільшуйте будь-яку карту й гортайте до попередньої чи наступної в наборі, відкривайте кожну карту на її сторінці ArkhamDB та завантажуйте окремі карти (лицьовий і зворотний бік) або цілу кампанію в .zip. Також даємо посилання на дописи блогу з готовими до друку файлами."
+        ]
+      },
+      "ko": {
+        "title": "1장 조우 세트",
+        "items": [
+          "**새 섹션: 1장 조우 세트.** 기본 상자(2016)의 조우 세트를 확장 아트로, 캠페인별로 테마를 입혔습니다. 현재 Night of the Zealot, The Dunwich Legacy, The Path to Carcosa(나머지는 준비 중). 캠페인을 선택하면 세트를 순서대로, 각 카드와 카드별 매수까지 볼 수 있습니다. 현재는 스페인어로 제공됩니다.",
+          "**인터랙티브 갤러리.** 카드를 확대하고 세트 안에서 이전/다음 카드로 넘기며, 각 카드를 ArkhamDB 페이지에서 열고, 개별 카드(앞뒷면) 또는 캠페인 전체를 .zip으로 내려받을 수 있습니다. 인쇄용 파일이 있는 블로그 글도 링크합니다."
+        ]
+      },
+      "zh": {
+        "title": "第一章遭遇牌组",
+        "items": [
+          "**新板块：第一章遭遇牌组。**基础盒（2016）的遭遇牌组，采用扩展画面，按战役主题化：目前为 Night of the Zealot、The Dunwich Legacy 和 The Path to Carcosa（其余筹备中）。选择一个战役即可按顺序查看其牌组，包含每张卡牌及各自的数量。目前提供西班牙文。",
+          "**交互式画廊。**可放大任意卡牌并在同一牌组内切换上一张/下一张，在 ArkhamDB 页面打开每张卡牌，并下载单张卡牌（正反面）或将整个战役下载为 .zip。我们也链接到含可供印刷文件的博客文章。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.5.8",
     "date": "2026-11-03",
     "i18n": {

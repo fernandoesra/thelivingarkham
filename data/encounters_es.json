@@ -1,0 +1,482 @@
+{
+  "campaigns": [
+    {
+      "id": "night-of-the-zealot",
+      "name": "La Noche de la Fanática",
+      "default": true,
+      "sets": [
+        "agents_of_cthulhu",
+        "agents_of_hastur",
+        "agents_of_shub",
+        "agents_of_yog",
+        "ancient_evils",
+        "chilling_cold",
+        "pentagram",
+        "ghouls",
+        "rats",
+        "locked_doors",
+        "striking_fear",
+        "nightgaunts",
+        "the_midnight_masks",
+        "the_devourer_below"
+      ]
+    },
+    {
+      "id": "the-dunwich-legacy",
+      "name": "El Legado de Dunwich",
+      "sets": [
+        "agents_of_yog",
+        "ancient_evils",
+        "chilling_cold",
+        "pentagram",
+        "rats",
+        "locked_doors",
+        "striking_fear",
+        "nightgaunts"
+      ]
+    },
+    {
+      "id": "the-path-to-carcosa",
+      "name": "El Camino a Carcosa",
+      "sets": [
+        "agents_of_hastur",
+        "ancient_evils",
+        "chilling_cold",
+        "pentagram",
+        "ghouls",
+        "rats",
+        "locked_doors",
+        "striking_fear",
+        "the_midnight_masks_tr"
+      ]
+    },
+    {
+      "id": "the-forgotten-age",
+      "name": "La Era Olvidada",
+      "pending": true
+    },
+    {
+      "id": "the-circle-undone",
+      "name": "El Círculo Roto",
+      "pending": true
+    },
+    {
+      "id": "the-dream-eaters",
+      "name": "Los Devoradores de Sueños",
+      "pending": true
+    },
+    {
+      "id": "the-innsmouth-conspiracy",
+      "name": "La Conspiración de Insmouth",
+      "pending": true
+    },
+    {
+      "id": "edge-of-the-earth",
+      "name": "Los Confines de la Tierra",
+      "pending": true
+    },
+    {
+      "id": "the-scarlet-keys",
+      "name": "Las Llaves Escarlata",
+      "pending": true
+    },
+    {
+      "id": "the-feast-of-hemlock-vale",
+      "name": "La Fiesta del Valle de la Cicuta",
+      "pending": true
+    },
+    {
+      "id": "the-drowned-city",
+      "name": "La Ciudad Sumergida",
+      "pending": true
+    }
+  ],
+  "sets": {
+    "agents_of_cthulhu": {
+      "name": "Agentes de Cthulhu",
+      "cards": [
+        {
+          "name": "Profundo joven",
+          "type": "enemy",
+          "copies": 2,
+          "enum": 1,
+          "cnum": 181
+        },
+        {
+          "name": "Sueños de R'lyeh",
+          "type": "treachery",
+          "copies": 2,
+          "enum": 3,
+          "cnum": 182
+        }
+      ]
+    },
+    "agents_of_hastur": {
+      "name": "Agentes de Hastur",
+      "cards": [
+        {
+          "name": "Byakhee chillador",
+          "type": "enemy",
+          "copies": 2,
+          "enum": 1,
+          "cnum": 175
+        },
+        {
+          "name": "El Signo Amarillo",
+          "type": "treachery",
+          "copies": 2,
+          "enum": 3,
+          "cnum": 176
+        }
+      ]
+    },
+    "agents_of_shub": {
+      "name": "Agentes de Shub-Niggurath",
+      "cards": [
+        {
+          "name": "Retoño oscuro implacable",
+          "type": "enemy",
+          "copies": 1,
+          "enum": 1,
+          "cnum": 179
+        },
+        {
+          "name": "Engendro cabrío",
+          "type": "enemy",
+          "copies": 3,
+          "enum": 2,
+          "cnum": 180
+        }
+      ]
+    },
+    "agents_of_yog": {
+      "name": "Agentes de Yog-Sothoth",
+      "cards": [
+        {
+          "name": "Observador yithiano",
+          "type": "enemy",
+          "copies": 2,
+          "enum": 1,
+          "cnum": 177
+        },
+        {
+          "name": "Oferta de poder",
+          "type": "treachery",
+          "copies": 2,
+          "enum": 3,
+          "cnum": 178
+        }
+      ]
+    },
+    "ancient_evils": {
+      "name": "Antiguos males",
+      "cards": [
+        {
+          "name": "Antiguos males",
+          "type": "treachery",
+          "copies": 3,
+          "enum": 1,
+          "cnum": 166
+        }
+      ]
+    },
+    "chilling_cold": {
+      "name": "Frío helador",
+      "cards": [
+        {
+          "name": "Frío de la cripta",
+          "type": "treachery",
+          "copies": 2,
+          "enum": 1,
+          "cnum": 167
+        },
+        {
+          "name": "Envuelto en niebla",
+          "type": "treachery",
+          "copies": 2,
+          "enum": 3,
+          "cnum": 168
+        }
+      ]
+    },
+    "ghouls": {
+      "name": "Gules",
+      "cards": [
+        {
+          "name": "Secuaz gul",
+          "type": "enemy",
+          "copies": 3,
+          "enum": 1,
+          "cnum": 160
+        },
+        {
+          "name": "Gul voraz",
+          "type": "enemy",
+          "copies": 1,
+          "enum": 4,
+          "cnum": 161
+        },
+        {
+          "name": "Manos aferradoras",
+          "type": "treachery",
+          "copies": 3,
+          "enum": 5,
+          "cnum": 162
+        }
+      ]
+    },
+    "locked_doors": {
+      "name": "Puertas cerradas",
+      "cards": [
+        {
+          "name": "Puerta cerrada con llave",
+          "type": "treachery",
+          "copies": 2,
+          "enum": 1,
+          "cnum": 174
+        }
+      ]
+    },
+    "nightgaunts": {
+      "name": "Ángeles descarnados",
+      "cards": [
+        {
+          "name": "Ángel descarnado cazador",
+          "type": "enemy",
+          "copies": 2,
+          "enum": 1,
+          "cnum": 172
+        },
+        {
+          "name": "Sobre alas de oscuridad",
+          "type": "treachery",
+          "copies": 2,
+          "enum": 3,
+          "cnum": 173
+        }
+      ]
+    },
+    "pentagram": {
+      "name": "Secta oscura",
+      "cards": [
+        {
+          "name": "Acólito",
+          "type": "enemy",
+          "copies": 3,
+          "enum": 1,
+          "cnum": 169
+        },
+        {
+          "name": "Mago de la Orden",
+          "type": "enemy",
+          "copies": 1,
+          "enum": 4,
+          "cnum": 170
+        },
+        {
+          "name": "Cántico misterioso",
+          "type": "treachery",
+          "copies": 2,
+          "enum": 5,
+          "cnum": 171
+        }
+      ]
+    },
+    "rats": {
+      "name": "Ratas",
+      "cards": [
+        {
+          "name": "Avalancha de ratas",
+          "type": "enemy",
+          "copies": 3,
+          "enum": 1,
+          "cnum": 159
+        }
+      ]
+    },
+    "striking_fear": {
+      "name": "Miedo impactante",
+      "cards": [
+        {
+          "name": "Restos en descomposición",
+          "type": "treachery",
+          "copies": 3,
+          "enum": 1,
+          "cnum": 163
+        },
+        {
+          "name": "Paralizado por el miedo",
+          "type": "treachery",
+          "copies": 2,
+          "enum": 4,
+          "cnum": 164
+        },
+        {
+          "name": "Voces disonantes",
+          "type": "treachery",
+          "copies": 2,
+          "enum": 6,
+          "cnum": 165
+        }
+      ]
+    },
+    "the_devourer_below": {
+      "name": "El Devorador de las Profundidades",
+      "cards": [
+        {
+          "name": "Bosques de Arkham",
+          "subtitle": "Terreno impío",
+          "type": "location",
+          "copies": 1,
+          "enum": 9,
+          "cnum": 150
+        },
+        {
+          "name": "Bosques de Arkham",
+          "subtitle": "Senderos sinuosos",
+          "type": "location",
+          "copies": 1,
+          "enum": 10,
+          "cnum": 151
+        },
+        {
+          "name": "Bosques de Arkham",
+          "subtitle": "Casa vieja",
+          "type": "location",
+          "copies": 1,
+          "enum": 11,
+          "cnum": 152
+        },
+        {
+          "name": "Bosques de Arkham",
+          "subtitle": "Pared del acantilado",
+          "type": "location",
+          "copies": 1,
+          "enum": 12,
+          "cnum": 153
+        },
+        {
+          "name": "Bosques de Arkham",
+          "subtitle": "Espesura enmarañada",
+          "type": "location",
+          "copies": 1,
+          "enum": 13,
+          "cnum": 154
+        },
+        {
+          "name": "Bosques de Arkham",
+          "subtitle": "Claro tranquilo",
+          "type": "location",
+          "copies": 1,
+          "enum": 14,
+          "cnum": 155
+        }
+      ]
+    },
+    "the_midnight_masks": {
+      "name": "Las Máscaras de Medianoche",
+      "cards": [
+        {
+          "name": "Barrio Fluvial",
+          "type": "location",
+          "copies": 1,
+          "enum": 6,
+          "cnum": 125
+        },
+        {
+          "name": "Barrio Sur",
+          "subtitle": "Sociedad Histórica",
+          "type": "location",
+          "copies": 1,
+          "enum": 7,
+          "cnum": 126
+        },
+        {
+          "name": "Barrio Sur",
+          "subtitle": "Pensión de Ma",
+          "type": "location",
+          "copies": 1,
+          "enum": 8,
+          "cnum": 127
+        },
+        {
+          "name": "Hospital de Santa María",
+          "type": "location",
+          "copies": 1,
+          "enum": 9,
+          "cnum": 128
+        },
+        {
+          "name": "Universidad Miskatonic",
+          "type": "location",
+          "copies": 1,
+          "enum": 10,
+          "cnum": 129
+        },
+        {
+          "name": "Centro",
+          "subtitle": "Primer Banco de Arkham",
+          "type": "location",
+          "copies": 1,
+          "enum": 11,
+          "cnum": 130
+        },
+        {
+          "name": "Centro",
+          "subtitle": "Manicomio Arkham",
+          "type": "location",
+          "copies": 1,
+          "enum": 12,
+          "cnum": 131
+        },
+        {
+          "name": "Barrio Este",
+          "type": "location",
+          "copies": 1,
+          "enum": 13,
+          "cnum": 132
+        },
+        {
+          "name": "Barrio Norte",
+          "type": "location",
+          "copies": 1,
+          "enum": 15,
+          "cnum": 134
+        },
+        {
+          "name": "Sombra acechante",
+          "type": "treachery",
+          "copies": 3,
+          "enum": 16,
+          "cnum": 135
+        },
+        {
+          "name": "Pista falsa",
+          "type": "treachery",
+          "copies": 2,
+          "enum": 19,
+          "cnum": 136
+        }
+      ]
+    },
+    "the_midnight_masks_tr": {
+      "name": "Las Máscaras de Medianoche",
+      "cards": [
+        {
+          "name": "Sombra acechante",
+          "type": "treachery",
+          "copies": 3,
+          "enum": 16,
+          "cnum": 135
+        },
+        {
+          "name": "Pista falsa",
+          "type": "treachery",
+          "copies": 2,
+          "enum": 19,
+          "cnum": 136
+        }
+      ]
+    }
+  }
+}
