@@ -1,5 +1,110 @@
 [
   {
+    "v": "1.6.1",
+    "date": "2026-11-16",
+    "i18n": {
+      "es": {
+        "title": "Ajustes de calidad y correcciones",
+        "items": [
+          "**Mejoras en el móvil.** El visor de «Conjuntos de encuentros» ya no se amontona a la izquierda en pantallas pequeñas, y el selector de campaña se ve completo en lugar de salirse por el borde.",
+          "**Pie de página más limpio.** Vuelve a ocupar una sola línea y el correo de contacto es ahora un icono.",
+          "**Aviso de nueva versión.** El mensaje de «nueva versión disponible» vuelve a mostrarse con su texto traducido al actualizar.",
+          "**Carta corregida.** Corregido el crédito de autor en las cartas «Avalancha de ratas» (El Camino a Carcosa) del visor de conjuntos de encuentros."
+        ]
+      },
+      "en": {
+        "title": "Quality-of-life tweaks and fixes",
+        "items": [
+          "**Mobile improvements.** The new Chapter 1 encounter-sets viewer no longer crowds to the left on small screens, and the campaign selector now fits on screen instead of running off the edge.",
+          "**Tidier footer.** It fits on a single line again, and the contact email is now an icon.",
+          "**Update notice.** The “new version available” message shows its translated text again when you update.",
+          "**Card fix.** Corrected the artist credit on the “Avalancha de ratas” cards (The Path to Carcosa) in the encounter-sets viewer."
+        ]
+      },
+      "de": {
+        "title": "Komfortverbesserungen und Korrekturen",
+        "items": [
+          "**Verbesserungen auf dem Handy.** Der neue Betrachter „Begegnungssets aus Kapitel 1“ drängt sich auf kleinen Bildschirmen nicht mehr an den linken Rand, und die Kampagnenauswahl passt nun vollständig auf den Bildschirm, statt über den Rand hinauszulaufen.",
+          "**Aufgeräumte Fußzeile.** Sie passt wieder in eine einzige Zeile, und die Kontakt-E-Mail ist jetzt ein Symbol.",
+          "**Update-Hinweis.** Die Meldung „Neue Version verfügbar“ zeigt beim Aktualisieren wieder ihren übersetzten Text.",
+          "**Kartenkorrektur.** Der Künstlernachweis auf den Karten „Avalancha de ratas“ (The Path to Carcosa) im Begegnungssets-Betrachter wurde korrigiert."
+        ]
+      },
+      "it": {
+        "title": "Rifiniture e correzioni",
+        "items": [
+          "**Miglioramenti su mobile.** Il nuovo visualizzatore «Set di incontri del capitolo 1» non si ammassa più a sinistra sugli schermi piccoli, e il selettore della campagna ora è interamente visibile invece di uscire dal bordo.",
+          "**Piè di pagina più pulito.** Torna a occupare una sola riga e l'email di contatto ora è un'icona.",
+          "**Avviso di nuova versione.** Il messaggio «nuova versione disponibile» mostra di nuovo il testo tradotto quando aggiorni.",
+          "**Carta corretta.** Corretto il credito dell'illustratore sulle carte «Avalancha de ratas» (The Path to Carcosa) nel visualizzatore dei set di incontri."
+        ]
+      },
+      "fr": {
+        "title": "Améliorations de confort et corrections",
+        "items": [
+          "**Améliorations sur mobile.** Le nouveau visualiseur « Ensembles de rencontre du chapitre 1 » ne se tasse plus à gauche sur les petits écrans, et le sélecteur de campagne s'affiche en entier au lieu de déborder du bord.",
+          "**Pied de page allégé.** Il tient de nouveau sur une seule ligne, et l'e-mail de contact est désormais une icône.",
+          "**Avis de nouvelle version.** Le message « nouvelle version disponible » affiche de nouveau son texte traduit lors de la mise à jour.",
+          "**Correction de carte.** Crédit de l'illustrateur corrigé sur les cartes « Avalancha de ratas » (The Path to Carcosa) dans le visualiseur des ensembles de rencontre."
+        ]
+      },
+      "pt": {
+        "title": "Ajustes de qualidade e correções",
+        "items": [
+          "**Melhorias no telemóvel.** O novo visualizador «Conjuntos de encontro do capítulo 1» deixa de se amontoar à esquerda em ecrãs pequenos, e o seletor de campanha aparece por inteiro em vez de sair pela margem.",
+          "**Rodapé mais limpo.** Volta a ocupar uma única linha e o email de contacto é agora um ícone.",
+          "**Aviso de nova versão.** A mensagem «nova versão disponível» volta a mostrar o seu texto traduzido ao atualizar.",
+          "**Carta corrigida.** Corrigido o crédito do ilustrador nas cartas «Avalancha de ratas» (The Path to Carcosa) no visualizador dos conjuntos de encontro."
+        ]
+      },
+      "pl": {
+        "title": "Usprawnienia i poprawki",
+        "items": [
+          "**Usprawnienia na telefonie.** Nowa przeglądarka „Zestawy spotkań z rozdziału 1“ nie zbija się już do lewej na małych ekranach, a lista wyboru kampanii mieści się w całości, zamiast wychodzić poza krawędź.",
+          "**Czytelniejsza stopka.** Znów mieści się w jednej linii, a kontaktowy adres e-mail jest teraz ikoną.",
+          "**Powiadomienie o nowej wersji.** Komunikat „dostępna nowa wersja“ znów pokazuje przetłumaczony tekst podczas aktualizacji.",
+          "**Poprawka karty.** Poprawiono podpis ilustratora na kartach „Avalancha de ratas“ (The Path to Carcosa) w przeglądarce zestawów spotkań."
+        ]
+      },
+      "ru": {
+        "title": "Улучшения и исправления",
+        "items": [
+          "**Улучшения на телефоне.** Новый просмотр «Наборы столкновений главы 1» больше не сбивается к левому краю на маленьких экранах, а выбор кампании помещается целиком и не выходит за край.",
+          "**Более аккуратный подвал.** Он снова умещается в одну строку, а контактная почта теперь показана значком.",
+          "**Уведомление о новой версии.** Сообщение «доступна новая версия» снова показывает переведённый текст при обновлении.",
+          "**Исправление карты.** Исправлено указание художника на картах «Avalancha de ratas» (The Path to Carcosa) в просмотре наборов столкновений."
+        ]
+      },
+      "uk": {
+        "title": "Покращення та виправлення",
+        "items": [
+          "**Покращення на телефоні.** Новий перегляд «Набори зустрічей розділу 1» більше не збивається ліворуч на малих екранах, а вибір кампанії вміщується повністю й не виходить за край.",
+          "**Охайніший підвал.** Він знову вміщується в один рядок, а контактна пошта тепер показана значком.",
+          "**Сповіщення про нову версію.** Повідомлення «доступна нова версія» знову показує перекладений текст під час оновлення.",
+          "**Виправлення картки.** Виправлено зазначення художника на картках «Avalancha de ratas» (The Path to Carcosa) у перегляді наборів зустрічей."
+        ]
+      },
+      "ko": {
+        "title": "품질 개선 및 수정",
+        "items": [
+          "**모바일 개선.** 새 「1장 조우 세트」 뷰어가 작은 화면에서 더 이상 왼쪽으로 몰리지 않으며, 캠페인 선택기가 화면 밖으로 넘치지 않고 전체가 표시됩니다.",
+          "**더 깔끔한 바닥글.** 다시 한 줄에 들어가며, 연락 이메일이 이제 아이콘으로 표시됩니다.",
+          "**새 버전 알림.** 업데이트 시 「새 버전 사용 가능」 메시지가 다시 번역된 문구로 표시됩니다.",
+          "**카드 수정.** 조우 세트 뷰어의 「Avalancha de ratas」 카드(The Path to Carcosa)에서 삽화가 크레딧을 수정했습니다."
+        ]
+      },
+      "zh": {
+        "title": "体验优化与修复",
+        "items": [
+          "**移动端优化。**新的「第一章遭遇牌组」查看器在小屏幕上不再挤向左侧，战役选择器也能完整显示，不再超出边缘。",
+          "**更简洁的页脚。**重新收进单行显示，联系邮箱现以图标呈现。",
+          "**新版本提示。**更新时「有新版本可用」提示重新显示为已翻译的文本。",
+          "**卡牌修正。**修正了遭遇牌组查看器中「Avalancha de ratas」卡牌（The Path to Carcosa）的绘师署名。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.6.0",
     "date": "2026-11-15",
     "i18n": {
