@@ -1,5 +1,77 @@
 [
   {
+    "v": "1.6.2",
+    "date": "2026-11-17",
+    "i18n": {
+      "es": {
+        "title": "Crédito de ilustrador corregido",
+        "items": [
+          "**Carta corregida.** Corregido el crédito de ilustrador en las caras sin revelar de los lugares «Bosques de Arkham» (El Devorador de las Profundidades, La Noche de la Fanática) del visor de conjuntos de encuentros."
+        ]
+      },
+      "en": {
+        "title": "Illustrator credit corrected",
+        "items": [
+          "**Card fix.** Corrected the illustrator credit on the unrevealed side of the “Bosques de Arkham” location cards (The Devourer Below, Night of the Zealot) in the encounter-sets viewer."
+        ]
+      },
+      "de": {
+        "title": "Illustratoren-Nachweis korrigiert",
+        "items": [
+          "**Kartenkorrektur.** Der Illustratoren-Nachweis auf der verdeckten Seite der Ortskarten „Bosques de Arkham“ (The Devourer Below, Night of the Zealot) im Begegnungssets-Betrachter wurde korrigiert."
+        ]
+      },
+      "it": {
+        "title": "Credito dell'illustratore corretto",
+        "items": [
+          "**Carta corretta.** Corretto il credito dell'illustratore sul lato non rivelato delle carte luogo «Bosques de Arkham» (The Devourer Below, Night of the Zealot) nel visualizzatore dei set di incontri."
+        ]
+      },
+      "fr": {
+        "title": "Crédit de l'illustrateur corrigé",
+        "items": [
+          "**Correction de carte.** Crédit de l'illustrateur corrigé au verso non révélé des cartes Lieu « Bosques de Arkham » (The Devourer Below, Night of the Zealot) dans le visualiseur des ensembles de rencontre."
+        ]
+      },
+      "pt": {
+        "title": "Crédito do ilustrador corrigido",
+        "items": [
+          "**Carta corrigida.** Corrigido o crédito do ilustrador no lado não revelado das cartas de local «Bosques de Arkham» (The Devourer Below, Night of the Zealot) no visualizador dos conjuntos de encontro."
+        ]
+      },
+      "pl": {
+        "title": "Poprawiony podpis ilustratora",
+        "items": [
+          "**Poprawka karty.** Poprawiono podpis ilustratora na nieodkrytej stronie kart lokacji „Bosques de Arkham“ (The Devourer Below, Night of the Zealot) w przeglądarce zestawów spotkań."
+        ]
+      },
+      "ru": {
+        "title": "Исправлено указание художника",
+        "items": [
+          "**Исправление карты.** Исправлено указание художника на закрытой стороне карт локаций «Bosques de Arkham» (The Devourer Below, Night of the Zealot) в просмотре наборов столкновений."
+        ]
+      },
+      "uk": {
+        "title": "Виправлено зазначення художника",
+        "items": [
+          "**Виправлення картки.** Виправлено зазначення художника на невідкритому боці карток локацій «Bosques de Arkham» (The Devourer Below, Night of the Zealot) у перегляді наборів зустрічей."
+        ]
+      },
+      "ko": {
+        "title": "일러스트레이터 크레딧 수정",
+        "items": [
+          "**카드 수정.** 조우 세트 뷰어에서 「Bosques de Arkham」 장소 카드(The Devourer Below, Night of the Zealot)의 뒤집힌 면 일러스트레이터 크레딧을 수정했습니다."
+        ]
+      },
+      "zh": {
+        "title": "插画师署名修正",
+        "items": [
+          "**卡牌修正。**修正了遭遇牌组查看器中「Bosques de Arkham」地点卡（The Devourer Below, Night of the Zealot）未揭示面的插画师署名。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.6.1",
     "date": "2026-11-16",
     "i18n": {
