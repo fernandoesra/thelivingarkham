@@ -155,6 +155,37 @@ def _webp(png):
     buf = io.BytesIO(); Image.open(png).convert('RGBA').save(buf, 'WEBP', quality=85, method=6)
     return buf.getvalue()
 
+def _color_match_bleed(bleed_png, nb_png):
+    """WEBP bytes of the BLEED image, its colour linearly matched (per channel, a*x+b) to its
+    NO-BLEED counterpart, so the two look identical once exported. The no-bleed is the untouched
+    reference — only the bleed is recoloured, and its real art + 3 mm margin stay intact (the fit
+    is measured on the overlapping centre and applied to the whole frame). The generic shared
+    encounter BACK ships as Adobe RGB numbers read as sRGB (warm-lifted) while its no-bleed twin
+    is colour-correct, so only the backs actually shift. Returns None when the correction is
+    negligible (fronts, which already match), so the caller writes the plain webp unchanged."""
+    import numpy as np
+    bl_rgba = Image.open(bleed_png).convert('RGBA')
+    nb = np.asarray(Image.open(nb_png).convert('RGB')).astype(float)
+    nh, nw = nb.shape[0], nb.shape[1]
+    if bl_rgba.width < nw or bl_rgba.height < nh:
+        return None                                   # bleed should be >= no-bleed; bail to plain
+    alpha = bl_rgba.getchannel('A'); bl = bl_rgba.convert('RGB')
+    dx = (bl.width - nw) // 2; dy = (bl.height - nh) // 2
+    blt = np.asarray(bl.crop((dx, dy, dx + nw, dy + nh))).astype(float)
+    if blt.shape != nb.shape:
+        return None
+    full = np.asarray(bl).astype(float); out = np.empty_like(full); negligible = True
+    for c in range(3):
+        a, b = np.polyfit(blt[:, :, c].ravel(), nb[:, :, c].ravel(), 1)
+        out[:, :, c] = np.clip(a * full[:, :, c] + b, 0, 255)
+        if abs(a - 1) > 0.02 or abs(b) > 1.5:
+            negligible = False
+    if negligible:
+        return None
+    im = Image.fromarray(out.astype('uint8')); im.putalpha(alpha)
+    buf = io.BytesIO(); im.save(buf, 'WEBP', quality=85, method=6)
+    return buf.getvalue()
+
 def stage():
     # composition is needed to verify staged == 2*physical and which icons to copy
     data = json.load(open(ROOT / 'data/encounters_es.json', encoding='utf-8'))
@@ -166,7 +197,8 @@ def stage():
             code = code_for(camp_id, os.path.basename(setdir)[:2])
             if not code:
                 continue
-            for src_dir, suffix in ((_nobleed(setdir), ''), (_bleed(setdir), '-bleed')):
+            nb_dir = _nobleed(setdir)
+            for src_dir, suffix in ((nb_dir, ''), (_bleed(setdir), '-bleed')):
                 if not src_dir:
                     continue
                 for png in sorted(glob.glob(os.path.join(src_dir, '*.png'))):
@@ -174,7 +206,13 @@ def stage():
                     if not num.isdigit():
                         continue
                     dest = OUT / camp_id / (code + suffix) / (num + '.webp')
-                    d = _webp(png)
+                    d = None
+                    if suffix == '-bleed' and nb_dir:   # match bleed colour to its untouched no-bleed twin
+                        nb_png = os.path.join(nb_dir, os.path.basename(png))
+                        if os.path.exists(nb_png):
+                            d = _color_match_bleed(png, nb_png)   # None when the shift is negligible (fronts)
+                    if d is None:
+                        d = _webp(png)
                     if dest.exists() and dest.read_bytes() == d:
                         stats['same'] += 1
                     else:

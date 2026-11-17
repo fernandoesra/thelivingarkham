@@ -1138,7 +1138,7 @@ function encDownloadCampaign(btn, bleed){
   var done=function(){btn.disabled=false; btn.removeAttribute('aria-busy'); if(lbl)lbl.textContent=orig;};
   var slots=new Array(tasks.length);
   renderPool(tasks, function(tk,idx){
-    return encImgBlob(tk.src,'image/jpeg',0.95).then(function(bl){
+    return encImgBlob(tk.src,'image/jpeg',0.98).then(function(bl){
       if(bl&&bl.arrayBuffer)return bl.arrayBuffer().then(function(ab){slots[idx]={name:tk.name,data:new Uint8Array(ab)};});
     });
   }, 4, tick).then(function(){ var files=slots.filter(Boolean); if(files.length)ubSaveBlob(ubZip(files), encFname(camp.name+' - '+(bleed?t('tbwithbleed'):t('tbnobleed')))+'.zip'); done(); }, done);
@@ -2397,7 +2397,7 @@ function ubDownloadAll(btn){
   /* The back is identical per back-type (+ the chosen bleed/skin), so render each once and reuse the
      bytes under every card's own back-name instead of re-encoding it for all ~90. */
   var backCache={};
-  var backBytes=function(type){ if(!backCache[type])backCache[type]=ubBackBlob(type,'image/jpeg',0.95).then(function(b){return b?b.arrayBuffer().then(function(ab){return new Uint8Array(ab);}):null;}); return backCache[type]; };
+  var backBytes=function(type){ if(!backCache[type])backCache[type]=ubBackBlob(type,'image/jpeg',0.98).then(function(b){return b?b.arrayBuffer().then(function(ab){return new Uint8Array(ab);}):null;}); return backCache[type]; };
   /* Each concurrent card render gets its OWN off-screen host inside #tla-root (the card's
      `font-family:'ubtitle',var(--ff-head)` depends on --ff-head, defined there; under document.body
      that var is undefined and the title falls back to the body serif). */
@@ -2410,7 +2410,7 @@ function ubDownloadAll(btn){
       (root||document.body).appendChild(host);
       var clean=function(){ try{(root||document.body).removeChild(host);}catch(e){} };
       return ubRenderOffscreen(it,host)
-        .then(function(card){return ubCardToBlob(card,'image/jpeg',0.95);})
+        .then(function(card){return ubCardToBlob(card,'image/jpeg',0.98);})
         .then(function(b){ if(b)return b.arrayBuffer().then(function(ab){slots[idx]={name:nm, data:new Uint8Array(ab)};}); })
         .then(clean, function(e){ clean(); throw e; });
     }, 4, tick);
@@ -3577,12 +3577,12 @@ function tabooDownloadAll(btn){
   /* The shared player back is identical for every normal card, so render it once and reuse the bytes
      under each card's own back-name instead of re-encoding it 90 times. */
   var backBytesP=null;
-  var backBytes=function(){ if(!backBytesP)backBytesP=tabooBackBlob('image/jpeg',0.95).then(function(b){return b?b.arrayBuffer().then(function(ab){return new Uint8Array(ab);}):null;}); return backBytesP; };
+  var backBytes=function(){ if(!backBytesP)backBytesP=tabooBackBlob('image/jpeg',0.98).then(function(b){return b?b.arrayBuffer().then(function(ab){return new Uint8Array(ab);}):null;}); return backBytesP; };
   tabooFontsReady().then(function(){
     return renderPool(entries, function(ent,idx){
       var e=ent.e, nm=tabooExportName(ent.item,e)+'.jpg';
       if(e.shared) return backBytes().then(function(u8){ if(u8)slots[idx]={name:nm, data:u8}; });
-      return tabooCardToBlob(e.card,'image/jpeg',0.95).then(function(b){
+      return tabooCardToBlob(e.card,'image/jpeg',0.98).then(function(b){
         if(b)return b.arrayBuffer().then(function(ab){ slots[idx]={name:nm, data:new Uint8Array(ab)}; });
       });
     }, 6, tick);

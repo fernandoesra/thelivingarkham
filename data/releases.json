@@ -1,5 +1,88 @@
 [
   {
+    "v": "1.7.0",
+    "date": "2026-11-17",
+    "i18n": {
+      "es": {
+        "title": "Exportación de cartas: color y calidad",
+        "items": [
+          "**Color con sangrado corregido.** Al exportar conjuntos de encuentros con sangrado, el dorso de las cartas ya no sale más cálido que la versión sin sangrado: ambos coinciden en color.",
+          "**Descargas en ZIP con más calidad.** Las cartas dentro de los archivos ZIP (todas las secciones) se exportan ahora con más calidad; las cartas sueltas siguen en PNG sin pérdida."
+        ]
+      },
+      "en": {
+        "title": "Card export: colour and quality",
+        "items": [
+          "**Bleed colour fixed.** When exporting encounter sets with bleed, the card back no longer looks warmer than the no-bleed version: the two now match in colour.",
+          "**Higher-quality ZIP downloads.** Cards inside the ZIP archives (all sections) now export at higher quality; single-card downloads stay lossless PNG."
+        ]
+      },
+      "de": {
+        "title": "Kartenexport: Farbe und Qualität",
+        "items": [
+          "**Beschnitt-Farbe korrigiert.** Beim Export von Begegnungssets mit Beschnitt wirkt die Kartenrückseite nicht mehr wärmer als die Version ohne Beschnitt: beide stimmen nun farblich überein.",
+          "**ZIP-Downloads in höherer Qualität.** Karten in den ZIP-Archiven (alle Bereiche) werden jetzt in höherer Qualität exportiert; einzelne Karten bleiben verlustfreies PNG."
+        ]
+      },
+      "it": {
+        "title": "Esportazione delle carte: colore e qualità",
+        "items": [
+          "**Colore con abbondanza corretto.** Nei set di incontri esportati con abbondanza, il dorso delle carte risultava più caldo della versione senza abbondanza; ora i due coincidono nel colore.",
+          "**Download ZIP di qualità superiore.** Le carte negli archivi ZIP (tutte le sezioni) ora vengono esportate con qualità superiore; le singole carte restano in PNG senza perdita."
+        ]
+      },
+      "fr": {
+        "title": "Export des cartes : couleur et qualité",
+        "items": [
+          "**Couleur avec fond perdu corrigée.** À l'export des ensembles de rencontre avec fond perdu, le dos des cartes ressortait plus chaud que la version sans fond perdu ; les deux coïncident désormais en couleur.",
+          "**Téléchargements ZIP de meilleure qualité.** Les cartes dans les archives ZIP (toutes les sections) sont désormais exportées en meilleure qualité ; les cartes individuelles restent en PNG sans perte."
+        ]
+      },
+      "pt": {
+        "title": "Exportação de cartas: cor e qualidade",
+        "items": [
+          "**Cor com sangria corrigida.** Ao exportar conjuntos de encontro com sangria, o verso das cartas já não fica mais quente do que a versão sem sangria: as duas passam a coincidir na cor.",
+          "**Transferências ZIP com mais qualidade.** As cartas dentro dos ficheiros ZIP (todas as secções) são agora exportadas com mais qualidade; as cartas individuais continuam em PNG sem perdas."
+        ]
+      },
+      "pl": {
+        "title": "Eksport kart: kolor i jakość",
+        "items": [
+          "**Poprawiony kolor ze spadem.** Przy eksporcie zestawów spotkań ze spadem rewers kart nie jest już cieplejszy niż wersja bez spadu: oba warianty mają teraz zgodny kolor.",
+          "**Pobieranie ZIP w wyższej jakości.** Karty w archiwach ZIP (wszystkie sekcje) są teraz eksportowane w wyższej jakości; pojedyncze karty pozostają w bezstratnym PNG."
+        ]
+      },
+      "ru": {
+        "title": "Экспорт карт: цвет и качество",
+        "items": [
+          "**Исправлен цвет с вылетами.** При экспорте наборов столкновений с вылетами рубашка карт больше не выглядит теплее версии без вылетов: теперь они совпадают по цвету.",
+          "**Загрузки ZIP в более высоком качестве.** Карты в ZIP-архивах (все разделы) теперь экспортируются в более высоком качестве; отдельные карты остаются в PNG без потерь."
+        ]
+      },
+      "uk": {
+        "title": "Експорт карток: колір і якість",
+        "items": [
+          "**Виправлено колір із вильотами.** Під час експорту наборів зустрічей із вильотами сорочка карток більше не виглядає теплішою за версію без вильотів: тепер вони збігаються за кольором.",
+          "**Завантаження ZIP у вищій якості.** Картки в ZIP-архівах (усі розділи) тепер експортуються у вищій якості; окремі картки залишаються в PNG без втрат."
+        ]
+      },
+      "ko": {
+        "title": "카드 내보내기: 색상과 품질",
+        "items": [
+          "**블리드 색상 수정.** 조우 세트를 블리드 포함으로 내보낼 때 카드 뒷면이 블리드 없는 버전보다 더 따뜻하게 나오던 문제를 수정했습니다. 이제 두 버전의 색상이 일치합니다.",
+          "**더 높은 품질의 ZIP 다운로드.** ZIP 아카이브(모든 섹션)에 담기는 카드가 이제 더 높은 품질로 내보내집니다. 개별 카드 다운로드는 무손실 PNG를 유지합니다."
+        ]
+      },
+      "zh": {
+        "title": "卡牌导出：色彩与质量",
+        "items": [
+          "**修正出血版色彩。**导出带出血的遭遇牌组时，卡牌背面不再比无出血版本偏暖：现在两者色彩一致。",
+          "**更高质量的 ZIP 下载。**ZIP 压缩包（所有板块）中的卡牌现在以更高质量导出；单张卡牌下载仍为无损 PNG。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.6.2",
     "date": "2026-11-17",
     "i18n": {

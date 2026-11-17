@@ -15,7 +15,7 @@
    BUMP SW_VERSION on every release (see tools/other/instructions.md §7): it renames the shell
    cache, so activate() drops the old one and the new shell/text is served. */
 
-const SW_VERSION = '1.6.2';
+const SW_VERSION = '1.7.0';
 const SHELL = 'tla-shell-' + SW_VERSION;   // shell + read/downloaded text, replaced each version
 // Images are cache-first and, being immutable per URL, are kept across versions — a plain
 // SW_VERSION bump does NOT drop them, so offline images survive text-only releases. Bump
@@ -23,8 +23,9 @@ const SHELL = 'tla-shell-' + SW_VERSION;   // shell + read/downloaded text, repl
 // or back): it renames the media cache, so activate() drops the stale one and the corrected
 // images are re-fetched fresh. (Raised to 2 in 1.2.2, after the Scorched Earth + back fixes;
 // to 4 in 1.6.1, after the Carcosa "Avalancha de ratas" artist-credit fix; to 5 in 1.6.2,
-// after the Devourer Below unrevealed "Bosques de Arkham" illustrator-credit fix.)
-const MEDIA_VERSION = '5';
+// after the Devourer Below unrevealed "Bosques de Arkham" illustrator-credit fix; to 6 in
+// 1.7.0, after the encounter-set bleed card backs were colour-matched to their no-bleed twins.)
+const MEDIA_VERSION = '6';
 const MEDIA = 'tla-media-' + MEDIA_VERSION;
 
 function isMedia(path) {
