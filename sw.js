@@ -15,7 +15,7 @@
    BUMP SW_VERSION on every release (see tools/other/instructions.md §7): it renames the shell
    cache, so activate() drops the old one and the new shell/text is served. */
 
-const SW_VERSION = '1.7.0';
+const SW_VERSION = '1.8.0';
 const SHELL = 'tla-shell-' + SW_VERSION;   // shell + read/downloaded text, replaced each version
 // Images are cache-first and, being immutable per URL, are kept across versions — a plain
 // SW_VERSION bump does NOT drop them, so offline images survive text-only releases. Bump
@@ -75,7 +75,15 @@ self.addEventListener('fetch', function (e) {
     e.respondWith((async function () {
       try { return await fetch(req); }
       catch (err) {
-        return (await caches.match('./')) || (await caches.match('index.html')) || Response.error();
+        /* Offline. Every address (/es/glosario/…) is the same app, so the cached ROOT page
+           stands in for any of them — but its <base href="./"> would then name the folder the
+           address is in, and every css/, data/ and assets/ path would resolve under it. Point
+           the base at the app root (this worker's scope) and the app routes itself from the
+           address as usual. */
+        const shell = (await caches.match('./')) || (await caches.match('index.html'));
+        if (!shell) return Response.error();
+        const page = (await shell.text()).replace('<base href="./">', '<base href="' + self.registration.scope + '">');
+        return new Response(page, { headers: { 'Content-Type': 'text/html; charset=utf-8' } });
       }
     })());
     return;

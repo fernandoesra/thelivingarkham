@@ -270,6 +270,13 @@ def main(argv):
     step('language registry')
     langpack.write_registry()
 
+    # Every chapter's own address — its page, the sitemap, index.html's <head> block. Last,
+    # because it reads the registry and every corpus just written. A standalone builder
+    # (assemble.py, faq.py…) does NOT run this: follow it with  python tools/seo.py
+    step('chapter pages — the addresses search engines read (tools/seo.py)')
+    import seo
+    seo.run()
+
     total = len(packs) + len([1 for c, _ in failed if c not in [p.code for p in packs]])
     print(f'\n== done in {time.time()-t0:.0f}s — {built}/{total} language(s) built ==')
     if failed:

@@ -605,6 +605,12 @@ def build_registry(packs=None):
         cards_path = os.path.join(DATA_DIR, f'taboo_cards_{p.code}.json')
         if os.path.exists(cards_path):
             entry['tabooCardsData'] = f'data/taboo_cards_{p.code}.json'
+        # The themed chapter-1 encounter-set viewer (data/encounters_<code>.json, tools/encounters.py).
+        # Same rule again. It was once added to data/languages.json by hand, so every rebuild of the
+        # registry silently dropped it and the Spanish viewer fell back to "coming soon".
+        enc_path = os.path.join(DATA_DIR, f'encounters_{p.code}.json')
+        if os.path.exists(enc_path):
+            entry['encountersData'] = f'data/encounters_{p.code}.json'
         # A pack may ship a flag next to its config. It is decoration: the label
         # is what names the language, so a pack without one is perfectly fine.
         # Listed rather than os.path.exists()-ed: that check is case-insensitive
@@ -649,6 +655,11 @@ if __name__ == '__main__':
         print(f'ERROR: {e}', file=sys.stderr)
         sys.exit(1)
     for p in packs:
+        # A ui-only pack has no edition and no PDF: asking for its .current (versions[-1])
+        # used to crash this report at the first such pack, after it had validated fine.
+        if p.ui_only:
+            print(f'  OK    {p.code}  {p.name:<10} interface only — its chapters are borrowed')
+            continue
         art = ' · renders the game icons' if p.icon_art.get('provides') else ''
         pdf = 'ok' if p.has_pdf() else 'MISSING'
         print(f'  OK    {p.code}  {p.name:<10} v{p.current["v"]:<5} '

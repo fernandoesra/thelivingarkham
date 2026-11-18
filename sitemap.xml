@@ -1,0 +1,1044 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- WRITTEN BY tools/seo.py: every indexable address, with its language alternates. -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url><loc>https://thelivingarkham.com/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://thelivingarkham.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://thelivingarkham.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://thelivingarkham.com/pl/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://thelivingarkham.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://thelivingarkham.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://thelivingarkham.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://thelivingarkham.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://thelivingarkham.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://thelivingarkham.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://thelivingarkham.com/pl/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://thelivingarkham.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://thelivingarkham.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://thelivingarkham.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://thelivingarkham.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/novedades/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/novedades/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/novedades/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/novedades/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/novedades/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/novedades/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/glosario/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/glosario/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/glossary/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/glossar/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/glossario/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/glossary/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/fundamentos/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/fundamentos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/additional-rules/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/grundlagen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/regole-aggiuntive/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/additional-rules/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/juego-orden/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/juego-orden/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/timing-gameplay/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/spielablauf/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/tempistiche/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/timing-gameplay/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/pruebas-habilidad/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/pruebas-habilidad/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/skill-test-timing/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/fertigkeitsproben/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/prove-abilita/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/skill-test-timing/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/iniciacion/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/iniciacion/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/initiation/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/initiierung/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/sequenza-lancio/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/initiation/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/preparacion/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/preparacion/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/scenario-setup/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/vorbereitung/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/preparazione/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/scenario-setup/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/elementos-cartas/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/elementos-cartas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/card-anatomy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/kartenaufbau/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/anatomia-carta/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/card-anatomy/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/campana/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/campana/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/campaign/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/kampagne/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/campagna/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/campaign/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/mazos/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/mazos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/deck-customization/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/deckbau/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/mazzi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/deck-customization/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/erratas/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/erratas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/notes-errata/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/errata/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/errata/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/notes-errata/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/faq/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/faq/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/domande/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/faq/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/opcionales/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/opcionales/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/optional-rules/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/optionale-regeln/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/regole-facoltative/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/optional-rules/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/reimpresiones/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/reimpresiones/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/modified-reprints/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/reprints/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/ristampe/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/modified-reprints/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/ref-iconos/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/ref-iconos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/icon-reference/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/symbolubersicht/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/icone/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/icon-reference/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/ref-iconos-encuentros/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/ref-iconos-encuentros/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/encounter-icons/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/begegnungssymbole/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/icone-incontri/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/encounter-icons/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/visor-erratas/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/visor-erratas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/errata-viewer/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/errata-ansicht/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/visore-errata/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/errata-viewer/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/conjuntos-capitulo-1/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/conjuntos-capitulo-1/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/chapter-1-encounter-sets/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/begegnungssets-kapitel-1/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/set-incontri-capitolo-1/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/chapter-1-encounter-sets/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/ultimatums-refracciones/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/ultimatums-refracciones/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/ultimatums-refractions/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/ultimaten-refraktionen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/ultimatum-rifrazioni/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/ultimatums-refractions/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/lista-de-tabues/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/lista-de-tabues/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/the-list-of-taboos/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/tabuliste/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/elenco-tabu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/the-list-of-taboos/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/variacion-conjuntos/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/variacion-conjuntos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/encounter-variation/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/begegnungsset-varianten/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/variazione-set-incontri/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/encounter-variation/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/ref-rapida/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/ref-rapida/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/quick-reference/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/schnellubersicht/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/consultazione-rapida/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/quick-reference/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/faq-novedades/</loc>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/c1-intro/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-intro/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-intro/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-intro/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-intro/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-intro/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/c1-erratas/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-erratas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-errata/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-errata/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-errata/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-errata/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/c1-definiciones/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-definiciones/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-definitions/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-definitionen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-concetti/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-definitions/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/c1-aclaraciones/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-aclaraciones/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-rulings/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-klarstellungen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-chiarimenti/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-rulings/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/c1-preguntas/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-preguntas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-questions/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-fragen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-domande/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-questions/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/c1-tabues/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-tabues/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-taboos/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-tabuliste/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-tabu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-taboos/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/c1-ultimatums/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-ultimatums/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-ultimatums/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-ultimaten/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-ultimatum/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-ultimatums/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/c1-entornos/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-entornos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-environments/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-umgebungen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-ambienti/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-environments/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/es/c1-iconos/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-iconos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-icons/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-symbole/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-icone/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-icons/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://thelivingarkham.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://thelivingarkham.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://thelivingarkham.com/pl/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://thelivingarkham.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://thelivingarkham.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://thelivingarkham.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://thelivingarkham.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/novedades/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/novedades/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/novedades/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/novedades/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/novedades/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/novedades/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/glossary/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/glosario/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/glossary/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/glossar/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/glossario/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/glossary/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/additional-rules/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/fundamentos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/additional-rules/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/grundlagen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/regole-aggiuntive/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/additional-rules/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/timing-gameplay/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/juego-orden/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/timing-gameplay/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/spielablauf/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/tempistiche/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/timing-gameplay/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/skill-test-timing/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/pruebas-habilidad/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/skill-test-timing/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/fertigkeitsproben/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/prove-abilita/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/skill-test-timing/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/initiation/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/iniciacion/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/initiation/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/initiierung/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/sequenza-lancio/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/initiation/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/scenario-setup/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/preparacion/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/scenario-setup/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/vorbereitung/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/preparazione/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/scenario-setup/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/card-anatomy/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/elementos-cartas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/card-anatomy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/kartenaufbau/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/anatomia-carta/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/card-anatomy/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/campaign/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/campana/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/campaign/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/kampagne/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/campagna/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/campaign/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/deck-customization/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/mazos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/deck-customization/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/deckbau/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/mazzi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/deck-customization/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/notes-errata/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/erratas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/notes-errata/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/errata/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/errata/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/notes-errata/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/faq/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/faq/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/domande/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/faq/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/optional-rules/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/opcionales/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/optional-rules/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/optionale-regeln/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/regole-facoltative/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/optional-rules/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/modified-reprints/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/reimpresiones/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/modified-reprints/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/reprints/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/ristampe/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/modified-reprints/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/icon-reference/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/ref-iconos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/icon-reference/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/symbolubersicht/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/icone/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/icon-reference/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/encounter-icons/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/ref-iconos-encuentros/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/encounter-icons/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/begegnungssymbole/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/icone-incontri/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/encounter-icons/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/errata-viewer/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/visor-erratas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/errata-viewer/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/errata-ansicht/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/visore-errata/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/errata-viewer/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/chapter-1-encounter-sets/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/conjuntos-capitulo-1/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/chapter-1-encounter-sets/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/begegnungssets-kapitel-1/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/set-incontri-capitolo-1/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/chapter-1-encounter-sets/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/ultimatums-refractions/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/ultimatums-refracciones/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/ultimatums-refractions/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/ultimaten-refraktionen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/ultimatum-rifrazioni/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/ultimatums-refractions/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/the-list-of-taboos/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/lista-de-tabues/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/the-list-of-taboos/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/tabuliste/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/elenco-tabu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/the-list-of-taboos/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/encounter-variation/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/variacion-conjuntos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/encounter-variation/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/begegnungsset-varianten/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/variazione-set-incontri/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/encounter-variation/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/quick-reference/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/ref-rapida/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/quick-reference/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/schnellubersicht/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/consultazione-rapida/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/quick-reference/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/c1-intro/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-intro/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-intro/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-intro/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-intro/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-intro/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/c1-errata/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-erratas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-errata/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-errata/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-errata/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-errata/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/c1-definitions/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-definiciones/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-definitions/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-definitionen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-concetti/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-definitions/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/c1-rulings/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-aclaraciones/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-rulings/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-klarstellungen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-chiarimenti/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-rulings/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/c1-questions/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-preguntas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-questions/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-fragen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-domande/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-questions/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/c1-taboos/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-tabues/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-taboos/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-tabuliste/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-tabu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-taboos/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/c1-ultimatums/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-ultimatums/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-ultimatums/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-ultimaten/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-ultimatum/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-ultimatums/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/c1-environments/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-entornos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-environments/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-umgebungen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-ambienti/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-environments/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/en/c1-icons/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-iconos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-icons/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-symbole/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-icone/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-icons/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://thelivingarkham.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://thelivingarkham.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://thelivingarkham.com/pl/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://thelivingarkham.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://thelivingarkham.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://thelivingarkham.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://thelivingarkham.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/novedades/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/novedades/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/novedades/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/novedades/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/novedades/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/novedades/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/glossar/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/glosario/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/glossary/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/glossar/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/glossario/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/glossary/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/grundlagen/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/fundamentos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/additional-rules/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/grundlagen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/regole-aggiuntive/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/additional-rules/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/spielablauf/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/juego-orden/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/timing-gameplay/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/spielablauf/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/tempistiche/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/timing-gameplay/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/fertigkeitsproben/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/pruebas-habilidad/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/skill-test-timing/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/fertigkeitsproben/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/prove-abilita/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/skill-test-timing/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/initiierung/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/iniciacion/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/initiation/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/initiierung/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/sequenza-lancio/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/initiation/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/vorbereitung/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/preparacion/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/scenario-setup/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/vorbereitung/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/preparazione/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/scenario-setup/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/kartenaufbau/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/elementos-cartas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/card-anatomy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/kartenaufbau/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/anatomia-carta/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/card-anatomy/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/kampagne/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/campana/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/campaign/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/kampagne/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/campagna/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/campaign/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/deckbau/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/mazos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/deck-customization/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/deckbau/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/mazzi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/deck-customization/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/errata/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/erratas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/notes-errata/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/errata/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/errata/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/notes-errata/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/faq/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/faq/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/faq/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/domande/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/faq/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/optionale-regeln/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/opcionales/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/optional-rules/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/optionale-regeln/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/regole-facoltative/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/optional-rules/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/reprints/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/reimpresiones/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/modified-reprints/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/reprints/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/ristampe/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/modified-reprints/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/symbolubersicht/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/ref-iconos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/icon-reference/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/symbolubersicht/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/icone/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/icon-reference/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/begegnungssymbole/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/ref-iconos-encuentros/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/encounter-icons/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/begegnungssymbole/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/icone-incontri/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/encounter-icons/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/errata-ansicht/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/visor-erratas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/errata-viewer/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/errata-ansicht/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/visore-errata/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/errata-viewer/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/begegnungssets-kapitel-1/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/conjuntos-capitulo-1/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/chapter-1-encounter-sets/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/begegnungssets-kapitel-1/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/set-incontri-capitolo-1/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/chapter-1-encounter-sets/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/ultimaten-refraktionen/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/ultimatums-refracciones/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/ultimatums-refractions/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/ultimaten-refraktionen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/ultimatum-rifrazioni/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/ultimatums-refractions/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/tabuliste/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/lista-de-tabues/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/the-list-of-taboos/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/tabuliste/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/elenco-tabu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/the-list-of-taboos/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/begegnungsset-varianten/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/variacion-conjuntos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/encounter-variation/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/begegnungsset-varianten/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/variazione-set-incontri/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/encounter-variation/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/schnellubersicht/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/ref-rapida/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/quick-reference/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/schnellubersicht/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/consultazione-rapida/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/quick-reference/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/c1-intro/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-intro/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-intro/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-intro/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-intro/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-intro/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/c1-errata/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-erratas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-errata/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-errata/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-errata/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-errata/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/c1-definitionen/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-definiciones/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-definitions/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-definitionen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-concetti/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-definitions/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/c1-klarstellungen/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-aclaraciones/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-rulings/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-klarstellungen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-chiarimenti/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-rulings/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/c1-fragen/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-preguntas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-questions/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-fragen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-domande/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-questions/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/c1-tabuliste/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-tabues/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-taboos/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-tabuliste/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-tabu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-taboos/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/c1-ultimaten/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-ultimatums/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-ultimatums/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-ultimaten/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-ultimatum/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-ultimatums/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/c1-umgebungen/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-entornos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-environments/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-umgebungen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-ambienti/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-environments/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/de/c1-symbole/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-iconos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-icons/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-symbole/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-icone/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-icons/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://thelivingarkham.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://thelivingarkham.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://thelivingarkham.com/pl/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://thelivingarkham.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://thelivingarkham.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://thelivingarkham.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://thelivingarkham.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/novedades/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/novedades/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/novedades/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/novedades/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/novedades/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/novedades/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/glossario/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/glosario/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/glossary/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/glossar/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/glossario/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/glossary/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/regole-aggiuntive/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/fundamentos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/additional-rules/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/grundlagen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/regole-aggiuntive/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/additional-rules/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/tempistiche/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/juego-orden/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/timing-gameplay/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/spielablauf/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/tempistiche/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/timing-gameplay/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/prove-abilita/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/pruebas-habilidad/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/skill-test-timing/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/fertigkeitsproben/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/prove-abilita/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/skill-test-timing/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/sequenza-lancio/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/iniciacion/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/initiation/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/initiierung/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/sequenza-lancio/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/initiation/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/preparazione/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/preparacion/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/scenario-setup/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/vorbereitung/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/preparazione/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/scenario-setup/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/anatomia-carta/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/elementos-cartas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/card-anatomy/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/kartenaufbau/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/anatomia-carta/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/card-anatomy/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/campagna/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/campana/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/campaign/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/kampagne/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/campagna/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/campaign/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/mazzi/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/mazos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/deck-customization/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/deckbau/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/mazzi/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/deck-customization/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/errata/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/erratas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/notes-errata/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/errata/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/errata/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/notes-errata/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/domande/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/faq/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/faq/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/faq/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/domande/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/faq/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/regole-facoltative/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/opcionales/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/optional-rules/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/optionale-regeln/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/regole-facoltative/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/optional-rules/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/ristampe/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/reimpresiones/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/modified-reprints/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/reprints/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/ristampe/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/modified-reprints/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/icone/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/ref-iconos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/icon-reference/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/symbolubersicht/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/icone/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/icon-reference/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/icone-incontri/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/ref-iconos-encuentros/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/encounter-icons/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/begegnungssymbole/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/icone-incontri/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/encounter-icons/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/visore-errata/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/visor-erratas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/errata-viewer/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/errata-ansicht/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/visore-errata/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/errata-viewer/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/set-incontri-capitolo-1/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/conjuntos-capitulo-1/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/chapter-1-encounter-sets/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/begegnungssets-kapitel-1/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/set-incontri-capitolo-1/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/chapter-1-encounter-sets/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/ultimatum-rifrazioni/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/ultimatums-refracciones/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/ultimatums-refractions/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/ultimaten-refraktionen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/ultimatum-rifrazioni/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/ultimatums-refractions/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/elenco-tabu/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/lista-de-tabues/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/the-list-of-taboos/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/tabuliste/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/elenco-tabu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/the-list-of-taboos/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/variazione-set-incontri/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/variacion-conjuntos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/encounter-variation/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/begegnungsset-varianten/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/variazione-set-incontri/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/encounter-variation/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/consultazione-rapida/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/ref-rapida/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/quick-reference/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/schnellubersicht/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/consultazione-rapida/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/quick-reference/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/c1-intro/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-intro/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-intro/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-intro/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-intro/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-intro/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/c1-errata/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-erratas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-errata/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-errata/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-errata/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-errata/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/c1-concetti/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-definiciones/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-definitions/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-definitionen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-concetti/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-definitions/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/c1-chiarimenti/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-aclaraciones/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-rulings/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-klarstellungen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-chiarimenti/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-rulings/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/c1-domande/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-preguntas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-questions/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-fragen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-domande/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-questions/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/c1-tabu/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-tabues/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-taboos/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-tabuliste/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-tabu/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-taboos/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/c1-ultimatum/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-ultimatums/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-ultimatums/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-ultimaten/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-ultimatum/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-ultimatums/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/c1-ambienti/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-entornos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-environments/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-umgebungen/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-ambienti/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-environments/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/c1-consultazione/</loc>
+  </url>
+  <url><loc>https://thelivingarkham.com/it/c1-icone/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/c1-iconos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/c1-icons/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/c1-symbole/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/c1-icone/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/c1-icons/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/fr/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://thelivingarkham.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://thelivingarkham.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://thelivingarkham.com/pl/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://thelivingarkham.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://thelivingarkham.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://thelivingarkham.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://thelivingarkham.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/pt/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://thelivingarkham.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://thelivingarkham.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://thelivingarkham.com/pl/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://thelivingarkham.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://thelivingarkham.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://thelivingarkham.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://thelivingarkham.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/pl/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://thelivingarkham.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://thelivingarkham.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://thelivingarkham.com/pl/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://thelivingarkham.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://thelivingarkham.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://thelivingarkham.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://thelivingarkham.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/ru/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://thelivingarkham.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://thelivingarkham.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://thelivingarkham.com/pl/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://thelivingarkham.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://thelivingarkham.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://thelivingarkham.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://thelivingarkham.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/uk/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://thelivingarkham.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://thelivingarkham.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://thelivingarkham.com/pl/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://thelivingarkham.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://thelivingarkham.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://thelivingarkham.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://thelivingarkham.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/ko/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://thelivingarkham.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://thelivingarkham.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://thelivingarkham.com/pl/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://thelivingarkham.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://thelivingarkham.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://thelivingarkham.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://thelivingarkham.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/"/>
+  </url>
+  <url><loc>https://thelivingarkham.com/zh/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://thelivingarkham.com/fr/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://thelivingarkham.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://thelivingarkham.com/pl/"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://thelivingarkham.com/ru/"/>
+    <xhtml:link rel="alternate" hreflang="uk" href="https://thelivingarkham.com/uk/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://thelivingarkham.com/ko/"/>
+    <xhtml:link rel="alternate" hreflang="zh" href="https://thelivingarkham.com/zh/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/"/>
+  </url>
+</urlset>

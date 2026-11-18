@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="midnight">
+<head>
+  <meta charset="utf-8">
+  <!-- The app root. This file is every page of the site: tools/seo.py copies it into <lang>/
+       and <lang>/<chapter>/ with this pointed at "../" or "../../", so css/, data/, assets/…
+       resolve from the root wherever the page sits. The script pins it to an absolute URL at
+       once: the app then moves between folders with history.pushState, and the base must keep
+       naming the root, not the folder the address happens to be in. -->
+  <base href="../../">
+  <script>(function(){var b=document.querySelector('base');b.setAttribute('href',b.href);})();</script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- seo:begin — WRITTEN BY tools/seo.py, do not edit by hand: the title, description,
+       language alternates and share tags of each page, from the language packs. -->
+  <title>Juego y orden de resolución · El Grimorio · The Living Arkham</title>
+  <meta name="description" content="Cómo se resuelven las fases y el orden de juego. Esta sección proporciona una explicación detallada de cómo manejar cada paso de evento de estructura…">
+  <meta name="generator" content="tools/seo.py">
+  <link rel="canonical" href="https://thelivingarkham.com/es/juego-orden/">
+  <link rel="alternate" hreflang="es" href="https://thelivingarkham.com/es/juego-orden/">
+  <link rel="alternate" hreflang="en" href="https://thelivingarkham.com/en/timing-gameplay/">
+  <link rel="alternate" hreflang="de" href="https://thelivingarkham.com/de/spielablauf/">
+  <link rel="alternate" hreflang="it" href="https://thelivingarkham.com/it/tempistiche/">
+  <link rel="alternate" hreflang="x-default" href="https://thelivingarkham.com/en/timing-gameplay/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="The Living Arkham">
+  <meta property="og:title" content="Juego y orden de resolución · El Grimorio · The Living Arkham">
+  <meta property="og:description" content="Cómo se resuelven las fases y el orden de juego. Esta sección proporciona una explicación detallada de cómo manejar cada paso de evento de estructura…">
+  <meta property="og:url" content="https://thelivingarkham.com/es/juego-orden/">
+  <meta property="og:image" content="https://thelivingarkham.com/assets/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The Living Arkham">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:locale:alternate" content="en_GB">
+  <meta property="og:locale:alternate" content="de_DE">
+  <meta property="og:locale:alternate" content="it_IT">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- seo:end -->
+  <meta name="color-scheme" content="dark light">
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+  <link rel="apple-touch-icon" href="assets/favicon-180.png">
+  <!-- PWA: installable + offline. The manifest makes it installable; sw.js caches the shell +
+       all rules text for offline use (registered at the end of <body>). -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="theme-color" content="#232936">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Living Arkham">
+  <script>
+    /* Set the theme before first paint, or the page flashes the wrong one. This
+       stays inline and dependency-free for that reason; the list is repeated from
+       js/app.js because app.js has not loaded yet, and getting this wrong is worse
+       than repeating six words. "light"/"dark" are what the old two-theme toggle
+       saved, so anyone who chose one then still lands somewhere sensible now. */
+    (function(){
+      var OK={slate:1,moss:1,midnight:1,plum:1,neon:1,parchment:1},
+          OLD={light:'parchment',dark:'midnight'},
+          DEF='midnight';
+      try{
+        var t=localStorage.getItem('tla-theme');
+        if(OLD[t])t=OLD[t];
+        if(!OK[t]){
+          /* An OS set to light is a preference someone stated, not a guess, so it is
+             honoured over the default. */
+          t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches)?'parchment':DEF;
+        }
+        document.documentElement.setAttribute('data-theme',t);
+      }catch(e){}
+    })();
+  </script>
+  <script>
+    /* Lock the app shell to the LIVE viewport height. #tla-root is height:100dvh
+       (see css/app.css), but that unit can go stale on Android Chrome after a cold
+       first load: the root is overflow:hidden and the real scroller is an inner rail,
+       so the document never scrolls, and when the URL bar retracts (growing the
+       viewport) 100dvh is never re-resolved — the shell stays short and the dark body
+       shows below the footer until a manual refresh. We size it ourselves instead.
+       VALUE is window.innerHeight: it tracks the URL bar, but NOT the on-screen
+       keyboard (the viewport meta has no interactive-widget, so it resizes-visual) —
+       reading visualViewport.height here would instead collapse the shell to ~half
+       whenever the in-page search box is focused. Inline in <head> so the height is
+       right before first paint; the bare 100dvh in CSS is the no-JS fallback. */
+    (function(){
+      var de=document.documentElement, last=-1;
+      function setAppH(){
+        /* --app-h is the shell height on TOUCH, where a dynamic URL bar needs innerHeight (see
+           app.css). Desktop overrides to height:100dvh via @media(pointer:fine), so the value we
+           write here is ignored on the desktop where a fractional DPR would otherwise round it
+           short. Keep the VALUE innerHeight (not visualViewport.height): tracks the URL bar, not
+           the on-screen keyboard. */
+        var h=window.innerHeight;
+        if(!h||h===last)return;            // no-op while nothing really changed (avoids thrash during the URL-bar animation)
+        last=h; de.style.setProperty('--app-h',h+'px');
+      }
+      setAppH();
+      addEventListener('resize',setAppH,{passive:true});
+      addEventListener('orientationchange',setAppH,{passive:true});
+      addEventListener('load',setAppH,{passive:true});      // re-read once resources have settled the bar
+      addEventListener('pageshow',setAppH,{passive:true});  // bfcache restore (back/forward)
+      if(window.requestAnimationFrame)requestAnimationFrame(setAppH);
+      /* visualViewport 'resize' is the reliable URL-bar signal on Android Chrome; we
+         subscribe for TIMING but still read innerHeight for the VALUE, so a keyboard
+         open (which also fires it) stays a harmless no-op. */
+      if(window.visualViewport)window.visualViewport.addEventListener('resize',setAppH,{passive:true});
+    })();
+  </script>
+  <link rel="stylesheet" href="css/app.css">
+  <!-- the game icons, sized from their own font metrics (tools/extract_icons.py) -->
+  <link rel="stylesheet" href="css/icons.css">
+  <!-- the taboo card renderer's own styles: the .tbc card geometry and the section viewer around it -->
+  <link rel="stylesheet" href="css/taboo.css">
+</head>
+<body>
+<!-- The text below is the default language's, shown until the interface strings
+     load. Anything a language can translate carries a data-i18n* attribute and is
+     filled in by js/app.js from langs/<code>/ui.json. -->
+<a class="tla-skip" href="#tla-main" data-i18n="skip">Saltar al contenido</a>
+<div id="tla-root" class="tla">
+
+  <!-- HEADER -->
+  <header class="tla-head">
+    <button class="tla-burger" id="tla-burger" type="button" data-i18n-attr="aria-label:navopen" aria-label="Abrir menú de secciones" aria-expanded="false" aria-controls="tla-nav">☰</button>
+    <a class="tla-brand" id="tla-home" href="#" data-i18n-attr="title:home" title="Inicio">
+      <svg class="tla-sigil" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true" focusable="false"><path d="M34.7 91.0L38.0 91.7L41.7 92.3L45.5 92.5L49.2 92.4L52.8 92.0L56.4 91.3L59.9 90.4L63.2 89.2L66.4 87.7L69.5 86.0L72.4 84.0L75.1 81.9L77.6 79.5L79.8 77.0L81.9 74.3L83.7 71.5L85.2 68.6L86.5 65.6L87.5 62.5L88.3 59.4L88.8 56.3L89.0 53.2L89.0 50.0L88.8 47.0L88.3 44.0L87.5 41.0L86.5 38.2L85.3 35.5L84.0 32.9L82.4 30.5L80.6 28.2L78.7 26.1L76.6 24.2L74.4 22.5L72.1 21.0L69.8 19.7L67.3 18.6L64.8 17.7L62.3 17.1L59.7 16.6L57.1 16.4L54.6 16.4L52.1 16.6L49.7 17.0L47.3 17.6L45.0 18.4L42.9 19.3L40.8 20.4L38.8 21.7L37.0 23.1L35.4 24.6L33.9 26.2L32.5 28.0L31.4 29.8L30.3 31.7L29.5 33.6L28.8 35.5L28.4 37.5L28.0 39.5L27.9 41.5L27.9 43.4L28.1 45.3L28.4 47.2L28.9 49.0L29.5 50.7L30.3 52.3L31.1 53.8L32.1 55.2L33.2 56.6L34.4 57.7L35.6 58.8L36.9 59.7L38.2 60.5L39.6 61.2L41.0 61.8L42.5 62.2L43.9 62.4L45.3 62.6L46.7 62.6L48.0 62.5L49.3 62.3L50.6 62.0L51.7 61.6L52.9 61.0L53.9 60.4L54.8 59.8L55.7 59.1L56.5 58.3L57.1 57.4L57.7 56.6L58.2 55.7L58.6 54.8L58.8 53.9L59.0 53.0L59.1 52.2L59.1 51.3L59.0 50.5L58.8 49.8L58.6 49.1L58.3 48.4L58.3 48.4L58.2 49.1L58.1 49.8L58.0 50.5L57.8 51.2L57.6 51.8L57.3 52.5L56.9 53.1L56.5 53.7L56.0 54.3L55.5 54.9L54.9 55.4L54.3 55.8L53.6 56.2L52.9 56.6L52.1 56.9L51.3 57.1L50.5 57.3L49.6 57.4L48.7 57.5L47.8 57.4L46.9 57.3L46.0 57.1L45.1 56.8L44.3 56.5L43.4 56.1L42.6 55.6L41.8 55.0L41.0 54.3L40.3 53.6L39.6 52.8L39.0 52.0L38.4 51.0L38.0 50.1L37.6 49.0L37.3 48.0L37.0 46.9L36.9 45.7L36.8 44.6L36.9 43.4L37.0 42.2L37.3 41.0L37.6 39.9L38.1 38.7L38.6 37.6L39.3 36.5L40.0 35.5L40.8 34.5L41.7 33.5L42.8 32.7L43.8 31.9L45.0 31.1L46.2 30.5L47.5 30.0L48.9 29.6L50.3 29.3L51.7 29.1L53.1 29.0L54.6 29.0L56.1 29.1L57.6 29.4L59.1 29.8L60.5 30.3L61.9 31.0L63.3 31.7L64.6 32.6L65.9 33.6L67.1 34.7L68.2 36.0L69.2 37.3L70.1 38.7L70.9 40.1L71.6 41.7L72.1 43.3L72.6 45.0L72.8 46.7L73.0 48.5L73.0 50.3L72.9 52.1L72.6 53.9L72.2 55.7L71.6 57.4L70.9 59.2L70.0 60.8L69.0 62.4L67.9 64.0L66.6 65.4L65.2 66.8L63.6 68.0L62.0 69.2L60.3 70.2L58.5 71.0L56.6 71.8L54.6 72.3L52.6 72.8L50.5 73.0L48.4 73.1L46.3 73.0L44.1 72.7L42.0 72.3L39.6 71.6Z"/><g fill="#000" opacity=".34"><circle cx="67.0" cy="72.1" r="2.7"/><circle cx="77.6" cy="48.1" r="2.4"/><circle cx="65.2" cy="28.3" r="2.1"/><circle cx="44.7" cy="27.6" r="1.7"/></g></svg>
+      <span class="tla-titles">
+        <span class="tla-title">The Living Arkham</span>
+        <span class="tla-sub" id="tla-sub" data-i18n="sub">Grimorio, FAQ y recursos interactivos · Arkham Horror LCG</span>
+      </span>
+    </a>
+    <div class="tla-spacer"></div>
+    <button class="tla-searchbtn" id="tla-search-open" type="button" aria-haspopup="dialog" data-i18n-attr="aria-label:searchtitle, title:searchtip" aria-label="Buscar en el grimorio" title="Buscar (tecla /)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <kbd class="tla-searchbtn-kbd" aria-hidden="true">/</kbd>
+    </button>
+    <!-- theme picker: a button that discloses a radio group. Native radios on
+         purpose — they bring the whole keyboard contract with them (Tab enters
+         on the checked one, arrows move AND check, which is the live preview). -->
+    <div class="tla-themewrap">
+      <button class="tla-theme" id="tla-theme" type="button" aria-expanded="false" aria-controls="tla-thememenu" data-i18n-attr="title:themetip" aria-label="Tema" title="Tema">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18h1.2a2 2 0 0 0 1.5-3.3 2 2 0 0 1 1.5-3.3H19a3 3 0 0 0 3-3 9 9 0 0 0-10-8.4z"/><circle cx="7.5" cy="11.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="11" cy="7.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="16" cy="9" r="1.3" fill="currentColor" stroke="none"/></svg>
+      </button>
+      <div class="tla-thememenu" id="tla-thememenu" hidden>
+        <fieldset class="tla-themeset" id="tla-themeset">
+          <legend class="tla-themeset-h" data-i18n="themepick">Tema</legend>
+        </fieldset>
+      </div>
+    </div>
+    <!-- one button per language in data/languages.json, built by js/app.js -->
+    <div class="tla-lang" role="group" data-i18n-attr="aria-label:langgroup" aria-label="Idioma" hidden></div>
+  </header>
+
+  <!-- BODY -->
+  <div class="tla-body">
+    <nav class="tla-nav" id="tla-nav" data-i18n-attr="aria-label:navsections" aria-label="Secciones del grimorio"><ul><li><a href="es/">Cómo empezar</a></li></ul><h2 class="tla-nav-grp">Recursos</h2><ul><li><a href="es/visor-erratas/">Visor de erratas</a></li><li><a href="es/conjuntos-capitulo-1/">Conjuntos de encuentros del capítulo 1</a></li><li><a href="es/ultimatums-refracciones/">Ultimátums, Ayudas y Refracciones</a></li><li><a href="es/lista-de-tabues/">La lista de tabúes</a></li></ul><h2 class="tla-nav-grp">El Grimorio</h2><ul><li><a href="es/novedades/">Novedades</a></li><li><a href="es/glosario/">I. Glosario de términos y palabras clave</a></li><li><a href="es/fundamentos/">II. Fundamentos y reglas adicionales</a></li><li><a href="es/juego-orden/">III. Juego y orden de resolución</a></li><li><a href="es/pruebas-habilidad/">IV. Orden de resolución de las pruebas de habilidad</a></li><li><a href="es/iniciacion/">V. Secuencia de iniciación</a></li><li><a href="es/preparacion/">VI. Preparación de un escenario</a></li><li><a href="es/elementos-cartas/">VII. Elementos de las cartas</a></li><li><a href="es/campana/">VIII. Juego de campaña</a></li><li><a href="es/mazos/">IX. Personalización de mazos</a></li><li><a href="es/erratas/">X. Notas y fe de erratas</a></li><li><a href="es/faq/">XI. Preguntas frecuentes</a></li><li><a href="es/opcionales/">XII. Reglas opcionales</a></li><li><a href="es/reimpresiones/">XIII. Reimpresiones modificadas</a></li><li><a href="es/ref-iconos/">XIV. Referencia de iconos</a></li><li><a href="es/ref-iconos-encuentros/">XV. Referencia de iconos de conjuntos de encuentros</a></li></ul><h2 class="tla-nav-grp">FAQ capítulo 1</h2><ul><li><a href="es/faq-novedades/">Novedades</a></li><li><a href="es/c1-intro/">Sobre estas FAQ</a></li><li><a href="es/c1-erratas/">Notas y fe de erratas</a></li><li><a href="es/c1-definiciones/">Definiciones y términos</a></li><li><a href="es/c1-aclaraciones/">Aclaraciones de las reglas</a></li><li><a href="es/c1-preguntas/">Preguntas frecuentes</a></li><li><a href="es/c1-tabues/">La lista de tabúes</a></li><li><a href="es/c1-ultimatums/">Ultimátums, ayudas y refracciones</a></li><li><a href="es/c1-entornos/">Entornos (Beta)</a></li><li><a href="es/c1-iconos/">Referencia de iconos</a></li></ul><h2 class="tla-nav-grp">Ayudas</h2><ul><li><a href="es/variacion-conjuntos/">Variación de conjuntos de encuentros: Cómo usar la caja básica nueva para jugar escenarios de legado</a></li><li><a href="es/ref-rapida/">Referencia rápida</a></li></ul></nav>
+    <!-- tabindex=0, not -1: this element is the page's scroller, so a keyboard
+         user must be able to Tab to it and scroll with the arrow keys. On a
+         figures-only chapter there is nothing else inside it to focus. -->
+    <main class="tla-main" id="tla-main" tabindex="0"><div class="tla-doc"><div class="tla-crumb">· III · The Living Arkham</div><h1 class="tla-h1"><span class="tla-rn">III.</span>Juego y orden de resolución</h1><div class="tla-rule"></div><p class="tla-p">Esta sección proporciona una explicación detallada de cómo manejar cada paso de evento de estructura presentado en el diagrama de flujo de la partida, en el orden en el que dichos eventos de estructura ocurren durante la ronda.</p><p class="tla-p">Cada fase se describe al detalle y luego se explica en un diagrama de orden de resolución.</p><ul class="tla-bul"><li class="l1">Los pasos numerados que aparecen en cuadros verdes se denominan eventos de estructura. Los eventos de estructura son hechos obligatorios dictados por la estructura del juego.</li><li class="l1">Los cuadros rojos son oportunidades de los jugadores durante las cuales éstos pueden usar <a class="xref" href="es/glosario/#glosario--capacidades-activadas">capacidades activadas</a> <i class="ico ico-free" title="Activación libre"></i>.</li></ul><p class="tla-p">Cada vez que un investigador realice una prueba de habilidad, usa el orden de resolución de las <a class="xref" href="es/glosario/#glosario--pruebas-de-habilidad">pruebas de habilidad</a> detallado en el “diagrama de orden de resolución de las pruebas de habilidad” de la página 32.</p><article class="tla-entry" id="e-juego-orden--alto"><h2>¡ALTO!</h2><p class="tla-p">La primera ronda de la partida</p><p class="tla-p">¡Recuerda que en la primera ronda de cada partida debes omitir la <a class="xref" href="es/glosario/#glosario--fase-de-mitos">fase de Mitos</a> y pasar directamente a la <a class="xref" href="es/glosario/#glosario--fase-de-investigacion">fase de Investigación</a>!</p></article><article class="tla-entry" id="e-juego-orden--detalles-de-los-eventos-de-estructura"><h2>Detalles de los eventos de estructura</h2></article><article class="tla-entry" id="e-juego-orden--i-fase-de-mitos"><h2>I. Fase de Mitos</h2><p class="tla-p"><b>Durante la primera ronda de la partida, omite la </b><a class="xref" href="es/glosario/#glosario--fase-de-mitos"><b>fase de Mitos</b></a><b>.</b></p><p class="tla-p"><b>1.1 Comienza la fase de Mitos.</b></p><p class="tla-p">Este paso formaliza el comienzo de la fase de Mitos. Puesto que es el primer evento de estructura de la ronda, también formaliza el comienzo de una nueva ronda de juego.</p><p class="tla-p">El comienzo de una fase es un hito de juego importante al que puede hacerse referencia en el texto de las cartas, bien como un punto en el que una capacidad puede o debe resolverse o bien como un punto en el que se resuelve un efecto postergado o termina un efecto persistente.</p><p class="tla-p"><b>1.2 Coloca 1 ficha de </b><a class="xref" href="es/glosario/#glosario--perdicion"><b>Perdición</b></a><b> en el plan en curso.</b></p><p class="tla-p">Coge 1 ficha de Perdición de la reserva de fichas y colócala en la carta de Plan en curso.</p><p class="tla-p"><b>1.3 Comprueba el umbral de perdición.</b></p><p class="tla-p">Compara la cantidad total de perdición que hay en juego (en el plan en curso y en las demás cartas en juego) con el umbral de perdición del plan en curso. Si el valor de la perdición que hay en juego es igual o superior al umbral de perdición del plan en curso, haz avanzar el <a class="xref" href="es/glosario/#glosario--mazo-de-plan">mazo de Plan</a>.</p><p class="tla-p">Cuando el mazo de Plan avanza, retira todas las fichas de Perdición que haya en juego y devuélvelas a la reserva de fichas. Dale la vuelta a la carta de Plan en curso, lee el texto de la historia y sigue las instrucciones para hacerlo avanzar. A menos que dichas instrucciones indiquen algo distinto, el anverso de la siguiente carta de Plan, en orden secuencial, se convierte en el nuevo plan en curso y, de forma simultánea, el plan que está siendo avanzado es retirado de la partida.</p><p class="tla-p">Nota: a menos que una carta especifique que puede hacer avanzar el plan, éste es el único momento en el que el plan puede avanzar.</p><p class="tla-p"><b>1.4 Cada investigador roba 1 carta de Encuentro.</b></p><p class="tla-p">En el orden de juego, cada investigador roba la primera carta del <a class="xref" href="es/glosario/#glosario--mazo-de-encuentros">mazo de Encuentros</a>, resuelve cualquier capacidad de <a class="xref" href="es/glosario/#glosario--revelacion">Revelación</a> que aparezca en la carta y sigue las instrucciones que aparecen a continuación en función del tipo de la carta.</p><p class="tla-p">Cada vez que un investigador roba una carta de Encuentro, realiza estos pasos en orden:</p><p class="tla-p">1. Roba la carta del mazo de Encuentros.</p><p class="tla-p">2. Comprueba si la carta robada tiene la palabra clave Peligro (si la tiene, el investigador que robó la carta no puede consultar a los demás jugadores, y éstos tampoco pueden jugar cartas, <a class="xref" href="es/glosario/#glosario--accion-de-activar">activar</a> capacidades o asignar cartas a las <a class="xref" href="es/glosario/#glosario--pruebas-de-habilidad">pruebas de habilidad</a> de ese investigador mientras se esté resolviendo la carta de Encuentro Peligro).</p><p class="tla-p">3. Resuelve la capacidad de Revelación de la carta robada.</p><p class="tla-p">4. Si la carta es un Enemigo, haz que aparezca siguiendo las instrucciones de <a class="xref" href="es/glosario/#glosario--aparicion">aparición</a> que tenga la carta <i>(cualquier texto precedido de “Aparición”)</i>. Si el Enemigo no tiene instrucciones de aparición, aparece enfrentado al investigador que ha robado la carta y se coloca en la <a class="xref" href="es/glosario/#glosario--zona-de-amenaza">zona de amenaza</a> de dicho investigador.</p><ul class="tla-bul"><li class="l2">Si la carta es una <a class="xref" href="es/glosario/#glosario--cartas-de-traicion">Traición</a>, colócala en la pila de descartes de Encuentros a menos que su capacidad indique algo distinto.</li></ul><p class="tla-p">5. Si la carta robada tiene la palabra clave <a class="xref" href="es/glosario/#glosario--oleada">Oleada</a>, el investigador debe robar otra carta. Reinicia este proceso en el paso 1.</p><p class="tla-p"><b>1.5 Termina la fase de Mitos.</b></p><p class="tla-p">Este paso formaliza el final de la fase de Mitos.</p></article><article class="tla-entry" id="e-juego-orden--i-fase-de-mitos-2"><h2>I. Fase de Mitos</h2><p class="tla-p"><b>Paso 1.1:</b> Comienza la ronda. Comienza la fase de Mitos.</p><p class="tla-p"><b>Paso 1.2:</b> Coloca 1 ficha de Perdición en el plan en curso.</p><p class="tla-p"><b>Paso 1.3:</b> Comprueba el umbral de perdición.</p><p class="tla-p"><b>Paso 1.4:</b> Cada investigador roba 1 carta de Encuentro.</p><p class="tla-p"><i class="ico ico-free" title="Activación libre"></i> <b>Oportunidad de los jugadores</b></p><p class="tla-p"><b>Paso 1.5:</b> Termina la fase de Mitos.</p><p class="tla-p"><i><b>Pasa a la fase de Investigación.</b></i></p></article><article class="tla-entry" id="e-juego-orden--ii-fase-de-investigacion"><h2>II. Fase de Investigación</h2><p class="tla-p"><b>2.1 Comienza la </b><a class="xref" href="es/glosario/#glosario--fase-de-investigacion"><b>fase de Investigación</b></a><b>.</b></p><p class="tla-p">Este paso formaliza el comienzo de la fase de Investigación.</p><p class="tla-p"><b>2.2 Comienza el turno del siguiente investigador.</b></p><p class="tla-p">Los investigadores pueden jugar sus turnos en cualquier orden. Los investigadores deciden entre ellos quién jugará este turno, y al tomar esta decisión comienza el turno de dicho investigador. El investigador que juega su turno se denomina “investigador activo”.</p><p class="tla-p">Cuando un investigador comienza un turno, debe completarlo antes de que otro investigador pueda jugar el suyo. Cada investigador juega un turno en cada ronda.</p><p class="tla-p">Al comienzo de su turno, cada investigador obtiene tres acciones. Al final del turno de un investigador, éste renuncia a todas las acciones que le queden.</p><p class="tla-p"><b>2.2.1 El investigador realiza una acción si es posible.</b></p><p class="tla-p">Durante su turno, un investigador puede realizar hasta tres acciones (cantidad por defecto). Puede emplearse una acción para hacer una de las siguientes posibilidades:</p><ul class="tla-bul"><li class="l2"><a class="xref" href="es/glosario/#glosario--robar-cartas"><b>Robar 1 carta</b></a>.</li><li class="l2"><a class="xref" href="es/glosario/#glosario--accion-de-recursos">Obtener 1 recurso</a>.</li><li class="l2"><a class="xref" href="es/glosario/#glosario--accion-de-activar"><b>Activar</b></a> una capacidad <i class="ico ico-action" title="Acción"></i> (activación de acción) de una carta en juego que controles, de una carta de Encuentro en juego que esté en tu Lugar, de una carta que esté en tu <a class="xref" href="es/glosario/#glosario--zona-de-amenaza">zona de amenaza</a> o de la carta de Plan actual.</li><li class="l2"><b>Jugar</b> una carta de Apoyo o de Evento desde tu mano.</li><li class="l2"><b>Moverte</b> a un Lugar conectado.</li><li class="l2"><a class="xref" href="es/glosario/#glosario--accion-de-investigar"><b>Investigar</b></a> tu Lugar actual.</li><li class="l2"><b>Enfrentarte</b> a un Enemigo que esté en tu Lugar actual.</li><li class="l2">Intentar <a class="xref" href="es/glosario/#glosario--evitar-accion-de-evitar"><b>evitar</b></a> a un Enemigo enfrentado a ti.</li><li class="l2"><a class="xref" href="es/glosario/#glosario--accion-de-combatir"><b>Combatir</b></a> con un Enemigo enfrentado a ti en tu Lugar actual.</li><li class="l2"><a class="xref" href="es/glosario/#glosario--negociar"><b>Negociar</b></a> con un Enemigo en tu Lugar actual usando una capacidad <i class="ico ico-action" title="Acción"></i>.</li><li class="l2"><a class="xref" href="es/glosario/#glosario--desistir"><b>Desistir</b></a> del escenario usando una capacidad <i class="ico ico-action" title="Acción"></i>.</li></ul><p class="tla-p">Las tres acciones que realice un investigador durante su turno pueden ser cualquiera de las anteriores, en cualquier orden, e incluso pueden ser la misma acción tres veces seguidas.</p><p class="tla-p">Importante: cuando un investigador esté enfrentado a 1 o más Enemigos y realice una acción que no sea combatir, evitar o activar una capacidad negociar o desistir, cada uno de esos Enemigos realiza un <a class="xref" href="es/glosario/#glosario--ataque-de-oportunidad">ataque de oportunidad</a> contra el investigador en el orden que éste elija.</p><p class="tla-p">Después de que un investigador realice una acción, vuelve a la oportunidad de los jugadores anterior. Un investigador puede terminar su turno antes de tiempo si no hay más acciones que quiera realizar. Si el investigador no puede o no quiere realizar una acción, pasa al 2.2.2.</p><p class="tla-p"><b>2.2.2 Termina el turno del investigador.</b></p><p class="tla-p">Dale la vuelta a la carta pequeña o ficha del investigador activo para mostrar su lado sin colores e indicar así que su turno ha terminado. Si hay algún investigador que aún no haya jugado su turno en esta ronda, vuelve al 2.2. Si todos los investigadores han jugado un turno en esta ronda, pasa al 2.3.</p><p class="tla-p"><b>2.3 Termina la fase de Investigación.</b></p><p class="tla-p">Este paso formaliza el final de la fase de Investigación.</p></article><article class="tla-entry" id="e-juego-orden--ii-fase-de-investigacion-2"><h2>II. Fase de Investigación</h2><p class="tla-p"><b>Paso 2.1:</b> Comienza la fase de Investigación.</p><p class="tla-p"><i class="ico ico-free" title="Activación libre"></i> <b>Oportunidad de los jugadores</b></p><p class="tla-p"><b>Paso 2.2:</b> Comienza el turno del siguiente investigador.</p><p class="tla-p"><i class="ico ico-free" title="Activación libre"></i> <b>Oportunidad de los jugadores</b></p><p class="tla-p"><b>Paso 2.2.1:</b> El investigador activo puede realizar una acción si es posible. Si se ha realizado una acción, vuelve a la oportunidad de los jugadores anterior. Si no se ha realizado una acción, pasa al 2.2.2.</p><p class="tla-p"><b>Paso 2.2.2:</b> Termina el turno del investigador. Si hay algún investigador que aún no haya jugado su turno en esta fase, vuelve al 2.2. Si todos los investigadores han jugado un turno en esta fase, pasa al 2.3.</p><p class="tla-p"><b>Paso 2.3:</b> Termina la fase de Investigación.</p><p class="tla-p"><i><b>Pasa a la fase de Enemigos.</b></i></p></article><article class="tla-entry" id="e-juego-orden--iii-fase-de-enemigos"><h2>III. Fase de Enemigos</h2><p class="tla-p"><b>3.1 Comienza la </b><a class="xref" href="es/glosario/#glosario--fase-de-enemigos"><b>fase de Enemigos</b></a><b>.</b></p><p class="tla-p">Este paso formaliza el comienzo de la fase de Enemigos.</p><p class="tla-p"><b>3.2 Los Enemigos Cazador y Errante se mueven.</b></p><p class="tla-p">Resuelve las <a class="xref" href="es/glosario/#glosario--palabras-clave">palabras clave</a> Cazador y Errante para cada Enemigo preparado y sin enfrentar que tenga una de esas palabras clave (consulta <a class="xref" href="es/glosario/#glosario--cazador">“Cazador”</a> <span class="tla-pageref" title="orig. pág. 8">(orig. pág. 8)</span> y <a class="xref" href="es/glosario/#glosario--errante">“Errante”</a> <span class="tla-pageref" title="orig. pág. 13">(orig. pág. 13)</span>).</p><p class="tla-p"><b>3.3 El siguiente investigador resuelve los ataques de los Enemigos enfrentados.</b></p><p class="tla-p">Resuelve los ataques de los Enemigos enfrentados en el orden de juego. Cada jugador resuelve todos sus Enemigos enfrentados antes de pasar al siguiente jugador.</p><p class="tla-p">Cada Enemigo preparado y enfrentado realiza un ataque contra el investigador al que está enfrentado. Cuando un Enemigo ataca, inflige su ataque (daño y horror simultáneamente) al investigador enfrentado. Tras completar el ataque y todas las <a class="xref" href="es/glosario/#glosario--capacidades-activadas">capacidades activadas</a> por el mismo, agota el Enemigo. Si un investigador está enfrentado a varios Enemigos, resuelve sus ataques en el orden que elija el investigador <a class="xref" href="es/glosario/#glosario--atacante-atacado">atacado</a>.</p><p class="tla-p">Después de que un investigador haya resuelto los ataques de los Enemigos a los que esté enfrentado, vuelve a la oportunidad de los jugadores anterior. Después de que el último investigador haya resuelto los ataques enemigos, pasa a la siguiente oportunidad de los jugadores.</p><p class="tla-p"><b>3.4 Termina la fase de Enemigos.</b></p><p class="tla-p">Este paso formaliza el final de la fase de Enemigos.</p></article><article class="tla-entry" id="e-juego-orden--iii-fase-de-enemigos-2"><h2>III. Fase de Enemigos</h2><p class="tla-p"><b>Paso 3.1:</b> Comienza la fase de Enemigos.</p><p class="tla-p"><b>Paso 3.2:</b> Los Enemigos Cazador se mueven.</p><p class="tla-p"><i class="ico ico-free" title="Activación libre"></i> <b>Oportunidad de los jugadores</b></p><p class="tla-p"><b>Paso 3.3:</b> El siguiente investigador resuelve los ataques de los Enemigos enfrentados. Si hay algún investigador que aún no haya resuelto los ataques de los Enemigos en esta fase, vuelve a la oportunidad de los jugadores anterior. Después de que el último investigador haya resuelto los ataques de los Enemigos enfrentados, pasa a la siguiente oportunidad de los jugadores.</p><p class="tla-p"><i class="ico ico-free" title="Activación libre"></i> <b>Oportunidad de los jugadores</b></p><p class="tla-p"><b>Paso 3.4:</b> Termina la fase de Enemigos.</p><p class="tla-p"><i><b>Pasa a la fase de Mantenimiento.</b></i></p></article><article class="tla-entry" id="e-juego-orden--iv-fase-de-mantenimiento-2"><h2>IV. Fase de Mantenimiento</h2><p class="tla-p"><b>4.1 Comienza la </b><a class="xref" href="es/glosario/#glosario--fase-de-mantenimiento"><b>fase de Mantenimiento</b></a><b>.</b></p><p class="tla-p">Este paso formaliza el comienzo de la fase de Mantenimiento.</p><p class="tla-p"><b>4.2 Da la vuelta a las fichas o cartas pequeñas.</b></p><p class="tla-p">Dale la vuelta a todas las cartas pequeñas o fichas de investigador para que muestren su lado activo. Esto indica que los investigadores están listos para jugar su siguiente turno.</p><p class="tla-p"><b>4.3 Prepara todas las cartas agotadas.</b></p><p class="tla-p">Prepara simultáneamente todas las cartas agotadas (incluyendo tanto las cartas de Jugador como las de Escenario).</p><p class="tla-p"><b>4.4 Cada investigador roba 1 carta y obtiene 1 recurso.</b></p><p class="tla-p">En el orden de juego, cada investigador roba 1 carta. Una vez que se hayan robado esas cartas, cada investigador obtiene 1 recurso.</p><p class="tla-p"><b>4.5 Cada investigador comprueba el tamaño de su mano.</b></p><p class="tla-p">En el orden de juego, cada investigador que tenga más de 8 cartas en la mano elige y descarta cartas de su mano hasta que le queden 8.</p><p class="tla-p"><b>4.6 Termina la fase de Mantenimiento.</b></p><p class="tla-p">Este paso formaliza el final de la fase de Mantenimiento.</p><p class="tla-p">Puesto que la fase de Mantenimiento es la última fase de la ronda, este paso también formaliza el final de la ronda. Cualquier efecto persistente “hasta el final de la ronda” termina en este momento.</p><p class="tla-p">Después de completar este paso, el juego continúa con el comienzo de la <a class="xref" href="es/glosario/#glosario--fase-de-mitos">fase de Mitos</a> de la siguiente ronda de juego.</p></article><article class="tla-entry" id="e-juego-orden--iv-fase-de-mantenimiento"><h2>IV. Fase de Mantenimiento</h2><p class="tla-p"><b>Paso 4.1:</b> Comienza la fase de Mantenimiento.</p><p class="tla-p"><i class="ico ico-free" title="Activación libre"></i> <b>Oportunidad de los jugadores</b></p><p class="tla-p"><b>Paso 4.2:</b> Da la vuelta a las fichas o cartas pequeñas.</p><p class="tla-p"><b>Paso 4.3:</b> Prepara todas las cartas agotadas.</p><p class="tla-p"><b>Paso 4.4:</b> Cada investigador roba 1 carta y obtiene 1 recurso.</p><p class="tla-p"><b>Paso 4.5:</b> Comprueba el tamaño de la mano del investigador.</p><p class="tla-p"><b>Paso 4.6:</b> Termina la fase de Mantenimiento. Termina la ronda.</p><p class="tla-p"><i><b>Pasa a la fase de Mitos de la siguiente ronda de juego.</b></i></p></article></div></main>
+    <aside class="tla-toc" id="tla-toc" data-i18n-attr="aria-label:onthispage" aria-label="En esta página"></aside>
+  </div>
+
+  <!-- FOOTER -->
+  <!-- The credits fold away on a phone, where they cost a sixth of the screen.
+       The button only exists below the breakpoint; on a wide screen it is hidden
+       and the panel is simply always open, so nothing is ever unreachable. -->
+  <footer class="tla-foot">
+    <button class="tla-foot-toggle" id="tla-foot-toggle" type="button" aria-expanded="false" aria-controls="tla-foot-body" data-i18n="footinfo">Créditos</button>
+    <div class="tla-foot-body" id="tla-foot-body">
+      <span id="tla-foot-src" data-i18n-html="footsrc"><a href="https://www.fantasyflightgames.com/en/products/arkham-horror-the-card-game/" target="_blank" rel="noopener">Arkham Horror: The Card Game</a>™ y todo el contenido relacionado © <a href="https://www.fantasyflightgames.com/en/index/" target="_blank" rel="noopener">Fantasy Flight Games (FFG)</a>. Este sitio web no está producido ni avalado por FFG, ni afiliado a ella.</span>
+      <span class="tla-foot-by-wrap">
+        <span id="tla-foot-by" data-i18n-html="footby">The Living Arkham · un proyecto de <a href="https://rinconmiskatonic.org/" target="_blank" rel="noopener">Rincón Miskatonic</a></span>
+        <a class="tla-foot-logo" href="https://rinconmiskatonic.org/" target="_blank" rel="noopener" data-i18n-attr="aria-label:footlogo" aria-label="Rincón Miskatonic"><img src="assets/rincon-logo.png" alt="" width="24" height="24"></a>
+      </span>
+      <span class="tla-foot-contact">
+        <!-- the welcome tour runs itself once, on a first visit; this is how a reader who
+             skipped it, or wants it again, gets it back -->
+        <button class="tla-foot-tour" id="tla-tour-open" type="button" data-i18n="tourreplay">Ver el tutorial</button>
+        <!-- Contact + the utility controls as one tidy icon row: e-mail, source, chat, donate,
+             release notes. An icon has no text name of its own, so each carries the SAME string
+             twice — aria-label for a screen reader, title for a hover — and never a bare title,
+             which is only a last-resort name and never appears on a touch screen at all. The
+             e-mail was a full address in text; as an icon it saves a crowded footer a whole line. -->
+        <span class="tla-foot-icos">
+        <a class="tla-foot-ico" href="mailto:rinconmiskatonic@gmail.com" aria-label="rinconmiskatonic@gmail.com" title="rinconmiskatonic@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        </a>
+        <button class="tla-foot-ico" id="tla-gh-open" type="button" data-i18n-attr="aria-label:ghopen, title:ghopen" aria-label="Colabora con el proyecto" title="Colabora con el proyecto">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.99 5.24.99 11.87c0 4.87 3.16 9 7.54 10.46.55.1.75-.24.75-.53 0-.26-.01-.95-.01-1.86-3.07.67-3.71-1.48-3.71-1.48-.5-1.28-1.23-1.62-1.23-1.62-1-.69.08-.67.08-.67 1.11.08 1.7 1.14 1.7 1.14.99 1.7 2.59 1.21 3.22.92.1-.72.39-1.21.7-1.49-2.45-.28-5.02-1.23-5.02-5.46 0-1.2.43-2.19 1.14-2.96-.11-.28-.5-1.4.11-2.93 0 0 .93-.3 3.05 1.13a10.6 10.6 0 0 1 5.56 0c2.12-1.43 3.05-1.13 3.05-1.13.61 1.53.22 2.65.11 2.93.71.77 1.14 1.76 1.14 2.96 0 4.24-2.58 5.17-5.03 5.44.4.34.75 1.01.75 2.04 0 1.47-.01 2.66-.01 3.02 0 .29.2.64.76.53 4.37-1.46 7.53-5.59 7.53-10.46C23.01 5.24 18.27.5 12 .5z"/></svg>
+        </button>
+        <button class="tla-foot-ico" id="tla-discord-open" type="button" data-i18n-attr="aria-label:discordopen, title:discordopen" aria-label="Habla del proyecto en Discord" title="Habla del proyecto en Discord">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.32 4.37A19.79 19.79 0 0 0 15.43 2.86a.07.07 0 0 0-.08.04c-.21.37-.44.86-.61 1.25a18.27 18.27 0 0 0-5.48 0 12.6 12.6 0 0 0-.62-1.25.08.08 0 0 0-.08-.04c-1.71.3-3.35.81-4.88 1.51a.07.07 0 0 0-.04.03C.53 9.05-.32 13.58.1 18.06a.08.08 0 0 0 .03.06 19.9 19.9 0 0 0 5.99 3.03.08.08 0 0 0 .08-.03c.46-.63.88-1.3 1.23-1.99a.08.08 0 0 0-.04-.11c-.65-.25-1.28-.55-1.87-.89a.08.08 0 0 1 0-.13 10.2 10.2 0 0 0 .37-.29.07.07 0 0 1 .08-.01c3.93 1.79 8.18 1.79 12.06 0a.07.07 0 0 1 .08.01c.12.1.25.2.37.29a.08.08 0 0 1 0 .13c-.6.35-1.22.64-1.87.89a.08.08 0 0 0-.04.11c.36.7.77 1.36 1.22 1.99a.08.08 0 0 0 .09.03 19.84 19.84 0 0 0 6-3.03.08.08 0 0 0 .03-.06c.5-5.18-.84-9.67-3.55-13.66a.06.06 0 0 0-.03-.03zM8.02 15.33c-1.18 0-2.16-1.08-2.16-2.42 0-1.33.96-2.42 2.16-2.42 1.21 0 2.18 1.1 2.16 2.42 0 1.34-.96 2.42-2.16 2.42zm7.97 0c-1.18 0-2.16-1.08-2.16-2.42 0-1.33.96-2.42 2.16-2.42 1.21 0 2.18 1.1 2.16 2.42 0 1.34-.95 2.42-2.16 2.42z"/></svg>
+        </button>
+        <button class="tla-foot-ico" id="tla-donate-open" type="button" data-i18n-attr="aria-label:donateopen, title:donateopen" aria-label="Apoya nuestro trabajo" title="Apoya nuestro trabajo">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.08 21.34H2.47a.64.64 0 0 1-.63-.74L4.94.9C5.03.38 5.47 0 6 0h7.46c2.57 0 4.58.54 5.69 1.81 1.01 1.15 1.3 2.42 1.01 4.29l-.08.44c-.98 5.05-4.35 6.8-8.65 6.8h-2.19c-.52 0-.97.38-1.05.9l-1.12 7.1zm14.15-14.42a3.35 3.35 0 0 0-.61-.54l-.04.25c-.93 4.78-4 7.2-9.14 7.2H9.25a.56.56 0 0 0-.56.48L7.5 21.44a.56.56 0 0 0 .55.65h3.34c.46 0 .85-.33.92-.79l.75-4.75a.93.93 0 0 1 .92-.79h.58c3.76 0 6.7-1.53 7.57-5.95.36-1.84.17-3.38-.78-4.47z"/></svg>
+        </button>
+        <!-- what changed, and when: the site is a living document like the books it carries -->
+        <button class="tla-foot-ico" id="tla-rel-open" type="button" data-i18n-attr="aria-label:relnotes, title:relnotes" aria-label="Notas de versión" title="Notas de versión">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+        </button>
+        <!-- install / use offline (PWA). Hidden until JS confirms the browser supports it. -->
+        <button class="tla-foot-ico" id="tla-offline-open" type="button" data-i18n-attr="aria-label:offlinelabel, title:offlinelabel" aria-label="Instalar / usar sin conexión" title="Instalar / usar sin conexión" hidden>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v10m0 0l-3.5-3.5M12 13l3.5-3.5M5 16v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3"/></svg>
+        </button>
+        </span>
+      </span>
+    </div>
+  </footer>
+
+  <!-- RELEASE NOTES -->
+  <div class="tla-modal" id="tla-rel" role="dialog" aria-modal="true" aria-labelledby="tla-rel-t" hidden>
+    <div class="tla-modal-box tla-rel-box">
+      <button class="tla-modal-close" id="tla-rel-close" type="button" data-i18n-attr="aria-label:close" aria-label="Cerrar">✕</button>
+      <h2 class="tla-modal-t" id="tla-rel-t" data-i18n="relnotes">Notas de versión</h2>
+      <!-- tabindex: the list scrolls, so a keyboard user has to be able to reach and scroll it -->
+      <div class="tla-rel-body" id="tla-rel-body" tabindex="0"></div>
+    </div>
+  </div>
+
+  <!-- CONTRIBUTE (GITHUB) MODAL -->
+  <!-- The GitHub mark used to be a bare outbound link. It says something first now, because the
+       useful answer to "can I help?" is not a repository URL — it is which kinds of help are
+       wanted and how to start the conversation. The link to GitHub is still here, at the end,
+       where someone who came for it can take it. -->
+  <div class="tla-modal" id="tla-gh" role="dialog" aria-modal="true" aria-labelledby="tla-gh-t" hidden>
+    <div class="tla-modal-box">
+      <button class="tla-modal-close" id="tla-gh-close" type="button" data-i18n-attr="aria-label:close" aria-label="Cerrar">✕</button>
+      <h2 class="tla-modal-t" id="tla-gh-t" data-i18n="ghtitle">Colabora con el proyecto</h2>
+      <p class="tla-modal-p" id="tla-gh-body" data-i18n="ghbody">Este es un proyecto comunitario y todo el código está disponible en GitHub. Puedes colaborar de muchas formas: mejorando o añadiendo traducciones, cambiando funcionalidades, o lo que se te ocurra. Para ello, contacta con el autor en Discord o abre una pull request en GitHub describiendo tus cambios. ¡Muchas gracias!</p>
+      <a class="tla-modal-cta" href="https://github.com/fernandoesra/thelivingarkham" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.73.5.99 5.24.99 11.87c0 4.87 3.16 9 7.54 10.46.55.1.75-.24.75-.53 0-.26-.01-.95-.01-1.86-3.07.67-3.71-1.48-3.71-1.48-.5-1.28-1.23-1.62-1.23-1.62-1-.69.08-.67.08-.67 1.11.08 1.7 1.14 1.7 1.14.99 1.7 2.59 1.21 3.22.92.1-.72.39-1.21.7-1.49-2.45-.28-5.02-1.23-5.02-5.46 0-1.2.43-2.19 1.14-2.96-.11-.28-.5-1.4.11-2.93 0 0 .93-.3 3.05 1.13a10.6 10.6 0 0 1 5.56 0c2.12-1.43 3.05-1.13 3.05-1.13.61 1.53.22 2.65.11 2.93.71.77 1.14 1.76 1.14 2.96 0 4.24-2.58 5.17-5.03 5.44.4.34.75 1.01.75 2.04 0 1.47-.01 2.66-.01 3.02 0 .29.2.64.76.53 4.37-1.46 7.53-5.59 7.53-10.46C23.01 5.24 18.27.5 12 .5z"/></svg>
+        <span data-i18n="ghcta">Ver el código en GitHub</span></a>
+    </div>
+  </div>
+
+  <!-- DONATE MODAL -->
+  <div class="tla-modal" id="tla-donate" role="dialog" aria-modal="true" aria-labelledby="tla-donate-t" hidden>
+    <div class="tla-modal-box">
+      <button class="tla-modal-close" id="tla-donate-close" type="button" data-i18n-attr="aria-label:close" aria-label="Cerrar">✕</button>
+      <h2 class="tla-modal-t" id="tla-donate-t" data-i18n="donatetitle">Apoya nuestro trabajo</h2>
+      <p class="tla-modal-p" id="tla-donate-body" data-i18n="donatebody">Somos una comunidad española que crea contenido de forma gratuita y sin ánimo de lucro. Si quieres, puedes apoyar nuestra labor con una donación. Todo lo que hacemos, hoy y siempre, seguirá siendo gratis: las donaciones se destinan íntegramente a cubrir gastos de gestión y a pagar a artistas para mejorar nuestro trabajo. ¡Muchas gracias!</p>
+      <a class="tla-modal-cta" href="https://www.paypal.com/ncp/payment/LT7ZDY6XYMVSY" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.08 21.34H2.47a.64.64 0 0 1-.63-.74L4.94.9C5.03.38 5.47 0 6 0h7.46c2.57 0 4.58.54 5.69 1.81 1.01 1.15 1.3 2.42 1.01 4.29l-.08.44c-.98 5.05-4.35 6.8-8.65 6.8h-2.19c-.52 0-.97.38-1.05.9l-1.12 7.1zm14.15-14.42a3.35 3.35 0 0 0-.61-.54l-.04.25c-.93 4.78-4 7.2-9.14 7.2H9.25a.56.56 0 0 0-.56.48L7.5 21.44a.56.56 0 0 0 .55.65h3.34c.46 0 .85-.33.92-.79l.75-4.75a.93.93 0 0 1 .92-.79h.58c3.76 0 6.7-1.53 7.57-5.95.36-1.84.17-3.38-.78-4.47z"/></svg>
+        <span data-i18n="donatecta">Contribuir con PayPal</span></a>
+    </div>
+  </div>
+
+  <!-- DISCORD MODAL -->
+  <!-- The same shape as the donate modal: a .tla-modal-cta linking to the project's channel in the
+       Mythos Busters Discord. It is a channel link (opens Discord for a member of that server), not
+       a public join-invite. The old "discordpending" placeholder — its string in every ui.json and
+       its css rule — was dropped once the link existed; "mtnotice" links the word "Discord" too. -->
+  <div class="tla-modal" id="tla-discord" role="dialog" aria-modal="true" aria-labelledby="tla-discord-t" hidden>
+    <div class="tla-modal-box">
+      <button class="tla-modal-close" id="tla-discord-close" type="button" data-i18n-attr="aria-label:close" aria-label="Cerrar">✕</button>
+      <h2 class="tla-modal-t" id="tla-discord-t" data-i18n="discordtitle">Habla con nosotros en Discord</h2>
+      <p class="tla-modal-p" id="tla-discord-body" data-i18n="discordbody">Para hablar sobre este proyecto en Discord, dirígete al Discord de Mythos Busters mediante el siguiente enlace:</p>
+      <a class="tla-modal-cta" href="https://discord.com/channels/225349059689447425/1532382329224429599" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.32 4.37A19.79 19.79 0 0 0 15.43 2.86a.07.07 0 0 0-.08.04c-.21.37-.44.86-.61 1.25a18.27 18.27 0 0 0-5.48 0 12.6 12.6 0 0 0-.62-1.25.08.08 0 0 0-.08-.04c-1.71.3-3.35.81-4.88 1.51a.07.07 0 0 0-.04.03C.53 9.05-.32 13.58.1 18.06a.08.08 0 0 0 .03.06 19.9 19.9 0 0 0 5.99 3.03.08.08 0 0 0 .08-.03c.46-.63.88-1.3 1.23-1.99a.08.08 0 0 0-.04-.11c-.65-.25-1.28-.55-1.87-.89a.08.08 0 0 1 0-.13 10.2 10.2 0 0 0 .37-.29.07.07 0 0 1 .08-.01c3.93 1.79 8.18 1.79 12.06 0a.07.07 0 0 1 .08.01c.12.1.25.2.37.29a.08.08 0 0 1 0 .13c-.6.35-1.22.64-1.87.89a.08.08 0 0 0-.04.11c.36.7.77 1.36 1.22 1.99a.08.08 0 0 0 .09.03 19.84 19.84 0 0 0 6-3.03.08.08 0 0 0 .03-.06c.5-5.18-.84-9.67-3.55-13.66a.06.06 0 0 0-.03-.03zM8.02 15.33c-1.18 0-2.16-1.08-2.16-2.42 0-1.33.96-2.42 2.16-2.42 1.21 0 2.18 1.1 2.16 2.42 0 1.34-.96 2.42-2.16 2.42zm7.97 0c-1.18 0-2.16-1.08-2.16-2.42 0-1.33.96-2.42 2.16-2.42 1.21 0 2.18 1.1 2.16 2.42 0 1.34-.95 2.42-2.16 2.42z"/></svg>
+        <span data-i18n="discordcta">Ir al Discord</span></a>
+    </div>
+  </div>
+
+  <!-- USE OFFLINE (PWA): install the app, and choose what to keep for offline reading -->
+  <div class="tla-modal" id="tla-offline" role="dialog" aria-modal="true" aria-labelledby="tla-offline-t" hidden>
+    <div class="tla-modal-box">
+      <button class="tla-modal-close" id="tla-offline-close" type="button" data-i18n-attr="aria-label:close" aria-label="Cerrar">✕</button>
+      <h2 class="tla-modal-t" id="tla-offline-t" data-i18n="offlinetitle">Instalar / usar sin conexión</h2>
+      <p class="tla-modal-p" id="tla-offline-body" data-i18n="offlinebody">Puedes instalar la web como una app y elegir qué guardar para consultarla sin internet.</p>
+      <button class="tla-modal-cta" id="tla-offline-install" type="button" hidden>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v10m0 0l-3.5-3.5M12 13l3.5-3.5M5 16v3a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-3"/></svg>
+        <span data-i18n="offlineinstall">Instalar app</span></button>
+      <div class="tla-off-opts" role="group">
+        <button class="tla-off-btn" id="tla-offline-rules" type="button">
+          <span class="tla-off-btn-t" data-i18n="offlinerules">Guardar las reglas</span>
+          <span class="tla-off-btn-s">~8 MB</span>
+        </button>
+        <button class="tla-off-btn" id="tla-offline-all" type="button">
+          <span class="tla-off-btn-t" data-i18n="offlineall">Guardar todo, con imágenes</span>
+          <span class="tla-off-btn-s">~120 MB</span>
+        </button>
+      </div>
+      <div class="tla-off-prog" id="tla-offline-prog" hidden>
+        <div class="tla-off-bar"><i id="tla-offline-bar"></i></div>
+        <span class="tla-off-progtext" id="tla-offline-progtext"></span>
+      </div>
+      <p class="tla-off-note" id="tla-offline-status" data-i18n="offlinenote" aria-live="polite">Las imágenes que veas se guardan solas; guarda las reglas para leerlo todo sin conexión.</p>
+    </div>
+  </div>
+
+  <!-- DRAW-AT-RANDOM MODAL (Ultimatums / Boons) -->
+  <div class="tla-modal" id="tla-ubdraw" role="dialog" aria-modal="true" aria-labelledby="tla-ubdraw-t" hidden>
+    <div class="tla-modal-box tla-ubdraw-box">
+      <button class="tla-modal-close" id="tla-ubdraw-close" type="button" data-i18n-attr="aria-label:close" aria-label="Cerrar">✕</button>
+      <h2 class="tla-modal-t" id="tla-ubdraw-t" data-i18n="ubdrawtitle">Robar aleatoriamente</h2>
+      <p class="tla-modal-p" data-i18n="ubdrawdesc">Elige cuántas cartas robar de cada tipo y te mostraremos una selección al azar.</p>
+      <form class="tla-ubdraw-form" id="tla-ubdraw-form" novalidate>
+        <div class="tla-ubdraw-field">
+          <label for="tla-ubdraw-u" id="tla-ubdraw-ul">Ultimátums</label>
+          <div class="tla-ubdraw-num"><input type="number" id="tla-ubdraw-u" min="0" step="1" value="1" inputmode="numeric" autocomplete="off"><span class="tla-ubdraw-max" id="tla-ubdraw-umax"></span></div>
+        </div>
+        <div class="tla-ubdraw-field">
+          <label for="tla-ubdraw-b" id="tla-ubdraw-bl">Ayudas</label>
+          <div class="tla-ubdraw-num"><input type="number" id="tla-ubdraw-b" min="0" step="1" value="1" inputmode="numeric" autocomplete="off"><span class="tla-ubdraw-max" id="tla-ubdraw-bmax"></span></div>
+        </div>
+        <button type="submit" class="tla-ubdraw-go" id="tla-ubdraw-go">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="15.5" cy="15.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.3" fill="currentColor" stroke="none"/></svg>
+          <span data-i18n="ubdrawgo">Robar</span></button>
+      </form>
+      <div class="tla-ubdraw-out" id="tla-ubdraw-out" aria-live="polite"></div>
+    </div>
+  </div>
+
+  <!-- SEARCH OVERLAY -->
+  <div class="tla-searchmodal" id="tla-searchmodal" role="dialog" aria-modal="true" data-i18n-attr="aria-label:searchtitle" aria-label="Buscar en el grimorio" hidden>
+    <div class="tla-searchmodal-box">
+      <div class="tla-searchmodal-bar" role="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+        <input id="tla-q" type="search" autocomplete="off" spellcheck="false" role="combobox"
+               data-i18n-attr="aria-label:searchtitle" aria-label="Buscar en el grimorio" aria-controls="tla-results" aria-expanded="false" aria-autocomplete="list"
+               placeholder="Buscar reglas, palabras clave, iconos…">
+        <button class="tla-search-clear" id="tla-search-clear" type="button" hidden data-i18n-attr="aria-label:clearsearch, title:clearsearch" aria-label="Limpiar búsqueda" title="Limpiar búsqueda"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+        <button class="tla-searchmodal-cancel" id="tla-search-cancel" type="button" data-i18n="cancel">Cancelar</button>
+      </div>
+      <div class="tla-results" id="tla-results" role="listbox" data-i18n-attr="aria-label:searchresults" aria-label="Resultados de búsqueda"></div>
+      <div class="tla-searchhint" id="tla-searchhint" aria-hidden="true"><span><kbd>↑</kbd><kbd>↓</kbd> navegar</span><span><kbd>↵</kbd> abrir</span><span><kbd>Esc</kbd> cerrar</span></div>
+    </div>
+  </div>
+
+  <!-- FIGURE INFO OVERLAY (textual alternative of a montage) -->
+  <div class="tla-figmodal" id="tla-figmodal" role="dialog" aria-modal="true" aria-labelledby="tla-figmodal-h" hidden>
+    <div class="tla-figmodal-box">
+      <div class="tla-figmodal-head">
+        <h2 class="tla-figmodal-h" id="tla-figmodal-h" data-i18n="figdata">Datos de las cartas</h2>
+        <button class="tla-figmodal-close" id="tla-figmodal-close" type="button" data-i18n-attr="aria-label:close" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="tla-figmodal-body" id="tla-figmodal-body"></div>
+    </div>
+  </div>
+
+  <div class="tla-scrim" id="tla-scrim"></div>
+  <!-- Blocking loader for the slow taboo-gallery render: a compositor-animated spinner that keeps
+       turning while the main thread is frozen, over a scrim that stops stray taps meanwhile. -->
+  <div class="tla-loading" id="tla-loading" role="status" aria-live="polite" hidden>
+    <div class="tla-loading-box">
+      <!-- The sigil (a curled tentacle, the site's mark) is drawn INLINE so it paints instantly on a
+           hard reload — an image/mask had not decoded when the loader first painted during the render
+           freeze. It "breathes" via opacity+scale on the div: that composites, so it keeps animating even
+           while the main thread is frozen building the taboo gallery. -->
+      <div class="tla-loading-sigil" aria-hidden="true">
+        <svg viewBox="0 0 100 100"><path class="tla-loading-sig" d="M34.7 91.0L38.0 91.7L41.7 92.3L45.5 92.5L49.2 92.4L52.8 92.0L56.4 91.3L59.9 90.4L63.2 89.2L66.4 87.7L69.5 86.0L72.4 84.0L75.1 81.9L77.6 79.5L79.8 77.0L81.9 74.3L83.7 71.5L85.2 68.6L86.5 65.6L87.5 62.5L88.3 59.4L88.8 56.3L89.0 53.2L89.0 50.0L88.8 47.0L88.3 44.0L87.5 41.0L86.5 38.2L85.3 35.5L84.0 32.9L82.4 30.5L80.6 28.2L78.7 26.1L76.6 24.2L74.4 22.5L72.1 21.0L69.8 19.7L67.3 18.6L64.8 17.7L62.3 17.1L59.7 16.6L57.1 16.4L54.6 16.4L52.1 16.6L49.7 17.0L47.3 17.6L45.0 18.4L42.9 19.3L40.8 20.4L38.8 21.7L37.0 23.1L35.4 24.6L33.9 26.2L32.5 28.0L31.4 29.8L30.3 31.7L29.5 33.6L28.8 35.5L28.4 37.5L28.0 39.5L27.9 41.5L27.9 43.4L28.1 45.3L28.4 47.2L28.9 49.0L29.5 50.7L30.3 52.3L31.1 53.8L32.1 55.2L33.2 56.6L34.4 57.7L35.6 58.8L36.9 59.7L38.2 60.5L39.6 61.2L41.0 61.8L42.5 62.2L43.9 62.4L45.3 62.6L46.7 62.6L48.0 62.5L49.3 62.3L50.6 62.0L51.7 61.6L52.9 61.0L53.9 60.4L54.8 59.8L55.7 59.1L56.5 58.3L57.1 57.4L57.7 56.6L58.2 55.7L58.6 54.8L58.8 53.9L59.0 53.0L59.1 52.2L59.1 51.3L59.0 50.5L58.8 49.8L58.6 49.1L58.3 48.4L58.3 48.4L58.2 49.1L58.1 49.8L58.0 50.5L57.8 51.2L57.6 51.8L57.3 52.5L56.9 53.1L56.5 53.7L56.0 54.3L55.5 54.9L54.9 55.4L54.3 55.8L53.6 56.2L52.9 56.6L52.1 56.9L51.3 57.1L50.5 57.3L49.6 57.4L48.7 57.5L47.8 57.4L46.9 57.3L46.0 57.1L45.1 56.8L44.3 56.5L43.4 56.1L42.6 55.6L41.8 55.0L41.0 54.3L40.3 53.6L39.6 52.8L39.0 52.0L38.4 51.0L38.0 50.1L37.6 49.0L37.3 48.0L37.0 46.9L36.9 45.7L36.8 44.6L36.9 43.4L37.0 42.2L37.3 41.0L37.6 39.9L38.1 38.7L38.6 37.6L39.3 36.5L40.0 35.5L40.8 34.5L41.7 33.5L42.8 32.7L43.8 31.9L45.0 31.1L46.2 30.5L47.5 30.0L48.9 29.6L50.3 29.3L51.7 29.1L53.1 29.0L54.6 29.0L56.1 29.1L57.6 29.4L59.1 29.8L60.5 30.3L61.9 31.0L63.3 31.7L64.6 32.6L65.9 33.6L67.1 34.7L68.2 36.0L69.2 37.3L70.1 38.7L70.9 40.1L71.6 41.7L72.1 43.3L72.6 45.0L72.8 46.7L73.0 48.5L73.0 50.3L72.9 52.1L72.6 53.9L72.2 55.7L71.6 57.4L70.9 59.2L70.0 60.8L69.0 62.4L67.9 64.0L66.6 65.4L65.2 66.8L63.6 68.0L62.0 69.2L60.3 70.2L58.5 71.0L56.6 71.8L54.6 72.3L52.6 72.8L50.5 73.0L48.4 73.1L46.3 73.0L44.1 72.7L42.0 72.3L39.6 71.6Z"/></svg>
+      </div>
+      <span class="tla-loading-t" data-i18n="loading">Cargando…</span>
+    </div>
+  </div>
+  <!-- IMAGE LIGHTBOX (a dialog: it covers the page, so it must be closable and labelled) -->
+  <div class="tla-lb" id="tla-lb" role="dialog" aria-modal="true" data-i18n-attr="aria-label:closeimg" aria-label="Cerrar imagen">
+    <button class="tla-lb-close" type="button" data-i18n-attr="aria-label:closeimg" aria-label="Cerrar imagen">✕</button><img alt="">
+  </div>
+  <div class="tla-sr" id="tla-live" role="status" aria-live="polite"></div>
+</div>
+
+<script src="js/taboo.js"></script>
+<script src="js/app.js"></script>
+<script>
+  /* PWA service worker: makes the app installable and able to work offline. Registered after
+     load so it never delays first paint; failures are silent (the site works fine without it). */
+  if ('serviceWorker' in navigator) {
+    addEventListener('load', function () {
+      var sw = navigator.serviceWorker, pendingReg = null;
+      /* When a newly deployed worker takes control, the page still shows the files the OLD one
+         cached — and a normal reload hits that cache too, so only a hard-refresh (which the reader
+         cannot know to do) would reveal the update. So reload once ourselves the moment the new
+         worker takes over. Guarded to fire only on a real UPDATE (a controller already existed —
+         never the first-ever install) and only once. */
+      if (sw.controller) {
+        var reloaded = false;
+        sw.addEventListener('controllerchange', function () {
+          if (reloaded) return; reloaded = true; location.reload();
+        });
+      }
+      function apply(reg) { if (reg.waiting) reg.waiting.postMessage({ type: 'skipWaiting' }); }
+      function onReady(reg) {
+        /* A new version is installed and waiting. Apply it WITHOUT interrupting reading: silently
+           if the page is hidden; otherwise offer a discreet toast and, either way, apply it the
+           next time the reader returns to the app. */
+        if (document.visibilityState === 'hidden') { apply(reg); return; }
+        pendingReg = reg;
+        if (window.tlaUpdateToast) { try { window.tlaUpdateToast(reg); } catch (e) {} }
+      }
+      sw.register('sw.js').then(function (reg) {
+        if (!reg) return;
+        if (reg.waiting && sw.controller) onReady(reg);          // an update was already waiting
+        reg.addEventListener('updatefound', function () {
+          var nw = reg.installing; if (!nw) return;
+          nw.addEventListener('statechange', function () {
+            if (nw.state === 'installed' && sw.controller) onReady(reg);
+          });
+        });
+        reg.update().catch(function () {});                                                  // check now,
+        setInterval(function () { reg.update().catch(function () {}); }, 30 * 60 * 1000);    // periodically,
+        document.addEventListener('visibilitychange', function () {                          // and on return
+          if (document.visibilityState !== 'visible') return;
+          if (pendingReg) { var r = pendingReg; pendingReg = null; apply(r); }   // auto-update on return
+          reg.update().catch(function () {});
+        });
+      }).catch(function () {});
+    });
+  }
+</script>
+</body>
+</html>

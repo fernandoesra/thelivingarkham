@@ -18,6 +18,7 @@ rather than just a pack:
 | `ub_merge.py`, `fanmade.py`, `new_lang.py` | English as the fallback | English is where content lands first; the other languages borrow from it until their own arrives |
 | `scenario_icons.py`, `import_ub_cards.py` | a default path to artwork outside the repo | overridable — see their `--sheets` / `--src` options |
 | `packmap.py` | `EXTRAS` (products no edition prints) | the names are per language, in the table itself, not in code |
+| `seo.py` | `SITE` (`https://thelivingarkham.com`) and the name *The Living Arkham* | every canonical, hreflang and sitemap address must be absolute and name ONE origin, so a mirror or fork still points search engines at the original; the name is a proper name, printed the same in every language |
 
 ## Requirements
 Python 3.9+ with: `pip install -r tools/requirements.txt`
@@ -48,6 +49,8 @@ and `assets/{icons,img}/`.
 | `fanmade.py`         | files the community's skill-test timing table under its chapter |
 | `validate_coverage.py` | checks parsed text is present in the source PDF |
 | `ingest.py`          | runs the whole pipeline for one or every language |
+| `seo.py`             | one real page per chapter and language (`<code>/<chapter>/index.html`), `sitemap.xml` and index.html's `<head>` block, for search engines and link previews; `--check` lists what is stale. Run by `ingest.py`; run it yourself after any standalone build or an edit to index.html / a ui.json |
+| `og_image.py`        | the 1200×630 link-preview image, `assets/og-image.jpg` |
 | `new_lang.py`        | scaffolds a new pack — `--ui-only` for a language with no rulebook |
 | `inspect_pdf.py`     | shows a PDF's chapters, or a coordinate grid for measuring montages |
 | `import_ub_cards.py` | cuts the Ultimatums & Boons card art from the artist's exports (`--src DIR`) |

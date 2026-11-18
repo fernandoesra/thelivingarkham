@@ -103,7 +103,8 @@
   "parse": {
     "introTitle": "Erste Schritte",
     "introStart": "uber die verwendung dieses dokuments",
-    "indexStart": "index"
+    "indexStart": "index",
+    "foldBulletContinuation": true
   },
   "sections": [
     {

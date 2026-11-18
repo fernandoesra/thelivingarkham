@@ -27,6 +27,14 @@ const server = http.createServer((req, res) => {
   if (!filePath.startsWith(ROOT)) { res.writeHead(403); return res.end('Forbidden'); }
   fs.stat(filePath, (err, st) => {
     let fp = filePath;
+    // A folder asked for without its slash (/es/glosario) is redirected to /es/glosario/, as
+    // Caddy, nginx and GitHub Pages all do. Served in place instead, the page's relative
+    // <base href="../../"> would resolve one folder too high.
+    if (!err && st.isDirectory() && !urlPath.endsWith('/')) {
+      const q = (req.url || '').indexOf('?');
+      res.writeHead(301, { Location: encodeURI(urlPath) + '/' + (q >= 0 ? req.url.slice(q) : '') });
+      return res.end();
+    }
     if (!err && st.isDirectory()) fp = path.join(filePath, 'index.html');
     fs.readFile(fp, (e, data) => {
       if (e) { res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' }); return res.end('404 Not Found: ' + urlPath); }

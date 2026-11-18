@@ -455,7 +455,10 @@ def bullet_level(line):
 #
 # Off by default, because the Grimoire's parse is tuned and measured against its printed page
 # and this changes how blocks join. The FAQ turns it on (faq_seticons.parse_with_icons), which
-# is where the split actually shows up.
+# is where the split actually shows up — and so does an edition whose lang.json sets
+# "parse.foldBulletContinuation" (parse_pdf_for). The German Grimoire puts EVERY wrapped line of
+# a bullet in its own PDF block: without it, 484 bullets stopped after their first line and the
+# rest of each one read as an orphan paragraph ("…und darf zu jedem" / "Zeitpunkt von jedem…").
 FOLD_BULLET_CONTINUATION = False
 _HANG = 6.0            # how far a continuation line is indented past its bullet's marker
 _STEP = 22.0           # the biggest vertical gap that is still the next line, not a new block
@@ -571,7 +574,21 @@ def parse(pack):
     pdf = pack.require_pdf()
     doc_check = fitz.open(pdf)
     check_montage_coords(pack, doc_check)
-    return parse_pdf(pdf, masks_for(pack))
+    return parse_pdf_for(pack, pdf, masks_for(pack))
+
+
+def parse_pdf_for(pack, pdf, masks):
+    """parse_pdf, read the way this language's edition needs (its lang.json "parse" options).
+    Every edition of a pack goes through here — the one the site is built from and the older
+    ones history.py compares it with — so they are all read alike, and a diff between two
+    editions never shows a difference in reading as a change in the book."""
+    global FOLD_BULLET_CONTINUATION
+    was = FOLD_BULLET_CONTINUATION
+    FOLD_BULLET_CONTINUATION = was or bool(pack.parse.get('foldBulletContinuation'))
+    try:
+        return parse_pdf(pdf, masks)
+    finally:
+        FOLD_BULLET_CONTINUATION = was
 
 
 def parse_pdf(pdf, masks):

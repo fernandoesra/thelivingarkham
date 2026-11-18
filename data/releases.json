@@ -1,5 +1,143 @@
 [
   {
+    "v": "1.8.0",
+    "date": "2026-11-18",
+    "i18n": {
+      "es": {
+        "title": "Direcciones propias, buscadores y otras mejoras",
+        "items": [
+          "**Cada capítulo tiene su propia dirección.** Por ejemplo, thelivingarkham.com/es/glosario/. Puedes guardarla en favoritos, compartirla o abrir capítulos en pestañas nuevas; los enlaces antiguos siguen funcionando y llevan al mismo sitio.",
+          "**Más fácil de encontrar en los buscadores.** Cada capítulo, en cada idioma, tiene ahora su propio título y descripción para Google y otros buscadores, que además saben qué páginas son traducciones de cuáles. Un mapa del sitio les indica todas las páginas.",
+          "**Vista previa al compartir.** Al pegar un enlace en WhatsApp, Discord, Telegram o redes sociales aparece una tarjeta con la imagen de la web, el título y una descripción del capítulo.",
+          "**El título de la pestaña nombra el capítulo** que estás leyendo, y los botones Atrás y Adelante del navegador funcionan igual que antes.",
+          "**La portada lleva el nombre del libro.** Su título empieza ahora por «Grimorio de Arkham», que es lo que la gente escribe en el buscador.",
+          "**El tutorial ya no tapa lo que buscabas.** Si llegas a un capítulo desde un buscador o un enlace, lo ves directamente; el tutorial aparece al entrar por la portada y siempre puedes abrirlo desde el pie con «Ver el tutorial».",
+          "**Glosario alemán más legible.** Unas 480 viñetas del Grimorio en alemán se cortaban tras su primera línea y el resto aparecía como un párrafo suelto; ahora se leen enteras."
+        ]
+      },
+      "en": {
+        "title": "Real addresses, search engines and other improvements",
+        "items": [
+          "**Every chapter has its own address.** For example, thelivingarkham.com/en/glossary/. Bookmark it, share it or open chapters in new tabs; old links still work and land in the same place.",
+          "**Easier to find in search engines.** Every chapter, in every language, now has its own title and description for Google and other search engines, which are also told which pages are translations of which. A sitemap lists every page for them.",
+          "**Link previews.** Pasting a link into WhatsApp, Discord, Telegram or social media now shows a card with the site's image, the title and a description of the chapter.",
+          "**The tab title names the chapter** you are reading, and the browser's Back and Forward buttons work as before.",
+          "**The home page carries the book’s name.** Its title now starts with “Arkham Grimoire”, which is what people type into a search engine.",
+          "**The tutorial no longer hides what you came for.** Arrive at a chapter from a search engine or a link and you see it straight away; the tutorial appears when you come in through the home page, and “Replay the tutorial” in the footer always opens it.",
+          "**German glossary easier to read.** About 480 bullets in the German Grimoire broke off after their first line, with the rest shown as a separate paragraph; they now read in one piece."
+        ]
+      },
+      "de": {
+        "title": "Eigene Adressen, Suchmaschinen und weitere Verbesserungen",
+        "items": [
+          "**Jedes Kapitel hat seine eigene Adresse.** Zum Beispiel thelivingarkham.com/de/glossar/. Du kannst sie als Lesezeichen speichern, teilen oder Kapitel in neuen Tabs öffnen; alte Links funktionieren weiterhin und führen an dieselbe Stelle.",
+          "**Leichter in Suchmaschinen zu finden.** Jedes Kapitel hat jetzt in jeder Sprache einen eigenen Titel und eine eigene Beschreibung für Google und andere Suchmaschinen, die außerdem erfahren, welche Seiten Übersetzungen voneinander sind. Eine Sitemap listet ihnen alle Seiten auf.",
+          "**Linkvorschau beim Teilen.** Wer einen Link in WhatsApp, Discord, Telegram oder sozialen Netzwerken einfügt, sieht jetzt eine Karte mit dem Bild der Seite, dem Titel und einer Beschreibung des Kapitels.",
+          "**Der Tab-Titel nennt das Kapitel**, das du gerade liest, und Zurück und Vorwärts im Browser funktionieren wie bisher.",
+          "**Die Startseite trägt den Namen des Buches.** Ihr Titel beginnt jetzt mit „Arkham Grimoire“ – genau das, was man in eine Suchmaschine eintippt.",
+          "**Das Tutorial verdeckt nicht mehr, was du suchst.** Wer über eine Suchmaschine oder einen Link auf einem Kapitel landet, sieht es sofort; das Tutorial erscheint beim Einstieg über die Startseite und lässt sich jederzeit über „Das Tutorial erneut ansehen“ in der Fußzeile öffnen.",
+          "**Deutsches Glossar besser lesbar.** Rund 480 Aufzählungspunkte im deutschen Grimoire brachen nach ihrer ersten Zeile ab, der Rest stand als eigener Absatz darunter; jetzt sind sie wieder vollständig."
+        ]
+      },
+      "it": {
+        "title": "Indirizzi propri, motori di ricerca e altri miglioramenti",
+        "items": [
+          "**Ogni capitolo ha il suo indirizzo.** Per esempio, thelivingarkham.com/it/glossario/. Puoi salvarlo nei preferiti, condividerlo o aprire i capitoli in nuove schede; i vecchi link continuano a funzionare e portano allo stesso punto.",
+          "**Più facile da trovare nei motori di ricerca.** Ogni capitolo, in ogni lingua, ha ora un titolo e una descrizione propri per Google e gli altri motori di ricerca, che sanno anche quali pagine sono traduzioni di quali. Una mappa del sito elenca loro tutte le pagine.",
+          "**Anteprima quando condividi.** Incollando un link su WhatsApp, Discord, Telegram o sui social compare una scheda con l'immagine del sito, il titolo e una descrizione del capitolo.",
+          "**Il titolo della scheda indica il capitolo** che stai leggendo, e i pulsanti Indietro e Avanti del browser funzionano come prima.",
+          "**La home porta il nome del libro.** Il suo titolo ora inizia con «Grimorio di Arkham», cioè quello che si scrive nel motore di ricerca.",
+          "**Il tutorial non copre più ciò che cercavi.** Se arrivi a un capitolo da un motore di ricerca o da un link, lo vedi subito; il tutorial compare quando entri dalla home e puoi sempre aprirlo dal piè di pagina con «Rivedi il tutorial».",
+          "**Glossario tedesco più leggibile.** Circa 480 punti elenco del Grimorio in tedesco si interrompevano dopo la prima riga e il resto appariva come un paragrafo a sé; ora si leggono interi."
+        ]
+      },
+      "fr": {
+        "title": "Adresses propres, moteurs de recherche et autres améliorations",
+        "items": [
+          "**Chaque chapitre a sa propre adresse.** Par exemple, thelivingarkham.com/fr/glossary/. Vous pouvez l'ajouter à vos favoris, la partager ou ouvrir des chapitres dans de nouveaux onglets ; les anciens liens fonctionnent toujours et mènent au même endroit.",
+          "**Plus facile à trouver dans les moteurs de recherche.** Chaque chapitre, dans chaque langue, a désormais son propre titre et sa propre description pour Google et les autres moteurs de recherche, qui savent aussi quelles pages sont des traductions les unes des autres. Un plan du site leur indique toutes les pages.",
+          "**Aperçu lors du partage.** En collant un lien dans WhatsApp, Discord, Telegram ou sur les réseaux sociaux, une carte apparaît avec l'image du site, le titre et une description du chapitre.",
+          "**Le titre de l'onglet nomme le chapitre** que vous lisez, et les boutons Précédent et Suivant du navigateur fonctionnent comme avant.",
+          "**La page d'accueil porte le nom du livre.** Son titre commence désormais par « Grimoire d'Arkham », ce que l'on tape dans un moteur de recherche.",
+          "**Le tutoriel ne cache plus ce que vous cherchiez.** Si vous arrivez sur un chapitre depuis un moteur de recherche ou un lien, vous le voyez tout de suite ; le tutoriel apparaît quand vous entrez par la page d'accueil, et « Revoir le tutoriel » en bas de page l'ouvre à tout moment.",
+          "**Glossaire allemand plus lisible.** Environ 480 puces du Grimoire allemand s’arrêtaient après leur première ligne, le reste apparaissant comme un paragraphe séparé ; elles se lisent désormais en entier."
+        ]
+      },
+      "pt": {
+        "title": "Endereços próprios, buscadores e outras melhorias",
+        "items": [
+          "**Cada capítulo tem seu próprio endereço.** Por exemplo, thelivingarkham.com/pt/glossary/. Você pode salvá-lo nos favoritos, compartilhá-lo ou abrir capítulos em novas abas; os links antigos continuam funcionando e levam ao mesmo lugar.",
+          "**Mais fácil de encontrar nos buscadores.** Cada capítulo, em cada idioma, agora tem título e descrição próprios para o Google e outros buscadores, que também sabem quais páginas são traduções de quais. Um mapa do site lista todas as páginas para eles.",
+          "**Prévia ao compartilhar.** Ao colar um link no WhatsApp, Discord, Telegram ou nas redes sociais, aparece um cartão com a imagem do site, o título e uma descrição do capítulo.",
+          "**O título da aba mostra o capítulo** que você está lendo, e os botões Voltar e Avançar do navegador funcionam como antes.",
+          "**A página inicial leva o nome do livro.** Seu título agora começa com “Grimório de Arkham”, que é o que as pessoas digitam no buscador.",
+          "**O tutorial não esconde mais o que você procurava.** Se você chega a um capítulo por um buscador ou um link, já o vê direto; o tutorial aparece quando você entra pela página inicial e “Ver o tutorial novamente”, no rodapé, sempre o abre.",
+          "**Glossário alemão mais legível.** Cerca de 480 marcadores do Grimório em alemão eram cortados após a primeira linha, e o resto aparecia como um parágrafo solto; agora são lidos inteiros."
+        ]
+      },
+      "pl": {
+        "title": "Własne adresy, wyszukiwarki i inne usprawnienia",
+        "items": [
+          "**Każdy rozdział ma własny adres.** Na przykład thelivingarkham.com/pl/glossary/. Możesz dodać go do zakładek, udostępnić albo otwierać rozdziały w nowych kartach; stare linki nadal działają i prowadzą w to samo miejsce.",
+          "**Łatwiej znaleźć w wyszukiwarkach.** Każdy rozdział, w każdym języku, ma teraz własny tytuł i opis dla Google i innych wyszukiwarek, które wiedzą też, które strony są tłumaczeniami których. Mapa witryny wskazuje im wszystkie strony.",
+          "**Podgląd przy udostępnianiu.** Po wklejeniu linku w WhatsAppie, Discordzie, Telegramie lub mediach społecznościowych pojawia się karta z obrazem strony, tytułem i opisem rozdziału.",
+          "**Tytuł karty przeglądarki podaje rozdział**, który czytasz, a przyciski Wstecz i Dalej działają jak dotąd.",
+          "**Strona główna nosi nazwę księgi.** Jej tytuł zaczyna się teraz od „Grimuar z Arkham” – czyli od tego, co wpisuje się w wyszukiwarkę.",
+          "**Samouczek nie zasłania już tego, czego szukasz.** Gdy trafiasz na rozdział z wyszukiwarki lub z linku, widzisz go od razu; samouczek pojawia się po wejściu przez stronę główną, a „Obejrzyj samouczek ponownie” w stopce zawsze go otwiera.",
+          "**Czytelniejszy słowniczek niemiecki.** Około 480 punktów w niemieckim Grimuarze urywało się po pierwszym wierszu, a reszta wyświetlała się jako osobny akapit; teraz czytają się w całości."
+        ]
+      },
+      "ru": {
+        "title": "Собственные адреса, поисковики и другие улучшения",
+        "items": [
+          "**У каждой главы теперь свой адрес.** Например, thelivingarkham.com/ru/glossary/. Его можно добавить в закладки, отправить другу или открыть главы в новых вкладках; старые ссылки по-прежнему работают и ведут туда же.",
+          "**Сайт проще найти в поисковиках.** У каждой главы на каждом языке теперь есть собственные заголовок и описание для Google и других поисковых систем, которые к тому же знают, какие страницы являются переводами друг друга. Карта сайта перечисляет для них все страницы.",
+          "**Превью при отправке ссылки.** Если вставить ссылку в WhatsApp, Discord, Telegram или соцсети, появится карточка с изображением сайта, заголовком и описанием главы.",
+          "**Заголовок вкладки называет главу**, которую вы читаете, а кнопки «Назад» и «Вперёд» в браузере работают как раньше.",
+          "**Главная страница носит название книги.** Её заголовок теперь начинается со слов «Гримуар Аркхэма» — именно это вводят в поисковик.",
+          "**Обучение больше не закрывает то, что вы искали.** Если вы попали на главу из поисковика или по ссылке, вы сразу видите её; обучение появляется при входе через главную страницу, а кнопка «Пройти обучение заново» в подвале открывает его в любой момент.",
+          "**Немецкий глоссарий стал читаемее.** Около 480 пунктов списка в немецком Гримуаре обрывались после первой строки, а продолжение показывалось отдельным абзацем; теперь они читаются целиком."
+        ]
+      },
+      "uk": {
+        "title": "Власні адреси, пошуковики та інші покращення",
+        "items": [
+          "**Кожен розділ тепер має власну адресу.** Наприклад, thelivingarkham.com/uk/glossary/. Її можна додати в закладки, поділитися нею або відкривати розділи в нових вкладках; старі посилання й далі працюють і ведуть туди ж.",
+          "**Сайт легше знайти в пошуковиках.** Кожен розділ кожною мовою тепер має власні заголовок і опис для Google та інших пошукових систем, які до того ж знають, які сторінки є перекладами одна одної. Карта сайту перелічує для них усі сторінки.",
+          "**Прев’ю під час надсилання посилання.** Якщо вставити посилання у WhatsApp, Discord, Telegram чи соцмережі, з’явиться картка із зображенням сайту, заголовком та описом розділу.",
+          "**Заголовок вкладки називає розділ**, який ви читаєте, а кнопки «Назад» і «Вперед» у браузері працюють як і раніше.",
+          "**Головна сторінка має назву книги.** Її заголовок тепер починається зі слів «Гримуар Аркгема» — саме це вводять у пошуковик.",
+          "**Навчання більше не закриває те, що ви шукали.** Якщо ви потрапили на розділ із пошуковика чи за посиланням, ви одразу бачите його; навчання з’являється під час входу через головну сторінку, а «Переглянути навчання ще раз» у нижній частині сторінки завжди його відкриває.",
+          "**Німецький глосарій став зручнішим для читання.** Близько 480 пунктів списку в німецькому Гримуарі обривалися після першого рядка, а решта показувалася окремим абзацом; тепер вони читаються повністю."
+        ]
+      },
+      "ko": {
+        "title": "고유 주소, 검색 엔진 및 기타 개선",
+        "items": [
+          "**모든 장에 고유 주소가 생겼습니다.** 예: thelivingarkham.com/ko/glossary/. 즐겨찾기에 저장하거나 공유하고, 장을 새 탭에서 열 수 있습니다. 예전 링크도 계속 작동하며 같은 위치로 이동합니다.",
+          "**검색 엔진에서 더 쉽게 찾을 수 있습니다.** 이제 모든 언어의 모든 장에 Google 등 검색 엔진을 위한 고유 제목과 설명이 있으며, 어떤 페이지가 서로의 번역인지도 검색 엔진에 알려 줍니다. 사이트맵이 모든 페이지를 안내합니다.",
+          "**공유할 때 미리보기.** WhatsApp, Discord, Telegram이나 소셜 미디어에 링크를 붙여 넣으면 사이트 이미지, 제목, 장 설명이 담긴 카드가 표시됩니다.",
+          "**탭 제목에 지금 읽고 있는 장이 표시**되며, 브라우저의 뒤로 및 앞으로 버튼은 예전처럼 작동합니다.",
+          "**홈 페이지 제목에 책 이름이 들어갑니다.** 이제 제목이 사람들이 검색창에 입력하는 “아컴 그리모어”로 시작합니다.",
+          "**튜토리얼이 찾던 내용을 더 이상 가리지 않습니다.** 검색 엔진이나 링크로 장에 들어오면 바로 볼 수 있으며, 튜토리얼은 홈 페이지로 들어올 때 나타나고 하단의 “튜토리얼 다시 보기”로 언제든 열 수 있습니다.",
+          "**독일어 용어집을 읽기 쉬워졌습니다.** 독일어 그리모어의 글머리 항목 약 480개가 첫 줄 뒤에서 끊기고 나머지가 별도 문단으로 표시되었으나, 이제 한 항목으로 이어서 읽힙니다."
+        ]
+      },
+      "zh": {
+        "title": "独立网址、搜索引擎及其他改进",
+        "items": [
+          "**每个章节都有了自己的网址。** 例如 thelivingarkham.com/zh/glossary/。可以收藏、分享，或在新标签页中打开章节；旧链接仍然有效，并会打开同一位置。",
+          "**更容易在搜索引擎中找到。** 现在每种语言的每个章节都有供 Google 等搜索引擎使用的独立标题和描述，搜索引擎也能知道哪些页面互为译本。站点地图会向它们列出所有页面。",
+          "**分享时的预览。** 在 WhatsApp、Discord、Telegram 或社交媒体中粘贴链接时，会显示一张包含网站图片、标题和章节描述的卡片。",
+          "**标签页标题会显示你正在阅读的章节**，浏览器的后退和前进按钮照常使用。",
+          "**首页标题带上了书名。** 标题现在以人们在搜索引擎中输入的“阿卡姆魔典”开头。",
+          "**教程不再遮挡你要找的内容。** 从搜索引擎或链接进入某个章节时会直接看到它；教程只在从首页进入时出现，页脚的“重看教程”随时可以打开它。",
+          "**德语术语表更易阅读。** 德语版魔典中约 480 个项目符号原本在第一行后就断开，其余部分显示为单独的段落；现在可以完整阅读。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.7.0",
     "date": "2026-11-17",
     "i18n": {

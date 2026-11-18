@@ -74,6 +74,7 @@ It prints your chapter headings **and a ready-to-paste `"sections"` block**. Pas
 | `parse.introStart` | the first words of your "how to use this book" heading — lowercase, no accents |
 | `parse.indexStart` | the first word of your book's **alphabetical index** — the parser reads up to it and stops. Careful: this is the index at the *back*, not the table of contents at the front (Spanish calls the first "Contenido" and the second "Índice"; German calls them "Inhalt" and "Index"). Point it at the front one and the parse ends on page 2. An edition that prints **no index** — the Italian one — says so with `""`, and is read to the end |
 | `parse.introTitle` | the title for the landing page, e.g. `"Erste Schritte"` |
+| `parse.foldBulletContinuation` | *optional*, `true` only if your edition's PDF puts every wrapped line of a bullet in a text block of its own — the symptom is bullets that end mid-sentence, each followed by a paragraph that finishes it. The parser then rejoins them by geometry (hanging indent, one line below). The German edition needs it; the others do not |
 | `patterns.trigger` | the words that introduce a cross-reference, e.g. `"(siehe|vergleiche)\\b"` |
 | `patterns.pageWord` / `patterns.pageRef` | how your book writes "page 13" |
 | `autolink` | which glossary terms link automatically ([details](tools/README.md#auto-linked-related-terms-interactivity)) |

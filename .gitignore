@@ -33,3 +33,6 @@ desktop.ini
 Thumbs.db
 *.log
 tools/other
+# Playwright MCP's output (browser checks): page snapshots, screenshots and console logs.
+# Test scratch, never part of the site.
+.playwright-mcp/

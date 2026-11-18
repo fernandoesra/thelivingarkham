@@ -7,3 +7,6 @@ Allow: /
 # A clone of the repository IS the site, so the Python build pipeline ships
 # inside the web root even though it is not part of what anyone reads.
 Disallow: /tools/
+
+# Every chapter in every language, with its translations (written by tools/seo.py).
+Sitemap: https://thelivingarkham.com/sitemap.xml

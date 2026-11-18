@@ -159,6 +159,30 @@ function esc(s){return (s||'').replace(/[&<>"]/g,function(c){return {'&':'&amp;'
 /* A click the browser should keep: middle/right button, or any modifier — i.e. the
    reader asking for a new tab or window, not for us to route them. */
 function modClick(e){return e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey;}
+/* ---------- addresses ----------
+   Every chapter has a real address, <lang>/<chapter-id>/, and an entry inside it is the
+   fragment: <lang>/<chapter-id>/#<entry-id>; a language's home page is just <lang>/. Before
+   1.8.0 the whole route lived in the hash (#es/glosario), and a search engine never reads a
+   hash — the entire site was ONE page to Google. Each address is now a real file
+   (tools/seo.py writes one per chapter and language, with its own title, description and
+   text), so a reload or a shared link is served by any static host with no rewrite rule.
+   Links are written relative to the app root: every page's <base> points there (made
+   absolute by the inline script in <head>), so the same href works from the home page and
+   from two folders down. */
+var APPROOT=(function(){try{return new URL('.',document.baseURI).pathname;}catch(e){return '/';}})();
+function absURL(rel){try{return new URL(rel,document.baseURI).href;}catch(e){return rel;}}
+function routeHref(L,target){
+  var g=GRIM[L];
+  /* findEntry walks the whole book, and a glossary page asks for hundreds of these */
+  var memo=g&&(g._href||(g._href={})), k=target||'';
+  if(memo&&memo[k]!=null)return memo[k];
+  var f=(g&&target)?findEntry(L,target):null;
+  var sid=f?f.sid:k, home=(g&&g.sections[0])?g.sections[0].id:'';
+  var h=encodeURIComponent(L)+'/'+((sid&&sid!==home)?encodeURIComponent(sid)+'/':'')
+       +((f&&f.eid)?'#'+encodeURIComponent(f.eid):'');
+  if(memo&&(f||!target))memo[k]=h;
+  return h;
+}
 function announce(msg){if(elLive){elLive.textContent=''; setTimeout(function(){elLive.textContent=msg;},40);}}
 /* A discreet "new version available" toast. The service-worker registration (index.html) calls
    this only when an update installs WHILE the reader is looking at the page; tapping "update"
@@ -225,7 +249,7 @@ function runsHTML(runs,suppressNew,flat){
        screen reader. The href is also what makes Back work and what lets a reader
        middle-click a term into a new tab. The delegated handler intercepts a plain
        left click to add the flash; anything else is left to the browser. */
-    if(r.kind==='link')          inner='<a class="xref" href="#'+esc(lang)+'/'+esc(r.target)+'" data-t="'+esc(r.target)+'">'+wrap(esc(r.t),r)+'</a>';
+    if(r.kind==='link')          inner='<a class="xref" href="'+esc(routeHref(lang,r.target))+'" data-t="'+esc(r.target)+'">'+wrap(esc(r.t),r)+'</a>';
     /* A card named in the errata/FAQ. The build resolves most references to the exact card
        (name + collection number + the product's icon — tools/adb_resolve.py), and those link
        straight to it, naming the product in the tooltip so the reader knows which printing
@@ -393,7 +417,7 @@ function faqLink(txt){
   if(!re.test(s) || !/[:：]\s*$/.test(s)) return '';
   var home=faqHome();
   if(home){
-    return '<a class="tla-extlink tla-faqlink" href="#'+esc(lang)+'/'+esc(home)+'">'
+    return '<a class="tla-extlink tla-faqlink" href="'+esc(routeHref(lang,home))+'">'
       +'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>'
       +esc(t('faqlabel'))+'</a>';
   }
@@ -2507,7 +2531,7 @@ function ubHTML(s){
      found by the shared key so it lands right in every language. */
   var opt=data.sections.filter(function(x){return x.key==='optional-rules';})[0];
   var lead=esc(t('ubintro')).replace('{opt}', opt
-    ?'«<a class="xref" href="#'+esc(lang)+'/'+esc(opt.id)+'" data-t="'+esc(opt.id)+'">'+esc(opt.title)+'</a>»'
+    ?'«<a class="xref" href="'+esc(routeHref(lang,opt.id))+'" data-t="'+esc(opt.id)+'">'+esc(opt.title)+'</a>»'
     :'');
   var h='<div class="tla-lead"><p class="tla-p">'+lead+'</p></div>';
   h+='<div class="tla-ub">';
@@ -2985,7 +3009,7 @@ function nobookHTML(s){
   return '<aside class="tla-obsolete" role="note">'
     +'<div class="tla-obsolete-tag">'+esc(t('noticeword'))+'</div>'
     +'<div class="tla-obsolete-body"><p class="tla-obsolete-lead">'+esc(t('secnobook'))+'</p>'
-    +'<a class="tla-obsolete-go" href="#'+esc(to)+'/'+esc(s.id)+'" lang="'+esc(to)+'">'
+    +'<a class="tla-obsolete-go" href="'+esc(routeHref(to,s.id))+'" lang="'+esc(to)+'">'
     +esc(t('secnobooklink'))+' <span aria-hidden="true">→</span></a>'
     +'<span class="tla-sr"> ('+esc(name)+')</span>'
     +'</div></aside>';
@@ -3125,7 +3149,7 @@ function tabooCardsHTML(s){
      (found by the shared 'faq-taboos' key so it resolves to the reader's own language). WHICH list
      this is now lives in the version selector at the top of the sidebar, not in a note here. */
   var faqSec=(data.sections||[]).filter(function(x){return x.key==='faq-taboos';})[0];
-  var readmore=faqSec?(' <a class="xref" href="#'+esc(lang)+'/'+esc(faqSec.id)+'" data-t="'+esc(faqSec.id)+'">'+esc(t('tbreadmore'))+'</a>'):'';
+  var readmore=faqSec?(' <a class="xref" href="'+esc(routeHref(lang,faqSec.id))+'" data-t="'+esc(faqSec.id)+'">'+esc(t('tbreadmore'))+'</a>'):'';
   h+='<div class="tla-tb-intro"><p class="tla-tb-intro-lead">'+esc(t('tbintro'))+readmore+'</p></div>';
   /* Which types and classes are actually present, for the filters (counts alongside). */
   var byType={}, byClass={}, byCat={};
@@ -3610,7 +3634,7 @@ function xrefBannerHTML(key){
     ? !!(u&&((u.ultimatums||[]).length||(u.boons||[]).length||(u.refractions||[]).length))
     : v.kind!=='placeholder';
   if(!live)return '';
-  var link='<a class="xref" href="#'+esc(lang)+'/'+esc(v.id)+'" data-t="'+esc(v.id)+'">'+esc(v.title)+'</a>';
+  var link='<a class="xref" href="'+esc(routeHref(lang,v.id))+'" data-t="'+esc(v.id)+'">'+esc(v.title)+'</a>';
   var p=String(t('ubxref')||'').split('{link}');
   var txt=p.length<2?esc(p[0]||''):esc(p[0])+link+esc(p[1]||'');
   return '<aside class="tla-xrefbanner">'
@@ -3648,7 +3672,7 @@ function render(sid,eid,flash){
     h+='<aside class="tla-obsolete" role="note">'
       +'<div class="tla-obsolete-tag">'+esc(t('obsoleteword'))+'</div>'
       +'<div class="tla-obsolete-body"><p class="tla-obsolete-lead">'+esc(t('envobsolete'))+'</p>'
-      +(envt?'<a class="tla-obsolete-go" href="#'+lang+'/'+esc(envt)+'">'+esc(t('envobsoletego'))+' <span aria-hidden="true">→</span></a>':'')
+      +(envt?'<a class="tla-obsolete-go" href="'+esc(routeHref(lang,envt))+'">'+esc(t('envobsoletego'))+' <span aria-hidden="true">→</span></a>':'')
       +'</div></aside>';
   }
   /* The FAQ opens by saying what it covers — and the one thing a reader most needs to know
@@ -3733,7 +3757,7 @@ function render(sid,eid,flash){
        makes a page of alternating questions and answers scannable. */
     h+='<article class="tla-entry'+role+(brandNew?' is-new':'')+(lv&&isChangedIn(e,lv)?' is-upd':'')
       +'" data-kind="'+esc(s.kind)+'" id="e-'+esc(e.id)+'">';
-    h+='<h2>'+titleHTML(e)+diagBadge(e)+verBadge(e)+'<a class="anchor" href="#'+lang+'/'+esc(e.id)+'" title="'+esc(t('jump'))+'" aria-label="'+esc(t('jump'))+'">§</a></h2>';
+    h+='<h2>'+titleHTML(e)+diagBadge(e)+verBadge(e)+'<a class="anchor" href="'+esc(routeHref(lang,e.id))+'" data-t="'+esc(e.id)+'" title="'+esc(t('jump'))+'" aria-label="'+esc(t('jump'))+'">§</a></h2>';
     if(e.source)h+=srcTagHTML(e.source);   // an entry brought in from an official campaign guide
     if(ubHeadId&&e.id===ubHeadId)h+=xrefBannerHTML('ultimatums');
     h+=e.table?substHTML(e):(e.flow?flowHTML(e):blocksHTML(e.blocks,brandNew));
@@ -4136,7 +4160,7 @@ function buildToc(s,ents){
   /* A subsection opens the entries that follow it, so it heads them rather than
      hanging under them — it used to be the indented one, which was backwards. */
   list.forEach(function(e){
-    h+='<a href="#'+lang+'/'+esc(e.id)+'" data-eid="'+esc(e.id)+'"'
+    h+='<a href="'+esc(routeHref(lang,e.id))+'" data-eid="'+esc(e.id)+'"'
       +(e.role==='subhead'?' class="is-subhead"':'')+'>'+titleFlat(e)+diagBadge(e)+'</a>';
   });
   elToc.innerHTML=h;
@@ -4194,12 +4218,12 @@ function spy(){
   });
 }
 /* Keep the URL pointing at the entry you're actually reading, so the browser Back
-   button returns you there. replaceState does NOT fire hashchange, so it never
-   re-renders — it only rewrites the current history entry's target. */
+   button returns you there. replaceState fires no event, so it never re-renders — it
+   only rewrites the current history entry's fragment. */
 function syncHash(cur){
   if(!cur||!curSec||curSec.kind==='intro'||curSec.kind==='whatsnew')return;
-  var nh='#'+lang+'/'+cur;
-  if(location.hash!==nh){try{history.replaceState(history.state,'',nh);}catch(e){}}
+  var nh=absURL(routeHref(lang,cur));
+  if(location.href!==nh){try{history.replaceState(history.state,'',nh);}catch(e){}}
 }
 
 /* ---------- routing (URL hash = single source of truth) ---------- */
@@ -4334,9 +4358,11 @@ function applyLang(L){
   root.setAttribute('data-lang',L);
   document.documentElement.setAttribute('lang',L);
   document.documentElement.setAttribute('dir',reg.dir||'ltr');
+  /* The title follows the chapter (setDocMeta, after each route); this is only the language's
+     own name for the site until the first one paints. The description is NOT touched here: on a
+     chapter's page it is that chapter's, written by tools/seo.py, and a crawler that runs this
+     script must not see it swapped for the home page's. */
   if(t('doctitle')!=='doctitle')document.title=t('doctitle');
-  var md=document.querySelector('meta[name="description"]');
-  if(md && t('docdesc')!=='docdesc')md.setAttribute('content',t('docdesc'));
   buildLangBar();
   applyStaticStrings();
   /* The tour, if it is open, is one of the things written in the old language — and the whole
@@ -4345,14 +4371,30 @@ function applyLang(L){
   elQ.setAttribute('placeholder',t('searchph'));
   document.getElementById('tla-searchhint').innerHTML=hintHTML();
   var home=document.getElementById('tla-home');
-  if(home)home.setAttribute('href','#'+L+'/'+(data.sections[0]&&data.sections[0].id||''));
+  if(home)home.setAttribute('href',routeHref(L,''));
   applyThemeLabel();
   buildNav();
 }
+/* The tab title names the chapter, the same way tools/seo.py writes it into that chapter's page
+   ("doctitlesec", its {sec} and its shelf's {shelf}), so a crawler that runs this script reads
+   the title the page was served with. The home page keeps the site's own title and description. */
+function setDocMeta(){
+  var home=data.sections[0], s=curSec;
+  if(!s||s===home||!s.group||t('doctitlesec')==='doctitlesec'){
+    if(t('doctitle')!=='doctitle')document.title=t('doctitle');
+    var md=document.querySelector('meta[name="description"]');
+    if(md&&(!s||s===home)&&t('docdesc')!=='docdesc')md.setAttribute('content',t('docdesc'));
+    return;
+  }
+  document.title=t('doctitlesec').replace('{sec}',s.title).replace('{shelf}',t('grp'+s.group));
+}
+/* Go somewhere: push the new address, then route() reads it back. Re-asking for the address you
+   are already on still routes, which is what replays the flash on a repeated cross-reference. */
 function setHash(L,target,flash){
   lastFlash=flash!==false;
-  var h='#'+L+'/'+target;
-  if(location.hash===h){route();} else {location.hash=h;}
+  var want=absURL(routeHref(L,target));
+  if(want!==location.href){try{history.pushState(null,'',want);}catch(e){}}
+  route();
   closeNav();
 }
 function navigate(target,flash){setHash(lang,target,flash);}
@@ -4488,14 +4530,24 @@ function ping(kind,a,b){
   }catch(e){}
 }
 
-/* The hash is the single source of truth. A language in it is honoured only if
-   the registry knows it — an unknown code falls back to the current language
-   rather than being read as an entry id. */
+/* The address is the single source of truth: <lang>/<chapter>/#<entry>, read relative to the
+   app root (see routeHref). A language in it is honoured only if the registry knows it — an
+   unknown first folder falls back to the current language rather than being read as a chapter.
+   The legacy form #<lang>/<target> — every link shared before 1.8.0 — is still read, and route()
+   rewrites it to the real address once the language has loaded. */
+function parseLoc(){
+  var raw=(location.hash||'').replace(/^#/,''), hp=raw.split('/').map(dec);
+  if(hp.length>1&&known(hp[0]))return {L:hp[0],sid:null,eid:hp.slice(1).join('/')||null};
+  var path=dec(location.pathname);
+  var p=(path.indexOf(APPROOT)===0?path.slice(APPROOT.length):'').split('/');
+  var L=known(p[0])?p[0]:null;
+  return {L:L, sid:(L&&p[1]&&p[1]!=='index.html')?p[1]:null, eid:dec(raw)||null};
+  function dec(s){try{return decodeURIComponent(s);}catch(e){return s;}}
+}
 var routeSeq=0;
 function route(){
-  var m=(location.hash||'').replace(/^#/,'').split('/');
-  var L=known(m[0])?m[0]:lang;
-  var target=m[1];
+  var loc=parseLoc();
+  var L=loc.L||lang;
   /* A language is fetched before it renders, so a second navigation can start
      while the first is still downloading. Only the newest one may paint. */
   var mine=++routeSeq;
@@ -4508,8 +4560,16 @@ function route(){
        the reader would land mid-page on a chapter without the thing they clicked. */
     glossFilter='all'; docView='all'; verOnly=null;
     if(L!==lang||data!==GRIM[L])applyLang(L);
-    var f=target?findEntry(L,target):null;
+    /* The fragment names an entry; failing that (a stale one, or the skip link's #tla-main),
+       the folder still names the chapter. */
+    var f=(loc.eid&&findEntry(L,loc.eid))||(loc.sid&&findEntry(L,loc.sid))||null;
     if(f){render(f.sid,f.eid,lastFlash);} else {render(data.sections[0].id,null,false);}
+    /* The address bar ends up saying where the reader IS: a legacy #es/… link, the bare site
+       root, a stale chapter that fell back to the home page — each is rewritten in place
+       (no new history entry) to the real address of what was rendered. */
+    var want=absURL(routeHref(L,f?(f.eid||f.sid):''));
+    if(want!==location.href){try{history.replaceState(history.state,'',want);}catch(e){}}
+    setDocMeta();
     lastFlash=false; closeResults();
     /* …but never out of an open dialog: the welcome tour is modal, and a route that ran
        under it would pull focus onto the page the reader cannot reach. */
@@ -5282,7 +5342,7 @@ function wireEvents(){
        plain left click is ours, and only to add the flash. */
     if(!modClick(e)){
       var x=e.target.closest('.xref'); if(x){e.preventDefault(); var xt=x.getAttribute('data-t'); navGuard(xt,function(){gotoTarget(xt,true);}); return;}
-      var a=e.target.closest('.anchor'); if(a){e.preventDefault(); var at=a.getAttribute('href').split('/')[1]; navGuard(at,function(){gotoTarget(at,true);}); return;}
+      var a=e.target.closest('.anchor'); if(a){e.preventDefault(); var at=a.getAttribute('data-t'); navGuard(at,function(){gotoTarget(at,true);}); return;}
     }
     var mi=e.target.closest('.tla-montage-i'); if(mi){openFigInfo(mi); return;}
     var mimg=e.target.closest('.tla-montage-img'); if(mimg){openLightbox(mimg.src,mimg.alt); return;}
@@ -5383,7 +5443,30 @@ function wireEvents(){
     }
   });
   elMain.addEventListener('scroll',spy,{passive:true});
-  window.addEventListener('hashchange',route);
+  /* Back and Forward. Every move inside the app is a pushState (setHash), which fires nothing;
+     only the browser's own history buttons arrive here. */
+  window.addEventListener('popstate',route);
+  /* Any other link to one of our own addresses — the home sigil, the "read it in English"
+     notice, the FAQ link — is routed in place instead of reloading the app. The handlers above
+     that already claimed a click (cross-references, the contents rail) have called
+     preventDefault, so they are left alone; so is a modified click, a new-tab target or a
+     download, which are the browser's. */
+  document.addEventListener('click',function(e){
+    if(e.defaultPrevented||modClick(e))return;
+    var a=e.target.closest&&e.target.closest('a[href]');
+    if(!a||(a.target&&a.target!=='_self')||a.hasAttribute('download'))return;
+    var u; try{u=new URL(a.href);}catch(x){return;}
+    if(u.origin!==location.origin||u.pathname.indexOf(APPROOT)!==0)return;
+    if(!known(u.pathname.slice(APPROOT.length).split('/')[0]))return;
+    e.preventDefault();
+    if(u.href!==location.href){try{history.pushState(null,'',u.href);}catch(x){}}
+    lastFlash=false; route(); closeNav();
+  });
+  /* The skip link is a bare #tla-main. Under the page's <base> (the app root) that would resolve
+     to the ROOT's #tla-main once the address is a chapter's, and leave the page — so it is
+     handled here: it does what a skip link is for, which is to put the focus on the content. */
+  var skip=document.querySelector('.tla-skip');
+  if(skip)skip.addEventListener('click',function(e){e.preventDefault(); try{elMain.focus();}catch(x){}});
   // the toolbar re-wraps as the pane narrows, changing how much it covers
   document.getElementById('tla-foot-toggle').addEventListener('click',toggleFoot);
   syncFoot();
@@ -5634,8 +5717,8 @@ function loadLang(L){
 /* Which language to open with: the URL wins, then the last one you chose, then
    what your browser asks for, then the site default. */
 function initialLang(){
-  var h=(location.hash||'').replace(/^#/,'').split('/')[0];
-  if(known(h))return h;
+  var loc=parseLoc();
+  if(loc.L)return loc.L;
   var saved=null; try{saved=localStorage.getItem('tla-lang');}catch(e){}
   if(known(saved))return saved;
   var navs=(navigator.languages||[navigator.language||'']).map(function(x){return String(x).toLowerCase();});
@@ -5659,12 +5742,24 @@ function boot(){
     data=GRIM[L];
     applyLang(L);
     wireEvents();
+    /* Where this visit begins, read before route() rewrites the address: the chapter the
+       address names, or the home page if it names none (or one that no longer exists, which
+       route() also sends home). */
+    var loc=parseLoc(), home=data.sections[0].id;
+    var at=(loc.eid&&findEntry(lang,loc.eid))||(loc.sid&&findEntry(lang,loc.sid));
+    var onHome=!at||at.sid===home;
     route();
     /* A first visit gets the tour, once — after the first route, so the header, the sidebar
        and the search button it points at are all on the page to be pointed at. The theme tip
        is the same reader's first second on the site and says the same thing the tour's third
-       stop does, so on a first visit the tour speaks and the tip stands down. */
-    if(tourSeen())showThemeTip();     // after applyLang: it needs the pack's own words
+       stop does, so on a first visit the tour speaks and the tip stands down.
+       Only a visit that BEGINS on the home page, though. A reader who arrives on a chapter —
+       from a search engine or a shared link — came for that chapter, and a modal six-step tour
+       over it hides exactly what they asked for (search engines also count a dialog that covers
+       the content on arrival against the page). They get the small theme tip instead, and the
+       tour stays unseen, so it greets them the first time they do open the home page; the
+       footer's "see the tutorial" is there all along. */
+    if(tourSeen()||!onHome)showThemeTip();     // after applyLang: it needs the pack's own words
     else{dropThemeTip(); setTimeout(tourStart,450);}
   }).catch(fatal);
 }

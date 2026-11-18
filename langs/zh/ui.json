@@ -85,7 +85,8 @@
       "other": "张图示"
     },
     "docdesc": "《阿卡姆惊魂：卡牌游戏》的互动资源：网页版的《阿卡姆魔典》与第一章 FAQ，附规则术语表、跨两份文件的搜索以及交叉引用。",
-    "doctitle": "The Living Arkham · 阿卡姆惊魂 LCG 魔典、FAQ 与互动资源",
+    "doctitle": "阿卡姆魔典与阿卡姆惊魂 LCG FAQ · The Living Arkham",
+    "doctitlesec": "{sec} · {shelf} · The Living Arkham",
     "entries": {
       "one": "个条目",
       "other": "个条目"
@@ -106,7 +107,7 @@
     "flagrelevant": "重点章节",
     "flagrelevantd": "你最先会想查看的内容。",
     "flowlabel": "时点流程图，逐步说明",
-    "footby": "The Living Arkham <b>v1.7.0</b> · 由 <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a> 制作的项目",
+    "footby": "The Living Arkham <b>v1.8.0</b> · 由 <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a> 制作的项目",
     "footinfo": "致谢",
     "footsrc": "<a href=\"https://www.fantasyflightgames.com/en/products/arkham-horror-the-card-game/\" target=\"_blank\" rel=\"noopener\">Arkham Horror: The Card Game</a>™ 及所有相关内容 © <a href=\"https://www.fantasyflightgames.com/en/index/\" target=\"_blank\" rel=\"noopener\">Fantasy Flight Games (FFG)</a>。本站并非由 FFG 制作或认可，也与其没有任何隶属关系。",
     "glossnone": "没有条目符合此筛选。",

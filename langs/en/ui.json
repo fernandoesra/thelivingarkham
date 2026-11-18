@@ -85,7 +85,8 @@
       "other": "diagrams"
     },
     "docdesc": "Interactive resources for Arkham Horror: The Card Game: the Arkham Grimoire and the FAQ chapter 1 as a web edition, with a rules glossary, search across both documents and cross-references.",
-    "doctitle": "The Living Arkham · Grimoire, FAQ and interactive Arkham Horror LCG resources",
+    "doctitle": "Arkham Grimoire and FAQ for Arkham Horror LCG · The Living Arkham",
+    "doctitlesec": "{sec} · {shelf} · The Living Arkham",
     "entries": {
       "one": "entry",
       "other": "entries"
@@ -106,7 +107,7 @@
     "flagrelevant": "Relevant section",
     "flagrelevantd": "The first thing you will want to look at.",
     "flowlabel": "Timing diagram, step by step",
-    "footby": "The Living Arkham <b>v1.7.0</b> · a project by <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
+    "footby": "The Living Arkham <b>v1.8.0</b> · a project by <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
     "footinfo": "Credits",
     "footsrc": "<a href=\"https://www.fantasyflightgames.com/en/products/arkham-horror-the-card-game/\" target=\"_blank\" rel=\"noopener\">Arkham Horror: The Card Game</a>™ and all related content © <a href=\"https://www.fantasyflightgames.com/en/index/\" target=\"_blank\" rel=\"noopener\">Fantasy Flight Games (FFG)</a>. This site is not produced, endorsed by or affiliated with FFG.",
     "glossnone": "No entry matches this filter.",

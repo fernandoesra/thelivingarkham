@@ -85,7 +85,7 @@ def build(pack, newest_units=None, verbose=True):
         else:
             # Older editions are read only to compare against: their montage
             # clips belong to a different layout, so no masking is applied.
-            nodes, _doc = P.parse_pdf(pdf, masks={})
+            nodes, _doc = P.parse_pdf_for(pack, pdf, masks={})
             try:
                 units = _units_of(pack, nodes)
             except langpack.PackError as e:
