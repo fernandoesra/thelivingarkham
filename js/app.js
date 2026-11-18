@@ -4386,7 +4386,23 @@ function setDocMeta(){
     if(md&&(!s||s===home)&&t('docdesc')!=='docdesc')md.setAttribute('content',t('docdesc'));
     return;
   }
-  document.title=t('doctitlesec').replace('{sec}',s.title).replace('{shelf}',t('grp'+s.group));
+  document.title=docTitleFor(s);
+}
+/* tools/seo.py chapter_title, to the letter: the full pattern if it fits search engines' 70
+   characters (Bing flags longer titles), then the short one without the shelf, then — for a
+   chapter whose title is a sentence ("Encounter Set Variation: Using the New Core Set to…") —
+   the lead before its colon, and only as a last resort that lead alone. */
+var TITLE_MAX=70;
+function docTitleFor(s){
+  var shelf=t('grp'+s.group), keys=['doctitlesec','doctitlesecshort'], out;
+  for(var i=0;i<keys.length;i++){
+    if(t(keys[i])===keys[i])continue;
+    out=t(keys[i]).replace('{sec}',s.title).replace('{shelf}',shelf);
+    if(out.length<=TITLE_MAX)return out;
+  }
+  var lead=String(s.title).split(/: |：/)[0];
+  out=t('doctitlesecshort')!=='doctitlesecshort'?t('doctitlesecshort').replace('{sec}',lead):lead;
+  return out.length<=TITLE_MAX?out:lead;
 }
 /* Go somewhere: push the new address, then route() reads it back. Re-asking for the address you
    are already on still routes, which is what replays the flash on a repeated cross-reference. */

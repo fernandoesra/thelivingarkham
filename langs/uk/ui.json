@@ -86,9 +86,10 @@
       "few": "схеми",
       "other": "схем"
     },
-    "docdesc": "Інтерактивні матеріали для «Жах Аркгема: Карткова гра»: Гримуар Аркгема та FAQ розділу 1 у вебверсії, з глосарієм правил, пошуком по обох документах і перехресними посиланнями.",
+    "docdesc": "Гримуар Аркгема та FAQ до «Жах Аркгема: Карткова гра» у вебверсії: глосарій правил, пошук і перехресні посилання.",
     "doctitle": "Гримуар Аркгема та FAQ до Arkham Horror LCG · The Living Arkham",
     "doctitlesec": "{sec} · {shelf} · The Living Arkham",
+    "doctitlesecshort": "{sec} · The Living Arkham",
     "entries": {
       "one": "запис",
       "few": "записи",
@@ -110,7 +111,7 @@
     "flagrelevant": "Важливий розділ",
     "flagrelevantd": "Перше, що варто переглянути.",
     "flowlabel": "Схема черговості, крок за кроком",
-    "footby": "The Living Arkham <b>v1.8.0</b> · проєкт <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
+    "footby": "The Living Arkham <b>v1.8.1</b> · проєкт <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
     "footinfo": "Автори",
     "footsrc": "<a href=\"https://www.fantasyflightgames.com/en/products/arkham-horror-the-card-game/\" target=\"_blank\" rel=\"noopener\">Arkham Horror: The Card Game</a>™ і весь пов’язаний контент © <a href=\"https://www.fantasyflightgames.com/en/index/\" target=\"_blank\" rel=\"noopener\">Fantasy Flight Games (FFG)</a>. Цей сайт не створено й не схвалено FFG, і він не пов’язаний з нею.",
     "glossnone": "Жоден запис не відповідає цьому фільтру.",

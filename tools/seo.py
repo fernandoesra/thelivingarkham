@@ -348,11 +348,35 @@ class Page:
         self.sid = None if home else s['id']
 
 
+# What search engines show and check. Bing flags a title over 70 characters and a description
+# over 160 as errors; Google just cuts them. Every indexable page is measured against these at
+# the end of a run (see report_limits).
+TITLE_MAX = 70
+DESC_LIMIT = 160
+
+
+def chapter_title(t, sec, shelf):
+    """js/app.js docTitleFor: the chapter's title, as long as it fits. The pack's full pattern
+    ("{sec} · {shelf} · The Living Arkham"); then its short one, without the shelf; then, for a
+    chapter whose own title is a sentence ("Encounter Set Variation: Using the New Core Set to…"),
+    the lead before its colon; and only if even that does not fit, the lead alone."""
+    for key in ('doctitlesec', 'doctitlesecshort'):
+        pat = t(key)
+        if pat != key:
+            out = pat.replace('{sec}', sec).replace('{shelf}', shelf)
+            if len(out) <= TITLE_MAX:
+                return out
+    lead = re.split(r': |：', sec)[0]
+    short = t('doctitlesecshort')
+    out = short.replace('{sec}', lead) if short != 'doctitlesecshort' else lead
+    return out if len(out) <= TITLE_MAX else lead
+
+
 def page_title(site, p):
     if p.home or not p.s.get('group') or site.t(p.code, 'doctitlesec') == 'doctitlesec':
         return site.t(p.code, 'doctitle')
-    return (site.t(p.code, 'doctitlesec').replace('{sec}', p.s.get('title') or '')
-            .replace('{shelf}', site.t(p.code, 'grp' + p.s['group'])))
+    return chapter_title(lambda k: site.t(p.code, k), p.s.get('title') or '',
+                         site.t(p.code, 'grp' + p.s['group']))
 
 
 def page_desc(site, p):
@@ -567,8 +591,18 @@ def main_html(site, p):
     return ''.join(h)
 
 
-MAIN_EMPTY = '<main class="tla-main" id="tla-main" tabindex="0"></main>'
-NAV_RE = re.compile(r'(<nav class="tla-nav" id="tla-nav"[^>]*>)(</nav>)')
+# The two containers this script fills. Matched with their content, whatever it is: the root
+# index.html is the template AND a page, so it already carries its own pre-render.
+MAIN_RE = re.compile(r'(<main class="tla-main" id="tla-main" tabindex="0">)(.*?)(</main>)', re.S)
+NAV_RE = re.compile(r'(<nav class="tla-nav" id="tla-nav"[^>]*>)(.*?)(</nav>)', re.S)
+
+
+def fill_body(site, doc, p):
+    if len(MAIN_RE.findall(doc)) != 1 or len(NAV_RE.findall(doc)) != 1:
+        raise SystemExit('seo: index.html no longer has exactly one <main id="tla-main"> and one '
+                         '<nav id="tla-nav"> for this script to fill — update MAIN_RE / NAV_RE')
+    doc = MAIN_RE.sub(lambda m: m.group(1) + main_html(site, p) + m.group(3), doc, count=1)
+    return NAV_RE.sub(lambda m: m.group(1) + nav_html(site, p.code) + m.group(3), doc, count=1)
 
 
 def build_page(site, tpl, p, depth):
@@ -584,22 +618,42 @@ def build_page(site, tpl, p, depth):
         raise SystemExit('seo: index.html must carry exactly one <base href="./">')
     doc = doc.replace('<base href="./">', f'<base href="{"../" * depth}">', 1)
     doc = localize_static(site, code, doc)
-    if doc.count(MAIN_EMPTY) != 1 or len(NAV_RE.findall(doc)) != 1:
-        raise SystemExit('seo: index.html no longer has the empty <main id="tla-main"> and <nav id="tla-nav"> '
-                         'this script fills — update MAIN_EMPTY / NAV_RE')
-    doc = doc.replace(MAIN_EMPTY, MAIN_EMPTY[:-7] + main_html(site, p) + '</main>', 1)
-    doc = NAV_RE.sub(lambda m: m.group(1) + nav_html(site, code) + m.group(2), doc, count=1)
-    return doc
+    return fill_body(site, doc, p)
 
 
 def root_index(site, tpl):
-    """The root page: the x-default of every home page. Only its <head> block is ours."""
+    """The root page: the x-default of every home page, and the template of all the others. It is
+    the default language's home, filled the same way (its head block, static strings, sidebar and
+    text), so a crawler that runs no script reads a heading and the chapters there too — Bing
+    reported it as a page with no H1. Its <base> stays "./"."""
     code = site.default
     p = Page(code, site.shelf(code)['sections'][0], True)
     alts = alternates(site, p)
     block = head_block(site, code, page_title(site, p), page_desc(site, p), SITE + '/',
                        canonical=False, noindex=False, alts=alts, website=True, generated=False)
-    return set_html_lang(with_head(tpl, block), code, site.byc[code].get('dir'))
+    doc = set_html_lang(with_head(tpl, block), code, site.byc[code].get('dir'))
+    return fill_body(site, localize_static(site, code, doc), p)
+
+
+def report_limits(files):
+    """Every indexable page against what search engines check: a title within TITLE_MAX, a
+    description within DESC_LIMIT, an <h1> in the HTML itself. Warns; it does not stop."""
+    bad = []
+    for rel, doc in files.items():
+        if not rel.endswith('index.html') or 'name="robots" content="noindex' in doc:
+            continue
+        t = html.unescape(re.search(r'<title>([^<]*)', doc).group(1))
+        d = html.unescape(re.search(r'<meta name="description" content="([^"]*)"', doc).group(1))
+        m = MAIN_RE.search(doc)
+        if len(t) > TITLE_MAX:
+            bad.append(f'{rel}: title {len(t)} chars > {TITLE_MAX}')
+        if len(d) > DESC_LIMIT:
+            bad.append(f'{rel}: description {len(d)} chars > {DESC_LIMIT}')
+        if not m or '<h1' not in m.group(2):
+            bad.append(f'{rel}: no <h1> in the page')
+    for b in bad:
+        print('  [warn] seo:', b)
+    return len(bad)
 
 
 def sitemap(site, pages):
@@ -665,6 +719,7 @@ def run(check=False):
     site = Site()
     tpl = (ROOT / 'index.html').read_text(encoding='utf-8')
     files = plan(site, tpl)
+    report_limits(files)
     stale = sorted(owned_on_disk(site) - set(files))
     changed = []
     for rel, txt in files.items():

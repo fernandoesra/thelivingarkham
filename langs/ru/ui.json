@@ -86,9 +86,10 @@
       "few": "схемы",
       "other": "схем"
     },
-    "docdesc": "Интерактивные материалы по игре «Ужас Аркхэма: Карточная игра»: «Гримуар Аркхэма» и FAQ главы 1 в виде веб-издания, с глоссарием правил, поиском по обоим документам и перекрёстными ссылками.",
+    "docdesc": "«Гримуар Аркхэма» и FAQ по игре «Ужас Аркхэма: Карточная игра» в виде веб-издания: глоссарий правил, поиск и перекрёстные ссылки.",
     "doctitle": "Гримуар Аркхэма и FAQ по Arkham Horror LCG · The Living Arkham",
     "doctitlesec": "{sec} · {shelf} · The Living Arkham",
+    "doctitlesecshort": "{sec} · The Living Arkham",
     "entries": {
       "one": "статья",
       "few": "статьи",
@@ -110,7 +111,7 @@
     "flagrelevant": "Важный раздел",
     "flagrelevantd": "Первое, что вам захочется посмотреть.",
     "flowlabel": "Схема порядка розыгрыша, шаг за шагом",
-    "footby": "The Living Arkham <b>v1.8.0</b> · проект <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
+    "footby": "The Living Arkham <b>v1.8.1</b> · проект <a href=\"https://rinconmiskatonic.org/\" target=\"_blank\" rel=\"noopener\">Rincón Miskatonic</a>",
     "footinfo": "Авторы",
     "footsrc": "<a href=\"https://www.fantasyflightgames.com/en/products/arkham-horror-the-card-game/\" target=\"_blank\" rel=\"noopener\">Arkham Horror: The Card Game</a>™ и все связанные материалы © <a href=\"https://www.fantasyflightgames.com/en/index/\" target=\"_blank\" rel=\"noopener\">Fantasy Flight Games (FFG)</a>. Этот сайт не создан FFG, не одобрен ею и никак с ней не связан.",
     "glossnone": "Под этот фильтр не подходит ни одна статья.",

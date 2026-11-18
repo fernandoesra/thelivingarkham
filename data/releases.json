@@ -1,5 +1,88 @@
 [
   {
+    "v": "1.8.1",
+    "date": "2026-11-18",
+    "i18n": {
+      "es": {
+        "title": "Títulos y descripciones para los buscadores",
+        "items": [
+          "**Títulos y descripciones a la medida de los buscadores.** Los capítulos con nombres muy largos tienen ahora un título más corto en la pestaña y en los resultados de búsqueda, y las descripciones de las portadas caben enteras, como piden Google y Bing.",
+          "**La portada principal se lee también sin JavaScript.** thelivingarkham.com lleva ya dentro su encabezado, su presentación y la lista de capítulos, para los buscadores que no ejecutan la web."
+        ]
+      },
+      "en": {
+        "title": "Titles and descriptions for search engines",
+        "items": [
+          "**Titles and descriptions sized for search engines.** Chapters with very long names now get a shorter title in the tab and in search results, and the home pages’ descriptions fit in full, as Google and Bing ask.",
+          "**The main home page reads without JavaScript too.** thelivingarkham.com now carries its heading, introduction and chapter list in the page itself, for search engines that do not run the site."
+        ]
+      },
+      "de": {
+        "title": "Titel und Beschreibungen für Suchmaschinen",
+        "items": [
+          "**Titel und Beschreibungen passend für Suchmaschinen.** Kapitel mit sehr langen Namen erhalten im Tab und in den Suchergebnissen jetzt einen kürzeren Titel, und die Beschreibungen der Startseiten passen vollständig hinein, wie Google und Bing es verlangen.",
+          "**Die Hauptstartseite ist auch ohne JavaScript lesbar.** thelivingarkham.com enthält Überschrift, Einleitung und Kapitelliste jetzt direkt in der Seite – für Suchmaschinen, die die Website nicht ausführen."
+        ]
+      },
+      "it": {
+        "title": "Titoli e descrizioni per i motori di ricerca",
+        "items": [
+          "**Titoli e descrizioni su misura per i motori di ricerca.** I capitoli con nomi molto lunghi hanno ora un titolo più corto nella scheda e nei risultati di ricerca, e le descrizioni delle home ci stanno per intero, come chiedono Google e Bing.",
+          "**La home principale si legge anche senza JavaScript.** thelivingarkham.com contiene ora nella pagina stessa il titolo, la presentazione e l'elenco dei capitoli, per i motori di ricerca che non eseguono il sito."
+        ]
+      },
+      "fr": {
+        "title": "Titres et descriptions pour les moteurs de recherche",
+        "items": [
+          "**Titres et descriptions adaptés aux moteurs de recherche.** Les chapitres aux noms très longs ont désormais un titre plus court dans l'onglet et dans les résultats de recherche, et les descriptions des pages d'accueil tiennent en entier, comme le demandent Google et Bing.",
+          "**La page d'accueil principale se lit aussi sans JavaScript.** thelivingarkham.com contient désormais dans la page même son titre, sa présentation et la liste des chapitres, pour les moteurs de recherche qui n'exécutent pas le site."
+        ]
+      },
+      "pt": {
+        "title": "Títulos e descrições para os buscadores",
+        "items": [
+          "**Títulos e descrições sob medida para os buscadores.** Os capítulos com nomes muito longos agora têm um título mais curto na aba e nos resultados de busca, e as descrições das páginas iniciais cabem inteiras, como pedem o Google e o Bing.",
+          "**A página inicial principal também pode ser lida sem JavaScript.** thelivingarkham.com agora traz na própria página o título, a apresentação e a lista de capítulos, para os buscadores que não executam o site."
+        ]
+      },
+      "pl": {
+        "title": "Tytuły i opisy dla wyszukiwarek",
+        "items": [
+          "**Tytuły i opisy dopasowane do wyszukiwarek.** Rozdziały o bardzo długich nazwach mają teraz krótszy tytuł na karcie i w wynikach wyszukiwania, a opisy stron głównych mieszczą się w całości, tak jak wymagają tego Google i Bing.",
+          "**Główną stronę można czytać także bez JavaScriptu.** thelivingarkham.com zawiera teraz w samej stronie nagłówek, wprowadzenie i listę rozdziałów – dla wyszukiwarek, które nie uruchamiają witryny."
+        ]
+      },
+      "ru": {
+        "title": "Заголовки и описания для поисковиков",
+        "items": [
+          "**Заголовки и описания под требования поисковиков.** У глав с очень длинными названиями теперь более короткий заголовок во вкладке и в результатах поиска, а описания главных страниц помещаются целиком, как того требуют Google и Bing.",
+          "**Главную страницу сайта можно прочитать и без JavaScript.** thelivingarkham.com теперь содержит прямо в странице заголовок, вступление и список глав — для поисковиков, которые не запускают сайт."
+        ]
+      },
+      "uk": {
+        "title": "Заголовки й описи для пошуковиків",
+        "items": [
+          "**Заголовки й описи відповідно до вимог пошуковиків.** Розділи з дуже довгими назвами тепер мають коротший заголовок у вкладці та в результатах пошуку, а описи головних сторінок уміщуються повністю, як того вимагають Google і Bing.",
+          "**Головну сторінку сайту можна прочитати й без JavaScript.** thelivingarkham.com тепер містить просто на сторінці заголовок, вступ і список розділів — для пошуковиків, які не запускають сайт."
+        ]
+      },
+      "ko": {
+        "title": "검색 엔진을 위한 제목과 설명",
+        "items": [
+          "**검색 엔진에 맞춘 제목과 설명.** 이름이 아주 긴 장은 이제 탭과 검색 결과에서 더 짧은 제목을 사용하며, 홈 페이지 설명도 Google과 Bing의 요구에 맞게 잘리지 않고 모두 표시됩니다.",
+          "**메인 홈 페이지를 JavaScript 없이도 읽을 수 있습니다.** thelivingarkham.com 페이지 자체에 제목, 소개, 장 목록이 들어 있어 사이트를 실행하지 않는 검색 엔진도 읽을 수 있습니다."
+        ]
+      },
+      "zh": {
+        "title": "面向搜索引擎的标题与描述",
+        "items": [
+          "**符合搜索引擎要求的标题与描述。** 名称很长的章节现在在标签页和搜索结果中使用更短的标题，各首页的描述也能完整显示，符合 Google 和 Bing 的要求。",
+          "**主页无需 JavaScript 也能阅读。** thelivingarkham.com 页面本身现在就包含标题、简介和章节列表，供不运行网站脚本的搜索引擎读取。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.8.0",
     "date": "2026-11-18",
     "i18n": {
