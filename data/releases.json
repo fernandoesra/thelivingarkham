@@ -1,5 +1,121 @@
 [
   {
+    "v": "1.8.2",
+    "date": "2026-11-18",
+    "i18n": {
+      "es": {
+        "title": "Correcciones, datos y mejoras internas",
+        "items": [
+          "**Icono de tabú corregido (italiano).** El rayo de acción rápida/gratuita salía roto en una carta del visor de tabúes en italiano; ya se muestra bien.",
+          "**«Novedades» en idiomas sin libro.** En los idiomas que solo tienen la interfaz traducida, la sección «Novedades» salía en blanco; ahora muestra el aviso de que el libro no está en ese idioma, con enlace a las novedades en un idioma que sí lo tiene.",
+          "**Nombres de producto corregidos.** En las referencias de iconos se han corregido nombres de producto: el subtítulo correcto de la Caja básica, los mazos iniciales con el nombre de su investigador y las cajas «Regreso a…» bien diferenciadas.",
+          "**Lista de tabúes actualizada.** La lista interactiva de tabúes se ha refrescado desde ArkhamDB (se añade «Hacha rúnica»).",
+          "**Mejora interna.** Afinado el generador de datos para que una reconstrucción del catálogo de Ultimátums, Bendiciones y Refracciones no pueda perder la clasificación por capítulo de las cartas. Sin cambios visibles en el sitio."
+        ]
+      },
+      "en": {
+        "title": "Fixes, data and internals",
+        "items": [
+          "**Taboo icon fixed (Italian).** The fast/free-action lightning bolt was broken on a card in the Italian taboo viewer; it now shows correctly.",
+          "**«What's New» in interface-only languages.** In languages that only have the interface translated, the «What's New» section came up blank; it now shows the notice that the book isn't available in that language, with a link to the news in a language that has it.",
+          "**Product names corrected.** In the icon references, several product names were corrected: the proper Core Set subtitle, the investigator starter decks named after their investigator, and the «Return to…» boxes told apart correctly.",
+          "**Taboo list updated.** The interactive taboo list was refreshed from ArkhamDB (adds «Runic Axe»).",
+          "**Internal improvement.** The data generator was hardened so a rebuild of the Ultimatums, Boons & Refractions catalogue can't lose the cards' chapter classification. No visible change on the site."
+        ]
+      },
+      "de": {
+        "title": "Korrekturen, Daten und Interna",
+        "items": [
+          "**Tabu-Symbol korrigiert (Italienisch).** Das Blitzsymbol für die schnelle/kostenlose Aktion wurde auf einer Karte im italienischen Tabu-Betrachter nicht richtig angezeigt; es erscheint nun korrekt.",
+          "**„Neuigkeiten“ in reinen Oberflächensprachen.** In Sprachen, die nur die Oberfläche übersetzt haben, blieb der Bereich „Neuigkeiten“ leer; er zeigt nun den Hinweis, dass das Buch in dieser Sprache nicht verfügbar ist, mit einem Link zu den Neuigkeiten in einer Sprache, die es hat.",
+          "**Produktnamen korrigiert.** In den Symbolreferenzen wurden mehrere Produktnamen korrigiert: der richtige Untertitel des Grundspiels, die Ermittler-Startdecks mit dem Namen ihres Ermittlers und die „Rückkehr zu…“-Boxen korrekt unterschieden.",
+          "**Tabu-Liste aktualisiert.** Die interaktive Tabu-Liste wurde von ArkhamDB aktualisiert (ergänzt um „Runenaxt“).",
+          "**Interne Verbesserung.** Der Daten-Generator wurde abgesichert, damit ein Neuaufbau des Katalogs der Ultimaten, Segen und Refraktionen die Kapitel-Einteilung der Karten nicht verlieren kann. Keine sichtbare Änderung auf der Seite."
+        ]
+      },
+      "it": {
+        "title": "Correzioni, dati e migliorie interne",
+        "items": [
+          "**Icona dei tabù corretta (italiano).** Il fulmine dell'azione rapida/gratuita appariva rotto su una carta nel visualizzatore dei tabù in italiano; ora si vede correttamente.",
+          "**«Novità» nelle lingue solo-interfaccia.** Nelle lingue che hanno tradotta solo l'interfaccia, la sezione «Novità» risultava vuota; ora mostra l'avviso che il libro non è disponibile in quella lingua, con un collegamento alle novità in una lingua che lo ha.",
+          "**Nomi dei prodotti corretti.** Nei riferimenti delle icone sono stati corretti vari nomi di prodotto: il sottotitolo corretto del Set Base, i mazzi iniziali col nome del loro investigatore e le scatole «Ritorno a…» distinte correttamente.",
+          "**Elenco dei tabù aggiornato.** L'elenco interattivo dei tabù è stato aggiornato da ArkhamDB (aggiunta «Ascia runica»).",
+          "**Miglioria interna.** Il generatore dei dati è stato irrobustito affinché una ricostruzione del catalogo di Ultimatum, Favori e Rifrazioni non possa perdere la classificazione per capitolo delle carte. Nessun cambiamento visibile sul sito."
+        ]
+      },
+      "fr": {
+        "title": "Corrections, données et interne",
+        "items": [
+          "**Icône de tabou corrigée (italien).** L'éclair d'action rapide/gratuite était cassé sur une carte du visualiseur de tabous en italien ; il s'affiche désormais correctement.",
+          "**« Nouveautés » dans les langues interface seule.** Dans les langues dont seule l'interface est traduite, la section « Nouveautés » s'affichait vide ; elle montre désormais l'avis indiquant que le livre n'est pas disponible dans cette langue, avec un lien vers les nouveautés dans une langue qui en dispose.",
+          "**Noms de produits corrigés.** Dans les références d'icônes, plusieurs noms de produits ont été corrigés : le sous-titre correct du Set de base, les decks de départ au nom de leur investigateur, et les boîtes « Retour à… » bien distinguées.",
+          "**Liste des tabous mise à jour.** La liste interactive des tabous a été actualisée depuis ArkhamDB (ajout de « Hache runique »).",
+          "**Amélioration interne.** Le générateur de données a été consolidé pour qu'une reconstruction du catalogue des Ultimatums, Faveurs et Réfractions ne puisse pas perdre le classement des cartes par chapitre. Aucun changement visible sur le site."
+        ]
+      },
+      "pt": {
+        "title": "Correções, dados e melhorias internas",
+        "items": [
+          "**Ícone de tabu corrigido (italiano).** O raio de ação rápida/gratuita aparecia partido numa carta do visualizador de tabus em italiano; agora mostra-se bem.",
+          "**«Novidades» em idiomas só de interface.** Nos idiomas que só têm a interface traduzida, a secção «Novidades» aparecia em branco; agora mostra o aviso de que o livro não está disponível nesse idioma, com uma ligação às novidades num idioma que o tem.",
+          "**Nomes de produtos corrigidos.** Nas referências de ícones corrigiram-se vários nomes de produto: o subtítulo correto da Caixa básica, os baralhos iniciais com o nome do seu investigador e as caixas «Regresso a…» bem diferenciadas.",
+          "**Lista de tabus atualizada.** A lista interativa de tabus foi atualizada a partir do ArkhamDB (adiciona «Machado rúnico»).",
+          "**Melhoria interna.** O gerador de dados foi reforçado para que uma reconstrução do catálogo de Ultimatos, Bênçãos e Refrações não possa perder a classificação das cartas por capítulo. Sem alterações visíveis no site."
+        ]
+      },
+      "pl": {
+        "title": "Poprawki, dane i usprawnienia wewnętrzne",
+        "items": [
+          "**Poprawiona ikona tabu (włoski).** Błyskawica szybkiej/darmowej akcji była uszkodzona na jednej karcie we włoskiej przeglądarce tabu; teraz wyświetla się poprawnie.",
+          "**«Nowości» w językach tylko z interfejsem.** W językach, które mają przetłumaczony tylko interfejs, sekcja «Nowości» była pusta; teraz pokazuje informację, że książka nie jest dostępna w tym języku, wraz z odnośnikiem do nowości w języku, który ją ma.",
+          "**Poprawione nazwy produktów.** W odniesieniach ikon poprawiono kilka nazw produktów: właściwy podtytuł Zestawu podstawowego, talie startowe nazwane od swojego badacza oraz prawidłowo rozróżnione pudełka «Powrót do…».",
+          "**Zaktualizowana lista tabu.** Interaktywna lista tabu została odświeżona z ArkhamDB (dodano «Runiczny topór»).",
+          "**Usprawnienie wewnętrzne.** Generator danych został wzmocniony, aby przebudowa katalogu Ultimatów, Darów i Refrakcji nie mogła utracić klasyfikacji kart według rozdziałów. Bez widocznych zmian na stronie."
+        ]
+      },
+      "ru": {
+        "title": "Исправления, данные и внутренние улучшения",
+        "items": [
+          "**Исправлен значок табу (итальянский).** Молния быстрого/бесплатного действия отображалась неправильно на одной карте в итальянском просмотре табу; теперь всё верно.",
+          "**«Новости» в языках только с интерфейсом.** В языках, где переведён только интерфейс, раздел «Новости» оставался пустым; теперь он показывает уведомление, что книга недоступна на этом языке, со ссылкой на новости на языке, где она есть.",
+          "**Исправлены названия продуктов.** В справочниках значков исправлено несколько названий продуктов: верный подзаголовок базового набора, стартовые колоды с именем своего сыщика и правильно различённые коробки «Возвращение в…».",
+          "**Список табу обновлён.** Интерактивный список табу обновлён из ArkhamDB (добавлен «Рунический топор»).",
+          "**Внутреннее улучшение.** Генератор данных укреплён, чтобы пересборка каталога Ультиматумов, Даров и Рефракций не могла потерять классификацию карт по главам. Видимых изменений на сайте нет."
+        ]
+      },
+      "uk": {
+        "title": "Виправлення, дані та внутрішні покращення",
+        "items": [
+          "**Виправлено значок табу (італійська).** Блискавка швидкої/безкоштовної дії відображалася некоректно на одній картці в італійському переглядачі табу; тепер усе гаразд.",
+          "**«Новини» у мовах лише з інтерфейсом.** У мовах, де перекладено лише інтерфейс, розділ «Новини» був порожнім; тепер він показує повідомлення, що книга недоступна цією мовою, із посиланням на новини мовою, де вона є.",
+          "**Виправлено назви продуктів.** У довідниках значків виправлено кілька назв продуктів: правильний підзаголовок базового набору, стартові колоди з ім'ям свого дослідника та правильно розрізнені коробки «Повернення до…».",
+          "**Список табу оновлено.** Інтерактивний список табу оновлено з ArkhamDB (додано «Рунічну сокиру»).",
+          "**Внутрішнє покращення.** Генератор даних зміцнено, щоб перезбірка каталогу Ультиматумів, Дарів і Рефракцій не могла втратити класифікацію карток за розділами. Видимих змін на сайті немає."
+        ]
+      },
+      "ko": {
+        "title": "수정, 데이터 및 내부 개선",
+        "items": [
+          "**타부 아이콘 수정(이탈리아어).** 이탈리아어 타부 뷰어의 한 카드에서 신속/무료 행동 번개 아이콘이 깨져 보이던 문제를 수정했습니다.",
+          "**인터페이스 전용 언어의 «새 소식».** 인터페이스만 번역된 언어에서 «새 소식» 섹션이 빈 화면으로 나오던 문제를 수정했습니다. 이제 해당 언어로는 책이 제공되지 않는다는 안내와 함께, 책이 있는 언어의 새 소식으로 가는 링크를 보여줍니다.",
+          "**제품 이름 수정.** 아이콘 참조에서 여러 제품 이름을 바로잡았습니다: 코어 세트의 올바른 부제, 조사자 이름을 딴 스타터 덱, 그리고 서로 구분된 «리턴 투…» 상자들.",
+          "**타부 목록 업데이트.** 대화형 타부 목록을 ArkhamDB에서 새로 고쳤습니다(«룬 도끼» 추가).",
+          "**내부 개선.** 데이터 생성기를 보강해 얼티메이텀·분·리프랙션 카탈로그를 다시 생성할 때 카드의 챕터 분류가 사라지지 않도록 했습니다. 사이트에 보이는 변화는 없습니다."
+        ]
+      },
+      "zh": {
+        "title": "修正、数据与内部改进",
+        "items": [
+          "**修正禁忌图标（意大利语）。**意大利语禁忌查看器中某张卡牌的快速/免费行动闪电图标显示破损，现已正常。",
+          "**仅界面语言的「最新动态」。**在仅翻译了界面的语言中，「最新动态」版块显示为空白；现在会显示该语言暂无此书的提示，并附上前往已有该书语言动态的链接。",
+          "**修正产品名称。**在图标参考中修正了若干产品名称：核心套装的正确副标题、以调查员命名的入门套牌，以及正确区分的「重返……」盒装。",
+          "**禁忌列表更新。**交互式禁忌列表已从 ArkhamDB 刷新（新增「符文战斧」）。",
+          "**内部改进。**强化了数据生成器，使重建「终极、恩赐与折射」目录时不会丢失卡牌的章节分类。网站无可见变化。"
+        ]
+      }
+    }
+  },
+  {
     "v": "1.8.1",
     "date": "2026-11-18",
     "i18n": {

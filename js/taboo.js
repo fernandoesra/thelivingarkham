@@ -11,10 +11,13 @@
   'use strict';
 
   /* ArkhamDB token -> the site's icon name. Almost all of them fold by dropping the underscore;
-     [fast] is the exception. The site has drawn that lightning bolt since the FAQ under its older
-     name, "free trigger" -- same symbol, older word, so it maps rather than needing a new icon. */
+     the lightning bolt is the exception. The site has drawn it since the FAQ under its older
+     name, "free trigger" -- same symbol, older word -- so [fast] (its current token) and
+     [lightning] (the older spelling some ArkhamDB taboo text still carries, e.g. the Italian
+     role-swap cards) both map to it rather than needing a new icon. Without the [lightning]
+     entry the renderer would request a non-existent assets/taboo/icons/lightning.svg (a 404). */
   var ICON = {
-    fast: 'free', elder_thing: 'elderthing', elder_sign: 'eldersign',
+    fast: 'free', lightning: 'free', elder_thing: 'elderthing', elder_sign: 'eldersign',
     auto_fail: 'autofail', per_investigator: 'perinvestigator'
   };
 

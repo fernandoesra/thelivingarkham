@@ -3874,6 +3874,17 @@ function pendingHTML(corpus){
   return h;
 }
 function renderWhatsNew(){
+  /* A borrowed shelf (a UI-only language) carries no news of its own: its versions/whatsnew are
+     empty and langsAhead has no edition of its own to compare, so renderWhatsNew would blank the
+     page. Show the same "this book is not in your language" notice every other borrowed chapter
+     shows, pointing at the news in a language that has the book — which is exactly what
+     tools/seo.py already pre-renders into this page, so the app now matches it instead of wiping it. */
+  if(curSec&&curSec.nobook){
+    elMain.innerHTML='<div class="tla-doc"><div class="tla-crumb">The Living Arkham</div>'
+      +'<h1 class="tla-h1">'+esc(t('news'))+'</h1><div class="tla-rule"></div>'
+      +nobookHTML(curSec)+'</div>';
+    elToc.innerHTML=''; elMain.scrollTop=0; return;
+  }
   var wd=wnData();
   var vs=wnVersions();
   var pending=pendingHTML(wd.corpus);

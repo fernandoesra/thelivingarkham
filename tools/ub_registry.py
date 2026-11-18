@@ -116,6 +116,17 @@ def build(codes=None, quiet=False):
             shared[key] = json.loads(best[0]) if len(best) == 1 else json.loads(
                 next(json.dumps(rec.get(key), ensure_ascii=False, sort_keys=True)
                      for code, rec in pairs if rec.get(key) not in (None, '')))
+        # A field this run proved NOTHING about (no language rebuilt here carries it inline) keeps
+        # its previously committed value rather than vanishing. The prime case is `chapter`:
+        # ub_cap1 only persists its 'both'/'cap2' tags to a grimoire when it ALSO re-adds chapter-1
+        # refractions (its `if added:` write), so a rebuild where it adds none leaves a freshly
+        # assembled grimoire with the other SHARED fields but no `chapter` — and the coarse
+        # `shared or prior` below only rescued a card whose shared was ENTIRELY empty, so chapter:both
+        # was silently dropped from ub.json. Fill from prior field by field to reproduce it.
+        pr = prior.get(slug) or {}
+        for key in SHARED:
+            if key not in shared and pr.get(key) not in (None, ''):
+                shared[key] = pr[key]
         cards[slug] = shared or prior.get(slug, shared)
     for slug, rec in prior.items():
         cards.setdefault(slug, rec)
